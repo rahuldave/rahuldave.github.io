@@ -24,3 +24,4 @@ format:
     reference-location: margin
     citation-location: margin
     csl: journal-of-neurochemistry.csl
+    include-before-body: ads.html

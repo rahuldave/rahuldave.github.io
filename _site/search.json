@@ -7,18 +7,11 @@
     "text": "An old goody! For quick command line analysis of data.\n\nThe following examples were taken from the tldr page for awk:\nPrint the fifth column (a.k.a. field) in a space-separated file:\nawk '{print $5}' filename\nPrint the second column of the lines containing “foo” in a space-separated file:\nawk '/foo/ {print $2}' filename\nPrint the last column of each line in a file, using a comma (instead of space) as a field separator:\nawk -F ',' '{print $NF}' filename\nSum the values in the first column of a file and print the total:\nawk '{s+=$1} END {print s}' filename\nPrint every third line starting from the first line:\nawk 'NR%3==1' filename\nPrint different values based on conditions:\nawk '{if ($1 == \"foo\") print \"Exact match foo\"; else if ($1 ~ \"bar\") print \"Partial match bar\"; else print \"Baz\"}' filename\nPrint all lines where the 10th column value equals the specified value:\nawk '($10 == value)'\nPrint all the lines which the 10th column value is between a min and a max:\nawk '($10 &gt;= min_value && $10 &lt;= max_value)'"
   },
   {
-    "objectID": "collections/software/hamilton.html",
-    "href": "collections/software/hamilton.html",
-    "title": "Stitchfix Hamilton",
-    "section": "",
-    "text": "A scalable general purpose micro-framework for defining dataflows, Allows you to specify a flow of (delayed) execution, that forms a Directed Acyclic Graph (DAG).\n\nHamilton prescribes a way of writing feature transformations as linked sets of functions to form a DAG. These transformations can be connected to drivers which can be pandas dataframes or SQL in a database, or whatever. This provides testable data transformations."
-  },
-  {
     "objectID": "collections/software/hamilton.html#why-choose-this-tool",
     "href": "collections/software/hamilton.html#why-choose-this-tool",
     "title": "Stitchfix Hamilton",
-    "section": "",
-    "text": "A scalable general purpose micro-framework for defining dataflows, Allows you to specify a flow of (delayed) execution, that forms a Directed Acyclic Graph (DAG).\n\nHamilton prescribes a way of writing feature transformations as linked sets of functions to form a DAG. These transformations can be connected to drivers which can be pandas dataframes or SQL in a database, or whatever. This provides testable data transformations."
+    "section": "Why choose this tool?",
+    "text": "Why choose this tool?\nA scalable general purpose micro-framework for defining dataflows, Allows you to specify a flow of (delayed) execution, that forms a Directed Acyclic Graph (DAG).\n\nHamilton prescribes a way of writing feature transformations as linked sets of functions to form a DAG. These transformations can be connected to drivers which can be pandas dataframes or SQL in a database, or whatever. This provides testable data transformations."
   },
   {
     "objectID": "learningpaths.html",
@@ -84,18 +77,11 @@
     "text": "Some Data Analysis about Congress\n\n\n\n\n\n\nmodel-comparison\n\n\ncongress\n\n\n\nHow to sitting president’s parties do with congress?\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe LLN\n\n\n\n\n\n\nStatistics\n\n\nMonteCarlo\n\n\n\nProbably the most important theorem in frequentist statistics\n\n\n\n\n\nDec 3, 2022\n\n\n\n\n\n\n\n\n\n\n\n\nVisualization As Story\n\n\n\n\n\n\nVisualization\n\n\nCommunication\n\n\nStorytelling\n\n\n\nHow should you communicate your insights in Visualization?\n\n\n\n\n\nDec 3, 2022\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "collections/software/prefect.html",
-    "href": "collections/software/prefect.html",
-    "title": "Prefect-2.0",
-    "section": "",
-    "text": "Prefect is largely regarded as the successor to Airflow. Its API is simpler, and conceptually its easy to understand. It is an open-source piece of software supported by a long running and well funded startup. This abates risk from the company shutting down.\n\nOrchestration is important to run DAG like flows when input sources have changed. Its even more important to run orchestration at regular intervals to support active learning, or retraining of models.\nThis diagram (from https://github.com/jacopotagliabue/you-dont-need-a-bigger-boat) provides an idea of how prefect might be used to orchestrate a pipeline:\n\n\n\n\n\n\nFigure 1: Recommendation systems Flow"
-  },
-  {
     "objectID": "collections/software/prefect.html#why-choose-this-tool",
     "href": "collections/software/prefect.html#why-choose-this-tool",
     "title": "Prefect-2.0",
-    "section": "",
-    "text": "Prefect is largely regarded as the successor to Airflow. Its API is simpler, and conceptually its easy to understand. It is an open-source piece of software supported by a long running and well funded startup. This abates risk from the company shutting down.\n\nOrchestration is important to run DAG like flows when input sources have changed. Its even more important to run orchestration at regular intervals to support active learning, or retraining of models.\nThis diagram (from https://github.com/jacopotagliabue/you-dont-need-a-bigger-boat) provides an idea of how prefect might be used to orchestrate a pipeline:\n\n\n\n\n\n\nFigure 1: Recommendation systems Flow"
+    "section": "Why choose this tool?",
+    "text": "Why choose this tool?\nPrefect is largely regarded as the successor to Airflow. Its API is simpler, and conceptually its easy to understand. It is an open-source piece of software supported by a long running and well funded startup. This abates risk from the company shutting down.\n\nOrchestration is important to run DAG like flows when input sources have changed. Its even more important to run orchestration at regular intervals to support active learning, or retraining of models.\nThis diagram (from https://github.com/jacopotagliabue/you-dont-need-a-bigger-boat) provides an idea of how prefect might be used to orchestrate a pipeline:\n\n\n\n\n\n\nFigure 1: Recommendation systems Flow"
   },
   {
     "objectID": "collections/software/prefect.html#more-about-the-tool",
