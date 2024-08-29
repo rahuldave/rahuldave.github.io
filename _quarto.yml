@@ -1,0 +1,26 @@
+project:
+  type: website
+
+website:
+  title: rahuldave
+  navbar:
+    left:
+      - href: posts.qmd
+        text: Posts
+      - href: learningpaths.qmd
+        text: Learning Paths
+      - href: collections.qmd
+        text: Collections
+      - href: "https://rahuldave.substack.com/"
+        text: Newsletter
+      - href: about.qmd
+        text: About
+
+format:
+  html:
+    theme: sandstone
+    css: styles.css
+    toc: true
+    reference-location: margin
+    citation-location: margin
+    csl: journal-of-neurochemistry.csl

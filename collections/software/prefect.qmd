@@ -1,0 +1,36 @@
+---
+title: Prefect-2.0
+categories: ['orchestration', 'pipeline']
+---
+
+## Why choose this tool?
+
+Prefect is largely regarded as the successor to Airflow. Its API is simpler, and conceptually its easy to understand. It is an open-source piece of software supported by a long running and well funded startup. This abates risk from the company shutting down.
+
+![](../../assets/prefect.png)
+
+Orchestration is important to run DAG like flows when input sources have changed. Its even more important to run orchestration at regular intervals to support active learning, or retraining of models.
+
+This diagram (from <https://github.com/jacopotagliabue/you-dont-need-a-bigger-boat>) provides an idea of how prefect might be used to orchestrate a pipeline:
+
+![Recommendation systems Flow](https://github.com/jacopotagliabue/you-dont-need-a-bigger-boat/raw/main/recsys_flow.jpg){#fig-recsys}
+
+## More about the tool
+
+Prefect is organized around the notion of **fllows**. Flows can have subflows, and both of these can have tasks, but tasks cannot have sub-tasks. Flows have implementation as processes or as docker containers.
+
+- flows can be run adhoc
+- flows can be scheduled
+- other DAG based software such as DVC pipelines, hamilton, and dbt can be run as prefect processes
+- prefect does not seem to support event based activation of pipelines, although the ability to create deployments in python can enable us to create some such flow
+- prefect is well integrated with dask, which we can then use for hyper-parameter optimizations on our cluster or other such distributed computations
+
+## How to install
+
+`pip install -U prefect`
+
+The prefect orion UI will need proxying out of a cluster.
+
+## Alternatives
+
+Several alternatives exist. The old airflow and luigi are still around. 

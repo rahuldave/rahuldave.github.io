@@ -1,0 +1,29 @@
+---
+title: "Collections"
+listing: 
+  - id: software
+    contents: "collections/software/*.qmd"
+    type: table
+    categories: true
+    page-size: 10
+  - id: til
+    contents: "collections/til/*.qmd"
+    type: table
+    categories: true
+    page-size: 10
+---
+
+---
+
+### Today I Learned
+
+:::{#til}
+:::
+
+---
+
+### Software
+
+:::{#softwares}
+:::
+

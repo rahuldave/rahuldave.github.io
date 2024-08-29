@@ -1,0 +1,16 @@
+---
+title: "Home"
+listing:
+    type: default
+    categories: true
+    contents:
+        - "collections/software/"
+        - "collections/til/"
+        - "posts/"
+        - "posts/**/"
+        - "learningpaths/"
+---
+
+---
+
+

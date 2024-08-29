@@ -1,0 +1,36 @@
+[
+  {
+    "listing": "/learningpaths.html",
+    "items": [
+      "/learningpaths/mypath1/index.html"
+    ]
+  },
+  {
+    "listing": "/index.html",
+    "items": [
+      "/collections/software/awk.html",
+      "/learningpaths/mypath1/index.html",
+      "/collections/software/prefect.html",
+      "/posts/votingforcongress/congress.html",
+      "/collections/software/hamilton.html",
+      "/posts/lawoflargenumbers.html",
+      "/posts/vizasstory.html"
+    ]
+  },
+  {
+    "listing": "/collections.html",
+    "items": [
+      "/collections/software/awk.html",
+      "/collections/software/prefect.html",
+      "/collections/software/hamilton.html"
+    ]
+  },
+  {
+    "listing": "/posts.html",
+    "items": [
+      "/posts/votingforcongress/congress.html",
+      "/posts/lawoflargenumbers.html",
+      "/posts/vizasstory.html"
+    ]
+  }
+]

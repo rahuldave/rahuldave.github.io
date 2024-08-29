@@ -1,0 +1,13 @@
+---
+title: Stitchfix Hamilton
+categories: ['data', 'data transformation', 'dag']
+---
+
+## Why choose this tool?
+
+A scalable general purpose micro-framework for defining dataflows, Allows you to specify a flow of (delayed) execution, that forms a Directed Acyclic Graph (DAG). 
+
+![](https://multithreaded.stitchfix.com/assets/posts/2021-10-14-functions-dags-hamilton/hamiltondag.png)
+
+Hamilton prescribes a way of writing feature transformations as linked sets of functions to form a DAG. These transformations can be connected to drivers which can be pandas dataframes or SQL in a database, or whatever. This provides testable data transformations.
+
