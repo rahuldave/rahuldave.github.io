@@ -1,6 +1,7 @@
 ---
 title: Box's Loop
-keywords: ['models', 'probabilistic modeling']
+description: Modeling is not the end, its just the beginning!
+categoroes: ['models', 'probabilistic modeling']
 ---
 
 In the 1960's, the great statistician Box, along with his collaborators, formulated the notion of a loop to understand the nature of the scientific method. This loop is called Box's loop by Blei et. al., [^1], and illustrated in the diagram (taken from the above linked paper) below:
