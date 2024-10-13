@@ -9,6 +9,7 @@
     "listing": "/index.html",
     "items": [
       "/collections/software/awk.html",
+      "/posts/boxloop.html",
       "/learningpaths/mypath1/index.html",
       "/collections/software/prefect.html",
       "/posts/votingforcongress/congress.html",
@@ -28,6 +29,7 @@
   {
     "listing": "/posts.html",
     "items": [
+      "/posts/boxloop.html",
       "/posts/votingforcongress/congress.html",
       "/posts/lawoflargenumbers.html",
       "/posts/vizasstory.html"
