@@ -1,0 +1,20 @@
+---
+title: open
+categories: ['macos']
+date: 2022-12-09
+---
+
+MacOS has a great command `open`. You can use it to open any file in any folder from
+the terminal in its default app. For example:
+
+```
+open bla.pdf
+```
+
+will open a file in Preview.
+
+Sometimes you want another app. Then you can use the `-a` flag. Like so:
+
+```
+open -a /Applications/Typora.app bla.md
+```

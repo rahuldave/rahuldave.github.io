@@ -1,27 +1,30 @@
 [
   {
-    "listing": "/collections.html",
+    "listing": "/til.html",
     "items": [
-      "/collections/software/awk.html",
-      "/collections/software/prefect.html",
-      "/collections/software/hamilton.html"
+      "/til/open.html"
     ]
   },
   {
     "listing": "/index.html",
     "items": [
-      "/posts/votingforcongress/congress.html",
       "/collections/software/hamilton.html",
       "/posts/boxloop.html",
       "/collections/software/awk.html",
+      "/posts/votingforcongress/congress.html",
+      "/til/open.html",
       "/collections/software/prefect.html",
       "/posts/lawoflargenumbers.html",
       "/posts/vizasstory.html"
     ]
   },
   {
-    "listing": "/til.html",
-    "items": []
+    "listing": "/collections.html",
+    "items": [
+      "/collections/software/awk.html",
+      "/collections/software/prefect.html",
+      "/collections/software/hamilton.html"
+    ]
   },
   {
     "listing": "/posts.html",
