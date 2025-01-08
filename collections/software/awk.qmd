@@ -1,6 +1,7 @@
 ---
 title: Awk
 categories: ['data transformation']
+date: 2023-12-03
 ---
 
 An old goody! For quick command line analysis of data.

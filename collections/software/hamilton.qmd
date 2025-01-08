@@ -1,6 +1,7 @@
 ---
 title: Stitchfix Hamilton
 categories: ['data', 'data transformation', 'dag']
+date: 2024-12-03
 ---
 
 ## Why choose this tool?

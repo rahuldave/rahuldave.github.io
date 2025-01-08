@@ -78,9 +78,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-title','listing-author',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
+      valueNames: ['listing-date','listing-title','listing-author',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
       
-      searchColumns: ["listing-title","listing-author"],
+      searchColumns: ["listing-date","listing-title","listing-author"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -229,6 +229,12 @@ window.Quarto = {
      <select id="listing-software-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-software'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
        <option value="" disabled="" selected="" hidden="">Order By</option>
        <option value="index" data-direction="asc">Default</option>
+         <option value="listing-date-sort" data-direction="asc">
+          Date - Oldest
+        </option>
+         <option value="listing-date-sort" data-direction="desc">
+          Date - Newest
+        </option>
          <option value="listing-title-sort" data-direction="asc">
           Title
         </option>
@@ -246,6 +252,9 @@ window.Quarto = {
 <thead>
 <tr>
 <th>
+<a class="sort" data-sort="listing-date-sort" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Date</a>
+</th>
+<th>
 <a class="sort" data-sort="listing-title-sort" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Title</a>
 </th>
 <th>
@@ -254,7 +263,10 @@ window.Quarto = {
 </tr>
 </thead>
 <tbody class="list">
-<tr data-index="0" data-categories="ZGF0YSB0cmFuc2Zvcm1hdGlvbg==" data-listing-file-modified-sort="1669689929694" data-listing-reading-time-sort="1" data-listing-word-count-sort="194" data-listing-title-sort="Awk" data-listing-filename-sort="awk.qmd">
+<tr data-index="0" data-categories="ZGF0YSB0cmFuc2Zvcm1hdGlvbg==" data-listing-date-sort="1701579600000" data-listing-file-modified-sort="1736353840988" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="194" data-listing-title-sort="Awk" data-listing-filename-sort="awk.qmd">
+<td>
+<span class="listing-date">Dec 3, 2023</span>
+</td>
 <td>
 <a href="./collections/software/awk.html" class="title listing-title">Awk</a>
 </td>
@@ -262,7 +274,10 @@ window.Quarto = {
 <span class="listing-author">&nbsp;</span>
 </td>
 </tr>
-<tr data-index="1" data-categories="b3JjaGVzdHJhdGlvbixwaXBlbGluZQ==" data-listing-file-modified-sort="1669688231908" data-listing-reading-time-sort="2" data-listing-word-count-sort="230" data-listing-title-sort="Prefect-2.0" data-listing-filename-sort="prefect.qmd">
+<tr data-index="1" data-categories="b3JjaGVzdHJhdGlvbixwaXBlbGluZQ==" data-listing-date-sort="1670043600000" data-listing-file-modified-sort="1736353859379" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="230" data-listing-title-sort="Prefect-2.0" data-listing-filename-sort="prefect.qmd">
+<td>
+<span class="listing-date">Dec 3, 2022</span>
+</td>
 <td>
 <a href="./collections/software/prefect.html" class="title listing-title">Prefect-2.0</a>
 </td>
@@ -270,7 +285,10 @@ window.Quarto = {
 <span class="listing-author">&nbsp;</span>
 </td>
 </tr>
-<tr data-index="2" data-categories="ZGF0YSxkYXRhIHRyYW5zZm9ybWF0aW9uLGRhZw==" data-listing-file-modified-sort="1724899492181" data-listing-reading-time-sort="1" data-listing-word-count-sort="65" data-listing-title-sort="Stitchfix Hamilton" data-listing-filename-sort="hamilton.qmd">
+<tr data-index="2" data-categories="ZGF0YSxkYXRhIHRyYW5zZm9ybWF0aW9uLGRhZw==" data-listing-date-sort="1733202000000" data-listing-file-modified-sort="1736353876197" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-word-count-sort="65" data-listing-title-sort="Stitchfix Hamilton" data-listing-filename-sort="hamilton.qmd">
+<td>
+<span class="listing-date">Dec 3, 2024</span>
+</td>
 <td>
 <a href="./collections/software/hamilton.html" class="title listing-title">Stitchfix Hamilton</a>
 </td>
