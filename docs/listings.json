@@ -10,11 +10,11 @@
   {
     "listing": "/index.html",
     "items": [
-      "/collections/software/awk.html",
-      "/posts/boxloop.html",
-      "/collections/software/prefect.html",
       "/posts/votingforcongress/congress.html",
       "/collections/software/hamilton.html",
+      "/posts/boxloop.html",
+      "/collections/software/awk.html",
+      "/collections/software/prefect.html",
       "/posts/lawoflargenumbers.html",
       "/posts/vizasstory.html"
     ]
