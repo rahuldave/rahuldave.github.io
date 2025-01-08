@@ -1,6 +1,0 @@
----
-title: "Learning Paths"
-listing:
-    contents: "learningpaths/**/index.qmd"
-    categories: true
----

@@ -6,19 +6,7 @@ listing:
     type: table
     categories: true
     page-size: 10
-  - id: til
-    contents: "collections/til/*.qmd"
-    type: table
-    categories: true
-    page-size: 10
 ---
-
----
-
-### Today I Learned
-
-:::{#til}
-:::
 
 ---
 

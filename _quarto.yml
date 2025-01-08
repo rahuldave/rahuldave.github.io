@@ -7,12 +7,10 @@ website:
     left:
       - href: posts.qmd
         text: Posts
-      - href: learningpaths.qmd
-        text: Learning Paths
+      - href: til.qmd
+        text: TIL
       - href: collections.qmd
         text: Collections
-      - href: "https://rahuldave.substack.com/"
-        text: Newsletter
       - href: about.qmd
         text: About
 

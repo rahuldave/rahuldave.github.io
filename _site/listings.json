@@ -1,8 +1,10 @@
 [
   {
-    "listing": "/learningpaths.html",
+    "listing": "/collections.html",
     "items": [
-      "/learningpaths/mypath1/index.html"
+      "/collections/software/awk.html",
+      "/collections/software/prefect.html",
+      "/collections/software/hamilton.html"
     ]
   },
   {
@@ -10,7 +12,6 @@
     "items": [
       "/collections/software/awk.html",
       "/posts/boxloop.html",
-      "/learningpaths/mypath1/index.html",
       "/collections/software/prefect.html",
       "/posts/votingforcongress/congress.html",
       "/collections/software/hamilton.html",
@@ -19,12 +20,8 @@
     ]
   },
   {
-    "listing": "/collections.html",
-    "items": [
-      "/collections/software/awk.html",
-      "/collections/software/prefect.html",
-      "/collections/software/hamilton.html"
-    ]
+    "listing": "/til.html",
+    "items": []
   },
   {
     "listing": "/posts.html",
