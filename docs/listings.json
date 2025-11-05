@@ -8,6 +8,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/probability.html",
       "/collections/software/hamilton.html",
       "/posts/boxloop.html",
       "/collections/software/awk.html",
@@ -30,6 +31,7 @@
     "listing": "/posts.html",
     "items": [
       "/posts/boxloop.html",
+      "/posts/probability.html",
       "/posts/votingforcongress/congress.html",
       "/posts/lawoflargenumbers.html",
       "/posts/vizasstory.html"

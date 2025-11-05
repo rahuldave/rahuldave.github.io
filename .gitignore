@@ -3,3 +3,5 @@
 .pixi
 *.egg-info
 
+
+**/*.quarto_ipynb
