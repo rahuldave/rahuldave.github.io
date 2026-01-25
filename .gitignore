@@ -5,3 +5,10 @@
 
 
 **/*.quarto_ipynb
+
+# Design mockups
+designs/
+
+.DS_Store
+.claude/
+CLAUDE.md
