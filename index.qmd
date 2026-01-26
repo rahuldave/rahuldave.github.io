@@ -1,7 +1,8 @@
 ---
 title: "Rahul's Blog"
 listing:
-    type: default
+    type: grid
+    grid-columns: 3
     categories: true
     sort: date desc
     contents:
@@ -11,6 +12,33 @@ listing:
         - "posts/**/"
 ---
 
----
+<div class="hero-section">
+<div class="hero-gradient"></div>
 
+<!-- Depth rings visual -->
+<div class="depth-visual">
+  <div class="depth-ring depth-ring-1"></div>
+  <div class="depth-ring depth-ring-2"></div>
+  <div class="depth-ring depth-ring-3"></div>
+  <div class="depth-ring depth-ring-4"></div>
+  <div class="depth-ring depth-ring-5"><i class="bi bi-braces"></i></div>
+</div>
 
+<div class="hero-content">
+<div class="hero-eyebrow">Data Science & Machine Learning</div>
+
+<h1 class="hero-title">Exploring Probabilistic Thinking & Computational Methods</h1>
+
+<p class="hero-subtitle">A collection of notebooks, tutorials, and deep dives into statistical inference, machine learning, and the art of communicating with data.</p>
+
+<div class="hero-tags">
+  <span class="tag">Bayesian Inference</span>
+  <span class="tag">Machine Learning</span>
+  <span class="tag">Data Visualization</span>
+  <span class="tag">Python</span>
+  <span class="tag">Statistics</span>
+</div>
+</div>
+</div>
+
+## Recent Posts

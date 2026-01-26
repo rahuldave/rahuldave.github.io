@@ -1,38 +1,94 @@
 [
   {
-    "objectID": "collections/software/awk.html",
-    "href": "collections/software/awk.html",
-    "title": "Awk",
-    "section": "",
-    "text": "An old goody! For quick command line analysis of data.\n\nThe following examples were taken from the tldr page for awk:\nPrint the fifth column (a.k.a. field) in a space-separated file:\nawk '{print $5}' filename\nPrint the second column of the lines containing “foo” in a space-separated file:\nawk '/foo/ {print $2}' filename\nPrint the last column of each line in a file, using a comma (instead of space) as a field separator:\nawk -F ',' '{print $NF}' filename\nSum the values in the first column of a file and print the total:\nawk '{s+=$1} END {print s}' filename\nPrint every third line starting from the first line:\nawk 'NR%3==1' filename\nPrint different values based on conditions:\nawk '{if ($1 == \"foo\") print \"Exact match foo\"; else if ($1 ~ \"bar\") print \"Partial match bar\"; else print \"Baz\"}' filename\nPrint all lines where the 10th column value equals the specified value:\nawk '($10 == value)'\nPrint all the lines which the 10th column value is between a min and a max:\nawk '($10 &gt;= min_value && $10 &lt;= max_value)'"
+    "objectID": "CLAUDE.html#project-overview",
+    "href": "CLAUDE.html#project-overview",
+    "title": "Claude Session Context",
+    "section": "Project Overview",
+    "text": "Project Overview\nThis is a Quarto-based personal website for data science/ML educational content at rahuldave.github.io. We’re designing new Bootstrap 5.3 themes with ColorBrewer palettes for matplotlib compatibility."
   },
   {
-    "objectID": "collections/software/hamilton.html#why-choose-this-tool",
-    "href": "collections/software/hamilton.html#why-choose-this-tool",
-    "title": "Stitchfix Hamilton",
+    "objectID": "CLAUDE.html#current-state",
+    "href": "CLAUDE.html#current-state",
+    "title": "Claude Session Context",
+    "section": "Current State",
+    "text": "Current State\n\nDesign Folders\n\ndesigns/design1-depth/ — CHOSEN BASE DESIGN (Blues sequential palette, clean, scholarly)\ndesigns/design1-modern/ — NEEDS WORK (fork of depth, to be modernized)\ndesigns/design2-duality/ — PuOr diverging palette (rejected, too busy)\nOther folders are older iterations, can be ignored\n\n\n\nWhat User Likes About design1-depth\n\nClean, minimal aesthetic with good negative space\nSerif typography: Bitter (headings) + Source Serif 4 (body) + IBM Plex Mono (code)\nGreater line spacing (1.8 for body)\nColorBrewer Blues palette (#eff3ff → #08306b)\nYin-yang icon (just changed from layers icon)\nCircular brand mark (just changed from rounded square)\nSubtle code cell styling with just “In [n]” in corner\nDark/light mode support\n\n\n\nFiles in Each Design Folder\n\nindex.html — Landing page with hero, post cards, code section, interactive container\nboxloop.html — Box’s Loop article\nvizasstory.html — Visualization as Story article\ncongress.html — Congressional data analysis with pandas table\nearth-demo.html — Three.js rotating Earth demo"
+  },
+  {
+    "objectID": "CLAUDE.html#next-session-task-modernize-design1-modern",
+    "href": "CLAUDE.html#next-session-task-modernize-design1-modern",
+    "title": "Claude Session Context",
+    "section": "NEXT SESSION TASK: Modernize design1-modern",
+    "text": "NEXT SESSION TASK: Modernize design1-modern\nTake designs/design1-modern/ and make it more cutting-edge while preserving what works:\n\nKeep\n\nSerif typography (Bitter + Source Serif 4)\nBlues ColorBrewer palette\nGood line spacing and negative space\nClean code block styling\nDark/light mode\n\n\n\nModernize With\n\nSubtle animations — Add micro-interactions on hover, smooth transitions, maybe a subtle parallax or scroll-triggered effect\nBolder hero — Consider a more dynamic hero section, perhaps with animated gradient backgrounds or geometric shapes\nGlassmorphism touches — Add subtle backdrop-filter blur effects on cards or nav (like sunearthmoon reference)\nModern layout flourishes — Asymmetric grids, overlapping elements, or diagonal/angled sections\nEnhanced interactive container — Make it feel more premium, better glow effects\nTypography polish — Maybe add variable font features, gradient text for hero title\nBetter visual hierarchy — Use the sequential blues more dramatically for depth layering\n\n\n\nReference Sites\n\nhttps://rahuldave.com/sunearthmoon/ — Cutting edge dark theme with Three.js, glassmorphism\nhttps://am207.github.io/2018fall/ — Clean academic (what to avoid being too much like)\n\n\n\nTechnical Notes\n\nBootstrap 5.3.3 via CDN\nMust expose CSS custom properties (–color-, –interactive-, –cb-blue-*) for embedded JS demos\nAll files are self-contained HTML with inline CSS\nThree.js demos should inherit theme colors\n\n\n\nColorBrewer Blues Palette (for reference)\n--cb-blue-50: #eff3ff   (lightest)\n--cb-blue-100: #c6dbef\n--cb-blue-200: #9ecae1\n--cb-blue-300: #6baed6\n--cb-blue-400: #4292c6\n--cb-blue-500: #2171b5\n--cb-blue-600: #08519c\n--cb-blue-700: #084594\n--cb-blue-800: #08306b  (darkest)"
+  },
+  {
+    "objectID": "CLAUDE.html#commands-to-preview",
+    "href": "CLAUDE.html#commands-to-preview",
+    "title": "Claude Session Context",
+    "section": "Commands to Preview",
+    "text": "Commands to Preview\nopen designs/design1-depth/index.html   # Current clean version\nopen designs/design1-modern/index.html  # To be modernized"
+  },
+  {
+    "objectID": "collections/software/prefect.html#why-choose-this-tool",
+    "href": "collections/software/prefect.html#why-choose-this-tool",
+    "title": "Prefect-2.0",
     "section": "Why choose this tool?",
-    "text": "Why choose this tool?\nA scalable general purpose micro-framework for defining dataflows, Allows you to specify a flow of (delayed) execution, that forms a Directed Acyclic Graph (DAG).\n\nHamilton prescribes a way of writing feature transformations as linked sets of functions to form a DAG. These transformations can be connected to drivers which can be pandas dataframes or SQL in a database, or whatever. This provides testable data transformations."
+    "text": "Why choose this tool?\nPrefect is largely regarded as the successor to Airflow. Its API is simpler, and conceptually its easy to understand. It is an open-source piece of software supported by a long running and well funded startup. This abates risk from the company shutting down.\n\nOrchestration is important to run DAG like flows when input sources have changed. Its even more important to run orchestration at regular intervals to support active learning, or retraining of models.\nThis diagram (from https://github.com/jacopotagliabue/you-dont-need-a-bigger-boat) provides an idea of how prefect might be used to orchestrate a pipeline:\n\n\n\n\n\n\nFigure 1: Recommendation systems Flow"
   },
   {
-    "objectID": "til/open.html",
-    "href": "til/open.html",
-    "title": "open",
-    "section": "",
-    "text": "MacOS has a great command open. You can use it to open any file in any folder from the terminal in its default app. For example:\nopen bla.pdf\nwill open a file in Preview.\nSometimes you want another app. Then you can use the -a flag. Like so:\nopen -a /Applications/Typora.app bla.md"
+    "objectID": "collections/software/prefect.html#more-about-the-tool",
+    "href": "collections/software/prefect.html#more-about-the-tool",
+    "title": "Prefect-2.0",
+    "section": "More about the tool",
+    "text": "More about the tool\nPrefect is organized around the notion of fllows. Flows can have subflows, and both of these can have tasks, but tasks cannot have sub-tasks. Flows have implementation as processes or as docker containers.\n\nflows can be run adhoc\nflows can be scheduled\nother DAG based software such as DVC pipelines, hamilton, and dbt can be run as prefect processes\nprefect does not seem to support event based activation of pipelines, although the ability to create deployments in python can enable us to create some such flow\nprefect is well integrated with dask, which we can then use for hyper-parameter optimizations on our cluster or other such distributed computations"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "About this site"
+    "objectID": "collections/software/prefect.html#how-to-install",
+    "href": "collections/software/prefect.html#how-to-install",
+    "title": "Prefect-2.0",
+    "section": "How to install",
+    "text": "How to install\npip install -U prefect\nThe prefect orion UI will need proxying out of a cluster."
   },
   {
-    "objectID": "til.html",
-    "href": "til.html",
-    "title": "Today I Learned",
+    "objectID": "collections/software/prefect.html#alternatives",
+    "href": "collections/software/prefect.html#alternatives",
+    "title": "Prefect-2.0",
+    "section": "Alternatives",
+    "text": "Alternatives\nSeveral alternatives exist. The old airflow and luigi are still around."
+  },
+  {
+    "objectID": "posts.html",
+    "href": "posts.html",
+    "title": "Posts",
     "section": "",
-    "text": "Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nAuthor\n\n\n\n\n\n\n\n\nDec 9, 2022\n\n\nopen\n\n\n \n\n\n\n\n\n\nNo matching items"
+    "text": "Box’s Loop\n\n\n\nmodels\n\nprobabilistic modeling\n\n\n\nModeling is not the end, its just the beginning!\n\n\n\n\n\n\nSep 23, 2024\n\n\n\n\n\n\n\n\n\n\n\nProbability\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRotating Earth\n\n\n\nvisualization\n\nthree.js\n\ninteractive\n\n\n\nA Three.js demonstration showing Earth’s rotation with the Modern theme.\n\n\n\n\n\n\nJan 25, 2025\n\n\n\n\n\n\n\n\n\n\n\nSome Data Analysis about Congress\n\n\n\nmodel-comparison\n\ncongress\n\n\n\nHow to sitting president’s parties do with congress?\n\n\n\n\n\n\nJun 6, 2023\n\n\n\n\n\n\n\n\n\n\n\nThe LLN\n\n\n\nStatistics\n\nMonteCarlo\n\n\n\nProbably the most important theorem in frequentist statistics\n\n\n\n\n\n\nDec 3, 2022\n\n\n\n\n\n\n\n\n\n\n\nVisualization As Story\n\n\n\nVisualization\n\nCommunication\n\nStorytelling\n\n\n\nHow should you communicate your insights in Visualization?\n\n\n\n\n\n\nDec 3, 2022\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "collections.html",
+    "href": "collections.html",
+    "title": "Collections",
+    "section": "",
+    "text": "Software\n\n\n\n\n\n\n\n\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nAuthor\n\n\n\n\n\n\n\n\nDec 3, 2023\n\n\nAwk\n\n\n \n\n\n\n\n\n\nDec 3, 2022\n\n\nPrefect-2.0\n\n\n \n\n\n\n\n\n\nDec 3, 2024\n\n\nStitchfix Hamilton\n\n\n \n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html#recent-posts",
+    "href": "index.html#recent-posts",
+    "title": "Rahul’s Blog",
+    "section": "Recent Posts",
+    "text": "Recent Posts"
+  },
+  {
+    "objectID": "posts/earth-demo/index.html",
+    "href": "posts/earth-demo/index.html",
+    "title": "Rotating Earth",
+    "section": "",
+    "text": "This interactive visualization demonstrates a rotating Earth rendered with Three.js. The visualization inherits the theme’s ColorBrewer Blues palette through CSS custom properties (--cb-blue-* and --interactive-*)."
+  },
+  {
+    "objectID": "posts/earth-demo/index.html#how-it-works",
+    "href": "posts/earth-demo/index.html#how-it-works",
+    "title": "Rotating Earth",
+    "section": "How It Works",
+    "text": "How It Works\nThe Earth visualization uses Three.js to create a rotating sphere with:\n\nProcedural texture: Ocean gradients using the theme’s Blues palette\nSimplified continents: Elliptical shapes for landmasses\nIce caps: White polar regions\nAtmospheric glow: Semi-transparent outer sphere\nStars background: CSS-animated twinkling stars\n\nThe visualization reads CSS custom properties from the theme, so it automatically adapts to light/dark mode changes.\n# Example: Reading theme colors in JavaScript\nconst style = getComputedStyle(document.documentElement);\nconst primaryColor = style.getPropertyValue('--cb-blue-600');\nconst accentColor = style.getPropertyValue('--interactive-accent');"
   },
   {
     "objectID": "posts/vizasstory.html",
@@ -98,52 +154,38 @@
     "text": "Marginals and conditionals, and Bayes Theorem\nThe diagram below taken from Bishop may be used to illustrate the concepts of conditionals and marginals. Consider two random variables, \\(X\\), which takes the values \\({x_i}\\) where \\(i = 1,...,M\\), and \\(Y\\), which takes the values \\({y_j}\\) where \\(j = 1,...,L\\). The number of instances for which \\(X = x_i\\) and \\(Y = y_j\\) is \\(n_{ij}\\). The number of points in column i where \\(X=x_i\\) is \\(c_i\\), and for the row where \\(Y = y_j\\) is \\(r_j\\).\n\n\n\nm:bishopprob\n\n\nThen the joint probability of having \\(p(X = x_i, Y= y_j)\\) is in the asymptotic limit of large numbers in the frequency sense of probability \\(n_{ij}/N\\) where is the total number of instances. The \\(X\\) marginal, \\(p(X=x_i)\\) can be obtained by summing instances in all the cells in the i’th column:\n\\[p(X=x_i) = \\sum_j p(X=x_i, Y=y_j)\\]\nLets consider next only those instances for which \\(X=x_i\\). This means that we are limiting our analysis to the ith row. Then, we write the conditional probability of \\(Y = y_j\\) given \\(X = x_i\\) as \\(p(Y = y_j \\mid X = x_i)\\). This is the asymptotic fraction of these instances where \\(Y = y_j\\) and is obtained by dividing the instances in the cell by those in the comumn as\n\\[p(Y = y_j \\mid X = x_i) = \\frac{n_{ij}}{c_i}.\\]\nA little algebraic rearrangement gives:\n\\[p(Y = y_j \\mid X = x_i) = \\frac{n_{ij}}{c_i} = \\frac{n_{ij}}{N} / \\frac{c_i}{N},\\]\nor:\n\\[p(Y = y_j \\mid X = x_i) \\times p(X=x_i) =  p(X=x_i, Y=y_j).\\]\nThis is the product rule of probability with conditionals involved.\nLet us simplify the notation by dropping the \\(X=\\) and \\(Y=\\).\nThen we can write the marginal probability of x as a sum over the joint distribution of x and y where we sum over all possibilities of y,\n\\[p(x) = \\sum_y p(x,y) \\].\nWe can rewrite a joint distribution as a product of a conditional and marginal probability,\n\\[ p(x,y) = p(y\\mid x) p(x) \\]\nThe product rule is applied repeatedly to give expressions for the joint probability involving more than two variables. For example, the joint distribution over three variables can be factorized into a product of conditional probabilities:\n\\[ p(x,y,z) = p(x|y,z) \\, p(y,z) = p(x |y,z) \\, p(y|z) p(z) \\]\n\nBayes rule\nObserve that\n\\[ p(x,y) = p(y\\mid x) p(x) = P(x\\mid y)p(y).\\]\nGiven the product rule one can derive the Bayes rule, which plays a central role in a lot of the things we will be talking:\n\\[ p(y\\mid x) = \\frac{p(x\\mid y) \\, p(y) }{p(x)} = \\frac{p(x\\mid y) \\, p(y) }{\\sum_{y'} p(x,y')} = \\frac{p(x\\mid y) \\, p(y) }{\\sum_{y'} p(x\\mid y')p(y')}\\]\n\n\nIndependence\nTwo variables are said to be independent if their joint distribution factorizes into a product of two marginal probabilities:\n\\[ p(x,y) = p(x) \\, p(y) \\]\nAnother consequence of independence is that if \\(x\\) and \\(y\\) are independent, the conditional probability of \\(x\\) given \\(y\\) is just the probability of \\(x\\):\n\\[ p(x|y) = p(x) \\]\nIn other words, by conditioning on a particular \\(y\\), we have learned nothing about \\(x\\) because of independence. Two variables \\(x\\) and \\(y\\) and said to be conditionally independent of \\(z\\) if the following holds:\n\\[ p(x,y|z) = p(x|z) p(y|z) \\]\nTherefore, if we learn about z, x and y become independent. Another way to write that \\(x\\) and \\(y\\) are conditionally independent of \\(z\\) is\n\\[ p(x| z, y) = p(x|z) \\]\nIn other words, if we condition on \\(z\\), and now also learn about \\(y\\), this is not going to change the probability of \\(x\\). It is important to realize that conditional independence between \\(x\\) and \\(y\\) does not imply independence between \\(x\\) and \\(y\\).\n\n\nApplication of Bayes Theorem\n\nSally Clark, a lawyer who lost her first son at 11 weeks and her second at 8 weeks, was convicted in 1999. A prominent pediatrician, Sir Roy Meadow, had testified for the prosecution about Sudden Infant Death Syndrome, known as SIDS in the U.S. and cot death in Britain. Citing a government study, Meadow said the incidence of one SIDS death was one in 8,500 in a family like Clark’s–stable, affluent, nonsmoking, with a mother more than 26 years old.\n\n\nThen, despite the fact that some families are predisposed to SIDS, Meadow assumed erroneously that each sibling’s death occurred independently of the other. Multiplying 8,500 by 8,500, he calculated that the chance of two children dying in a family like Sally Clark’s was so rare–one in 73 million–that they must have been murdered.\n\n(from http://www.mcgrayne.com/disc.htm)\np(child 1 dying of sids) = 1/8500\n\nP(child 2 dying of sids) = 1/100\n\nFirst, we look at natural causes of sudden infant death. The chance of one random infant dying from SIDS was about 1 in 1,300 during this period in Britain. Meadow’s argument was flawed and produced a much slimmer chance of natural death. The estimated odds of a second SIDS death in the same family was much larger, perhaps one in 100, because family members can share a common environmental or genetic propensity for SIDS.\n\n\nSecond, we turn to the hypothesis that the babies were murdered. Only about 30 children out of 650,000 annual births in England, Scotland, and Wales were known to have been murdered by their mothers. The number of double murders must be much lower, estimated as 10 times less likely.\n\np(S2 = both children dying of sids) =  0.000007\np(notS2 = not both dying of sids) =  0.999993\n\nData: both children died unexpectedly\nSo now ask, whats:\np(data | S2) = 1\np(data | notS2) = ? both died but not SIDS. Murder? =  30/650000    × 1/10 = 0.000005\nWe want to calculate the “posterior probability”:\np(S2 | data) = P(data | S2) P(S2) /(P(data | S2) P(S2) + P(data|notS2)P(notS2))\n= 1*0.000007/(1*0.000007 + 0.000005*0.999993)\n=0.58\n58% chance of having died from SIDS!\nSally Clark spent 3 years in jail."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Rahul’s Blog",
+    "objectID": "til.html",
+    "href": "til.html",
+    "title": "Today I Learned",
     "section": "",
-    "text": "Probability\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nStitchfix Hamilton\n\n\n\ndata\n\ndata transformation\n\ndag\n\n\n\n\n\n\n\n\n\nDec 3, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nBox’s Loop\n\n\n\nmodels\n\nprobabilistic modeling\n\n\n\nModeling is not the end, its just the beginning!\n\n\n\n\n\nSep 23, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nAwk\n\n\n\ndata transformation\n\n\n\n\n\n\n\n\n\nDec 3, 2023\n\n\n\n\n\n\n\n\n\n\n\n\nSome Data Analysis about Congress\n\n\n\nmodel-comparison\n\ncongress\n\n\n\nHow to sitting president’s parties do with congress?\n\n\n\n\n\nJun 6, 2023\n\n\n\n\n\n\n\n\n\n\n\n\nopen\n\n\n\nmacos\n\n\n\n\n\n\n\n\n\nDec 9, 2022\n\n\n\n\n\n\n\n\n\n\n\n\nPrefect-2.0\n\n\n\norchestration\n\npipeline\n\n\n\n\n\n\n\n\n\nDec 3, 2022\n\n\n\n\n\n\n\n\n\n\n\n\nThe LLN\n\n\n\nStatistics\n\nMonteCarlo\n\n\n\nProbably the most important theorem in frequentist statistics\n\n\n\n\n\nDec 3, 2022\n\n\n\n\n\n\n\n\n\n\n\n\nVisualization As Story\n\n\n\nVisualization\n\nCommunication\n\nStorytelling\n\n\n\nHow should you communicate your insights in Visualization?\n\n\n\n\n\nDec 3, 2022\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nAuthor\n\n\n\n\n\n\n\n\nDec 9, 2022\n\n\nopen\n\n\n \n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "collections.html",
-    "href": "collections.html",
-    "title": "Collections",
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
     "section": "",
-    "text": "Software\n\n\n\n\n\n\n\n\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nAuthor\n\n\n\n\n\n\n\n\nDec 3, 2023\n\n\nAwk\n\n\n \n\n\n\n\n\n\nDec 3, 2022\n\n\nPrefect-2.0\n\n\n \n\n\n\n\n\n\nDec 3, 2024\n\n\nStitchfix Hamilton\n\n\n \n\n\n\n\n\n\nNo matching items"
+    "text": "About this site"
   },
   {
-    "objectID": "posts.html",
-    "href": "posts.html",
-    "title": "Posts",
+    "objectID": "til/open.html",
+    "href": "til/open.html",
+    "title": "open",
     "section": "",
-    "text": "Box’s Loop\n\n\n\nmodels\n\nprobabilistic modeling\n\n\n\nModeling is not the end, its just the beginning!\n\n\n\n\n\nSep 23, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nProbability\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSome Data Analysis about Congress\n\n\n\nmodel-comparison\n\ncongress\n\n\n\nHow to sitting president’s parties do with congress?\n\n\n\n\n\nJun 6, 2023\n\n\n\n\n\n\n\n\n\n\n\n\nThe LLN\n\n\n\nStatistics\n\nMonteCarlo\n\n\n\nProbably the most important theorem in frequentist statistics\n\n\n\n\n\nDec 3, 2022\n\n\n\n\n\n\n\n\n\n\n\n\nVisualization As Story\n\n\n\nVisualization\n\nCommunication\n\nStorytelling\n\n\n\nHow should you communicate your insights in Visualization?\n\n\n\n\n\nDec 3, 2022\n\n\n\n\n\nNo matching items"
+    "text": "MacOS has a great command open. You can use it to open any file in any folder from the terminal in its default app. For example:\nopen bla.pdf\nwill open a file in Preview.\nSometimes you want another app. Then you can use the -a flag. Like so:\nopen -a /Applications/Typora.app bla.md"
   },
   {
-    "objectID": "collections/software/prefect.html#why-choose-this-tool",
-    "href": "collections/software/prefect.html#why-choose-this-tool",
-    "title": "Prefect-2.0",
+    "objectID": "collections/software/hamilton.html#why-choose-this-tool",
+    "href": "collections/software/hamilton.html#why-choose-this-tool",
+    "title": "Stitchfix Hamilton",
     "section": "Why choose this tool?",
-    "text": "Why choose this tool?\nPrefect is largely regarded as the successor to Airflow. Its API is simpler, and conceptually its easy to understand. It is an open-source piece of software supported by a long running and well funded startup. This abates risk from the company shutting down.\n\nOrchestration is important to run DAG like flows when input sources have changed. Its even more important to run orchestration at regular intervals to support active learning, or retraining of models.\nThis diagram (from https://github.com/jacopotagliabue/you-dont-need-a-bigger-boat) provides an idea of how prefect might be used to orchestrate a pipeline:\n\n\n\n\n\n\nFigure 1: Recommendation systems Flow"
+    "text": "Why choose this tool?\nA scalable general purpose micro-framework for defining dataflows, Allows you to specify a flow of (delayed) execution, that forms a Directed Acyclic Graph (DAG).\n\nHamilton prescribes a way of writing feature transformations as linked sets of functions to form a DAG. These transformations can be connected to drivers which can be pandas dataframes or SQL in a database, or whatever. This provides testable data transformations."
   },
   {
-    "objectID": "collections/software/prefect.html#more-about-the-tool",
-    "href": "collections/software/prefect.html#more-about-the-tool",
-    "title": "Prefect-2.0",
-    "section": "More about the tool",
-    "text": "More about the tool\nPrefect is organized around the notion of fllows. Flows can have subflows, and both of these can have tasks, but tasks cannot have sub-tasks. Flows have implementation as processes or as docker containers.\n\nflows can be run adhoc\nflows can be scheduled\nother DAG based software such as DVC pipelines, hamilton, and dbt can be run as prefect processes\nprefect does not seem to support event based activation of pipelines, although the ability to create deployments in python can enable us to create some such flow\nprefect is well integrated with dask, which we can then use for hyper-parameter optimizations on our cluster or other such distributed computations"
-  },
-  {
-    "objectID": "collections/software/prefect.html#how-to-install",
-    "href": "collections/software/prefect.html#how-to-install",
-    "title": "Prefect-2.0",
-    "section": "How to install",
-    "text": "How to install\npip install -U prefect\nThe prefect orion UI will need proxying out of a cluster."
-  },
-  {
-    "objectID": "collections/software/prefect.html#alternatives",
-    "href": "collections/software/prefect.html#alternatives",
-    "title": "Prefect-2.0",
-    "section": "Alternatives",
-    "text": "Alternatives\nSeveral alternatives exist. The old airflow and luigi are still around."
+    "objectID": "collections/software/awk.html",
+    "href": "collections/software/awk.html",
+    "title": "Awk",
+    "section": "",
+    "text": "An old goody! For quick command line analysis of data.\n\nThe following examples were taken from the tldr page for awk:\nPrint the fifth column (a.k.a. field) in a space-separated file:\nawk '{print $5}' filename\nPrint the second column of the lines containing “foo” in a space-separated file:\nawk '/foo/ {print $2}' filename\nPrint the last column of each line in a file, using a comma (instead of space) as a field separator:\nawk -F ',' '{print $NF}' filename\nSum the values in the first column of a file and print the total:\nawk '{s+=$1} END {print s}' filename\nPrint every third line starting from the first line:\nawk 'NR%3==1' filename\nPrint different values based on conditions:\nawk '{if ($1 == \"foo\") print \"Exact match foo\"; else if ($1 ~ \"bar\") print \"Partial match bar\"; else print \"Baz\"}' filename\nPrint all lines where the 10th column value equals the specified value:\nawk '($10 == value)'\nPrint all the lines which the 10th column value is between a min and a max:\nawk '($10 &gt;= min_value && $10 &lt;= max_value)'"
   }
 ]

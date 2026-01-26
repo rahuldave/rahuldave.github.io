@@ -1,0 +1,224 @@
+---
+title: "Rotating Earth"
+description: "A Three.js demonstration showing Earth's rotation with the Modern theme."
+date: "2025-01-25"
+categories: [visualization, three.js, interactive]
+format:
+  html:
+    include-in-header:
+      - text: |
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+---
+
+This interactive visualization demonstrates a rotating Earth rendered with Three.js.
+The visualization inherits the theme's ColorBrewer Blues palette through CSS custom
+properties (`--cb-blue-*` and `--interactive-*`).
+
+::: {.interactive-container style="min-height: 520px; position: relative;"}
+<div class="stars" id="stars"></div>
+<canvas id="earth-canvas" style="width: 100%; height: 100%; display: block; position: absolute; inset: 0;"></canvas>
+<div style="position: absolute; top: 1.5rem; left: 1.5rem; background: var(--interactive-surface); border: 1px solid var(--interactive-border); border-radius: 12px; padding: 1rem 1.25rem; color: var(--interactive-text); z-index: 10;">
+<p style="font-family: var(--font-mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--interactive-accent); margin-bottom: 0.5rem;">Controls</p>
+<p style="font-size: 0.85rem; color: var(--interactive-muted); margin: 0;">Drag to rotate &bull; Scroll to zoom</p>
+</div>
+<div style="position: absolute; bottom: 1.5rem; right: 1.5rem; background: var(--interactive-surface); border: 1px solid var(--interactive-border); border-radius: 12px; padding: 1rem 1.25rem; color: var(--interactive-text); z-index: 10;">
+<p style="font-family: var(--font-mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--interactive-accent); margin-bottom: 0.5rem;">Rotation</p>
+<p id="rotation-info" style="font-size: 0.85rem; color: var(--interactive-muted); margin: 0;">&theta; = 0.0&deg;</p>
+</div>
+:::
+
+::: {style="padding: 1.5rem 2rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 0 0 24px 24px; margin-top: -24px;"}
+<div style="display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap;">
+<span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-text-muted); min-width: 60px;">Speed:</span>
+<input type="range" id="speed-slider" min="0" max="2" step="0.1" value="1" style="flex: 1; max-width: 200px; accent-color: var(--color-primary);">
+<button id="pause-btn" onclick="togglePause()" style="font-family: var(--font-mono); font-size: 0.8rem; padding: 0.5rem 1rem; border-radius: 100px; border: 1px solid var(--color-border); background: var(--color-surface-sunken); color: var(--color-text-muted); cursor: pointer;">
+<i class="bi bi-pause-fill"></i> Pause
+</button>
+<button onclick="resetView()" style="font-family: var(--font-mono); font-size: 0.8rem; padding: 0.5rem 1rem; border-radius: 100px; border: 1px solid var(--color-border); background: var(--color-surface-sunken); color: var(--color-text-muted); cursor: pointer;">
+<i class="bi bi-arrow-counterclockwise"></i> Reset
+</button>
+</div>
+:::
+
+## How It Works
+
+The Earth visualization uses Three.js to create a rotating sphere with:
+
+- **Procedural texture**: Ocean gradients using the theme's Blues palette
+- **Simplified continents**: Elliptical shapes for landmasses
+- **Ice caps**: White polar regions
+- **Atmospheric glow**: Semi-transparent outer sphere
+- **Stars background**: CSS-animated twinkling stars
+
+The visualization reads CSS custom properties from the theme, so it automatically
+adapts to light/dark mode changes.
+
+```python
+# Example: Reading theme colors in JavaScript
+const style = getComputedStyle(document.documentElement);
+const primaryColor = style.getPropertyValue('--cb-blue-600');
+const accentColor = style.getPropertyValue('--interactive-accent');
+```
+
+<script>
+// Generate stars
+document.addEventListener('DOMContentLoaded', () => {
+    const starsContainer = document.getElementById('stars');
+    if (!starsContainer) return;
+
+    const starTypes = ['star-small', 'star-medium', 'star-large'];
+    for (let i = 0; i < 80; i++) {
+        const star = document.createElement('div');
+        const type = starTypes[Math.floor(Math.random() * 3)];
+        star.className = `star ${type}`;
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 5 + 's';
+        starsContainer.appendChild(star);
+    }
+});
+
+// Three.js Earth
+const canvas = document.getElementById('earth-canvas');
+const container = canvas.parentElement;
+
+let scene, camera, renderer, earth, isPaused = false, rotationSpeed = 0.005;
+
+function init() {
+    scene = new THREE.Scene();
+
+    camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+    camera.position.z = 3;
+
+    renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // Earth geometry
+    const geometry = new THREE.SphereGeometry(1, 64, 64);
+
+    // Create procedural Earth texture
+    const earthCanvas = document.createElement('canvas');
+    earthCanvas.width = 512;
+    earthCanvas.height = 256;
+    const ctx = earthCanvas.getContext('2d');
+
+    // Ocean gradient using theme blues
+    const gradient = ctx.createLinearGradient(0, 0, 0, 256);
+    gradient.addColorStop(0, '#08519c');
+    gradient.addColorStop(0.5, '#2171b5');
+    gradient.addColorStop(1, '#08519c');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 512, 256);
+
+    // Simplified continents
+    ctx.fillStyle = '#6baed6';
+    // North America
+    ctx.beginPath();
+    ctx.ellipse(100, 80, 40, 30, 0, 0, Math.PI * 2);
+    ctx.fill();
+    // South America
+    ctx.beginPath();
+    ctx.ellipse(130, 160, 20, 35, 0.3, 0, Math.PI * 2);
+    ctx.fill();
+    // Europe/Africa
+    ctx.beginPath();
+    ctx.ellipse(270, 100, 25, 50, 0, 0, Math.PI * 2);
+    ctx.fill();
+    // Asia
+    ctx.beginPath();
+    ctx.ellipse(380, 80, 50, 35, 0, 0, Math.PI * 2);
+    ctx.fill();
+    // Australia
+    ctx.beginPath();
+    ctx.ellipse(420, 170, 20, 15, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Ice caps
+    ctx.fillStyle = '#eff3ff';
+    ctx.fillRect(0, 0, 512, 20);
+    ctx.fillRect(0, 236, 512, 20);
+
+    const texture = new THREE.CanvasTexture(earthCanvas);
+    const material = new THREE.MeshPhongMaterial({ map: texture, shininess: 5 });
+    earth = new THREE.Mesh(geometry, material);
+    scene.add(earth);
+
+    // Atmosphere glow
+    const atmosphereGeometry = new THREE.SphereGeometry(1.05, 64, 64);
+    const atmosphereMaterial = new THREE.MeshPhongMaterial({
+        color: 0x4292c6,
+        transparent: true,
+        opacity: 0.15,
+        side: THREE.BackSide
+    });
+    const atmosphere = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
+    scene.add(atmosphere);
+
+    // Lighting
+    const ambientLight = new THREE.AmbientLight(0x404040, 0.5);
+    scene.add(ambientLight);
+
+    const sunLight = new THREE.DirectionalLight(0xffffff, 1);
+    sunLight.position.set(5, 3, 5);
+    scene.add(sunLight);
+
+    // Mouse interaction
+    let isDragging = false;
+    let previousMousePosition = { x: 0, y: 0 };
+
+    canvas.addEventListener('mousedown', (e) => { isDragging = true; });
+    canvas.addEventListener('mouseup', () => { isDragging = false; });
+    canvas.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+            const deltaX = e.clientX - previousMousePosition.x;
+            const deltaY = e.clientY - previousMousePosition.y;
+            earth.rotation.y += deltaX * 0.005;
+            earth.rotation.x += deltaY * 0.005;
+        }
+        previousMousePosition = { x: e.clientX, y: e.clientY };
+    });
+
+    canvas.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        camera.position.z = Math.max(2, Math.min(6, camera.position.z + e.deltaY * 0.005));
+    });
+
+    // Speed slider
+    document.getElementById('speed-slider').addEventListener('input', (e) => {
+        rotationSpeed = parseFloat(e.target.value) * 0.005;
+    });
+
+    window.addEventListener('resize', onResize);
+    animate();
+}
+
+function animate() {
+    requestAnimationFrame(animate);
+    if (!isPaused) {
+        earth.rotation.y += rotationSpeed;
+    }
+    const degrees = ((earth.rotation.y * 180 / Math.PI) % 360).toFixed(1);
+    document.getElementById('rotation-info').innerHTML = `&theta; = ${degrees}&deg;`;
+    renderer.render(scene, camera);
+}
+
+function onResize() {
+    camera.aspect = container.clientWidth / container.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(container.clientWidth, container.clientHeight);
+}
+
+function togglePause() {
+    isPaused = !isPaused;
+    const btn = document.getElementById('pause-btn');
+    btn.innerHTML = isPaused ? '<i class="bi bi-play-fill"></i> Play' : '<i class="bi bi-pause-fill"></i> Pause';
+}
+
+function resetView() {
+    earth.rotation.set(0, 0, 0);
+    camera.position.z = 3;
+}
+
+init();
+</script>

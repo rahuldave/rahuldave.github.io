@@ -1,0 +1,773 @@
+/*-- scss:defaults --*/
+
+// ColorBrewer Blues Sequential Palette
+$cb-blue-50: #eff3ff;
+$cb-blue-100: #c6dbef;
+$cb-blue-200: #9ecae1;
+$cb-blue-300: #6baed6;
+$cb-blue-400: #4292c6;
+$cb-blue-500: #2171b5;
+$cb-blue-600: #08519c;
+$cb-blue-700: #084594;
+$cb-blue-800: #08306b;
+
+// Dark mode colors
+$dark-bg: #06111c;
+$dark-surface: #0d1f30;
+$dark-surface-raised: #142a3f;
+$dark-surface-sunken: #040c14;
+$dark-text: #e8eff5;
+$dark-text-secondary: #a8bfcf;
+$dark-text-muted: #6a8599;
+$dark-border: #1e3a52;
+$dark-border-subtle: #142a3f;
+
+// Core Bootstrap color overrides for dark mode
+$primary: $cb-blue-300;
+$secondary: $cb-blue-400;
+$link-color: $cb-blue-300;
+$link-hover-color: $cb-blue-200;
+
+// Body
+$body-bg: $dark-bg;
+$body-color: $dark-text;
+
+// Typography
+$font-family-sans-serif: 'Source Serif 4', Georgia, serif;
+$headings-font-family: 'Bitter', Georgia, serif;
+$font-family-monospace: 'IBM Plex Mono', 'Consolas', monospace;
+
+$font-size-base: 1.0625rem;
+$line-height-base: 1.75;
+$headings-line-height: 1.3;
+$headings-font-weight: 600;
+
+// Border radius
+$border-radius: 0.75rem;
+$border-radius-lg: 1rem;
+$border-radius-sm: 0.5rem;
+
+// Cards
+$card-border-radius: 1.25rem;
+$card-border-color: $dark-border;
+$card-bg: $dark-surface;
+
+// Code
+$code-color: $cb-blue-200;
+$pre-color: $dark-text;
+
+// Navbar
+$navbar-padding-y: 0.875rem;
+$navbar-padding-x: 1rem;
+$navbar-brand-font-size: 1.25rem;
+$navbar-dark-color: $dark-text-muted;
+$navbar-dark-hover-color: $cb-blue-300;
+$navbar-dark-active-color: $cb-blue-300;
+$navbar-dark-brand-color: $dark-text;
+$navbar-dark-brand-hover-color: $dark-text;
+$nav-link-font-weight: 500;
+
+/*-- scss:rules --*/
+
+// CSS Custom Properties for JS access
+:root {
+  --cb-blue-50: #{$cb-blue-50};
+  --cb-blue-100: #{$cb-blue-100};
+  --cb-blue-200: #{$cb-blue-200};
+  --cb-blue-300: #{$cb-blue-300};
+  --cb-blue-400: #{$cb-blue-400};
+  --cb-blue-500: #{$cb-blue-500};
+  --cb-blue-600: #{$cb-blue-600};
+  --cb-blue-700: #{$cb-blue-700};
+  --cb-blue-800: #{$cb-blue-800};
+
+  --font-heading: 'Bitter', Georgia, serif;
+  --font-body: 'Source Serif 4', Georgia, serif;
+  --font-mono: 'IBM Plex Mono', 'Consolas', monospace;
+
+  --color-primary: #{$cb-blue-300};
+  --color-primary-hover: #{$cb-blue-200};
+  --color-primary-muted: #{$cb-blue-400};
+  --color-primary-subtle: rgba(8, 69, 148, 0.3);
+
+  --color-background: #{$dark-bg};
+  --color-surface: #{$dark-surface};
+  --color-surface-raised: #{$dark-surface-raised};
+  --color-surface-sunken: #{$dark-surface-sunken};
+
+  --color-text: #{$dark-text};
+  --color-text-secondary: #{$dark-text-secondary};
+  --color-text-muted: #{$dark-text-muted};
+
+  --color-border: #{$dark-border};
+  --color-border-subtle: #{$dark-border-subtle};
+
+  --color-code-bg: #0a1824;
+  --color-code-text: #{$cb-blue-200};
+
+  --interactive-bg: linear-gradient(180deg, #030810 0%, #061018 100%);
+  --interactive-surface: rgba(13, 31, 48, 0.9);
+  --interactive-text: #ffffff;
+  --interactive-accent: #{$cb-blue-200};
+  --interactive-muted: #{$cb-blue-300};
+  --interactive-border: rgba(158, 202, 225, 0.2);
+  --interactive-glow: rgba(107, 174, 214, 0.4);
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 60px rgba(107, 174, 214, 0.2);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-fast: 150ms var(--ease-out);
+  --transition-base: 300ms var(--ease-out);
+  --transition-slow: 500ms var(--ease-out);
+}
+
+// ============================================
+// TYPOGRAPHY
+// ============================================
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: #{$dark-text};
+}
+
+h1, .h1 { font-weight: 700; }
+h4, .h4 { font-weight: 500; }
+
+p {
+  color: #{$dark-text-secondary};
+  line-height: 1.75;
+}
+
+a {
+  transition: all var(--transition-fast);
+}
+
+// ============================================
+// NAVBAR
+// ============================================
+
+.navbar {
+  background: #{$dark-surface} !important;
+  border-bottom: 1px solid #{$dark-border} !important;
+  transition: all var(--transition-base);
+}
+
+.navbar-brand {
+  font-family: var(--font-heading) !important;
+  font-weight: 700 !important;
+  color: #{$dark-text} !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.625rem !important;
+}
+
+// Brand mark (injected via JavaScript)
+.brand-mark {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  background: linear-gradient(145deg, #{$cb-blue-400}, #{$cb-blue-600});
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1rem;
+  box-shadow: var(--shadow-md), 0 0 20px rgba(33, 113, 181, 0.3);
+  transition: all var(--transition-base);
+  animation: brandPulse 4s ease-in-out infinite;
+
+  // Fix icon inside - remove any nested background
+  i, .bi {
+    background: none !important;
+    color: white !important;
+    font-size: 1rem;
+    line-height: 1;
+  }
+}
+
+@keyframes brandPulse {
+  0%, 100% { box-shadow: var(--shadow-md), 0 0 20px rgba(33, 113, 181, 0.3); }
+  50% { box-shadow: var(--shadow-md), 0 0 30px rgba(33, 113, 181, 0.5); }
+}
+
+.navbar-brand:hover .brand-mark {
+  transform: rotate(180deg);
+}
+
+// Ensure Quarto's theme toggle and search are visible
+.navbar .quarto-color-scheme-toggle,
+.navbar .bi-toggle-off,
+.navbar .bi-toggle-on,
+.navbar .bi-search,
+.navbar [aria-label="Search"],
+.navbar .nav-link.nav-link-icon {
+  color: #{$dark-text-muted} !important;
+}
+
+.navbar .quarto-color-scheme-toggle:hover,
+.navbar [aria-label="Search"]:hover {
+  color: #{$cb-blue-300} !important;
+}
+
+// Search icon specifically
+.navbar .aa-DetachedSearchButton,
+.navbar #quarto-search {
+  color: #{$dark-text-muted} !important;
+
+  i, .bi, svg {
+    color: #{$dark-text-muted} !important;
+    fill: #{$dark-text-muted} !important;
+  }
+}
+
+// Theme toggle icon - Override Quarto's SVG background with font icon
+#quarto-color-scheme-toggle,
+.quarto-color-scheme-toggle {
+  color: #{$dark-text-muted} !important;
+  font-size: 1.1rem;
+
+  i, .bi {
+    color: #{$dark-text-muted} !important;
+    font-family: "bootstrap-icons" !important;
+
+    // Override Quarto's ::before which uses background-image SVG
+    &::before {
+      content: "\f5a2" !important; // bi-sun-fill (dark mode - click for light)
+      background-image: none !important;
+      background: none !important;
+      width: auto !important;
+      height: auto !important;
+    }
+  }
+
+  // When .alternate class is present, show moon icon
+  &.alternate i::before,
+  &.alternate .bi::before {
+    content: "\f497" !important; // bi-moon-fill
+    background-image: none !important;
+  }
+}
+
+.navbar .nav-link,
+.navbar-nav .nav-link {
+  font-family: var(--font-heading) !important;
+  font-weight: 500 !important;
+  color: #{$dark-text-muted} !important;
+  border-radius: 8px;
+  transition: all var(--transition-fast);
+}
+
+.navbar .nav-link:hover,
+.navbar-nav .nav-link:hover {
+  color: #{$cb-blue-300} !important;
+  background: #{$dark-surface-raised};
+}
+
+// ============================================
+// TOC SIDEBAR - REMOVE BRACKET
+// ============================================
+
+#TOC {
+  font-family: var(--font-body);
+
+  &::before,
+  &::after {
+    display: none !important;
+  }
+
+  .active {
+    color: #{$cb-blue-300} !important;
+    font-weight: 500;
+    border-left: none !important;
+  }
+
+  a {
+    color: #{$dark-text-muted};
+    transition: color var(--transition-fast);
+    border-left: none !important;
+
+    &:hover {
+      color: #{$cb-blue-300};
+    }
+  }
+}
+
+.sidebar nav[role="doc-toc"] > ul,
+nav.toc-active > ul {
+  border-left: none !important;
+  padding-left: 0 !important;
+}
+
+.sidebar nav[role="doc-toc"] ul li a,
+nav.toc-active ul li a {
+  border-left: none !important;
+}
+
+// ============================================
+// HERO SECTION
+// ============================================
+
+.hero-section {
+  padding: 6rem 0 4rem;
+  position: relative;
+  overflow: hidden;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+}
+
+.hero-gradient {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 10% 90%, #{$cb-blue-800} 0%, transparent 50%),
+    radial-gradient(ellipse 60% 80% at 90% 10%, #{$cb-blue-700} 0%, transparent 50%),
+    radial-gradient(ellipse 50% 50% at 50% 50%, #{$cb-blue-800} 0%, transparent 60%);
+  opacity: 0.4;
+  animation: gradientShift 15s ease-in-out infinite;
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+}
+
+// Depth rings visual - Dark mode
+.depth-visual {
+  position: absolute;
+  right: 8%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 380px;
+  height: 380px;
+  z-index: 1;
+}
+
+.depth-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid;
+  transition: all var(--transition-slow);
+}
+
+.depth-ring-1 {
+  width: 100%;
+  height: 100%;
+  border-color: #{$cb-blue-700};
+  top: 0;
+  left: 0;
+  animation: ringPulse1 8s ease-in-out infinite;
+}
+
+.depth-ring-2 {
+  width: 80%;
+  height: 80%;
+  border-color: #{$cb-blue-600};
+  top: 10%;
+  left: 10%;
+  background: radial-gradient(circle, transparent 60%, rgba(8, 69, 148, 0.3) 100%);
+  animation: ringPulse2 8s ease-in-out infinite;
+}
+
+.depth-ring-3 {
+  width: 60%;
+  height: 60%;
+  border-color: #{$cb-blue-500};
+  top: 20%;
+  left: 20%;
+  background: radial-gradient(circle, transparent 50%, rgba(33, 113, 181, 0.3) 100%);
+  animation: ringPulse3 8s ease-in-out infinite;
+}
+
+.depth-ring-4 {
+  width: 40%;
+  height: 40%;
+  border-color: #{$cb-blue-400};
+  top: 30%;
+  left: 30%;
+  background: linear-gradient(145deg, #{$cb-blue-500}, #{$cb-blue-600});
+  animation: ringPulse4 8s ease-in-out infinite;
+}
+
+.depth-ring-5 {
+  width: 20%;
+  height: 20%;
+  top: 40%;
+  left: 40%;
+  background: linear-gradient(145deg, #{$cb-blue-300}, #{$cb-blue-400});
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #{$cb-blue-800};
+  font-size: 1.5rem;
+  box-shadow: var(--shadow-lg), 0 0 40px rgba(107, 174, 214, 0.4);
+  animation: coreGlow 4s ease-in-out infinite;
+}
+
+@keyframes ringPulse1 { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.02); } }
+@keyframes ringPulse2 { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+@keyframes ringPulse3 { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+@keyframes ringPulse4 { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+@keyframes coreGlow {
+  0%, 100% { box-shadow: var(--shadow-lg), 0 0 40px rgba(107, 174, 214, 0.4); }
+  50% { box-shadow: var(--shadow-lg), 0 0 60px rgba(107, 174, 214, 0.6); }
+}
+
+@media (max-width: 1100px) {
+  .depth-visual { display: none; }
+}
+
+@keyframes gradientShift {
+  0%, 100% { transform: scale(1) translate(0, 0); }
+  33% { transform: scale(1.1) translate(2%, -2%); }
+  66% { transform: scale(1.05) translate(-2%, 2%); }
+}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #{$cb-blue-300};
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s var(--ease-out) 0.2s forwards;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 32px;
+  height: 2px;
+  background: linear-gradient(90deg, #{$cb-blue-400}, #{$cb-blue-300});
+  border-radius: 1px;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 4vw, 2.75rem) !important;
+  font-weight: 700 !important;
+  margin-bottom: 1.5rem !important;
+  line-height: 1.15 !important;
+  background: linear-gradient(135deg, #{$cb-blue-100} 0%, #{$cb-blue-200} 50%, #{$cb-blue-300} 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s var(--ease-out) 0.4s forwards;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  color: #{$dark-text-secondary} !important;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s var(--ease-out) 0.6s forwards;
+}
+
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s var(--ease-out) 0.8s forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// FIX: Tags need explicit text color and fill
+.hero-tags p {
+  display: contents; // Allow tags to flow as if p wasn't there
+}
+
+.tag {
+  font-family: var(--font-mono) !important;
+  padding: 0.5rem 1rem !important;
+  background: rgba(8, 69, 148, 0.3) !important;
+  border: 1px solid #{$cb-blue-500} !important;
+  border-radius: 100px !important;
+  font-size: 0.75rem !important;
+  color: #{$cb-blue-200} !important;
+  -webkit-text-fill-color: #{$cb-blue-200} !important;
+  font-weight: 500 !important;
+  transition: all var(--transition-base);
+  cursor: default;
+  display: inline-block;
+  line-height: 1.4;
+}
+
+.tag:hover {
+  background: rgba(8, 69, 148, 0.5) !important;
+  border-color: #{$cb-blue-300} !important;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+// ============================================
+// LISTING CARDS
+// ============================================
+
+.quarto-grid-item {
+  background: #{$dark-surface};
+  border: 1px solid #{$dark-border};
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all var(--transition-base);
+  position: relative;
+  box-shadow: var(--shadow-sm);
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl), var(--shadow-glow);
+    border-color: #{$cb-blue-500};
+  }
+
+  .card-body, .body {
+    padding: 1.75rem;
+  }
+
+  .card-title, .title {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 0.75rem;
+    transition: color var(--transition-fast);
+    color: #{$dark-text};
+  }
+
+  &:hover .card-title,
+  &:hover .title {
+    color: #{$cb-blue-300};
+  }
+
+  .card-text, .description {
+    color: #{$dark-text-secondary};
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .listing-date, .date {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: #{$dark-text-muted};
+  }
+}
+
+// Category badges
+.quarto-category,
+.listing-category {
+  font-family: var(--font-mono) !important;
+  font-size: 0.7rem !important;
+  padding: 0.3rem 0.625rem !important;
+  background: #{$cb-blue-400} !important;
+  color: #{$cb-blue-800} !important;
+  border-radius: 100px !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.03em !important;
+  transition: all var(--transition-fast);
+
+  &:hover {
+    background: #{$cb-blue-300} !important;
+  }
+}
+
+// ============================================
+// CODE BLOCKS
+// ============================================
+
+pre {
+  border-radius: 12px;
+  border: 1px solid #{$dark-border};
+  box-shadow: var(--shadow-sm);
+  background: #0a1824 !important;
+}
+
+pre > code {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+
+:not(pre) > code {
+  background: #{$dark-surface-raised};
+  color: #{$cb-blue-200};
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.85em;
+  font-family: var(--font-mono);
+}
+
+// Jupyter/Quarto code cell styling - FIX DUAL SHADING
+.cell {
+  margin-bottom: 1.5rem;
+
+  // Remove the left border highlight
+  &[data-execution_count]::before,
+  &::before {
+    display: none !important;
+  }
+}
+
+// Fix code input area
+.cell > .sourceCode {
+  border-radius: 12px !important;
+  margin-bottom: 0 !important;
+}
+
+.cell-output {
+  border-radius: 0 0 12px 12px !important;
+  border: 1px solid #{$dark-border} !important;
+  border-top: none !important;
+  background: #{$dark-surface} !important;
+  padding: 1rem !important;
+  margin-top: 0 !important;
+
+  // Remove any left border highlight
+  &::before {
+    display: none !important;
+  }
+}
+
+.cell-output pre {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.cell-output-stdout,
+.cell-output-display {
+  background: transparent !important;
+  border: none !important;
+}
+
+// Override Quarto's cell output border indicator
+.cell-output-stdout::before,
+.cell-output-display::before {
+  display: none !important;
+}
+
+div.sourceCode {
+  border-radius: 12px !important;
+  overflow: hidden;
+  border: 1px solid #{$dark-border} !important;
+  background: #0a1824 !important;
+  margin: 0 !important;
+}
+
+// ============================================
+// TABLES
+// ============================================
+
+.table {
+  --bs-table-bg: transparent;
+  border-color: #{$dark-border};
+  color: #{$dark-text};
+
+  thead {
+    background: #{$dark-surface-raised};
+    font-family: var(--font-heading);
+    font-weight: 600;
+  }
+
+  th, td {
+    padding: 0.875rem 1rem;
+    border-color: #{$dark-border};
+  }
+}
+
+// ============================================
+// BUTTONS
+// ============================================
+
+.btn-primary {
+  background: linear-gradient(145deg, #{$cb-blue-400}, #{$cb-blue-500});
+  border: none;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+
+  &:hover {
+    background: linear-gradient(145deg, #{$cb-blue-300}, #{$cb-blue-400});
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+// ============================================
+// INTERACTIVE CONTAINER
+// ============================================
+
+.interactive-container {
+  background: var(--interactive-bg);
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid #{$dark-border};
+  box-shadow: var(--shadow-xl), var(--shadow-glow);
+  position: relative;
+}
+
+// ============================================
+// FOOTER
+// ============================================
+
+.nav-footer {
+  background: #{$dark-surface};
+  border-top: 1px solid #{$dark-border};
+}
+
+// ============================================
+// MISC
+// ============================================
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: #{$cb-blue-600};
+  color: #{$cb-blue-100};
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 2rem 0;
+  }
+
+  .quarto-grid-item {
+    .card-body, .body {
+      padding: 1.25rem;
+    }
+
+    &:hover {
+      transform: translateY(-4px);
+    }
+  }
+}

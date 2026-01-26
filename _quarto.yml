@@ -16,10 +16,16 @@ website:
 
 format:
   html:
-    theme: sandstone
-    css: styles.css
+    theme:
+      light: styles/modern-light.scss
+      dark: styles/modern-dark.scss
     toc: true
     reference-location: margin
     citation-location: margin
     csl: journal-of-neurochemistry.csl
-    include-before-body: ads.html
+    include-in-header: includes/fonts.html
+    include-after-body:
+      - includes/brand-icon.html
+    include-before-body:
+      - ads.html
+      - includes/theme-toggle.html

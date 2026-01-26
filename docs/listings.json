@@ -1,20 +1,11 @@
 [
   {
-    "listing": "/til.html",
+    "listing": "/posts.html",
     "items": [
-      "/til/open.html"
-    ]
-  },
-  {
-    "listing": "/index.html",
-    "items": [
-      "/posts/probability.html",
-      "/collections/software/hamilton.html",
       "/posts/boxloop.html",
-      "/collections/software/awk.html",
+      "/posts/probability.html",
+      "/posts/earth-demo/index.html",
       "/posts/votingforcongress/congress.html",
-      "/til/open.html",
-      "/collections/software/prefect.html",
       "/posts/lawoflargenumbers.html",
       "/posts/vizasstory.html"
     ]
@@ -28,13 +19,24 @@
     ]
   },
   {
-    "listing": "/posts.html",
+    "listing": "/index.html",
     "items": [
-      "/posts/boxloop.html",
       "/posts/probability.html",
+      "/posts/earth-demo/index.html",
+      "/collections/software/hamilton.html",
+      "/posts/boxloop.html",
+      "/collections/software/awk.html",
       "/posts/votingforcongress/congress.html",
+      "/til/open.html",
+      "/collections/software/prefect.html",
       "/posts/lawoflargenumbers.html",
       "/posts/vizasstory.html"
+    ]
+  },
+  {
+    "listing": "/til.html",
+    "items": [
+      "/til/open.html"
     ]
   }
 ]

@@ -1,7 +1,9 @@
 ---
 title: "Posts"
 listing:
-    contents: 
+    type: grid
+    grid-columns: 3
+    contents:
         - "posts/"
         - "posts/**/"
     categories: true

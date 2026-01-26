@@ -1,0 +1,31 @@
+// ColorBrewer Blues Sequential Palette
+// From light to dark for matplotlib compatibility
+
+$cb-blue-50: #eff3ff;
+$cb-blue-100: #c6dbef;
+$cb-blue-200: #9ecae1;
+$cb-blue-300: #6baed6;
+$cb-blue-400: #4292c6;
+$cb-blue-500: #2171b5;
+$cb-blue-600: #08519c;
+$cb-blue-700: #084594;
+$cb-blue-800: #08306b;
+
+// Typography
+$font-family-serif: 'Source Serif 4', Georgia, serif;
+$font-family-heading: 'Bitter', Georgia, serif;
+$font-family-mono: 'IBM Plex Mono', 'Consolas', monospace;
+
+// Shadows (for use in both themes)
+$shadow-xs: 0 1px 2px rgba(8, 48, 107, 0.05);
+$shadow-sm: 0 2px 4px rgba(8, 48, 107, 0.06);
+$shadow-md: 0 4px 12px rgba(8, 48, 107, 0.08);
+$shadow-lg: 0 8px 24px rgba(8, 48, 107, 0.1);
+$shadow-xl: 0 16px 48px rgba(8, 48, 107, 0.12);
+
+// Motion
+$ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+$ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+$transition-fast: 150ms #{$ease-out};
+$transition-base: 300ms #{$ease-out};
+$transition-slow: 500ms #{$ease-out};
