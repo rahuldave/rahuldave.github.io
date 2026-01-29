@@ -340,6 +340,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#project-overview" id="toc-project-overview" class="nav-link" data-scroll-target="#project-overview">Project Overview</a></li>
   <li><a href="#content-source" id="toc-content-source" class="nav-link" data-scroll-target="#content-source">Content Source</a></li>
   <li><a href="#content-import-status-from-am207-wiki" id="toc-content-import-status-from-am207-wiki" class="nav-link" data-scroll-target="#content-import-status-from-am207-wiki">Content Import Status (from AM207 wiki)</a></li>
+  <li><a href="#category-system" id="toc-category-system" class="nav-link" data-scroll-target="#category-system">Category System</a></li>
+  <li><a href="#about-page" id="toc-about-page" class="nav-link" data-scroll-target="#about-page">About Page</a></li>
+  <li><a href="#social-discussion-links" id="toc-social-discussion-links" class="nav-link" data-scroll-target="#social-discussion-links">Social / Discussion Links</a></li>
+  <li><a href="#listing-sort-order" id="toc-listing-sort-order" class="nav-link" data-scroll-target="#listing-sort-order">Listing Sort Order</a></li>
   <li><a href="#design" id="toc-design" class="nav-link" data-scroll-target="#design">Design</a>
   <ul class="collapse">
   <li><a href="#colorbrewer-blues-palette" id="toc-colorbrewer-blues-palette" class="nav-link" data-scroll-target="#colorbrewer-blues-palette">ColorBrewer Blues Palette</a></li>
@@ -349,6 +353,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#config" id="toc-config" class="nav-link" data-scroll-target="#config">Config</a></li>
   <li><a href="#posts-directory-layout" id="toc-posts-directory-layout" class="nav-link" data-scroll-target="#posts-directory-layout">Posts Directory Layout</a></li>
   <li><a href="#notebook-frontmatter-quarto-yaml" id="toc-notebook-frontmatter-quarto-yaml" class="nav-link" data-scroll-target="#notebook-frontmatter-quarto-yaml">Notebook Frontmatter (Quarto YAML)</a></li>
+  <li><a href="#card-images-for-posts-without-content-images" id="toc-card-images-for-posts-without-content-images" class="nav-link" data-scroll-target="#card-images-for-posts-without-content-images">Card Images for Posts Without Content Images</a></li>
   <li><a href="#three.js-interactive-.qmd-posts" id="toc-three.js-interactive-.qmd-posts" class="nav-link" data-scroll-target="#three.js-interactive-.qmd-posts">Three.js / Interactive .qmd Posts</a></li>
   <li><a href="#quarto-commands" id="toc-quarto-commands" class="nav-link" data-scroll-target="#quarto-commands">Quarto Commands</a></li>
   <li><a href="#imagedata-path-conventions" id="toc-imagedata-path-conventions" class="nav-link" data-scroll-target="#imagedata-path-conventions">Image/Data Path Conventions</a></li>
@@ -429,7 +434,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>distributions</code> — markdown only, imported to <code>posts/distributions.md</code></li>
 <li><code>distrib-example</code> — notebook, imported to <code>posts/distrib-example/</code></li>
 </ul></li>
-<li><strong>Lectures 2–26</strong>: NOT YET IMPORTED</li>
+<li><strong>Lecture 2 (Probability, Sampling, Laws, Monte Carlo)</strong>: DONE
+<ul>
+<li><code>distributions</code> — already imported (Lecture 1), skipped</li>
+<li><code>expectations</code> — notebook, imported to <code>posts/expectations/</code></li>
+<li><code>samplingclt</code> — notebook, imported to <code>posts/samplingclt/</code></li>
+<li><code>basicmontecarlo</code> — notebook, imported to <code>posts/basicmontecarlo/</code></li>
+<li><code>montecarlointegrals</code> — notebook, imported to <code>posts/montecarlointegrals/</code></li>
+</ul></li>
+<li><strong>Lectures 3–26</strong>: NOT YET IMPORTED</li>
+</ul>
+</section>
+<section id="category-system" class="level2">
+<h2 class="anchored" data-anchor-id="category-system">Category System</h2>
+<ul>
+<li>Canonical categories are in <code>_categories.txt</code> (root of project), one per line, sorted alphabetically</li>
+<li><strong>Current categories</strong>: data, elections, integration, interactive, macos, models, montecarlo, orchestration, pipeline, probability, statistics, visualization</li>
+<li>All categories must be lowercase</li>
+<li>When importing, map source keywords to existing categories; propose new ones for user approval</li>
+<li>The <code>/import-wiki-notes</code> skill enforces this workflow (step 7c)</li>
+</ul>
+</section>
+<section id="about-page" class="level2">
+<h2 class="anchored" data-anchor-id="about-page">About Page</h2>
+<ul>
+<li>Profile photo: <code>assets/profile.jpg</code> (sourced from GitHub avatar)</li>
+<li>Comprehensive bio context: <code>~/Context/rahul-dave-profile.md</code></li>
+<li>Contact form via Formspree (ID: <code>mykjwlyk</code>) — forwards to rahuldave@univ.ai</li>
+<li>Links: GitHub, X/Twitter, Bluesky (rahuldave.bsky.social), Google Scholar, LinkedIn</li>
+</ul>
+</section>
+<section id="social-discussion-links" class="level2">
+<h2 class="anchored" data-anchor-id="social-discussion-links">Social / Discussion Links</h2>
+<ul>
+<li><code>includes/discuss-links.html</code> — “Discuss this post” links (Twitter, Bluesky, LinkedIn) on posts, til, and collections pages only</li>
+<li>Uses IIFE (not DOMContentLoaded) because <code>include-after-body</code> runs after DOM is ready</li>
+<li>Links are constructed at runtime from <code>window.location.href</code> — will use production domain automatically</li>
+<li>Open Graph and Twitter Card metadata enabled in <code>_quarto.yml</code></li>
+</ul>
+</section>
+<section id="listing-sort-order" class="level2">
+<h2 class="anchored" data-anchor-id="listing-sort-order">Listing Sort Order</h2>
+<ul>
+<li>All listing pages sort by <code>date desc</code>: <code>index.qmd</code>, <code>posts.qmd</code>, <code>til.qmd</code>, <code>collections.qmd</code></li>
 </ul>
 </section>
 <section id="design" class="level2">
@@ -454,9 +501,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="config" class="level3">
 <h3 class="anchored" data-anchor-id="config">Config</h3>
 <ul>
-<li><code>_quarto.yml</code> — project config: website type, navbar, SCSS theme (light/dark), TOC, margin references</li>
+<li><code>_quarto.yml</code> — project config: website type, navbar, SCSS theme (light/dark), TOC, margin references, Open Graph, Twitter Cards</li>
 <li>Themes: <code>styles/modern-light.scss</code>, <code>styles/modern-dark.scss</code></li>
-<li>Includes: <code>includes/fonts.html</code>, <code>includes/brand-icon.html</code>, <code>includes/theme-toggle.html</code></li>
+<li>Includes: <code>includes/fonts.html</code>, <code>includes/brand-icon.html</code>, <code>includes/theme-toggle.html</code>, <code>includes/discuss-links.html</code></li>
 </ul>
 </section>
 <section id="posts-directory-layout" class="level3">
@@ -473,7 +520,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     assets/
       sep7.png
   earth-demo/
-    index.qmd          # Three.js demo using .qmd format</code></pre>
+    index.qmd          # Three.js demo using .qmd format
+    assets/
+      earth-card.png   # Card thumbnail for listing (no content images in post)</code></pre>
 <p><strong>Markdown posts</strong> stay as flat files, images go in shared <code>posts/images/</code> or <code>posts/data/</code>:</p>
 <pre><code>posts/
   boxloop.md           # URL becomes /posts/boxloop
@@ -497,10 +546,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li><code>subtitle</code> appears on listing cards</li>
 <li><code>description</code> is the longer summary</li>
-<li><code>categories</code> are used for filtering</li>
+<li><code>categories</code> are used for filtering (must be from <code>_categories.txt</code>)</li>
 <li><code>date</code> controls sort order</li>
+<li><code>image</code> — optional, for posts without content images (e.g.&nbsp;<code>image: assets/earth-card.png</code>)</li>
 </ul>
 <p>For markdown posts, the same YAML goes in the standard frontmatter block at the top.</p>
+</section>
+<section id="card-images-for-posts-without-content-images" class="level3">
+<h3 class="anchored" data-anchor-id="card-images-for-posts-without-content-images">Card Images for Posts Without Content Images</h3>
+<p>For posts with no embedded images (e.g.&nbsp;interactive Three.js demos), use the browser agent to screenshot the rendered page, crop to the key visual, save to <code>assets/</code>, and add <code>image:</code> to frontmatter. See skill step 9 for details.</p>
 </section>
 <section id="three.js-interactive-.qmd-posts" class="level3">
 <h3 class="anchored" data-anchor-id="three.js-interactive-.qmd-posts">Three.js / Interactive .qmd Posts</h3>
@@ -518,12 +572,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Notebook posts: <code>assets/filename.png</code> (relative to the notebook’s folder)</li>
 <li>Markdown posts: <code>images/filename.png</code> (relative to posts/)</li>
 <li>Site-wide assets already in <code>/assets/</code> (e.g.&nbsp;lawoflargenumbers images) use <code>/assets/...</code> absolute paths</li>
+<li>Profile photo: <code>assets/profile.jpg</code> (JPEG, not PNG — watch for GitHub avatar format mismatch)</li>
 </ul>
 </section>
 <section id="categories" class="level3">
 <h3 class="anchored" data-anchor-id="categories">Categories</h3>
 <ul>
 <li><strong>All categories must be lowercase</strong> — no <code>Statistics</code>, use <code>statistics</code>; no <code>MonteCarlo</code>, use <code>montecarlo</code></li>
+<li>Canonical list in <code>_categories.txt</code> at project root</li>
 <li>This prevents duplicate tags in Quarto listing filters</li>
 </ul>
 </section>
@@ -533,8 +589,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>title</code> — post title</li>
 <li><code>subtitle</code> — catchy one-liner shown on listing cards</li>
 <li><code>description</code> — 2-sentence content summary</li>
-<li><code>categories</code> — lowercase tags for filtering</li>
+<li><code>categories</code> — lowercase tags for filtering (from <code>_categories.txt</code>)</li>
 <li><code>date</code> — controls sort order (YYYY-MM-DD)</li>
+<li><code>image</code> — card thumbnail path (optional, for posts without content images)</li>
 </ul>
 </section>
 <section id="site-sections" class="level3">
@@ -552,6 +609,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>After adding/moving/renaming files, restart <code>quarto preview</code> — the live server caches resource IDs and will show “Bad resource ID” for changed files</li>
 <li>Listing <code>.qmd</code> files must not have a stray <code>---</code> after the YAML block (causes parse errors)</li>
 <li>Listing <code>contents</code> paths should NOT have a leading <code>/</code> (use <code>til/*.qmd</code> not <code>/til/*.qmd</code>)</li>
+<li><code>include-after-body</code> scripts run after DOMContentLoaded — use IIFE, not event listeners</li>
+<li>GitHub avatar downloads are JPEG even with <code>.png</code> URL — always check with <code>file</code> command and use correct extension</li>
 </ul>
 
 
