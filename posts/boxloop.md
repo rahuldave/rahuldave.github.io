@@ -1,7 +1,8 @@
 ---
 title: "Box's Loop"
-description: "Modeling is not the end, its just the beginning!"
-categories: ['models', 'probabilistic modeling']
+subtitle: "Build, compute, critique, repeat."
+description: "Box's Loop is a build-compute-critique-repeat cycle for probabilistic modeling, formalized by statistician George Box. It applies to the scientific method, recommendation systems, and any iterative data analysis workflow."
+categories: ['models', 'probability']
 date: 2024-09-23
 ---
 

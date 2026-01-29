@@ -3,9 +3,11 @@
     "listing": "/posts.html",
     "items": [
       "/posts/boxloop.html",
-      "/posts/probability.html",
+      "/posts/distributions.html",
+      "/posts/distrib-example/index.html",
+      "/posts/probability/index.html",
       "/posts/earth-demo/index.html",
-      "/posts/votingforcongress/congress.html",
+      "/posts/votingforcongress/index.html",
       "/posts/lawoflargenumbers.html",
       "/posts/vizasstory.html"
     ]
@@ -21,14 +23,12 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/probability.html",
       "/posts/earth-demo/index.html",
-      "/collections/software/hamilton.html",
+      "/posts/distrib-example/index.html",
+      "/posts/distributions.html",
+      "/posts/probability/index.html",
       "/posts/boxloop.html",
-      "/collections/software/awk.html",
-      "/posts/votingforcongress/congress.html",
-      "/til/open.html",
-      "/collections/software/prefect.html",
+      "/posts/votingforcongress/index.html",
       "/posts/lawoflargenumbers.html",
       "/posts/vizasstory.html"
     ]

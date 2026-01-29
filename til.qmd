@@ -2,14 +2,11 @@
 title: "Today I Learned"
 listing: 
   - id: til
-    contents: "/til/*.qmd"
+    contents: "til/*.qmd"
     type: table
     categories: true
     page-size: 10
 ---
-
----
-
 
 :::{#til}
 :::

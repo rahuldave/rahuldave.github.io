@@ -6,6 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2025-01-08">
+<meta name="description" content="Three ways to think about probability: symmetry, models, and long-run frequency, illustrated with coin-flip simulations. Covers the rules of probability, random variables, marginals, conditionals, and Bayes’ theorem with the Sally Clark case.">
 
 <title>Probability – rahuldave</title>
 <style>
@@ -58,28 +60,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-e0d64750a3675fa668af59a9862b8111.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-b3060d8ea35c318c34eef87f2d5e64c2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-a009389674a9596cea61ac77c12264b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-b3060d8ea35c318c34eef87f2d5e64c2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-e0d64750a3675fa668af59a9862b8111.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-b3060d8ea35c318c34eef87f2d5e64c2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-a009389674a9596cea61ac77c12264b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-b3060d8ea35c318c34eef87f2d5e64c2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -316,7 +318,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">rahuldave</span>
     </a>
   </div>
@@ -327,19 +329,19 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../posts.html"> 
+    <a class="nav-link" href="../../posts.html"> 
 <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../til.html"> 
+    <a class="nav-link" href="../../til.html"> 
 <span class="menu-text">TIL</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../collections.html"> 
+    <a class="nav-link" href="../../collections.html"> 
 <span class="menu-text">Collections</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -359,7 +361,8 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#contents" id="toc-contents" class="nav-link active" data-scroll-target="#contents">Contents</a></li>
+  <li><a href="#probability" id="toc-probability" class="nav-link active" data-scroll-target="#probability">Probability</a>
+  <ul class="collapse">
   <li><a href="#what-is-probability" id="toc-what-is-probability" class="nav-link" data-scroll-target="#what-is-probability">What is probability?</a>
   <ul class="collapse">
   <li><a href="#probability-from-symmetry" id="toc-probability-from-symmetry" class="nav-link" data-scroll-target="#probability-from-symmetry">Probability from Symmetry</a></li>
@@ -379,6 +382,7 @@ window.Quarto = {
   <li><a href="#bayes-rule" id="toc-bayes-rule" class="nav-link" data-scroll-target="#bayes-rule">Bayes rule</a></li>
   <li><a href="#independence" id="toc-independence" class="nav-link" data-scroll-target="#independence">Independence</a></li>
   <li><a href="#application-of-bayes-theorem" id="toc-application-of-bayes-theorem" class="nav-link" data-scroll-target="#application-of-bayes-theorem">Application of Bayes Theorem</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -426,13 +430,29 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Probability</h1>
-</div>
+<p class="subtitle lead">From coin flips to Bayes’ theorem.</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">probability</div>
+    <div class="quarto-category">statistics</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    Three ways to think about probability: symmetry, models, and long-run frequency, illustrated with coin-flip simulations. Covers the rules of probability, random variables, marginals, conditionals, and Bayes’ theorem with the Sally Clark case.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 8, 2025</p>
+    </div>
+  </div>
   
     
   </div>
@@ -442,13 +462,11 @@ window.Quarto = {
 </header>
 
 
+<section id="probability" class="level1">
+<h1>Probability</h1>
 <section id="keywords-probability-probability-rules-marginal-conditional-independence-bayes-theorem-random-variables" class="level5">
 <h5 class="anchored" data-anchor-id="keywords-probability-probability-rules-marginal-conditional-independence-bayes-theorem-random-variables">Keywords: probability, probability rules, marginal, conditional, independence, bayes theorem, random variables</h5>
-</section>
-<section id="contents" class="level2">
-<h2 class="anchored" data-anchor-id="contents">Contents</h2>
-<p>{:.no_toc} * {: toc}</p>
-<div id="cell-3" class="cell" data-hide="true" data-execution_count="1">
+<div id="cell-2" class="cell" data-hide="true" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
@@ -499,7 +517,7 @@ window.Quarto = {
 <section id="simulating-the-results-of-the-model" class="level4">
 <h4 class="anchored" data-anchor-id="simulating-the-results-of-the-model">Simulating the results of the model</h4>
 <p>We dont have a coin right now. So let us <strong>simulate</strong> this process on a computer. To do this we will use a form of the <strong>random number generator</strong> built into <code>numpy</code>. In particular, we will use the function <code>np.random.choice</code>, which will with equal probability for all items pick an item from a list (thus if the list is of size 6, it will pick one of the six list items each time, with a probability 1/6).</p>
-<div id="cell-7" class="cell" data-execution_count="4">
+<div id="cell-6" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> throw_a_coin(N):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.random.choice([<span class="st">'H'</span>,<span class="st">'T'</span>], size<span class="op">=</span>N)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>throws<span class="op">=</span>throw_a_coin(<span class="dv">40</span>)</span>
@@ -514,7 +532,7 @@ p1 = Number of Heads/Total Throws: 0.55</code></pre>
 </div>
 <p>Notice that you do not necessarily get 20 heads.</p>
 <p>Now say that we run the entire process again, a second <strong>replication</strong> to obtain a second sample. Then we ask the same question: what is the fraction of heads we get this time? Lets call the odds of heads in sample 2, then, <span class="math inline">\(p_2\)</span>:</p>
-<div id="cell-9" class="cell" data-execution_count="9">
+<div id="cell-8" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_throws(N):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    throws<span class="op">=</span>throw_a_coin(N)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> N <span class="op">&lt;=</span> <span class="dv">100</span>:</span>
@@ -531,7 +549,7 @@ p1 = Number of Heads/Total Throws: 0.625</code></pre>
 </div>
 </div>
 <p>Let’s do many more trials</p>
-<div id="cell-11" class="cell" data-execution_count="10">
+<div id="cell-10" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>make_throws(<span class="dv">1000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>First 100 Throws: H H H T H H T T T H T H H H H T T T H H H H H H T H T T T H T H T T T H H T H T H H H H T H T H T T H H T T T T T T H T H H T H T H T H T H T T H T H H H T H T T T H H T H T H T H T H H H H T T T T H
@@ -540,7 +558,7 @@ p1 = Number of Heads/Total Throws: 0.521</code></pre>
 </div>
 </div>
 <p>And even more:</p>
-<div id="cell-13" class="cell" data-execution_count="11">
+<div id="cell-12" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>make_throws(<span class="dv">10000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>First 100 Throws: H T T T H T T T H T T T T H T T H T H H H H T H T H T T H T H T H H H H T T H H H H T H H H H T H T T T H T H H T T T H T H T H T T T H T T T T H T H H H H H T T H H H T T H H H H H H T H T H T T T H
@@ -549,7 +567,7 @@ p1 = Number of Heads/Total Throws: 0.5047</code></pre>
 </div>
 </div>
 <p>As you can see, the larger number of trials we do, the closer we seem to get to half the tosses showing up heads. Lets see this more systematically:</p>
-<div id="cell-15" class="cell" data-execution_count="12">
+<div id="cell-14" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>trials<span class="op">=</span>np.arange(<span class="dv">0</span>, <span class="dv">40000</span>, <span class="dv">1000</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>plt.plot(trials, [np.<span class="bu">sum</span>(throw_a_coin(j)<span class="op">==</span><span class="st">'H'</span>)<span class="op">/</span>np.<span class="bu">float</span>(j) <span class="cf">for</span> j <span class="kw">in</span> trials], <span class="st">'o-'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)<span class="op">;</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>plt.axhline(<span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">1</span>, color<span class="op">=</span><span class="st">'r'</span>)<span class="op">;</span></span>
@@ -559,7 +577,7 @@ p1 = Number of Heads/Total Throws: 0.5047</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="probability_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -579,7 +597,7 @@ p1 = Number of Heads/Total Throws: 0.5047</code></pre>
 <p>These sets, along with some others are captured in the venn diagram below:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/venn.png" class="img-fluid figure-img"></p>
+<p><img src="assets/venn.png" class="img-fluid figure-img"></p>
 <figcaption>2 coin toss venn diagram</figcaption>
 </figure>
 </div>
@@ -597,7 +615,7 @@ p1 = Number of Heads/Total Throws: 0.5047</code></pre>
 <p>There are four ways that these two tosses can arrange themselves, as illustrated by this diagram, adapted from the <a href="http://www.feynmanlectures.caltech.edu/I_06.html">probability chapter</a> in Feynman’s lectures on Physics..you should read it!.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/2flips.png" class="img-fluid figure-img"></p>
+<p><img src="assets/2flips.png" class="img-fluid figure-img"></p>
 <figcaption>2 coin flips</figcaption>
 </figure>
 </div>
@@ -636,7 +654,7 @@ P(E+F) \, &amp; = &amp;\, P(E) + P(F) - P(EF)\\
 <p>The diagram below taken from Bishop may be used to illustrate the concepts of conditionals and marginals. Consider two random variables, <span class="math inline">\(X\)</span>, which takes the values <span class="math inline">\({x_i}\)</span> where <span class="math inline">\(i = 1,...,M\)</span>, and <span class="math inline">\(Y\)</span>, which takes the values <span class="math inline">\({y_j}\)</span> where <span class="math inline">\(j = 1,...,L\)</span>. The number of instances for which <span class="math inline">\(X = x_i\)</span> and <span class="math inline">\(Y = y_j\)</span> is <span class="math inline">\(n_{ij}\)</span>. The number of points in column i where <span class="math inline">\(X=x_i\)</span> is <span class="math inline">\(c_i\)</span>, and for the row where <span class="math inline">\(Y = y_j\)</span> is <span class="math inline">\(r_j\)</span>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="./images/bishop-prob.png" class="img-fluid figure-img"></p>
+<p><img src="assets/bishop-prob.png" class="img-fluid figure-img"></p>
 <figcaption>m:bishopprob</figcaption>
 </figure>
 </div>
@@ -708,6 +726,7 @@ p(data | notS2) = ? both died but not SIDS. Murder? =  30/650000    × 1/10 = 0.
 <p>Sally Clark spent <strong>3 years</strong> in jail.</p>
 
 
+</section>
 </section>
 </section>
 

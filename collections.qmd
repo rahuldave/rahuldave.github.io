@@ -8,10 +8,8 @@ listing:
     page-size: 10
 ---
 
----
-
 ### Software
 
-:::{#softwares}
+:::{#software}
 :::
 

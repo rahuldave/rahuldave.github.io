@@ -1,9 +1,10 @@
 ---
 title: "Visualization As Story"
-description: "How should you communicate your insights in Visualization?"
+subtitle: "Don't make your audience think."
+description: "Good visualizations frame data as a story, using annotations and conventions so the audience doesn't have to think. We walk through Financial Times COVID vaccine charts as examples of effective visual communication."
 date: 2022-12-03
 twitterurl: "https://twitter.com/rahuldave/status/1425200284301725708"
-categories: ["Visualization", "Communication", "Storytelling"]
+categories: ["visualization", "communication", "storytelling"]
 ---
 
 

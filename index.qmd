@@ -6,8 +6,6 @@ listing:
     categories: true
     sort: date desc
     contents:
-        - "collections/software/"
-        - "til/"
         - "posts/"
         - "posts/**/"
 ---

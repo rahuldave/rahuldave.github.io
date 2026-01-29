@@ -1,8 +1,9 @@
 ---
 title : "The LLN"
-description: "Probably the most important theorem in frequentist statistics"
+subtitle: "Flip enough coins and the truth emerges."
+description: "The Law of Large Numbers says the sample average converges to the true mean as sample size grows. We illustrate this with coin flips and connect frequentist sampling probability to inferential probability from symmetry."
 date: 2022-12-03
-categories: ["Statistics", "MonteCarlo"]
+categories: ["statistics", "montecarlo"]
 ---
 
 
