@@ -8,4 +8,5 @@ listing:
         - "posts/**/"
     categories: true
     sort: date desc
+    fields: [image, title, subtitle, date, categories]
 ---

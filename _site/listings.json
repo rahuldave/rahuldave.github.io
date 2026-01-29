@@ -2,11 +2,11 @@
   {
     "listing": "/posts.html",
     "items": [
+      "/posts/seasons/index.html",
       "/posts/montecarlointegrals/index.html",
       "/posts/basicmontecarlo/index.html",
       "/posts/samplingclt/index.html",
       "/posts/expectations/index.html",
-      "/posts/earth-demo/index.html",
       "/posts/distrib-example/index.html",
       "/posts/distributions.html",
       "/posts/probability/index.html",
@@ -29,11 +29,11 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/seasons/index.html",
       "/posts/montecarlointegrals/index.html",
       "/posts/basicmontecarlo/index.html",
       "/posts/samplingclt/index.html",
       "/posts/expectations/index.html",
-      "/posts/earth-demo/index.html",
       "/posts/distrib-example/index.html",
       "/posts/distributions.html",
       "/posts/probability/index.html",

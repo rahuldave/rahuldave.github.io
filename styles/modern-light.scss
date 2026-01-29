@@ -391,7 +391,7 @@ nav.toc-active ul li a {
   border-color: #{$cb-blue-400};
   top: 30%;
   left: 30%;
-  background: linear-gradient(145deg, #{$cb-blue-200}, #{$cb-blue-300});
+  background: linear-gradient(145deg, #{$cb-blue-100}, #{$cb-blue-200});
   animation: ringPulse4 8s ease-in-out infinite;
 }
 
@@ -400,7 +400,7 @@ nav.toc-active ul li a {
   height: 20%;
   top: 40%;
   left: 40%;
-  background: linear-gradient(145deg, #{$cb-blue-500}, #{$cb-blue-600});
+  background: linear-gradient(145deg, #{$cb-blue-300}, #{$cb-blue-400});
   border: none;
   display: flex;
   align-items: center;

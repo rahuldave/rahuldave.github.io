@@ -32,5 +32,4 @@ format:
       - includes/brand-icon.html
       - includes/discuss-links.html
     include-before-body:
-      - ads.html
       - includes/theme-toggle.html

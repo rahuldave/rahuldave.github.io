@@ -1,0 +1,50 @@
+<div class="latest-post">
+<% for (const item of items) { %>
+<a href="<%- item.path %>" class="latest-post-link">
+  <h2 class="latest-post-title"><%= item.title %></h2>
+</a>
+<% if (item.date) { %>
+<p class="latest-post-date"><%= new Date(item.date).toLocaleDateString('en-US', {month: 'long', day: 'numeric', year: 'numeric'}) %></p>
+<% } %>
+<% if (item.subtitle) { %>
+<p class="latest-post-subtitle"><%= item.subtitle %></p>
+<% } %>
+<% if (item.description) { %>
+<p class="latest-post-description"><%= item.description %></p>
+<% } %>
+<% } %>
+</div>
+
+<style>
+.latest-post {
+  margin-bottom: 1.5rem;
+}
+.latest-post-link {
+  text-decoration: none;
+  color: inherit;
+}
+.latest-post-link:hover .latest-post-title {
+  color: var(--cb-blue-500, #2171b5);
+}
+.latest-post-title {
+  font-size: 1.8rem;
+  margin-bottom: 0.25rem;
+  transition: color 0.2s ease;
+}
+.latest-post-date {
+  font-size: 0.9rem;
+  color: var(--bs-secondary-color, #6c757d);
+  margin-bottom: 0.5rem;
+}
+.latest-post-subtitle {
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--cb-blue-500, #2171b5);
+  margin-bottom: 0.5rem;
+}
+.latest-post-description {
+  font-size: 1rem;
+  color: var(--bs-body-color);
+  opacity: 0.85;
+}
+</style>

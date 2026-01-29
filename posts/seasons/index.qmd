@@ -1,0 +1,368 @@
+---
+title: "Why Do We Have Seasons?"
+subtitle: "Earth's 23.5° tilt is the secret — not distance from the Sun."
+description: "An interactive Three.js visualization showing how Earth's axial tilt causes seasons. Watch how sunlight hits the Northern and Southern hemispheres differently as you switch between summer, autumn, winter, and spring."
+date: "2026-01-29"
+categories: [visualization, interactive]
+image: assets/card.png
+format:
+  html:
+    include-in-header:
+      - text: |
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+---
+
+Seasons aren't caused by Earth's distance from the Sun. The secret is **Earth's 23.5° axial tilt**. As Earth orbits, different hemispheres tilt toward the Sun, receiving more direct sunlight — and that's what makes it warm.
+
+Use the buttons below to jump between seasons and see how the sun's rays strike Earth differently. The golden rays show parallel sunlight beams; the markers on Earth's surface show where light is concentrated (direct, small footprint = hot) versus spread out (angled, large footprint = cool).
+
+::: {.interactive-container style="min-height: 580px; position: relative; background: #0a0a1a; border-radius: 24px 24px 0 0; overflow: hidden; padding: 1.5rem;"}
+<div class="stars" id="stars"></div>
+<canvas id="seasons-canvas" style="width: calc(100% - 3rem); height: calc(100% - 3rem); display: block; position: absolute; top: 1.5rem; left: 1.5rem;"></canvas>
+<div id="season-label" style="position: absolute; top: 1.25rem; left: 50%; transform: translateX(-50%); font-family: var(--font-mono, monospace); font-size: 1.5rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #ff9f43; text-shadow: 0 0 20px rgba(255,159,67,0.5); z-index: 10;">SUMMER</div>
+<div style="position: absolute; top: 3rem; left: 50%; transform: translateX(-50%); font-size: 0.8rem; color: #a0a0c0; z-index: 10;">Northern Hemisphere</div>
+<div style="position: absolute; bottom: 1rem; left: 1rem; display: flex; gap: 10px; align-items: center; z-index: 10;">
+  <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; color: #a0a0c0;">
+    <span style="display:inline-block; width:12px; height:12px; border-radius:50%; background:#ffcc44; box-shadow: 0 0 6px #ffcc44;"></span> Direct (hot)
+  </span>
+  <span style="display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; color: #a0a0c0;">
+    <span style="display:inline-block; width:18px; height:12px; border-radius:50%; background:rgba(116,185,255,0.5); border: 2px solid #74b9ff;"></span> Angled (cool)
+  </span>
+</div>
+:::
+
+::: {style="padding: 1rem 1.5rem; background: var(--color-surface, #f8f9fa); border: 1px solid var(--color-border, #dee2e6); border-radius: 0 0 24px 24px; margin-top: -1px; margin-bottom: 2rem;"}
+<div style="display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center;">
+<button class="season-btn" data-season="summer" data-angle="0" onclick="jumpToSeason(this)" style="flex:1; min-width: 100px; padding: 0.6rem 1rem; border-radius: 12px; border: 1px solid var(--color-border, #dee2e6); background: var(--color-surface-sunken, #e9ecef); color: var(--color-text, #333); font-family: inherit; font-size: 0.9rem; font-weight: 500; cursor: pointer;">☀️ Summer</button>
+<button class="season-btn" data-season="autumn" data-angle="90" onclick="jumpToSeason(this)" style="flex:1; min-width: 100px; padding: 0.6rem 1rem; border-radius: 12px; border: 1px solid var(--color-border, #dee2e6); background: var(--color-surface-sunken, #e9ecef); color: var(--color-text, #333); font-family: inherit; font-size: 0.9rem; font-weight: 500; cursor: pointer;">🍂 Autumn</button>
+<button class="season-btn" data-season="winter" data-angle="180" onclick="jumpToSeason(this)" style="flex:1; min-width: 100px; padding: 0.6rem 1rem; border-radius: 12px; border: 1px solid var(--color-border, #dee2e6); background: var(--color-surface-sunken, #e9ecef); color: var(--color-text, #333); font-family: inherit; font-size: 0.9rem; font-weight: 500; cursor: pointer;">❄️ Winter</button>
+<button class="season-btn" data-season="spring" data-angle="270" onclick="jumpToSeason(this)" style="flex:1; min-width: 100px; padding: 0.6rem 1rem; border-radius: 12px; border: 1px solid var(--color-border, #dee2e6); background: var(--color-surface-sunken, #e9ecef); color: var(--color-text, #333); font-family: inherit; font-size: 0.9rem; font-weight: 500; cursor: pointer;">🌸 Spring</button>
+</div>
+:::
+
+## How It Works
+
+**Direct sunlight** concentrates energy in a small area — that's summer. **Angled sunlight** spreads the same energy over a larger area — that's winter. It's like a flashlight: shine it straight down and you get a bright spot; tilt it and the light spreads out and dims.
+
+A mind-blowing fact: Earth is actually **3 million miles closer** to the Sun during Northern Hemisphere winter! But 3 million out of 93 million is only ~3%. The **angle** of sunlight matters far more than distance.
+
+For a deeper exploration with orbits, speed controls, and camera modes, see the full [Earth & Sun Explorer](https://rahuldave.com/sunearthmoon/seasons.html).
+
+<script>
+// Stars
+(function() {
+    const starsContainer = document.getElementById('stars');
+    if (!starsContainer) return;
+    for (let i = 0; i < 80; i++) {
+        const star = document.createElement('div');
+        star.style.cssText = 'position:absolute; background:white; border-radius:50%; animation: twinkle ' + (Math.random()*2+2) + 's ease-in-out infinite ' + (Math.random()*3) + 's;';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        const size = (Math.random() * 2 + 1) + 'px';
+        star.style.width = size;
+        star.style.height = size;
+        starsContainer.appendChild(star);
+    }
+
+    // Add twinkle keyframes
+    if (!document.getElementById('twinkle-style')) {
+        const style = document.createElement('style');
+        style.id = 'twinkle-style';
+        style.textContent = '@keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }';
+        document.head.appendChild(style);
+    }
+})();
+
+// Three.js Seasons Scene
+const canvas = document.getElementById('seasons-canvas');
+const container = canvas.parentElement;
+
+let scene, camera, renderer;
+let sun, earth, earthGroup, earthTiltGroup;
+let sunRaysGroup, impactMarkersGroup;
+let orbitAngle = 0;
+let targetOrbitAngle = null;
+let earthDayRotation = 0;
+
+const EARTH_TILT = 23.5 * Math.PI / 180;
+const ORBIT_RADIUS = 30;
+const EARTH_RADIUS = 2;
+
+const SEASON_COLORS = {
+    summer: { color: '#ff9f43', shadow: 'rgba(255,159,67,0.5)' },
+    autumn: { color: '#e17055', shadow: 'rgba(225,112,85,0.5)' },
+    winter: { color: '#74b9ff', shadow: 'rgba(116,185,255,0.5)' },
+    spring: { color: '#00b894', shadow: 'rgba(0,184,148,0.5)' },
+};
+
+function init() {
+    scene = new THREE.Scene();
+
+    camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
+
+    renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.2;
+
+    createSun();
+    createEarth();
+    createLighting();
+
+    sunRaysGroup = new THREE.Group();
+    scene.add(sunRaysGroup);
+    impactMarkersGroup = new THREE.Group();
+    scene.add(impactMarkersGroup);
+
+    // Set initial position and camera for zoomed-in side view
+    updateEarthPosition();
+    positionCamera();
+
+    window.addEventListener('resize', onResize);
+    animate();
+}
+
+function createSun() {
+    const sunGeometry = new THREE.SphereGeometry(5, 64, 64);
+    const sunMaterial = new THREE.MeshBasicMaterial({ color: 0xffff80 });
+    sun = new THREE.Mesh(sunGeometry, sunMaterial);
+    scene.add(sun);
+
+    const glowColors = [
+        { color: 0xffdd44, scale: 1.2, opacity: 0.4 },
+        { color: 0xffaa22, scale: 1.5, opacity: 0.2 },
+        { color: 0xff6600, scale: 2.0, opacity: 0.1 },
+        { color: 0xff4400, scale: 2.8, opacity: 0.05 },
+    ];
+    glowColors.forEach(glow => {
+        const g = new THREE.SphereGeometry(5 * glow.scale, 32, 32);
+        const m = new THREE.MeshBasicMaterial({ color: glow.color, transparent: true, opacity: glow.opacity, side: THREE.BackSide });
+        sun.add(new THREE.Mesh(g, m));
+    });
+}
+
+function createEarth() {
+    earthGroup = new THREE.Group();
+    scene.add(earthGroup);
+
+    earthTiltGroup = new THREE.Group();
+    earthTiltGroup.rotation.z = EARTH_TILT;
+    earthGroup.add(earthTiltGroup);
+
+    const earthGeometry = new THREE.SphereGeometry(EARTH_RADIUS, 64, 64);
+
+    const c = document.createElement('canvas');
+    c.width = 512; c.height = 256;
+    const ctx = c.getContext('2d');
+
+    const oceanGradient = ctx.createLinearGradient(0, 0, 0, 256);
+    oceanGradient.addColorStop(0, '#1a4b7c');
+    oceanGradient.addColorStop(0.3, '#2563a8');
+    oceanGradient.addColorStop(0.7, '#2563a8');
+    oceanGradient.addColorStop(1, '#1a4b7c');
+    ctx.fillStyle = oceanGradient;
+    ctx.fillRect(0, 0, 512, 256);
+
+    ctx.fillStyle = '#3d8b40';
+    ctx.beginPath(); ctx.ellipse(100, 80, 60, 40, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(130, 170, 30, 50, 0.3, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(270, 90, 30, 25, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(280, 150, 35, 45, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(350, 80, 70, 45, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.ellipse(420, 180, 30, 20, 0, 0, Math.PI * 2); ctx.fill();
+
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, 512, 25);
+    ctx.fillRect(0, 231, 512, 25);
+
+    const earthTexture = new THREE.CanvasTexture(c);
+    const earthMaterial = new THREE.MeshStandardMaterial({ map: earthTexture, roughness: 0.8, metalness: 0.1 });
+    earth = new THREE.Mesh(earthGeometry, earthMaterial);
+    earthTiltGroup.add(earth);
+
+    // Atmosphere
+    const atmoGeom = new THREE.SphereGeometry(2.15, 64, 64);
+    const atmoMat = new THREE.MeshBasicMaterial({ color: 0x88ccff, transparent: true, opacity: 0.15, side: THREE.BackSide });
+    earth.add(new THREE.Mesh(atmoGeom, atmoMat));
+
+    // Axis line
+    const axisGeom = new THREE.CylinderGeometry(0.05, 0.05, 6, 8);
+    const axisMat = new THREE.MeshBasicMaterial({ color: 0x00d2d3, transparent: true, opacity: 0.8 });
+    earth.add(new THREE.Mesh(axisGeom, axisMat));
+
+    // Equator
+    const eqGeom = new THREE.TorusGeometry(EARTH_RADIUS + 0.02, 0.03, 8, 64);
+    const eqMat = new THREE.MeshBasicMaterial({ color: 0xffdd44, transparent: true, opacity: 0.8 });
+    const eq = new THREE.Mesh(eqGeom, eqMat);
+    eq.rotation.x = Math.PI / 2;
+    earth.add(eq);
+
+    // Pole markers
+    const poleGeom = new THREE.SphereGeometry(0.2, 16, 16);
+    const northPole = new THREE.Mesh(poleGeom, new THREE.MeshBasicMaterial({ color: 0x74b9ff }));
+    northPole.position.y = 3;
+    earth.add(northPole);
+    const southPole = new THREE.Mesh(poleGeom, new THREE.MeshBasicMaterial({ color: 0xff9f43 }));
+    southPole.position.y = -3;
+    earth.add(southPole);
+
+    earthGroup.position.x = ORBIT_RADIUS;
+}
+
+function createLighting() {
+    scene.add(new THREE.PointLight(0xffffff, 2, 200));
+    scene.add(new THREE.AmbientLight(0x222244, 0.3));
+}
+
+function updateEarthPosition() {
+    earthGroup.position.x = Math.cos(orbitAngle) * ORBIT_RADIUS;
+    earthGroup.position.z = Math.sin(orbitAngle) * ORBIT_RADIUS;
+}
+
+function positionCamera() {
+    // Side view: see sun, rays, and Earth with tilt clearly visible
+    const earthPos = earthGroup.position.clone();
+    const sunToEarth = earthPos.clone().normalize();
+    const perp = new THREE.Vector3().crossVectors(sunToEarth, new THREE.Vector3(0, 1, 0)).normalize();
+
+    const midpoint = earthPos.clone().multiplyScalar(0.6);
+    camera.position.copy(
+        midpoint.clone()
+            .add(perp.clone().multiplyScalar(18))
+            .add(new THREE.Vector3(0, 1, 0))
+    );
+    camera.lookAt(midpoint);
+}
+
+function updateSunRays() {
+    while (sunRaysGroup.children.length > 0) sunRaysGroup.remove(sunRaysGroup.children[0]);
+    while (impactMarkersGroup.children.length > 0) impactMarkersGroup.remove(impactMarkersGroup.children[0]);
+
+    const earthPos = earthGroup.position.clone();
+    const sunPos = new THREE.Vector3(0, 0, 0);
+    const dirToEarth = earthPos.clone().sub(sunPos).normalize();
+
+    const sunlightColor = 0xffcc55;
+    const rayOffsets = [{ y: 1.5 }, { y: 0.75 }, { y: 0 }, { y: -0.75 }, { y: -1.5 }];
+
+    rayOffsets.forEach(rayData => {
+        const perpDir = new THREE.Vector3(0, 1, 0);
+        const rayStart = sunPos.clone()
+            .add(dirToEarth.clone().multiplyScalar(6))
+            .add(perpDir.clone().multiplyScalar(rayData.y));
+        const rayEnd = rayStart.clone().add(dirToEarth.clone().multiplyScalar(ORBIT_RADIUS - 4));
+
+        const rayGeom = new THREE.BufferGeometry().setFromPoints([rayStart, rayEnd]);
+        const rayMat = new THREE.LineBasicMaterial({ color: sunlightColor, transparent: true, opacity: 0.8 });
+        sunRaysGroup.add(new THREE.Line(rayGeom, rayMat));
+
+        const rayLength = rayStart.distanceTo(rayEnd);
+        const rayMid = rayStart.clone().add(rayEnd).multiplyScalar(0.5);
+        const cylGeom = new THREE.CylinderGeometry(0.08, 0.08, rayLength, 8);
+        const cylMat = new THREE.MeshBasicMaterial({ color: sunlightColor, transparent: true, opacity: 0.5 });
+        const cyl = new THREE.Mesh(cylGeom, cylMat);
+        cyl.position.copy(rayMid);
+        cyl.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), dirToEarth);
+        sunRaysGroup.add(cyl);
+    });
+
+    // Impact markers
+    const earthWorldPos = new THREE.Vector3();
+    earthGroup.getWorldPosition(earthWorldPos);
+    earthTiltGroup.updateMatrixWorld();
+
+    const sunDir = earthWorldPos.clone().negate().normalize();
+    const northDir = new THREE.Vector3(0, 1, 0).applyMatrix4(
+        new THREE.Matrix4().extractRotation(earthTiltGroup.matrixWorld)
+    );
+    const tiltTowardSun = northDir.dot(sunDir);
+    const tiltDirection = Math.sign(tiltTowardSun) || 1;
+
+    // Direct marker
+    const directGeom = new THREE.CircleGeometry(0.25, 32);
+    const directMat = new THREE.MeshBasicMaterial({ color: 0xffcc44, transparent: true, opacity: 0.95, side: THREE.DoubleSide });
+    const directMarker = new THREE.Mesh(directGeom, directMat);
+    const directPos = sunDir.clone().multiplyScalar(EARTH_RADIUS + 0.1);
+    directPos.add(northDir.clone().multiplyScalar(0.5 * tiltDirection));
+    directPos.normalize().multiplyScalar(EARTH_RADIUS + 0.1);
+    directMarker.position.copy(directPos);
+    directMarker.lookAt(directPos.clone().multiplyScalar(2));
+    impactMarkersGroup.add(directMarker);
+
+    // Spread marker
+    const spreadGeom = new THREE.RingGeometry(0.35, 0.55, 32);
+    const spreadMat = new THREE.MeshBasicMaterial({ color: 0x74b9ff, transparent: true, opacity: 0.7, side: THREE.DoubleSide });
+    const spreadMarker = new THREE.Mesh(spreadGeom, spreadMat);
+    const spreadPos = sunDir.clone().multiplyScalar(EARTH_RADIUS + 0.1);
+    spreadPos.add(northDir.clone().multiplyScalar(-0.5 * tiltDirection));
+    spreadPos.normalize().multiplyScalar(EARTH_RADIUS + 0.1);
+    spreadMarker.position.copy(spreadPos);
+    spreadMarker.lookAt(spreadPos.clone().multiplyScalar(2));
+    spreadMarker.scale.set(1, 1.6, 1);
+    impactMarkersGroup.add(spreadMarker);
+
+    impactMarkersGroup.position.copy(earthWorldPos);
+    impactMarkersGroup.quaternion.copy(earthTiltGroup.quaternion);
+}
+
+function updateSeasonLabel() {
+    let a = orbitAngle % (Math.PI * 2);
+    if (a < 0) a += Math.PI * 2;
+
+    let season;
+    if (a < Math.PI / 4 || a >= 7 * Math.PI / 4) season = 'summer';
+    else if (a < 3 * Math.PI / 4) season = 'autumn';
+    else if (a < 5 * Math.PI / 4) season = 'winter';
+    else season = 'spring';
+
+    const label = document.getElementById('season-label');
+    const sc = SEASON_COLORS[season];
+    label.textContent = season.toUpperCase();
+    label.style.color = sc.color;
+    label.style.textShadow = '0 0 20px ' + sc.shadow;
+}
+
+function jumpToSeason(btn) {
+    targetOrbitAngle = parseInt(btn.dataset.angle) * Math.PI / 180;
+    document.querySelectorAll('.season-btn').forEach(b => b.style.fontWeight = '500');
+    btn.style.fontWeight = '700';
+}
+
+function onResize() {
+    camera.aspect = container.clientWidth / container.clientHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(container.clientWidth, container.clientHeight);
+}
+
+function animate() {
+    requestAnimationFrame(animate);
+
+    if (targetOrbitAngle !== null) {
+        let diff = targetOrbitAngle - orbitAngle;
+        if (diff > Math.PI) diff -= Math.PI * 2;
+        if (diff < -Math.PI) diff += Math.PI * 2;
+        if (Math.abs(diff) < 0.01) {
+            orbitAngle = targetOrbitAngle;
+            targetOrbitAngle = null;
+        } else {
+            orbitAngle += diff * 0.05;
+        }
+        updateEarthPosition();
+        positionCamera();
+    }
+
+    // Slow Earth rotation
+    earthDayRotation += 0.005;
+    earth.rotation.y = earthDayRotation;
+
+    // Slow sun rotation
+    sun.rotation.y += 0.002;
+
+    updateSunRays();
+    updateSeasonLabel();
+    renderer.render(scene, camera);
+}
+
+init();
+</script>

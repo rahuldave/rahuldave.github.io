@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Rahul’s Blog – rahuldave</title>
+<title>rahuldave</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -44,9 +44,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-b3060d8ea35c318c34eef87f2d5e64c2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-a009389674a9596cea61ac77c12264b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-b3060d8ea35c318c34eef87f2d5e64c2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-ec72792d6dc4f17121d2db76278f43e9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-4fd0e240db73e34c6fb34fb6a35ea8b4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-ec72792d6dc4f17121d2db76278f43e9.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -77,20 +77,48 @@ ul.task-list li input[type="checkbox"] {
 <script>
 
   window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    const listingTargetEl = window.document.querySelector('#listing-latest .list');
     if (!listingTargetEl) {
       // No listing discovered, do not attach.
       return; 
     }
 
     const options = {
-      valueNames: ['listing-title','listing-author','listing-date','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-title','listing-subtitle','listing-description','listing-date',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-date-modified-sort'] },{ data: ['listing-file-modified-sort'] },{ data: ['listing-reading-time-sort'] },{ data: ['listing-word-count-sort'] }],
+      
+      searchColumns: ["listing-project","listing-website","listing-format","listing-language","listing-title","listing-subtitle","listing-description","listing-categories","listing-date","listing-path","listing-outputHref","listing-date-modified","listing-author","listing-filename","listing-file-modified","listing-reading-time","listing-word-count","listing-jupyter","listing-image","listing-twitterurl"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-latest'] = new List('listing-latest', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  
+
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-recent .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-image','listing-title','listing-subtitle','listing-date','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
       searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+    window['quarto-listings']['listing-recent'] = new List('listing-recent', options);
 
     if (window['quarto-listing-loaded']) {
       window['quarto-listing-loaded']();
@@ -141,16 +169,16 @@ window.Quarto = {
 };
 </script>
 
-<meta property="og:title" content="Rahul’s Blog – rahuldave">
-<meta property="og:image" content="https://rahuldave.github.io/posts/earth-demo/assets/earth-card.png">
+<meta property="og:title" content="– rahuldave">
+<meta property="og:image" content="https://rahuldave.github.io/posts/seasons/assets/card.png">
 <meta property="og:site_name" content="rahuldave">
-<meta property="og:image:height" content="380">
-<meta property="og:image:width" content="500">
-<meta name="twitter:title" content="Rahul’s Blog – rahuldave">
-<meta name="twitter:image" content="https://rahuldave.github.io/posts/earth-demo/assets/earth-card.png">
+<meta property="og:image:height" content="518">
+<meta property="og:image:width" content="794">
+<meta name="twitter:title" content="– rahuldave">
+<meta name="twitter:image" content="https://rahuldave.github.io/posts/seasons/assets/card.png">
 <meta name="twitter:creator" content="@rahuldave">
-<meta name="twitter:image-height" content="380">
-<meta name="twitter:image-width" content="500">
+<meta name="twitter:image-height" content="518">
+<meta name="twitter:image-width" content="794">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -369,15 +397,10 @@ window.Quarto = {
   <li><a href="#recent-posts" id="toc-recent-posts" class="nav-link active" data-scroll-target="#recent-posts">Recent Posts</a></li>
   </ul>
 </nav>
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(12)</span></div><div class="category" data-category="ZWxlY3Rpb25z">elections <span class="quarto-category-count">(2)</span></div><div class="category" data-category="aW50ZWdyYXRpb24=">integration <span class="quarto-category-count">(1)</span></div><div class="category" data-category="aW50ZXJhY3RpdmU=">interactive <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bW9kZWxz">models <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bW9udGVjYXJsbw==">montecarlo <span class="quarto-category-count">(4)</span></div><div class="category" data-category="cHJvYmFiaWxpdHk=">probability <span class="quarto-category-count">(8)</span></div><div class="category" data-category="c3RhdGlzdGljcw==">statistics <span class="quarto-category-count">(6)</span></div><div class="category" data-category="dmlzdWFsaXphdGlvbg==">visualization <span class="quarto-category-count">(2)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(24)</span></div><div class="category" data-category="ZWxlY3Rpb25z">elections <span class="quarto-category-count">(4)</span></div><div class="category" data-category="aW50ZWdyYXRpb24=">integration <span class="quarto-category-count">(2)</span></div><div class="category" data-category="aW50ZXJhY3RpdmU=">interactive <span class="quarto-category-count">(2)</span></div><div class="category" data-category="bW9kZWxz">models <span class="quarto-category-count">(2)</span></div><div class="category" data-category="bW9udGVjYXJsbw==">montecarlo <span class="quarto-category-count">(8)</span></div><div class="category" data-category="cHJvYmFiaWxpdHk=">probability <span class="quarto-category-count">(16)</span></div><div class="category" data-category="c3RhdGlzdGljcw==">statistics <span class="quarto-category-count">(12)</span></div><div class="category" data-category="dmlzdWFsaXphdGlvbg==">visualization <span class="quarto-category-count">(4)</span></div></div></div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
-<script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7666405354675368" crossorigin="anonymous"></script>
-<ins class="adsbygoogle" style="display:block" data-ad-format="fluid" data-ad-layout-key="-hw+6+z-2d+n" data-ad-client="ca-pub-7666405354675368" data-ad-slot="5640316511"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
 <!-- Theme toggle persistence script -->
 <script>
 (function() {
@@ -410,25 +433,16 @@ window.Quarto = {
 })();
 </script>
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Rahul’s Blog</h1>
-</div>
 
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
+<style>
+#title-block-header { display: none !important; }
+main.content#quarto-document-content { padding-top: 0 !important; margin-top: 0 !important; }
+.hero-section { padding-top: 2rem !important; }
+.hero-content { padding-left: 2rem !important; }
+#listing-recent .quarto-listing-cols-3 > div:first-child { display: none; }
+</style>
 <div class="hero-section">
 <div class="hero-gradient">
 
@@ -453,29 +467,104 @@ window.Quarto = {
 </div>
 <div class="hero-content">
 <div class="hero-eyebrow">
-Data Science &amp; Machine Learning
+Data, Stats, ML and AI
 </div>
 <h1 class="hero-title">
-Exploring Probabilistic Thinking &amp; Computational Methods
+Rahul’s Lair
 </h1>
 <p class="hero-subtitle">
-A collection of notebooks, tutorials, and deep dives into statistical inference, machine learning, and the art of communicating with data.
+A collection of notebooks, tutorials, and deep dives into statistical inference, machine learning, AI, and the art of communicating with data.
 </p>
-<div class="hero-tags">
-<p><span class="tag">Bayesian Inference</span> <span class="tag">Machine Learning</span> <span class="tag">Data Visualization</span> <span class="tag">Python</span> <span class="tag">Statistics</span></p>
 </div>
 </div>
+<div style="margin-top: 2rem;">
+
+</div>
+<div id="listing-latest" class="quarto-listing quarto-listing-container-custom">
+<div class="latest-post">
+<a href="./posts/seasons/index.html" class="latest-post-link">
+<h2 class="latest-post-title anchored">
+Why Do We Have Seasons?
+</h2>
+</a><p><a href="./posts/seasons/index.html" class="latest-post-link"></a></p>
+<p class="latest-post-date">
+January 29, 2026
+</p>
+<p class="latest-post-subtitle">
+Earth’s 23.5° tilt is the secret — not distance from the Sun.
+</p>
+<p class="latest-post-description">
+An interactive Three.js visualization showing how Earth’s axial tilt causes seasons. Watch how sunlight hits the Northern and Southern hemispheres differently as you switch between summer, autumn, winter, and spring.
+</p>
+</div>
+<style>
+.latest-post {
+  margin-bottom: 1.5rem;
+}
+.latest-post-link {
+  text-decoration: none;
+  color: inherit;
+}
+.latest-post-link:hover .latest-post-title {
+  color: var(--cb-blue-500, #2171b5);
+}
+.latest-post-title {
+  font-size: 1.8rem;
+  margin-bottom: 0.25rem;
+  transition: color 0.2s ease;
+}
+.latest-post-date {
+  font-size: 0.9rem;
+  color: var(--bs-secondary-color, #6c757d);
+  margin-bottom: 0.5rem;
+}
+.latest-post-subtitle {
+  font-size: 1.15rem;
+  font-style: italic;
+  color: var(--cb-blue-500, #2171b5);
+  margin-bottom: 0.5rem;
+}
+.latest-post-description {
+  font-size: 1rem;
+  color: var(--bs-body-color);
+  opacity: 0.85;
+}
+</style>
+<div class="listing-no-matching d-none">No matching items</div>
 </div>
 <section id="recent-posts" class="level2">
 <h2 class="anchored" data-anchor-id="recent-posts">Recent Posts</h2>
-
-
-
-</section>
-
-<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
+<div id="listing-recent" class="quarto-listing quarto-listing-container-grid">
 <div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="bW9udGVjYXJsbyUyQ2ludGVncmF0aW9uJTJDcHJvYmFiaWxpdHk=" data-listing-date-sort="1739941200000" data-listing-file-modified-sort="1769697474060" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="831">
+<div class="g-col-1" data-index="0" data-categories="dmlzdWFsaXphdGlvbiUyQ2ludGVyYWN0aXZl" data-listing-date-sort="1769662800000" data-listing-file-modified-sort="1769710148759" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13" data-listing-word-count-sort="2530">
+<a href="./posts/seasons/index.html" class="quarto-grid-link">
+<div class="quarto-grid-item card h-100 card-left">
+<p class="card-img-top">
+<img loading="lazy" src="./posts/seasons/assets/card.png" class="thumbnail-image card-img" style="height: 150px;">
+</p>
+<div class="card-body post-contents">
+<h5 class="no-anchor card-title listing-title">
+Why Do We Have Seasons?
+</h5>
+<div class="card-subtitle listing-subtitle">
+Earth’s 23.5° tilt is the secret — not distance from the Sun.
+</div>
+<div class="listing-categories">
+
+<div class="listing-category" onclick="window.quartoListingCategory('dmlzdWFsaXphdGlvbg=='); return false;">visualization</div>
+
+<div class="listing-category" onclick="window.quartoListingCategory('aW50ZXJhY3RpdmU='); return false;">interactive</div>
+
+</div>
+<div class="card-attribution card-text-small end">
+<div class="listing-date">
+Jan 29, 2026
+</div>
+</div>
+</div>
+</div></a>
+</div>
+<div class="g-col-1" data-index="1" data-categories="bW9udGVjYXJsbyUyQ2ludGVncmF0aW9uJTJDcHJvYmFiaWxpdHk=" data-listing-date-sort="1739941200000" data-listing-file-modified-sort="1769697474060" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="831">
 <a href="./posts/montecarlointegrals/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top"><img src="posts/montecarlointegrals/index_files/figure-html/cell-7-output-1.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
@@ -483,6 +572,9 @@ A collection of notebooks, tutorials, and deep dives into statistical inference,
 <h5 class="no-anchor card-title listing-title">
 Monte Carlo Integration
 </h5>
+<div class="card-subtitle listing-subtitle">
+When calculus is hard, sample instead.
+</div>
 <div class="listing-categories">
 
 <div class="listing-category" onclick="window.quartoListingCategory('bW9udGVjYXJsbw=='); return false;">montecarlo</div>
@@ -492,13 +584,7 @@ Monte Carlo Integration
 <div class="listing-category" onclick="window.quartoListingCategory('cHJvYmFiaWxpdHk='); return false;">probability</div>
 
 </div>
-<div class="card-text listing-description delink">
-<p>Formalizes Monte Carlo integration using uniform random samples and LOTUS, then extends to multidimensional integrals. Uses the Central Limit Theorem to estimate integration…</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-
-</div>
+<div class="card-attribution card-text-small end">
 <div class="listing-date">
 Feb 19, 2025
 </div>
@@ -506,7 +592,7 @@ Feb 19, 2025
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="1" data-categories="bW9udGVjYXJsbyUyQ3Byb2JhYmlsaXR5" data-listing-date-sort="1739509200000" data-listing-file-modified-sort="1769697474058" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="699">
+<div class="g-col-1" data-index="2" data-categories="bW9udGVjYXJsbyUyQ3Byb2JhYmlsaXR5" data-listing-date-sort="1739509200000" data-listing-file-modified-sort="1769697474058" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="699">
 <a href="./posts/basicmontecarlo/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top"><img src="posts/basicmontecarlo/index_files/figure-html/cell-3-output-3.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
@@ -514,6 +600,9 @@ Feb 19, 2025
 <h5 class="no-anchor card-title listing-title">
 Basic Monte Carlo
 </h5>
+<div class="card-subtitle listing-subtitle">
+Let randomness do the heavy lifting.
+</div>
 <div class="listing-categories">
 
 <div class="listing-category" onclick="window.quartoListingCategory('bW9udGVjYXJsbw=='); return false;">montecarlo</div>
@@ -521,13 +610,7 @@ Basic Monte Carlo
 <div class="listing-category" onclick="window.quartoListingCategory('cHJvYmFiaWxpdHk='); return false;">probability</div>
 
 </div>
-<div class="card-text listing-description delink">
-<p>Introduces Monte Carlo methods by estimating the area of a unit circle with random points. Covers the hit-or-miss method and rejection sampling as building blocks for Monte…</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-
-</div>
+<div class="card-attribution card-text-small end">
 <div class="listing-date">
 Feb 14, 2025
 </div>
@@ -535,7 +618,7 @@ Feb 14, 2025
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="2" data-categories="cHJvYmFiaWxpdHklMkNzdGF0aXN0aWNzJTJDbW9udGVjYXJsbw==" data-listing-date-sort="1738990800000" data-listing-file-modified-sort="1769697474052" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11" data-listing-word-count-sort="2183">
+<div class="g-col-1" data-index="3" data-categories="cHJvYmFiaWxpdHklMkNzdGF0aXN0aWNzJTJDbW9udGVjYXJsbw==" data-listing-date-sort="1738990800000" data-listing-file-modified-sort="1769697474052" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11" data-listing-word-count-sort="2183">
 <a href="./posts/samplingclt/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top"><img src="posts/samplingclt/index_files/figure-html/cell-8-output-1.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
@@ -543,6 +626,9 @@ Feb 14, 2025
 <h5 class="no-anchor card-title listing-title">
 Sampling and the Central Limit Theorem
 </h5>
+<div class="card-subtitle listing-subtitle">
+Why everything looks normal in the limit.
+</div>
 <div class="listing-categories">
 
 <div class="listing-category" onclick="window.quartoListingCategory('cHJvYmFiaWxpdHk='); return false;">probability</div>
@@ -552,13 +638,7 @@ Sampling and the Central Limit Theorem
 <div class="listing-category" onclick="window.quartoListingCategory('bW9udGVjYXJsbw=='); return false;">montecarlo</div>
 
 </div>
-<div class="card-text listing-description delink">
-<p>Builds sampling distributions from repeated coin-flip experiments, showing how the sample mean and its variance behave as sample size grows. Derives the Central Limit…</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-
-</div>
+<div class="card-attribution card-text-small end">
 <div class="listing-date">
 Feb 8, 2025
 </div>
@@ -566,7 +646,7 @@ Feb 8, 2025
 </div>
 </div></a>
 </div>
-<div class="g-col-1" data-index="3" data-categories="cHJvYmFiaWxpdHklMkNzdGF0aXN0aWNz" data-listing-date-sort="1738558800000" data-listing-file-modified-sort="1769697474048" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="747">
+<div class="g-col-1" data-index="4" data-categories="cHJvYmFiaWxpdHklMkNzdGF0aXN0aWNz" data-listing-date-sort="1738558800000" data-listing-file-modified-sort="1769697474048" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="747">
 <a href="./posts/expectations/index.html" class="quarto-grid-link">
 <div class="quarto-grid-item card h-100 card-left">
 <p class="card-img-top"><img src="posts/expectations/index_files/figure-html/cell-5-output-1.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
@@ -574,6 +654,9 @@ Feb 8, 2025
 <h5 class="no-anchor card-title listing-title">
 Expectations and the Law of Large Numbers
 </h5>
+<div class="card-subtitle listing-subtitle">
+What you expect is what you get — eventually.
+</div>
 <div class="listing-categories">
 
 <div class="listing-category" onclick="window.quartoListingCategory('cHJvYmFiaWxpdHk='); return false;">probability</div>
@@ -581,46 +664,9 @@ Expectations and the Law of Large Numbers
 <div class="listing-category" onclick="window.quartoListingCategory('c3RhdGlzdGljcw=='); return false;">statistics</div>
 
 </div>
-<div class="card-text listing-description delink">
-<p>Defines expected values, the Law of the Unconscious Statistician (LOTUS), and variance for discrete and continuous distributions. Demonstrates the Law of Large Numbers and…</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-
-</div>
+<div class="card-attribution card-text-small end">
 <div class="listing-date">
 Feb 3, 2025
-</div>
-</div>
-</div>
-</div></a>
-</div>
-<div class="g-col-1" data-index="4" data-categories="dmlzdWFsaXphdGlvbiUyQ2ludGVyYWN0aXZl" data-listing-date-sort="1737781200000" data-listing-file-modified-sort="1769697837029" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1242">
-<a href="./posts/earth-demo/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top">
-<img loading="lazy" src="./posts/earth-demo/assets/earth-card.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Rotating Earth
-</h5>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('dmlzdWFsaXphdGlvbg=='); return false;">visualization</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('aW50ZXJhY3RpdmU='); return false;">interactive</div>
-
-</div>
-<div class="card-text listing-description delink">
-<p>A Three.js demonstration showing Earth’s rotation with the Modern theme.</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-
-</div>
-<div class="listing-date">
-Jan 25, 2025
 </div>
 </div>
 </div>
@@ -634,6 +680,9 @@ Jan 25, 2025
 <h5 class="no-anchor card-title listing-title">
 Distributions Example: Elections
 </h5>
+<div class="card-subtitle listing-subtitle">
+Simulating a presidential election with coin flips.
+</div>
 <div class="listing-categories">
 
 <div class="listing-category" onclick="window.quartoListingCategory('cHJvYmFiaWxpdHk='); return false;">probability</div>
@@ -643,13 +692,7 @@ Distributions Example: Elections
 <div class="listing-category" onclick="window.quartoListingCategory('ZWxlY3Rpb25z'); return false;">elections</div>
 
 </div>
-<div class="card-text listing-description delink">
-<p>Simulates the 2012 US presidential election using Bernoulli coin flips for each state based on PredictWise probabilities. Introduces the Binomial distribution, the CLT’s…</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-
-</div>
+<div class="card-attribution card-text-small end">
 <div class="listing-date">
 Jan 15, 2025
 </div>
@@ -665,6 +708,9 @@ Jan 15, 2025
 <h5 class="no-anchor card-title listing-title">
 Distributions
 </h5>
+<div class="card-subtitle listing-subtitle">
+The shapes that randomness takes.
+</div>
 <div class="listing-categories">
 
 <div class="listing-category" onclick="window.quartoListingCategory('cHJvYmFiaWxpdHk='); return false;">probability</div>
@@ -672,13 +718,7 @@ Distributions
 <div class="listing-category" onclick="window.quartoListingCategory('c3RhdGlzdGljcw=='); return false;">statistics</div>
 
 </div>
-<div class="card-text listing-description delink">
-<p>Defines cumulative distribution functions, probability mass functions, and probability density functions with coin-toss examples. Covers the Uniform and Bernoulli…</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-
-</div>
+<div class="card-attribution card-text-small end">
 <div class="listing-date">
 Jan 12, 2025
 </div>
@@ -694,6 +734,9 @@ Jan 12, 2025
 <h5 class="no-anchor card-title listing-title">
 Probability
 </h5>
+<div class="card-subtitle listing-subtitle">
+From coin flips to Bayes’ theorem.
+</div>
 <div class="listing-categories">
 
 <div class="listing-category" onclick="window.quartoListingCategory('cHJvYmFiaWxpdHk='); return false;">probability</div>
@@ -701,13 +744,7 @@ Probability
 <div class="listing-category" onclick="window.quartoListingCategory('c3RhdGlzdGljcw=='); return false;">statistics</div>
 
 </div>
-<div class="card-text listing-description delink">
-<p>Three ways to think about probability: symmetry, models, and long-run frequency, illustrated with coin-flip simulations. Covers the rules of probability, random variables…</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-
-</div>
+<div class="card-attribution card-text-small end">
 <div class="listing-date">
 Jan 8, 2025
 </div>
@@ -723,6 +760,9 @@ Jan 8, 2025
 <h5 class="no-anchor card-title listing-title">
 Box’s Loop
 </h5>
+<div class="card-subtitle listing-subtitle">
+Build, compute, critique, repeat.
+</div>
 <div class="listing-categories">
 
 <div class="listing-category" onclick="window.quartoListingCategory('bW9kZWxz'); return false;">models</div>
@@ -730,13 +770,7 @@ Box’s Loop
 <div class="listing-category" onclick="window.quartoListingCategory('cHJvYmFiaWxpdHk='); return false;">probability</div>
 
 </div>
-<div class="card-text listing-description delink">
-<p>Box’s Loop is a build-compute-critique-repeat cycle for probabilistic modeling, formalized by statistician George Box. It applies to the scientific method, recommendation…</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-
-</div>
+<div class="card-attribution card-text-small end">
 <div class="listing-date">
 Sep 23, 2024
 </div>
@@ -752,18 +786,15 @@ Sep 23, 2024
 <h5 class="no-anchor card-title listing-title">
 Some Data Analysis about Congress
 </h5>
+<div class="card-subtitle listing-subtitle">
+Does the president’s party always lose seats in congress?
+</div>
 <div class="listing-categories">
 
 <div class="listing-category" onclick="window.quartoListingCategory('ZWxlY3Rpb25z'); return false;">elections</div>
 
 </div>
-<div class="card-text listing-description delink">
-<p>Analyzes historical data on how the sitting president’s party performs in congressional elections. Uses pandas for data wrangling and visualization to explore partisan…</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-
-</div>
+<div class="card-attribution card-text-small end">
 <div class="listing-date">
 Jun 6, 2023
 </div>
@@ -779,6 +810,9 @@ Jun 6, 2023
 <h5 class="no-anchor card-title listing-title">
 The LLN
 </h5>
+<div class="card-subtitle listing-subtitle">
+Flip enough coins and the truth emerges.
+</div>
 <div class="listing-categories">
 
 <div class="listing-category" onclick="window.quartoListingCategory('c3RhdGlzdGljcw=='); return false;">statistics</div>
@@ -786,13 +820,7 @@ The LLN
 <div class="listing-category" onclick="window.quartoListingCategory('bW9udGVjYXJsbw=='); return false;">montecarlo</div>
 
 </div>
-<div class="card-text listing-description delink">
-<p>The Law of Large Numbers says the sample average converges to the true mean as sample size grows. We illustrate this with coin flips and connect frequentist sampling…</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-
-</div>
+<div class="card-attribution card-text-small end">
 <div class="listing-date">
 Dec 3, 2022
 </div>
@@ -808,18 +836,15 @@ Dec 3, 2022
 <h5 class="no-anchor card-title listing-title">
 Visualization As Story
 </h5>
+<div class="card-subtitle listing-subtitle">
+Don’t make your audience think.
+</div>
 <div class="listing-categories">
 
 <div class="listing-category" onclick="window.quartoListingCategory('dmlzdWFsaXphdGlvbg=='); return false;">visualization</div>
 
 </div>
-<div class="card-text listing-description delink">
-<p>Good visualizations frame data as a story, using annotations and conventions so the audience doesn’t have to think. We walk through Financial Times COVID vaccine charts as…</p>
-</div>
-<div class="card-attribution card-text-small justify">
-<div class="listing-author">
-
-</div>
+<div class="card-attribution card-text-small end">
 <div class="listing-date">
 Dec 3, 2022
 </div>
@@ -829,7 +854,13 @@ Dec 3, 2022
 </div>
 </div>
 <div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</div>
+
+
+
+</section>
+
+</main> <!-- /main -->
 <!-- Inject yin-yang brand icon into navbar -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {

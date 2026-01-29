@@ -1,14 +1,34 @@
 ---
-title: "Rahul's Blog"
+title: ""
+title-block-style: none
 listing:
-    type: grid
-    grid-columns: 3
-    categories: true
-    sort: date desc
-    contents:
-        - "posts/"
-        - "posts/**/"
+    - id: latest
+      type: custom
+      template: templates/latest-post.ejs
+      contents:
+          - "posts/"
+          - "posts/**/"
+      sort: date desc
+      max-items: 1
+      fields: [title, subtitle, description, date]
+    - id: recent
+      type: grid
+      grid-columns: 3
+      contents:
+          - "posts/"
+          - "posts/**/"
+      sort: date desc
+      categories: true
+      fields: [image, title, subtitle, date, categories]
 ---
+
+<style>
+#title-block-header { display: none !important; }
+main.content#quarto-document-content { padding-top: 0 !important; margin-top: 0 !important; }
+.hero-section { padding-top: 2rem !important; }
+.hero-content { padding-left: 2rem !important; }
+#listing-recent .quarto-listing-cols-3 > div:first-child { display: none; }
+</style>
 
 <div class="hero-section">
 <div class="hero-gradient"></div>
@@ -23,20 +43,20 @@ listing:
 </div>
 
 <div class="hero-content">
-<div class="hero-eyebrow">Data Science & Machine Learning</div>
+<div class="hero-eyebrow">Data, Stats, ML and AI</div>
 
-<h1 class="hero-title">Exploring Probabilistic Thinking & Computational Methods</h1>
+<h1 class="hero-title">Rahul's Lair</h1>
 
-<p class="hero-subtitle">A collection of notebooks, tutorials, and deep dives into statistical inference, machine learning, and the art of communicating with data.</p>
-
-<div class="hero-tags">
-  <span class="tag">Bayesian Inference</span>
-  <span class="tag">Machine Learning</span>
-  <span class="tag">Data Visualization</span>
-  <span class="tag">Python</span>
-  <span class="tag">Statistics</span>
+<p class="hero-subtitle">A collection of notebooks, tutorials, and deep dives into statistical inference, machine learning, AI, and the art of communicating with data.</p>
 </div>
 </div>
-</div>
+
+<div style="margin-top: 2rem;"></div>
+
+:::{#latest}
+:::
 
 ## Recent Posts
+
+:::{#recent}
+:::
