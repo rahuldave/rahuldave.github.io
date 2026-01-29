@@ -3,6 +3,10 @@ project:
 
 website:
   title: rahuldave
+  site-url: https://rahuldave.github.io
+  open-graph: true
+  twitter-card:
+    creator: "@rahuldave"
   navbar:
     left:
       - href: posts.qmd
@@ -26,6 +30,7 @@ format:
     include-in-header: includes/fonts.html
     include-after-body:
       - includes/brand-icon.html
+      - includes/discuss-links.html
     include-before-body:
       - ads.html
       - includes/theme-toggle.html

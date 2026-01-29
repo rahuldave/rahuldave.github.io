@@ -1,6 +1,6 @@
 ---
 title: Awk
-categories: ['data transformation']
+categories: ['data']
 date: 2023-12-03
 ---
 

@@ -7,4 +7,5 @@ listing:
         - "posts/"
         - "posts/**/"
     categories: true
+    sort: date desc
 ---

@@ -121,6 +121,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
+<meta property="og:title" content="Some Data Analysis about Congress – rahuldave">
+<meta property="og:description" content="Analyzes historical data on how the sitting president’s party performs in congressional elections. Uses pandas for data wrangling and visualization to explore partisan patterns over time.">
+<meta property="og:image" content="https://rahuldave.github.io/posts/votingforcongress/assets/sep7.png">
+<meta property="og:site_name" content="rahuldave">
+<meta property="og:image:height" content="1124">
+<meta property="og:image:width" content="1946">
+<meta name="twitter:title" content="Some Data Analysis about Congress – rahuldave">
+<meta name="twitter:description" content="Analyzes historical data on how the sitting president’s party performs in congressional elections. Uses pandas for data wrangling and visualization to explore partisan patterns over time.">
+<meta name="twitter:image" content="https://rahuldave.github.io/posts/votingforcongress/assets/sep7.png">
+<meta name="twitter:creator" content="@rahuldave">
+<meta name="twitter:image-height" content="1124">
+<meta name="twitter:image-width" content="1946">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -378,7 +391,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 class="title">Some Data Analysis about Congress</h1>
 <p class="subtitle lead">Does the president’s party always lose seats in congress?</p>
   <div class="quarto-categories">
-    <div class="quarto-category">congress</div>
+    <div class="quarto-category">elections</div>
   </div>
   </div>
 
@@ -860,6 +873,35 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
+<div id="discuss-links" style="margin-top: 2.5rem; padding-top: 1.5rem; margin-bottom: 4rem; border-top: 1px solid var(--color-border, #ddd);">
+  <p style="font-family: var(--font-mono, monospace); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted, #666); margin-bottom: 0.75rem;">Discuss this post</p>
+  <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+    <a id="discuss-twitter" href="#" target="_blank" rel="noopener" style="font-size: 0.9rem;">X / Twitter</a>
+    <a id="discuss-bluesky" href="#" target="_blank" rel="noopener" style="font-size: 0.9rem;">Bluesky</a>
+    <a id="discuss-linkedin" href="#" target="_blank" rel="noopener" style="font-size: 0.9rem;">LinkedIn</a>
+  </div>
+</div>
+<script>
+(function() {
+  var p = window.location.pathname;
+  var isContent = p.startsWith("/posts/") || p.startsWith("/til/") || p.startsWith("/collections/");
+  var isListing = (p === "/posts/" || p === "/posts" || p === "/til/" || p === "/til" || p === "/collections/" || p === "/collections");
+  if (!isContent || isListing) {
+    document.getElementById("discuss-links").style.display = "none";
+    return;
+  }
+
+  var url = encodeURIComponent(window.location.href);
+  var title = encodeURIComponent(document.title);
+
+  document.getElementById("discuss-twitter").href =
+    "https://twitter.com/intent/tweet?text=" + title + "&url=" + url + "&via=rahuldave";
+  document.getElementById("discuss-bluesky").href =
+    "https://bsky.app/intent/compose?text=" + title + " " + encodeURIComponent(window.location.href);
+  document.getElementById("discuss-linkedin").href =
+    "https://www.linkedin.com/sharing/share-offsite/?url=" + url;
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -946,7 +988,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/rahuldave\.github\.io");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

@@ -150,6 +150,19 @@ window.Quarto = {
 };
 </script>
 
+<meta property="og:title" content="Distributions Example: Elections – rahuldave">
+<meta property="og:description" content="Simulates the 2012 US presidential election using Bernoulli coin flips for each state based on PredictWise probabilities. Introduces the Binomial distribution, the CLT’s Gaussian approximation, and polling uncertainty via Gallup data.">
+<meta property="og:image" content="https://rahuldave.github.io/posts/distrib-example/index_files/figure-html/cell-4-output-3.png">
+<meta property="og:site_name" content="rahuldave">
+<meta property="og:image:height" content="566">
+<meta property="og:image:width" content="857">
+<meta name="twitter:title" content="Distributions Example: Elections – rahuldave">
+<meta name="twitter:description" content="Simulates the 2012 US presidential election using Bernoulli coin flips for each state based on PredictWise probabilities. Introduces the Binomial distribution, the CLT’s Gaussian approximation, and polling uncertainty via Gallup data.">
+<meta name="twitter:image" content="https://rahuldave.github.io/posts/distrib-example/index_files/figure-html/cell-4-output-3.png">
+<meta name="twitter:creator" content="@rahuldave">
+<meta name="twitter:image-height" content="566">
+<meta name="twitter:image-width" content="857">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -461,8 +474,6 @@ window.Quarto = {
 
 <section id="distributions-example---elections" class="level1">
 <h1>Distributions example - elections</h1>
-<section id="keywords-bernoulli-distribution-binomial-normal-distribution-central-limit-theorem-uniform-distribution-empirical-distribution-elections" class="level5">
-<h5 class="anchored" data-anchor-id="keywords-bernoulli-distribution-binomial-normal-distribution-central-limit-theorem-uniform-distribution-empirical-distribution-elections">Keywords: bernoulli distribution, binomial, normal distribution, central limit theorem, uniform distribution, empirical distribution, elections</h5>
 <div id="cell-2" class="cell" data-hide="true" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The %... is an iPython thing, and is not part of the Python language.</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># In this case we're just telling the plotting library to draw things on</span></span>
@@ -549,7 +560,6 @@ window.Quarto = {
 </div>
 <p>Say you toss a coin and have a model which says that the probability of heads is 0.5 (you have figured this out from symmetry, or physics, or something). Still, there will be sequences of flips in which more or less than half the flips are heads. These <strong>fluctuations</strong> induce a distribution on the number of heads (say k) in N coin tosses (this is a binomial distribution).</p>
 <p>Similarly, here, if the probability of Romney winning in Arizona is 0.938, it means that if somehow, there were 10000 replications (as if we were running the election in 10000 parallel universes) with an election each, Romney would win in 9380 of those Arizonas <strong>on the average</strong> across the replications. And there would be some replications with Romney winning more, and some with less. We can run these <strong>simulated</strong> universes or replications on a computer though not in real life.</p>
-</section>
 <section id="simulating-a-simple-election-model" class="level2">
 <h2 class="anchored" data-anchor-id="simulating-a-simple-election-model">Simulating a simple election model</h2>
 <p>To do this, we will assume that the outcome in each state is the result of an independent coin flip whose probability of coming up Obama is given by the Predictwise state-wise win probabilities. Lets write a function <code>simulate_election</code> that uses this <strong>predictive model</strong> to simulate the outcome of the election given a table of probabilities.</p>
@@ -968,6 +978,35 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
+<div id="discuss-links" style="margin-top: 2.5rem; padding-top: 1.5rem; margin-bottom: 4rem; border-top: 1px solid var(--color-border, #ddd);">
+  <p style="font-family: var(--font-mono, monospace); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted, #666); margin-bottom: 0.75rem;">Discuss this post</p>
+  <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+    <a id="discuss-twitter" href="#" target="_blank" rel="noopener" style="font-size: 0.9rem;">X / Twitter</a>
+    <a id="discuss-bluesky" href="#" target="_blank" rel="noopener" style="font-size: 0.9rem;">Bluesky</a>
+    <a id="discuss-linkedin" href="#" target="_blank" rel="noopener" style="font-size: 0.9rem;">LinkedIn</a>
+  </div>
+</div>
+<script>
+(function() {
+  var p = window.location.pathname;
+  var isContent = p.startsWith("/posts/") || p.startsWith("/til/") || p.startsWith("/collections/");
+  var isListing = (p === "/posts/" || p === "/posts" || p === "/til/" || p === "/til" || p === "/collections/" || p === "/collections");
+  if (!isContent || isListing) {
+    document.getElementById("discuss-links").style.display = "none";
+    return;
+  }
+
+  var url = encodeURIComponent(window.location.href);
+  var title = encodeURIComponent(document.title);
+
+  document.getElementById("discuss-twitter").href =
+    "https://twitter.com/intent/tweet?text=" + title + "&url=" + url + "&via=rahuldave";
+  document.getElementById("discuss-bluesky").href =
+    "https://bsky.app/intent/compose?text=" + title + " " + encodeURIComponent(window.location.href);
+  document.getElementById("discuss-linkedin").href =
+    "https://www.linkedin.com/sharing/share-offsite/?url=" + url;
+})();
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -1054,7 +1093,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/rahuldave\.github\.io");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

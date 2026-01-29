@@ -2,7 +2,8 @@
 title: "Rotating Earth"
 description: "A Three.js demonstration showing Earth's rotation with the Modern theme."
 date: "2025-01-25"
-categories: [visualization, three.js, interactive]
+categories: [visualization, interactive]
+image: assets/earth-card.png
 format:
   html:
     include-in-header:

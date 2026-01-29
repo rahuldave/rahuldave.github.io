@@ -1,6 +1,6 @@
 ---
 title: Stitchfix Hamilton
-categories: ['data', 'data transformation', 'dag']
+categories: ['data', 'pipeline']
 date: 2024-12-03
 ---
 

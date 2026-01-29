@@ -5,6 +5,7 @@ listing:
     contents: "collections/software/*.qmd"
     type: table
     categories: true
+    sort: date desc
     page-size: 10
 ---
 

@@ -2,4 +2,62 @@
 title: "About"
 ---
 
-About this site
+:::: {.columns}
+::: {.column width="30%"}
+![](assets/profile.jpg){.rounded-circle width="100%"}
+:::
+
+::: {.column width="5%"}
+:::
+
+::: {.column width="65%"}
+I'm **Rahul Dave** --- physicist, engineer, and practitioner of machine learning, AI, and data science. I also teach.
+
+I did my Ph.D. in physics at the University of Pennsylvania, where my thesis on quintessence and the cosmic microwave background was among the early works introducing dark energy. After that I spent over a decade at Harvard --- as a computational scientist at the Center for Astrophysics, then as a lecturer at SEAS and IACS, where I helped build courses like **CS109** (Data Science), **AM207** (Stochastic Methods and Bayesian Inference), and **CS207** (Systems Development for Computational Science).
+
+I'm co-founder and Chief Scientist at [Univ.AI](https://univ.ai), where we build AI solutions and teach machine learning. Through Univ.AI, I also consult on ML and data engineering problems --- we've worked with clients across oil and energy, insurance, finance, and sports.
+
+I'm a Bayesian at heart. I like interesting problems at the intersection of statistics, machine learning, and computation --- and I like explaining them clearly.
+:::
+::::
+
+### Interests
+
+- AI --- how it works, why it works, and where it breaks
+- Bayesian inference and probabilistic modeling
+- Machine learning and deep learning
+- Data visualization and communication
+- Cosmology and astrophysics
+- Development economics
+
+### Education
+
+- **Ph.D. Physics**, University of Pennsylvania, 2002
+- **B.S. Physics** (Honors), St. Xavier's College, University of Bombay, 1992
+
+### Elsewhere
+
+- [GitHub](https://github.com/rahuldave)
+- [X / Twitter](https://x.com/rahuldave)
+- [Bluesky](https://bsky.app/profile/rahuldave.bsky.social)
+- [Google Scholar](https://scholar.google.com/citations?user=W4S27gEAAAAJ)
+- [LinkedIn](https://www.linkedin.com/in/dr-rahul-dave-0115364/)
+
+### Get in Touch
+
+If you'd like to work with me --- consulting, AI/ML projects, or training --- drop me a message below.
+
+For questions about blog posts, course material, or anything else, find me on [X / Twitter](https://x.com/rahuldave).
+
+<form action="https://formspree.io/f/mykjwlyk" method="POST" style="max-width: 480px;">
+<label for="name" style="display:block; margin-bottom:0.25rem; font-weight:600;">Name</label>
+<input type="text" name="name" id="name" required style="width:100%; padding:0.5rem; margin-bottom:1rem; border:1px solid var(--color-border); border-radius:6px; background:var(--color-surface); color:var(--color-text);">
+
+<label for="email" style="display:block; margin-bottom:0.25rem; font-weight:600;">Email</label>
+<input type="email" name="email" id="email" required style="width:100%; padding:0.5rem; margin-bottom:1rem; border:1px solid var(--color-border); border-radius:6px; background:var(--color-surface); color:var(--color-text);">
+
+<label for="message" style="display:block; margin-bottom:0.25rem; font-weight:600;">Message</label>
+<textarea name="message" id="message" rows="5" required style="width:100%; padding:0.5rem; margin-bottom:1rem; border:1px solid var(--color-border); border-radius:6px; background:var(--color-surface); color:var(--color-text);"></textarea>
+
+<button type="submit" style="padding:0.5rem 1.5rem; border:none; border-radius:6px; background:var(--cb-blue-600, #08519c); color:white; font-weight:600; cursor:pointer;">Send</button>
+</form>

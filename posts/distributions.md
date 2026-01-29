@@ -2,7 +2,9 @@
 title: Distributions
 subtitle: "The shapes that randomness takes."
 description: "Defines cumulative distribution functions, probability mass functions, and probability density functions with coin-toss examples. Covers the Uniform and Bernoulli distributions, and conditional and marginal distributions."
-categories: [probability, statistics]
+categories:
+    - probability
+    - statistics
 date: 2025-01-12
 ---
 

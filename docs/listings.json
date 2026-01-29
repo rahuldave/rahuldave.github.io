@@ -2,11 +2,15 @@
   {
     "listing": "/posts.html",
     "items": [
-      "/posts/boxloop.html",
-      "/posts/distributions.html",
-      "/posts/distrib-example/index.html",
-      "/posts/probability/index.html",
+      "/posts/montecarlointegrals/index.html",
+      "/posts/basicmontecarlo/index.html",
+      "/posts/samplingclt/index.html",
+      "/posts/expectations/index.html",
       "/posts/earth-demo/index.html",
+      "/posts/distrib-example/index.html",
+      "/posts/distributions.html",
+      "/posts/probability/index.html",
+      "/posts/boxloop.html",
       "/posts/votingforcongress/index.html",
       "/posts/lawoflargenumbers.html",
       "/posts/vizasstory.html"
@@ -15,14 +19,18 @@
   {
     "listing": "/collections.html",
     "items": [
+      "/collections/software/hamilton.html",
       "/collections/software/awk.html",
-      "/collections/software/prefect.html",
-      "/collections/software/hamilton.html"
+      "/collections/software/prefect.html"
     ]
   },
   {
     "listing": "/index.html",
     "items": [
+      "/posts/montecarlointegrals/index.html",
+      "/posts/basicmontecarlo/index.html",
+      "/posts/samplingclt/index.html",
+      "/posts/expectations/index.html",
       "/posts/earth-demo/index.html",
       "/posts/distrib-example/index.html",
       "/posts/distributions.html",
