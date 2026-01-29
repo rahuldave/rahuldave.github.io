@@ -1,0 +1,72 @@
+---
+title: "DeeBase"
+description: "An async SQLAlchemy-based database library with an ergonomic, fastlite-inspired API for simple async database operations with multi-database compatibility."
+categories:
+    - data
+date: 2025-01-20
+---
+
+[DeeBase](https://github.com/rahulcredcore/deebase) is an async SQLAlchemy-based database library with a fastlite-inspired API that makes async database operations simple across multiple backends.
+
+## Example
+
+```python
+from dataclasses import dataclass
+from datetime import datetime
+from deebase import Database, ForeignKey, Text
+
+@dataclass
+class User:
+    id: int
+    name: str
+    email: str
+    status: str = "active"
+
+@dataclass
+class Post:
+    id: int
+    author_id: ForeignKey[int, "user"]
+    title: str
+    content: Text
+    created_at: datetime
+
+db = Database("sqlite+aiosqlite:///blog.db")
+users = await db.create(User, pk='id')
+posts = await db.create(Post, pk='id')
+
+alice = await users.insert(User(id=None, name="Alice", email="alice@example.com"))
+post = await posts.insert(Post(
+    id=None, author_id=alice.id, title="Hello",
+    content="First post!", created_at=datetime.now()
+))
+
+# FK navigation
+author = await posts.fk.author_id(post)
+print(author.name)  # "Alice"
+
+# Query
+all_posts = await posts()
+post = await posts[1]
+```
+
+## Features
+
+- **Async/await first** — built on SQLAlchemy 2.0+ with `aiosqlite` and `asyncpg` drivers
+- **Ergonomic API** — `await users[1]`, `await users()`, `await users.lookup(email="...")`
+- **Type safety** — optional `@dataclass` support with IDE autocomplete; or start with plain classes and call `.dataclass()` later
+- **Rich type system** — `str`, `Text`, `int`, `float`, `bool`, `bytes`, `dict` (JSON), `datetime`, `date`, `time`, `Optional[T]`
+- **Foreign keys and defaults** — `ForeignKey[int, "user"]` type annotation; SQL defaults from class field defaults
+- **FK navigation** — `await posts.fk.author_id(post)` to fetch parent; `await users.get_children(user, "post", "author_id")` for children
+- **Indexes** — simple, composite, unique, and named indexes via `Index` or `create_index()`
+- **Full-text search** — BM25-ranked search via SQLite FTS5 and PostgreSQL pg_textsearch with automatic index sync
+- **Views** — `db.create_view()` for JOINs and CTEs with full query API
+- **`xtra()` filtering** — create scoped table views that auto-apply filters on all operations including inserts
+- **Transactions** — atomic multi-operation commits with rollback
+- **Database reflection** — `await db.reflect()` to work with existing databases; access tables via `db.t.tablename`
+- **Code generation** — `create_mod_from_tables()` exports schemas as Python dataclasses
+- **6 exception types** — `NotFoundError`, `IntegrityError`, `ValidationError`, `SchemaError`, `ConnectionError`, `InvalidOperationError`
+- **CLI** — `deebase init`, `deebase table create`, `deebase migrate`, `deebase sql`, `deebase data`, and more
+- **Migrations** — schema migrations with `up`/`down` support and version tracking
+- **FastAPI integration** — `create_crud_router()` auto-generates CRUD endpoints with Swagger docs and FK validation
+- **Admin interface** — Django-like admin UI at `/admin/` via `deebase api serve --admin`
+- **Validation layer** — shared validation for CLI, admin, and API

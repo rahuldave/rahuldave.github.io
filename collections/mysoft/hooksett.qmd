@@ -1,0 +1,54 @@
+---
+title: "Hooksett"
+description: "A Python library providing a flexible, extensible hook system for managing parameters, metrics, and artifacts in machine learning workflows."
+categories:
+    - data
+    - pipeline
+date: 2025-01-15
+---
+
+[Hooksett](https://github.com/rahuldave/hooksett) is a Python library that provides a flexible, extensible hook system for managing parameters, metrics, and artifacts in ML workflows.
+
+## Example
+
+Annotate your ML class with tracked types, wire up a config loader and MLflow output, and every parameter and metric is automatically captured:
+
+```python
+from hooksett import tracked, HookManager
+from hooksett.hooks import YAMLConfigInput, TypeValidationHook, MLflowOutput
+
+type Parameter[T] = T
+type Metric[T] = T
+
+@tracked
+class Trainer:
+    learning_rate: Parameter[float] = 0.01
+    batch_size: Parameter[int] = 32
+    epochs: Parameter[int] = 100
+    accuracy: Metric[float] = 0.0
+    loss: Metric[float] = 0.0
+
+    def train(self):
+        for epoch in range(self.epochs):
+            # training step ...
+            self.accuracy = evaluate(model)
+            self.loss = compute_loss(model)
+
+# load params from YAML, validate, and log everything to MLflow
+manager = HookManager()
+manager.add_input_hook(YAMLConfigInput("config.yaml"))
+manager.add_input_hook(TypeValidationHook())
+manager.add_output_hook(MLflowOutput())
+```
+
+## Features
+
+- **`@tracked` class decorator** — monitors attribute changes on class instances via Python descriptors
+- **`@track_function` decorator** — tracks function parameters and local variables; values are saved to hooks once at function/method exit
+- **Local variable tracking** — annotate locals with `Traced[T]` inside methods or functions; only the final value at exit is captured
+- **Automatic parameter loading** — `YAMLConfigInput` hook loads configuration from YAML files into tracked attributes
+- **Parameter validation** — `TypeValidationHook` enforces type annotations; `RangeValidationHook` checks numeric bounds
+- **Custom type registry** — define domain-specific tracked types (`Parameter`, `Metric`, `Artifact`, `Prompt`, `Response`, `Feature`) via `register_tracked_type`
+- **Pluggable output hooks** — `TracedOutput` for logging, `MLflowOutput` for experiment tracking, or write your own `OutputHook`
+- **Singleton `HookManager`** — register input and output hooks once; all decorated classes and functions use them automatically
+- **Separation of config and code** — parameters live in YAML, validation in hooks, tracking in type annotations

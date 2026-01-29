@@ -1,15 +1,26 @@
 ---
 title: "Collections"
-listing: 
+listing:
   - id: software
     contents: "collections/software/*.qmd"
     type: table
     categories: true
     sort: date desc
     page-size: 10
+  - id: mysoft
+    contents: "collections/mysoft/*.qmd"
+    type: table
+    categories: true
+    sort: date desc
+    page-size: 10
 ---
 
-### Software
+### Software I've Written
+
+:::{#mysoft}
+:::
+
+### Software I Like
 
 :::{#software}
 :::

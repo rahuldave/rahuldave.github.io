@@ -91,6 +91,27 @@
     "text": "Alternatives\nSeveral alternatives exist. The old airflow and luigi are still around."
   },
   {
+    "objectID": "collections/mysoft/deebase.html",
+    "href": "collections/mysoft/deebase.html",
+    "title": "DeeBase",
+    "section": "",
+    "text": "DeeBase is an async SQLAlchemy-based database library with a fastlite-inspired API that makes async database operations simple across multiple backends."
+  },
+  {
+    "objectID": "collections/mysoft/deebase.html#example",
+    "href": "collections/mysoft/deebase.html#example",
+    "title": "DeeBase",
+    "section": "Example",
+    "text": "Example\nfrom dataclasses import dataclass\nfrom datetime import datetime\nfrom deebase import Database, ForeignKey, Text\n\n@dataclass\nclass User:\n    id: int\n    name: str\n    email: str\n    status: str = \"active\"\n\n@dataclass\nclass Post:\n    id: int\n    author_id: ForeignKey[int, \"user\"]\n    title: str\n    content: Text\n    created_at: datetime\n\ndb = Database(\"sqlite+aiosqlite:///blog.db\")\nusers = await db.create(User, pk='id')\nposts = await db.create(Post, pk='id')\n\nalice = await users.insert(User(id=None, name=\"Alice\", email=\"alice@example.com\"))\npost = await posts.insert(Post(\n    id=None, author_id=alice.id, title=\"Hello\",\n    content=\"First post!\", created_at=datetime.now()\n))\n\n# FK navigation\nauthor = await posts.fk.author_id(post)\nprint(author.name)  # \"Alice\"\n\n# Query\nall_posts = await posts()\npost = await posts[1]"
+  },
+  {
+    "objectID": "collections/mysoft/deebase.html#features",
+    "href": "collections/mysoft/deebase.html#features",
+    "title": "DeeBase",
+    "section": "Features",
+    "text": "Features\n\nAsync/await first — built on SQLAlchemy 2.0+ with aiosqlite and asyncpg drivers\nErgonomic API — await users[1], await users(), await users.lookup(email=\"...\")\nType safety — optional @dataclass support with IDE autocomplete; or start with plain classes and call .dataclass() later\nRich type system — str, Text, int, float, bool, bytes, dict (JSON), datetime, date, time, Optional[T]\nForeign keys and defaults — ForeignKey[int, \"user\"] type annotation; SQL defaults from class field defaults\nFK navigation — await posts.fk.author_id(post) to fetch parent; await users.get_children(user, \"post\", \"author_id\") for children\nIndexes — simple, composite, unique, and named indexes via Index or create_index()\nFull-text search — BM25-ranked search via SQLite FTS5 and PostgreSQL pg_textsearch with automatic index sync\nViews — db.create_view() for JOINs and CTEs with full query API\nxtra() filtering — create scoped table views that auto-apply filters on all operations including inserts\nTransactions — atomic multi-operation commits with rollback\nDatabase reflection — await db.reflect() to work with existing databases; access tables via db.t.tablename\nCode generation — create_mod_from_tables() exports schemas as Python dataclasses\n6 exception types — NotFoundError, IntegrityError, ValidationError, SchemaError, ConnectionError, InvalidOperationError\nCLI — deebase init, deebase table create, deebase migrate, deebase sql, deebase data, and more\nMigrations — schema migrations with up/down support and version tracking\nFastAPI integration — create_crud_router() auto-generates CRUD endpoints with Swagger docs and FK validation\nAdmin interface — Django-like admin UI at /admin/ via deebase api serve --admin\nValidation layer — shared validation for CLI, admin, and API"
+  },
+  {
     "objectID": "posts.html",
     "href": "posts.html",
     "title": "Posts",
@@ -102,7 +123,7 @@
     "href": "collections.html",
     "title": "Collections",
     "section": "",
-    "text": "Software\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nAuthor\n\n\n\n\n\n\n\n\nDec 3, 2024\n\n\nStitchfix Hamilton\n\n\n \n\n\n\n\n\n\nDec 3, 2023\n\n\nAwk\n\n\n \n\n\n\n\n\n\nDec 3, 2022\n\n\nPrefect-2.0\n\n\n \n\n\n\n\n\n\nNo matching items"
+    "text": "Software I’ve Written\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nAuthor\n\n\n\n\n\n\n\n\nJan 20, 2025\n\n\nDeeBase\n\n\n \n\n\n\n\n\n\nJan 15, 2025\n\n\nHooksett\n\n\n \n\n\n\n\n\n\nNo matching items\n\n\n\nSoftware I Like\n\n\n   \n    \n    \n      Order By\n      Default\n      \n        Date - Oldest\n      \n      \n        Date - Newest\n      \n      \n        Title\n      \n      \n        Author\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\n\nTitle\n\n\n\nAuthor\n\n\n\n\n\n\n\n\nDec 3, 2024\n\n\nStitchfix Hamilton\n\n\n \n\n\n\n\n\n\nDec 3, 2023\n\n\nAwk\n\n\n \n\n\n\n\n\n\nDec 3, 2022\n\n\nPrefect-2.0\n\n\n \n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html#recent-posts",
@@ -348,6 +369,27 @@
     "title": "open",
     "section": "",
     "text": "MacOS has a great command open. You can use it to open any file in any folder from the terminal in its default app. For example:\nopen bla.pdf\nwill open a file in Preview.\nSometimes you want another app. Then you can use the -a flag. Like so:\nopen -a /Applications/Typora.app bla.md"
+  },
+  {
+    "objectID": "collections/mysoft/hooksett.html",
+    "href": "collections/mysoft/hooksett.html",
+    "title": "Hooksett",
+    "section": "",
+    "text": "Hooksett is a Python library that provides a flexible, extensible hook system for managing parameters, metrics, and artifacts in ML workflows."
+  },
+  {
+    "objectID": "collections/mysoft/hooksett.html#example",
+    "href": "collections/mysoft/hooksett.html#example",
+    "title": "Hooksett",
+    "section": "Example",
+    "text": "Example\nAnnotate your ML class with tracked types, wire up a config loader and MLflow output, and every parameter and metric is automatically captured:\nfrom hooksett import tracked, HookManager\nfrom hooksett.hooks import YAMLConfigInput, TypeValidationHook, MLflowOutput\n\ntype Parameter[T] = T\ntype Metric[T] = T\n\n@tracked\nclass Trainer:\n    learning_rate: Parameter[float] = 0.01\n    batch_size: Parameter[int] = 32\n    epochs: Parameter[int] = 100\n    accuracy: Metric[float] = 0.0\n    loss: Metric[float] = 0.0\n\n    def train(self):\n        for epoch in range(self.epochs):\n            # training step ...\n            self.accuracy = evaluate(model)\n            self.loss = compute_loss(model)\n\n# load params from YAML, validate, and log everything to MLflow\nmanager = HookManager()\nmanager.add_input_hook(YAMLConfigInput(\"config.yaml\"))\nmanager.add_input_hook(TypeValidationHook())\nmanager.add_output_hook(MLflowOutput())"
+  },
+  {
+    "objectID": "collections/mysoft/hooksett.html#features",
+    "href": "collections/mysoft/hooksett.html#features",
+    "title": "Hooksett",
+    "section": "Features",
+    "text": "Features\n\n@tracked class decorator — monitors attribute changes on class instances via Python descriptors\n@track_function decorator — tracks function parameters and local variables; values are saved to hooks once at function/method exit\nLocal variable tracking — annotate locals with Traced[T] inside methods or functions; only the final value at exit is captured\nAutomatic parameter loading — YAMLConfigInput hook loads configuration from YAML files into tracked attributes\nParameter validation — TypeValidationHook enforces type annotations; RangeValidationHook checks numeric bounds\nCustom type registry — define domain-specific tracked types (Parameter, Metric, Artifact, Prompt, Response, Feature) via register_tracked_type\nPluggable output hooks — TracedOutput for logging, MLflowOutput for experiment tracking, or write your own OutputHook\nSingleton HookManager — register input and output hooks once; all decorated classes and functions use them automatically\nSeparation of config and code — parameters live in YAML, validation in hooks, tracking in type annotations"
   },
   {
     "objectID": "collections/software/hamilton.html#why-choose-this-tool",
