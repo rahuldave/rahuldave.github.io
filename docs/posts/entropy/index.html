@@ -565,7 +565,12 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="normal-as-maxent">Normal as maxent</h3>
 <p>The origin story of the gaussian itself is that many small effects add up to produce them. It is exactly the “many” aspect os these that makes the gaussian a maxent distribution. For every sequence that produces an unbalanced outcome(like a long string of heads), there are many more ways of producing a balanced outcome. In otherwords, there are so many microstates of the system that can produce the “peak” macrostates.</p>
 <p>This is a plot from McElreath of a bunch of generalized normal distributions. with same mean and variance. The Gaussuan has the highest entropy, as we shall prove below.</p>
-<p><img src="Generalized normal distributions (left) and their entropy as a function of shape parameter (right). The Gaussian (shape=2) has maximum entropy among distributions with fixed variance." class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/gen_norm.png" class="img-fluid figure-img"></p>
+<figcaption>Generalized normal distributions (left) and their entropy as a function of shape parameter (right). The Gaussian (shape=2) has maximum entropy among distributions with fixed variance.</figcaption>
+</figure>
+</div>
 <p>If you think about entropy increasing as we make a distribution flatter, you realize that the shape must come about because finite and equal variance puts a limit on how wide the distribution can be.</p>
 <p><span class="math display">\[\renewcommand{kld}{D_{KL}}\]</span></p>
 <p>For a gaussian</p>
@@ -616,7 +621,12 @@ h(x) &amp;=&amp; 1
 \end{eqnarray}
 \]</span></p>
 <p>Each member of the exponential family turns out to be a maximum entropy distribution subject to different constraints. These distributions are then used as likelihoods.</p>
-<p><img src="Relationships among members of the exponential family: Gamma, Normal, Binomial, and Poisson distributions arise as limiting cases of the Exponential distribution." class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/expofamily.png" class="img-fluid figure-img"></p>
+<figcaption>Relationships among members of the exponential family: Gamma, Normal, Binomial, and Poisson distributions arise as limiting cases of the Exponential distribution.</figcaption>
+</figure>
+</div>
 <p>For example, the gamma distribution, which we shall see later, is maximum entropy amongst all distributions with the same mean and same average logarithm. The poisson distribution, used for low event rates, is maxent under similar conditions as the binomial as it is a special case of the binomial. The exponential distribution is maxent among all non-negative continuous distributions with the same average inter-event displacement. (In our births example, the inter-birth time).</p>
 <p>We’ll talk more about these distributions when we encounter them, and when we talk about generalized linear models.</p>
 <p>But here is the critical point. We will often choose a maximum entropy distribution as a likelihood . Information entropy ennumerates the number of ways a distribution can arise, after having fixed some assumptions. Thus, in choosing a MAXENT distribution as a likelihood, we choose a distribution that once the constraints has been met, does not contain any additional assumptions. It is thus the most conservative distribution we could choose consistent with our constraints.</p>

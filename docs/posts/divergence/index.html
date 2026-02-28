@@ -574,14 +574,24 @@ window.Quarto = {
 <p>Clearly we can calculate deviance on the validation and test samples as well to remedy this issue. And the results will be similar to what we found with machine learning, with the training deviance decreasing with complexity and the testing deviance increasing. McElreath has a plot of this for data generated from a gaussian with standard deviation 1 and means:</p>
 <p><span class="math display">\[\mu_i = 0.15 x_{1,i} - 0.4 x_{2,i}\]</span></p>
 <p>The deviances in-sample and out-of sample, at 10,000 simulations for each model type, for two sample sizes are shown below.</p>
-<p><img src="In-sample vs. out-of-sample deviance as model complexity increases, for N=20 and N=100. From McElreath, Statistical Rethinking." class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/inoutdeviance.png" class="img-fluid figure-img"></p>
+<figcaption>In-sample vs.&nbsp;out-of-sample deviance as model complexity increases, for N=20 and N=100. From McElreath, Statistical Rethinking.</figcaption>
+</figure>
+</div>
 <p>Notice:</p>
 <ul>
 <li>the best fit model may not be the original generating model. Remember that the choice of fit depends on the amount of data you have and the less data you have, the less parameters you should use</li>
 <li>on average, out of sample deviance must be larger than in-sample deviance, through an individual pair may have that order reversed because of sample peculiarity.</li>
 </ul>
 <p>Now when one plots the mean deviances together, we see an interesting phenomenon:</p>
-<p><img src="AIC approximation (dashed) to out-of-sample deviance: the gap between in-sample and out-of-sample deviance grows roughly as twice the number of parameters. From McElreath, Statistical Rethinking." class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/devianceaic.png" class="img-fluid figure-img"></p>
+<figcaption>AIC approximation (dashed) to out-of-sample deviance: the gap between in-sample and out-of-sample deviance grows roughly as twice the number of parameters. From McElreath, Statistical Rethinking.</figcaption>
+</figure>
+</div>
 <p>The test set deviances are <span class="math inline">\(2*p\)</span> above the training set ones, approximately, where <span class="math inline">\(p\)</span> is the number of parameters in the model.</p>
 <p>This observation leads to an estimate of the out-of-sample deviance by what is called an <strong>information criterion</strong>, the Akake Information Criterion, or AIC:</p>
 <p><span class="math display">\[AIC = D_{train} + 2p\]</span></p>

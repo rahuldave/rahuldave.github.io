@@ -149,12 +149,16 @@ window.Quarto = {
 
 <meta property="og:title" content="Convexity and Jensen’s Inequality – rahuldave">
 <meta property="og:description" content="Introduces convex functions and proves Jensen’s inequality. Shows how convexity underpins key results in information theory and probabilistic modeling.">
-<meta property="og:image" content="https://rahuldave.github.io/posts/jensens/Jensen's inequality: for a convex function, the weighted average of function values always lies above the function of the weighted average.">
+<meta property="og:image" content="https://rahuldave.github.io/posts/jensens/assets/EM1.png">
 <meta property="og:site_name" content="rahuldave">
+<meta property="og:image:height" content="800">
+<meta property="og:image:width" content="1614">
 <meta name="twitter:title" content="Convexity and Jensen’s Inequality – rahuldave">
 <meta name="twitter:description" content="Introduces convex functions and proves Jensen’s inequality. Shows how convexity underpins key results in information theory and probabilistic modeling.">
-<meta name="twitter:image" content="https://rahuldave.github.io/posts/jensens/Jensen's inequality: for a convex function, the weighted average of function values always lies above the function of the weighted average.">
+<meta name="twitter:image" content="https://rahuldave.github.io/posts/jensens/assets/EM1.png">
 <meta name="twitter:creator" content="@rahuldave">
+<meta name="twitter:image-height" content="800">
+<meta name="twitter:image-width" content="1614">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -466,7 +470,12 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="convexity">Convexity</h2>
 <p>Let <span class="math inline">\(f\)</span> be a function with domain the set of real numbers. If the second derivative is greater than zero for all <span class="math inline">\(x\in R\)</span> this function is convex.</p>
 <p>Consider the case of two random variables <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span>, as seen in the diagram below:</p>
-<p><img src="Jensen's inequality: for a convex function, the weighted average of function values always lies above the function of the weighted average." class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/EM1.png" class="img-fluid figure-img"></p>
+<figcaption>Jensen’s inequality: for a convex function, the weighted average of function values always lies above the function of the weighted average.</figcaption>
+</figure>
+</div>
 <p><strong>Defnition</strong> Let f be a real valued function defined on an interval <span class="math inline">\(I = [a, b]\)</span>. <span class="math inline">\(f\)</span> is said to be convex on I if <span class="math inline">\(\forall x_1, x_2 \in I, \lambda \in [0, 1]\)</span>,</p>
 <p><span class="math display">\[\begin{equation}
 f(\lambda x_1 + (1 - \lambda)\,x_2) \le \lambda f(x_1) + (1- \lambda)\,f(x_2).
