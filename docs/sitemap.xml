@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://rahuldave.github.io/CLAUDE.html</loc>
-    <lastmod>2026-02-28T18:54:16.546Z</lastmod>
+    <lastmod>2026-02-28T21:12:33.011Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/collections/software/prefect.html</loc>
@@ -49,8 +49,12 @@
     <lastmod>2026-02-28T18:41:18.602Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/posts/frequentist.html</loc>
-    <lastmod>2026-02-28T17:11:03.715Z</lastmod>
+    <loc>https://rahuldave.github.io/posts/bayes_withsampling/index.html</loc>
+    <lastmod>2026-02-28T22:42:24.929Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rahuldave.github.io/posts/sufstatexch/index.html</loc>
+    <lastmod>2026-02-28T22:36:55.401Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/jensens/index.html</loc>
@@ -69,16 +73,20 @@
     <lastmod>2026-02-28T17:11:14.602Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/posts/montecarlointegrals/index.html</loc>
-    <lastmod>2026-02-28T18:41:18.605Z</lastmod>
+    <loc>https://rahuldave.github.io/posts/distrib-example/index.html</loc>
+    <lastmod>2026-02-28T18:41:18.608Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/boxloop.html</loc>
     <lastmod>2026-02-28T17:10:57.147Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/posts/distrib-example/index.html</loc>
-    <lastmod>2026-02-28T18:41:18.608Z</lastmod>
+    <loc>https://rahuldave.github.io/posts/montecarlointegrals/index.html</loc>
+    <lastmod>2026-02-28T18:41:18.605Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rahuldave.github.io/posts/globemodel/index.html</loc>
+    <lastmod>2026-02-28T22:42:24.931Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/probability/index.html</loc>
@@ -95,6 +103,10 @@
   <url>
     <loc>https://rahuldave.github.io/posts/regularization/index.html</loc>
     <lastmod>2026-02-28T18:41:18.581Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rahuldave.github.io/posts/frequentist.html</loc>
+    <lastmod>2026-02-28T17:11:03.715Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/entropy/index.html</loc>
