@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2025-02-19">
-<meta name="description" content="Formalizes Monte Carlo integration using uniform random samples and LOTUS, then extends to multidimensional integrals. Uses the Central Limit Theorem to estimate integration error and compares convergence rates with classical quadrature.">
+<meta name="dcterms.date" content="2025-01-21">
+<meta name="description" content="Introduces importance sampling as a method for computing expectations and integrals by reweighting samples from a proposal distribution. Shows how choosing a good proposal concentrates computation in regions that contribute most to the integral.">
 
-<title>Monte Carlo Integration – rahuldave</title>
+<title>Importance Sampling – rahuldave</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -147,18 +147,18 @@ window.Quarto = {
 };
 </script>
 
-<meta property="og:title" content="Monte Carlo Integration – rahuldave">
-<meta property="og:description" content="Formalizes Monte Carlo integration using uniform random samples and LOTUS, then extends to multidimensional integrals. Uses the Central Limit Theorem to estimate integration error and compares convergence rates with classical quadrature.">
-<meta property="og:image" content="https://rahuldave.github.io/posts/montecarlointegrals/index_files/figure-html/cell-7-output-1.png">
+<meta property="og:title" content="Importance Sampling – rahuldave">
+<meta property="og:description" content="Introduces importance sampling as a method for computing expectations and integrals by reweighting samples from a proposal distribution. Shows how choosing a good proposal concentrates computation in regions that contribute most to the integral.">
+<meta property="og:image" content="https://rahuldave.github.io/posts/importancesampling/assets/importance.png">
 <meta property="og:site_name" content="rahuldave">
-<meta property="og:image:height" content="356">
-<meta property="og:image:width" content="520">
-<meta name="twitter:title" content="Monte Carlo Integration – rahuldave">
-<meta name="twitter:description" content="Formalizes Monte Carlo integration using uniform random samples and LOTUS, then extends to multidimensional integrals. Uses the Central Limit Theorem to estimate integration error and compares convergence rates with classical quadrature.">
-<meta name="twitter:image" content="https://rahuldave.github.io/posts/montecarlointegrals/index_files/figure-html/cell-7-output-1.png">
+<meta property="og:image:height" content="300">
+<meta property="og:image:width" content="440">
+<meta name="twitter:title" content="Importance Sampling – rahuldave">
+<meta name="twitter:description" content="Introduces importance sampling as a method for computing expectations and integrals by reweighting samples from a proposal distribution. Shows how choosing a good proposal concentrates computation in regions that contribute most to the integral.">
+<meta name="twitter:image" content="https://rahuldave.github.io/posts/importancesampling/assets/importance.png">
 <meta name="twitter:creator" content="@rahuldave">
-<meta name="twitter:image-height" content="356">
-<meta name="twitter:image-width" content="520">
+<meta name="twitter:image-height" content="300">
+<meta name="twitter:image-width" content="440">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -374,17 +374,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-basic-idea" id="toc-the-basic-idea" class="nav-link active" data-scroll-target="#the-basic-idea">The basic idea</a>
-  <ul class="collapse">
-  <li><a href="#example." id="toc-example." class="nav-link" data-scroll-target="#example.">Example.</a></li>
-  <li><a href="#mutlidimensional-integral." id="toc-mutlidimensional-integral." class="nav-link" data-scroll-target="#mutlidimensional-integral.">Mutlidimensional integral.</a></li>
-  </ul></li>
-  <li><a href="#monte-carlo-as-a-function-of-number-of-samples" id="toc-monte-carlo-as-a-function-of-number-of-samples" class="nav-link" data-scroll-target="#monte-carlo-as-a-function-of-number-of-samples">Monte-Carlo as a function of number of samples</a></li>
-  <li><a href="#errors-in-mc" id="toc-errors-in-mc" class="nav-link" data-scroll-target="#errors-in-mc">Errors in MC</a>
-  <ul class="collapse">
-  <li><a href="#estimating-the-error-in-mc-integration-using-the-clt." id="toc-estimating-the-error-in-mc-integration-using-the-clt." class="nav-link" data-scroll-target="#estimating-the-error-in-mc-integration-using-the-clt.">Estimating the error in MC integration using the CLT.</a></li>
-  <li><a href="#comparing-to-standard-integration-techniques" id="toc-comparing-to-standard-integration-techniques" class="nav-link" data-scroll-target="#comparing-to-standard-integration-techniques">Comparing to standard integration techniques</a></li>
-  </ul></li>
+  <li><a href="#example-calculate-_0-x-x-dx" id="toc-example-calculate-_0-x-x-dx" class="nav-link active" data-scroll-target="#example-calculate-_0-x-x-dx">Example: Calculate $_{0}^{} (x) , x , dx $</a></li>
   </ul>
 </nav>
     </div>
@@ -425,19 +415,18 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Monte Carlo Integration</h1>
-<p class="subtitle lead">When calculus is hard, sample instead.</p>
+<h1 class="title">Importance Sampling</h1>
+<p class="subtitle lead">Sample where it matters most to compute integrals efficiently.</p>
   <div class="quarto-categories">
     <div class="quarto-category">sampling</div>
     <div class="quarto-category">montecarlo</div>
     <div class="quarto-category">integration</div>
-    <div class="quarto-category">probability</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Formalizes Monte Carlo integration using uniform random samples and LOTUS, then extends to multidimensional integrals. Uses the Central Limit Theorem to estimate integration error and compares convergence rates with classical quadrature.
+    Introduces importance sampling as a method for computing expectations and integrals by reweighting samples from a proposal distribution. Shows how choosing a good proposal concentrates computation in regions that contribute most to the integral.
   </div>
 </div>
 
@@ -448,7 +437,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 19, 2025</p>
+      <p class="date">January 21, 2025</p>
     </div>
   </div>
   
@@ -460,195 +449,143 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-1" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
-</div>
-</div>
-<section id="the-basic-idea" class="level2">
-<h2 class="anchored" data-anchor-id="the-basic-idea">The basic idea</h2>
-<p>Let us formalize the basic idea behind Monte Carlo Integration in 1-D.</p>
-<p>Consider the definite integral:</p>
-<p><span class="math display">\[ I = \int_{a}^{b} f(x) \, dx \]</span></p>
-<p>Consider:</p>
-<p><span class="math display">\[ J = \int_{a}^{b} f(x) U_{ab}(x) \, dx \]</span></p>
-<p>If <span class="math inline">\(V\)</span> is the support of the uniform distribution on a to b then the pdf <span class="math display">\[ U_{ab}(x) = \frac{1}{V} = \frac{1}{b-a}\]</span></p>
-<p>Then from LOTUS and the law of large numbers:</p>
-<p><span class="math display">\[J = \frac{1}{V}  \int_{a}^{b} f(x) \, dx  =  \frac{I}{V} = E_{U}[f] = \lim_{n \to \infty} \frac{1}{N}\sum_{x_i \sim U} f(x_i) \]</span></p>
-<p>or</p>
-<p><span class="math display">\[I  = V  \times \lim_{n \to \infty} \frac{1}{N}\sum_{x_i \sim U} f(x_i) \]</span></p>
-<p>Practically speaking, our estimate will only be as exact as the number of samples we draw, but more on this soon..</p>
-<section id="example." class="level3">
-<h3 class="anchored" data-anchor-id="example.">Example.</h3>
-<p>**Calculate the integral $ I= _{2}^{3} [x^2 + 4 , x ,(x)] , dx. $**</p>
-<p>We know from calculus that the anti-derivative is <span class="math display">\[ x^3/3 + 4\sin(x) -4x\cos(x). \]</span></p>
-<p>To solve this using MC, we simply draw <span class="math inline">\(N\)</span> random numbers from 2 to 3 and then take the average of all the values <span class="math inline">\(f(x)=x^2 + 4 \, x \,\sin(x)\)</span> and normalized over the volume; this case the volume is 1 (3-2=1).</p>
-<div id="cell-4" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">4</span><span class="op">*</span>x<span class="op">*</span>np.sin(x) </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> intf(x): </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="dv">3</span><span class="op">/</span><span class="fl">3.0</span><span class="op">+</span><span class="fl">4.0</span><span class="op">*</span>np.sin(x) <span class="op">-</span> <span class="fl">4.0</span><span class="op">*</span>x<span class="op">*</span>np.cos(x) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="cell-5" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">2</span><span class="op">;</span>    </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="dv">3</span><span class="op">;</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># use N draws </span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>N<span class="op">=</span> <span class="dv">10000</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.uniform(low<span class="op">=</span>a, high<span class="op">=</span>b, size<span class="op">=</span>N) <span class="co"># N values uniformly drawn from a to b </span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span>f(X)   <span class="co"># CALCULATE THE f(x) </span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>V <span class="op">=</span> b<span class="op">-</span>a</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>Imc<span class="op">=</span> V <span class="op">*</span> np.<span class="bu">sum</span>(Y)<span class="op">/</span> N<span class="op">;</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>exactval<span class="op">=</span>intf(b)<span class="op">-</span>intf(a)</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Monte Carlo estimation="</span>,Imc, <span class="st">"Exact number="</span>, intf(b)<span class="op">-</span>intf(a))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Monte Carlo estimation= 11.8120823531 Exact number= 11.8113589251</code></pre>
-</div>
-</div>
-</section>
-<section id="mutlidimensional-integral." class="level3">
-<h3 class="anchored" data-anchor-id="mutlidimensional-integral.">Mutlidimensional integral.</h3>
-<p>That is nice but how about a multidimensional case?</p>
-<p>Let us calculate the two dimensional integral <span class="math inline">\(I=\int \int f(x, y) dx dy\)</span> where <span class="math inline">\(f(x,y) = x^2 +y^2\)</span> over the region deﬁned by the condition <span class="math inline">\(x^2 +y^2 ≤ 1\)</span></p>
-<p>In other words we are talking about a uniform distribution on the unit circle</p>
-<div id="cell-7" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fmd <span class="op">=</span> <span class="kw">lambda</span> x,y: x<span class="op">*</span>x <span class="op">+</span> y<span class="op">*</span>y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="cell-8" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># use N draws </span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>N<span class="op">=</span> <span class="dv">8000</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>X<span class="op">=</span> np.random.uniform(low<span class="op">=-</span><span class="dv">1</span>, high<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span>N) </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>Y<span class="op">=</span> np.random.uniform(low<span class="op">=-</span><span class="dv">1</span>, high<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span>N) </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>Z<span class="op">=</span>fmd(X, Y)   <span class="co"># CALCULATE THE f(x) </span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>R <span class="op">=</span> X<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> Y<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>V <span class="op">=</span> np.pi<span class="op">*</span><span class="fl">1.0</span><span class="op">*</span><span class="fl">1.0</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> np.<span class="bu">sum</span>(R<span class="op">&lt;</span><span class="dv">1</span>)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>sumsamples <span class="op">=</span> np.<span class="bu">sum</span>(Z[R<span class="op">&lt;</span><span class="dv">1</span>])</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"I="</span>,V<span class="op">*</span>sumsamples<span class="op">/</span>N, <span class="st">"actual"</span>, np.pi<span class="op">/</span><span class="fl">2.0</span>) <span class="co">#actual value (change to polar to calculate)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>I= 1.56308724855 actual 1.5707963267948966</code></pre>
-</div>
-</div>
-</section>
-</section>
-<section id="monte-carlo-as-a-function-of-number-of-samples" class="level2">
-<h2 class="anchored" data-anchor-id="monte-carlo-as-a-function-of-number-of-samples">Monte-Carlo as a function of number of samples</h2>
-<p>How does the accuracy depends on the number of points(samples)? Lets try the same 1-D integral $ I= _{2}^{3} [x^2 + 4 , x ,(x)] , dx $ as a function of the number of points.</p>
-<div id="cell-10" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Imc<span class="op">=</span>np.zeros(<span class="dv">1000</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>Na <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">1000</span>,<span class="dv">1000</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>exactval<span class="op">=</span> intf(b)<span class="op">-</span>intf(a)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> N <span class="kw">in</span> np.arange(<span class="dv">0</span>,<span class="dv">1000</span>):</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> np.random.uniform(low<span class="op">=</span>a, high<span class="op">=</span>b, size<span class="op">=</span>N) <span class="co"># N values uniformly drawn from a to b </span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    Y <span class="op">=</span>f(X)   <span class="co"># CALCULATE THE f(x) </span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    Imc[N]<span class="op">=</span> (b<span class="op">-</span>a) <span class="op">*</span> np.<span class="bu">sum</span>(Y)<span class="op">/</span> N<span class="op">;</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>plt.plot(Na[<span class="dv">10</span>:],np.sqrt((Imc[<span class="dv">10</span>:]<span class="op">-</span>exactval)<span class="op">**</span><span class="dv">2</span>), alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>plt.plot(Na[<span class="dv">10</span>:], <span class="dv">1</span><span class="op">/</span>np.sqrt(Na[<span class="dv">10</span>:]), <span class="st">'r'</span>)</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"N"</span>)</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"sqrt((Imc-ExactValue)$^2$)"</span>)</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Obviously this depends on the number of <span class="math inline">\(N\)</span> as <span class="math inline">\(1/\sqrt{N}\)</span>.</p>
-</section>
-<section id="errors-in-mc" class="level2">
-<h2 class="anchored" data-anchor-id="errors-in-mc">Errors in MC</h2>
-<p>Monte Carlo methods yield approximate answers whose accuracy depends on the number of draws. So far, we have used our knowledge of the exact value to determine that the error in the Monte Carlo method approaches zero as approximately <span class="math inline">\(1/\sqrt{N}\)</span> for large <span class="math inline">\(N\)</span>, where <span class="math inline">\(N\)</span> is the number of trials.</p>
-<p>But in the usual case, the exact answer is unknown. Why do this otherwise?</p>
-<p>So, lets repeat the same evaluation <span class="math inline">\(m\)</span> times and check the variance of the estimate.</p>
-<div id="cell-13" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># multiple MC estimations</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>m<span class="op">=</span><span class="dv">1000</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>N<span class="op">=</span><span class="dv">10000</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>Imc<span class="op">=</span>np.zeros(m)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(m):</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> np.random.uniform(low<span class="op">=</span>a, high<span class="op">=</span>b, size<span class="op">=</span>N) <span class="co"># N values uniformly drawn from a to b </span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    Y <span class="op">=</span>f(X)   <span class="co"># CALCULATE THE f(x) </span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    Imc[i]<span class="op">=</span> (b<span class="op">-</span>a) <span class="op">*</span> np.<span class="bu">sum</span>(Y)<span class="op">/</span> N<span class="op">;</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>plt.hist(Imc, bins<span class="op">=</span><span class="dv">30</span>)</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Imc"</span>)</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.mean(Imc), np.std(Imc))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>11.8114651823 0.00398497853806</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-8-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>This looks like our telltale Normal distribution.</p>
-<p>This is not surprising</p>
-<section id="estimating-the-error-in-mc-integration-using-the-clt." class="level3">
-<h3 class="anchored" data-anchor-id="estimating-the-error-in-mc-integration-using-the-clt.">Estimating the error in MC integration using the CLT.</h3>
-<p>We know from the CLT that if <span class="math inline">\(x_1,x_2,...,x_n\)</span> be a sequence of independent, identically-distributed (IID) random variables from a random variable <span class="math inline">\(X\)</span>, and that if <span class="math inline">\(X\)</span> has the finite mean <span class="math inline">\(\mu\)</span> AND finite variance <span class="math inline">\(\sigma^2\)</span>.</p>
-<p>Then,</p>
-<p><span class="math display">\[S_n = \frac{1}{n} \sum_{i=1}^{n} x_i ,\]</span></p>
-<p><strong>converges to a Gaussian Random Variable with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2/n\)</span> as <span class="math inline">\(n \to \infty\)</span>:</strong></p>
-<p><span class="math display">\[ S_n \sim N(\mu,\frac{\sigma^2}{n}) \, as \, n \to \infty. \]</span></p>
-<p>This is true <em>regardless</em> of the shape of <span class="math inline">\(X\)</span>, which could be binomial, poisson, or any other distribution.</p>
-<p>The sums</p>
-<p><span class="math display">\[S_n(f) = \frac{1}{n} \sum_{i=1}^{n} f(x_i) \]</span></p>
-<p>are exactly what we want to calculate for Monte-Carlo Integration(due to the LOTUS) and correspond to the random variable f(X) where X is uniformly distributed on the support.</p>
-<p>Whatever the original variance of f(X) might be, we can see that the variance of the sampling distribution of the mean goes down as <span class="math inline">\(1/n\)</span> and thus the standard error goes down as <span class="math inline">\(1/\sqrt{n}\)</span> as we discovered when we compared it to the exact value as well.</p>
-<p>Why is this important?</p>
-</section>
-<section id="comparing-to-standard-integration-techniques" class="level3">
-<h3 class="anchored" data-anchor-id="comparing-to-standard-integration-techniques">Comparing to standard integration techniques</h3>
-<p>What if we changed the dimensionality of the integral? The formula for <span class="math inline">\(S_n\)</span> does not change, we just replace <span class="math inline">\(g(x_i)\)</span> by <span class="math inline">\(g(x_i, y_i, z_i...)\)</span>. Thus, the CLT still holds and the error still scales as <span class="math inline">\(\frac{1}{\sqrt{n}}\)</span>.</p>
-<p>On the other hand, if we divide the <span class="math inline">\(a, b\)</span>-interval into <span class="math inline">\(N\)</span> steps and use some regular integration routine, what is the error? Consider the midpoint rule as illustrated in this diagram from Wikipedia:</p>
+<p>Importance sampling is directly a method to calculate integrals or expectations, which is one of our main goals at the end of things.</p>
+<p>The basic idea behind importance sampling is that we want to draw more samples where <span class="math inline">\(h(x)\)</span>, a function whose integral or expectation we desire, is large. In the case we are doing an expectation, it would indeed be even better to draw more samples where <span class="math inline">\(h(x)f(x)\)</span> is large, where <span class="math inline">\(f(x)\)</span> is the pdf we are calculating the integral with respect to.</p>
+<p>Why is this important? Often, in the computation of an expectation or other integral, the integrand has a very small value on a dominant fraction of the whole integration volume. If the points are chosen evenly in the integration volume, the small minority of the points close to the ‘peak’ give the dominant contribution to the integral.</p>
+<p>For example lets look at the expectation</p>
+<p><span class="math display">\[ E_f[h] = \int_V f(x) h(x) dx. \]</span></p>
+<p>Choose a distribution <span class="math inline">\(g(x)\)</span>, which is close to the function <span class="math inline">\(f(x)\)</span>, but which is simple enough so that it is possible to generate random <span class="math inline">\(x\)</span>-values from this distribution. The integral can now be re-written as:</p>
+<p><span class="math display">\[ E_f[h] = \int h(x) g(x) \frac{f(x)}{g(x)} dx \]</span></p>
+<p>Therefore if we choose random numbers <span class="math inline">\(x_i\)</span> from distribution <span class="math inline">\(g(x)\)</span>, we obtain</p>
+<p><span class="math display">\[ E_f[h] = \lim_{N\rightarrow \infty} \frac{1}{N} \sum_{x_{i}\sim g(.)} h(x_i)\frac{f(x_i)}{g(x_i)} \]</span></p>
+<p>Usually you might have written:</p>
+<p><span class="math display">\[E_f[h] = \lim_{N\rightarrow \infty} \frac{1}{N} \sum_{x_{i}\sim f(.)} h(x_i) \]</span></p>
+<p>but now we have a reweighting with <span class="math inline">\(w(x_i) =  \frac{f(x_i)}{g(x_i)}\)</span> and the samples are drawn from <span class="math inline">\(g(x)\)</span>:</p>
+<p><span class="math display">\[ E_f[h] = \lim_{N\rightarrow \infty} \frac{1}{N} \sum_{x_{i}\sim g(.)} w(x_i) h(x_i) \]</span></p>
+<p>Unlike rejection sampling we have used all samples!</p>
+<p>Now remember that the variance of our montecarlo estimate is given to us by</p>
+<p><span class="math display">\[\hat{V} = \frac{V_f[h(x)]}{N}\]</span></p>
+<p>where <span class="math inline">\(N\)</span> is the sample size.</p>
+<p>With importance sampling this formula has now changed to</p>
+<p><span class="math display">\[\hat{V} = \frac{V_g[w(x)h(x)]}{N}\]</span></p>
+<p>Our game here now is to try and minimize <span class="math inline">\(V_g[w(x)h(x)]\)</span>.</p>
+<p>As a somewhat absurd notion, this variance would be sent to zero, if:</p>
+<p><span class="math display">\[w(x)h(x) = C \implies f(x) h(x) = C g(x),\]</span></p>
+<p>which leads to (since g(x) is a density we must normalize)</p>
+<p><span class="math display">\[g(x) = \frac{f(x)h(x)}{\int f(x) h(x) dx} = \frac{f(x)h(x)}{E_f[h(x)]}\]</span></p>
+<p>The expectation was what we were trying to estimate in the first place so our tautological absurdity seems to grow..</p>
+<p>But, ignoring the denominator, this formula tells us that to achieve low variance, we must have <strong><span class="math inline">\(g(x)\)</span> large where the product <span class="math inline">\(f(x)h(x)\)</span> is large</strong>. After all, maximizing the latter in some fashion was our original intuition.</p>
+<p>Or to put it another way, <span class="math inline">\(\frac{g(x)}{f(x)}\)</span> ought to be large where <span class="math inline">\(h(x)\)</span> is large. This means that, as we said earlier, choose more samples near the peak.</p>
+<p>So now we have the ingredients of our method. We have a <span class="math inline">\(f\)</span> that we might or might not know. We have a pdf <span class="math inline">\(g\)</span> which we choose to be higher than <span class="math inline">\(f\)</span> at the points where <span class="math inline">\(h\)</span> has peaks. Now what we are left to do is to sample from <span class="math inline">\(g\)</span>, and this will give us an oversampling at the place <span class="math inline">\(h\)</span> has peaks, and thus we must correct this there by multiplying by weights <span class="math inline">\(w  = \frac{f}{g} \lt 1\)</span> in thse places.</p>
+<p>Be careful to choose <span class="math inline">\(g(x)\)</span> appropriately, it should have thicker tails than f, or the ratio <span class="math inline">\(f/g\)</span> will be too big and count contribute too much in the tails.</p>
+<p>All of these considerations may be seen in the diagram below:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Rectangle_rule.gif" class="img-fluid figure-img"></p>
-<figcaption>Rectangle rule for numerical integration</figcaption>
+<p><img src="assets/importance.png" class="img-fluid figure-img"></p>
+<figcaption>Importance sampling: a proposal g(x) concentrates samples where the integrand f(x)·h(x) is large, reweighting by f/g to correct the bias.</figcaption>
 </figure>
 </div>
-<p>The basic idea is that the function value at the midpoint of the interval is used as the height of the approximating rectangle. In general, the differing methods consist of choosing different <span class="math inline">\(x_i\)</span> below..with left being at the left end, right being at the right end. <span class="math display">\[I(est) = \sum_i f(x_i)\Delta x_i = \frac{b-a}{n} \sum_i f(x_i)\]</span></p>
-<p>The error on the estimation of the integral can be shown to decrease as <span class="math inline">\(\frac{1}{n^2}\)</span>. The basic reason for this can be understood on a taylor series expansion of the function to second order. When you integrate on the sub-interval, the linear term vanishes while the quadratic term becomes cubic in <span class="math inline">\(\Delta x\)</span>. So the local error goes as <span class="math inline">\(\frac{1}{n^3}\)</span> and thus the global as <span class="math inline">\(\frac{1}{n^2}\)</span>.</p>
-<p>Monte-Carlo if clearly not competitive with the midpoint method in 1-D. Its actually not even competitive with left or right rectangle methods.</p>
-<p>The trapeziod rule uses a line between the sub-interval points while the Simpsons rule uses a quadratic.</p>
-<p>These integrations can be generalized to multiple dimensions, and the rule for these</p>
-<ul>
-<li>left or right rule: <span class="math inline">\(\propto 1/n\)</span></li>
-<li>Midpoint rule: <span class="math inline">\(\propto 1/n^2\)</span></li>
-<li>Trapezoid: <span class="math inline">\(\propto 1/n^2\)</span></li>
-<li>Simpson: <span class="math inline">\(\propto 1/n^4\)</span></li>
-</ul>
-<p>where <span class="math inline">\(n=N^{1/d}\)</span>. MC becomes better than the Simpson method only in 8 dimensions..</p>
+<p>Another way of seeing this whole thing is that we will draw the sample from a proposal distribution and re-weight the integral appropriately so that the expectation with respect to the correct distribution is used. And since <span class="math inline">\(f/g\)</span> is flatter than <span class="math inline">\(f\)</span>, the variance of <span class="math inline">\(h \times f/g\)</span> is smaller that the variance of <span class="math inline">\(h \times f\)</span> and therefore the error will be smaller for all <span class="math inline">\(N\)</span>.</p>
+<section id="example-calculate-_0-x-x-dx" class="level3">
+<h3 class="anchored" data-anchor-id="example-calculate-_0-x-x-dx">Example: Calculate $_{0}^{} (x) , x , dx $</h3>
+<p>The function has a shape that is similar to Gaussian and therefore we choose here a Gaussian as importance sampling distribution.</p>
+<div id="cell-4" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>mu <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>sig <span class="op">=</span><span class="fl">.7</span><span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: np.sin(x)<span class="op">*</span>x</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>infun <span class="op">=</span> <span class="kw">lambda</span> x: np.sin(x)<span class="op">-</span>x<span class="op">*</span>np.cos(x)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="kw">lambda</span> x: (<span class="dv">1</span><span class="op">/</span>np.sqrt(<span class="dv">2</span><span class="op">*</span>np.pi<span class="op">*</span>sig<span class="op">**</span><span class="dv">2</span>))<span class="op">*</span>np.exp(<span class="op">-</span>(x<span class="op">-</span>mu)<span class="op">**</span><span class="dv">2</span><span class="op">/</span>(<span class="fl">2.0</span><span class="op">*</span>sig<span class="op">**</span><span class="dv">2</span>))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>normfun <span class="op">=</span> <span class="kw">lambda</span> x:  norm.cdf(x<span class="op">-</span>mu, scale<span class="op">=</span>sig)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-5" class="cell" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">18</span>,<span class="dv">8</span>))  <span class="co"># set the figure size</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># range of integration</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>xmax <span class="op">=</span>np.pi </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>xmin <span class="op">=</span><span class="dv">0</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of draws </span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span><span class="dv">1000</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Just want to plot the function</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>np.linspace(xmin, xmax, <span class="dv">1000</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>plt.plot(x, f(x), <span class="st">'b'</span>, label<span class="op">=</span><span class="st">u'Original  $x</span><span class="er">\</span><span class="st">sin(x)$'</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>plt.plot( x, p(x), <span class="st">'r'</span>, label<span class="op">=</span><span class="st">u'Importance Sampling Function: Normal'</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>plt.plot(x, np.ones(<span class="dv">1000</span>)<span class="op">/</span>np.pi,<span class="st">'k'</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>xis <span class="op">=</span> mu <span class="op">+</span> sig<span class="op">*</span>np.random.randn(N,<span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>plt.plot(xis, <span class="dv">1</span><span class="op">/</span>(np.pi<span class="op">*</span>p(xis)),<span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>plt.xlim([<span class="dv">0</span>, np.pi])</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>plt.ylim([<span class="dv">0</span>,<span class="dv">2</span>])</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'x'</span>)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co"># =============================================</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co"># EXACT SOLUTION </span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co"># =============================================</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>Iexact <span class="op">=</span> infun(xmax)<span class="op">-</span>infun(xmin)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Exact solution is: "</span>, Iexact)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co"># VANILLA MONTE CARLO </span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>Ivmc <span class="op">=</span> np.zeros(<span class="dv">1000</span>)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> np.arange(<span class="dv">0</span>,<span class="dv">1000</span>):</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> np.random.uniform(low<span class="op">=</span>xmin, high<span class="op">=</span>xmax, size<span class="op">=</span>N)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    Ivmc[k] <span class="op">=</span> (xmax<span class="op">-</span>xmin)<span class="op">*</span>np.mean( f(x))</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Mean basic MC estimate: "</span>, np.mean(Ivmc))</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Standard deviation of our estimates: "</span>, np.std(Ivmc))</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="co"># IMPORTANCE SAMPLING </span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="co"># ============================================</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="co"># CHOOSE Gaussian so it similar to the original functions</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>Iis <span class="op">=</span> np.zeros(<span class="dv">1000</span>)</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> np.arange(<span class="dv">0</span>,<span class="dv">1000</span>):</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    <span class="co"># DRAW FROM THE GAUSSIAN mean =2 std = sqrt(0.4) </span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>    xis <span class="op">=</span> mu <span class="op">+</span> sig<span class="op">*</span>np.random.randn(N,<span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>    <span class="co">#hist(x)</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>    xis <span class="op">=</span> xis[ (xis<span class="op">&lt;</span>xmax) <span class="op">&amp;</span> (xis<span class="op">&gt;</span>xmin)] <span class="op">;</span></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>    <span class="co"># normalization for gaussian from 0..pi</span></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>    normal <span class="op">=</span> normfun(np.pi)<span class="op">-</span>normfun(<span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>    Iis[k] <span class="op">=</span>np.mean(f(xis)<span class="op">/</span>p(xis))<span class="op">*</span>normal<span class="op">;</span></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Mean importance sampling MC estimate: "</span>, np.mean(Iis))</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Standard deviation of our estimates: "</span>, np.std(Iis))</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>plt.hist(Iis,<span class="dv">30</span>, histtype<span class="op">=</span><span class="st">'step'</span>, label<span class="op">=</span><span class="st">u'Importance Sampling'</span>)<span class="op">;</span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>plt.hist(Ivmc, <span class="dv">30</span>, color<span class="op">=</span><span class="st">'r'</span>,histtype<span class="op">=</span><span class="st">'step'</span>, label<span class="op">=</span><span class="st">u'Vanilla MC'</span>)<span class="op">;</span></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Exact solution is:  3.14159265359
+Mean basic MC estimate:  3.14068341144
+Standard deviation of our estimates:  0.0617743877206
+Mean importance sampling MC estimate:  3.14197268362
+Standard deviation of our estimates:  0.0161935244302</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-3-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2025-02-19">
-<meta name="description" content="Formalizes Monte Carlo integration using uniform random samples and LOTUS, then extends to multidimensional integrals. Uses the Central Limit Theorem to estimate integration error and compares convergence rates with classical quadrature.">
+<meta name="dcterms.date" content="2025-01-18">
+<meta name="description" content="Derives the normal-normal conjugate model for Bayesian inference on the mean of a Gaussian with known variance. Shows how the posterior interpolates between prior belief and data, and how precision (inverse variance) governs the weighting.">
 
-<title>Monte Carlo Integration – rahuldave</title>
+<title>The Normal Model – rahuldave</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -147,18 +147,18 @@ window.Quarto = {
 };
 </script>
 
-<meta property="og:title" content="Monte Carlo Integration – rahuldave">
-<meta property="og:description" content="Formalizes Monte Carlo integration using uniform random samples and LOTUS, then extends to multidimensional integrals. Uses the Central Limit Theorem to estimate integration error and compares convergence rates with classical quadrature.">
-<meta property="og:image" content="https://rahuldave.github.io/posts/montecarlointegrals/index_files/figure-html/cell-7-output-1.png">
+<meta property="og:title" content="The Normal Model – rahuldave">
+<meta property="og:description" content="Derives the normal-normal conjugate model for Bayesian inference on the mean of a Gaussian with known variance. Shows how the posterior interpolates between prior belief and data, and how precision (inverse variance) governs the weighting.">
+<meta property="og:image" content="https://rahuldave.github.io/posts/normalmodel/index_files/figure-html/cell-7-output-1.png">
 <meta property="og:site_name" content="rahuldave">
-<meta property="og:image:height" content="356">
-<meta property="og:image:width" content="520">
-<meta name="twitter:title" content="Monte Carlo Integration – rahuldave">
-<meta name="twitter:description" content="Formalizes Monte Carlo integration using uniform random samples and LOTUS, then extends to multidimensional integrals. Uses the Central Limit Theorem to estimate integration error and compares convergence rates with classical quadrature.">
-<meta name="twitter:image" content="https://rahuldave.github.io/posts/montecarlointegrals/index_files/figure-html/cell-7-output-1.png">
+<meta property="og:image:height" content="273">
+<meta property="og:image:width" content="399">
+<meta name="twitter:title" content="The Normal Model – rahuldave">
+<meta name="twitter:description" content="Derives the normal-normal conjugate model for Bayesian inference on the mean of a Gaussian with known variance. Shows how the posterior interpolates between prior belief and data, and how precision (inverse variance) governs the weighting.">
+<meta name="twitter:image" content="https://rahuldave.github.io/posts/normalmodel/index_files/figure-html/cell-7-output-1.png">
 <meta name="twitter:creator" content="@rahuldave">
-<meta name="twitter:image-height" content="356">
-<meta name="twitter:image-width" content="520">
+<meta name="twitter:image-height" content="273">
+<meta name="twitter:image-width" content="399">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -374,17 +374,8 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-basic-idea" id="toc-the-basic-idea" class="nav-link active" data-scroll-target="#the-basic-idea">The basic idea</a>
-  <ul class="collapse">
-  <li><a href="#example." id="toc-example." class="nav-link" data-scroll-target="#example.">Example.</a></li>
-  <li><a href="#mutlidimensional-integral." id="toc-mutlidimensional-integral." class="nav-link" data-scroll-target="#mutlidimensional-integral.">Mutlidimensional integral.</a></li>
-  </ul></li>
-  <li><a href="#monte-carlo-as-a-function-of-number-of-samples" id="toc-monte-carlo-as-a-function-of-number-of-samples" class="nav-link" data-scroll-target="#monte-carlo-as-a-function-of-number-of-samples">Monte-Carlo as a function of number of samples</a></li>
-  <li><a href="#errors-in-mc" id="toc-errors-in-mc" class="nav-link" data-scroll-target="#errors-in-mc">Errors in MC</a>
-  <ul class="collapse">
-  <li><a href="#estimating-the-error-in-mc-integration-using-the-clt." id="toc-estimating-the-error-in-mc-integration-using-the-clt." class="nav-link" data-scroll-target="#estimating-the-error-in-mc-integration-using-the-clt.">Estimating the error in MC integration using the CLT.</a></li>
-  <li><a href="#comparing-to-standard-integration-techniques" id="toc-comparing-to-standard-integration-techniques" class="nav-link" data-scroll-target="#comparing-to-standard-integration-techniques">Comparing to standard integration techniques</a></li>
-  </ul></li>
+  <li><a href="#normal-model-for-fixed-sigma" id="toc-normal-model-for-fixed-sigma" class="nav-link active" data-scroll-target="#normal-model-for-fixed-sigma">Normal Model for fixed <span class="math inline">\(\sigma\)</span></a></li>
+  <li><a href="#example-of-the-normal-model-for-fixed-sigma" id="toc-example-of-the-normal-model-for-fixed-sigma" class="nav-link" data-scroll-target="#example-of-the-normal-model-for-fixed-sigma">Example of the normal model for fixed <span class="math inline">\(\sigma\)</span></a></li>
   </ul>
 </nav>
     </div>
@@ -425,19 +416,18 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Monte Carlo Integration</h1>
-<p class="subtitle lead">When calculus is hard, sample instead.</p>
+<h1 class="title">The Normal Model</h1>
+<p class="subtitle lead">Conjugate priors for the workhorse of statistics.</p>
   <div class="quarto-categories">
-    <div class="quarto-category">sampling</div>
-    <div class="quarto-category">montecarlo</div>
-    <div class="quarto-category">integration</div>
+    <div class="quarto-category">bayesian</div>
     <div class="quarto-category">probability</div>
+    <div class="quarto-category">statistics</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Formalizes Monte Carlo integration using uniform random samples and LOTUS, then extends to multidimensional integrals. Uses the Central Limit Theorem to estimate integration error and compares convergence rates with classical quadrature.
+    Derives the normal-normal conjugate model for Bayesian inference on the mean of a Gaussian with known variance. Shows how the posterior interpolates between prior belief and data, and how precision (inverse variance) governs the weighting.
   </div>
 </div>
 
@@ -448,7 +438,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 19, 2025</p>
+      <p class="date">January 18, 2025</p>
     </div>
   </div>
   
@@ -460,110 +450,91 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-1" class="cell" data-execution_count="3">
+<div id="cell-1" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pylab <span class="im">as</span> plt </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sn</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</div>
-<section id="the-basic-idea" class="level2">
-<h2 class="anchored" data-anchor-id="the-basic-idea">The basic idea</h2>
-<p>Let us formalize the basic idea behind Monte Carlo Integration in 1-D.</p>
-<p>Consider the definite integral:</p>
-<p><span class="math display">\[ I = \int_{a}^{b} f(x) \, dx \]</span></p>
-<p>Consider:</p>
-<p><span class="math display">\[ J = \int_{a}^{b} f(x) U_{ab}(x) \, dx \]</span></p>
-<p>If <span class="math inline">\(V\)</span> is the support of the uniform distribution on a to b then the pdf <span class="math display">\[ U_{ab}(x) = \frac{1}{V} = \frac{1}{b-a}\]</span></p>
-<p>Then from LOTUS and the law of large numbers:</p>
-<p><span class="math display">\[J = \frac{1}{V}  \int_{a}^{b} f(x) \, dx  =  \frac{I}{V} = E_{U}[f] = \lim_{n \to \infty} \frac{1}{N}\sum_{x_i \sim U} f(x_i) \]</span></p>
-<p>or</p>
-<p><span class="math display">\[I  = V  \times \lim_{n \to \infty} \frac{1}{N}\sum_{x_i \sim U} f(x_i) \]</span></p>
-<p>Practically speaking, our estimate will only be as exact as the number of samples we draw, but more on this soon..</p>
-<section id="example." class="level3">
-<h3 class="anchored" data-anchor-id="example.">Example.</h3>
-<p>**Calculate the integral $ I= _{2}^{3} [x^2 + 4 , x ,(x)] , dx. $**</p>
-<p>We know from calculus that the anti-derivative is <span class="math display">\[ x^3/3 + 4\sin(x) -4x\cos(x). \]</span></p>
-<p>To solve this using MC, we simply draw <span class="math inline">\(N\)</span> random numbers from 2 to 3 and then take the average of all the values <span class="math inline">\(f(x)=x^2 + 4 \, x \,\sin(x)\)</span> and normalized over the volume; this case the volume is 1 (3-2=1).</p>
-<div id="cell-4" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">4</span><span class="op">*</span>x<span class="op">*</span>np.sin(x) </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> intf(x): </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="dv">3</span><span class="op">/</span><span class="fl">3.0</span><span class="op">+</span><span class="fl">4.0</span><span class="op">*</span>np.sin(x) <span class="op">-</span> <span class="fl">4.0</span><span class="op">*</span>x<span class="op">*</span>np.cos(x) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div id="cell-5" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">2</span><span class="op">;</span>    </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="dv">3</span><span class="op">;</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># use N draws </span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>N<span class="op">=</span> <span class="dv">10000</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.uniform(low<span class="op">=</span>a, high<span class="op">=</span>b, size<span class="op">=</span>N) <span class="co"># N values uniformly drawn from a to b </span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span>f(X)   <span class="co"># CALCULATE THE f(x) </span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>V <span class="op">=</span> b<span class="op">-</span>a</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>Imc<span class="op">=</span> V <span class="op">*</span> np.<span class="bu">sum</span>(Y)<span class="op">/</span> N<span class="op">;</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>exactval<span class="op">=</span>intf(b)<span class="op">-</span>intf(a)</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Monte Carlo estimation="</span>,Imc, <span class="st">"Exact number="</span>, intf(b)<span class="op">-</span>intf(a))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A random variable <span class="math inline">\(Y\)</span> is normally distributed with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2\)</span>. Thus its density is given by :</p>
+<p><span class="math display">\[ p(y \vert \mu, \sigma^2) =  \frac{1}{ \sqrt{ 2 \pi \sigma^2}} e^{-( \frac{y-\mu}{2 \sigma})^2} \]</span></p>
+<p>Suppose our model is <span class="math inline">\(\{y_1, \ldots, y_n \vert \mu, \sigma^2 \} \sim N(\mu, \sigma^2)\)</span> then the likelihood is</p>
+<p><span class="math display">\[
+p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
+\prod_{i=1}^{n} p(y_i \vert \mu, \sigma^2)=\prod_{i=1}^{n}  \frac{1}{ \sqrt{ 2 \pi \sigma^2}} e^{-( \frac{(y_i-\mu)^2}{2\sigma^2})} =
+\frac{1}{ \sqrt{ 2 \pi \sigma^2}}   \exp \left\{  - \frac{1}{2}  \sum_i \frac{(y_i-\mu)^2}{\sigma^2} \right\}
+\]</span></p>
+<p>We can now write the posterior for this model thus:</p>
+<p><span class="math display">\[ p( \mu, \sigma^2 \vert  y_1, \ldots, y_n, \sigma^2)  \propto \frac{1}{ \sqrt{ 2 \pi \sigma^2}} e^{ - \frac{1}{2\sigma^2} \sum (y_i - \mu)^2 } \, p(\mu, \sigma^2)\]</span></p>
+<p>Lets see the posterior of <span class="math inline">\(\mu\)</span> assuming we know <span class="math inline">\(\sigma^2\)</span>.</p>
+<section id="normal-model-for-fixed-sigma" class="level2">
+<h2 class="anchored" data-anchor-id="normal-model-for-fixed-sigma">Normal Model for fixed <span class="math inline">\(\sigma\)</span></h2>
+<p>Now we wish to condition on a known <span class="math inline">\(\sigma^2\)</span>. The prior probability distribution for it can then be written as:</p>
+<p><span class="math display">\[p(\sigma^2) = \delta(\sigma^2 -\sigma_0^2)\]</span></p>
+<p>(which does integrate to 1).</p>
+<p>Now, keeping in mind that <span class="math inline">\(p(\mu, \sigma^2) = p(\mu \vert \sigma^2) p(\sigma^2)\)</span> and carrying out the integral over <span class="math inline">\(\sigma^2\)</span> which because of the delta distribution means that we must just substitute <span class="math inline">\(\sigma_0^2\)</span> in, we get:</p>
+<p><span class="math display">\[ p( \mu \vert  y_1, \ldots, y_n, \sigma^2 = \sigma_0^2)  \propto p(\mu \vert \sigma^2=\sigma_0^2) \,e^{ - \frac{1}{2\sigma_0^2} \sum (y_i - \mu)^2 }\]</span></p>
+<p>where I have dropped the <span class="math inline">\(\frac{1}{\sqrt{2\pi\sigma_0^2}}\)</span> factor as there is no stochasticity in it (its fixed).</p>
+<p>Say we have the prior</p>
+<p><span class="math display">\[ p(\mu \vert \sigma^2) = \exp \left\{ -\frac{1}{2 \tau^2} (\hat{\mu}-\mu)^2 \right\} \]</span></p>
+<p>then it can be shown that the posterior is</p>
+<p><span class="math display">\[  p( \mu \vert  y_1, \ldots, y_n, \sigma^2) \propto \exp \left\{ -\frac{a}{2} (\mu-b/a)^2 \right\} \]</span> where <span class="math display">\[ a = \frac{1}{\tau^2} + \frac{n}{\sigma_0^2} , \;\;\;\;\; b = \frac{\hat{\mu}}{\tau^2} + \frac{\sum y_i}{\sigma_0^2} \]</span> This is a normal density curve with <span class="math inline">\(1/\sqrt{a}\)</span> playing the role of the standard deviation and <span class="math inline">\(b/a\)</span> playing the role of the mean. Re-writing this,</p>
+<p><span class="math display">\[ p( \mu \vert  y_1, \ldots, y_n, \sigma^2)  \propto \exp\left\{ -\frac{1}{2} \left( \frac{\mu-b/a}{1/\sqrt(a)}\right)^2 \right\} \]</span></p>
+<p><strong>The conjugate of the normal is the normal itself</strong>.</p>
+<p>Define $= ^2 / ^2 $ to be the variance of the sample model in units of variance of our prior belief (prior distribution) then the <em>posterior mean</em> is</p>
+<p><span class="math display">\[\mu_p = \frac{b}{a} = \frac{ \kappa}{\kappa + n }  \hat{\mu} + \frac{n}{\kappa + n} \bar{y} \]</span></p>
+<p>which is a weighted average of prior mean and sampling mean. The variance is</p>
+<p><span class="math display">\[ \sigma_p^2 = \frac{1}{1/\tau^2+n/\sigma^2} \]</span> or better</p>
+<p><span class="math display">\[ \frac{1}{\sigma_p^2} = \frac{1}{\tau^2} + \frac{n}{\sigma^2}. \]</span></p>
+<p>You can see that as <span class="math inline">\(n\)</span> increases, the data dominates the prior and the posterior mean approaches the data mean, with the posterior distribution narrowing…</p>
+</section>
+<section id="example-of-the-normal-model-for-fixed-sigma" class="level2">
+<h2 class="anchored" data-anchor-id="example-of-the-normal-model-for-fixed-sigma">Example of the normal model for fixed <span class="math inline">\(\sigma\)</span></h2>
+<p>We have data on the wing length in millimeters of a nine members of a particular species of moth. We wish to make inferences from those measurements on the population mean <span class="math inline">\(\mu\)</span>. Other studies show the wing length to be around 19 mm. We also know that the length must be positive. We can choose a prior that is normal and most of the density is above zero (<span class="math inline">\(\mu=19.5,\tau=10\)</span>). This is only a <strong>marginally informative</strong> prior.</p>
+<p>Many bayesians would prefer you choose relatively uninformative (and thus weakly regularizing) priors. This keeps the posterior in-line (it really does help a sampler remain in important regions), but does not add too much information into the problem.</p>
+<p>The measurements were: 16.4, 17.0, 17.2, 17.4, 18.2, 18.2, 18.2, 19.9, 20.8 giving <span class="math inline">\(\bar{y}=18.14\)</span>.</p>
+<div id="cell-6" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> [<span class="fl">16.4</span>, <span class="fl">17.0</span>, <span class="fl">17.2</span>, <span class="fl">17.4</span>, <span class="fl">18.2</span>, <span class="fl">18.2</span>, <span class="fl">18.2</span>, <span class="fl">19.9</span>, <span class="fl">20.8</span>]</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Data Quantities</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>sig <span class="op">=</span> np.std(Y) <span class="co"># assume that is the value of KNOWN sigma (in the likelihood)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>mu_data <span class="op">=</span> np.mean(Y)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(Y)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"sigma"</span>, sig, <span class="st">"mu"</span>, mu_data, <span class="st">"n"</span>, n)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Monte Carlo estimation= 11.8120823531 Exact number= 11.8113589251</code></pre>
+<pre><code>sigma 1.33092374864 mu 18.1444444444 n 9</code></pre>
 </div>
 </div>
-</section>
-<section id="mutlidimensional-integral." class="level3">
-<h3 class="anchored" data-anchor-id="mutlidimensional-integral.">Mutlidimensional integral.</h3>
-<p>That is nice but how about a multidimensional case?</p>
-<p>Let us calculate the two dimensional integral <span class="math inline">\(I=\int \int f(x, y) dx dy\)</span> where <span class="math inline">\(f(x,y) = x^2 +y^2\)</span> over the region deﬁned by the condition <span class="math inline">\(x^2 +y^2 ≤ 1\)</span></p>
-<p>In other words we are talking about a uniform distribution on the unit circle</p>
-<div id="cell-7" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fmd <span class="op">=</span> <span class="kw">lambda</span> x,y: x<span class="op">*</span>x <span class="op">+</span> y<span class="op">*</span>y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-7" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prior mean</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>mu_prior <span class="op">=</span> <span class="fl">19.5</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># prior std</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>tau <span class="op">=</span> <span class="dv">10</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># use N draws </span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>N<span class="op">=</span> <span class="dv">8000</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>X<span class="op">=</span> np.random.uniform(low<span class="op">=-</span><span class="dv">1</span>, high<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span>N) </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>Y<span class="op">=</span> np.random.uniform(low<span class="op">=-</span><span class="dv">1</span>, high<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span>N) </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>Z<span class="op">=</span>fmd(X, Y)   <span class="co"># CALCULATE THE f(x) </span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>R <span class="op">=</span> X<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> Y<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>V <span class="op">=</span> np.pi<span class="op">*</span><span class="fl">1.0</span><span class="op">*</span><span class="fl">1.0</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> np.<span class="bu">sum</span>(R<span class="op">&lt;</span><span class="dv">1</span>)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>sumsamples <span class="op">=</span> np.<span class="bu">sum</span>(Z[R<span class="op">&lt;</span><span class="dv">1</span>])</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"I="</span>,V<span class="op">*</span>sumsamples<span class="op">/</span>N, <span class="st">"actual"</span>, np.pi<span class="op">/</span><span class="fl">2.0</span>) <span class="co">#actual value (change to polar to calculate)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-8" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>kappa <span class="op">=</span> sig<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> tau<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>sig_post <span class="op">=</span>np.sqrt(<span class="fl">1.</span><span class="op">/</span>( <span class="fl">1.</span><span class="op">/</span>tau<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> n<span class="op">/</span>sig<span class="op">**</span><span class="dv">2</span>))<span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># posterior mean</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>mu_post <span class="op">=</span> kappa <span class="op">/</span> (kappa <span class="op">+</span> n) <span class="op">*</span>mu_prior <span class="op">+</span> n<span class="op">/</span>(kappa<span class="op">+</span>n)<span class="op">*</span> mu_data</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"mu post"</span>, mu_post, <span class="st">"sig_post"</span>, sig_post)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>I= 1.56308724855 actual 1.5707963267948966</code></pre>
+<pre><code>mu post 18.1471071751 sig_post 0.443205311006</code></pre>
 </div>
 </div>
-</section>
-</section>
-<section id="monte-carlo-as-a-function-of-number-of-samples" class="level2">
-<h2 class="anchored" data-anchor-id="monte-carlo-as-a-function-of-number-of-samples">Monte-Carlo as a function of number of samples</h2>
-<p>How does the accuracy depends on the number of points(samples)? Lets try the same 1-D integral $ I= _{2}^{3} [x^2 + 4 , x ,(x)] , dx $ as a function of the number of points.</p>
-<div id="cell-10" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Imc<span class="op">=</span>np.zeros(<span class="dv">1000</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>Na <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">1000</span>,<span class="dv">1000</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>exactval<span class="op">=</span> intf(b)<span class="op">-</span>intf(a)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> N <span class="kw">in</span> np.arange(<span class="dv">0</span>,<span class="dv">1000</span>):</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> np.random.uniform(low<span class="op">=</span>a, high<span class="op">=</span>b, size<span class="op">=</span>N) <span class="co"># N values uniformly drawn from a to b </span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    Y <span class="op">=</span>f(X)   <span class="co"># CALCULATE THE f(x) </span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    Imc[N]<span class="op">=</span> (b<span class="op">-</span>a) <span class="op">*</span> np.<span class="bu">sum</span>(Y)<span class="op">/</span> N<span class="op">;</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>plt.plot(Na[<span class="dv">10</span>:],np.sqrt((Imc[<span class="dv">10</span>:]<span class="op">-</span>exactval)<span class="op">**</span><span class="dv">2</span>), alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>plt.plot(Na[<span class="dv">10</span>:], <span class="dv">1</span><span class="op">/</span>np.sqrt(Na[<span class="dv">10</span>:]), <span class="st">'r'</span>)</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"N"</span>)</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"sqrt((Imc-ExactValue)$^2$)"</span>)</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-9" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#samples</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">15000</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>theta_prior <span class="op">=</span> np.random.normal(loc<span class="op">=</span>mu_prior, scale<span class="op">=</span>tau, size<span class="op">=</span>N)<span class="op">;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>theta_post <span class="op">=</span> np.random.normal(loc<span class="op">=</span>mu_post, scale<span class="op">=</span>sig_post, size<span class="op">=</span>N)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-10" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>plt.hist(theta_post, bins<span class="op">=</span><span class="dv">30</span>, alpha<span class="op">=</span><span class="fl">0.9</span>, label<span class="op">=</span><span class="st">"posterior"</span>)<span class="op">;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>plt.hist(theta_prior, bins<span class="op">=</span><span class="dv">30</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, label<span class="op">=</span><span class="st">"prior"</span>)<span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.xlim([10, 30])</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"wing length (mm)"</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Number of samples"</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -572,83 +543,9 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Obviously this depends on the number of <span class="math inline">\(N\)</span> as <span class="math inline">\(1/\sqrt{N}\)</span>.</p>
-</section>
-<section id="errors-in-mc" class="level2">
-<h2 class="anchored" data-anchor-id="errors-in-mc">Errors in MC</h2>
-<p>Monte Carlo methods yield approximate answers whose accuracy depends on the number of draws. So far, we have used our knowledge of the exact value to determine that the error in the Monte Carlo method approaches zero as approximately <span class="math inline">\(1/\sqrt{N}\)</span> for large <span class="math inline">\(N\)</span>, where <span class="math inline">\(N\)</span> is the number of trials.</p>
-<p>But in the usual case, the exact answer is unknown. Why do this otherwise?</p>
-<p>So, lets repeat the same evaluation <span class="math inline">\(m\)</span> times and check the variance of the estimate.</p>
-<div id="cell-13" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># multiple MC estimations</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>m<span class="op">=</span><span class="dv">1000</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>N<span class="op">=</span><span class="dv">10000</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>Imc<span class="op">=</span>np.zeros(m)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(m):</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> np.random.uniform(low<span class="op">=</span>a, high<span class="op">=</span>b, size<span class="op">=</span>N) <span class="co"># N values uniformly drawn from a to b </span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    Y <span class="op">=</span>f(X)   <span class="co"># CALCULATE THE f(x) </span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    Imc[i]<span class="op">=</span> (b<span class="op">-</span>a) <span class="op">*</span> np.<span class="bu">sum</span>(Y)<span class="op">/</span> N<span class="op">;</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>plt.hist(Imc, bins<span class="op">=</span><span class="dv">30</span>)</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Imc"</span>)</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.mean(Imc), np.std(Imc))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>11.8114651823 0.00398497853806</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-8-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>This looks like our telltale Normal distribution.</p>
-<p>This is not surprising</p>
-<section id="estimating-the-error-in-mc-integration-using-the-clt." class="level3">
-<h3 class="anchored" data-anchor-id="estimating-the-error-in-mc-integration-using-the-clt.">Estimating the error in MC integration using the CLT.</h3>
-<p>We know from the CLT that if <span class="math inline">\(x_1,x_2,...,x_n\)</span> be a sequence of independent, identically-distributed (IID) random variables from a random variable <span class="math inline">\(X\)</span>, and that if <span class="math inline">\(X\)</span> has the finite mean <span class="math inline">\(\mu\)</span> AND finite variance <span class="math inline">\(\sigma^2\)</span>.</p>
-<p>Then,</p>
-<p><span class="math display">\[S_n = \frac{1}{n} \sum_{i=1}^{n} x_i ,\]</span></p>
-<p><strong>converges to a Gaussian Random Variable with mean <span class="math inline">\(\mu\)</span> and variance <span class="math inline">\(\sigma^2/n\)</span> as <span class="math inline">\(n \to \infty\)</span>:</strong></p>
-<p><span class="math display">\[ S_n \sim N(\mu,\frac{\sigma^2}{n}) \, as \, n \to \infty. \]</span></p>
-<p>This is true <em>regardless</em> of the shape of <span class="math inline">\(X\)</span>, which could be binomial, poisson, or any other distribution.</p>
-<p>The sums</p>
-<p><span class="math display">\[S_n(f) = \frac{1}{n} \sum_{i=1}^{n} f(x_i) \]</span></p>
-<p>are exactly what we want to calculate for Monte-Carlo Integration(due to the LOTUS) and correspond to the random variable f(X) where X is uniformly distributed on the support.</p>
-<p>Whatever the original variance of f(X) might be, we can see that the variance of the sampling distribution of the mean goes down as <span class="math inline">\(1/n\)</span> and thus the standard error goes down as <span class="math inline">\(1/\sqrt{n}\)</span> as we discovered when we compared it to the exact value as well.</p>
-<p>Why is this important?</p>
-</section>
-<section id="comparing-to-standard-integration-techniques" class="level3">
-<h3 class="anchored" data-anchor-id="comparing-to-standard-integration-techniques">Comparing to standard integration techniques</h3>
-<p>What if we changed the dimensionality of the integral? The formula for <span class="math inline">\(S_n\)</span> does not change, we just replace <span class="math inline">\(g(x_i)\)</span> by <span class="math inline">\(g(x_i, y_i, z_i...)\)</span>. Thus, the CLT still holds and the error still scales as <span class="math inline">\(\frac{1}{\sqrt{n}}\)</span>.</p>
-<p>On the other hand, if we divide the <span class="math inline">\(a, b\)</span>-interval into <span class="math inline">\(N\)</span> steps and use some regular integration routine, what is the error? Consider the midpoint rule as illustrated in this diagram from Wikipedia:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Rectangle_rule.gif" class="img-fluid figure-img"></p>
-<figcaption>Rectangle rule for numerical integration</figcaption>
-</figure>
-</div>
-<p>The basic idea is that the function value at the midpoint of the interval is used as the height of the approximating rectangle. In general, the differing methods consist of choosing different <span class="math inline">\(x_i\)</span> below..with left being at the left end, right being at the right end. <span class="math display">\[I(est) = \sum_i f(x_i)\Delta x_i = \frac{b-a}{n} \sum_i f(x_i)\]</span></p>
-<p>The error on the estimation of the integral can be shown to decrease as <span class="math inline">\(\frac{1}{n^2}\)</span>. The basic reason for this can be understood on a taylor series expansion of the function to second order. When you integrate on the sub-interval, the linear term vanishes while the quadratic term becomes cubic in <span class="math inline">\(\Delta x\)</span>. So the local error goes as <span class="math inline">\(\frac{1}{n^3}\)</span> and thus the global as <span class="math inline">\(\frac{1}{n^2}\)</span>.</p>
-<p>Monte-Carlo if clearly not competitive with the midpoint method in 1-D. Its actually not even competitive with left or right rectangle methods.</p>
-<p>The trapeziod rule uses a line between the sub-interval points while the Simpsons rule uses a quadratic.</p>
-<p>These integrations can be generalized to multiple dimensions, and the rule for these</p>
-<ul>
-<li>left or right rule: <span class="math inline">\(\propto 1/n\)</span></li>
-<li>Midpoint rule: <span class="math inline">\(\propto 1/n^2\)</span></li>
-<li>Trapezoid: <span class="math inline">\(\propto 1/n^2\)</span></li>
-<li>Simpson: <span class="math inline">\(\propto 1/n^4\)</span></li>
-</ul>
-<p>where <span class="math inline">\(n=N^{1/d}\)</span>. MC becomes better than the Simpson method only in 8 dimensions..</p>
+<p>In the case that we dont know <span class="math inline">\(\sigma^2\)</span> or wont estimate it the way we did above, it turns out that a conjugate prior for the precision (inverse variance) is a gamma distribution. Interested folks can see Murphy’s detailed document <a href="https://www.cs.ubc.ca/~murphyk/Papers/bayesGauss.pdf">here</a>. but you can always just use our MH machinery to draw from any vaguely informative prior for the variance ( a gamma for the precision or even for the variance).</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
