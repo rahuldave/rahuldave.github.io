@@ -377,9 +377,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#distributions-example---elections" id="toc-distributions-example---elections" class="nav-link active" data-scroll-target="#distributions-example---elections">Distributions example - elections</a>
-  <ul class="collapse">
-  <li><a href="#simulating-a-simple-election-model" id="toc-simulating-a-simple-election-model" class="nav-link" data-scroll-target="#simulating-a-simple-election-model">Simulating a simple election model</a>
+  <li><a href="#simulating-a-simple-election-model" id="toc-simulating-a-simple-election-model" class="nav-link active" data-scroll-target="#simulating-a-simple-election-model">Simulating a simple election model</a>
   <ul class="collapse">
   <li><a href="#bernoulli-random-variables-in-scipy.stats" id="toc-bernoulli-random-variables-in-scipy.stats" class="nav-link" data-scroll-target="#bernoulli-random-variables-in-scipy.stats">Bernoulli Random Variables (in scipy.stats)</a></li>
   <li><a href="#running-the-simulation-using-the-uniform-distribution" id="toc-running-the-simulation-using-the-uniform-distribution" class="nav-link" data-scroll-target="#running-the-simulation-using-the-uniform-distribution">Running the simulation using the Uniform distribution</a></li>
@@ -391,7 +389,6 @@ window.Quarto = {
   <li><a href="#applying-the-clt-to-elections-binomial-distribution-in-the-large-n-large-k-limit" id="toc-applying-the-clt-to-elections-binomial-distribution-in-the-large-n-large-k-limit" class="nav-link" data-scroll-target="#applying-the-clt-to-elections-binomial-distribution-in-the-large-n-large-k-limit">Applying the CLT to elections: Binomial distribution in the large n, large k limit</a></li>
   <li><a href="#gallup-party-affiliation-poll" id="toc-gallup-party-affiliation-poll" class="nav-link" data-scroll-target="#gallup-party-affiliation-poll">Gallup Party Affiliation Poll</a></li>
   <li><a href="#multiple-pollsters" id="toc-multiple-pollsters" class="nav-link" data-scroll-target="#multiple-pollsters">Multiple Pollsters</a></li>
-  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -467,9 +464,7 @@ window.Quarto = {
 </header>
 
 
-<section id="distributions-example---elections" class="level1">
-<h1>Distributions example - elections</h1>
-<div id="cell-2" class="cell" data-hide="true" data-execution_count="2">
+<div id="cell-1" class="cell" data-hide="true" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The %... is an iPython thing, and is not part of the Python language.</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># In this case we're just telling the plotting library to draw things on</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the notebook, instead of on a separate window.</span></span>
@@ -495,7 +490,7 @@ window.Quarto = {
 </div>
 </div>
 <p>In the last section, we made a simple simulation of a coin-toss on the computer from a fair-coin model which associated equal probability with heads and tails. Let us consider another model here, a table of probabilities that <a href="http://www.predictwise.com/results/2012/president">PredictWise</a> made on October 2, 2012 for the US presidential elections. PredictWise aggregated polling data and, for each state, estimated the probability that the Obama or Romney would win. Here are those estimated probabilities:</p>
-<div id="cell-4" class="cell" data-execution_count="3">
+<div id="cell-3" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>predictwise <span class="op">=</span> pd.read_csv(<span class="st">'assets/predictwise.csv'</span>).set_index(<span class="st">'States'</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>predictwise.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -573,7 +568,7 @@ P(X = 0) &amp;=&amp; 1 - p
 <p>for x in the set {0,1}.</p>
 <p>The Predictwise probability of Obama winning in each state is a Bernoulli Parameter. You can think of it as a different loaded coin being tossed in each state, and thus there is a bernoulli distribution for each state</p>
 <p>Note: <strong>some of the code, and ALL of the visual style for the distribution plots below was shamelessly stolen from https://gist.github.com/mattions/6113437/ </strong>.</p>
-<div id="cell-7" class="cell" data-execution_count="4">
+<div id="cell-6" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> bernoulli</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#bernoulli random variable</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>brv<span class="op">=</span>bernoulli(p<span class="op">=</span><span class="fl">0.3</span>)</span>
@@ -612,7 +607,7 @@ P(X = 0) &amp;=&amp; 1 - p
 <section id="running-the-simulation-using-the-uniform-distribution" class="level3">
 <h3 class="anchored" data-anchor-id="running-the-simulation-using-the-uniform-distribution">Running the simulation using the Uniform distribution</h3>
 <p>In the code below, each column simulates a single outcome from the 50 states + DC by choosing a random number between 0 and 1. Obama wins that simulation if the random number is <span class="math inline">\(&lt;\)</span> the win probability. If he wins that simulation, we add in the electoral votes for that state, otherwise we dont. We do this <code>n_sim</code> times and return a list of total Obama electoral votes in each simulation.</p>
-<div id="cell-9" class="cell" data-execution_count="5">
+<div id="cell-8" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simulate_election(model, n_sim):</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    simulations <span class="op">=</span> np.random.uniform(size<span class="op">=</span>(<span class="dv">51</span>, n_sim))</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    obama_votes <span class="op">=</span> (simulations <span class="op">&lt;</span> model.Obama.values.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)) <span class="op">*</span> model.Votes.values.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
@@ -630,14 +625,14 @@ P(X = x) &amp;=&amp; 0 \, for \, x \notin [0,1]
 <p>What assigning the vote to Obama when the random variable <strong>drawn</strong> from the Uniform distribution is less than the Predictwise probability of Obama winning (which is a Bernoulli Parameter) does for us is this: if we have a large number of simulations and <span class="math inline">\(p_{Obama}=0.7\)</span> , then 70% of the time, the random numbes drawn will be below 0.7. And then, assigning those as Obama wins will hew to the frequentist notion of probability of the Obama win. But remember, of course, that in 30% of the simulations, Obama wont win, and this will induce fluctuations and a distribution on the total number of electoral college votes that Obama gets. And this is what we see in the histogram below.</p>
 <p>The following code takes the necessary probabilities for the Predictwise data, and runs 10000 simulations. If you think of this in terms of our coins, think of it as having 51 biased coins, one for each state, and tossing them 10,000 times each.</p>
 <p>We use the results to compute the number of simulations, according to this predictive model, that Obama wins the election (i.e., the probability that he receives 269 or more electoral college votes)</p>
-<div id="cell-12" class="cell" data-execution_count="6">
+<div id="cell-11" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> simulate_election(predictwise, <span class="dv">10000</span>)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>((result <span class="op">&gt;=</span> <span class="dv">269</span>).<span class="bu">sum</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>9955</code></pre>
 </div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="7">
+<div id="cell-12" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>result</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>array([303, 326, 329, ..., 332, 281, 324])</code></pre>
@@ -651,7 +646,7 @@ P(X = x) &amp;=&amp; 0 \, for \, x \notin [0,1]
 <p>Now, lets visualize the simulation. We will build a histogram from the result of <code>simulate_election</code>. We will <strong>normalize</strong> the histogram by dividing the frequency of a vote tally by the number of simulations. We’ll overplot the “victory threshold” of 269 votes as a vertical black line and the result (Obama winning 332 votes) as a vertical red line.</p>
 <p>We also compute the number of votes at the 5th and 95th quantiles, which we call the spread, and display it (this is an estimate of the outcome’s uncertainty). By 5th quantile we mean that if we ordered the number of votes Obama gets in each simulation in increasing order, the 5th quantile is the number below which 5% of the simulations lie.</p>
 <p>We also display the probability of an Obama victory</p>
-<div id="cell-15" class="cell" data-execution_count="8">
+<div id="cell-14" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_simulation(simulation):    </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    plt.hist(simulation, bins<span class="op">=</span>np.arange(<span class="dv">200</span>, <span class="dv">538</span>, <span class="dv">1</span>), </span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>             label<span class="op">=</span><span class="st">'simulations'</span>, align<span class="op">=</span><span class="st">'left'</span>, normed<span class="op">=</span><span class="va">True</span>)</span>
@@ -667,7 +662,7 @@ P(X = x) &amp;=&amp; 0 \, for \, x \notin [0,1]
 <span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Probability"</span>)</span>
 <span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    sns.despine()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-16" class="cell" data-execution_count="9">
+<div id="cell-15" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plot_simulation(result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -684,7 +679,7 @@ P(X = x) &amp;=&amp; 0 \, for \, x \notin [0,1]
 <p>This is an <strong>empirical Probability Mass Function</strong>.</p>
 <p>Lets summarize: the way the mass function arose here that we did ran 10,000 tosses (for each state), and depending on the value, assigned the state to Obama or Romney, and then summed up the electoral votes over the states.</p>
 <p>There is a second, very useful question, we can ask of any such probability mass or probability density: what is the probability that a random variable is less than some value. In other words: <span class="math inline">\(P(X &lt; x)\)</span>. This is <em>also</em> a probability distribution and is called the <strong>Cumulative Distribution Function</strong>, or CDF (sometimes just called the <strong>distribution</strong>, as opposed to the <strong>density</strong>, or <strong>mass function</strong>). Its obtained by “summing” the probability density function for all <span class="math inline">\(X\)</span> less than <span class="math inline">\(x\)</span>.</p>
-<div id="cell-20" class="cell" data-execution_count="10">
+<div id="cell-19" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>CDF <span class="op">=</span> <span class="kw">lambda</span> x: np.<span class="bu">float</span>(np.<span class="bu">sum</span>(result <span class="op">&lt;</span> x))<span class="op">/</span>result.shape[<span class="dv">0</span>]</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> votes <span class="kw">in</span> [<span class="dv">200</span>, <span class="dv">300</span>, <span class="dv">320</span>, <span class="dv">340</span>, <span class="dv">360</span>, <span class="dv">400</span>, <span class="dv">500</span>]:</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Obama Win CDF at votes="</span>, votes, <span class="st">" is "</span>, CDF(votes))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -698,7 +693,7 @@ Obama Win CDF at votes= 400  is  1.0
 Obama Win CDF at votes= 500  is  1.0</code></pre>
 </div>
 </div>
-<div id="cell-21" class="cell" data-execution_count="11">
+<div id="cell-20" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>votelist<span class="op">=</span>np.arange(<span class="dv">0</span>, <span class="dv">540</span>, <span class="dv">5</span>)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>plt.plot(votelist, [CDF(v) <span class="cf">for</span> v <span class="kw">in</span> votelist], <span class="st">'.-'</span>)<span class="op">;</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>plt.xlim([<span class="dv">200</span>,<span class="dv">400</span>])</span>
@@ -725,7 +720,7 @@ Obama Win CDF at votes= 500  is  1.0</code></pre>
 <p><span class="math display">\[{n\choose k}=\frac{n!}{k!(n-k)!}\]</span></p>
 <p>How did we obtain this? The <span class="math inline">\(p^k(1-p)^{n-k}\)</span> comes simply from multiplying the probabilities for each bernoulli trial; there are <span class="math inline">\(k\)</span> 1’s or yes’s, and <span class="math inline">\(n-k\)</span> 0’s or no’s. The <span class="math inline">\({n\choose k}\)</span> comes from counting the number of ways in which each event happens: this corresponds to counting all the paths that give the same number of heads in the diagram above.</p>
 <p>We show the distribution below for 200 trials.</p>
-<div id="cell-23" class="cell" data-execution_count="12">
+<div id="cell-22" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> binom</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">6</span>))</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">200</span>)</span>
@@ -763,7 +758,7 @@ Obama Win CDF at votes= 500  is  1.0</code></pre>
 <p><a href="probability.html">Earlier</a> we had used the Predictwise probabilities from Octover 12th to create a predictive model for the elections. This time we will try to <strong>estimate</strong> our own win probabilities to plug into our predictive model.</p>
 <p>We will start with a simple forecast model. We will try to predict the outcome of the election based the estimated proportion of people in each state who identify with one one political party or the other.</p>
 <p>Gallup measures the political leaning of each state, based on asking random people which party they identify or affiliate with. <a href="http://www.gallup.com/poll/156437/heavily-democratic-states-concentrated-east.aspx#2">Here’s the data</a> they collected from January-June of 2012:</p>
-<div id="cell-26" class="cell" data-execution_count="13">
+<div id="cell-25" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>gallup_2012<span class="op">=</span>pd.read_csv(<span class="st">"assets/g12.csv"</span>).set_index(<span class="st">'State'</span>)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>gallup_2012[<span class="st">"Unknown"</span>] <span class="op">=</span> <span class="dv">100</span> <span class="op">-</span> gallup_2012.Democrat <span class="op">-</span> gallup_2012.Republican</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>gallup_2012.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -838,7 +833,7 @@ Obama Win CDF at votes= 500  is  1.0</code></pre>
 </div>
 <p>Each row lists a state, the percent of surveyed individuals who identify as Democrat/Republican, the percent whose identification is unknown or who haven’t made an affiliation yet, the margin between Democrats and Republicans (<code>Dem_Adv</code>: the percentage identifying as Democrats minus the percentage identifying as Republicans), and the number <code>N</code> of people surveyed.</p>
 <p>The most obvious source of error in the Gallup data is the finite sample size – Gallup did not poll <em>everybody</em> in America, and thus the party affilitions are subject to sampling errors. How much uncertainty does this introduce? Lets estimate the sampling error using the definition of the standard error (we use N-1 rather than N; see the sample error section in the page on the <a href="SamplingCLT.html">CLT</a>).</p>
-<div id="cell-28" class="cell" data-execution_count="14">
+<div id="cell-27" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>gallup_2012[<span class="st">"SE_percentage"</span>]<span class="op">=</span><span class="fl">100.0</span><span class="op">*</span>np.sqrt((gallup_2012.Democrat<span class="op">/</span><span class="fl">100.</span>)<span class="op">*</span>((<span class="fl">100.</span> <span class="op">-</span> gallup_2012.Democrat)<span class="op">/</span><span class="fl">100.</span>)<span class="op">/</span>(gallup_2012.N <span class="op">-</span><span class="dv">1</span>))</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>gallup_2012.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
@@ -924,18 +919,18 @@ Obama Win CDF at votes= 500  is  1.0</code></pre>
 <p><span class="math display">\[
 CDF(z) = \frac1{2}\left(1 + {\mathrm erf}\left(\frac{z - \mu}{\sqrt{2 \sigma^2}}\right)\right)
 \]</span></p>
-<div id="cell-30" class="cell" data-execution_count="15">
+<div id="cell-29" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.special <span class="im">import</span> erf</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> uncertain_gallup_model(gallup):</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    sigma <span class="op">=</span> <span class="dv">3</span></span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    prob <span class="op">=</span>  <span class="fl">.5</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> erf(gallup.Dem_Adv <span class="op">/</span> np.sqrt(<span class="dv">2</span> <span class="op">*</span> sigma<span class="op">**</span><span class="dv">2</span>)))</span>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pd.DataFrame(<span class="bu">dict</span>(Obama<span class="op">=</span>prob), index<span class="op">=</span>gallup.index)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-31" class="cell" data-execution_count="16">
+<div id="cell-30" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> uncertain_gallup_model(gallup_2012)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> model.join(predictwise.Votes)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-32" class="cell" data-execution_count="17">
+<div id="cell-31" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>prediction <span class="op">=</span> simulate_election(model, <span class="dv">10000</span>)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>plot_simulation(prediction)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -952,7 +947,6 @@ CDF(z) = \frac1{2}\left(1 + {\mathrm erf}\left(\frac{z - \mu}{\sqrt{2 \sigma^2}}
 <p>If one has results from multiple pollsters, one can now treat them as independent samples from the voting population. Now we use the CLT again. Then the average from these samples will approach the average in the population, with the sample means distributed normally around it. So we can average the averages of the samples to get the population mean, and estimate the variance around this population mean as well.</p>
 
 
-</section>
 </section>
 </section>
 

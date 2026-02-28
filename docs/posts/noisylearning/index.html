@@ -377,10 +377,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#noisy-learning" id="toc-noisy-learning" class="nav-link active" data-scroll-target="#noisy-learning">Noisy Learning</a>
-  <ul class="collapse">
-  <li><a href="#contents" id="toc-contents" class="nav-link" data-scroll-target="#contents">Contents</a></li>
-  <li><a href="#revisiting-our-model" id="toc-revisiting-our-model" class="nav-link" data-scroll-target="#revisiting-our-model">Revisiting our model</a>
+  <li><a href="#revisiting-our-model" id="toc-revisiting-our-model" class="nav-link active" data-scroll-target="#revisiting-our-model">Revisiting our model</a>
   <ul class="collapse">
   <li><a href="#statement-of-the-learning-problem." id="toc-statement-of-the-learning-problem." class="nav-link" data-scroll-target="#statement-of-the-learning-problem.">Statement of the learning problem.</a></li>
   </ul></li>
@@ -395,7 +392,6 @@ window.Quarto = {
   </ul></li>
   <li><a href="#bias-and-variance" id="toc-bias-and-variance" class="nav-link" data-scroll-target="#bias-and-variance">Bias and Variance</a></li>
   <li><a href="#so-far" id="toc-so-far" class="nav-link" data-scroll-target="#so-far">So far?</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -469,16 +465,7 @@ window.Quarto = {
 </header>
 
 
-<section id="noisy-learning" class="level1">
-<h1>Noisy Learning</h1>
-<section id="keywords-empirical-risk-minimization-bias-sampling-distribution-hypothesis-space-training-error-out-of-sample-error-variance-stochastic-noise-bias-variance-tradeoff" class="level5">
-<h5 class="anchored" data-anchor-id="keywords-empirical-risk-minimization-bias-sampling-distribution-hypothesis-space-training-error-out-of-sample-error-variance-stochastic-noise-bias-variance-tradeoff">Keywords: empirical risk minimization, bias, sampling distribution, hypothesis space, training error, out-of-sample error, variance, stochastic noise, bias-variance tradeoff</h5>
-</section>
-<section id="contents" class="level2">
-<h2 class="anchored" data-anchor-id="contents">Contents</h2>
-<p>{:.no_toc} *<br>
-{: toc}</p>
-<div id="cell-3" class="cell" data-hide="true" data-execution_count="26">
+<div id="cell-1" class="cell" data-hide="true" data-execution_count="26">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
@@ -493,7 +480,7 @@ window.Quarto = {
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">"whitegrid"</span>)</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>sns.set_context(<span class="st">"poster"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-4" class="cell" data-hide="true" data-execution_count="27">
+<div id="cell-2" class="cell" data-hide="true" data-execution_count="27">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_simple_plot():</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    fig, axes<span class="op">=</span>plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">5</span>), nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">2</span>)<span class="op">;</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylabel(<span class="st">"$y$"</span>)</span>
@@ -517,13 +504,12 @@ window.Quarto = {
 <span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()<span class="op">;</span></span>
 <span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> axes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</section>
 <section id="revisiting-our-model" class="level2">
 <h2 class="anchored" data-anchor-id="revisiting-our-model">Revisiting our model</h2>
 <p>Let us revisit our model from noiseless_learning.</p>
 <p>Let <span class="math inline">\(x\)</span> be the fraction of religious people in a county and <span class="math inline">\(y\)</span> be the probability of voting for Romney as a function of <span class="math inline">\(x\)</span>. In other words <span class="math inline">\(y_i\)</span> is data that pollsters have taken which tells us their estimate of people voting for Romney and <span class="math inline">\(x_i\)</span> is the fraction of religious people in county <span class="math inline">\(i\)</span>. Because poll samples are finite, there is a margin of error on each data point or county <span class="math inline">\(i\)</span>, but we will ignore that for now.</p>
 <p>Let us assume that we have a “population” of 200 counties <span class="math inline">\(x\)</span>:</p>
-<div id="cell-8" class="cell" data-execution_count="28">
+<div id="cell-6" class="cell" data-execution_count="28">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df<span class="op">=</span>pd.read_csv(<span class="st">"data/religion.csv"</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="28">
@@ -570,7 +556,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Lets suppose now that the Lord came by and told us that the points in the plot below captures <span class="math inline">\(f(x)\)</span> exactly.</p>
-<div id="cell-10" class="cell" data-execution_count="29">
+<div id="cell-8" class="cell" data-execution_count="29">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>df.rfrac.values</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>f<span class="op">=</span>df.promney.values</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x,f,<span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -584,11 +570,11 @@ window.Quarto = {
 </div>
 <p>Notice that our sampling of <span class="math inline">\(x\)</span> is not quite uniform: there are more points around <span class="math inline">\(x\)</span> of 0.7.</p>
 <p>Now, in real life we are only given a sample of points. Lets assume that out of this population of 200 points we are given a sample <span class="math inline">\(\cal{D}\)</span> of 30 data points. Such data is called <strong>in-sample data</strong>. Contrastingly, the entire population of data points is also called <strong>out-of-sample data</strong>.</p>
-<div id="cell-12" class="cell" data-execution_count="30">
+<div id="cell-10" class="cell" data-execution_count="30">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dfsample <span class="op">=</span> pd.read_csv(<span class="st">"data/noisysample.csv"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>indexes<span class="op">=</span>dfsample.i.values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="37">
+<div id="cell-11" class="cell" data-execution_count="37">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dfpop <span class="op">=</span> pd.read_csv(<span class="st">"data/noisypopulation.csv"</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>dfpop.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="37">
@@ -640,11 +626,11 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-14" class="cell" data-execution_count="31">
+<div id="cell-12" class="cell" data-execution_count="31">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>samplex <span class="op">=</span> x[indexes]</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>samplef <span class="op">=</span> f[indexes]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-15" class="cell" data-figure_type="w" data-execution_count="33">
+<div id="cell-13" class="cell" data-figure_type="w" data-execution_count="33">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>axes<span class="op">=</span>make_plot()</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,f, <span class="st">'k-'</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">"f (from the Lord)"</span>)<span class="op">;</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x,f, <span class="st">'r.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, label<span class="op">=</span><span class="st">"population"</span>)<span class="op">;</span></span>
@@ -687,7 +673,7 @@ B &amp;:&amp; R_{out} (g) \approx R_{\cal{D}}(g)
 <p>A similar thing might be happen in the election example, where we have modelled the probability of voting for romney as a function of religiousness of the county. There are many other variables we might not have measured, such as the majority race in that county. But, we have not measured this information. Thus, in counties with high religiousness fraction <span class="math inline">\(x\)</span> we might have more noise than in others. Consider for example two counties, one with <span class="math inline">\(x=0.8\)</span> fraction of self-identified religious people in the county, and another with <span class="math inline">\(x=0.82\)</span>. Based on historical trends, if the first county was mostly white, the fraction of those claiming they would vote for Romney might be larger than in a second, mostly black county. Thus you might have two very <span class="math inline">\(y\)</span>’s next to each other on our graphs.</p>
 <p>It gets worse. When pollsters estimate the number of people voting for a particular candidate, they only use finite samples of voters. So there is a 4-6% polling error in any of these estimates. This “sampling noise” adds to the noisiness of the <span class="math inline">\(y\)</span>’s.</p>
 <p>Indeed, we wish to estimate a function <span class="math inline">\(f(x)\)</span> so that the values <span class="math inline">\(y_i\)</span> come from the function <span class="math inline">\(f\)</span>. Since we are trying to estimate f with data from only some counties, and furthermore, our estimates of the population behaviour in these counties will be noisy, our estimate wont be the “god given” or “real” f, but rather some <strong>noisy</strong> estimate of it.</p>
-<div id="cell-23" class="cell" data-execution_count="34">
+<div id="cell-21" class="cell" data-execution_count="34">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dfsample.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="34">
 <div>
@@ -744,18 +730,18 @@ B &amp;:&amp; R_{out} (g) \approx R_{\cal{D}}(g)
 </div>
 </div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="35">
+<div id="cell-22" class="cell" data-execution_count="35">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dfsample.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="35">
 <pre><code>(30, 4)</code></pre>
 </div>
 </div>
-<div id="cell-25" class="cell" data-execution_count="38">
+<div id="cell-23" class="cell" data-execution_count="38">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> dfpop.x.values</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> dfpop.f.values</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> dfpop.y.values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-26" class="cell" data-figure_type="m" data-execution_count="39">
+<div id="cell-24" class="cell" data-figure_type="m" data-execution_count="39">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,f, <span class="st">'r-'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f"</span>)<span class="op">;</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x[indexes], y[indexes], <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"in-sample y (observed)"</span>)<span class="op">;</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"population y"</span>)<span class="op">;</span></span>
@@ -791,7 +777,7 @@ B &amp;:&amp; R_{out} (g) \approx R_{\cal{D}}(g)
 </div>
 <p>Now the entire learning problem can be cast as a problem in probability <strong>density estimation</strong>: if we can estimate <span class="math inline">\(P(x,y)\)</span> and take actions based on that estimate thanks to our risk or error functional, we are done.</p>
 <p>We now fit in both <span class="math inline">\(\cal{H_1}\)</span> and <span class="math inline">\(\cal{H_{20}}\)</span> to find the best fit straight line and best fit 20th order polynomial respectively.</p>
-<div id="cell-30" class="cell" data-execution_count="40">
+<div id="cell-28" class="cell" data-execution_count="40">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>g1 <span class="op">=</span> np.poly1d(np.polyfit(x[indexes],f[indexes],<span class="dv">1</span>))</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>g20 <span class="op">=</span> np.poly1d(np.polyfit(x[indexes],f[indexes],<span class="dv">20</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
@@ -799,7 +785,7 @@ B &amp;:&amp; R_{out} (g) \approx R_{\cal{D}}(g)
   warnings.warn(msg, RankWarning)</code></pre>
 </div>
 </div>
-<div id="cell-31" class="cell" data-execution_count="41">
+<div id="cell-29" class="cell" data-execution_count="41">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>g1noisy <span class="op">=</span> np.poly1d(np.polyfit(x[indexes],y[indexes],<span class="dv">1</span>))</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>g20noisy <span class="op">=</span> np.poly1d(np.polyfit(x[indexes],y[indexes],<span class="dv">20</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
@@ -807,7 +793,7 @@ B &amp;:&amp; R_{out} (g) \approx R_{\cal{D}}(g)
   warnings.warn(msg, RankWarning)</code></pre>
 </div>
 </div>
-<div id="cell-32" class="cell" data-figure_type="w" data-execution_count="42">
+<div id="cell-30" class="cell" data-figure_type="w" data-execution_count="42">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>axes<span class="op">=</span>make_plot()</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,f, <span class="st">'r-'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f"</span>)<span class="op">;</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x,f, <span class="st">'r-'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f"</span>)<span class="op">;</span></span>
@@ -830,7 +816,7 @@ B &amp;:&amp; R_{out} (g) \approx R_{\cal{D}}(g)
 <p>The results are (to put it mildly) very interesting.</p>
 <p>Lets look at the figure on the left first. The noise changes the best fit line by a little but not by much. The best fit line still does a very poor job of capturing the variation in the data.</p>
 <p>The best fit 20th order polynomial, in the presence of noise, is very interesting. It tries to follow all the curves of the observations..in other words, it tries to fit the noise. This is a disaster, as you can see if you plot the population (out-of-sample) points on the plot as well:</p>
-<div id="cell-34" class="cell" data-execution_count="43">
+<div id="cell-32" class="cell" data-execution_count="43">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,f, <span class="st">'r-'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f"</span>)<span class="op">;</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x[indexes],y[indexes], <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"y in-sample"</span>)<span class="op">;</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,  <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"population y"</span>)<span class="op">;</span></span>
@@ -848,7 +834,7 @@ B &amp;:&amp; R_{out} (g) \approx R_{\cal{D}}(g)
 <p>Whoa. The best-fit 20th order polynomial does a reasonable job fitting the in-sample data, and is even well behaved in the middle where we have a lot of in-sample data points. But at places with less in-sample data points, the polynomial wiggles maniacally.</p>
 <p>This fitting to the noise is a danger you will encounter again and again in learning. Its called <strong>overfitting</strong>. So, <span class="math inline">\(\cal{H_{20}}\)</span> which seemed to be such a good candidate hypothesis space in the absence of noise, ceases to be one. The take away lesson from this is that we must further ensure that our <strong>model does not fit the noise</strong>.</p>
 <p>Lets make a plot similar to the one we made for the deterministic noise earlier, and compare the error in the new <span class="math inline">\(g_1\)</span> and <span class="math inline">\(g_{20}\)</span> fits on the noisy data.</p>
-<div id="cell-36" class="cell" data-figure_type="m" data-execution_count="44">
+<div id="cell-34" class="cell" data-figure_type="m" data-execution_count="44">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x, ((g1noisy(x)<span class="op">-</span>f)<span class="op">**</span><span class="dv">2</span>), lw<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="st">"$g_1$"</span>)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x, ((g20noisy(x)<span class="op">-</span>f)<span class="op">**</span><span class="dv">2</span>), lw<span class="op">=</span><span class="dv">3</span>,label<span class="op">=</span><span class="st">"$g_</span><span class="sc">{20}</span><span class="st">$"</span>)<span class="op">;</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x, [<span class="dv">1</span>]<span class="op">*</span>x.shape[<span class="dv">0</span>], <span class="st">"k:"</span>, label<span class="op">=</span><span class="st">"noise"</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)<span class="op">;</span></span>
@@ -874,7 +860,7 @@ B &amp;:&amp; R_{out} (g) \approx R_{\cal{D}}(g)
 <h3 class="anchored" data-anchor-id="the-variance-of-your-model">The Variance of your model</h3>
 <p>This tendency of a more complex model to overfit, by having enough freedom to fit the noise, is described by something called high <strong>variance</strong>. What is variance?</p>
 <p>Variance, simply put, is the “error-bar” or spread in models that would be learnt by training on different data sets <span class="math inline">\(\cal{D_1}, \cal{D_2},...\)</span> drawn from the population. Now, this seems like a circular concept, as in real-life, you do not have access to the population. But since we simulated our data here anyways, we do, and so let us see what happens if we choose <strong>different 30 points randomly from our population of 200</strong>, and fit models in both <span class="math inline">\(\cal{H_1}\)</span> and <span class="math inline">\(\cal{H_{20}}\)</span> to them. We do this on 200 sets of randomly chosen (from the population) data sets of 30 points each and plot the best fit models in noth hypothesis spaces for all 200 sets.</p>
-<div id="cell-40" class="cell" data-execution_count="45">
+<div id="cell-38" class="cell" data-execution_count="45">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gen(degree, nsims, size, x, out):</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    outpoly<span class="op">=</span>[]</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(nsims):</span>
@@ -884,7 +870,7 @@ B &amp;:&amp; R_{out} (g) \approx R_{\cal{D}}(g)
 <span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>        outpoly.append(p)</span>
 <span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> outpoly</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-41" class="cell" data-execution_count="46">
+<div id="cell-39" class="cell" data-execution_count="46">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>polys1 <span class="op">=</span> gen(<span class="dv">1</span>, <span class="dv">200</span>, <span class="dv">30</span>,x, y)<span class="op">;</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>polys20 <span class="op">=</span> gen(<span class="dv">20</span>, <span class="dv">200</span>, <span class="dv">30</span>,x, y)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
@@ -1290,7 +1276,7 @@ B &amp;:&amp; R_{out} (g) \approx R_{\cal{D}}(g)
   warnings.warn(msg, RankWarning)</code></pre>
 </div>
 </div>
-<div id="cell-42" class="cell" data-figure_type="w" data-execution_count="47">
+<div id="cell-40" class="cell" data-figure_type="w" data-execution_count="47">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>axes<span class="op">=</span>make_plot()</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,f, <span class="st">'r-'</span>, lw<span class="op">=</span><span class="dv">3</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f"</span>)<span class="op">;</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x,f, <span class="st">'r-'</span>, lw<span class="op">=</span><span class="dv">3</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f"</span>)<span class="op">;</span></span>
@@ -1322,7 +1308,7 @@ B &amp;:&amp; R_{out} (g) \approx R_{\cal{D}}(g)
 <p>On the left panel, you see the 200 best fit straight lines, each a fit on a different 30 point training sets from the 200 point population. The best-fit lines bunch together, even if they dont quite capture <span class="math inline">\(f\)</span> (the thick red line) or the data (squares) terribly well.</p>
 <p>On the right panel, we see the same with best-fit models chosen from <span class="math inline">\(\cal{H}_{20}\)</span>. It is a diaster. While most of the models still band around the central trend of the real curve <span class="math inline">\(f\)</span> and data <span class="math inline">\(y\)</span> (and you still see the waves corresponding to all too wiggly 20th order polynomials), a substantial amount of models veer off into all kinds of noisy hair all over the plot. This is <strong>variance</strong>: the the predictions at any given <span class="math inline">\(x\)</span> are all over the place.</p>
 <p>The variance can be seen in a different way by plotting the coefficients of the polynomial fit. Below we plot the coefficients of the fit in <span class="math inline">\(\cal{H}_1\)</span>. The variance is barely 0.2 about the mean for both co-efficients.</p>
-<div id="cell-44" class="cell" data-figure_type="w" data-execution_count="48">
+<div id="cell-42" class="cell" data-figure_type="w" data-execution_count="48">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>pdict1<span class="op">=</span>{}</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>pdict20<span class="op">=</span>{}</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">reversed</span>(<span class="bu">range</span>(<span class="dv">2</span>)):</span>
@@ -1417,7 +1403,6 @@ B &amp;:&amp; R_{out} (g) \approx R_{\cal{D}}(g)
 <p>Well, we are scientists. Just hoping does not befit us. But we only have a sample. What are we to do? We can model the in-sample risk and out-of-sample risk. And we can use a test set to estimate our out of sample risk, as we see <a href="testingtraining.html">here</a>.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

@@ -377,17 +377,13 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#regularization" id="toc-regularization" class="nav-link active" data-scroll-target="#regularization">Regularization</a>
-  <ul class="collapse">
-  <li><a href="#contents" id="toc-contents" class="nav-link" data-scroll-target="#contents">Contents</a></li>
-  <li><a href="#revisiting-the-model" id="toc-revisiting-the-model" class="nav-link" data-scroll-target="#revisiting-the-model">Revisiting the model</a></li>
+  <li><a href="#revisiting-the-model" id="toc-revisiting-the-model" class="nav-link active" data-scroll-target="#revisiting-the-model">Revisiting the model</a></li>
   <li><a href="#constraining-parameters-by-penalty" id="toc-constraining-parameters-by-penalty" class="nav-link" data-scroll-target="#constraining-parameters-by-penalty">Constraining parameters by penalty</a>
   <ul class="collapse">
   <li><a href="#a-toy-example" id="toc-a-toy-example" class="nav-link" data-scroll-target="#a-toy-example">A toy example</a></li>
   <li><a href="#contrast-with-complexity-parameter-validation" id="toc-contrast-with-complexity-parameter-validation" class="nav-link" data-scroll-target="#contrast-with-complexity-parameter-validation">Contrast with complexity parameter validation</a></li>
   </ul></li>
   <li><a href="#regularization-of-the-romney-model-with-cross-validation" id="toc-regularization-of-the-romney-model-with-cross-validation" class="nav-link" data-scroll-target="#regularization-of-the-romney-model-with-cross-validation">Regularization of the Romney model with Cross-Validation</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -461,16 +457,7 @@ window.Quarto = {
 </header>
 
 
-<section id="regularization" class="level1">
-<h1>Regularization</h1>
-<section id="keywords-regularization-linear-regression-cross-validation-ridge-lasso-complexity-parameter" class="level5">
-<h5 class="anchored" data-anchor-id="keywords-regularization-linear-regression-cross-validation-ridge-lasso-complexity-parameter">Keywords: regularization, linear regression, cross-validation, ridge, lasso, complexity parameter</h5>
-</section>
-<section id="contents" class="level2">
-<h2 class="anchored" data-anchor-id="contents">Contents</h2>
-<p>{:.no_toc} *<br>
-{: toc}</p>
-<div id="cell-3" class="cell" data-hide="true" data-execution_count="2">
+<div id="cell-1" class="cell" data-hide="true" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
@@ -489,7 +476,7 @@ window.Quarto = {
   warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
 </div>
 </div>
-<div id="cell-4" class="cell" data-hide="true" data-execution_count="3">
+<div id="cell-2" class="cell" data-hide="true" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_simple_plot():</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    fig, axes<span class="op">=</span>plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">5</span>), nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">2</span>)<span class="op">;</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylabel(<span class="st">"$y$"</span>)</span>
@@ -513,11 +500,10 @@ window.Quarto = {
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()<span class="op">;</span></span>
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> axes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</section>
 <section id="revisiting-the-model" class="level2">
 <h2 class="anchored" data-anchor-id="revisiting-the-model">Revisiting the model</h2>
 <p>Let <span class="math inline">\(x\)</span> be the fraction of religious people in a county and <span class="math inline">\(y\)</span> be the probability of voting for Romney as a function of <span class="math inline">\(x\)</span>. In other words <span class="math inline">\(y_i\)</span> is data that pollsters have taken which tells us their estimate of people voting for Romney and <span class="math inline">\(x_i\)</span> is the fraction of religious people in county <span class="math inline">\(i\)</span>. Because poll samples are finite, there is a margin of error on each data point or county <span class="math inline">\(i\)</span>, but we will ignore that for now.</p>
-<div id="cell-6" class="cell" data-execution_count="4">
+<div id="cell-4" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dffull<span class="op">=</span>pd.read_csv(<span class="st">"data/religion.csv"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>dffull.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
@@ -563,11 +549,11 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-7" class="cell" data-execution_count="5">
+<div id="cell-5" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>dffull.rfrac.values</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>f<span class="op">=</span>dffull.promney.values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="6">
+<div id="cell-6" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/noisysample.csv"</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
@@ -625,7 +611,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-9" class="cell" data-execution_count="7">
+<div id="cell-7" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cross_validation <span class="im">import</span> train_test_split</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>datasize<span class="op">=</span>df.shape[<span class="dv">0</span>]</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#split dataset using the index, as we have x,f, and y that we want to split.</span></span>
@@ -637,12 +623,12 @@ window.Quarto = {
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>ftest <span class="op">=</span> df.f[itest].values</span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>ytest <span class="op">=</span> df.y[itest].values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-10" class="cell" data-execution_count="8">
+<div id="cell-8" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> PolynomialFeatures</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-11" class="cell" data-execution_count="9">
+<div id="cell-9" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_features(train_set, test_set, degrees):</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    traintestlist<span class="op">=</span>[]</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> d <span class="kw">in</span> degrees:</span>
@@ -652,7 +638,7 @@ window.Quarto = {
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        traintestlist.append(traintestdict)</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> traintestlist</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-12" class="cell" data-execution_count="10">
+<div id="cell-10" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>degrees<span class="op">=</span><span class="bu">range</span>(<span class="dv">21</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>traintestlists<span class="op">=</span>make_features(xtrain, xtest, degrees)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -677,7 +663,7 @@ window.Quarto = {
 <section id="a-toy-example" class="level3">
 <h3 class="anchored" data-anchor-id="a-toy-example">A toy example</h3>
 <p>Even though we are not doing any proofs, let us illustrate the concept of regularization using a line fit to a sine wave. We fit a straight line to 3 points, choosing 100 such sets of 3 points from the data set.</p>
-<div id="cell-15" class="cell" data-execution_count="11">
+<div id="cell-13" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>xs<span class="op">=</span>np.arange(<span class="op">-</span><span class="fl">1.</span>,<span class="fl">1.</span>,<span class="fl">0.01</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>ff <span class="op">=</span> <span class="kw">lambda</span> x: np.sin(np.pi<span class="op">*</span>x)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>ffxs<span class="op">=</span>ff(xs)</span>
@@ -727,7 +713,7 @@ window.Quarto = {
 </section>
 <section id="regularization-of-the-romney-model-with-cross-validation" class="level2">
 <h2 class="anchored" data-anchor-id="regularization-of-the-romney-model-with-cross-validation">Regularization of the Romney model with Cross-Validation</h2>
-<div id="cell-19" class="cell" data-execution_count="12">
+<div id="cell-17" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_functions(est, ax, df, alpha, xtest, Xtest, xtrain, ytrain):</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Plot the approximation of ``est`` on axis ``ax``. """</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    ax.plot(df.x, df.f, color<span class="op">=</span><span class="st">'k'</span>, label<span class="op">=</span><span class="st">'f'</span>)</span>
@@ -758,7 +744,7 @@ window.Quarto = {
 </figure>
 </div>
 <p>Lets see what some of the <span class="math inline">\(\alpha\)</span>s do. The diagram below trains on the entire training set, for given values of <span class="math inline">\(\alpha\)</span>, minimizing the penalty-term-added training error.</p>
-<div id="cell-21" class="cell" data-execution_count="13">
+<div id="cell-19" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fig, rows <span class="op">=</span> plt.subplots(<span class="dv">5</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">16</span>))</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>d<span class="op">=</span><span class="dv">20</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>alphas <span class="op">=</span> [<span class="fl">0.0</span>, <span class="fl">1e-5</span>, <span class="fl">1e-3</span>, <span class="dv">1</span>, <span class="dv">10</span>]</span>
@@ -788,7 +774,7 @@ window.Quarto = {
 parameters = {"alpha": [1e-8, 1e-6, 1e-5, 5e-5, 1e-4, 5e-4, 1e-3, 1e-2, 1e-1, 1.0]}
 gridclassifier=GridSearchCV(clf, param_grid=parameters, cv=4, scoring="mean_squared_error")</code></pre>
 <p>The <code>GridSearchCV</code> replaces the manual iteration over thefolds using <code>KFolds</code> and the averaging we did previously, doint it all for us. It takes a parameter grid in the shape of a dictionary as input, and sets <span class="math inline">\(\alpha\)</span> to the appropriate parameter values one by one. It then trains the model, cross-validation fashion, and gets the error. Finally it compares the errors for the different <span class="math inline">\(\alpha\)</span>’s, and picks the best choice model.</p>
-<div id="cell-23" class="cell" data-execution_count="15">
+<div id="cell-21" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> make_scorer</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#, 1e-6, 1e-5, 1e-3, 1.0</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.grid_search <span class="im">import</span> GridSearchCV</span>
@@ -801,10 +787,10 @@ gridclassifier=GridSearchCV(clf, param_grid=parameters, cv=4, scoring="mean_squa
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    gs.fit(X, y)</span>
 <span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> gs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="16">
+<div id="cell-22" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fitmodel <span class="op">=</span> cv_optimize_ridge(Xtrain, ytrain, n_folds<span class="op">=</span><span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-25" class="cell" data-execution_count="17">
+<div id="cell-23" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fitmodel.best_estimator_, fitmodel.best_params_, fitmodel.best_score_, fitmodel.grid_scores_</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>(Ridge(alpha=0.0005, copy_X=True, fit_intercept=True, max_iter=None,
@@ -825,11 +811,11 @@ gridclassifier=GridSearchCV(clf, param_grid=parameters, cv=4, scoring="mean_squa
 </div>
 <p>Our best model occurs for <span class="math inline">\(\alpha=0.01\)</span>. We also output the mean cross-validation error at different <span class="math inline">\(\alpha\)</span> (with a negative sign, as scikit-learn likes to maximize negative error which is equivalent to minimizing error).</p>
 <p>We refit the estimator on old training set, and calculate and plot the test set error and the polynomial coefficients. Notice how many of these coefficients have been pushed to lower values or 0.</p>
-<div id="cell-27" class="cell" data-execution_count="18">
+<div id="cell-25" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>alphawechoose <span class="op">=</span> fitmodel.best_params_[<span class="st">'alpha'</span>]</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>clf <span class="op">=</span> Ridge(alpha<span class="op">=</span>alphawechoose).fit(Xtrain,ytrain)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-28" class="cell" data-execution_count="19">
+<div id="cell-26" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_functions_onall(est, ax, df, alpha, xtrain, ytrain, Xtrain, xtest, ytest):</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Plot the approximation of ``est`` on axis ``ax``. """</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    ax.plot(df.x, df.f, color<span class="op">=</span><span class="st">'k'</span>, label<span class="op">=</span><span class="st">'f'</span>)</span>
@@ -845,7 +831,7 @@ gridclassifier=GridSearchCV(clf, param_grid=parameters, cv=4, scoring="mean_squa
 <span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">'x'</span>)</span>
 <span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    ax.legend(loc<span class="op">=</span><span class="st">'lower right'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-29" class="cell" data-execution_count="20">
+<div id="cell-27" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>fig, rows <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>l,r<span class="op">=</span>rows</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>plot_functions_onall(clf, l, df, alphawechoose, xtrain, ytrain, Xtrain, xtest, ytest)</span>
@@ -861,7 +847,6 @@ gridclassifier=GridSearchCV(clf, param_grid=parameters, cv=4, scoring="mean_squa
 <p>As we can see, the best fit model is now chosen from the entire set of 20th order polynomials, and a non-zero hyperparameter <span class="math inline">\(\alpha\)</span> that we fit for ensures that only smooth models amonst these polynomials are chosen, by setting most of the polynomial coefficients to something close to 0 (Lasso sets them exactly to 0).</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

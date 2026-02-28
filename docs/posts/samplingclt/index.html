@@ -374,9 +374,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#sampling-and-the-central-limit-theorem" id="toc-sampling-and-the-central-limit-theorem" class="nav-link active" data-scroll-target="#sampling-and-the-central-limit-theorem">Sampling and the Central Limit Theorem</a>
-  <ul class="collapse">
-  <li><a href="#samples-from-a-population-of-coin-flips" id="toc-samples-from-a-population-of-coin-flips" class="nav-link" data-scroll-target="#samples-from-a-population-of-coin-flips">Samples from a population of coin flips</a></li>
+  <li><a href="#samples-from-a-population-of-coin-flips" id="toc-samples-from-a-population-of-coin-flips" class="nav-link active" data-scroll-target="#samples-from-a-population-of-coin-flips">Samples from a population of coin flips</a></li>
   <li><a href="#the-notion-of-a-sampling-distribution" id="toc-the-notion-of-a-sampling-distribution" class="nav-link" data-scroll-target="#the-notion-of-a-sampling-distribution">The notion of a Sampling Distribution</a>
   <ul class="collapse">
   <li><a href="#the-sampling-distribution-as-a-function-of-sample-size" id="toc-the-sampling-distribution-as-a-function-of-sample-size" class="nav-link" data-scroll-target="#the-sampling-distribution-as-a-function-of-sample-size">The sampling distribution as a function of sample size</a></li>
@@ -388,7 +386,6 @@ window.Quarto = {
   <li><a href="#what-does-this-all-mean" id="toc-what-does-this-all-mean" class="nav-link" data-scroll-target="#what-does-this-all-mean">What does this all mean?</a></li>
   </ul></li>
   <li><a href="#the-sampling-distribution-of-the-variance" id="toc-the-sampling-distribution-of-the-variance" class="nav-link" data-scroll-target="#the-sampling-distribution-of-the-variance">The sampling distribution of the Variance</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -463,9 +460,7 @@ window.Quarto = {
 </header>
 
 
-<section id="sampling-and-the-central-limit-theorem" class="level1 page-columns page-full">
-<h1>Sampling and the Central Limit Theorem</h1>
-<div id="cell-2" class="cell" data-hide="true" data-execution_count="1">
+<div id="cell-1" class="cell" data-hide="true" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The %... is an iPython thing, and is not part of the Python language.</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># In this case we're just telling the plotting library to draw things on</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the notebook, instead of on a separate window.</span></span>
@@ -494,13 +489,13 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="samples-from-a-population-of-coin-flips">Samples from a population of coin flips</h2>
 <p>Lets do some more coin flips; this time we’ll do them in many replications. We’ll establish some terminology at first.</p>
 <p>We will do a large set of replications M, in each of which we will do many coin flips N. We’ll call the result of each coin flip an observation, and a single replication a sample of observations. Thus the number of samples is M, and the sample size is N. These samples have been chosen from a population of size <span class="math inline">\(n &gt;&gt; N\)</span>.</p>
-<div id="cell-4" class="cell" data-execution_count="4">
+<div id="cell-3" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats.distributions <span class="im">import</span> bernoulli</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> throw_a_coin(n):</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    brv <span class="op">=</span> bernoulli(<span class="fl">0.5</span>)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> brv.rvs(size<span class="op">=</span>n)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-5" class="cell" data-execution_count="5">
+<div id="cell-4" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_throws(number_of_samples, sample_size):</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    start<span class="op">=</span>np.zeros((number_of_samples, sample_size), dtype<span class="op">=</span><span class="bu">int</span>)</span>
@@ -509,7 +504,7 @@ window.Quarto = {
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.mean(start, axis<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We show the mean over the observations, or sample mean, for a sample size of 10, with 20 replications. There are thus 20 means.</p>
-<div id="cell-7" class="cell" data-execution_count="6">
+<div id="cell-6" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>make_throws(number_of_samples<span class="op">=</span><span class="dv">20</span>, sample_size<span class="op">=</span><span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>array([ 0.5,  0.8,  0.5,  1. ,  0.7,  0.7,  0.6,  0.6,  0.7,  1. ,  0.7,
@@ -517,7 +512,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Let us now do 200 replications, each of which has a sample size of 1000 flips, and store the 200 means for each sample size from 1 to 1000 in <code>sample_means</code>.</p>
-<div id="cell-9" class="cell" data-execution_count="7">
+<div id="cell-8" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sample_sizes<span class="op">=</span>np.arange(<span class="dv">1</span>,<span class="dv">1001</span>,<span class="dv">1</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>sample_means <span class="op">=</span> [make_throws(number_of_samples<span class="op">=</span><span class="dv">200</span>, sample_size<span class="op">=</span>i) <span class="cf">for</span> i <span class="kw">in</span> sample_sizes]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -527,10 +522,10 @@ window.Quarto = {
 <p>Of course, if you drew many different samples of a size N (which is not infinite), the sample means <span class="math inline">\(\bar{x_1}\)</span>, <span class="math inline">\(\bar{x_2}\)</span>, etc would all be a bit different from each other. But the law of large numbers intuitively indicates that as the sample size gets very large and becomes an infinite population size, these slightly differeing means would all come together and converge to the population (or distribution) mean.</p>
 <p>To see this lets define, instead, the mean or expectation of the sample means over the set of samples or replications, at a sample size N:</p>
 <p><span class="math display">\[E_{\{R\}}(\bar{x}) = \frac{1}{M} \,\sum_{m=1}^{M} \bar{x_m}(N) ,\]</span> where <span class="math inline">\(\{R\}\)</span> is the set of M replications, and calculate and plot this quantity.</p>
-<div id="cell-11" class="cell" data-execution_count="8">
+<div id="cell-10" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>mean_of_sample_means <span class="op">=</span> [np.mean(means) <span class="cf">for</span> means <span class="kw">in</span> sample_means]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-12" class="cell" data-figure_caption="The mean of sample means also approaches the distribution mean." data-figure_type="m" data-execution_count="9">
+<div id="cell-11" class="cell" data-figure_caption="The mean of sample means also approaches the distribution mean." data-figure_type="m" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>plt.plot(sample_sizes, mean_of_sample_means)<span class="op">;</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>plt.ylim([<span class="fl">0.480</span>,<span class="fl">0.520</span>])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -559,12 +554,12 @@ E_{\{R\}}(\bar{x}) &amp;=&amp; \mu
 <section id="the-sampling-distribution-as-a-function-of-sample-size" class="level3">
 <h3 class="anchored" data-anchor-id="the-sampling-distribution-as-a-function-of-sample-size">The sampling distribution as a function of sample size</h3>
 <p>We can see what the estimated sampling distribution of the mean looks like at different sample sizes.</p>
-<div id="cell-16" class="cell" data-execution_count="10">
+<div id="cell-15" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sample_means_at_size_10<span class="op">=</span>sample_means[<span class="dv">9</span>]</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>sample_means_at_size_100<span class="op">=</span>sample_means[<span class="dv">99</span>]</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>sample_means_at_size_1000<span class="op">=</span>sample_means[<span class="dv">999</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-17" class="cell" data-figure_type="m" data-execution_count="11">
+<div id="cell-16" class="cell" data-figure_type="m" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>plt.hist(sample_means_at_size_10, bins<span class="op">=</span>np.arange(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.01</span>), alpha<span class="op">=</span><span class="fl">0.5</span>)<span class="op">;</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>plt.hist(sample_means_at_size_100, bins<span class="op">=</span>np.arange(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.01</span>), alpha<span class="op">=</span><span class="fl">0.4</span>)<span class="op">;</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>plt.hist(sample_means_at_size_1000, bins<span class="op">=</span>np.arange(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.01</span>), alpha<span class="op">=</span><span class="fl">0.3</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -578,7 +573,7 @@ E_{\{R\}}(\bar{x}) &amp;=&amp; \mu
 </div>
 <p>The distribution is much tighter at large sample sizes, and that you can have way low and way large means at small sample sizes. Indeed there are means as small as 0.1 at a sample size of 10, and as small as 0.3 at a sample size of 100.</p>
 <p>Lets plot the distribution of the mean as a function of sample size.</p>
-<div id="cell-20" class="cell" data-figure_type="m" data-execution_count="13">
+<div id="cell-19" class="cell" data-figure_type="m" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> sample_sizes:</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">%</span><span class="dv">50</span> <span class="op">==</span><span class="dv">0</span> <span class="kw">and</span> i <span class="op">&lt;</span> <span class="dv">1000</span>:</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        plt.scatter([i]<span class="op">*</span><span class="dv">200</span>, sample_means[i], alpha<span class="op">=</span><span class="fl">0.05</span>)<span class="op">;</span></span>
@@ -606,10 +601,10 @@ V(\bar{x}) &amp;=&amp; \frac{\sigma^2}{N}
 <p>This simple formula is called <strong>De-Moivre’s</strong> formula, and explains the tell-tale triangular plot we saw above, with lots of variation at low sample sizes turning into a tight distribution at large sample size(N).</p>
 <p>The square root of <span class="math inline">\(V\)</span>, or the standard deviation of the sampling distribution of the mean (in other words, the distribution of sample means) is also called the <strong>Standard Error</strong>.</p>
 <p>We can obtain the standard deviation of the sampling distribution of the mean at different sample sizes and plot it against the sample size, to confirm the <span class="math inline">\(1/\sqrt(N)\)</span> behaviour.</p>
-<div id="cell-22" class="cell" data-execution_count="17">
+<div id="cell-21" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>std_of_sample_means <span class="op">=</span> [np.std(means) <span class="cf">for</span> means <span class="kw">in</span> sample_means]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-23" class="cell" data-figure_caption="The slope of the graph is -0.5 showing the inverse proportion to the square root of N" data-figure_type="m" data-execution_count="18">
+<div id="cell-22" class="cell" data-figure_caption="The slope of the graph is -0.5 showing the inverse proportion to the square root of N" data-figure_type="m" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plt.plot(np.log10(sample_sizes), np.log10(std_of_sample_means))<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -620,7 +615,7 @@ V(\bar{x}) &amp;=&amp; \frac{\sigma^2}{N}
 </div>
 </div>
 <p>Let us plot again the distribution of sample means at a large sample size, <span class="math inline">\(N=1000\)</span>. What distribution is this?</p>
-<div id="cell-25" class="cell" data-execution_count="19">
+<div id="cell-24" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>plt.hist(sample_means_at_size_1000, bins<span class="op">=</span>np.arange(<span class="fl">0.4</span>,<span class="fl">0.6</span>,<span class="fl">0.002</span>))<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -638,7 +633,7 @@ V(\bar{x}) &amp;=&amp; \frac{\sigma^2}{N}
 <p>The probability density of the normal distribution is given as:</p>
 <p><span class="math display">\[ N(x, \mu, \sigma) = \frac{1}{\sigma\sqrt{2\pi}} e^{ -\frac{(x-\mu)^2}{2s^2} } .\]</span></p>
 <p>The expected value of the Gaussian distribution is <span class="math inline">\(E[X]=\mu\)</span> and the variance is <span class="math inline">\(Var[X]=s^2\)</span>.</p>
-<div id="cell-29" class="cell" data-execution_count="23">
+<div id="cell-28" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>norm <span class="op">=</span>  sp.stats.norm</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">5</span>,<span class="dv">5</span>, num<span class="op">=</span><span class="dv">200</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -699,7 +694,7 @@ V(\bar{x}) &amp;=&amp; \frac{\sigma^2}{N}
 <section id="the-sampling-distribution-of-the-variance" class="level2">
 <h2 class="anchored" data-anchor-id="the-sampling-distribution-of-the-variance">The sampling distribution of the Variance</h2>
 <p>At this point you might be curious about what the sampling distribution of the variance looks like, and what can we surmise from it about the variance of the entire sample. We can do this, just like we did for the means. We’ll stick with a high number of replicates and plot the mean of the sample variances as well as the truish sampling distribution of the variances at a sample size of 100.</p>
-<div id="cell-34" class="cell" data-execution_count="24">
+<div id="cell-33" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_throws_var(number_of_samples, sample_size):</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    start<span class="op">=</span>np.zeros((number_of_samples, sample_size), dtype<span class="op">=</span><span class="bu">int</span>)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(number_of_samples):</span>
@@ -726,7 +721,7 @@ V(\bar{x}) &amp;=&amp; \frac{\sigma^2}{N}
 <p>An interesting application of this idea, as Shalizi points out in http://www.stat.cmu.edu/~cshalizi/ADAfaEPoV/, is that the loss of variability due to sampling of genes is indeed the origin of genetic drift. More prosaically, the fact that the above graph of expected sample variance against sample size asymptotes to 0.25 is as <span class="math inline">\(\frac{N-1}{N}\)</span> if very close to 1 at large N.</p>
 <p>Or put another way, you ought to correct your sample variances by a factor of <span class="math inline">\(\frac{n}{n-1}\)</span> to estimate the population variance, which itself works as the sampling distribution of the sample variance is rather tight, as seen below.</p>
 <p>That is, defining the sample variance with <span class="math inline">\(n-1\)</span> in the denominator instead of <span class="math inline">\(n\)</span> gives you an unbiased eatimator of the true variance. This is why, for example, Pandas will do this by default for series and dataframes. (numpy wont, so beware!).</p>
-<div id="cell-36" class="cell" data-execution_count="25">
+<div id="cell-35" class="cell" data-execution_count="25">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>plt.hist(sample_vars_1000_replicates[<span class="dv">99</span>], bins<span class="op">=</span>np.arange(<span class="fl">0.2</span>,<span class="fl">0.26</span>,<span class="fl">0.001</span>), alpha<span class="op">=</span><span class="fl">0.2</span>, normed<span class="op">=</span><span class="va">True</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -738,7 +733,6 @@ V(\bar{x}) &amp;=&amp; \frac{\sigma^2}{N}
 </div>
 
 
-</section>
 </section>
 
 

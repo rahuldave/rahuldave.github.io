@@ -374,16 +374,13 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#maximum-likelihood-estimation" id="toc-maximum-likelihood-estimation" class="nav-link active" data-scroll-target="#maximum-likelihood-estimation">Maximum Likelihood Estimation</a>
-  <ul class="collapse">
-  <li><a href="#choosing-a-parametric-model" id="toc-choosing-a-parametric-model" class="nav-link" data-scroll-target="#choosing-a-parametric-model">Choosing a parametric model</a>
+  <li><a href="#choosing-a-parametric-model" id="toc-choosing-a-parametric-model" class="nav-link active" data-scroll-target="#choosing-a-parametric-model">Choosing a parametric model</a>
   <ul class="collapse">
   <li><a href="#the-idea-behind-the-mle" id="toc-the-idea-behind-the-mle" class="nav-link" data-scroll-target="#the-idea-behind-the-mle">The idea behind the MLE</a></li>
   </ul></li>
   <li><a href="#inference" id="toc-inference" class="nav-link" data-scroll-target="#inference">Inference</a></li>
   <li><a href="#linear-regression-mle" id="toc-linear-regression-mle" class="nav-link" data-scroll-target="#linear-regression-mle">Linear Regression MLE</a></li>
   <li><a href="#logistic-regression-mle" id="toc-logistic-regression-mle" class="nav-link" data-scroll-target="#logistic-regression-mle">Logistic Regression MLE</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -457,11 +454,7 @@ window.Quarto = {
 </header>
 
 
-<section id="maximum-likelihood-estimation" class="level1">
-<h1>Maximum Likelihood Estimation</h1>
-<section id="keywords-maximum-likelihood-parametric-model-linear-regression-logistic-regression-inference-exponential-distribution" class="level5">
-<h5 class="anchored" data-anchor-id="keywords-maximum-likelihood-parametric-model-linear-regression-logistic-regression-inference-exponential-distribution">Keywords: maximum likelihood, parametric model, linear regression, logistic regression, inference, exponential distribution</h5>
-<div id="cell-2" class="cell" data-hide="true" data-execution_count="4">
+<div id="cell-1" class="cell" data-hide="true" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The %... is an iPython thing, and is not part of the Python language.</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># In this case we're just telling the plotting library to draw things on</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the notebook, instead of on a separate window.</span></span>
@@ -503,7 +496,6 @@ window.Quarto = {
 \renewcommand{\x}{\mathbf x}
 \renewcommand{\v}[1]{\mathbf #1}
 \]</span></p>
-</section>
 <section id="choosing-a-parametric-model" class="level2">
 <h2 class="anchored" data-anchor-id="choosing-a-parametric-model">Choosing a parametric model</h2>
 <p>When we do data analysis in a parametric way, we start by characterizing our particular sample statistically then, using a <em>probability distribution</em> (or mass function). This distribution has some parameters. Lets refer to these as <span class="math inline">\(\theta\)</span>.</p>
@@ -609,7 +601,7 @@ y = 0 &amp;if&amp; \v{w}\cdot\v{x} &lt; 0
 <p><span class="math display">\[h(z) = \frac{1}{1 + e^{-z}}.\]</span></p>
 <p>Notice that at <span class="math inline">\(z=0\)</span> this function has the value 0.5. If <span class="math inline">\(z &gt; 0\)</span>, <span class="math inline">\(h &gt; 0.5\)</span> and as <span class="math inline">\(z \to \infty\)</span>, <span class="math inline">\(h \to 1\)</span>. If <span class="math inline">\(z &lt; 0\)</span>, <span class="math inline">\(h &lt; 0.5\)</span> and as <span class="math inline">\(z \to -\infty\)</span>, <span class="math inline">\(h \to 0\)</span>. As long as we identify any value of <span class="math inline">\(y &gt; 0.5\)</span> as 1, and any <span class="math inline">\(y &lt; 0.5\)</span> as 0, we can achieve what we wished above.</p>
 <p>This function is plotted below:</p>
-<div id="cell-11" class="cell" data-execution_count="5">
+<div id="cell-10" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> <span class="kw">lambda</span> z: <span class="fl">1.</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span>np.exp(<span class="op">-</span>z))</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>zs<span class="op">=</span>np.arange(<span class="op">-</span><span class="dv">5</span>,<span class="dv">5</span>,<span class="fl">0.1</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>plt.plot(zs, h(zs), alpha<span class="op">=</span><span class="fl">0.5</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -662,7 +654,6 @@ P(y=0 | \v{x}) &amp;=&amp; 1 - h(\v{w}\cdot\v{x}).
 \end{eqnarray}\]</span></p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

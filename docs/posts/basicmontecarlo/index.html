@@ -374,12 +374,9 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#basic-monte-carlo" id="toc-basic-monte-carlo" class="nav-link active" data-scroll-target="#basic-monte-carlo">Basic Monte Carlo</a>
-  <ul class="collapse">
-  <li><a href="#monte-carlo" id="toc-monte-carlo" class="nav-link" data-scroll-target="#monte-carlo">Monte Carlo</a></li>
+  <li><a href="#monte-carlo" id="toc-monte-carlo" class="nav-link active" data-scroll-target="#monte-carlo">Monte Carlo</a></li>
   <li><a href="#estimate-the-area-of-a-unit-circle" id="toc-estimate-the-area-of-a-unit-circle" class="nav-link" data-scroll-target="#estimate-the-area-of-a-unit-circle">Estimate the area of a unit circle</a></li>
   <li><a href="#hit-or-miss-method" id="toc-hit-or-miss-method" class="nav-link" data-scroll-target="#hit-or-miss-method">Hit or miss method</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -453,9 +450,7 @@ window.Quarto = {
 </header>
 
 
-<section id="basic-monte-carlo" class="level1">
-<h1>Basic Monte Carlo</h1>
-<div id="cell-2" class="cell" data-hide="true" data-quarto-private-1="{&quot;key&quot;:&quot;slideshow&quot;,&quot;value&quot;:{&quot;slide_type&quot;:&quot;slide&quot;}}" data-execution_count="1">
+<div id="cell-1" class="cell" data-hide="true" data-quarto-private-1="{&quot;key&quot;:&quot;slideshow&quot;,&quot;value&quot;:{&quot;slide_type&quot;:&quot;slide&quot;}}" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
@@ -484,7 +479,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="estimate-the-area-of-a-unit-circle">Estimate the area of a unit circle</h2>
 <p>To understand how randomness can be brought to bear upon solving deterministic problems, consider a very simple example: the value of <span class="math inline">\(\pi\)</span>. If you could uniformly generate random numbers on a square, you could ask, how many of these numbers would fall inside a unit circle embedded in and touching the midpoints of the sides of the square. This ratio would be</p>
 <p><span class="math display">\[\frac{\pi \times 1^2}{2^2} = \frac{\pi}{4}.\]</span></p>
-<div id="cell-5" class="cell" data-execution_count="3">
+<div id="cell-4" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#area of the bounding box</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>box_area <span class="op">=</span> <span class="fl">4.0</span>    </span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -559,7 +554,6 @@ pi =  3.141592653589793</code></pre>
 <p>This is the basic idea behind rejection sampling</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

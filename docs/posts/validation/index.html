@@ -377,10 +377,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#why-do-we-need-validation" id="toc-why-do-we-need-validation" class="nav-link active" data-scroll-target="#why-do-we-need-validation">Why do we need validation?</a>
-  <ul class="collapse">
-  <li><a href="#contents" id="toc-contents" class="nav-link" data-scroll-target="#contents">Contents</a></li>
-  <li><a href="#revisiting-the-model" id="toc-revisiting-the-model" class="nav-link" data-scroll-target="#revisiting-the-model">Revisiting the model</a></li>
+  <li><a href="#revisiting-the-model" id="toc-revisiting-the-model" class="nav-link active" data-scroll-target="#revisiting-the-model">Revisiting the model</a></li>
   <li><a href="#validation" id="toc-validation" class="nav-link" data-scroll-target="#validation">Validation</a>
   <ul class="collapse">
   <li><a href="#properties-of-the-validation-set" id="toc-properties-of-the-validation-set" class="nav-link" data-scroll-target="#properties-of-the-validation-set">Properties of the validation set</a></li>
@@ -392,7 +389,6 @@ window.Quarto = {
   <li><a href="#the-idea" id="toc-the-idea" class="nav-link" data-scroll-target="#the-idea">The Idea</a></li>
   <li><a href="#the-entire-description-of-k-fold-cross-validation" id="toc-the-entire-description-of-k-fold-cross-validation" class="nav-link" data-scroll-target="#the-entire-description-of-k-fold-cross-validation">The entire description of K-fold Cross-validation</a></li>
   <li><a href="#what-does-cross-validation-do" id="toc-what-does-cross-validation-do" class="nav-link" data-scroll-target="#what-does-cross-validation-do">What does Cross Validation do?</a></li>
-  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -467,16 +463,7 @@ window.Quarto = {
 </header>
 
 
-<section id="why-do-we-need-validation" class="level1">
-<h1>Why do we need validation?</h1>
-<section id="keywords-empirical-risk-minimization-hoeffdings-inequality-hypothesis-space-training-error-out-of-sample-error-testing-set-training-set-test-error-validation-error-complexity-parameter-cross-validation" class="level5">
-<h5 class="anchored" data-anchor-id="keywords-empirical-risk-minimization-hoeffdings-inequality-hypothesis-space-training-error-out-of-sample-error-testing-set-training-set-test-error-validation-error-complexity-parameter-cross-validation">Keywords: empirical risk minimization, Hoeffding’s inequality, hypothesis space, training error, out-of-sample error, testing set, training set, test error, validation error, complexity parameter, cross-validation</h5>
-</section>
-<section id="contents" class="level2">
-<h2 class="anchored" data-anchor-id="contents">Contents</h2>
-<p>{:.no_toc} *<br>
-{: toc}</p>
-<div id="cell-3" class="cell" data-hide="true" data-execution_count="1">
+<div id="cell-1" class="cell" data-hide="true" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
@@ -495,7 +482,7 @@ window.Quarto = {
   warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
 </div>
 </div>
-<div id="cell-4" class="cell" data-hide="true" data-execution_count="2">
+<div id="cell-2" class="cell" data-hide="true" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_simple_plot():</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    fig, axes<span class="op">=</span>plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">5</span>), nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">2</span>)<span class="op">;</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylabel(<span class="st">"$y$"</span>)</span>
@@ -519,11 +506,10 @@ window.Quarto = {
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()<span class="op">;</span></span>
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> axes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</section>
 <section id="revisiting-the-model" class="level2">
 <h2 class="anchored" data-anchor-id="revisiting-the-model">Revisiting the model</h2>
 <p>Let <span class="math inline">\(x\)</span> be the fraction of religious people in a county and <span class="math inline">\(y\)</span> be the probability of voting for Romney as a function of <span class="math inline">\(x\)</span>. In other words <span class="math inline">\(y_i\)</span> is data that pollsters have taken which tells us their estimate of people voting for Romney and <span class="math inline">\(x_i\)</span> is the fraction of religious people in county <span class="math inline">\(i\)</span>. Because poll samples are finite, there is a margin of error on each data point or county <span class="math inline">\(i\)</span>, but we will ignore that for now.</p>
-<div id="cell-6" class="cell" data-execution_count="3">
+<div id="cell-4" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dffull<span class="op">=</span>pd.read_csv(<span class="st">"data/religion.csv"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>dffull.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -569,11 +555,11 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-7" class="cell" data-execution_count="4">
+<div id="cell-5" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>dffull.rfrac.values</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>f<span class="op">=</span>dffull.promney.values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="5">
+<div id="cell-6" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/noisysample.csv"</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
@@ -631,7 +617,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-9" class="cell" data-execution_count="6">
+<div id="cell-7" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cross_validation <span class="im">import</span> train_test_split</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>datasize<span class="op">=</span>df.shape[<span class="dv">0</span>]</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#split dataset using the index, as we have x,f, and y that we want to split.</span></span>
@@ -682,12 +668,12 @@ window.Quarto = {
 <section id="working-it-out" class="level3">
 <h3 class="anchored" data-anchor-id="working-it-out">Working it out</h3>
 <p>We carry out this process for one training/validation split below. Note the smaller size of the new training set. We hold the test set at the same size.</p>
-<div id="cell-13" class="cell" data-execution_count="15">
+<div id="cell-11" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> PolynomialFeatures</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-14" class="cell" data-execution_count="8">
+<div id="cell-12" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_features(train_set, test_set, degrees):</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    traintestlist<span class="op">=</span>[]</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> d <span class="kw">in</span> degrees:</span>
@@ -697,7 +683,7 @@ window.Quarto = {
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        traintestlist.append(traintestdict)</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> traintestlist</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-15" class="cell" data-execution_count="9">
+<div id="cell-13" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#we split the training set down further</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>intrain,invalid <span class="op">=</span> train_test_split(itrain,train_size<span class="op">=</span><span class="dv">18</span>, test_size<span class="op">=</span><span class="dv">6</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>xntrain<span class="op">=</span> df.x[intrain].values</span>
@@ -738,7 +724,7 @@ window.Quarto = {
 <span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>pred <span class="op">=</span> clf.predict(test_features_at_mindeg)</span>
 <span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>err <span class="op">=</span> mean_squared_error(ytest, pred)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-16" class="cell" data-execution_count="10">
+<div id="cell-14" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>plt.plot(degrees, error_train, marker<span class="op">=</span><span class="st">'o'</span>, label<span class="op">=</span><span class="st">'train (in-sample)'</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>plt.plot(degrees, error_valid, marker<span class="op">=</span><span class="st">'o'</span>, label<span class="op">=</span><span class="st">'validation'</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>plt.plot([mindeg], [err], marker<span class="op">=</span><span class="st">'s'</span>, markersize<span class="op">=</span><span class="dv">10</span>, label<span class="op">=</span><span class="st">'test'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'r'</span>)</span>
@@ -759,7 +745,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Lets do this again, choosing a new random split between training and validation data:</p>
-<div id="cell-18" class="cell" data-execution_count="11">
+<div id="cell-16" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>intrain,invalid <span class="op">=</span> train_test_split(itrain,train_size<span class="op">=</span><span class="dv">18</span>, test_size<span class="op">=</span><span class="dv">6</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>xntrain<span class="op">=</span> df.x[intrain].values</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>fntrain <span class="op">=</span> df.f[intrain].values</span>
@@ -793,7 +779,7 @@ window.Quarto = {
 <span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>pred <span class="op">=</span> clf.predict(test_features_at_mindeg)</span>
 <span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>err <span class="op">=</span> mean_squared_error(ytest, pred)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-19" class="cell" data-execution_count="12">
+<div id="cell-17" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plt.plot(degrees, error_train, marker<span class="op">=</span><span class="st">'o'</span>, label<span class="op">=</span><span class="st">'train (in-sample)'</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plt.plot(degrees, error_valid, marker<span class="op">=</span><span class="st">'o'</span>, label<span class="op">=</span><span class="st">'validation'</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.plot([mindeg], [err], marker<span class="op">=</span><span class="st">'s'</span>, markersize<span class="op">=</span><span class="dv">10</span>, label<span class="op">=</span><span class="st">'test'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'r'</span>)</span>
@@ -860,7 +846,7 @@ window.Quarto = {
 </figure>
 </div>
 <p>Let us now do 4-fold cross-validation on our Romney votes data set. We increase the complexity from degree 0 to degree 20. In each case we take the old training set, split in 4 ways into 4 folds, train on 3 folds, and calculate the validation error on the ramining one. We then average the erros over the four folds to get a cross-validation error for that <span class="math inline">\(d\)</span>. Then we did what we did before: find the hypothesis space <span class="math inline">\(\cal{H_*}\)</span> with the lowest cross-validation error, and refit it using the entire training set. We can then use the test set to estimate <span class="math inline">\(E_{out}\)</span>.</p>
-<div id="cell-30" class="cell" data-execution_count="13">
+<div id="cell-28" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cross_validation <span class="im">import</span> KFold</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>n_folds<span class="op">=</span><span class="dv">4</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>degrees<span class="op">=</span><span class="bu">range</span>(<span class="dv">21</span>)</span>
@@ -874,7 +860,7 @@ window.Quarto = {
 <span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>        hypothesisresults.append(mean_squared_error(ytrain[test], clf.predict(tvlist[d][<span class="st">'test'</span>]))) <span class="co"># evaluate score function on held-out data</span></span>
 <span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    results.append((np.mean(hypothesisresults), np.<span class="bu">min</span>(hypothesisresults), np.<span class="bu">max</span>(hypothesisresults), np.std(hypothesisresults))) <span class="co"># average</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-31" class="cell" data-execution_count="14">
+<div id="cell-29" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>mindeg <span class="op">=</span> np.argmin([r[<span class="dv">0</span>] <span class="cf">for</span> r <span class="kw">in</span> results])</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>ttlist<span class="op">=</span>make_features(xtrain, xtest, degrees)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">#fit on whole training set now.</span></span>
@@ -920,7 +906,6 @@ window.Quarto = {
 <p>One key subtlety to remember about cross-validation is that in the risk averaging process, you are actually averaging over different <span class="math inline">\(g^-\)</span> models, with different parameters. You arrive at the least risk for the hyperparameter and then refit on the entire training set, which will likely give you slightly different parameters as well.</p>
 
 
-</section>
 </section>
 </section>
 

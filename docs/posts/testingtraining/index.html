@@ -377,10 +377,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#learning-bounds-and-the-test-set" id="toc-learning-bounds-and-the-test-set" class="nav-link active" data-scroll-target="#learning-bounds-and-the-test-set">Learning bounds and the Test set</a>
-  <ul class="collapse">
-  <li><a href="#contents" id="toc-contents" class="nav-link" data-scroll-target="#contents">Contents</a></li>
-  <li><a href="#revisiting-the-model" id="toc-revisiting-the-model" class="nav-link" data-scroll-target="#revisiting-the-model">Revisiting the model</a></li>
+  <li><a href="#revisiting-the-model" id="toc-revisiting-the-model" class="nav-link active" data-scroll-target="#revisiting-the-model">Revisiting the model</a></li>
   <li><a href="#testing-and-training-sets" id="toc-testing-and-training-sets" class="nav-link" data-scroll-target="#testing-and-training-sets">Testing and Training Sets</a></li>
   <li><a href="#a-digression-about-scikit-learn" id="toc-a-digression-about-scikit-learn" class="nav-link" data-scroll-target="#a-digression-about-scikit-learn">A digression about scikit-learn</a>
   <ul class="collapse">
@@ -396,7 +393,6 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#learning-from-finite-sized-samples" id="toc-learning-from-finite-sized-samples" class="nav-link" data-scroll-target="#learning-from-finite-sized-samples">Learning from finite sized samples</a></li>
   <li><a href="#what-about-the-test-set" id="toc-what-about-the-test-set" class="nav-link" data-scroll-target="#what-about-the-test-set">What about the test set?</a></li>
-  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -471,16 +467,7 @@ window.Quarto = {
 </header>
 
 
-<section id="learning-bounds-and-the-test-set" class="level1">
-<h1>Learning bounds and the Test set</h1>
-<section id="keywords-empirical-risk-minimization-hoeffdings-inequality-hypothesis-space-training-error-out-of-sample-error-testing-set-training-set-test-error-complexity-parameter" class="level5">
-<h5 class="anchored" data-anchor-id="keywords-empirical-risk-minimization-hoeffdings-inequality-hypothesis-space-training-error-out-of-sample-error-testing-set-training-set-test-error-complexity-parameter">Keywords: empirical risk minimization, Hoeffding’s inequality, hypothesis space, training error, out-of-sample error, testing set, training set, test error, complexity parameter</h5>
-</section>
-<section id="contents" class="level2">
-<h2 class="anchored" data-anchor-id="contents">Contents</h2>
-<p>{:.no_toc} *<br>
-{: toc}</p>
-<div id="cell-3" class="cell" data-hide="true" data-execution_count="1">
+<div id="cell-1" class="cell" data-hide="true" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
@@ -499,7 +486,7 @@ window.Quarto = {
   warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
 </div>
 </div>
-<div id="cell-4" class="cell" data-hide="true" data-execution_count="2">
+<div id="cell-2" class="cell" data-hide="true" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_simple_plot():</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    fig, axes<span class="op">=</span>plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">5</span>), nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">2</span>)<span class="op">;</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylabel(<span class="st">"$y$"</span>)</span>
@@ -523,12 +510,11 @@ window.Quarto = {
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()<span class="op">;</span></span>
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> axes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</section>
 <section id="revisiting-the-model" class="level2">
 <h2 class="anchored" data-anchor-id="revisiting-the-model">Revisiting the model</h2>
 <p>Let <span class="math inline">\(x\)</span> be the fraction of religious people in a county and <span class="math inline">\(y\)</span> be the probability of voting for Romney as a function of <span class="math inline">\(x\)</span>. In other words <span class="math inline">\(y_i\)</span> is data that pollsters have taken which tells us their estimate of people voting for Romney and <span class="math inline">\(x_i\)</span> is the fraction of religious people in county <span class="math inline">\(i\)</span>. Because poll samples are finite, there is a margin of error on each data point or county <span class="math inline">\(i\)</span>, but we will ignore that for now.</p>
 <p>Let us assume that we have a “population” of 200 counties <span class="math inline">\(x\)</span>:</p>
-<div id="cell-7" class="cell" data-execution_count="3">
+<div id="cell-5" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dffull<span class="op">=</span>pd.read_csv(<span class="st">"data/religion.csv"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>dffull.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
@@ -575,7 +561,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Lets suppose now that the Lord came by and told us that the points in the plot below captures <span class="math inline">\(f(x)\)</span> exactly.</p>
-<div id="cell-9" class="cell" data-execution_count="4">
+<div id="cell-7" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>dffull.rfrac.values</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>f<span class="op">=</span>dffull.promney.values</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x,f,<span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -589,7 +575,7 @@ window.Quarto = {
 </div>
 <p>Notice that our sampling of <span class="math inline">\(x\)</span> is not quite uniform: there are more points around <span class="math inline">\(x\)</span> of 0.7.</p>
 <p>Now, in real life we are only given a sample of points. Lets assume that out of this population of 200 points we are given a sample <span class="math inline">\(\cal{D}\)</span> of 30 data points. Such data is called <strong>in-sample data</strong>. Contrastingly, the entire population of data points is also called <strong>out-of-sample data</strong>.</p>
-<div id="cell-11" class="cell" data-execution_count="5">
+<div id="cell-9" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/noisysample.csv"</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
@@ -647,7 +633,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-12" class="cell" data-figure_type="w" data-execution_count="6">
+<div id="cell-10" class="cell" data-figure_type="w" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>axes<span class="op">=</span>make_plot()</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,f, <span class="st">'k-'</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">"f (from the Lord)"</span>)<span class="op">;</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,f, <span class="st">'r.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, label<span class="op">=</span><span class="st">"population"</span>)<span class="op">;</span></span>
@@ -697,7 +683,7 @@ B &amp;:&amp; R_{out \,of \,sample} (g) \approx R_{\cal{D}}(g)
 <p>At this point you are thinking: the test set is just another sample of the population, just like the training set. What guarantee do we have that it approximates the out-of-sample error well? And furthermore, if we pick 6 out of 30 points as a test set, why would you expect the estimate to be any good?</p>
 <p>We will kind-of hand wavingly show later that the test set error is a good estimate of the out of sample error, especially for larger and larger test sets. You are right to worry that 6 points is perhaps too few, but thats what we have for now, and we shall work with them.</p>
 <p>We are <strong>using the training set then, as our in-sample set, and the test set as a proxy for out-of-sample.</strong>.</p>
-<div id="cell-16" class="cell" data-execution_count="7">
+<div id="cell-14" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cross_validation <span class="im">import</span> train_test_split</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>datasize<span class="op">=</span>df.shape[<span class="dv">0</span>]</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#split dataset using the index, as we have x,f, and y that we want to split.</span></span>
@@ -709,7 +695,7 @@ B &amp;:&amp; R_{out \,of \,sample} (g) \approx R_{\cal{D}}(g)
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>ftest <span class="op">=</span> df.f[itest].values</span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>ytest <span class="op">=</span> df.y[itest].values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-17" class="cell" data-execution_count="8">
+<div id="cell-15" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>axes<span class="op">=</span>make_plot()</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(df.x,df.f, <span class="st">'k-'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f (from the Lord)"</span>)<span class="op">;</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(df.x,df.y, <span class="st">'o'</span>,alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"$</span><span class="er">\</span><span class="st">cal</span><span class="sc">{D}</span><span class="st">$"</span>)<span class="op">;</span></span>
@@ -752,7 +738,7 @@ B &amp;:&amp; R_{out \,of \,sample} (g) \approx R_{\cal{D}}(g)
 </figure>
 </div>
 <p>Here is an example. The reason for using <code>[[1],[2],[3]]</code> as opposed to <code>[1,2,3]</code> is that scikit-learn expects data to be stored in a two-dimensional array or matrix with size <code>[n_samples, n_features]</code>.</p>
-<div id="cell-20" class="cell" data-execution_count="9">
+<div id="cell-18" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> PolynomialFeatures</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>PolynomialFeatures(<span class="dv">3</span>).fit_transform([[<span class="dv">1</span>],[<span class="dv">2</span>], [<span class="dv">3</span>]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
@@ -768,7 +754,7 @@ B &amp;:&amp; R_{out \,of \,sample} (g) \approx R_{\cal{D}}(g)
 <figcaption>NumPy reshape: converting a 1D array to a column vector</figcaption>
 </figure>
 </div>
-<div id="cell-22" class="cell" data-execution_count="10">
+<div id="cell-20" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>np.array([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]).reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>array([[1],
@@ -777,7 +763,7 @@ B &amp;:&amp; R_{out \,of \,sample} (g) \approx R_{\cal{D}}(g)
 </div>
 </div>
 <p>So now we are in the recatangular, rows=samples, columns=features form expected by <code>scikit-learn</code>. Ok, so lets see the process to transform our 1-D dataset <code>x</code> into a d-dimensional one.</p>
-<div id="cell-24" class="cell" data-execution_count="11">
+<div id="cell-22" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>xtrain</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>array([ 0.33      ,  0.75868254,  0.52      ,  0.79      ,  0.63633949,
@@ -787,7 +773,7 @@ B &amp;:&amp; R_{out \,of \,sample} (g) \approx R_{\cal{D}}(g)
         0.6       ,  0.96      ,  0.43754875,  0.54      ])</code></pre>
 </div>
 </div>
-<div id="cell-25" class="cell" data-execution_count="12">
+<div id="cell-23" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>xtrain.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>array([[ 0.33      ],
@@ -816,7 +802,7 @@ B &amp;:&amp; R_{out \,of \,sample} (g) \approx R_{\cal{D}}(g)
        [ 0.54      ]])</code></pre>
 </div>
 </div>
-<div id="cell-26" class="cell" data-execution_count="13">
+<div id="cell-24" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>PolynomialFeatures(<span class="dv">2</span>).fit_transform(xtrain.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>array([[ 1.        ,  0.33      ,  0.1089    ],
@@ -863,7 +849,7 @@ B &amp;:&amp; R_{out \,of \,sample} (g) \approx R_{\cal{D}}(g)
 <p>A summary of the scikit-learn interface can be found here:</p>
 <p>http://nbviewer.jupyter.org/github/jakevdp/sklearn_pycon2015/blob/master/notebooks/02.2-Basic-Principles.ipynb#Recap:-Scikit-learn’s-estimator-interface</p>
 <p>Lets put this alltogether. Below we write a function to create multiple datasets, one for each polynomial degree:</p>
-<div id="cell-32" class="cell" data-execution_count="14">
+<div id="cell-30" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_features(train_set, test_set, degrees):</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    traintestlist<span class="op">=</span>[]</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> d <span class="kw">in</span> degrees:</span>
@@ -884,7 +870,7 @@ B &amp;:&amp; R_{out \,of \,sample} (g) \approx R_{\cal{D}}(g)
 <p>The predictor interface extends the notion of an estimator by adding a predict method that takes an array X_test and produces predictions for X_test, based on the learned parameters of the estimator.</p>
 </blockquote>
 <p>So, for increasing polynomial degree, and thus feature dimension <code>d</code>, we fit a <code>LinearRegression</code> model on the traing set. We then use scikit-learn again to calculate the error or risk. We calculate the <code>mean_squared_error</code> between the model’s predictions and the data, BOTH on the training set and test set. We plot this error as a function of the defree of the polynomial <code>d</code>.</p>
-<div id="cell-35" class="cell" data-execution_count="15">
+<div id="cell-33" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -894,7 +880,7 @@ B &amp;:&amp; R_{out \,of \,sample} (g) \approx R_{\cal{D}}(g)
 <span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>traintestlists<span class="op">=</span>make_features(xtrain, xtest, degrees)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-36" class="cell" data-execution_count="16">
+<div id="cell-34" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>traintestlists[<span class="dv">3</span>][<span class="st">'train'</span>], ytrain</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
 <pre><code>(array([[ 1.        ,  0.33      ,  0.1089    ,  0.035937  ],
@@ -928,7 +914,7 @@ B &amp;:&amp; R_{out \,of \,sample} (g) \approx R_{\cal{D}}(g)
          0.60188686,  0.87217807,  0.49208494,  0.61984169]))</code></pre>
 </div>
 </div>
-<div id="cell-37" class="cell" data-execution_count="17">
+<div id="cell-35" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>traintestlists[<span class="dv">3</span>][<span class="st">'test'</span>], ytest</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>(array([[  1.00000000e+00,   6.60000000e-01,   4.35600000e-01,
@@ -950,13 +936,13 @@ B &amp;:&amp; R_{out \,of \,sample} (g) \approx R_{\cal{D}}(g)
 <section id="estimating-the-out-of-sample-error" class="level3">
 <h3 class="anchored" data-anchor-id="estimating-the-out-of-sample-error">Estimating the out-of-sample error</h3>
 <p>We can then use <code>mean_squared_error</code> from <code>sklearn</code> to calculate the error between the predictions and actual <code>ytest</code> values. Below we calculate this error on both the training set (which we already fit on) and the test set (which we hadnt seen before), and plot how these errors change with the degree of the polynomial.</p>
-<div id="cell-39" class="cell" data-execution_count="18">
+<div id="cell-37" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>est3 <span class="op">=</span> LinearRegression()</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>est3.fit(traintestlists[<span class="dv">3</span>][<span class="st">'train'</span>], ytrain)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>pred_on_train3<span class="op">=</span>est3.predict(traintestlists[<span class="dv">3</span>][<span class="st">'train'</span>])</span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>pred_on_test3<span class="op">=</span>est3.predict(traintestlists[<span class="dv">3</span>][<span class="st">'test'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-40" class="cell" data-execution_count="19">
+<div id="cell-38" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"errtrain"</span>,mean_squared_error(ytrain, pred_on_train3))</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"errtest"</span>,mean_squared_error(ytest, pred_on_test3))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -965,7 +951,7 @@ errtest 0.00949690985891</code></pre>
 </div>
 </div>
 <p>Let us now do this for a polynomial of degree 19</p>
-<div id="cell-42" class="cell" data-execution_count="20">
+<div id="cell-40" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>est19 <span class="op">=</span> LinearRegression()</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>est19.fit(traintestlists[<span class="dv">19</span>][<span class="st">'train'</span>], ytrain)</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>pred_on_train19<span class="op">=</span>est19.predict(traintestlists[<span class="dv">19</span>][<span class="st">'train'</span>])</span>
@@ -982,7 +968,7 @@ errtest 14125204461.8</code></pre>
 <section id="finding-the-appropriate-complexity" class="level3">
 <h3 class="anchored" data-anchor-id="finding-the-appropriate-complexity">Finding the appropriate complexity</h3>
 <p>Lets now carry out this minimization systematically for each polynomial degree d.</p>
-<div id="cell-44" class="cell" data-execution_count="21">
+<div id="cell-42" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> d <span class="kw">in</span> degrees:<span class="co">#for increasing polynomial degrees 0,1,2...</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    Xtrain <span class="op">=</span> traintestlists[d][<span class="st">'train'</span>]</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    Xtest <span class="op">=</span> traintestlists[d][<span class="st">'test'</span>]</span>
@@ -1001,7 +987,7 @@ errtest 14125204461.8</code></pre>
 <span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>    error_train[d] <span class="op">=</span> mean_squared_error(ytrain, prediction_on_training)</span>
 <span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>    error_test[d] <span class="op">=</span> mean_squared_error(ytest, prediction_on_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-45" class="cell" data-execution_count="22">
+<div id="cell-43" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>plt.plot(degrees, error_train, marker<span class="op">=</span><span class="st">'o'</span>, label<span class="op">=</span><span class="st">'train (in-sample)'</span>)</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>plt.plot(degrees, error_test, marker<span class="op">=</span><span class="st">'o'</span>, label<span class="op">=</span><span class="st">'test'</span>)</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>plt.axvline(np.argmin(error_test), <span class="dv">0</span>,<span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'r'</span>, label<span class="op">=</span><span class="st">"min test error at d=</span><span class="sc">%d</span><span class="st">"</span><span class="op">%</span>np.argmin(error_test), alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
@@ -1069,7 +1055,6 @@ errtest 14125204461.8</code></pre>
 <p>Finally, a test set has a cost. You have less data in the training set and must thus fit a less complex model.</p>
 
 
-</section>
 </section>
 </section>
 

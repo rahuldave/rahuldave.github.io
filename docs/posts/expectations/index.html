@@ -374,9 +374,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#expectations-and-the-law-of-large-numbers" id="toc-expectations-and-the-law-of-large-numbers" class="nav-link active" data-scroll-target="#expectations-and-the-law-of-large-numbers">Expectations and the Law of Large Numbers</a>
-  <ul class="collapse">
-  <li><a href="#expectations" id="toc-expectations" class="nav-link" data-scroll-target="#expectations">Expectations</a>
+  <li><a href="#expectations" id="toc-expectations" class="nav-link active" data-scroll-target="#expectations">Expectations</a>
   <ul class="collapse">
   <li><a href="#the-mean-of-a-distribution" id="toc-the-mean-of-a-distribution" class="nav-link" data-scroll-target="#the-mean-of-a-distribution">The mean of a distribution</a></li>
   <li><a href="#lotus-law-of-the-unconscious-statistician" id="toc-lotus-law-of-the-unconscious-statistician" class="nav-link" data-scroll-target="#lotus-law-of-the-unconscious-statistician">LOTUS: Law of the unconscious statistician</a></li>
@@ -384,7 +382,6 @@ window.Quarto = {
   </ul></li>
   <li><a href="#the-law-of-large-numbers" id="toc-the-law-of-large-numbers" class="nav-link" data-scroll-target="#the-law-of-large-numbers">The Law of Large Numbers</a></li>
   <li><a href="#frequentist-interpretation-of-probability" id="toc-frequentist-interpretation-of-probability" class="nav-link" data-scroll-target="#frequentist-interpretation-of-probability">Frequentist interpretation of probability</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -458,9 +455,7 @@ window.Quarto = {
 </header>
 
 
-<section id="expectations-and-the-law-of-large-numbers" class="level1">
-<h1>Expectations and the Law of Large Numbers</h1>
-<div id="cell-2" class="cell" data-execution_count="3">
+<div id="cell-1" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The %... is an iPython thing, and is not part of the Python language.</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># In this case we're just telling the plotting library to draw things on</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the notebook, instead of on a separate window.</span></span>
@@ -529,20 +524,20 @@ E_{f}{X} = \int x dF(x) =
 <section id="the-law-of-large-numbers" class="level2">
 <h2 class="anchored" data-anchor-id="the-law-of-large-numbers">The Law of Large Numbers</h2>
 <p>Imagine a sequence of length n of coin flips. Lets keep increasing the length of the sequence of coin flips n, and compute a running average <span class="math inline">\(S_n\)</span> of the coin-flip random variables, <span class="math display">\[S_n = \frac{1}{n} \sum_{i=1}^{n} x_i .\]</span> We plot this running mean, and notice that it <em>converges to the mean of the distribution from which the random variables are plucked</em>, ie the Bernoulli distribution with p=0.5.</p>
-<div id="cell-5" class="cell" data-execution_count="4">
+<div id="cell-4" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats.distributions <span class="im">import</span> bernoulli</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> throw_a_coin(n):</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    brv <span class="op">=</span> bernoulli(<span class="fl">0.5</span>)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> brv.rvs(size<span class="op">=</span>n)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-6" class="cell" data-execution_count="5">
+<div id="cell-5" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>random_flips <span class="op">=</span> throw_a_coin(<span class="dv">10000</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>running_means <span class="op">=</span> np.zeros(<span class="dv">10000</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>sequence_lengths <span class="op">=</span> np.arange(<span class="dv">1</span>,<span class="dv">10001</span>,<span class="dv">1</span>)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> sequence_lengths:</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    running_means[i<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> np.mean(random_flips[:i])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-7" class="cell" data-figure_caption="The Law of Large Numbers: means of sequences converge to the distribution mean." data-figure_type="m" data-execution_count="6">
+<div id="cell-6" class="cell" data-figure_caption="The Law of Large Numbers: means of sequences converge to the distribution mean." data-figure_type="m" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plt.plot(sequence_lengths, running_means)<span class="op">;</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plt.xscale(<span class="st">'log'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -573,7 +568,6 @@ I_A(x) = 0 \,&amp;&amp;  otherwise
 <p>Now if we take a long sequence from <span class="math inline">\(X\)</span> and thus <span class="math inline">\(Z\)</span>, then the frequency of successes (where success means being in A) will converge by the law of large numbers to the true probability p.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
