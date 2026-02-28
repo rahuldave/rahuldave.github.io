@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2025-01-13">
+<meta name="description" content="Introduces information entropy as a measure of uncertainty and derives maximum entropy distributions. Shows how constraints on moments lead naturally to the exponential family, connecting information theory to statistical modeling.">
 
-<title>claude – rahuldave</title>
+<title>Entropy and Maximum Entropy – rahuldave</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,28 +60,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-e0d64750a3675fa668af59a9862b8111.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-d2fef15c612ec386ae0907ffd6f4ccdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-a009389674a9596cea61ac77c12264b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-d2fef15c612ec386ae0907ffd6f4ccdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-e0d64750a3675fa668af59a9862b8111.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-d2fef15c612ec386ae0907ffd6f4ccdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-a009389674a9596cea61ac77c12264b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-d2fef15c612ec386ae0907ffd6f4ccdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -115,12 +117,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- Bootstrap Icons for brand mark and UI elements -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<meta property="og:title" content="rahuldave">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Entropy and Maximum Entropy – rahuldave">
+<meta property="og:description" content="Introduces information entropy as a measure of uncertainty and derives maximum entropy distributions. Shows how constraints on moments lead naturally to the exponential family, connecting information theory to statistical modeling.">
+<meta property="og:image" content="https://rahuldave.github.io/posts/entropy/index_files/figure-html/cell-3-output-1.png">
 <meta property="og:site_name" content="rahuldave">
-<meta name="twitter:title" content="rahuldave">
+<meta property="og:image:height" content="539">
+<meta property="og:image:width" content="773">
+<meta name="twitter:title" content="Entropy and Maximum Entropy – rahuldave">
+<meta name="twitter:description" content="Introduces information entropy as a measure of uncertainty and derives maximum entropy distributions. Shows how constraints on moments lead naturally to the exponential family, connecting information theory to statistical modeling.">
+<meta name="twitter:image" content="https://rahuldave.github.io/posts/entropy/index_files/figure-html/cell-3-output-1.png">
 <meta name="twitter:creator" content="@rahuldave">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:image-height" content="539">
+<meta name="twitter:image-width" content="773">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -292,7 +331,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">rahuldave</span>
     </a>
   </div>
@@ -303,19 +342,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./posts.html"> 
+    <a class="nav-link" href="../../posts.html"> 
 <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./til.html"> 
+    <a class="nav-link" href="../../til.html"> 
 <span class="menu-text">TIL</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./collections.html"> 
+    <a class="nav-link" href="../../collections.html"> 
 <span class="menu-text">Collections</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -335,39 +374,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#claude-session-context" id="toc-claude-session-context" class="nav-link active" data-scroll-target="#claude-session-context">Claude Session Context</a>
+  <li><a href="#information-and-entropy" id="toc-information-and-entropy" class="nav-link active" data-scroll-target="#information-and-entropy">Information and Entropy</a>
   <ul class="collapse">
-  <li><a href="#project-overview" id="toc-project-overview" class="nav-link" data-scroll-target="#project-overview">Project Overview</a></li>
-  <li><a href="#content-source" id="toc-content-source" class="nav-link" data-scroll-target="#content-source">Content Source</a></li>
-  <li><a href="#content-import-status-from-am207-wiki" id="toc-content-import-status-from-am207-wiki" class="nav-link" data-scroll-target="#content-import-status-from-am207-wiki">Content Import Status (from AM207 wiki)</a></li>
-  <li><a href="#category-system" id="toc-category-system" class="nav-link" data-scroll-target="#category-system">Category System</a></li>
-  <li><a href="#about-page" id="toc-about-page" class="nav-link" data-scroll-target="#about-page">About Page</a></li>
-  <li><a href="#social-discussion-links" id="toc-social-discussion-links" class="nav-link" data-scroll-target="#social-discussion-links">Social / Discussion Links</a></li>
-  <li><a href="#listing-sort-order" id="toc-listing-sort-order" class="nav-link" data-scroll-target="#listing-sort-order">Listing Sort Order</a></li>
-  <li><a href="#design" id="toc-design" class="nav-link" data-scroll-target="#design">Design</a>
+  <li><a href="#desiderata-for-a-measure-of-uncertainty" id="toc-desiderata-for-a-measure-of-uncertainty" class="nav-link" data-scroll-target="#desiderata-for-a-measure-of-uncertainty">Desiderata for a measure of uncertainty</a></li>
+  </ul></li>
+  <li><a href="#entropy-measures-uncertainty" id="toc-entropy-measures-uncertainty" class="nav-link" data-scroll-target="#entropy-measures-uncertainty">Entropy measures uncertainty</a>
   <ul class="collapse">
-  <li><a href="#colorbrewer-blues-palette" id="toc-colorbrewer-blues-palette" class="nav-link" data-scroll-target="#colorbrewer-blues-palette">ColorBrewer Blues Palette</a></li>
+  <li><a href="#example-of-the-coin-toss-or-bernoulli-variable" id="toc-example-of-the-coin-toss-or-bernoulli-variable" class="nav-link" data-scroll-target="#example-of-the-coin-toss-or-bernoulli-variable">Example of the coin toss or Bernoulli variable</a></li>
   </ul></li>
-  <li><a href="#quarto-site-structure" id="toc-quarto-site-structure" class="nav-link" data-scroll-target="#quarto-site-structure">Quarto Site Structure</a>
+  <li><a href="#thermodynamic-notion-of-entropy" id="toc-thermodynamic-notion-of-entropy" class="nav-link" data-scroll-target="#thermodynamic-notion-of-entropy">Thermodynamic notion of Entropy</a></li>
+  <li><a href="#maximum-entropy-maxent" id="toc-maximum-entropy-maxent" class="nav-link" data-scroll-target="#maximum-entropy-maxent">Maximum Entropy (maxent)</a>
   <ul class="collapse">
-  <li><a href="#config" id="toc-config" class="nav-link" data-scroll-target="#config">Config</a></li>
-  <li><a href="#posts-directory-layout" id="toc-posts-directory-layout" class="nav-link" data-scroll-target="#posts-directory-layout">Posts Directory Layout</a></li>
-  <li><a href="#notebook-frontmatter-quarto-yaml" id="toc-notebook-frontmatter-quarto-yaml" class="nav-link" data-scroll-target="#notebook-frontmatter-quarto-yaml">Notebook Frontmatter (Quarto YAML)</a></li>
-  <li><a href="#card-images-for-posts-without-content-images" id="toc-card-images-for-posts-without-content-images" class="nav-link" data-scroll-target="#card-images-for-posts-without-content-images">Card Images for Posts Without Content Images</a></li>
-  <li><a href="#three.js-interactive-.qmd-posts" id="toc-three.js-interactive-.qmd-posts" class="nav-link" data-scroll-target="#three.js-interactive-.qmd-posts">Three.js / Interactive .qmd Posts</a></li>
-  <li><a href="#build-commands-makefile" id="toc-build-commands-makefile" class="nav-link" data-scroll-target="#build-commands-makefile">Build Commands (Makefile)</a></li>
-  <li><a href="#imagedata-path-conventions" id="toc-imagedata-path-conventions" class="nav-link" data-scroll-target="#imagedata-path-conventions">Image/Data Path Conventions</a></li>
-  <li><a href="#categories" id="toc-categories" class="nav-link" data-scroll-target="#categories">Categories</a></li>
-  <li><a href="#frontmatter-fields" id="toc-frontmatter-fields" class="nav-link" data-scroll-target="#frontmatter-fields">Frontmatter Fields</a></li>
-  <li><a href="#site-sections" id="toc-site-sections" class="nav-link" data-scroll-target="#site-sections">Site Sections</a></li>
-  <li><a href="#known-gotchas" id="toc-known-gotchas" class="nav-link" data-scroll-target="#known-gotchas">Known Gotchas</a></li>
+  <li><a href="#normal-as-maxent" id="toc-normal-as-maxent" class="nav-link" data-scroll-target="#normal-as-maxent">Normal as maxent</a></li>
+  <li><a href="#binomial-as-maxent" id="toc-binomial-as-maxent" class="nav-link" data-scroll-target="#binomial-as-maxent">Binomial as Maxent</a></li>
   </ul></li>
-  </ul></li>
+  <li><a href="#the-importance-of-maxent" id="toc-the-importance-of-maxent" class="nav-link" data-scroll-target="#the-importance-of-maxent">The importance of maxent</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
 
 <!-- Theme toggle persistence script -->
 <script>
@@ -401,257 +427,201 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 })();
 </script>
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Entropy and Maximum Entropy</h1>
+<p class="subtitle lead">Quantifying uncertainty and the distributions it favors.</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">information-theory</div>
+    <div class="quarto-category">probability</div>
+    <div class="quarto-category">statistics</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Introduces information entropy as a measure of uncertainty and derives maximum entropy distributions. Shows how constraints on moments lead naturally to the exponential family, connecting information theory to statistical modeling.
+  </div>
+</div>
 
 
+<div class="quarto-title-meta">
 
-<section id="claude-session-context" class="level1">
-<h1>Claude Session Context</h1>
-<section id="project-overview" class="level2">
-<h2 class="anchored" data-anchor-id="project-overview">Project Overview</h2>
-<p>This is a Quarto-based personal website for data science/ML educational content at rahuldave.github.io.</p>
-</section>
-<section id="content-source" class="level2">
-<h2 class="anchored" data-anchor-id="content-source">Content Source</h2>
-<ul>
-<li>AM207 course wiki at <code>~/Attic/Projects/AM207/2018fall_wiki/wiki/</code> — lectures, notebooks, markdown notes</li>
-<li>Lecture index at <code>~/Attic/Projects/AM207/2018fall_wiki/lectures/index.md</code> (replace <code>.html</code> with <code>.md</code> for source files)</li>
-<li>Each lecture <code>.md</code> links to wiki notes; check for <code>.ipynb</code> (primary source) before falling back to <code>.md</code></li>
-<li>Use <code>/import-wiki-notes</code> skill to import notes as blog posts</li>
-<li><strong>Helper scripts</strong> in <code>_scripts/</code>:
-<ul>
-<li><code>import_notebook.py</code> — creates <code>posts/&lt;name&gt;/index.ipynb</code> from wiki <code>.ipynb</code> (adds frontmatter, fixes paths, copies images). Run with <code>--help</code>.</li>
-<li><code>update_captions.py</code> — updates image captions in notebook markdown cells. Used by <code>/caption-images</code> skill.</li>
-</ul></li>
-<li>After importing, run <code>/caption-images</code> to add captions with citations to embedded images</li>
-</ul>
-</section>
-<section id="content-import-status-from-am207-wiki" class="level2">
-<h2 class="anchored" data-anchor-id="content-import-status-from-am207-wiki">Content Import Status (from AM207 wiki)</h2>
-<ul>
-<li><strong>Lecture 1 (Intro &amp; Probability)</strong>: DONE
-<ul>
-<li><code>boxloop</code> — already existed, skipped</li>
-<li><code>probability</code> — notebook, imported to <code>posts/probability/</code></li>
-<li><code>distributions</code> — markdown only, imported to <code>posts/distributions.md</code></li>
-<li><code>distrib-example</code> — notebook, imported to <code>posts/distrib-example/</code></li>
-</ul></li>
-<li><strong>Lecture 2 (Probability, Sampling, Laws, Monte Carlo)</strong>: DONE
-<ul>
-<li><code>distributions</code> — already imported (Lecture 1), skipped</li>
-<li><code>expectations</code> — notebook, imported to <code>posts/expectations/</code></li>
-<li><code>samplingclt</code> — notebook, imported to <code>posts/samplingclt/</code></li>
-<li><code>basicmontecarlo</code> — notebook, imported to <code>posts/basicmontecarlo/</code></li>
-<li><code>montecarlointegrals</code> — notebook, imported to <code>posts/montecarlointegrals/</code></li>
-</ul></li>
-<li><strong>Lecture 3 (From Monte Carlo to Frequentist Stats)</strong>: DONE
-<ul>
-<li><code>Expectations</code> — already imported (Lecture 2), skipped</li>
-<li><code>SamplingCLT</code> — already imported (Lecture 2), skipped</li>
-<li><code>basicmontecarlo</code> — already imported (Lecture 2), skipped</li>
-<li><code>montecarlointegrals</code> — already imported (Lecture 2), skipped</li>
-<li><code>frequentist</code> — markdown only, imported to <code>posts/frequentist.md</code></li>
-<li><code>MLE</code> — notebook, imported to <code>posts/MLE/</code></li>
-</ul></li>
-<li><strong>Lecture 4 (MLE, Sampling, and Learning)</strong>: DONE
-<ul>
-<li><code>noiseless_learning</code> — notebook, imported to <code>posts/noiseless_learning/</code></li>
-<li><code>noisylearning</code> — notebook, imported to <code>posts/noisylearning/</code></li>
-<li><code>MLE</code> — already imported (Lecture 3), skipped</li>
-<li><code>testingtraining</code> — notebook, imported to <code>posts/testingtraining/</code></li>
-<li><code>validation</code> — notebook, imported to <code>posts/validation/</code></li>
-<li><code>regularization</code> — notebook, imported to <code>posts/regularization/</code></li>
-</ul></li>
-<li><strong>Lecture 5 (Regression, AIC, Info. Theory)</strong>: DONE
-<ul>
-<li><code>doseplacebo</code> — notebook, imported to <code>posts/doseplacebo/</code></li>
-<li><code>noiseless_learning</code> — already imported (Lecture 4), skipped</li>
-<li><code>noisylearning</code> — already imported (Lecture 4), skipped</li>
-<li><code>testingtraining</code> — already imported (Lecture 4), skipped</li>
-<li><code>validation</code> — already imported (Lecture 4), skipped</li>
-<li><code>regularization</code> — already imported (Lecture 4), skipped</li>
-<li><code>jensens</code> — notebook, imported to <code>posts/jensens/</code></li>
-<li><code>Divergence</code> — notebook, imported to <code>posts/divergence/</code></li>
-<li><code>understandingaic</code> — notebook, imported to <code>posts/understandingaic/</code></li>
-</ul></li>
-<li><strong>Lectures 6–26</strong>: NOT YET IMPORTED</li>
-</ul>
-</section>
-<section id="category-system" class="level2">
-<h2 class="anchored" data-anchor-id="category-system">Category System</h2>
-<ul>
-<li>Canonical categories are in <code>_categories.txt</code> (root of project), one per line, sorted alphabetically</li>
-<li><strong>Current categories</strong>: data, elections, information-theory, integration, interactive, macos, models, montecarlo, orchestration, pipeline, probability, regression, statistics, visualization</li>
-<li>All categories must be lowercase</li>
-<li>When importing, map source keywords to existing categories; propose new ones for user approval</li>
-<li>The <code>/import-wiki-notes</code> skill enforces this workflow (step 7c)</li>
-</ul>
-</section>
-<section id="about-page" class="level2">
-<h2 class="anchored" data-anchor-id="about-page">About Page</h2>
-<ul>
-<li>Profile photo: <code>assets/profile.jpg</code> (sourced from GitHub avatar)</li>
-<li>Comprehensive bio context: <code>~/Context/rahul-dave-profile.md</code></li>
-<li>Contact form via Formspree (ID: <code>mykjwlyk</code>) — forwards to rahuldave@univ.ai</li>
-<li>Links: GitHub, X/Twitter, Bluesky (rahuldave.bsky.social), Google Scholar, LinkedIn</li>
-</ul>
-</section>
-<section id="social-discussion-links" class="level2">
-<h2 class="anchored" data-anchor-id="social-discussion-links">Social / Discussion Links</h2>
-<ul>
-<li><code>includes/discuss-links.html</code> — “Discuss this post” links (Twitter, Bluesky, LinkedIn) on posts, til, and collections pages only</li>
-<li>Uses IIFE (not DOMContentLoaded) because <code>include-after-body</code> runs after DOM is ready</li>
-<li>Links are constructed at runtime from <code>window.location.href</code> — will use production domain automatically</li>
-<li>Open Graph and Twitter Card metadata enabled in <code>_quarto.yml</code></li>
-</ul>
-</section>
-<section id="listing-sort-order" class="level2">
-<h2 class="anchored" data-anchor-id="listing-sort-order">Listing Sort Order</h2>
-<ul>
-<li>All listing pages sort by <code>date desc</code>: <code>index.qmd</code>, <code>posts.qmd</code>, <code>til.qmd</code>, <code>collections.qmd</code></li>
-</ul>
-</section>
-<section id="design" class="level2">
-<h2 class="anchored" data-anchor-id="design">Design</h2>
-<ul>
-<li><code>designs/design1-depth/</code> — <strong>CHOSEN BASE DESIGN</strong> (Blues sequential palette, clean, scholarly)</li>
-<li><code>designs/design1-modern/</code> — fork of depth, modernized with animations/glassmorphism</li>
-<li>Serif typography: Bitter (headings) + Source Serif 4 (body) + IBM Plex Mono (code)</li>
-<li>ColorBrewer Blues palette (#eff3ff → #08306b)</li>
-<li>Dark/light mode support</li>
-</ul>
-<section id="colorbrewer-blues-palette" class="level3">
-<h3 class="anchored" data-anchor-id="colorbrewer-blues-palette">ColorBrewer Blues Palette</h3>
-<pre><code>--cb-blue-50: #eff3ff   --cb-blue-100: #c6dbef   --cb-blue-200: #9ecae1
---cb-blue-300: #6baed6  --cb-blue-400: #4292c6   --cb-blue-500: #2171b5
---cb-blue-600: #08519c  --cb-blue-700: #084594   --cb-blue-800: #08306b</code></pre>
-<hr>
-</section>
-</section>
-<section id="quarto-site-structure" class="level2">
-<h2 class="anchored" data-anchor-id="quarto-site-structure">Quarto Site Structure</h2>
-<section id="config" class="level3">
-<h3 class="anchored" data-anchor-id="config">Config</h3>
-<ul>
-<li><code>_quarto.yml</code> — project config: website type, navbar, SCSS theme (light/dark), TOC, margin references, Open Graph, Twitter Cards</li>
-<li>Themes: <code>styles/modern-light.scss</code>, <code>styles/modern-dark.scss</code></li>
-<li>Includes: <code>includes/fonts.html</code>, <code>includes/brand-icon.html</code>, <code>includes/theme-toggle.html</code>, <code>includes/discuss-links.html</code></li>
-</ul>
-</section>
-<section id="posts-directory-layout" class="level3">
-<h3 class="anchored" data-anchor-id="posts-directory-layout">Posts Directory Layout</h3>
-<p><strong>Notebooks</strong> get their own folder with <code>index.ipynb</code> (or <code>index.qmd</code> for JS demos):</p>
-<pre><code>posts/
-  probability/
-    index.ipynb        # URL becomes /posts/probability/
-    assets/            # images, data files referenced by THIS notebook only
-      venn.png
-      bishop-prob.png
-  votingforcongress/
-    index.ipynb
-    assets/
-      sep7.png
-  earth-demo/
-    index.qmd          # Three.js demo using .qmd format
-    assets/
-      earth-card.png   # Card thumbnail for listing (no content images in post)</code></pre>
-<p><strong>Markdown posts</strong> stay as flat files, images go in shared <code>posts/images/</code> or <code>posts/data/</code>:</p>
-<pre><code>posts/
-  boxloop.md           # URL becomes /posts/boxloop
-  distributions.md
-  images/              # shared images for flat .md posts
-    2tosscdf.png
-  data/                # shared data for flat .md posts (if needed)</code></pre>
-</section>
-<section id="notebook-frontmatter-quarto-yaml" class="level3">
-<h3 class="anchored" data-anchor-id="notebook-frontmatter-quarto-yaml">Notebook Frontmatter (Quarto YAML)</h3>
-<p>Notebooks must have a <strong>raw cell</strong> (cell_type: “raw”) as the first cell with YAML:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Post Title"</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">subtitle</span><span class="kw">:</span><span class="at"> </span><span class="st">"Catchy one-liner for listing cards."</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="st">"Two-sentence summary for the post page."</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">categories</span><span class="kw">:</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> probability</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> statistics</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> 2025-01-08</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li><code>subtitle</code> appears on listing cards</li>
-<li><code>description</code> is the longer summary</li>
-<li><code>categories</code> are used for filtering (must be from <code>_categories.txt</code>)</li>
-<li><code>date</code> controls sort order</li>
-<li><code>image</code> — optional, for posts without content images (e.g.&nbsp;<code>image: assets/earth-card.png</code>)</li>
-</ul>
-<p>For markdown posts, the same YAML goes in the standard frontmatter block at the top.</p>
-</section>
-<section id="card-images-for-posts-without-content-images" class="level3">
-<h3 class="anchored" data-anchor-id="card-images-for-posts-without-content-images">Card Images for Posts Without Content Images</h3>
-<p>For posts with no embedded images (e.g.&nbsp;interactive Three.js demos), use the browser agent to screenshot the rendered page, crop to the key visual, save to <code>assets/</code>, and add <code>image:</code> to frontmatter. See skill step 9 for details.</p>
-</section>
-<section id="three.js-interactive-.qmd-posts" class="level3">
-<h3 class="anchored" data-anchor-id="three.js-interactive-.qmd-posts">Three.js / Interactive .qmd Posts</h3>
-<p>Use <code>.qmd</code> format (not <code>.ipynb</code>) for JavaScript-heavy interactive content: - Load external JS via <code>format: html: include-in-header:</code> in frontmatter - Use Quarto’s fenced div syntax <code>::: {.classname}</code> for layout containers - Inline <code>&lt;script&gt;</code> blocks at the end of the .qmd file - Read CSS custom properties (<code>--cb-blue-*</code>, <code>--interactive-*</code>) for theme integration - Example: <code>posts/earth-demo/index.qmd</code></p>
-</section>
-<section id="build-commands-makefile" class="level3">
-<h3 class="anchored" data-anchor-id="build-commands-makefile">Build Commands (Makefile)</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> preview                <span class="co"># Live dev server with hot reload</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> render                 <span class="co"># Build full site to _site/</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> build                  <span class="co"># Render + rsync _site/ to docs/ for GitHub Pages</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render posts/probability/index.ipynb  <span class="co"># Render a single post</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li><code>render</code> produces <code>_site/</code>; <code>build</code> adds an rsync step to sync changed files into <code>docs/</code></li>
-<li>Commit and push are intentionally separate from <code>build</code></li>
-</ul>
-</section>
-<section id="imagedata-path-conventions" class="level3">
-<h3 class="anchored" data-anchor-id="imagedata-path-conventions">Image/Data Path Conventions</h3>
-<ul>
-<li>Notebook posts: <code>assets/filename.png</code> (relative to the notebook’s folder)</li>
-<li>Markdown posts: <code>images/filename.png</code> (relative to posts/)</li>
-<li>Site-wide assets already in <code>/assets/</code> (e.g.&nbsp;lawoflargenumbers images) use <code>/assets/...</code> absolute paths</li>
-<li>Profile photo: <code>assets/profile.jpg</code> (JPEG, not PNG — watch for GitHub avatar format mismatch)</li>
-</ul>
-</section>
-<section id="categories" class="level3">
-<h3 class="anchored" data-anchor-id="categories">Categories</h3>
-<ul>
-<li><strong>All categories must be lowercase</strong> — no <code>Statistics</code>, use <code>statistics</code>; no <code>MonteCarlo</code>, use <code>montecarlo</code></li>
-<li>Canonical list in <code>_categories.txt</code> at project root</li>
-<li>This prevents duplicate tags in Quarto listing filters</li>
-</ul>
-</section>
-<section id="frontmatter-fields" class="level3">
-<h3 class="anchored" data-anchor-id="frontmatter-fields">Frontmatter Fields</h3>
-<ul>
-<li><code>title</code> — post title</li>
-<li><code>subtitle</code> — catchy one-liner shown on listing cards</li>
-<li><code>description</code> — 2-sentence content summary</li>
-<li><code>categories</code> — lowercase tags for filtering (from <code>_categories.txt</code>)</li>
-<li><code>date</code> — controls sort order (YYYY-MM-DD)</li>
-<li><code>image</code> — card thumbnail path (optional, for posts without content images)</li>
-</ul>
-</section>
-<section id="site-sections" class="level3">
-<h3 class="anchored" data-anchor-id="site-sections">Site Sections</h3>
-<ul>
-<li><code>posts/</code> — main blog posts (shown on index page)</li>
-<li><code>til/</code> — Today I Learned (shown only on TIL page, NOT on index)</li>
-<li><code>collections/software/</code> — software tools (shown only on Collections page, NOT on index)</li>
-<li><code>index.qmd</code> listing contents should only include <code>posts/</code> and <code>posts/**/</code></li>
-</ul>
-</section>
-<section id="known-gotchas" class="level3">
-<h3 class="anchored" data-anchor-id="known-gotchas">Known Gotchas</h3>
-<ul>
-<li>After adding/moving/renaming files, restart <code>quarto preview</code> — the live server caches resource IDs and will show “Bad resource ID” for changed files</li>
-<li>Listing <code>.qmd</code> files must not have a stray <code>---</code> after the YAML block (causes parse errors)</li>
-<li>Listing <code>contents</code> paths should NOT have a leading <code>/</code> (use <code>til/*.qmd</code> not <code>/til/*.qmd</code>)</li>
-<li><code>include-after-body</code> scripts run after DOMContentLoaded — use IIFE, not event listeners</li>
-<li>GitHub avatar downloads are JPEG even with <code>.png</code> URL — always check with <code>file</code> command and use correct extension</li>
-</ul>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 13, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
 
 
+</header>
+
+
+<div id="cell-1" class="cell" data-hide="true" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.width'</span>, <span class="dv">500</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_columns'</span>, <span class="dv">100</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.notebook_repr_html'</span>, <span class="va">True</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">"whitegrid"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>sns.set_context(<span class="st">"poster"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
+  warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
+</div>
+</div>
+<section id="information-and-entropy" class="level2">
+<h2 class="anchored" data-anchor-id="information-and-entropy">Information and Entropy</h2>
+<p>Imagine tossing a coin. If I knew the exact physics of the coin, the initial conditions of the tossing, I could predict deterministically how the coin would land. But usually, without knowing anything, I say by symmetry or by “long-run” experince that the odds of getting heads are 50%.</p>
+<p>This reflects my minimal knowledge about this system. Without knowing anything else about the universe…the physics, the humidity, the weighting of the coin, etc..assuming a probability of 0.5 of getting heads is the most conservative thing I could do.</p>
+<p>You can think of this as a situation with minimal information content.</p>
+<p>It is a very interesting situation, however, when you think about this from the perspective of the multiple ways you could get half the coin tosses in a long run of coin tosses come up heads. There is only one way in which you can get all coin tosses come up heads. There are <span class="math inline">\(n \choose n/2\)</span> ways on the other hand in which you can get half heads! You can think of this situation being one of more states or events being consistent with a probability of heads of 0.5 than with a probability of 1.</p>
+<p>By the same token, an election with a win probability of 0.99 isnt that interesting. A lot of information went into getting this probability presumably: polls, economic modelling, etc. But to get such certainty implies a greater determinism-to-randomness ratio in the process.</p>
+<p>One can think of <strong>information as the reduction in uncertainty from learning an outcome</strong></p>
+<p>Clearly we need a measure of uncertainty so that we can quantify how much it has decreased.</p>
+<section id="desiderata-for-a-measure-of-uncertainty" class="level3">
+<h3 class="anchored" data-anchor-id="desiderata-for-a-measure-of-uncertainty">Desiderata for a measure of uncertainty</h3>
+<ul>
+<li>must be continuous so that there are no jumps</li>
+<li>must be additive across events or states, and must increase as the number of events/states increases</li>
+</ul>
 </section>
 </section>
+<section id="entropy-measures-uncertainty" class="level2">
+<h2 class="anchored" data-anchor-id="entropy-measures-uncertainty">Entropy measures uncertainty</h2>
+<p>A function that satisfies these desiderata is the information entropy:</p>
+<p><span class="math display">\[H(p) = - E_p[log(p)] = - \int p(x) log(p(x))dx \,\,\,OR\, - \sum_i p_i log(p_i) \]</span></p>
+<p>Thus the entropy is the average log probability of an event…</p>
+<section id="example-of-the-coin-toss-or-bernoulli-variable" class="level3">
+<h3 class="anchored" data-anchor-id="example-of-the-coin-toss-or-bernoulli-variable">Example of the coin toss or Bernoulli variable</h3>
+<p><span class="math display">\[H(p) = - E_p[log(p)] = - p*log(p) - (1-p)*log(1-p)\]</span></p>
+<p>For <span class="math inline">\(p=0\)</span> or <span class="math inline">\(p=1\)</span> we must use L’Hospital’s rule: if we have the division of two limits as <span class="math inline">\(0/0\)</span> or <span class="math inline">\(\infty/\infty\)</span> then differentiate both the numerator and denominator and try again:</p>
+<p><span class="math display">\[\lim_{p \to 0}  \frac{log(p)}{1/p} =  \lim_{p \to 0}  \frac{1/p}{-1/p^2} = 0\]</span></p>
+<div id="cell-5" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">100</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> h(p):</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> p<span class="op">==</span><span class="fl">1.</span>:</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        ent <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> p<span class="op">==</span><span class="fl">0.</span>:</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        ent <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        ent <span class="op">=</span> <span class="op">-</span> (p<span class="op">*</span>math.log(p) <span class="op">+</span> (<span class="dv">1</span><span class="op">-</span>p)<span class="op">*</span> math.log(<span class="dv">1</span><span class="op">-</span>p))</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ent</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>plt.plot(p, [h(pr) <span class="cf">for</span> pr <span class="kw">in</span> p])<span class="op">;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>plt.axvline(<span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">1</span>,<span class="st">'r'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Thus you can see there is maximal uncertainty at 0.5.</p>
+</section>
+</section>
+<section id="thermodynamic-notion-of-entropy" class="level2">
+<h2 class="anchored" data-anchor-id="thermodynamic-notion-of-entropy">Thermodynamic notion of Entropy</h2>
+<p>Imagine dividing <span class="math inline">\(N\)</span> objects amongst <span class="math inline">\(M\)</span> bins. One can think of this as stone tossing, where we toss N stones and see in which bin they land up. There is a distribution for this, <span class="math inline">\(\{p_i\}\)</span>, of-course, so lets see what it is.</p>
+<p>There are <span class="math inline">\(N\)</span> ways to fill the first bin, <span class="math inline">\(N-1\)</span> ways to fill the second, <span class="math inline">\(N-2\)</span> ways to fill the third, and so on…thus <span class="math inline">\(N!\)</span> ways. Since we dont distinguish the arrangement of objects in each bin we must divide bu the factorial of the bin amounts. If we then assume a uniform chance of landing in each bucket, then we just get the nultinomial distribution:</p>
+<p><span class="math display">\[P(n_1, n_2, ..., n_M) = \frac{N!}{\prod_{i} n_i!} \prod_i (\frac{1}{M})^{n_i} = \frac{N!}{\prod_{i} n_i!} \left(\frac{1}{M}\right)^N\]</span></p>
+<p><span class="math display">\[ W =  \frac{N!}{\prod_{i} n_i!} \]</span></p>
+<p>is called the multiplicity and the entropy is then defined as:</p>
+<p><span class="math display">\[H = \frac{1}{N} log(W)\]</span> which is:</p>
+<p><span class="math display">\[\frac{1}{N}log(P(n_i, n_2, ...,n_M))\]</span></p>
+<p>with a constant term removed.</p>
+<p><span class="math display">\[H = \frac{1}{N} log(N!) - \frac{1}{N} \sum_i log(n_i!)\]</span>.</p>
+<p>Using Stirling’s approximation <span class="math inline">\(log(N!) \sim Nlog(N) -N\)</span> as <span class="math inline">\(N \to \infty\)</span> and where the fractions <span class="math inline">\(n_i/N\)</span> are held fixed:</p>
+<p><span class="math display">\[ H =  \frac{1}{N}\left( N log(N) - N - \sum_i (n_i log(n_i) - n_i)\right)\]</span></p>
+<p><span class="math display">\[ = log(N) -1 -\frac{1}{N} \sum_i (Np_i log(Np_i) - Np_i) = log(N) -1 - \sum_i \left(p_i(log(N) + log(p_i)) - p_i\right)\]</span></p>
+<p>Thus</p>
+<p><span class="math display">\[H = -\sum_i p_i log(p_i)\]</span></p>
+<p>If the probabilities of landing in each bucket are not equal, ie not uniform, then we can show:</p>
+<p><span class="math display">\[\frac{1}{N}log(P(n_i, n_2, ...,n_M)) = -\sum_i p_i log(\frac{p_i}{q_i})\]</span></p>
+<p>This definition has origins in statistical mechanics. Entropy was first introduced in thermodynamics and then later interpreted as a measure of disorder: how many events or states can a system constrained to have a given enrgy have. A physicist calls a particular arrangement <span class="math inline">\(\{n_i\} = (m_1, n_2, n_3,...,n_M)\)</span> a microstate and the overall distribution of <span class="math inline">\(\{p_i\}\)</span>, here the multinomial , a macrostate, with <span class="math inline">\(W\)</span> calledthe weight.</p>
+</section>
+<section id="maximum-entropy-maxent" class="level2">
+<h2 class="anchored" data-anchor-id="maximum-entropy-maxent">Maximum Entropy (maxent)</h2>
+<p>Maximum entropy is the notion of finding distributions consistent with constraints and the current state of our knowledge . In other words, what would be the least surprising distribution? The one with the least additional assumptions?</p>
+<p>We can maximize</p>
+<p><span class="math display">\[H = -\sum_i p_i log(p_i)\]</span></p>
+<p>in the case of the ball and bin model above, by considering the langrange-multiplier enhanced, constraint enforcing entropy</p>
+<p><span class="math display">\[H = -\sum_i p_i log(p_i) + \lambda \left( \sum_i p(x_i) - 1 \right)\]</span></p>
+<p><span class="math display">\[\frac{\partial H}{\partial p_j} = 0 \implies -(1+log(p_j)) + \lambda = 0\]</span></p>
+<p>This means that the <span class="math inline">\(p_j\)</span>’s are all equal and thus must be <span class="math inline">\(\frac{1}{M}\)</span>: thus the distribution with all <span class="math inline">\(p\)</span>s equal maximizes entropy.</p>
+<p>The distribution that can happen in the most ways is the one with the highest entropy, as we can see above.</p>
+<section id="normal-as-maxent" class="level3">
+<h3 class="anchored" data-anchor-id="normal-as-maxent">Normal as maxent</h3>
+<p>The origin story of the gaussian itself is that many small effects add up to produce them. It is exactly the “many” aspect os these that makes the gaussian a maxent distribution. For every sequence that produces an unbalanced outcome(like a long string of heads), there are many more ways of producing a balanced outcome. In otherwords, there are so many microstates of the system that can produce the “peak” macrostates.</p>
+<p>This is a plot from McElreath of a bunch of generalized normal distributions. with same mean and variance. The Gaussuan has the highest entropy, as we shall prove below.</p>
+<p><img src="Generalized normal distributions (left) and their entropy as a function of shape parameter (right). The Gaussian (shape=2) has maximum entropy among distributions with fixed variance." class="img-fluid"></p>
+<p>If you think about entropy increasing as we make a distribution flatter, you realize that the shape must come about because finite and equal variance puts a limit on how wide the distribution can be.</p>
+<p><span class="math display">\[\renewcommand{kld}{D_{KL}}\]</span></p>
+<p>For a gaussian</p>
+<p><span class="math display">\[p(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{-(x - \mu)^2/2\sigma^2}\]</span></p>
+<p><span class="math display">\[H(p) = E_p[log(p)] = E_p[-\frac{1}{2}log(2\pi\sigma^2) - (x - \mu)^2/2\sigma^2]\]</span></p>
+<p><span class="math display">\[ =  -\frac{1}{2}log(2\pi\sigma^2) - \frac{1}{2\sigma^2}E_p[(x - \mu)^2] = -\frac{1}{2}log(2\pi\sigma^2) - \frac{1}{2} = \frac{1}{2}log(2\pi e \sigma^2)\]</span></p>
+<p>No other distribution <span class="math inline">\(q\)</span> can have higher entropy than this, provided they share the same variance and mean.</p>
+<p>To see this consider (note change in order, we are considering <span class="math inline">\(\kld(q, p)\)</span>:</p>
+<p><span class="math display">\[\kld(q, p) = E_q[log(q/p)] = H(q,p) - H(q)\]</span></p>
+<p><span class="math display">\[H(q,p) = E_q[log(p)] = E_q[-\frac{1}{2}log(2\pi\sigma^2) - (x - \mu)^2/2\sigma^2] \\= -\frac{1}{2}log(2\pi\sigma^2) - \frac{1}{2\sigma^2}E_q[(x - \mu)^2]\]</span></p>
+<p>The second expectation here is the variance <span class="math inline">\(\s
+igma^2\)</span> on the assumption that <span class="math inline">\(E_q[x] = \mu\)</span>.</p>
+<p>Thus</p>
+<p><span class="math display">\[H(q,p) =  -\frac{1}{2}log(2\pi\sigma^2) - \frac{1}{2} =  -\frac{1}{2}log(2\pi e \sigma^2) = H(p)\]</span></p>
+<p>Now as we have shown <span class="math inline">\(\kld(q,p) &gt;=0\)</span>. This means that <span class="math inline">\(H(q,p) - H(q) &gt;= 0\)</span>. Which then means that <span class="math inline">\(H(p) - H(q) &gt;= 0\)</span> or <span class="math inline">\(H(p) &gt;= H(q)\)</span>. This means that the Gaussian has the highest entropy of any distribution with the same mean and variance.</p>
+<p>See http://www.math.uconn.edu/~kconrad/blurbs/analysis/entropypost.pdf for details on maxent for distributions.</p>
+</section>
+<section id="binomial-as-maxent" class="level3">
+<h3 class="anchored" data-anchor-id="binomial-as-maxent">Binomial as Maxent</h3>
+<p>Information entropy increases as a probability distribution becomes more even. We saw that with the thermodynamic idea of entropy and the multinomial distribution.</p>
+<p>Consider the situation when:</p>
+<ul>
+<li>only two outcomes (unordered) are possible.</li>
+<li>the process generating the outcomes is invariant in time, ie the expected value remains constant (over temporal or other subsequences)</li>
+</ul>
+<p>Then it turns out that for these constraints, the maximum entropy distribution is the binomial. The binomial basically spreads probability out as evenly and conservatively as possible, making sure that outcomes that have many more ways they can happen have more probability mass. Basically the binomial figures the number of ways any possible sequence of data can be realized, which is what entropy does. Thus it turns out that likelihoods derived by such counting turn out to be maximum entropy likelihoods.</p>
+<p><span class="math display">\[H(q,p) &gt;= H(q) \implies -E_q[log(p)] &gt;= -E_q[log(q)]\]</span></p>
+<p>For binomial parameter <span class="math inline">\(\lambda/n\)</span>:</p>
+<p><span class="math display">\[ H(q, p) = - \sum_i q_i log(p_i) = -\sum_i q_i \left(log \left(\frac{\lambda}{n}\right)^{x_i}  + log \left(\frac{n-\lambda}{n}\right)^{n - x_i} \right)\]</span></p>
+<p><span class="math display">\[ =  - \sum_i q_i \left( x_i log\left(\frac{\lambda}{n}\right) + (n - x_i) log \left(\frac{n-\lambda}{n}\right)\right)\]</span></p>
+<p><span class="math display">\[ =  - \sum_i q_i  \left( x_i log \left(\frac{\lambda}{n-\lambda}\right)  + n log \left(\frac{n-\lambda}{\lambda}\right) \right)\]</span></p>
+<p><span class="math display">\[ H (q, p) =  - n log \left(\frac{n-\lambda}{\lambda}\right) -  log\left(\frac{\lambda}{n-\lambda}\right)E_q[x]\]</span></p>
+<p>Now, if <span class="math inline">\(E_q[x] = \lambda\)</span>, our invariant expectation, we have <span class="math inline">\(H(q,p) = H(p)\)</span> as we get the same formula if we substitute <span class="math inline">\(q=p\)</span> to get the entropy of the binomial. In other words, <span class="math inline">\(H(p) &gt;= H(q)\)</span> and we have shown the binomial has maximum entropy amongst discrete distributions with two outcomes and fixed expectations.</p>
+</section>
+</section>
+<section id="the-importance-of-maxent" class="level2">
+<h2 class="anchored" data-anchor-id="the-importance-of-maxent">The importance of maxent</h2>
+<p>The most common distributions used as likelihoods (and priors) in modeling are those in the exponential family. The exponential family can be defined as having pmf or pdf:</p>
+<p><span class="math display">\[p(x|\theta) =  \frac{1}{Z(\theta)} h(x) e^{\theta^T\phi(x)}\]</span></p>
+<p>Where <span class="math inline">\(Z(\theta)\)</span>, also called the partition function, is the normalization.</p>
+<p>For example, the univariate Gaussian Distribution can be obtained with:</p>
+<p><span class="math display">\[
+\begin{eqnarray}
+\theta &amp;=&amp; \begin{pmatrix}\mu/\sigma^2 \\-1/2\sigma^2\end{pmatrix}\\
+\phi(x) &amp;=&amp;  \begin{pmatrix}x \\x^2\end{pmatrix}\\
+Z(\mu, \sigma^2) &amp;=&amp; \sigma\sqrt{2\pi} e^{\mu^2/2\sigma^2}\\
+h(x) &amp;=&amp; 1
+\end{eqnarray}
+\]</span></p>
+<p>Each member of the exponential family turns out to be a maximum entropy distribution subject to different constraints. These distributions are then used as likelihoods.</p>
+<p><img src="Relationships among members of the exponential family: Gamma, Normal, Binomial, and Poisson distributions arise as limiting cases of the Exponential distribution." class="img-fluid"></p>
+<p>For example, the gamma distribution, which we shall see later, is maximum entropy amongst all distributions with the same mean and same average logarithm. The poisson distribution, used for low event rates, is maxent under similar conditions as the binomial as it is a special case of the binomial. The exponential distribution is maxent among all non-negative continuous distributions with the same average inter-event displacement. (In our births example, the inter-birth time).</p>
+<p>We’ll talk more about these distributions when we encounter them, and when we talk about generalized linear models.</p>
+<p>But here is the critical point. We will often choose a maximum entropy distribution as a likelihood . Information entropy ennumerates the number of ways a distribution can arise, after having fixed some assumptions. Thus, in choosing a MAXENT distribution as a likelihood, we choose a distribution that once the constraints has been met, does not contain any additional assumptions. It is thus the most conservative distribution we could choose consistent with our constraints.</p>
+
+
 </section>
 
 </main> <!-- /main -->
