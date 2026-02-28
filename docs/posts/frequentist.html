@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2025-02-21">
+<meta name="description" content="Introduces the frequentist philosophy of statistics: data as a sample from a population, the data story, probabilistic models, point estimates, and the sampling distribution. Covers MLE for the binomial, and both parametric and non-parametric bootstrap for uncertainty estimation.">
 
-<title>claude – rahuldave</title>
+<title>Frequentist Statistics – rahuldave</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,28 +60,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-e0d64750a3675fa668af59a9862b8111.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-d2fef15c612ec386ae0907ffd6f4ccdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-a009389674a9596cea61ac77c12264b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-d2fef15c612ec386ae0907ffd6f4ccdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-e0d64750a3675fa668af59a9862b8111.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-d2fef15c612ec386ae0907ffd6f4ccdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-a009389674a9596cea61ac77c12264b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-d2fef15c612ec386ae0907ffd6f4ccdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -115,12 +117,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- Bootstrap Icons for brand mark and UI elements -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<meta property="og:title" content="rahuldave">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Frequentist Statistics – rahuldave">
+<meta property="og:description" content="Introduces the frequentist philosophy of statistics: data as a sample from a population, the data story, probabilistic models, point estimates, and the sampling distribution. Covers MLE for the binomial, and both parametric and non-parametric bootstrap for uncertainty estimation.">
+<meta property="og:image" content="https://rahuldave.github.io/posts/distrib-example/assets/binomial.png">
 <meta property="og:site_name" content="rahuldave">
-<meta name="twitter:title" content="rahuldave">
+<meta property="og:image:height" content="447">
+<meta property="og:image:width" content="879">
+<meta name="twitter:title" content="Frequentist Statistics – rahuldave">
+<meta name="twitter:description" content="Introduces the frequentist philosophy of statistics: data as a sample from a population, the data story, probabilistic models, point estimates, and the sampling distribution. Covers MLE for the binomial, and both parametric and non-parametric bootstrap for uncertainty estimation.">
+<meta name="twitter:image" content="https://rahuldave.github.io/posts/distrib-example/assets/binomial.png">
 <meta name="twitter:creator" content="@rahuldave">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:image-height" content="447">
+<meta name="twitter:image-width" content="879">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -292,7 +331,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">rahuldave</span>
     </a>
   </div>
@@ -303,19 +342,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./posts.html"> 
+    <a class="nav-link" href="../posts.html"> 
 <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./til.html"> 
+    <a class="nav-link" href="../til.html"> 
 <span class="menu-text">TIL</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./collections.html"> 
+    <a class="nav-link" href="../collections.html"> 
 <span class="menu-text">Collections</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -335,39 +374,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#claude-session-context" id="toc-claude-session-context" class="nav-link active" data-scroll-target="#claude-session-context">Claude Session Context</a>
+  <li><a href="#what-is-data" id="toc-what-is-data" class="nav-link active" data-scroll-target="#what-is-data">What is data?</a>
   <ul class="collapse">
-  <li><a href="#project-overview" id="toc-project-overview" class="nav-link" data-scroll-target="#project-overview">Project Overview</a></li>
-  <li><a href="#content-source" id="toc-content-source" class="nav-link" data-scroll-target="#content-source">Content Source</a></li>
-  <li><a href="#content-import-status-from-am207-wiki" id="toc-content-import-status-from-am207-wiki" class="nav-link" data-scroll-target="#content-import-status-from-am207-wiki">Content Import Status (from AM207 wiki)</a></li>
-  <li><a href="#category-system" id="toc-category-system" class="nav-link" data-scroll-target="#category-system">Category System</a></li>
-  <li><a href="#about-page" id="toc-about-page" class="nav-link" data-scroll-target="#about-page">About Page</a></li>
-  <li><a href="#social-discussion-links" id="toc-social-discussion-links" class="nav-link" data-scroll-target="#social-discussion-links">Social / Discussion Links</a></li>
-  <li><a href="#listing-sort-order" id="toc-listing-sort-order" class="nav-link" data-scroll-target="#listing-sort-order">Listing Sort Order</a></li>
-  <li><a href="#design" id="toc-design" class="nav-link" data-scroll-target="#design">Design</a>
-  <ul class="collapse">
-  <li><a href="#colorbrewer-blues-palette" id="toc-colorbrewer-blues-palette" class="nav-link" data-scroll-target="#colorbrewer-blues-palette">ColorBrewer Blues Palette</a></li>
+  <li><a href="#the-data-story" id="toc-the-data-story" class="nav-link" data-scroll-target="#the-data-story">The Data story</a></li>
   </ul></li>
-  <li><a href="#quarto-site-structure" id="toc-quarto-site-structure" class="nav-link" data-scroll-target="#quarto-site-structure">Quarto Site Structure</a>
+  <li><a href="#a-probabilistic-model" id="toc-a-probabilistic-model" class="nav-link" data-scroll-target="#a-probabilistic-model">A probabilistic model</a></li>
+  <li><a href="#maximum-likelihood-estimation" id="toc-maximum-likelihood-estimation" class="nav-link" data-scroll-target="#maximum-likelihood-estimation">Maximum Likelihood Estimation</a>
   <ul class="collapse">
-  <li><a href="#config" id="toc-config" class="nav-link" data-scroll-target="#config">Config</a></li>
-  <li><a href="#posts-directory-layout" id="toc-posts-directory-layout" class="nav-link" data-scroll-target="#posts-directory-layout">Posts Directory Layout</a></li>
-  <li><a href="#notebook-frontmatter-quarto-yaml" id="toc-notebook-frontmatter-quarto-yaml" class="nav-link" data-scroll-target="#notebook-frontmatter-quarto-yaml">Notebook Frontmatter (Quarto YAML)</a></li>
-  <li><a href="#card-images-for-posts-without-content-images" id="toc-card-images-for-posts-without-content-images" class="nav-link" data-scroll-target="#card-images-for-posts-without-content-images">Card Images for Posts Without Content Images</a></li>
-  <li><a href="#three.js-interactive-.qmd-posts" id="toc-three.js-interactive-.qmd-posts" class="nav-link" data-scroll-target="#three.js-interactive-.qmd-posts">Three.js / Interactive .qmd Posts</a></li>
-  <li><a href="#build-commands-makefile" id="toc-build-commands-makefile" class="nav-link" data-scroll-target="#build-commands-makefile">Build Commands (Makefile)</a></li>
-  <li><a href="#imagedata-path-conventions" id="toc-imagedata-path-conventions" class="nav-link" data-scroll-target="#imagedata-path-conventions">Image/Data Path Conventions</a></li>
-  <li><a href="#categories" id="toc-categories" class="nav-link" data-scroll-target="#categories">Categories</a></li>
-  <li><a href="#frontmatter-fields" id="toc-frontmatter-fields" class="nav-link" data-scroll-target="#frontmatter-fields">Frontmatter Fields</a></li>
-  <li><a href="#site-sections" id="toc-site-sections" class="nav-link" data-scroll-target="#site-sections">Site Sections</a></li>
-  <li><a href="#known-gotchas" id="toc-known-gotchas" class="nav-link" data-scroll-target="#known-gotchas">Known Gotchas</a></li>
+  <li><a href="#mle-for-binomial." id="toc-mle-for-binomial." class="nav-link" data-scroll-target="#mle-for-binomial.">MLE for binomial.</a></li>
   </ul></li>
+  <li><a href="#point-estimates" id="toc-point-estimates" class="nav-link" data-scroll-target="#point-estimates">Point estimates</a>
+  <ul class="collapse">
+  <li><a href="#from-single-to-multiple-estimates" id="toc-from-single-to-multiple-estimates" class="nav-link" data-scroll-target="#from-single-to-multiple-estimates">From single to multiple estimates</a></li>
+  </ul></li>
+  <li><a href="#sampling-distribution-of-the-parameter" id="toc-sampling-distribution-of-the-parameter" class="nav-link" data-scroll-target="#sampling-distribution-of-the-parameter">Sampling Distribution of the parameter</a></li>
+  <li><a href="#bootstrap" id="toc-bootstrap" class="nav-link" data-scroll-target="#bootstrap">Bootstrap</a>
+  <ul class="collapse">
+  <li><a href="#parametric-bootstrap" id="toc-parametric-bootstrap" class="nav-link" data-scroll-target="#parametric-bootstrap">Parametric Bootstrap</a></li>
+  <li><a href="#non-parametric-bootstrap" id="toc-non-parametric-bootstrap" class="nav-link" data-scroll-target="#non-parametric-bootstrap">Non-parametric bootstrap</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
 
 <!-- Theme toggle persistence script -->
 <script>
@@ -401,230 +431,180 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 })();
 </script>
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Frequentist Statistics</h1>
+<p class="subtitle lead">Fixed parameters, random data — the frequentist creed.</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">statistics</div>
+    <div class="quarto-category">probability</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Introduces the frequentist philosophy of statistics: data as a sample from a population, the data story, probabilistic models, point estimates, and the sampling distribution. Covers MLE for the binomial, and both parametric and non-parametric bootstrap for uncertainty estimation.
+  </div>
+</div>
 
 
+<div class="quarto-title-meta">
 
-<section id="claude-session-context" class="level1">
-<h1>Claude Session Context</h1>
-<section id="project-overview" class="level2">
-<h2 class="anchored" data-anchor-id="project-overview">Project Overview</h2>
-<p>This is a Quarto-based personal website for data science/ML educational content at rahuldave.github.io.</p>
-</section>
-<section id="content-source" class="level2">
-<h2 class="anchored" data-anchor-id="content-source">Content Source</h2>
-<ul>
-<li>AM207 course wiki at <code>~/Attic/Projects/AM207/2018fall_wiki/wiki/</code> — lectures, notebooks, markdown notes</li>
-<li>Lecture index at <code>~/Attic/Projects/AM207/2018fall_wiki/lectures/index.md</code> (replace <code>.html</code> with <code>.md</code> for source files)</li>
-<li>Each lecture <code>.md</code> links to wiki notes; check for <code>.ipynb</code> (primary source) before falling back to <code>.md</code></li>
-<li>Use <code>/import-wiki-notes</code> skill to import notes as blog posts</li>
-<li><strong>Notebook import script</strong>: <code>_scripts/import_notebook.py</code> — automates creating <code>posts/&lt;name&gt;/index.ipynb</code> from wiki <code>.ipynb</code> files (adds raw frontmatter cell, fixes <code>images/</code> → <code>assets/</code> paths, copies images). Run with <code>--help</code> for usage. Markdown-only posts are simpler and done by hand.</li>
-</ul>
-</section>
-<section id="content-import-status-from-am207-wiki" class="level2">
-<h2 class="anchored" data-anchor-id="content-import-status-from-am207-wiki">Content Import Status (from AM207 wiki)</h2>
-<ul>
-<li><strong>Lecture 1 (Intro &amp; Probability)</strong>: DONE
-<ul>
-<li><code>boxloop</code> — already existed, skipped</li>
-<li><code>probability</code> — notebook, imported to <code>posts/probability/</code></li>
-<li><code>distributions</code> — markdown only, imported to <code>posts/distributions.md</code></li>
-<li><code>distrib-example</code> — notebook, imported to <code>posts/distrib-example/</code></li>
-</ul></li>
-<li><strong>Lecture 2 (Probability, Sampling, Laws, Monte Carlo)</strong>: DONE
-<ul>
-<li><code>distributions</code> — already imported (Lecture 1), skipped</li>
-<li><code>expectations</code> — notebook, imported to <code>posts/expectations/</code></li>
-<li><code>samplingclt</code> — notebook, imported to <code>posts/samplingclt/</code></li>
-<li><code>basicmontecarlo</code> — notebook, imported to <code>posts/basicmontecarlo/</code></li>
-<li><code>montecarlointegrals</code> — notebook, imported to <code>posts/montecarlointegrals/</code></li>
-</ul></li>
-<li><strong>Lecture 3 (From Monte Carlo to Frequentist Stats)</strong>: DONE
-<ul>
-<li><code>Expectations</code> — already imported (Lecture 2), skipped</li>
-<li><code>SamplingCLT</code> — already imported (Lecture 2), skipped</li>
-<li><code>basicmontecarlo</code> — already imported (Lecture 2), skipped</li>
-<li><code>montecarlointegrals</code> — already imported (Lecture 2), skipped</li>
-<li><code>frequentist</code> — markdown only, imported to <code>posts/frequentist.md</code></li>
-<li><code>MLE</code> — notebook, imported to <code>posts/MLE/</code></li>
-</ul></li>
-<li><strong>Lectures 4–26</strong>: NOT YET IMPORTED</li>
-</ul>
-</section>
-<section id="category-system" class="level2">
-<h2 class="anchored" data-anchor-id="category-system">Category System</h2>
-<ul>
-<li>Canonical categories are in <code>_categories.txt</code> (root of project), one per line, sorted alphabetically</li>
-<li><strong>Current categories</strong>: data, elections, integration, interactive, macos, models, montecarlo, orchestration, pipeline, probability, statistics, visualization</li>
-<li>All categories must be lowercase</li>
-<li>When importing, map source keywords to existing categories; propose new ones for user approval</li>
-<li>The <code>/import-wiki-notes</code> skill enforces this workflow (step 7c)</li>
-</ul>
-</section>
-<section id="about-page" class="level2">
-<h2 class="anchored" data-anchor-id="about-page">About Page</h2>
-<ul>
-<li>Profile photo: <code>assets/profile.jpg</code> (sourced from GitHub avatar)</li>
-<li>Comprehensive bio context: <code>~/Context/rahul-dave-profile.md</code></li>
-<li>Contact form via Formspree (ID: <code>mykjwlyk</code>) — forwards to rahuldave@univ.ai</li>
-<li>Links: GitHub, X/Twitter, Bluesky (rahuldave.bsky.social), Google Scholar, LinkedIn</li>
-</ul>
-</section>
-<section id="social-discussion-links" class="level2">
-<h2 class="anchored" data-anchor-id="social-discussion-links">Social / Discussion Links</h2>
-<ul>
-<li><code>includes/discuss-links.html</code> — “Discuss this post” links (Twitter, Bluesky, LinkedIn) on posts, til, and collections pages only</li>
-<li>Uses IIFE (not DOMContentLoaded) because <code>include-after-body</code> runs after DOM is ready</li>
-<li>Links are constructed at runtime from <code>window.location.href</code> — will use production domain automatically</li>
-<li>Open Graph and Twitter Card metadata enabled in <code>_quarto.yml</code></li>
-</ul>
-</section>
-<section id="listing-sort-order" class="level2">
-<h2 class="anchored" data-anchor-id="listing-sort-order">Listing Sort Order</h2>
-<ul>
-<li>All listing pages sort by <code>date desc</code>: <code>index.qmd</code>, <code>posts.qmd</code>, <code>til.qmd</code>, <code>collections.qmd</code></li>
-</ul>
-</section>
-<section id="design" class="level2">
-<h2 class="anchored" data-anchor-id="design">Design</h2>
-<ul>
-<li><code>designs/design1-depth/</code> — <strong>CHOSEN BASE DESIGN</strong> (Blues sequential palette, clean, scholarly)</li>
-<li><code>designs/design1-modern/</code> — fork of depth, modernized with animations/glassmorphism</li>
-<li>Serif typography: Bitter (headings) + Source Serif 4 (body) + IBM Plex Mono (code)</li>
-<li>ColorBrewer Blues palette (#eff3ff → #08306b)</li>
-<li>Dark/light mode support</li>
-</ul>
-<section id="colorbrewer-blues-palette" class="level3">
-<h3 class="anchored" data-anchor-id="colorbrewer-blues-palette">ColorBrewer Blues Palette</h3>
-<pre><code>--cb-blue-50: #eff3ff   --cb-blue-100: #c6dbef   --cb-blue-200: #9ecae1
---cb-blue-300: #6baed6  --cb-blue-400: #4292c6   --cb-blue-500: #2171b5
---cb-blue-600: #08519c  --cb-blue-700: #084594   --cb-blue-800: #08306b</code></pre>
-<hr>
-</section>
-</section>
-<section id="quarto-site-structure" class="level2">
-<h2 class="anchored" data-anchor-id="quarto-site-structure">Quarto Site Structure</h2>
-<section id="config" class="level3">
-<h3 class="anchored" data-anchor-id="config">Config</h3>
-<ul>
-<li><code>_quarto.yml</code> — project config: website type, navbar, SCSS theme (light/dark), TOC, margin references, Open Graph, Twitter Cards</li>
-<li>Themes: <code>styles/modern-light.scss</code>, <code>styles/modern-dark.scss</code></li>
-<li>Includes: <code>includes/fonts.html</code>, <code>includes/brand-icon.html</code>, <code>includes/theme-toggle.html</code>, <code>includes/discuss-links.html</code></li>
-</ul>
-</section>
-<section id="posts-directory-layout" class="level3">
-<h3 class="anchored" data-anchor-id="posts-directory-layout">Posts Directory Layout</h3>
-<p><strong>Notebooks</strong> get their own folder with <code>index.ipynb</code> (or <code>index.qmd</code> for JS demos):</p>
-<pre><code>posts/
-  probability/
-    index.ipynb        # URL becomes /posts/probability/
-    assets/            # images, data files referenced by THIS notebook only
-      venn.png
-      bishop-prob.png
-  votingforcongress/
-    index.ipynb
-    assets/
-      sep7.png
-  earth-demo/
-    index.qmd          # Three.js demo using .qmd format
-    assets/
-      earth-card.png   # Card thumbnail for listing (no content images in post)</code></pre>
-<p><strong>Markdown posts</strong> stay as flat files, images go in shared <code>posts/images/</code> or <code>posts/data/</code>:</p>
-<pre><code>posts/
-  boxloop.md           # URL becomes /posts/boxloop
-  distributions.md
-  images/              # shared images for flat .md posts
-    2tosscdf.png
-  data/                # shared data for flat .md posts (if needed)</code></pre>
-</section>
-<section id="notebook-frontmatter-quarto-yaml" class="level3">
-<h3 class="anchored" data-anchor-id="notebook-frontmatter-quarto-yaml">Notebook Frontmatter (Quarto YAML)</h3>
-<p>Notebooks must have a <strong>raw cell</strong> (cell_type: “raw”) as the first cell with YAML:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Post Title"</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">subtitle</span><span class="kw">:</span><span class="at"> </span><span class="st">"Catchy one-liner for listing cards."</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="st">"Two-sentence summary for the post page."</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">categories</span><span class="kw">:</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> probability</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> statistics</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> 2025-01-08</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li><code>subtitle</code> appears on listing cards</li>
-<li><code>description</code> is the longer summary</li>
-<li><code>categories</code> are used for filtering (must be from <code>_categories.txt</code>)</li>
-<li><code>date</code> controls sort order</li>
-<li><code>image</code> — optional, for posts without content images (e.g.&nbsp;<code>image: assets/earth-card.png</code>)</li>
-</ul>
-<p>For markdown posts, the same YAML goes in the standard frontmatter block at the top.</p>
-</section>
-<section id="card-images-for-posts-without-content-images" class="level3">
-<h3 class="anchored" data-anchor-id="card-images-for-posts-without-content-images">Card Images for Posts Without Content Images</h3>
-<p>For posts with no embedded images (e.g.&nbsp;interactive Three.js demos), use the browser agent to screenshot the rendered page, crop to the key visual, save to <code>assets/</code>, and add <code>image:</code> to frontmatter. See skill step 9 for details.</p>
-</section>
-<section id="three.js-interactive-.qmd-posts" class="level3">
-<h3 class="anchored" data-anchor-id="three.js-interactive-.qmd-posts">Three.js / Interactive .qmd Posts</h3>
-<p>Use <code>.qmd</code> format (not <code>.ipynb</code>) for JavaScript-heavy interactive content: - Load external JS via <code>format: html: include-in-header:</code> in frontmatter - Use Quarto’s fenced div syntax <code>::: {.classname}</code> for layout containers - Inline <code>&lt;script&gt;</code> blocks at the end of the .qmd file - Read CSS custom properties (<code>--cb-blue-*</code>, <code>--interactive-*</code>) for theme integration - Example: <code>posts/earth-demo/index.qmd</code></p>
-</section>
-<section id="build-commands-makefile" class="level3">
-<h3 class="anchored" data-anchor-id="build-commands-makefile">Build Commands (Makefile)</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> preview                <span class="co"># Live dev server with hot reload</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> render                 <span class="co"># Build full site to _site/</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> build                  <span class="co"># Render + rsync _site/ to docs/ for GitHub Pages</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render posts/probability/index.ipynb  <span class="co"># Render a single post</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li><code>render</code> produces <code>_site/</code>; <code>build</code> adds an rsync step to sync changed files into <code>docs/</code></li>
-<li>Commit and push are intentionally separate from <code>build</code></li>
-</ul>
-</section>
-<section id="imagedata-path-conventions" class="level3">
-<h3 class="anchored" data-anchor-id="imagedata-path-conventions">Image/Data Path Conventions</h3>
-<ul>
-<li>Notebook posts: <code>assets/filename.png</code> (relative to the notebook’s folder)</li>
-<li>Markdown posts: <code>images/filename.png</code> (relative to posts/)</li>
-<li>Site-wide assets already in <code>/assets/</code> (e.g.&nbsp;lawoflargenumbers images) use <code>/assets/...</code> absolute paths</li>
-<li>Profile photo: <code>assets/profile.jpg</code> (JPEG, not PNG — watch for GitHub avatar format mismatch)</li>
-</ul>
-</section>
-<section id="categories" class="level3">
-<h3 class="anchored" data-anchor-id="categories">Categories</h3>
-<ul>
-<li><strong>All categories must be lowercase</strong> — no <code>Statistics</code>, use <code>statistics</code>; no <code>MonteCarlo</code>, use <code>montecarlo</code></li>
-<li>Canonical list in <code>_categories.txt</code> at project root</li>
-<li>This prevents duplicate tags in Quarto listing filters</li>
-</ul>
-</section>
-<section id="frontmatter-fields" class="level3">
-<h3 class="anchored" data-anchor-id="frontmatter-fields">Frontmatter Fields</h3>
-<ul>
-<li><code>title</code> — post title</li>
-<li><code>subtitle</code> — catchy one-liner shown on listing cards</li>
-<li><code>description</code> — 2-sentence content summary</li>
-<li><code>categories</code> — lowercase tags for filtering (from <code>_categories.txt</code>)</li>
-<li><code>date</code> — controls sort order (YYYY-MM-DD)</li>
-<li><code>image</code> — card thumbnail path (optional, for posts without content images)</li>
-</ul>
-</section>
-<section id="site-sections" class="level3">
-<h3 class="anchored" data-anchor-id="site-sections">Site Sections</h3>
-<ul>
-<li><code>posts/</code> — main blog posts (shown on index page)</li>
-<li><code>til/</code> — Today I Learned (shown only on TIL page, NOT on index)</li>
-<li><code>collections/software/</code> — software tools (shown only on Collections page, NOT on index)</li>
-<li><code>index.qmd</code> listing contents should only include <code>posts/</code> and <code>posts/**/</code></li>
-</ul>
-</section>
-<section id="known-gotchas" class="level3">
-<h3 class="anchored" data-anchor-id="known-gotchas">Known Gotchas</h3>
-<ul>
-<li>After adding/moving/renaming files, restart <code>quarto preview</code> — the live server caches resource IDs and will show “Bad resource ID” for changed files</li>
-<li>Listing <code>.qmd</code> files must not have a stray <code>---</code> after the YAML block (causes parse errors)</li>
-<li>Listing <code>contents</code> paths should NOT have a leading <code>/</code> (use <code>til/*.qmd</code> not <code>/til/*.qmd</code>)</li>
-<li><code>include-after-body</code> scripts run after DOMContentLoaded — use IIFE, not event listeners</li>
-<li>GitHub avatar downloads are JPEG even with <code>.png</code> URL — always check with <code>file</code> command and use correct extension</li>
-</ul>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 21, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
 
 
+</header>
+
+
+<p><span class="math display">\[
+\newcommand{\Ex}{\mathbb{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\SampleAvg}{\frac{1}{N({S})} \sum_{s \in {S}}}
+\newcommand{\indic}{\mathbb{1}}
+\newcommand{\avg}{\overline}
+\newcommand{\est}{\hat}
+\newcommand{\trueval}[1]{#1^{*}}
+\newcommand{\Gam}[1]{\mathrm{Gamma}#1}
+\]</span></p>
+<section id="what-is-data" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-data">What is data?</h2>
+<p>What is data? <strong>Frequentist statistics</strong> is one answer to this philosophical question. It treats data as a <strong>sample</strong> from an existing <strong>population</strong>.</p>
+<p>This notion is probably clearest to you from elections, where some companies like Zogby or CNN take polls. The sample in these polls maybe a 1000 people, but they “represent” the electoral population at large. We attempt to draw inferences about how the population will vote based on these samples.</p>
+<p>We model the sample we have. This model typically involves having some kind of distribution, some kind of algorithm, some kind of story that characterizes the data. These descriptions have, usually, some parameters which need estimation.</p>
+<p><strong>Frequentist analysis</strong> considers these parameters as fixed and data as varying (stochastic), with our data as one possible sample from the population.</p>
+<section id="the-data-story" class="level3">
+<h3 class="anchored" data-anchor-id="the-data-story">The Data story</h3>
+<p>Data analysis involves coming up with a story of how the data came to be. This may be a causal story, or a descriptive one (correlational, associative). The critical point is this:</p>
+<p><strong>The story must be sufficient to specify an algorithm to simulate new data</strong>. This is the model we have been talking about: a <strong>formal probability model</strong>. And once we have pinned it down from our existing sample, using a method such as Maximum Likelihood Estimation talked about below, we can use it as a generating mechanism.</p>
+<p>Consider, for example, tossing a globe in the air and catching it. When you catch it mark whats under your right index finger: W for water, L for land.</p>
+<p>Lets say you toss the globe 10 times and get something like <code>WLWWWLWlWW</code>. We wish to analyze this experiment to figure how much of the earth is covered in water (according to the globe, at any rate!).</p>
+<p>Let us say that our model is:</p>
+<ol type="1">
+<li>The true proportion of water is <span class="math inline">\(p\)</span>.</li>
+<li>We use this as a Bernoulli probability for each globe toss, where <span class="math inline">\(p\)</span> is thus the probability that you get a <code>W</code>. This assumption is one of being <strong>Identically Distributed</strong>.</li>
+<li>Each globe toss is <strong>Independent</strong> of the other.</li>
+</ol>
+<p>Assumptions 2 and 3 taken together are called <strong>IID</strong>, or <strong>Independent and Identially Distributed</strong> Data.</p>
 </section>
+</section>
+<section id="a-probabilistic-model" class="level2">
+<h2 class="anchored" data-anchor-id="a-probabilistic-model">A probabilistic model</h2>
+<p>(from the data story)</p>
+<p>The components of the model depend upon what kind of statistical analysis we are doing. For Frequentist analysis, the components are:</p>
+<ol type="1">
+<li>The <strong>likelihood</strong>, or the <em>plausibility of the data under the model</em></li>
+<li>and the parameters which go into this plausibility.</li>
+</ol>
+<p>For our example, we begin by enumerating the <em>events</em>. These are <code>W</code> and <code>L</code>. There’s nothing else.</p>
+<p>Then we consider N such tosses and ask the question, how often would we see <code>W</code>s.</p>
+<p>This given by the <strong>Binomial Distribution</strong>, the distribution of the number of successes in a sequence of <span class="math inline">\(n\)</span> independent yes/no experiments, or Bernoulli trials, each of which yields success with probability <span class="math inline">\(p\)</span>. The Binomial distribution is an extension of the Bernoulli when <span class="math inline">\(n&gt;1\)</span> or the Bernoulli is the a special case of the Binomial when <span class="math inline">\(n=1\)</span>.</p>
+<p><span class="math display">\[P(X = k \mid n, p) = {n\choose k}p^k(1-p)^{n-k} \]</span></p>
+<p>where</p>
+<p><span class="math display">\[{n\choose k}=\frac{n!}{k!(n-k)!}\]</span></p>
+<p>How did we obtain this? The <span class="math inline">\(p^k(1-p)^{n-k}\)</span> comes simply from multiplying the probabilities for each bernoulli trial; there are <span class="math inline">\(k\)</span> 1’s or yes’s, and <span class="math inline">\(n-k\)</span> 0’s or no’s. The <span class="math inline">\({n\choose k}\)</span> comes from counting the number of ways in which each event happens: this corresponds to counting all the paths that give the same number of heads in the diagram above.</p>
+<p>We show the distribution below for 200 trials.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> binom</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">6</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">200</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> p, color <span class="kw">in</span> <span class="bu">zip</span>([<span class="fl">0.1</span>, <span class="fl">0.3</span>, <span class="fl">0.7</span>, <span class="fl">0.7</span>, <span class="fl">0.9</span>], colors):</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    rv <span class="op">=</span> binom(<span class="dv">200</span>, p)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    plt.plot(k, rv.pmf(k), <span class="st">'.'</span>, lw<span class="op">=</span><span class="dv">2</span>, color<span class="op">=</span>color, label<span class="op">=</span>p)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    plt.fill_between(k, rv.pmf(k), color<span class="op">=</span>color, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>q<span class="op">=</span>plt.legend()</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Binomial distribution"</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>q<span class="op">=</span>plt.ylabel(<span class="st">"PDF at $k$"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>q<span class="op">=</span>plt.xlabel(<span class="st">"$k$"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="distrib-example/assets/binomial.png" class="img-fluid figure-img"></p>
+<figcaption>Binomial distribution for various values of p</figcaption>
+</figure>
+</div>
+<p>Now we use a method to fit our model and find the parameter <span class="math inline">\(p\)</span>, or rather, the estimate <span class="math inline">\(\hat{p}\)</span> that we can obtain from our sample. Once we have that, we can use the Binomial distribution to generate new samples.</p>
+<p>Note that there is a problem with this, in that we dont know the true value <span class="math inline">\(p^*\)</span> of the globe-toss model (speaking in the frequentist paradigm). Thus we are generating new samples from our estimate, rather than our true value.</p>
+</section>
+<section id="maximum-likelihood-estimation" class="level2">
+<h2 class="anchored" data-anchor-id="maximum-likelihood-estimation">Maximum Likelihood Estimation</h2>
+<p>One of the techniques used to estimate parameters in frequentist statistics, from the data in a given sample, is <strong>maximum likelihood estimation</strong>. Briefly, the idea behind it is:</p>
+<p>The likelihood for IID data <span class="math inline">\(x_1,...,x_n\)</span>, is the product</p>
+<p><span class="math display">\[
+L(\lambda) = \prod_{i=1}^n P(x_i | \lambda)
+\]</span></p>
+<p>gives us a measure of how likely it is to observe values <span class="math inline">\(x_1,...,x_n\)</span> given the parameters <span class="math inline">\(\lambda\)</span>. Maximum likelihood fitting consists of choosing the appropriate “likelihood” function <span class="math inline">\(L=P(X \mid \lambda)\)</span> to maximize for a given set of observations. How likely are the observations if the model is true?</p>
+<p>An image can explain this better. We want to choose the distribution that maximizes the product of the vertical lines. Here the blue does better, but it is not clear if the blue is the best.</p>
+<p><img src="images/gaussmle.png" class="img-fluid"></p>
+<p>Often it is easier and numerically more stable to maximize the log likelihood:</p>
+<p><span class="math display">\[
+\ell(\lambda) = \sum_{i=1}^n ln(P(x_i \mid \lambda))
+\]</span></p>
+<p>Notice that the definition here is a bit different from that for the question of the globe tosses above: there the data was <span class="math inline">\(k\)</span>, the number of <code>W</code> tosses and not the exact order, and so we formulate the question in that form.</p>
+<p>So dont follow the formula blindly, but think of (a) what is the data, and (b) what is the data generating mechanism!</p>
+<section id="mle-for-binomial." class="level3">
+<h3 class="anchored" data-anchor-id="mle-for-binomial.">MLE for binomial.</h3>
+<p>There:</p>
+<p><span class="math display">\[P(X = k \mid n, p) = {n\choose k}p^k(1-p)^{n-k} \]</span></p>
+<p>So:</p>
+<p><span class="math display">\[\ell = log({n\choose k}) + k log(p) + (n-k) log(1-p)\]</span></p>
+<p>Differentiating with respect to <span class="math inline">\(p\)</span> and setting to 0 yields:</p>
+<p><span class="math display">\[\frac{d\ell}{dp} = \frac{k}{p}  - \frac{n -k}{1-p} = 0\]</span></p>
+<p>which gives us:</p>
+<p><span class="math display">\[p_{MLE} = \frac{k}{n}\]</span></p>
+<p>which you might have intuitively expected.</p>
+</section>
+</section>
+<section id="point-estimates" class="level2">
+<h2 class="anchored" data-anchor-id="point-estimates">Point estimates</h2>
+<p>In frequentist statistics, the data we have in hand, is viewed as a <strong>sample</strong> from a population. So if we want to calculate some quantity of the population, like say the mean, we estimate it on the sample.</p>
+<p>This is because we’ve been given only one sample. Ideally we’d want to see the population, but we have no such luck.</p>
+<p>The parameter estimate is computed by applying an estimator <span class="math inline">\(F\)</span> to the sample data <span class="math inline">\(D\)</span>, so <span class="math inline">\(\est{\mu} = F(D)\)</span>.</p>
+<p><strong>The parameter is viewed as fixed and the data as random, which is the exact opposite of the Bayesian approach which you will learn later in this class.</strong></p>
+<p>If you assume that your model describes the true generating process for the data, then there is some true <span class="math inline">\(\trueval{\mu}\)</span> . We dont know this. The best we can do to start with is to estimate the <span class="math inline">\(\est{\mu}\)</span> from the data set we have.</p>
+<section id="from-single-to-multiple-estimates" class="level3">
+<h3 class="anchored" data-anchor-id="from-single-to-multiple-estimates">From single to multiple estimates</h3>
+<p>Now, imagine that I let you peek at the entire population in this way: I gave you some M data sets <strong>drawn</strong> from the population, and you can now find <span class="math inline">\(\mu\)</span> on each such dataset, of which the one we have here is one. So, we’d have M estimates of the <span class="math inline">\(\mu\)</span>.</p>
+<p>Thus if we had many replications of this data set: that is, an <strong>ensemble</strong> of data sets, for example, we can compute other <span class="math inline">\(\est{\mu}\)</span>, and begin to construct what is called the <strong>sampling distribution</strong> of <span class="math inline">\(\mu\)</span>.</p>
+<p>But we dont.</p>
+</section>
+</section>
+<section id="sampling-distribution-of-the-parameter" class="level2">
+<h2 class="anchored" data-anchor-id="sampling-distribution-of-the-parameter">Sampling Distribution of the parameter</h2>
+<p>What you are doing is sampling M Data Sets <span class="math inline">\(D_i\)</span> from the true population. We will now calculate M <span class="math inline">\(\est{\mu}_i\)</span>, one for each dataset. As we let <span class="math inline">\(M \rightarrow \infty\)</span>, the distribution induced on <span class="math inline">\(\est{\mu}\)</span> is the <strong>sampling distribution of the estimator</strong>.</p>
+<p>Our estimation could be of anything, even for example the <span class="math inline">\(\lambda\)</span> we were tying to find with MLE (F would be the MLE estimation process).</p>
+<p>We can use the sampling distribution to put confidence intervals on the estimation of the parameters, for example.</p>
+</section>
+<section id="bootstrap" class="level2">
+<h2 class="anchored" data-anchor-id="bootstrap">Bootstrap</h2>
+<p>Bootstrap tries to approximate our sampling distribution. If we knew the true parameters of the population, we could generate M fake datasets. Then we could compute the parameter (or another estimator) on each one of these, to get a empirical sampling distribution of the parameter or estimator.</p>
+<section id="parametric-bootstrap" class="level3">
+<h3 class="anchored" data-anchor-id="parametric-bootstrap">Parametric Bootstrap</h3>
+<p>But we dont have the true parameter. So we generate these samples, using the parameter we calculated. This is the <strong>parametric bootstrap</strong>. The process is illustrated in the diagram below, taken from Shalizi:</p>
+<p><img src="images/parabootstrap.png" class="img-fluid"></p>
+<p>There are 3 sources of error with respect to the sampling distribution that come from the bootstrap:</p>
+<ul>
+<li>simulation error: the number of samples M is finite. This can be made arbitrarily small by making M large</li>
+<li>statistical error: resampling from an estimated parameter is not the “true” data generating process. Often though, the distribution of an estimator from the samples around the truth is more invariant, so subtraction is a good choice in reducing the sampling error</li>
+<li>specification error: the model isnt quite good.</li>
+</ul>
+</section>
+<section id="non-parametric-bootstrap" class="level3">
+<h3 class="anchored" data-anchor-id="non-parametric-bootstrap">Non-parametric bootstrap</h3>
+<p>To address specification error, alternatively, we sample with replacement the X from our original sample D, generating many fake datasets, and then compute the distribution on the parameters as before. This is the <strong>non parametric bootstrap</strong>. We want to sample with replacement, for if we do so, more typical values will be represented more often in the multiple datasets we create.</p>
+<p>Here we are using the <strong>empirical distribution</strong>, since it comes without any model preconceptions. This process may be illustrated so:</p>
+<p><img src="images/nonparabootstrap.png" class="img-fluid"></p>
+
+
 </section>
 </section>
 

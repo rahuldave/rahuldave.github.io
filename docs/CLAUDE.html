@@ -355,7 +355,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#notebook-frontmatter-quarto-yaml" id="toc-notebook-frontmatter-quarto-yaml" class="nav-link" data-scroll-target="#notebook-frontmatter-quarto-yaml">Notebook Frontmatter (Quarto YAML)</a></li>
   <li><a href="#card-images-for-posts-without-content-images" id="toc-card-images-for-posts-without-content-images" class="nav-link" data-scroll-target="#card-images-for-posts-without-content-images">Card Images for Posts Without Content Images</a></li>
   <li><a href="#three.js-interactive-.qmd-posts" id="toc-three.js-interactive-.qmd-posts" class="nav-link" data-scroll-target="#three.js-interactive-.qmd-posts">Three.js / Interactive .qmd Posts</a></li>
-  <li><a href="#quarto-commands" id="toc-quarto-commands" class="nav-link" data-scroll-target="#quarto-commands">Quarto Commands</a></li>
+  <li><a href="#build-commands-makefile" id="toc-build-commands-makefile" class="nav-link" data-scroll-target="#build-commands-makefile">Build Commands (Makefile)</a></li>
   <li><a href="#imagedata-path-conventions" id="toc-imagedata-path-conventions" class="nav-link" data-scroll-target="#imagedata-path-conventions">Image/Data Path Conventions</a></li>
   <li><a href="#categories" id="toc-categories" class="nav-link" data-scroll-target="#categories">Categories</a></li>
   <li><a href="#frontmatter-fields" id="toc-frontmatter-fields" class="nav-link" data-scroll-target="#frontmatter-fields">Frontmatter Fields</a></li>
@@ -417,6 +417,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Lecture index at <code>~/Attic/Projects/AM207/2018fall_wiki/lectures/index.md</code> (replace <code>.html</code> with <code>.md</code> for source files)</li>
 <li>Each lecture <code>.md</code> links to wiki notes; check for <code>.ipynb</code> (primary source) before falling back to <code>.md</code></li>
 <li>Use <code>/import-wiki-notes</code> skill to import notes as blog posts</li>
+<li><strong>Notebook import script</strong>: <code>_scripts/import_notebook.py</code> — automates creating <code>posts/&lt;name&gt;/index.ipynb</code> from wiki <code>.ipynb</code> files (adds raw frontmatter cell, fixes <code>images/</code> → <code>assets/</code> paths, copies images). Run with <code>--help</code> for usage. Markdown-only posts are simpler and done by hand.</li>
 </ul>
 </section>
 <section id="content-import-status-from-am207-wiki" class="level2">
@@ -437,7 +438,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>basicmontecarlo</code> — notebook, imported to <code>posts/basicmontecarlo/</code></li>
 <li><code>montecarlointegrals</code> — notebook, imported to <code>posts/montecarlointegrals/</code></li>
 </ul></li>
-<li><strong>Lectures 3–26</strong>: NOT YET IMPORTED</li>
+<li><strong>Lecture 3 (From Monte Carlo to Frequentist Stats)</strong>: DONE
+<ul>
+<li><code>Expectations</code> — already imported (Lecture 2), skipped</li>
+<li><code>SamplingCLT</code> — already imported (Lecture 2), skipped</li>
+<li><code>basicmontecarlo</code> — already imported (Lecture 2), skipped</li>
+<li><code>montecarlointegrals</code> — already imported (Lecture 2), skipped</li>
+<li><code>frequentist</code> — markdown only, imported to <code>posts/frequentist.md</code></li>
+<li><code>MLE</code> — notebook, imported to <code>posts/MLE/</code></li>
+</ul></li>
+<li><strong>Lectures 4–26</strong>: NOT YET IMPORTED</li>
 </ul>
 </section>
 <section id="category-system" class="level2">
@@ -555,11 +565,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="three.js-interactive-.qmd-posts">Three.js / Interactive .qmd Posts</h3>
 <p>Use <code>.qmd</code> format (not <code>.ipynb</code>) for JavaScript-heavy interactive content: - Load external JS via <code>format: html: include-in-header:</code> in frontmatter - Use Quarto’s fenced div syntax <code>::: {.classname}</code> for layout containers - Inline <code>&lt;script&gt;</code> blocks at the end of the .qmd file - Read CSS custom properties (<code>--cb-blue-*</code>, <code>--interactive-*</code>) for theme integration - Example: <code>posts/earth-demo/index.qmd</code></p>
 </section>
-<section id="quarto-commands" class="level3">
-<h3 class="anchored" data-anchor-id="quarto-commands">Quarto Commands</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> preview              <span class="co"># Live preview with hot reload</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render               <span class="co"># Build full site to _site/</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render posts/probability/index.ipynb  <span class="co"># Render single post</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="build-commands-makefile" class="level3">
+<h3 class="anchored" data-anchor-id="build-commands-makefile">Build Commands (Makefile)</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> preview                <span class="co"># Live dev server with hot reload</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> render                 <span class="co"># Build full site to _site/</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> build                  <span class="co"># Render + rsync _site/ to docs/ for GitHub Pages</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render posts/probability/index.ipynb  <span class="co"># Render a single post</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><code>render</code> produces <code>_site/</code>; <code>build</code> adds an rsync step to sync changed files into <code>docs/</code></li>
+<li>Commit and push are intentionally separate from <code>build</code></li>
+</ul>
 </section>
 <section id="imagedata-path-conventions" class="level3">
 <h3 class="anchored" data-anchor-id="imagedata-path-conventions">Image/Data Path Conventions</h3>

@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2025-02-26">
+<meta name="description" content="Develops maximum likelihood estimation from first principles, deriving MLEs for the exponential, linear regression, and logistic regression models. Shows how MLE connects probabilistic modeling to parameter fitting, and motivates the bootstrap for uncertainty quantification.">
 
-<title>claude – rahuldave</title>
+<title>Maximum Likelihood Estimation – rahuldave</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,28 +60,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-e0d64750a3675fa668af59a9862b8111.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-d2fef15c612ec386ae0907ffd6f4ccdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-a009389674a9596cea61ac77c12264b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-d2fef15c612ec386ae0907ffd6f4ccdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-e0d64750a3675fa668af59a9862b8111.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-d2fef15c612ec386ae0907ffd6f4ccdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-a009389674a9596cea61ac77c12264b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-d2fef15c612ec386ae0907ffd6f4ccdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -115,12 +117,49 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- Bootstrap Icons for brand mark and UI elements -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<meta property="og:title" content="rahuldave">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Maximum Likelihood Estimation – rahuldave">
+<meta property="og:description" content="Develops maximum likelihood estimation from first principles, deriving MLEs for the exponential, linear regression, and logistic regression models. Shows how MLE connects probabilistic modeling to parameter fitting, and motivates the bootstrap for uncertainty quantification.">
+<meta property="og:image" content="https://rahuldave.github.io/posts/MLE/assets/gaussmle.png">
 <meta property="og:site_name" content="rahuldave">
-<meta name="twitter:title" content="rahuldave">
+<meta property="og:image:height" content="300">
+<meta property="og:image:width" content="400">
+<meta name="twitter:title" content="Maximum Likelihood Estimation – rahuldave">
+<meta name="twitter:description" content="Develops maximum likelihood estimation from first principles, deriving MLEs for the exponential, linear regression, and logistic regression models. Shows how MLE connects probabilistic modeling to parameter fitting, and motivates the bootstrap for uncertainty quantification.">
+<meta name="twitter:image" content="https://rahuldave.github.io/posts/MLE/assets/gaussmle.png">
 <meta name="twitter:creator" content="@rahuldave">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:image-height" content="300">
+<meta name="twitter:image-width" content="400">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -292,7 +331,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">rahuldave</span>
     </a>
   </div>
@@ -303,19 +342,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./posts.html"> 
+    <a class="nav-link" href="../../posts.html"> 
 <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./til.html"> 
+    <a class="nav-link" href="../../til.html"> 
 <span class="menu-text">TIL</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./collections.html"> 
+    <a class="nav-link" href="../../collections.html"> 
 <span class="menu-text">Collections</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -335,39 +374,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#claude-session-context" id="toc-claude-session-context" class="nav-link active" data-scroll-target="#claude-session-context">Claude Session Context</a>
+  <li><a href="#maximum-likelihood-estimation" id="toc-maximum-likelihood-estimation" class="nav-link active" data-scroll-target="#maximum-likelihood-estimation">Maximum Likelihood Estimation</a>
   <ul class="collapse">
-  <li><a href="#project-overview" id="toc-project-overview" class="nav-link" data-scroll-target="#project-overview">Project Overview</a></li>
-  <li><a href="#content-source" id="toc-content-source" class="nav-link" data-scroll-target="#content-source">Content Source</a></li>
-  <li><a href="#content-import-status-from-am207-wiki" id="toc-content-import-status-from-am207-wiki" class="nav-link" data-scroll-target="#content-import-status-from-am207-wiki">Content Import Status (from AM207 wiki)</a></li>
-  <li><a href="#category-system" id="toc-category-system" class="nav-link" data-scroll-target="#category-system">Category System</a></li>
-  <li><a href="#about-page" id="toc-about-page" class="nav-link" data-scroll-target="#about-page">About Page</a></li>
-  <li><a href="#social-discussion-links" id="toc-social-discussion-links" class="nav-link" data-scroll-target="#social-discussion-links">Social / Discussion Links</a></li>
-  <li><a href="#listing-sort-order" id="toc-listing-sort-order" class="nav-link" data-scroll-target="#listing-sort-order">Listing Sort Order</a></li>
-  <li><a href="#design" id="toc-design" class="nav-link" data-scroll-target="#design">Design</a>
+  <li><a href="#choosing-a-parametric-model" id="toc-choosing-a-parametric-model" class="nav-link" data-scroll-target="#choosing-a-parametric-model">Choosing a parametric model</a>
   <ul class="collapse">
-  <li><a href="#colorbrewer-blues-palette" id="toc-colorbrewer-blues-palette" class="nav-link" data-scroll-target="#colorbrewer-blues-palette">ColorBrewer Blues Palette</a></li>
+  <li><a href="#the-idea-behind-the-mle" id="toc-the-idea-behind-the-mle" class="nav-link" data-scroll-target="#the-idea-behind-the-mle">The idea behind the MLE</a></li>
   </ul></li>
-  <li><a href="#quarto-site-structure" id="toc-quarto-site-structure" class="nav-link" data-scroll-target="#quarto-site-structure">Quarto Site Structure</a>
-  <ul class="collapse">
-  <li><a href="#config" id="toc-config" class="nav-link" data-scroll-target="#config">Config</a></li>
-  <li><a href="#posts-directory-layout" id="toc-posts-directory-layout" class="nav-link" data-scroll-target="#posts-directory-layout">Posts Directory Layout</a></li>
-  <li><a href="#notebook-frontmatter-quarto-yaml" id="toc-notebook-frontmatter-quarto-yaml" class="nav-link" data-scroll-target="#notebook-frontmatter-quarto-yaml">Notebook Frontmatter (Quarto YAML)</a></li>
-  <li><a href="#card-images-for-posts-without-content-images" id="toc-card-images-for-posts-without-content-images" class="nav-link" data-scroll-target="#card-images-for-posts-without-content-images">Card Images for Posts Without Content Images</a></li>
-  <li><a href="#three.js-interactive-.qmd-posts" id="toc-three.js-interactive-.qmd-posts" class="nav-link" data-scroll-target="#three.js-interactive-.qmd-posts">Three.js / Interactive .qmd Posts</a></li>
-  <li><a href="#build-commands-makefile" id="toc-build-commands-makefile" class="nav-link" data-scroll-target="#build-commands-makefile">Build Commands (Makefile)</a></li>
-  <li><a href="#imagedata-path-conventions" id="toc-imagedata-path-conventions" class="nav-link" data-scroll-target="#imagedata-path-conventions">Image/Data Path Conventions</a></li>
-  <li><a href="#categories" id="toc-categories" class="nav-link" data-scroll-target="#categories">Categories</a></li>
-  <li><a href="#frontmatter-fields" id="toc-frontmatter-fields" class="nav-link" data-scroll-target="#frontmatter-fields">Frontmatter Fields</a></li>
-  <li><a href="#site-sections" id="toc-site-sections" class="nav-link" data-scroll-target="#site-sections">Site Sections</a></li>
-  <li><a href="#known-gotchas" id="toc-known-gotchas" class="nav-link" data-scroll-target="#known-gotchas">Known Gotchas</a></li>
-  </ul></li>
+  <li><a href="#inference" id="toc-inference" class="nav-link" data-scroll-target="#inference">Inference</a></li>
+  <li><a href="#linear-regression-mle" id="toc-linear-regression-mle" class="nav-link" data-scroll-target="#linear-regression-mle">Linear Regression MLE</a></li>
+  <li><a href="#logistic-regression-mle" id="toc-logistic-regression-mle" class="nav-link" data-scroll-target="#logistic-regression-mle">Logistic Regression MLE</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
 
 <!-- Theme toggle persistence script -->
 <script>
@@ -401,230 +422,236 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 })();
 </script>
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Maximum Likelihood Estimation</h1>
+<p class="subtitle lead">Find the parameters that make your data most probable.</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">statistics</div>
+    <div class="quarto-category">models</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Develops maximum likelihood estimation from first principles, deriving MLEs for the exponential, linear regression, and logistic regression models. Shows how MLE connects probabilistic modeling to parameter fitting, and motivates the bootstrap for uncertainty quantification.
+  </div>
+</div>
 
 
+<div class="quarto-title-meta">
 
-<section id="claude-session-context" class="level1">
-<h1>Claude Session Context</h1>
-<section id="project-overview" class="level2">
-<h2 class="anchored" data-anchor-id="project-overview">Project Overview</h2>
-<p>This is a Quarto-based personal website for data science/ML educational content at rahuldave.github.io.</p>
-</section>
-<section id="content-source" class="level2">
-<h2 class="anchored" data-anchor-id="content-source">Content Source</h2>
-<ul>
-<li>AM207 course wiki at <code>~/Attic/Projects/AM207/2018fall_wiki/wiki/</code> — lectures, notebooks, markdown notes</li>
-<li>Lecture index at <code>~/Attic/Projects/AM207/2018fall_wiki/lectures/index.md</code> (replace <code>.html</code> with <code>.md</code> for source files)</li>
-<li>Each lecture <code>.md</code> links to wiki notes; check for <code>.ipynb</code> (primary source) before falling back to <code>.md</code></li>
-<li>Use <code>/import-wiki-notes</code> skill to import notes as blog posts</li>
-<li><strong>Notebook import script</strong>: <code>_scripts/import_notebook.py</code> — automates creating <code>posts/&lt;name&gt;/index.ipynb</code> from wiki <code>.ipynb</code> files (adds raw frontmatter cell, fixes <code>images/</code> → <code>assets/</code> paths, copies images). Run with <code>--help</code> for usage. Markdown-only posts are simpler and done by hand.</li>
-</ul>
-</section>
-<section id="content-import-status-from-am207-wiki" class="level2">
-<h2 class="anchored" data-anchor-id="content-import-status-from-am207-wiki">Content Import Status (from AM207 wiki)</h2>
-<ul>
-<li><strong>Lecture 1 (Intro &amp; Probability)</strong>: DONE
-<ul>
-<li><code>boxloop</code> — already existed, skipped</li>
-<li><code>probability</code> — notebook, imported to <code>posts/probability/</code></li>
-<li><code>distributions</code> — markdown only, imported to <code>posts/distributions.md</code></li>
-<li><code>distrib-example</code> — notebook, imported to <code>posts/distrib-example/</code></li>
-</ul></li>
-<li><strong>Lecture 2 (Probability, Sampling, Laws, Monte Carlo)</strong>: DONE
-<ul>
-<li><code>distributions</code> — already imported (Lecture 1), skipped</li>
-<li><code>expectations</code> — notebook, imported to <code>posts/expectations/</code></li>
-<li><code>samplingclt</code> — notebook, imported to <code>posts/samplingclt/</code></li>
-<li><code>basicmontecarlo</code> — notebook, imported to <code>posts/basicmontecarlo/</code></li>
-<li><code>montecarlointegrals</code> — notebook, imported to <code>posts/montecarlointegrals/</code></li>
-</ul></li>
-<li><strong>Lecture 3 (From Monte Carlo to Frequentist Stats)</strong>: DONE
-<ul>
-<li><code>Expectations</code> — already imported (Lecture 2), skipped</li>
-<li><code>SamplingCLT</code> — already imported (Lecture 2), skipped</li>
-<li><code>basicmontecarlo</code> — already imported (Lecture 2), skipped</li>
-<li><code>montecarlointegrals</code> — already imported (Lecture 2), skipped</li>
-<li><code>frequentist</code> — markdown only, imported to <code>posts/frequentist.md</code></li>
-<li><code>MLE</code> — notebook, imported to <code>posts/MLE/</code></li>
-</ul></li>
-<li><strong>Lectures 4–26</strong>: NOT YET IMPORTED</li>
-</ul>
-</section>
-<section id="category-system" class="level2">
-<h2 class="anchored" data-anchor-id="category-system">Category System</h2>
-<ul>
-<li>Canonical categories are in <code>_categories.txt</code> (root of project), one per line, sorted alphabetically</li>
-<li><strong>Current categories</strong>: data, elections, integration, interactive, macos, models, montecarlo, orchestration, pipeline, probability, statistics, visualization</li>
-<li>All categories must be lowercase</li>
-<li>When importing, map source keywords to existing categories; propose new ones for user approval</li>
-<li>The <code>/import-wiki-notes</code> skill enforces this workflow (step 7c)</li>
-</ul>
-</section>
-<section id="about-page" class="level2">
-<h2 class="anchored" data-anchor-id="about-page">About Page</h2>
-<ul>
-<li>Profile photo: <code>assets/profile.jpg</code> (sourced from GitHub avatar)</li>
-<li>Comprehensive bio context: <code>~/Context/rahul-dave-profile.md</code></li>
-<li>Contact form via Formspree (ID: <code>mykjwlyk</code>) — forwards to rahuldave@univ.ai</li>
-<li>Links: GitHub, X/Twitter, Bluesky (rahuldave.bsky.social), Google Scholar, LinkedIn</li>
-</ul>
-</section>
-<section id="social-discussion-links" class="level2">
-<h2 class="anchored" data-anchor-id="social-discussion-links">Social / Discussion Links</h2>
-<ul>
-<li><code>includes/discuss-links.html</code> — “Discuss this post” links (Twitter, Bluesky, LinkedIn) on posts, til, and collections pages only</li>
-<li>Uses IIFE (not DOMContentLoaded) because <code>include-after-body</code> runs after DOM is ready</li>
-<li>Links are constructed at runtime from <code>window.location.href</code> — will use production domain automatically</li>
-<li>Open Graph and Twitter Card metadata enabled in <code>_quarto.yml</code></li>
-</ul>
-</section>
-<section id="listing-sort-order" class="level2">
-<h2 class="anchored" data-anchor-id="listing-sort-order">Listing Sort Order</h2>
-<ul>
-<li>All listing pages sort by <code>date desc</code>: <code>index.qmd</code>, <code>posts.qmd</code>, <code>til.qmd</code>, <code>collections.qmd</code></li>
-</ul>
-</section>
-<section id="design" class="level2">
-<h2 class="anchored" data-anchor-id="design">Design</h2>
-<ul>
-<li><code>designs/design1-depth/</code> — <strong>CHOSEN BASE DESIGN</strong> (Blues sequential palette, clean, scholarly)</li>
-<li><code>designs/design1-modern/</code> — fork of depth, modernized with animations/glassmorphism</li>
-<li>Serif typography: Bitter (headings) + Source Serif 4 (body) + IBM Plex Mono (code)</li>
-<li>ColorBrewer Blues palette (#eff3ff → #08306b)</li>
-<li>Dark/light mode support</li>
-</ul>
-<section id="colorbrewer-blues-palette" class="level3">
-<h3 class="anchored" data-anchor-id="colorbrewer-blues-palette">ColorBrewer Blues Palette</h3>
-<pre><code>--cb-blue-50: #eff3ff   --cb-blue-100: #c6dbef   --cb-blue-200: #9ecae1
---cb-blue-300: #6baed6  --cb-blue-400: #4292c6   --cb-blue-500: #2171b5
---cb-blue-600: #08519c  --cb-blue-700: #084594   --cb-blue-800: #08306b</code></pre>
-<hr>
-</section>
-</section>
-<section id="quarto-site-structure" class="level2">
-<h2 class="anchored" data-anchor-id="quarto-site-structure">Quarto Site Structure</h2>
-<section id="config" class="level3">
-<h3 class="anchored" data-anchor-id="config">Config</h3>
-<ul>
-<li><code>_quarto.yml</code> — project config: website type, navbar, SCSS theme (light/dark), TOC, margin references, Open Graph, Twitter Cards</li>
-<li>Themes: <code>styles/modern-light.scss</code>, <code>styles/modern-dark.scss</code></li>
-<li>Includes: <code>includes/fonts.html</code>, <code>includes/brand-icon.html</code>, <code>includes/theme-toggle.html</code>, <code>includes/discuss-links.html</code></li>
-</ul>
-</section>
-<section id="posts-directory-layout" class="level3">
-<h3 class="anchored" data-anchor-id="posts-directory-layout">Posts Directory Layout</h3>
-<p><strong>Notebooks</strong> get their own folder with <code>index.ipynb</code> (or <code>index.qmd</code> for JS demos):</p>
-<pre><code>posts/
-  probability/
-    index.ipynb        # URL becomes /posts/probability/
-    assets/            # images, data files referenced by THIS notebook only
-      venn.png
-      bishop-prob.png
-  votingforcongress/
-    index.ipynb
-    assets/
-      sep7.png
-  earth-demo/
-    index.qmd          # Three.js demo using .qmd format
-    assets/
-      earth-card.png   # Card thumbnail for listing (no content images in post)</code></pre>
-<p><strong>Markdown posts</strong> stay as flat files, images go in shared <code>posts/images/</code> or <code>posts/data/</code>:</p>
-<pre><code>posts/
-  boxloop.md           # URL becomes /posts/boxloop
-  distributions.md
-  images/              # shared images for flat .md posts
-    2tosscdf.png
-  data/                # shared data for flat .md posts (if needed)</code></pre>
-</section>
-<section id="notebook-frontmatter-quarto-yaml" class="level3">
-<h3 class="anchored" data-anchor-id="notebook-frontmatter-quarto-yaml">Notebook Frontmatter (Quarto YAML)</h3>
-<p>Notebooks must have a <strong>raw cell</strong> (cell_type: “raw”) as the first cell with YAML:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Post Title"</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">subtitle</span><span class="kw">:</span><span class="at"> </span><span class="st">"Catchy one-liner for listing cards."</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="st">"Two-sentence summary for the post page."</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">categories</span><span class="kw">:</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> probability</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> statistics</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> 2025-01-08</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li><code>subtitle</code> appears on listing cards</li>
-<li><code>description</code> is the longer summary</li>
-<li><code>categories</code> are used for filtering (must be from <code>_categories.txt</code>)</li>
-<li><code>date</code> controls sort order</li>
-<li><code>image</code> — optional, for posts without content images (e.g.&nbsp;<code>image: assets/earth-card.png</code>)</li>
-</ul>
-<p>For markdown posts, the same YAML goes in the standard frontmatter block at the top.</p>
-</section>
-<section id="card-images-for-posts-without-content-images" class="level3">
-<h3 class="anchored" data-anchor-id="card-images-for-posts-without-content-images">Card Images for Posts Without Content Images</h3>
-<p>For posts with no embedded images (e.g.&nbsp;interactive Three.js demos), use the browser agent to screenshot the rendered page, crop to the key visual, save to <code>assets/</code>, and add <code>image:</code> to frontmatter. See skill step 9 for details.</p>
-</section>
-<section id="three.js-interactive-.qmd-posts" class="level3">
-<h3 class="anchored" data-anchor-id="three.js-interactive-.qmd-posts">Three.js / Interactive .qmd Posts</h3>
-<p>Use <code>.qmd</code> format (not <code>.ipynb</code>) for JavaScript-heavy interactive content: - Load external JS via <code>format: html: include-in-header:</code> in frontmatter - Use Quarto’s fenced div syntax <code>::: {.classname}</code> for layout containers - Inline <code>&lt;script&gt;</code> blocks at the end of the .qmd file - Read CSS custom properties (<code>--cb-blue-*</code>, <code>--interactive-*</code>) for theme integration - Example: <code>posts/earth-demo/index.qmd</code></p>
-</section>
-<section id="build-commands-makefile" class="level3">
-<h3 class="anchored" data-anchor-id="build-commands-makefile">Build Commands (Makefile)</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> preview                <span class="co"># Live dev server with hot reload</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> render                 <span class="co"># Build full site to _site/</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> build                  <span class="co"># Render + rsync _site/ to docs/ for GitHub Pages</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render posts/probability/index.ipynb  <span class="co"># Render a single post</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li><code>render</code> produces <code>_site/</code>; <code>build</code> adds an rsync step to sync changed files into <code>docs/</code></li>
-<li>Commit and push are intentionally separate from <code>build</code></li>
-</ul>
-</section>
-<section id="imagedata-path-conventions" class="level3">
-<h3 class="anchored" data-anchor-id="imagedata-path-conventions">Image/Data Path Conventions</h3>
-<ul>
-<li>Notebook posts: <code>assets/filename.png</code> (relative to the notebook’s folder)</li>
-<li>Markdown posts: <code>images/filename.png</code> (relative to posts/)</li>
-<li>Site-wide assets already in <code>/assets/</code> (e.g.&nbsp;lawoflargenumbers images) use <code>/assets/...</code> absolute paths</li>
-<li>Profile photo: <code>assets/profile.jpg</code> (JPEG, not PNG — watch for GitHub avatar format mismatch)</li>
-</ul>
-</section>
-<section id="categories" class="level3">
-<h3 class="anchored" data-anchor-id="categories">Categories</h3>
-<ul>
-<li><strong>All categories must be lowercase</strong> — no <code>Statistics</code>, use <code>statistics</code>; no <code>MonteCarlo</code>, use <code>montecarlo</code></li>
-<li>Canonical list in <code>_categories.txt</code> at project root</li>
-<li>This prevents duplicate tags in Quarto listing filters</li>
-</ul>
-</section>
-<section id="frontmatter-fields" class="level3">
-<h3 class="anchored" data-anchor-id="frontmatter-fields">Frontmatter Fields</h3>
-<ul>
-<li><code>title</code> — post title</li>
-<li><code>subtitle</code> — catchy one-liner shown on listing cards</li>
-<li><code>description</code> — 2-sentence content summary</li>
-<li><code>categories</code> — lowercase tags for filtering (from <code>_categories.txt</code>)</li>
-<li><code>date</code> — controls sort order (YYYY-MM-DD)</li>
-<li><code>image</code> — card thumbnail path (optional, for posts without content images)</li>
-</ul>
-</section>
-<section id="site-sections" class="level3">
-<h3 class="anchored" data-anchor-id="site-sections">Site Sections</h3>
-<ul>
-<li><code>posts/</code> — main blog posts (shown on index page)</li>
-<li><code>til/</code> — Today I Learned (shown only on TIL page, NOT on index)</li>
-<li><code>collections/software/</code> — software tools (shown only on Collections page, NOT on index)</li>
-<li><code>index.qmd</code> listing contents should only include <code>posts/</code> and <code>posts/**/</code></li>
-</ul>
-</section>
-<section id="known-gotchas" class="level3">
-<h3 class="anchored" data-anchor-id="known-gotchas">Known Gotchas</h3>
-<ul>
-<li>After adding/moving/renaming files, restart <code>quarto preview</code> — the live server caches resource IDs and will show “Bad resource ID” for changed files</li>
-<li>Listing <code>.qmd</code> files must not have a stray <code>---</code> after the YAML block (causes parse errors)</li>
-<li>Listing <code>contents</code> paths should NOT have a leading <code>/</code> (use <code>til/*.qmd</code> not <code>/til/*.qmd</code>)</li>
-<li><code>include-after-body</code> scripts run after DOMContentLoaded — use IIFE, not event listeners</li>
-<li>GitHub avatar downloads are JPEG even with <code>.png</code> URL — always check with <code>file</code> command and use correct extension</li>
-</ul>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 26, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
 
 
+</header>
+
+
+<section id="maximum-likelihood-estimation" class="level1">
+<h1>Maximum Likelihood Estimation</h1>
+<section id="keywords-maximum-likelihood-parametric-model-linear-regression-logistic-regression-inference-exponential-distribution" class="level5">
+<h5 class="anchored" data-anchor-id="keywords-maximum-likelihood-parametric-model-linear-regression-logistic-regression-inference-exponential-distribution">Keywords: maximum likelihood, parametric model, linear regression, logistic regression, inference, exponential distribution</h5>
+<div id="cell-2" class="cell" data-hide="true" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The %... is an iPython thing, and is not part of the Python language.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># In this case we're just telling the plotting library to draw things on</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the notebook, instead of on a separate window.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># See all the "as ..." contructs? They're just aliasing the package names.</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># That way we can call methods like plt.plot() instead of matplotlib.pyplot.plot().</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib <span class="im">as</span> mpl</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.cm <span class="im">as</span> cm</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.width'</span>, <span class="dv">500</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_columns'</span>, <span class="dv">100</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.notebook_repr_html'</span>, <span class="va">True</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">"whitegrid"</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>sns.set_context(<span class="st">"poster"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><span class="math display">\[
+\newcommand{\Ex}{\mathbb{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\SampleAvg}{\frac{1}{N({S})} \sum_{s \in {S}}}
+\newcommand{\indic}{\mathbb{1}}
+\newcommand{\avg}{\overline}
+\newcommand{\est}{\hat}
+\newcommand{\trueval}[1]{#1^{*}}
+\newcommand{\Gam}[1]{\mathrm{Gamma}#1}
+\]</span></p>
+<p><span class="math display">\[
+\renewcommand{\like}{\cal L}
+\renewcommand{\loglike}{\ell}
+\renewcommand{\err}{\cal E}
+\renewcommand{\dat}{\cal D}
+\renewcommand{\hyp}{\cal H}
+\renewcommand{\Ex}[2]{E_{#1}[#2]}
+\renewcommand{\x}{\mathbf x}
+\renewcommand{\v}[1]{\mathbf #1}
+\]</span></p>
 </section>
+<section id="choosing-a-parametric-model" class="level2">
+<h2 class="anchored" data-anchor-id="choosing-a-parametric-model">Choosing a parametric model</h2>
+<p>When we do data analysis in a parametric way, we start by characterizing our particular sample statistically then, using a <em>probability distribution</em> (or mass function). This distribution has some parameters. Lets refer to these as <span class="math inline">\(\theta\)</span>.</p>
+<p>If we assume that our <strong>data was generated</strong> by this distribution, then the notion of the <strong>true value</strong> of the parameter makes sense. Now, usually in life, there is no way of knowing if this was the true generating process, unless we have some physics or similar ideas behind the process. But lets stick with the <em>myth</em> that we can do this. Then let us call the true value of the parameters as <span class="math inline">\(\theta^*\)</span>.</p>
+<p>To know this true value, we’d typically need the entire large population, not the sample we have been given as data. So the best we can do us to make a parameter estimate <span class="math inline">\(\hat{\theta}\)</span> from the data. In the context of frequentist statistics, the assumption is that the parameters are fixed, and that there is this true value (<span class="math inline">\(\theta^*\)</span>), and that we can make some estimate of this from our sample (<span class="math inline">\(\hat{\theta}\)</span>).</p>
+<p>A distribution is induced on this estimate by considering many samples that could have been drawn from the population…remember that frequentist statistics fixes the parameters but considers data stochastic. This distribution is called the sampling distribution of the parameter <span class="math inline">\(\theta\)</span>. (In general a sampling distribution can be considered for anything computed on the sample, such as a mean or variance or other moment).</p>
+<p>Our question is: how do we estimate <span class="math inline">\(\hat{\theta}\)</span>. And how do we compute this sampling distribution so that we can get a notion of the uncertainty that estimating from a sample rather than the population leaves us with?</p>
+<p>The first question is tackled by the Maximum Likelihood estimate, or MLE. The second one is tackled by techniques like the bootstrap.</p>
+<p>Lets learn about the MLE in the context of a particular distribution, the exponential.</p>
+<section id="the-idea-behind-the-mle" class="level3">
+<h3 class="anchored" data-anchor-id="the-idea-behind-the-mle">The idea behind the MLE</h3>
+<p>The diagram below illustrates the idea behind the MLE.</p>
+<p><img src="assets/gaussmle.png" class="img-fluid"></p>
+<p>Consider two distributions in the same family, one with a parameter, lets call it <span class="math inline">\(\theta\)</span>, of value 1.8 (blue) and another of value 5.8. (green). Let’s say we have 3 data points, at <span class="math inline">\(x=1,2,3\)</span>.</p>
+<p>Maximum likelihood starts by asking the question: conditional on the fixed value of <span class="math inline">\(\theta\)</span>, which distribution is the data more likely to have come from?</p>
+<p>In our case the blue is more likely since the product of the height of the 3 vertical blue bars is higher than that of the 3 green bars.</p>
+<p>Indeed the question that MLE asks is: how can we move and scale the distribution, that is, change <span class="math inline">\(\theta\)</span>, until the product of the 3 bars is maximised!</p>
+<p>That is, the product</p>
+<p><span class="math display">\[
+L(\lambda) = \prod_{i=1}^n P(x_i \mid \lambda)
+\]</span></p>
+<p>gives us a measure of how likely it is to observe values <span class="math inline">\(x_1,...,x_n\)</span> given the parameters <span class="math inline">\(\lambda\)</span>. Maximum likelihood fitting consists of choosing the appropriate “likelihood” function <span class="math inline">\(L=P(X \mid \lambda)\)</span> to maximize for a given set of observations. How likely are the observations if the model is true?</p>
+<p>Often it is easier and numerically more stable to maximise the log likelyhood:</p>
+<p><span class="math display">\[
+\ell(\lambda) = \sum_{i=1}^n ln(P(x_i \mid \lambda))
+\]</span></p>
+<p>The exponential distribution occurs naturally when describing the lengths of the inter-arrival times in a homogeneous Poisson process.</p>
+<p>It takes the form: <span class="math display">\[
+f(x;\lambda) = \begin{cases}
+\lambda e^{-\lambda x} &amp; x \ge 0, \\
+0 &amp; x &lt; 0.
+\end{cases}
+\]</span></p>
+<p>In the case of the exponential distribution we have:</p>
+<p><span class="math display">\[
+\ell(lambda) = \sum_{i=1}^n ln(\lambda e^{-\lambda x_i}) = \sum_{i=1}^n \left( ln(\lambda) - \lambda x_i \right).
+\]</span></p>
+<p>Maximizing this:</p>
+<p><span class="math display">\[
+\frac{d \ell}{d\lambda} = \frac{n}{\lambda} - \sum_{i=1}^n x_i = 0
+\]</span></p>
+<p>and thus:</p>
+<p><span class="math display">\[
+\frac{1}{\est{\lambda_{MLE}}} = \frac{1}{n}\sum_{i=1}^n x_i,
+\]</span></p>
+<p>which is the sample mean of our sample. Usually one is not so lucky and one must use numerical optimization techniques.</p>
+<p>A crucial property is that, for many commonly occurring situations, maximum likelihood parameter estimators have an approximate normal distribution when n is large.</p>
+</section>
+</section>
+<section id="inference" class="level2">
+<h2 class="anchored" data-anchor-id="inference">Inference</h2>
+<p>Just having an estimate is no good. We will want to put confidence intervals on the estimation of the parameters. This presents a conundrum: we have access to only one sample, but want to compute a error estimate over multiple samples, using an estimator such as the standard deviation.</p>
+<p>At this point we are wishing for the Lord to have given us other samples drawn from the population. But alas, no such luck…</p>
+<p>So how then are we to find the sampling distribution of our parameters?</p>
+<p>In the last two decades, <strong>resampling</strong> the ONE dataset we have has become computationally feasible. Resampling involves making new samples from the observations, each of which is analysed in the same way as out original dataset. One way to do this is the Bootstrap.</p>
+</section>
+<section id="linear-regression-mle" class="level2">
+<h2 class="anchored" data-anchor-id="linear-regression-mle">Linear Regression MLE</h2>
+<p>Linear regression is the workhorse algorithm thats used in many sciences, social and natural. The diagram below illustrates the probabilistic interpretation of linear regression, and the idea behind the MLE for linear regression. We illustrate a point <span class="math inline">\((x_i, y_i)\)</span>, and the corresponding prediction for <span class="math inline">\(x_i\)</span> using the line, that is <span class="math inline">\(yhat_i\)</span> or <span class="math inline">\(\hat{y}_i\)</span>.</p>
+<p><img src="assets/linregmle.png" class="img-fluid"></p>
+<p>The fundamental assumption for the probabilistic analysis of linear regression is that each <span class="math inline">\(y_i\)</span> is gaussian distributed with mean <span class="math inline">\(\v{w}\cdot\v{x_i}\)</span> (the y predicted by the regression line so to speak) and variance <span class="math inline">\(\sigma^2\)</span>:</p>
+<p><span class="math display">\[ y_i \sim N(\v{w}\cdot\v{x_i}, \sigma^2) .\]</span></p>
+<p>We can then write the likelihood:</p>
+<p><span class="math display">\[\cal{L} = p(\v{y} | \v{x}, \v{w}, \sigma) = \prod_i p(\v{y}_i | \v{x}_i, \v{w}, \sigma)\]</span></p>
+<p>Given the canonical form of the gaussian:</p>
+<p><span class="math display">\[N(\mu, \sigma^2) = \frac{1}{\sigma\sqrt{2\pi}} e^{-(y - \mu)^2 / 2\sigma^2},\]</span></p>
+<p>we can show that:</p>
+<p><span class="math display">\[\cal{L} =  (2\pi\sigma^2)^{(-n/2)} e^{\frac{-1}{2\sigma^2} \sum_i (y_i -  \v{w}\cdot\v{x}_i)^2} .\]</span></p>
+<p>The log likelihood <span class="math inline">\(\ell\)</span> then is given by:</p>
+<p><span class="math display">\[\ell = \frac{-n}{2} log(2\pi\sigma^2) - \frac{1}{2\sigma^2}  \sum_i (y_i -  \v{w}\cdot\v{x}_i)^2 .\]</span></p>
+<p>If you differentiate this with respect to <span class="math inline">\(\v{w}\)</span> and <span class="math inline">\(\sigma\)</span>, you get the MLE values of the parameter estimates:</p>
+<p><span class="math display">\[\v{w}_{MLE} = (\v{X}^T\v{X})^{-1} \v{X}^T\v{y}, \]</span></p>
+<p>where <span class="math inline">\(\v{X}\)</span> is the design matrix created by stacking rows <span class="math inline">\(\v{x}_i\)</span>, and</p>
+<p><span class="math display">\[\sigma^2_{MLE} =  \frac{1}{n} \sum_i (y_i -  \v{w}\cdot\v{x}_i)^2  . \]</span></p>
+<p>These are the standard results of linear regression.</p>
+</section>
+<section id="logistic-regression-mle" class="level2">
+<h2 class="anchored" data-anchor-id="logistic-regression-mle">Logistic Regression MLE</h2>
+<p>Logistic regression if one of the well known <strong>supervized</strong> learning algorithms used for classification.</p>
+<p>The idea behind logistic regression is very simple. We want to draw a line in feature space that divides the ‘1’ samples from the ‘0’ samples, just like in the diagram above. In other words, we wish to find the “regression” line which divides the samples. Now, a line has the form <span class="math inline">\(w_1 x_1 + w_2 x_2 + w_0 = 0\)</span> in 2-dimensions. On one side of this line we have</p>
+<p><span class="math display">\[w_1 x_1 + w_2 x_2 + w_0 \ge 0,\]</span></p>
+<p>and on the other side we have</p>
+<p><span class="math display">\[w_1 x_1 + w_2 x_2 + w_0 &lt; 0.\]</span></p>
+<p>Our classification rule then becomes:</p>
+<p><span class="math display">\[
+\begin{eqnarray}
+y = 1 &amp;if&amp; \v{w}\cdot\v{x} \ge 0\\
+y = 0 &amp;if&amp; \v{w}\cdot\v{x} &lt; 0
+\end{eqnarray}
+\]</span></p>
+<p>where <span class="math inline">\(\v{x}\)</span> is the vector <span class="math inline">\(\{1,x_1, x_2,...,x_n\}\)</span> where we have also generalized to more than 2 features.</p>
+<p>What hypotheses <span class="math inline">\(h\)</span> can we use to achieve this? One way to do so is to use the <strong>sigmoid</strong> function:</p>
+<p><span class="math display">\[h(z) = \frac{1}{1 + e^{-z}}.\]</span></p>
+<p>Notice that at <span class="math inline">\(z=0\)</span> this function has the value 0.5. If <span class="math inline">\(z &gt; 0\)</span>, <span class="math inline">\(h &gt; 0.5\)</span> and as <span class="math inline">\(z \to \infty\)</span>, <span class="math inline">\(h \to 1\)</span>. If <span class="math inline">\(z &lt; 0\)</span>, <span class="math inline">\(h &lt; 0.5\)</span> and as <span class="math inline">\(z \to -\infty\)</span>, <span class="math inline">\(h \to 0\)</span>. As long as we identify any value of <span class="math inline">\(y &gt; 0.5\)</span> as 1, and any <span class="math inline">\(y &lt; 0.5\)</span> as 0, we can achieve what we wished above.</p>
+<p>This function is plotted below:</p>
+<div id="cell-11" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> <span class="kw">lambda</span> z: <span class="fl">1.</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span>np.exp(<span class="op">-</span>z))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>zs<span class="op">=</span>np.arange(<span class="op">-</span><span class="dv">5</span>,<span class="dv">5</span>,<span class="fl">0.1</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>plt.plot(zs, h(zs), alpha<span class="op">=</span><span class="fl">0.5</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>So we then come up with our rule by identifying:</p>
+<p><span class="math display">\[z = \v{w}\cdot\v{x}.\]</span></p>
+<p>Then <span class="math inline">\(h(\v{w}\cdot\v{x}) \ge 0.5\)</span> if <span class="math inline">\(\v{w}\cdot\v{x} \ge 0\)</span> and <span class="math inline">\(h(\v{w}\cdot\v{x}) \lt 0.5\)</span> if <span class="math inline">\(\v{w}\cdot\v{x} \lt 0\)</span>, and:</p>
+<p><span class="math display">\[
+\begin{eqnarray}
+y = 1 &amp;if&amp; h(\v{w}\cdot\v{x}) \ge 0.5\\
+y = 0 &amp;if&amp; h(\v{w}\cdot\v{x}) \lt 0.5.
+\end{eqnarray}
+\]</span></p>
+<p>We said above that if <span class="math inline">\(h &gt; 0.5\)</span> we ought to identify the sample with <span class="math inline">\(y=1\)</span>? One way of thinking about this is to identify <span class="math inline">\(h(\v{w}\cdot\v{x})\)</span> with the probability that the sample is a ‘1’ (<span class="math inline">\(y=1\)</span>). Then we have the intuitive notion that lets identify a sample as 1 if we find that the probabilty of being a ‘1’ is <span class="math inline">\(\ge 0.5\)</span>.</p>
+<p>So suppose we say then that the probability of <span class="math inline">\(y=1\)</span> for a given <span class="math inline">\(\v{x}\)</span> is given by <span class="math inline">\(h(\v{w}\cdot\v{x})\)</span>?</p>
+<p>Then, the conditional probabilities of <span class="math inline">\(y=1\)</span> or <span class="math inline">\(y=0\)</span> given a particular sample’s features <span class="math inline">\(\v{x}\)</span> are:</p>
+<p><span class="math display">\[\begin{eqnarray}
+P(y=1 | \v{x}) &amp;=&amp; h(\v{w}\cdot\v{x}) \\
+P(y=0 | \v{x}) &amp;=&amp; 1 - h(\v{w}\cdot\v{x}).
+\end{eqnarray}\]</span></p>
+<p>These two can be written together as</p>
+<p><span class="math display">\[P(y|\v{x}, \v{w}) = h(\v{w}\cdot\v{x})^y \left(1 - h(\v{w}\cdot\v{x}) \right)^{(1-y)} \]</span></p>
+<p>Then multiplying over the samples we get the probability of the training <span class="math inline">\(y\)</span> given <span class="math inline">\(\v{w}\)</span> and the <span class="math inline">\(\v{x}\)</span>:</p>
+<p><span class="math display">\[P(y|\v{x},\v{w}) = P(\{y_i\} | \{\v{x}_i\}, \v{w}) = \prod_{y_i \in \cal{D}} P(y_i|\v{x_i}, \v{w}) = \prod_{y_i \in \cal{D}} h(\v{w}\cdot\v{x_i})^{y_i} \left(1 - h(\v{w}\cdot\v{x_i}) \right)^{(1-y_i)}\]</span></p>
+<p>Why use probabilities? Earlier, we talked about how the regression function <span class="math inline">\(f(x)\)</span> never gives us the <span class="math inline">\(y\)</span> exactly, because of noise. This hold for classification too. Even with identical features, a different sample may be classified differently.</p>
+<p>We said that another way to think about a noisy <span class="math inline">\(y\)</span> is to imagine that our data <span class="math inline">\(\dat\)</span> was generated from a joint probability distribution <span class="math inline">\(P(x,y)\)</span>. Thus we need to model <span class="math inline">\(y\)</span> at a given <span class="math inline">\(x\)</span>, written as <span class="math inline">\(P(y \mid x)\)</span>, and since <span class="math inline">\(P(x)\)</span> is also a probability distribution, we have:</p>
+<p><span class="math display">\[P(x,y) = P(y \mid x) P(x) ,\]</span></p>
+<p>and can obtain our joint probability (<span class="math inline">\(P(x, y))\)</span>.</p>
+<p>Indeed its important to realize that a particular sample can be thought of as a draw from some “true” probability distribution. If for example the probability of classifying a sample point as a ‘0’ was 0.1, and it turns out that the sample point was actually a ‘0’, it does not mean that this model was necessarily wrong. After all, in roughly a 10th of the draws, this new sample would be classified as a ‘0’! But, of-course its more unlikely than its likely, and having good probabilities means that we’ll be likely right most of the time, which is what we want to achieve in classification.</p>
+<p>Thus its desirable to have probabilistic, or at the very least, ranked models of classification where you can tell which sample is more likely to be classified as a ‘1’.</p>
+<p>Now if we maximize <span class="math display">\[P(y \mid \v{x},\v{w})\]</span>, we will maximize the chance that each point is classified correctly, which is what we want to do. This is a principled way of obtaining the highest probability classification. This <strong>maximum likelihood</strong> estimation maximises the <strong>likelihood of the sample y</strong>,</p>
+<p><span class="math display">\[\like = P(y \mid \v{x},\v{w}).\]</span></p>
+<p>Again, we can equivalently maximize</p>
+<p><span class="math display">\[\loglike = log(P(y \mid \v{x},\v{w}))\]</span></p>
+<p>since the natural logarithm <span class="math inline">\(log\)</span> is a monotonic function. This is known as maximizing the <strong>log-likelihood</strong>.</p>
+<p><span class="math display">\[\loglike = log \like = log(P(y \mid \v{x},\v{w})).\]</span></p>
+<p>Thus</p>
+<p><span class="math display">\[\begin{eqnarray}
+\loglike &amp;=&amp; log\left(\prod_{y_i \in \cal{D}} h(\v{w}\cdot\v{x_i})^{y_i} \left(1 - h(\v{w}\cdot\v{x_i}) \right)^{(1-y_i)}\right)\\
+                  &amp;=&amp; \sum_{y_i \in \cal{D}} log\left(h(\v{w}\cdot\v{x_i})^{y_i} \left(1 - h(\v{w}\cdot\v{x_i}) \right)^{(1-y_i)}\right)\\                  
+                  &amp;=&amp; \sum_{y_i \in \cal{D}} log\,h(\v{w}\cdot\v{x_i})^{y_i} + log\,\left(1 - h(\v{w}\cdot\v{x_i}) \right)^{(1-y_i)}\\
+                  &amp;=&amp; \sum_{y_i \in \cal{D}} \left ( y_i log(h(\v{w}\cdot\v{x})) + ( 1 - y_i) log(1 - h(\v{w}\cdot\v{x})) \right )
+\end{eqnarray}\]</span></p>
+
+
 </section>
 </section>
 

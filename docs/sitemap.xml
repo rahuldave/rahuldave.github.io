@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://rahuldave.github.io/CLAUDE.html</loc>
-    <lastmod>2026-01-29T15:37:56.468Z</lastmod>
+    <lastmod>2026-02-28T16:45:02.811Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/collections/software/prefect.html</loc>
@@ -25,12 +25,16 @@
     <lastmod>2026-01-29T16:57:06.053Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/posts/vizasstory.html</loc>
-    <lastmod>2026-01-29T14:30:14.118Z</lastmod>
+    <loc>https://rahuldave.github.io/posts/MLE/index.html</loc>
+    <lastmod>2026-02-28T16:37:28.684Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/posts/samplingclt/index.html</loc>
-    <lastmod>2026-01-29T14:37:54.052Z</lastmod>
+    <loc>https://rahuldave.github.io/posts/seasons/index.html</loc>
+    <lastmod>2026-01-29T18:09:08.759Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rahuldave.github.io/posts/expectations/index.html</loc>
+    <lastmod>2026-01-29T14:37:54.048Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/votingforcongress/index.html</loc>
@@ -65,12 +69,16 @@
     <lastmod>2026-01-29T14:37:54.058Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/posts/expectations/index.html</loc>
-    <lastmod>2026-01-29T14:37:54.048Z</lastmod>
+    <loc>https://rahuldave.github.io/posts/frequentist.html</loc>
+    <lastmod>2026-02-28T16:39:50.692Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/posts/seasons/index.html</loc>
-    <lastmod>2026-01-29T18:09:08.759Z</lastmod>
+    <loc>https://rahuldave.github.io/posts/samplingclt/index.html</loc>
+    <lastmod>2026-01-29T14:37:54.052Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rahuldave.github.io/posts/vizasstory.html</loc>
+    <lastmod>2026-01-29T14:30:14.118Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/til.html</loc>

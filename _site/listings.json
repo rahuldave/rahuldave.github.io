@@ -3,6 +3,8 @@
     "listing": "/posts.html",
     "items": [
       "/posts/seasons/index.html",
+      "/posts/MLE/index.html",
+      "/posts/frequentist.html",
       "/posts/montecarlointegrals/index.html",
       "/posts/basicmontecarlo/index.html",
       "/posts/samplingclt/index.html",
@@ -30,6 +32,8 @@
     "listing": "/index.html",
     "items": [
       "/posts/seasons/index.html",
+      "/posts/MLE/index.html",
+      "/posts/frequentist.html",
       "/posts/montecarlointegrals/index.html",
       "/posts/basicmontecarlo/index.html",
       "/posts/samplingclt/index.html",
