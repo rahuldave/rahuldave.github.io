@@ -24,7 +24,7 @@ A note on notation: $X$ is a random variable while $x$ is a particular value of 
 
 Let $X$ be the random variable representing the number of heads in two coin tosses. Then $x$ can take on values 0, 1 and 2. The CDF for this random variable can be drawn thus (taken from All of Stats):
 
-![](images/2tosscdf.png)
+![CDF of the 2-coin-toss distribution](images/2tosscdf.png)
 
   Notice that this function is right-continuous and defined for all $x$, even if $x $does not take real values in-between the integers.
 
@@ -38,7 +38,7 @@ $f_X$ **is a probability**.
 
 The pmf for the number of heads in two coin tosses (taken from All of Stats) looks like this:
 
-![](images/2tosspmf.png)
+![PMF of the 2-coin-toss distribution](images/2tosspmf.png)
 
 On the other hand, a random variable is called a **continuous random variable** if there exists a function $f_X$ such that $f_X (x) \ge 0$ for all x,  $\int_{-\infty}^{\infty} f_X (x) dx = 1$ and for every a ≤ b,
 
@@ -76,7 +76,7 @@ x & 0 \leq x \leq 1\\
 $$
 and can be visualized as so (again from All of Stats):
 
-![](images/unicdf.png)
+![CDF of the uniform distribution](images/unicdf.png)
 
 ### A discrete example: the Bernoulli Distribution
 

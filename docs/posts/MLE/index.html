@@ -516,7 +516,12 @@ window.Quarto = {
 <section id="the-idea-behind-the-mle" class="level3">
 <h3 class="anchored" data-anchor-id="the-idea-behind-the-mle">The idea behind the MLE</h3>
 <p>The diagram below illustrates the idea behind the MLE.</p>
-<p><img src="assets/gaussmle.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/gaussmle.png" class="img-fluid figure-img"></p>
+<figcaption>Two Gaussians illustrating maximum likelihood estimation</figcaption>
+</figure>
+</div>
 <p>Consider two distributions in the same family, one with a parameter, lets call it <span class="math inline">\(\theta\)</span>, of value 1.8 (blue) and another of value 5.8. (green). Let’s say we have 3 data points, at <span class="math inline">\(x=1,2,3\)</span>.</p>
 <p>Maximum likelihood starts by asking the question: conditional on the fixed value of <span class="math inline">\(\theta\)</span>, which distribution is the data more likely to have come from?</p>
 <p>In our case the blue is more likely since the product of the height of the 3 vertical blue bars is higher than that of the 3 green bars.</p>
@@ -563,7 +568,12 @@ f(x;\lambda) = \begin{cases}
 <section id="linear-regression-mle" class="level2">
 <h2 class="anchored" data-anchor-id="linear-regression-mle">Linear Regression MLE</h2>
 <p>Linear regression is the workhorse algorithm thats used in many sciences, social and natural. The diagram below illustrates the probabilistic interpretation of linear regression, and the idea behind the MLE for linear regression. We illustrate a point <span class="math inline">\((x_i, y_i)\)</span>, and the corresponding prediction for <span class="math inline">\(x_i\)</span> using the line, that is <span class="math inline">\(yhat_i\)</span> or <span class="math inline">\(\hat{y}_i\)</span>.</p>
-<p><img src="assets/linregmle.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/linregmle.png" class="img-fluid figure-img"></p>
+<figcaption>Probabilistic interpretation of linear regression</figcaption>
+</figure>
+</div>
 <p>The fundamental assumption for the probabilistic analysis of linear regression is that each <span class="math inline">\(y_i\)</span> is gaussian distributed with mean <span class="math inline">\(\v{w}\cdot\v{x_i}\)</span> (the y predicted by the regression line so to speak) and variance <span class="math inline">\(\sigma^2\)</span>:</p>
 <p><span class="math display">\[ y_i \sim N(\v{w}\cdot\v{x_i}, \sigma^2) .\]</span></p>
 <p>We can then write the likelihood:</p>

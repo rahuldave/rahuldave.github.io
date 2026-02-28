@@ -428,7 +428,12 @@ window.Quarto = {
 <p><span class="math display">\[F_X (x) = p(X \le x).\]</span></p>
 <p>A note on notation: <span class="math inline">\(X\)</span> is a random variable while <span class="math inline">\(x\)</span> is a particular value of the random variable.</p>
 <p>Let <span class="math inline">\(X\)</span> be the random variable representing the number of heads in two coin tosses. Then <span class="math inline">\(x\)</span> can take on values 0, 1 and 2. The CDF for this random variable can be drawn thus (taken from All of Stats):</p>
-<p><img src="images/2tosscdf.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/2tosscdf.png" class="img-fluid figure-img"></p>
+<figcaption>CDF of the 2-coin-toss distribution</figcaption>
+</figure>
+</div>
 <p>Notice that this function is right-continuous and defined for all <span class="math inline">\(x\)</span>, even if $x $does not take real values in-between the integers.</p>
 </section>
 <section id="probability-mass-and-distribution-function" class="level2">
@@ -437,7 +442,12 @@ window.Quarto = {
 <p><span class="math display">\[f_X(x) = p(X=x)\]</span></p>
 <p><span class="math inline">\(f_X\)</span> <strong>is a probability</strong>.</p>
 <p>The pmf for the number of heads in two coin tosses (taken from All of Stats) looks like this:</p>
-<p><img src="images/2tosspmf.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/2tosspmf.png" class="img-fluid figure-img"></p>
+<figcaption>PMF of the 2-coin-toss distribution</figcaption>
+</figure>
+</div>
 <p>On the other hand, a random variable is called a <strong>continuous random variable</strong> if there exists a function <span class="math inline">\(f_X\)</span> such that <span class="math inline">\(f_X (x) \ge 0\)</span> for all x, <span class="math inline">\(\int_{-\infty}^{\infty} f_X (x) dx = 1\)</span> and for every a ≤ b,</p>
 <p><span class="math display">\[p(a &lt; X &lt; b) = \int_{a}^{b} f_X (x) dx\]</span></p>
 <p>The function <span class="math inline">\(f_X\)</span> is called the probability density function (pdf). We have the CDF:</p>
@@ -464,7 +474,12 @@ x &amp; 0 \leq x \leq 1\\
 1 &amp; x &gt; 1.
 \end{cases}
 \]</span> and can be visualized as so (again from All of Stats):</p>
-<p><img src="images/unicdf.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/unicdf.png" class="img-fluid figure-img"></p>
+<figcaption>CDF of the uniform distribution</figcaption>
+</figure>
+</div>
 </section>
 <section id="a-discrete-example-the-bernoulli-distribution" class="level3">
 <h3 class="anchored" data-anchor-id="a-discrete-example-the-bernoulli-distribution">A discrete example: the Bernoulli Distribution</h3>

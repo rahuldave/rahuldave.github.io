@@ -544,7 +544,12 @@ L(\lambda) = \prod_{i=1}^n P(x_i | \lambda)
 \]</span></p>
 <p>gives us a measure of how likely it is to observe values <span class="math inline">\(x_1,...,x_n\)</span> given the parameters <span class="math inline">\(\lambda\)</span>. Maximum likelihood fitting consists of choosing the appropriate “likelihood” function <span class="math inline">\(L=P(X \mid \lambda)\)</span> to maximize for a given set of observations. How likely are the observations if the model is true?</p>
 <p>An image can explain this better. We want to choose the distribution that maximizes the product of the vertical lines. Here the blue does better, but it is not clear if the blue is the best.</p>
-<p><img src="images/gaussmle.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/gaussmle.png" class="img-fluid figure-img"></p>
+<figcaption>Two Gaussians illustrating maximum likelihood estimation</figcaption>
+</figure>
+</div>
 <p>Often it is easier and numerically more stable to maximize the log likelihood:</p>
 <p><span class="math display">\[
 \ell(\lambda) = \sum_{i=1}^n ln(P(x_i \mid \lambda))
@@ -590,7 +595,12 @@ L(\lambda) = \prod_{i=1}^n P(x_i | \lambda)
 <section id="parametric-bootstrap" class="level3">
 <h3 class="anchored" data-anchor-id="parametric-bootstrap">Parametric Bootstrap</h3>
 <p>But we dont have the true parameter. So we generate these samples, using the parameter we calculated. This is the <strong>parametric bootstrap</strong>. The process is illustrated in the diagram below, taken from Shalizi:</p>
-<p><img src="images/parabootstrap.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/parabootstrap.png" class="img-fluid figure-img"></p>
+<figcaption>The parametric bootstrap process</figcaption>
+</figure>
+</div>
 <p>There are 3 sources of error with respect to the sampling distribution that come from the bootstrap:</p>
 <ul>
 <li>simulation error: the number of samples M is finite. This can be made arbitrarily small by making M large</li>
@@ -602,7 +612,12 @@ L(\lambda) = \prod_{i=1}^n P(x_i | \lambda)
 <h3 class="anchored" data-anchor-id="non-parametric-bootstrap">Non-parametric bootstrap</h3>
 <p>To address specification error, alternatively, we sample with replacement the X from our original sample D, generating many fake datasets, and then compute the distribution on the parameters as before. This is the <strong>non parametric bootstrap</strong>. We want to sample with replacement, for if we do so, more typical values will be represented more often in the multiple datasets we create.</p>
 <p>Here we are using the <strong>empirical distribution</strong>, since it comes without any model preconceptions. This process may be illustrated so:</p>
-<p><img src="images/nonparabootstrap.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/nonparabootstrap.png" class="img-fluid figure-img"></p>
+<figcaption>The non-parametric bootstrap process</figcaption>
+</figure>
+</div>
 
 
 </section>

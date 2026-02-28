@@ -549,7 +549,12 @@ pi =  3.141592653589793</code></pre>
 <section id="hit-or-miss-method" class="level2">
 <h2 class="anchored" data-anchor-id="hit-or-miss-method">Hit or miss method</h2>
 <p>This simple scenario of inside-or-outside can be used as a general (but poor, as missing increases exponentially with dimension) way to use the generation of samples to carry out integration</p>
-<p><img src="assets/hitormiss.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/hitormiss.png" class="img-fluid figure-img"></p>
+<figcaption>Bounding box for hit-or-miss Monte Carlo integration</figcaption>
+</figure>
+</div>
 <p>You basically generate samples from a uniform distribution with support on the rectangle and see how many fall below <span class="math inline">\(y(x)\)</span> at a specific x.</p>
 <p>This is the basic idea behind rejection sampling</p>
 

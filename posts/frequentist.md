@@ -108,7 +108,7 @@ gives us a measure of how likely it is to observe values $x_1,...,x_n$ given the
 
 An image can explain this better. We want to choose the distribution that maximizes the product of the vertical lines. Here the blue does better, but it is not clear if the blue is the best.
 
-![](images/gaussmle.png)
+![Two Gaussians illustrating maximum likelihood estimation](images/gaussmle.png)
 
 Often it is easier and numerically more stable to maximize the log likelihood:
 
@@ -179,7 +179,7 @@ But we dont have the true parameter. So we generate these samples, using the par
 
 
 
-![](images/parabootstrap.png)
+![The parametric bootstrap process](images/parabootstrap.png)
 
 There are 3 sources of error with respect to the sampling distribution that come from the bootstrap:
 
@@ -193,4 +193,4 @@ To address specification error, alternatively, we sample with replacement the X 
 
 Here we are using the **empirical distribution**, since it comes without any model preconceptions. This process may be illustrated so:
 
-![](images/nonparabootstrap.png)
+![The non-parametric bootstrap process](images/nonparabootstrap.png)

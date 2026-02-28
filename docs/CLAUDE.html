@@ -417,7 +417,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Lecture index at <code>~/Attic/Projects/AM207/2018fall_wiki/lectures/index.md</code> (replace <code>.html</code> with <code>.md</code> for source files)</li>
 <li>Each lecture <code>.md</code> links to wiki notes; check for <code>.ipynb</code> (primary source) before falling back to <code>.md</code></li>
 <li>Use <code>/import-wiki-notes</code> skill to import notes as blog posts</li>
-<li><strong>Notebook import script</strong>: <code>_scripts/import_notebook.py</code> — automates creating <code>posts/&lt;name&gt;/index.ipynb</code> from wiki <code>.ipynb</code> files (adds raw frontmatter cell, fixes <code>images/</code> → <code>assets/</code> paths, copies images). Run with <code>--help</code> for usage. Markdown-only posts are simpler and done by hand.</li>
+<li><strong>Helper scripts</strong> in <code>_scripts/</code>:
+<ul>
+<li><code>import_notebook.py</code> — creates <code>posts/&lt;name&gt;/index.ipynb</code> from wiki <code>.ipynb</code> (adds frontmatter, fixes paths, copies images). Run with <code>--help</code>.</li>
+<li><code>update_captions.py</code> — updates image captions in notebook markdown cells. Used by <code>/caption-images</code> skill.</li>
+</ul></li>
+<li>After importing, run <code>/caption-images</code> to add captions with citations to embedded images</li>
 </ul>
 </section>
 <section id="content-import-status-from-am207-wiki" class="level2">

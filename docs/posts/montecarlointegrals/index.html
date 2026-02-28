@@ -632,7 +632,12 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="comparing-to-standard-integration-techniques">Comparing to standard integration techniques</h3>
 <p>What if we changed the dimensionality of the integral? The formula for <span class="math inline">\(S_n\)</span> does not change, we just replace <span class="math inline">\(g(x_i)\)</span> by <span class="math inline">\(g(x_i, y_i, z_i...)\)</span>. Thus, the CLT still holds and the error still scales as <span class="math inline">\(\frac{1}{\sqrt{n}}\)</span>.</p>
 <p>On the other hand, if we divide the <span class="math inline">\(a, b\)</span>-interval into <span class="math inline">\(N\)</span> steps and use some regular integration routine, what is the error? Consider the midpoint rule as illustrated in this diagram from Wikipedia:</p>
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Rectangle_rule.gif" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/5/5b/Rectangle_rule.gif" class="img-fluid figure-img"></p>
+<figcaption>Rectangle rule for numerical integration</figcaption>
+</figure>
+</div>
 <p>The basic idea is that the function value at the midpoint of the interval is used as the height of the approximating rectangle. In general, the differing methods consist of choosing different <span class="math inline">\(x_i\)</span> below..with left being at the left end, right being at the right end. <span class="math display">\[I(est) = \sum_i f(x_i)\Delta x_i = \frac{b-a}{n} \sum_i f(x_i)\]</span></p>
 <p>The error on the estimation of the integral can be shown to decrease as <span class="math inline">\(\frac{1}{n^2}\)</span>. The basic reason for this can be understood on a taylor series expansion of the function to second order. When you integrate on the sub-interval, the linear term vanishes while the quadratic term becomes cubic in <span class="math inline">\(\Delta x\)</span>. So the local error goes as <span class="math inline">\(\frac{1}{n^3}\)</span> and thus the global as <span class="math inline">\(\frac{1}{n^2}\)</span>.</p>
 <p>Monte-Carlo if clearly not competitive with the midpoint method in 1-D. Its actually not even competitive with left or right rectangle methods.</p>
