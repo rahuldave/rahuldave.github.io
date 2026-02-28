@@ -1,0 +1,1887 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2025-03-02">
+<meta name="description" content="Extends the learning framework to noisy data, where stochastic noise forces a tradeoff between model complexity and generalization. Derives the bias-variance decomposition and shows how overfitting emerges from fitting noise rather than signal.">
+
+<title>Learning With Noise – rahuldave</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-e0d64750a3675fa668af59a9862b8111.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-d2fef15c612ec386ae0907ffd6f4ccdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-a009389674a9596cea61ac77c12264b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-d2fef15c612ec386ae0907ffd6f4ccdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<!-- Google Fonts: Bitter (headings) + Source Serif 4 (body) + IBM Plex Mono (code) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+
+<!-- Bootstrap Icons for brand mark and UI elements -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Learning With Noise – rahuldave">
+<meta property="og:description" content="Extends the learning framework to noisy data, where stochastic noise forces a tradeoff between model complexity and generalization. Derives the bias-variance decomposition and shows how overfitting emerges from fitting noise rather than signal.">
+<meta property="og:image" content="https://rahuldave.github.io/posts/noisylearning/index_files/figure-html/cell-5-output-1.png">
+<meta property="og:site_name" content="rahuldave">
+<meta property="og:image:height" content="539">
+<meta property="og:image:width" content="773">
+<meta name="twitter:title" content="Learning With Noise – rahuldave">
+<meta name="twitter:description" content="Extends the learning framework to noisy data, where stochastic noise forces a tradeoff between model complexity and generalization. Derives the bias-variance decomposition and shows how overfitting emerges from fitting noise rather than signal.">
+<meta name="twitter:image" content="https://rahuldave.github.io/posts/noisylearning/index_files/figure-html/cell-5-output-1.png">
+<meta name="twitter:creator" content="@rahuldave">
+<meta name="twitter:image-height" content="539">
+<meta name="twitter:image-width" content="773">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">rahuldave</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../posts.html"> 
+<span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../til.html"> 
+<span class="menu-text">TIL</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../collections.html"> 
+<span class="menu-text">Collections</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#noisy-learning" id="toc-noisy-learning" class="nav-link active" data-scroll-target="#noisy-learning">Noisy Learning</a>
+  <ul class="collapse">
+  <li><a href="#contents" id="toc-contents" class="nav-link" data-scroll-target="#contents">Contents</a></li>
+  <li><a href="#revisiting-our-model" id="toc-revisiting-our-model" class="nav-link" data-scroll-target="#revisiting-our-model">Revisiting our model</a>
+  <ul class="collapse">
+  <li><a href="#statement-of-the-learning-problem." id="toc-statement-of-the-learning-problem." class="nav-link" data-scroll-target="#statement-of-the-learning-problem.">Statement of the learning problem.</a></li>
+  </ul></li>
+  <li><a href="#why-go-out-of-sample" id="toc-why-go-out-of-sample" class="nav-link" data-scroll-target="#why-go-out-of-sample">Why go out-of-sample</a>
+  <ul class="collapse">
+  <li><a href="#stochastic-noise" id="toc-stochastic-noise" class="nav-link" data-scroll-target="#stochastic-noise">Stochastic Noise</a></li>
+  </ul></li>
+  <li><a href="#fitting-a-noisy-model" id="toc-fitting-a-noisy-model" class="nav-link" data-scroll-target="#fitting-a-noisy-model">Fitting a noisy model</a>
+  <ul class="collapse">
+  <li><a href="#describing-things-probabilistically" id="toc-describing-things-probabilistically" class="nav-link" data-scroll-target="#describing-things-probabilistically">Describing things probabilistically</a></li>
+  <li><a href="#the-variance-of-your-model" id="toc-the-variance-of-your-model" class="nav-link" data-scroll-target="#the-variance-of-your-model">The Variance of your model</a></li>
+  </ul></li>
+  <li><a href="#bias-and-variance" id="toc-bias-and-variance" class="nav-link" data-scroll-target="#bias-and-variance">Bias and Variance</a></li>
+  <li><a href="#so-far" id="toc-so-far" class="nav-link" data-scroll-target="#so-far">So far?</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<!-- Theme toggle persistence script -->
+<script>
+(function() {
+  // Check for saved theme preference, otherwise use system preference
+  const savedTheme = localStorage.getItem('quarto-color-scheme');
+  if (savedTheme) {
+    document.documentElement.setAttribute('data-bs-theme', savedTheme);
+  }
+
+  // Listen for theme changes (Quarto's built-in toggle) and persist
+  const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.attributeName === 'data-bs-theme') {
+        const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+        if (currentTheme) {
+          localStorage.setItem('quarto-color-scheme', currentTheme);
+        }
+      }
+    });
+  });
+
+  // Start observing once DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      observer.observe(document.documentElement, { attributes: true });
+    });
+  } else {
+    observer.observe(document.documentElement, { attributes: true });
+  }
+})();
+</script>
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Learning With Noise</h1>
+<p class="subtitle lead">Bias, variance, and the tradeoff that haunts every model.</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">statistics</div>
+    <div class="quarto-category">models</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Extends the learning framework to noisy data, where stochastic noise forces a tradeoff between model complexity and generalization. Derives the bias-variance decomposition and shows how overfitting emerges from fitting noise rather than signal.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 2, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="noisy-learning" class="level1">
+<h1>Noisy Learning</h1>
+<section id="keywords-empirical-risk-minimization-bias-sampling-distribution-hypothesis-space-training-error-out-of-sample-error-variance-stochastic-noise-bias-variance-tradeoff" class="level5">
+<h5 class="anchored" data-anchor-id="keywords-empirical-risk-minimization-bias-sampling-distribution-hypothesis-space-training-error-out-of-sample-error-variance-stochastic-noise-bias-variance-tradeoff">Keywords: empirical risk minimization, bias, sampling distribution, hypothesis space, training error, out-of-sample error, variance, stochastic noise, bias-variance tradeoff</h5>
+</section>
+<section id="contents" class="level2">
+<h2 class="anchored" data-anchor-id="contents">Contents</h2>
+<p>{:.no_toc} *<br>
+{: toc}</p>
+<div id="cell-3" class="cell" data-hide="true" data-execution_count="26">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib <span class="im">as</span> mpl</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.cm <span class="im">as</span> cm</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.width'</span>, <span class="dv">500</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_columns'</span>, <span class="dv">100</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.notebook_repr_html'</span>, <span class="va">True</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">"whitegrid"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>sns.set_context(<span class="st">"poster"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-4" class="cell" data-hide="true" data-execution_count="27">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_simple_plot():</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    fig, axes<span class="op">=</span>plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">5</span>), nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylabel(<span class="st">"$y$"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_yticklabels([])</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylim([<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>])</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_ylim([<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>])</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()<span class="op">;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> axes</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_plot():</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    fig, axes<span class="op">=</span>plt.subplots(figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">8</span>), nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylabel(<span class="st">"$p_R$"</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_yticklabels([])</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_xlim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_xlim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()<span class="op">;</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> axes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="revisiting-our-model" class="level2">
+<h2 class="anchored" data-anchor-id="revisiting-our-model">Revisiting our model</h2>
+<p>Let us revisit our model from noiseless_learning.</p>
+<p>Let <span class="math inline">\(x\)</span> be the fraction of religious people in a county and <span class="math inline">\(y\)</span> be the probability of voting for Romney as a function of <span class="math inline">\(x\)</span>. In other words <span class="math inline">\(y_i\)</span> is data that pollsters have taken which tells us their estimate of people voting for Romney and <span class="math inline">\(x_i\)</span> is the fraction of religious people in county <span class="math inline">\(i\)</span>. Because poll samples are finite, there is a margin of error on each data point or county <span class="math inline">\(i\)</span>, but we will ignore that for now.</p>
+<p>Let us assume that we have a “population” of 200 counties <span class="math inline">\(x\)</span>:</p>
+<div id="cell-8" class="cell" data-execution_count="28">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df<span class="op">=</span>pd.read_csv(<span class="st">"data/religion.csv"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<div>
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">promney</th>
+<th data-quarto-table-cell-role="th">rfrac</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>0.047790</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>0.051199</td>
+<td>0.01</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>0.054799</td>
+<td>0.02</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>0.058596</td>
+<td>0.03</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>0.062597</td>
+<td>0.04</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Lets suppose now that the Lord came by and told us that the points in the plot below captures <span class="math inline">\(f(x)\)</span> exactly.</p>
+<div id="cell-10" class="cell" data-execution_count="29">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>df.rfrac.values</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>f<span class="op">=</span>df.promney.values</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x,f,<span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Notice that our sampling of <span class="math inline">\(x\)</span> is not quite uniform: there are more points around <span class="math inline">\(x\)</span> of 0.7.</p>
+<p>Now, in real life we are only given a sample of points. Lets assume that out of this population of 200 points we are given a sample <span class="math inline">\(\cal{D}\)</span> of 30 data points. Such data is called <strong>in-sample data</strong>. Contrastingly, the entire population of data points is also called <strong>out-of-sample data</strong>.</p>
+<div id="cell-12" class="cell" data-execution_count="30">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dfsample <span class="op">=</span> pd.read_csv(<span class="st">"data/noisysample.csv"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>indexes<span class="op">=</span>dfsample.i.values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-13" class="cell" data-execution_count="37">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dfpop <span class="op">=</span> pd.read_csv(<span class="st">"data/noisypopulation.csv"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>dfpop.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="37">
+<div>
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">f</th>
+<th data-quarto-table-cell-role="th">x</th>
+<th data-quarto-table-cell-role="th">y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>0.047790</td>
+<td>0.00</td>
+<td>0.011307</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>0.051199</td>
+<td>0.01</td>
+<td>0.010000</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>0.054799</td>
+<td>0.02</td>
+<td>0.007237</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>0.058596</td>
+<td>0.03</td>
+<td>0.000056</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>0.062597</td>
+<td>0.04</td>
+<td>0.010000</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-14" class="cell" data-execution_count="31">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>samplex <span class="op">=</span> x[indexes]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>samplef <span class="op">=</span> f[indexes]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-15" class="cell" data-figure_type="w" data-execution_count="33">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>axes<span class="op">=</span>make_plot()</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,f, <span class="st">'k-'</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">"f (from the Lord)"</span>)<span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x,f, <span class="st">'r.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, label<span class="op">=</span><span class="st">"population"</span>)<span class="op">;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(samplex,samplef, <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"in-sample data $</span><span class="er">\</span><span class="st">cal</span><span class="sc">{D}</span><span class="st">$"</span>)<span class="op">;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="statement-of-the-learning-problem." class="level3">
+<h3 class="anchored" data-anchor-id="statement-of-the-learning-problem.">Statement of the learning problem.</h3>
+<p>Let us restate the learning problem from <a href="noiseless_learning.html">noiseless learning</a>.</p>
+<p>If we find a hypothesis <span class="math inline">\(g\)</span> that minimizes the cost or risk over the training set (our sample), this hypothesis <em>might</em> do a good job over the population that the training set was representative of, since the risk on the population ought to be similar to that on the training set, and thus small.</p>
+<p>Mathematically, we are saying that:</p>
+<p><span class="math display">\[
+\begin{eqnarray*}
+A &amp;:&amp; R_{\cal{D}}(g) \,\,smallest\,on\,\cal{H}\\
+B &amp;:&amp; R_{out} (g) \approx R_{\cal{D}}(g)
+\end{eqnarray*}
+\]</span></p>
+<p>In other words, we hope the <strong>empirical risk estimates the out of sample risk well, and thus the out of sample risk is also small</strong>.</p>
+</section>
+</section>
+<section id="why-go-out-of-sample" class="level2">
+<h2 class="anchored" data-anchor-id="why-go-out-of-sample">Why go out-of-sample</h2>
+<p>Clearly we want tolearn something about a population, a population we dont have access to. So far we have stayed within the constraints of our sample and just like we did in the case of monte-carlo, might want to draw all our conclusions from this sample.</p>
+<p>This is a bad idea.</p>
+<p>You probably noticed that I used weasel words like “might” and “hope” in the last section when saying that representative sampling in both training and test sets combined with ERM is what we need to learn a model. Let me give you a very simple counterexample: a prefect memorizer.</p>
+<p>Suppose I construct a model which memorizes all the data points in the training set. Then its emprical risk is zero by definition, but it has no way of predicting anything on a test set. Thus it might as well choose the value at a new point randomly, and will perform very poorly. The process of interpolating a curve from points is precisely this memorization</p>
+<section id="stochastic-noise" class="level3">
+<h3 class="anchored" data-anchor-id="stochastic-noise">Stochastic Noise</h3>
+<p>We saw before that <span class="math inline">\(g_{20}\)</span> did a very good job in capturing the curves of the population. However, note that the data obtained from <span class="math inline">\(f\)</span>, our target, was still quite smooth. Most real-world data sets are not smooth at all, because of various effects such as measurement errors, other co-variates, and so on. Such <strong>stochastic noise</strong> plays havoc with our fits, as we shall see soon.</p>
+<p>Stochastic noise bedevils almost every data set known to humans, and happens for many different reasons.</p>
+<p>Consider for example two customers of a bank with identical credit histories and salaries. One defaults on their mortgage, and the other does not. In this case we have identical <span class="math inline">\(x = (credit, salary)\)</span> for these two customers, but different <span class="math inline">\(y\)</span>, which is a variable that is 1 if the customer defaulted and 0 otherwise. The true <span class="math inline">\(y\)</span> here might be a function of other co-variates, such as marital strife, sickness of parents, etc. But, as the bank, we might not have this information. So we get different <span class="math inline">\(y\)</span> for different customers at the information <span class="math inline">\(x\)</span> that we possess.</p>
+<p>A similar thing might be happen in the election example, where we have modelled the probability of voting for romney as a function of religiousness of the county. There are many other variables we might not have measured, such as the majority race in that county. But, we have not measured this information. Thus, in counties with high religiousness fraction <span class="math inline">\(x\)</span> we might have more noise than in others. Consider for example two counties, one with <span class="math inline">\(x=0.8\)</span> fraction of self-identified religious people in the county, and another with <span class="math inline">\(x=0.82\)</span>. Based on historical trends, if the first county was mostly white, the fraction of those claiming they would vote for Romney might be larger than in a second, mostly black county. Thus you might have two very <span class="math inline">\(y\)</span>’s next to each other on our graphs.</p>
+<p>It gets worse. When pollsters estimate the number of people voting for a particular candidate, they only use finite samples of voters. So there is a 4-6% polling error in any of these estimates. This “sampling noise” adds to the noisiness of the <span class="math inline">\(y\)</span>’s.</p>
+<p>Indeed, we wish to estimate a function <span class="math inline">\(f(x)\)</span> so that the values <span class="math inline">\(y_i\)</span> come from the function <span class="math inline">\(f\)</span>. Since we are trying to estimate f with data from only some counties, and furthermore, our estimates of the population behaviour in these counties will be noisy, our estimate wont be the “god given” or “real” f, but rather some <strong>noisy</strong> estimate of it.</p>
+<div id="cell-23" class="cell" data-execution_count="34">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dfsample.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="34">
+<div>
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">f</th>
+<th data-quarto-table-cell-role="th">i</th>
+<th data-quarto-table-cell-role="th">x</th>
+<th data-quarto-table-cell-role="th">y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>0.075881</td>
+<td>7</td>
+<td>0.07</td>
+<td>0.138973</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>0.085865</td>
+<td>9</td>
+<td>0.09</td>
+<td>0.050510</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>0.096800</td>
+<td>11</td>
+<td>0.11</td>
+<td>0.183821</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>0.184060</td>
+<td>23</td>
+<td>0.23</td>
+<td>0.057621</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>0.285470</td>
+<td>33</td>
+<td>0.33</td>
+<td>0.358174</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-24" class="cell" data-execution_count="35">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dfsample.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="35">
+<pre><code>(30, 4)</code></pre>
+</div>
+</div>
+<div id="cell-25" class="cell" data-execution_count="38">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> dfpop.x.values</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> dfpop.f.values</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> dfpop.y.values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-26" class="cell" data-figure_type="m" data-execution_count="39">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,f, <span class="st">'r-'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f"</span>)<span class="op">;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x[indexes], y[indexes], <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"in-sample y (observed)"</span>)<span class="op">;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"population y"</span>)<span class="op">;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'$x$'</span>)<span class="op">;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'$p_R$'</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In the figure above, one can see the scatter of the <span class="math inline">\(y\)</span> population about the curve of <span class="math inline">\(f\)</span>. The errors of the 30 observation points (“in-sample”) are shown as squares. One can see that observations next to each other can now be fairly different, as we descibed above.</p>
+</section>
+</section>
+<section id="fitting-a-noisy-model" class="level2">
+<h2 class="anchored" data-anchor-id="fitting-a-noisy-model">Fitting a noisy model</h2>
+<p>Let us now try and fit the noisy data we simulated above, both using straight lines (<span class="math inline">\(\cal{H_1}\)</span>), and 20th order polynomials(<span class="math inline">\(\cal{H_{20}}\)</span>).</p>
+<p>What we have done is introduced a noisy target <span class="math inline">\(y\)</span>, so that</p>
+<p><span class="math display">\[y = f(x) + \epsilon\,,\]</span></p>
+<p>where <span class="math inline">\(\epsilon\)</span> is a <strong>random</strong> noise term that represents the stochastic noise.</p>
+<section id="describing-things-probabilistically" class="level3">
+<h3 class="anchored" data-anchor-id="describing-things-probabilistically">Describing things probabilistically</h3>
+<p>Another way to think about a noisy <span class="math inline">\(y\)</span> is to imagine that our data is generated from a joint probability distribution <span class="math inline">\(P(x,y)\)</span>. In our earlier case with no stochastic noise, once you knew <span class="math inline">\(x\)</span>, if I were to give you <span class="math inline">\(f(x)\)</span>, you could give me <span class="math inline">\(y\)</span> exactly. This is now not possible because of the noise <span class="math inline">\(\epsilon\)</span>: we dont know exactly how much noise we have at any given <span class="math inline">\(x\)</span>. Thus we need to model <span class="math inline">\(y\)</span> at a given <span class="math inline">\(x\)</span>, <span class="math inline">\(P(y \mid x)\)</span>, as well using a probability distribution. Since <span class="math inline">\(P(x)\)</span> is also a probability distribution, we have:</p>
+<p><span class="math display">\[P(x,y) = P(y \mid x) P(x) .\]</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/NoisyModelPxy.png" class="img-fluid figure-img"></p>
+<figcaption>The noisy learning framework: target distribution P(y|x) replaces deterministic f(x)</figcaption>
+</figure>
+</div>
+<p>Now the entire learning problem can be cast as a problem in probability <strong>density estimation</strong>: if we can estimate <span class="math inline">\(P(x,y)\)</span> and take actions based on that estimate thanks to our risk or error functional, we are done.</p>
+<p>We now fit in both <span class="math inline">\(\cal{H_1}\)</span> and <span class="math inline">\(\cal{H_{20}}\)</span> to find the best fit straight line and best fit 20th order polynomial respectively.</p>
+<div id="cell-30" class="cell" data-execution_count="40">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>g1 <span class="op">=</span> np.poly1d(np.polyfit(x[indexes],f[indexes],<span class="dv">1</span>))</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>g20 <span class="op">=</span> np.poly1d(np.polyfit(x[indexes],f[indexes],<span class="dv">20</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)</code></pre>
+</div>
+</div>
+<div id="cell-31" class="cell" data-execution_count="41">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>g1noisy <span class="op">=</span> np.poly1d(np.polyfit(x[indexes],y[indexes],<span class="dv">1</span>))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>g20noisy <span class="op">=</span> np.poly1d(np.polyfit(x[indexes],y[indexes],<span class="dv">20</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)</code></pre>
+</div>
+</div>
+<div id="cell-32" class="cell" data-figure_type="w" data-execution_count="42">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>axes<span class="op">=</span>make_plot()</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,f, <span class="st">'r-'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f"</span>)<span class="op">;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x,f, <span class="st">'r-'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f"</span>)<span class="op">;</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x[indexes],y[indexes], <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"y in-sample"</span>)<span class="op">;</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x[indexes],y[indexes], <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"y in-sample"</span>)<span class="op">;</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,g1(x),  <span class="st">'b--'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"$g_1 (no noise)$"</span>)<span class="op">;</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,g1noisy(x), <span class="st">'b:'</span>, lw<span class="op">=</span><span class="dv">4</span>, alpha<span class="op">=</span><span class="fl">0.8</span>, label<span class="op">=</span><span class="st">"$g_1 (noisy)$"</span>)<span class="op">;</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x,g20(x),  <span class="st">'b--'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"$g_10 (no noise)$"</span>)<span class="op">;</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x,g20noisy(x), <span class="st">'b:'</span>, lw<span class="op">=</span><span class="dv">4</span>, alpha<span class="op">=</span><span class="fl">0.8</span>, label<span class="op">=</span><span class="st">"$g_</span><span class="sc">{10}</span><span class="st">$ (noisy)"</span>)<span class="op">;</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The results are (to put it mildly) very interesting.</p>
+<p>Lets look at the figure on the left first. The noise changes the best fit line by a little but not by much. The best fit line still does a very poor job of capturing the variation in the data.</p>
+<p>The best fit 20th order polynomial, in the presence of noise, is very interesting. It tries to follow all the curves of the observations..in other words, it tries to fit the noise. This is a disaster, as you can see if you plot the population (out-of-sample) points on the plot as well:</p>
+<div id="cell-34" class="cell" data-execution_count="43">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,f, <span class="st">'r-'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f"</span>)<span class="op">;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x[indexes],y[indexes], <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"y in-sample"</span>)<span class="op">;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,  <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"population y"</span>)<span class="op">;</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>plt.plot(x,g20noisy(x), <span class="st">'b:'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"$g_</span><span class="sc">{10}</span><span class="st">$ (noisy)"</span>)<span class="op">;</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>plt.ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Whoa. The best-fit 20th order polynomial does a reasonable job fitting the in-sample data, and is even well behaved in the middle where we have a lot of in-sample data points. But at places with less in-sample data points, the polynomial wiggles maniacally.</p>
+<p>This fitting to the noise is a danger you will encounter again and again in learning. Its called <strong>overfitting</strong>. So, <span class="math inline">\(\cal{H_{20}}\)</span> which seemed to be such a good candidate hypothesis space in the absence of noise, ceases to be one. The take away lesson from this is that we must further ensure that our <strong>model does not fit the noise</strong>.</p>
+<p>Lets make a plot similar to the one we made for the deterministic noise earlier, and compare the error in the new <span class="math inline">\(g_1\)</span> and <span class="math inline">\(g_{20}\)</span> fits on the noisy data.</p>
+<div id="cell-36" class="cell" data-figure_type="m" data-execution_count="44">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x, ((g1noisy(x)<span class="op">-</span>f)<span class="op">**</span><span class="dv">2</span>), lw<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="st">"$g_1$"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x, ((g20noisy(x)<span class="op">-</span>f)<span class="op">**</span><span class="dv">2</span>), lw<span class="op">=</span><span class="dv">3</span>,label<span class="op">=</span><span class="st">"$g_</span><span class="sc">{20}</span><span class="st">$"</span>)<span class="op">;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x, [<span class="dv">1</span>]<span class="op">*</span>x.shape[<span class="dv">0</span>], <span class="st">"k:"</span>, label<span class="op">=</span><span class="st">"noise"</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)<span class="op">;</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> indexes[:<span class="op">-</span><span class="dv">1</span>]:</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    plt.axvline(x[i], <span class="dv">0</span>, <span class="dv">1</span>, color<span class="op">=</span><span class="st">'r'</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>plt.axvline(x[indexes[<span class="op">-</span><span class="dv">1</span>]], <span class="dv">0</span>, <span class="dv">1</span>, color<span class="op">=</span><span class="st">'r'</span>, alpha<span class="op">=</span><span class="fl">0.1</span>, label<span class="op">=</span><span class="st">"samples"</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"$x$"</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"population error"</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>plt.yscale(<span class="st">"log"</span>)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Noisy Data"</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-18-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="math inline">\(g_1\)</span> now, for the most part, has a lower error! So you’d be better off by having chosen a set of models with much more bias (the straight lines, <span class="math inline">\(\cal{H}_1\)</span>) than a more complex model set (<span class="math inline">\(\cal{H}_{20}\)</span>) in the case of noisy data.</p>
+</section>
+<section id="the-variance-of-your-model" class="level3">
+<h3 class="anchored" data-anchor-id="the-variance-of-your-model">The Variance of your model</h3>
+<p>This tendency of a more complex model to overfit, by having enough freedom to fit the noise, is described by something called high <strong>variance</strong>. What is variance?</p>
+<p>Variance, simply put, is the “error-bar” or spread in models that would be learnt by training on different data sets <span class="math inline">\(\cal{D_1}, \cal{D_2},...\)</span> drawn from the population. Now, this seems like a circular concept, as in real-life, you do not have access to the population. But since we simulated our data here anyways, we do, and so let us see what happens if we choose <strong>different 30 points randomly from our population of 200</strong>, and fit models in both <span class="math inline">\(\cal{H_1}\)</span> and <span class="math inline">\(\cal{H_{20}}\)</span> to them. We do this on 200 sets of randomly chosen (from the population) data sets of 30 points each and plot the best fit models in noth hypothesis spaces for all 200 sets.</p>
+<div id="cell-40" class="cell" data-execution_count="45">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gen(degree, nsims, size, x, out):</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    outpoly<span class="op">=</span>[]</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(nsims):</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>        indexes<span class="op">=</span>np.sort(np.random.choice(x.shape[<span class="dv">0</span>], size<span class="op">=</span>size, replace<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>        pc<span class="op">=</span>np.polyfit(x[indexes], out[indexes], degree)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>        p<span class="op">=</span>np.poly1d(pc)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>        outpoly.append(p)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> outpoly</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-41" class="cell" data-execution_count="46">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>polys1 <span class="op">=</span> gen(<span class="dv">1</span>, <span class="dv">200</span>, <span class="dv">30</span>,x, y)<span class="op">;</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>polys20 <span class="op">=</span> gen(<span class="dv">20</span>, <span class="dv">200</span>, <span class="dv">30</span>,x, y)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)</code></pre>
+</div>
+</div>
+<div id="cell-42" class="cell" data-figure_type="w" data-execution_count="47">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>axes<span class="op">=</span>make_plot()</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,f, <span class="st">'r-'</span>, lw<span class="op">=</span><span class="dv">3</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f"</span>)<span class="op">;</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x,f, <span class="st">'r-'</span>, lw<span class="op">=</span><span class="dv">3</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f"</span>)<span class="op">;</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x[indexes], y[indexes], <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"data y"</span>)<span class="op">;</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x[indexes], y[indexes], <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"data y"</span>)<span class="op">;</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x, y, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"population y"</span>)<span class="op">;</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x, y, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"population y"</span>)<span class="op">;</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>c<span class="op">=</span>sns.color_palette()[<span class="dv">2</span>]</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i,p <span class="kw">in</span> <span class="bu">enumerate</span>(polys1[:<span class="op">-</span><span class="dv">1</span>]):</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].plot(x,p(x), alpha<span class="op">=</span><span class="fl">0.05</span>, c<span class="op">=</span>c)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,polys1[<span class="op">-</span><span class="dv">1</span>](x), alpha<span class="op">=</span><span class="fl">0.05</span>, c<span class="op">=</span>c,label<span class="op">=</span><span class="st">"$g_1$ from different samples"</span>)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i,p <span class="kw">in</span> <span class="bu">enumerate</span>(polys20[:<span class="op">-</span><span class="dv">1</span>]):</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].plot(x,p(x), alpha<span class="op">=</span><span class="fl">0.05</span>, c<span class="op">=</span>c)</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x,polys20[<span class="op">-</span><span class="dv">1</span>](x), alpha<span class="op">=</span><span class="fl">0.05</span>, c<span class="op">=</span>c, label<span class="op">=</span><span class="st">"$g_</span><span class="sc">{10}</span><span class="st">$ from different samples"</span>)</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:892: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
+  warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-21-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>On the left panel, you see the 200 best fit straight lines, each a fit on a different 30 point training sets from the 200 point population. The best-fit lines bunch together, even if they dont quite capture <span class="math inline">\(f\)</span> (the thick red line) or the data (squares) terribly well.</p>
+<p>On the right panel, we see the same with best-fit models chosen from <span class="math inline">\(\cal{H}_{20}\)</span>. It is a diaster. While most of the models still band around the central trend of the real curve <span class="math inline">\(f\)</span> and data <span class="math inline">\(y\)</span> (and you still see the waves corresponding to all too wiggly 20th order polynomials), a substantial amount of models veer off into all kinds of noisy hair all over the plot. This is <strong>variance</strong>: the the predictions at any given <span class="math inline">\(x\)</span> are all over the place.</p>
+<p>The variance can be seen in a different way by plotting the coefficients of the polynomial fit. Below we plot the coefficients of the fit in <span class="math inline">\(\cal{H}_1\)</span>. The variance is barely 0.2 about the mean for both co-efficients.</p>
+<div id="cell-44" class="cell" data-figure_type="w" data-execution_count="48">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>pdict1<span class="op">=</span>{}</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>pdict20<span class="op">=</span>{}</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">reversed</span>(<span class="bu">range</span>(<span class="dv">2</span>)):</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    pdict1[i]<span class="op">=</span>[]</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j, p <span class="kw">in</span> <span class="bu">enumerate</span>(polys1):</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>        pdict1[i].append(p.c[i])</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">reversed</span>(<span class="bu">range</span>(<span class="dv">21</span>)):</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    pdict20[i]<span class="op">=</span>[]</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j, p <span class="kw">in</span> <span class="bu">enumerate</span>(polys20):</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>        pdict20[i].append(p.c[i]) </span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>df1<span class="op">=</span>pd.DataFrame(pdict1)</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>df20<span class="op">=</span>pd.DataFrame(pdict20)</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">5</span>)) </span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> gridspec</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>gs <span class="op">=</span> gridspec.GridSpec(<span class="dv">1</span>, <span class="dv">2</span>, width_ratios<span class="op">=</span>[<span class="dv">1</span>, <span class="dv">10</span>]) </span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>axes <span class="op">=</span> [plt.subplot(gs[<span class="dv">0</span>]), plt.subplot(gs[<span class="dv">1</span>])]</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">"value"</span>)</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">"coeffs"</span>)</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">"coeffs"</span>)</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>sns.violinplot(df1, ax<span class="op">=</span>axes[<span class="dv">0</span>])<span class="op">;</span></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>sns.violinplot(df20, ax<span class="op">=</span>axes[<span class="dv">1</span>])<span class="op">;</span></span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_yscale(<span class="st">"symlog"</span>)<span class="op">;</span></span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_yscale(<span class="st">"symlog"</span>)<span class="op">;</span></span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylim([<span class="op">-</span><span class="fl">1e12</span>, <span class="fl">1e12</span>])<span class="op">;</span></span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylim([<span class="op">-</span><span class="fl">1e12</span>, <span class="fl">1e12</span>])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/seaborn/categorical.py:1791: UserWarning: The violinplot API has been changed. Attempting to adjust your arguments for the new API (which might not work). Please update your code. See the version 0.6 release notes for more info.
+  warnings.warn(msg, UserWarning)
+//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:892: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
+  warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-22-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In the right panel we plot the coefficients of the fit in <span class="math inline">\(\cal{H}_{20}\)</span>. This is why we use the word “variance”: the spread in the values of the middle coefficients about their means (dashed lines) is of the order <span class="math inline">\(10^{10}\)</span> (the vertical height of the bulges), with huge outliers!! The 20th order polynomial fits are a disaster!</p>
+</section>
+</section>
+<section id="bias-and-variance" class="level2">
+<h2 class="anchored" data-anchor-id="bias-and-variance">Bias and Variance</h2>
+<p>We have so far informally described two different concepts: bias and variance. Bias is deterministic error, the kind of error you get when your model is not expressive enough to describe the data. Variance describes the opposite problem, where it is too expressive.</p>
+<p>Every model has some bias and some variance. Clearly, you dont want either to dominate, which is something we’ll worry about soon.</p>
+<p>Let us mathematically understand what bias and variance are, so that we can use these terms more precisely from now onwards. Follow carefully to see how our calculation mimics the code/process we used above.</p>
+<p><span class="math display">\[\renewcommand{\gcald}{g_{\cal D}}\]</span> <span class="math display">\[\renewcommand{\ecald}{E_{\cal{D}}}\]</span></p>
+<p>We had from <a href="noiseless_learning.html">noiseless learning</a>:</p>
+<p><span class="math display">\[R_{out}(h) =  E_{p(x)}[(h(x) - f(x))^2] = \int dx p(x)  (h(x) - f(x))^2 .\]</span></p>
+<p>In the presence of noise <span class="math inline">\(\epsilon\)</span> which we shall assume to be 0-mean, variance <span class="math inline">\(\sigma^2\)</span> noise, we have <span class="math inline">\(y = f(x) + \epsilon\)</span> and the above formula becomes:</p>
+<p><span class="math display">\[R_{out}(h) =  E_{p(x)}[(h(x) - y)^2] = \int dx p(x)  (h(x) - f(x) - \epsilon)^2 .\]</span></p>
+<p>Now let us use Empirical Risk minimization to fit on our training set. We come up with a best fit hypothesis <span class="math inline">\(h = \gcald\)</span>, where <span class="math inline">\(\cal{D}\)</span> is our training sample.</p>
+<p><span class="math display">\[R_{out}(\gcald) =  E_{p(x)}[(\gcald(x) - f(x) - \epsilon)^2] \]</span></p>
+<p>Let us compute the expectation of this quantity with respect to the sampling distribution obtained by choosing different samples from the population. Note that we cant really do this if we have been only given one training set, but in this document, we have had access to the population and can thus experiment.</p>
+<p>Define:</p>
+<p><span class="math display">\[\langle  R \rangle = E_{\cal{D}} [R_{out}(\gcald)] =  E_{\cal{D}}E_{p(x)}[(\gcald(x) - f(x) - \epsilon)^2] \]</span></p>
+<p><span class="math display">\[
+\begin{eqnarray*}
+=&amp; E_{p(x)}\ecald[(\gcald(x) - f(x) - \epsilon)^2]\\
+=&amp; E_{p(x)}[\ecald[\gcald^2] +  f^2 + \epsilon^2 - 2\,f\,\ecald[\gcald]]
+\end{eqnarray*}
+\]</span></p>
+<p>Define:</p>
+<p><span class="math display">\[ \bar{g} = \ecald[\gcald] = (1/M)\sum_{\cal{D}} \gcald\]</span></p>
+<p>as the average “g” over all the fits (M of them) on the different samples, so that we can write, adding and subtracting <span class="math inline">\(\bar{g}^2\)</span>:</p>
+<p><span class="math display">\[\langle  R \rangle =  E_{p(x)}[\ecald[\gcald^2] - \bar{g}^2 +  f^2 - 2\,f\,\bar{g} + \bar{g}^2 + \epsilon^2 ] = E_{p(x)}[\ecald[(\gcald - \bar{g})^2]  +  (f - \bar{g})^2 + \epsilon^2 ]\]</span></p>
+<p>Thus:</p>
+<p><span class="math display">\[\langle  R \rangle =  E_{p(x)}[\ecald[(\gcald - \bar{g})^2]] + E_{p(x)}[(f - \bar{g})^2] + \sigma^2\]</span></p>
+<p>The first term here is called the <strong>variance</strong>, and captures the squared error of the various fit g’s from the average g, or in other words, the hairiness. The second term is called the <strong>bias</strong>, and tells us, how far the average g is from the original f this data came from. Finally the third term is the <strong>stochastic noise</strong>, the minimum error that this model will always have.</p>
+<p>Note that if we set the stochastic noise to 0 we get back the noiseless model we started out with. So even in a noiseless model, we do have bias and variance. This is because we still have sampling noise in such a model, and this is one of the sources of variance.</p>
+</section>
+<section id="so-far" class="level2">
+<h2 class="anchored" data-anchor-id="so-far">So far?</h2>
+<ul>
+<li>you have learnt the basic formulation of the learning problem, the concept of a hypothesis space, and a strategy using minimization of distance (called cost or risk) to find the best fit model for the target function from this hypothesis space.</li>
+<li>You learned the effect of noise on this fit, and the issues that crop up in learning target functions from data, chiefly the problem of overfitting to this noise.</li>
+</ul>
+<p>The process of learning has two parts:</p>
+<ol type="1">
+<li>Fit for a model by minimizing the in-sample risk</li>
+<li>Hope that the in-sample risk approximates the out-of-sample risk well.</li>
+</ol>
+<p>Mathematically, we are saying that:</p>
+<p><span class="math display">\[
+\begin{eqnarray*}
+A &amp;:&amp; R_{\cal{D}}(g) \,\,smallest\,on\,\cal{H}\\
+B &amp;:&amp; R_{out} (g) \approx R_{\cal{D}}(g)
+\end{eqnarray*}
+\]</span></p>
+<p>Well, we are scientists. Just hoping does not befit us. But we only have a sample. What are we to do? We can model the in-sample risk and out-of-sample risk. And we can use a test set to estimate our out of sample risk, as we see <a href="testingtraining.html">here</a>.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<!-- Inject yin-yang brand icon into navbar -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Find the navbar brand
+  const navbarBrand = document.querySelector('.navbar-brand');
+  if (navbarBrand) {
+    // Create the brand mark element
+    const brandMark = document.createElement('span');
+    brandMark.className = 'brand-mark';
+    brandMark.innerHTML = '<i class="bi bi-yin-yang"></i>';
+
+    // Insert at the beginning of navbar brand
+    navbarBrand.insertBefore(brandMark, navbarBrand.firstChild);
+  }
+});
+</script>
+<div id="discuss-links" style="margin-top: 2.5rem; padding-top: 1.5rem; margin-bottom: 4rem; border-top: 1px solid var(--color-border, #ddd);">
+  <p style="font-family: var(--font-mono, monospace); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted, #666); margin-bottom: 0.75rem;">Discuss this post</p>
+  <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+    <a id="discuss-twitter" href="#" target="_blank" rel="noopener" style="font-size: 0.9rem;">X / Twitter</a>
+    <a id="discuss-bluesky" href="#" target="_blank" rel="noopener" style="font-size: 0.9rem;">Bluesky</a>
+    <a id="discuss-linkedin" href="#" target="_blank" rel="noopener" style="font-size: 0.9rem;">LinkedIn</a>
+  </div>
+</div>
+<script>
+(function() {
+  var p = window.location.pathname;
+  var isContent = p.startsWith("/posts/") || p.startsWith("/til/") || p.startsWith("/collections/");
+  var isListing = (p === "/posts/" || p === "/posts" || p === "/til/" || p === "/til" || p === "/collections/" || p === "/collections");
+  if (!isContent || isListing) {
+    document.getElementById("discuss-links").style.display = "none";
+    return;
+  }
+
+  var url = encodeURIComponent(window.location.href);
+  var title = encodeURIComponent(document.title);
+
+  document.getElementById("discuss-twitter").href =
+    "https://twitter.com/intent/tweet?text=" + title + "&url=" + url + "&via=rahuldave";
+  document.getElementById("discuss-bluesky").href =
+    "https://bsky.app/intent/compose?text=" + title + " " + encodeURIComponent(window.location.href);
+  document.getElementById("discuss-linkedin").href =
+    "https://www.linkedin.com/sharing/share-offsite/?url=" + url;
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/rahuldave\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

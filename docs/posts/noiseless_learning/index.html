@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2025-02-28">
+<meta name="description" content="Introduces the learning problem through a noiseless example: fitting polynomial models to data, measuring in-sample vs out-of-sample error, and understanding how hypothesis space complexity drives bias. Builds intuition for empirical risk minimization before adding stochastic noise.">
+
+<title>Learning Without Noise – rahuldave</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-e0d64750a3675fa668af59a9862b8111.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-d2fef15c612ec386ae0907ffd6f4ccdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-a009389674a9596cea61ac77c12264b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-d2fef15c612ec386ae0907ffd6f4ccdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<!-- Google Fonts: Bitter (headings) + Source Serif 4 (body) + IBM Plex Mono (code) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+
+<!-- Bootstrap Icons for brand mark and UI elements -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Learning Without Noise – rahuldave">
+<meta property="og:description" content="Introduces the learning problem through a noiseless example: fitting polynomial models to data, measuring in-sample vs out-of-sample error, and understanding how hypothesis space complexity drives bias. Builds intuition for empirical risk minimization before adding stochastic noise.">
+<meta property="og:image" content="https://rahuldave.github.io/posts/noiseless_learning/index_files/figure-html/cell-5-output-1.png">
+<meta property="og:site_name" content="rahuldave">
+<meta property="og:image:height" content="539">
+<meta property="og:image:width" content="773">
+<meta name="twitter:title" content="Learning Without Noise – rahuldave">
+<meta name="twitter:description" content="Introduces the learning problem through a noiseless example: fitting polynomial models to data, measuring in-sample vs out-of-sample error, and understanding how hypothesis space complexity drives bias. Builds intuition for empirical risk minimization before adding stochastic noise.">
+<meta name="twitter:image" content="https://rahuldave.github.io/posts/noiseless_learning/index_files/figure-html/cell-5-output-1.png">
+<meta name="twitter:creator" content="@rahuldave">
+<meta name="twitter:image-height" content="539">
+<meta name="twitter:image-width" content="773">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">rahuldave</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../posts.html"> 
+<span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../til.html"> 
+<span class="menu-text">TIL</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../collections.html"> 
+<span class="menu-text">Collections</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#learning-a-model" id="toc-learning-a-model" class="nav-link active" data-scroll-target="#learning-a-model">Learning a model</a>
+  <ul class="collapse">
+  <li><a href="#contents" id="toc-contents" class="nav-link" data-scroll-target="#contents">Contents</a></li>
+  <li><a href="#the-process-of-learning" id="toc-the-process-of-learning" class="nav-link" data-scroll-target="#the-process-of-learning">The process of learning</a>
+  <ul class="collapse">
+  <li><a href="#a-real-simple-model" id="toc-a-real-simple-model" class="nav-link" data-scroll-target="#a-real-simple-model">A real simple model</a></li>
+  <li><a href="#the-hypothesis-or-model-space" id="toc-the-hypothesis-or-model-space" class="nav-link" data-scroll-target="#the-hypothesis-or-model-space">The Hypothesis or Model Space</a></li>
+  <li><a href="#deterministic-error-or-bias" id="toc-deterministic-error-or-bias" class="nav-link" data-scroll-target="#deterministic-error-or-bias">Deterministic Error or Bias</a></li>
+  </ul></li>
+  <li><a href="#how-to-learn-the-best-fit-model-in-a-hypothesis-space" id="toc-how-to-learn-the-best-fit-model-in-a-hypothesis-space" class="nav-link" data-scroll-target="#how-to-learn-the-best-fit-model-in-a-hypothesis-space">How to learn the best fit model in a hypothesis space</a>
+  <ul class="collapse">
+  <li><a href="#the-structure-of-learning" id="toc-the-structure-of-learning" class="nav-link" data-scroll-target="#the-structure-of-learning">The Structure of Learning</a></li>
+  <li><a href="#out-of-sample-and-in-sample" id="toc-out-of-sample-and-in-sample" class="nav-link" data-scroll-target="#out-of-sample-and-in-sample">Out-of-Sample and in-sample</a></li>
+  <li><a href="#the-relation-to-the-law-of-large-numbers." id="toc-the-relation-to-the-law-of-large-numbers." class="nav-link" data-scroll-target="#the-relation-to-the-law-of-large-numbers.">The relation to the Law of Large Numbers.</a></li>
+  </ul></li>
+  <li><a href="#statement-of-the-learning-problem." id="toc-statement-of-the-learning-problem." class="nav-link" data-scroll-target="#statement-of-the-learning-problem.">Statement of the learning problem.</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<!-- Theme toggle persistence script -->
+<script>
+(function() {
+  // Check for saved theme preference, otherwise use system preference
+  const savedTheme = localStorage.getItem('quarto-color-scheme');
+  if (savedTheme) {
+    document.documentElement.setAttribute('data-bs-theme', savedTheme);
+  }
+
+  // Listen for theme changes (Quarto's built-in toggle) and persist
+  const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.attributeName === 'data-bs-theme') {
+        const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+        if (currentTheme) {
+          localStorage.setItem('quarto-color-scheme', currentTheme);
+        }
+      }
+    });
+  });
+
+  // Start observing once DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      observer.observe(document.documentElement, { attributes: true });
+    });
+  } else {
+    observer.observe(document.documentElement, { attributes: true });
+  }
+})();
+</script>
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Learning Without Noise</h1>
+<p class="subtitle lead">What happens when you fit a model to perfect data.</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">statistics</div>
+    <div class="quarto-category">models</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Introduces the learning problem through a noiseless example: fitting polynomial models to data, measuring in-sample vs out-of-sample error, and understanding how hypothesis space complexity drives bias. Builds intuition for empirical risk minimization before adding stochastic noise.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 28, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="learning-a-model" class="level1">
+<h1>Learning a model</h1>
+<section id="keywords-empirical-risk-minimization-bias-sampling-distribution-hypothesis-space-law-of-large-numbers-deterministic-error-training-error-out-of-sample-error" class="level5">
+<h5 class="anchored" data-anchor-id="keywords-empirical-risk-minimization-bias-sampling-distribution-hypothesis-space-law-of-large-numbers-deterministic-error-training-error-out-of-sample-error">Keywords: empirical risk minimization, bias, sampling distribution, hypothesis space, law of large numbers, deterministic error, training error, out-of-sample error</h5>
+</section>
+<section id="contents" class="level2">
+<h2 class="anchored" data-anchor-id="contents">Contents</h2>
+<p>{:.no_toc} *<br>
+{: toc}</p>
+<div id="cell-3" class="cell" data-hide="true" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib <span class="im">as</span> mpl</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.cm <span class="im">as</span> cm</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.width'</span>, <span class="dv">500</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_columns'</span>, <span class="dv">100</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.notebook_repr_html'</span>, <span class="va">True</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">"whitegrid"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>sns.set_context(<span class="st">"poster"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
+  warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
+</div>
+</div>
+<div id="cell-4" class="cell" data-hide="true" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_simple_plot():</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    fig, axes<span class="op">=</span>plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">5</span>), nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylabel(<span class="st">"$y$"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_yticklabels([])</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylim([<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>])</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_ylim([<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>])</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()<span class="op">;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> axes</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_plot():</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    fig, axes<span class="op">=</span>plt.subplots(figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">8</span>), nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylabel(<span class="st">"$p_R$"</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_yticklabels([])</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_xlim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_xlim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()<span class="op">;</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> axes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="the-process-of-learning" class="level2">
+<h2 class="anchored" data-anchor-id="the-process-of-learning">The process of learning</h2>
+<p>There are challenges that occur in learning a model from data:</p>
+<ul>
+<li>small samples of data</li>
+<li>noise in the data</li>
+<li>issues related to the complexity of the models we use</li>
+</ul>
+<p>Let us first ask the question: what is he process of learning from data in the absence of noise. This never really happens, but it is a way for us to understand the theory of <strong>approximation</strong>, and lets us build a base for understanding the learning from data with noise.</p>
+<p>Lets say we are trying to predict is a human process such as an election. Here economic and sociological factors are important, such as poverty, race and religiousness. There are historical correlations between such factors and election outcomes which we might want to incorporate into our model. An example of such a model might be:</p>
+<p><em>The odds of Romney winning a county against Obama in 2012 are a function of population religiosity, race, poverty, education, and other social and economic indicators. </em></p>
+<p>Our <strong>causal</strong> argument motivating this model here might be that religious people are more socially conservative and thus more likely to vote republican. This might not be the correct causation, but thats not entirely important for the prediction.</p>
+<p>As long as a <strong>correlation</strong> exists, our model is more structured than 50-50 randomness, and we can try and make a prediction. Remember of-course, our model may even be wrong (see Box’s aphorism: https://en.wikipedia.org/wiki/All_models_are_wrong).</p>
+<p>We’ll represent the variable being predicted, such as the probability of voting for Romney, by the letter <span class="math inline">\(y\)</span>, and the <strong>features</strong> or <strong>co-variates</strong> we use as an input in this probability by the letter <span class="math inline">\(x\)</span>. This <span class="math inline">\(x\)</span> could be multi-dimensional, with <span class="math inline">\(x_1\)</span> being poverty, <span class="math inline">\(x_2\)</span> being race, and so on.</p>
+<p>We then write</p>
+<p><span class="math display">\[ y = f(x) \]</span></p>
+<p>and our jobs is to take <span class="math inline">\(x\)</span> such as data from the census about race, religiousness, and so on, and <span class="math inline">\(y\)</span> as previous elections and the results of polls that pollsters come up with, and to make a predictive model for the elections. That is, we wish to estimate <span class="math inline">\(f(x)\)</span>.</p>
+<section id="a-real-simple-model" class="level3">
+<h3 class="anchored" data-anchor-id="a-real-simple-model">A real simple model</h3>
+<p>To gently step feet in the modelling world, lets see consider very simple model, where the probability of voting for Romney is a function only of how religious the population in a county is. This is a model I’ve cooked up, and the data is fake.</p>
+<p>Let <span class="math inline">\(x\)</span> be the fraction of religious people in a county and <span class="math inline">\(y\)</span> be the probability of voting for Romney as a function of <span class="math inline">\(x\)</span>. In other words <span class="math inline">\(y_i\)</span> is data that pollsters have taken which tells us their estimate of people voting for Romney and <span class="math inline">\(x_i\)</span> is the fraction of religious people in county <span class="math inline">\(i\)</span>. Because poll samples are finite, there is a margin of error on each data point or county <span class="math inline">\(i\)</span>, but we will ignore that for now.</p>
+<p>Let us assume that we have a “population” of 200 counties <span class="math inline">\(x\)</span>:</p>
+<div id="cell-11" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df<span class="op">=</span>pd.read_csv(<span class="st">"data/religion.csv"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">promney</th>
+<th data-quarto-table-cell-role="th">rfrac</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>0.047790</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>0.051199</td>
+<td>0.01</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>0.054799</td>
+<td>0.02</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>0.058596</td>
+<td>0.03</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>0.062597</td>
+<td>0.04</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Lets suppose now that the Lord came by and told us that the points in the plot below captures <span class="math inline">\(f(x)\)</span> exactly. In other words, there is no specification error, and God knows the generating process exactly.</p>
+<div id="cell-13" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>df.rfrac.values</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>f<span class="op">=</span>df.promney.values</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x,f,<span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Notice that our sampling of <span class="math inline">\(x\)</span> is not quite uniform: there are more points around <span class="math inline">\(x\)</span> of 0.7.</p>
+<p>Now, in real life we are only given a sample of points. Lets assume that out of this population of 200 points we are given a sample <span class="math inline">\(\cal{D}\)</span> of 30 data points. Such data is called <strong>in-sample data</strong>. Contrastingly, the entire population of data points is also called <strong>out-of-sample data</strong>.</p>
+<div id="cell-15" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#indexes=np.sort(np.random.choice(x.shape[0], size=30, replace=False))</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>dfsample <span class="op">=</span> pd.read_csv(<span class="st">"data/noisysample.csv"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>dfsample.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div>
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">f</th>
+<th data-quarto-table-cell-role="th">i</th>
+<th data-quarto-table-cell-role="th">x</th>
+<th data-quarto-table-cell-role="th">y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>0.075881</td>
+<td>7</td>
+<td>0.07</td>
+<td>0.138973</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>0.085865</td>
+<td>9</td>
+<td>0.09</td>
+<td>0.050510</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>0.096800</td>
+<td>11</td>
+<td>0.11</td>
+<td>0.183821</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>0.184060</td>
+<td>23</td>
+<td>0.23</td>
+<td>0.057621</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>0.285470</td>
+<td>33</td>
+<td>0.33</td>
+<td>0.358174</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-16" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>indexes <span class="op">=</span> dfsample.i.values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-17" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>samplex <span class="op">=</span> x[indexes]</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>samplef <span class="op">=</span> f[indexes]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-18" class="cell" data-figure_type="w" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>axes<span class="op">=</span>make_plot()</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,f, <span class="st">'k-'</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">"f (from the Lord)"</span>)<span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x,f, <span class="st">'r.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, label<span class="op">=</span><span class="st">"population"</span>)<span class="op">;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(samplex,samplef, <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"in-sample data $</span><span class="er">\</span><span class="st">cal</span><span class="sc">{D}</span><span class="st">$"</span>)<span class="op">;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The lightly shaded squares in the right panel plot are the in-sample <span class="math inline">\(\cal{D}\)</span> of 30 points given to us. Let us then pretend that we have forgotten the curve that the Lord gave us. Thus, all we know is the blue points on the plot on the right, and we have no clue about what the original curve was, nor do we remember the original “population”.</p>
+<p>That is, imagine the Lord gave us <span class="math inline">\(f\)</span> but then also gave us amnesia. Remember that such amnesia is the general case in learning, where we <em>do not know</em> the target function, but rather just have some data. Thus what we will be doing is <em>trying to find functions that might have generated the 30 points of data that we can see</em> in the hope that one of these functions might approximate <span class="math inline">\(f\)</span> well, and provide us a <strong>predictive model</strong> for future data. This is known as <strong>fitting</strong> the data.</p>
+</section>
+<section id="the-hypothesis-or-model-space" class="level3">
+<h3 class="anchored" data-anchor-id="the-hypothesis-or-model-space">The Hypothesis or Model Space</h3>
+<p>Such a function, one that we use to fit the data, is called a <strong>hypothesis</strong>. We’ll use the notation <span class="math inline">\(h\)</span> to denote a hypothesis. Lets consider as hypotheses for the data above, a particular class of functions called polynomials.</p>
+<p>A polynomial is a function that combines multiple powers of x linearly. You’ve probably seen these in school, when working with quadratic or cubic equations and functions:</p>
+<p><span class="math display">\[
+\begin{align*}
+h(x) &amp;=&amp; 9x - 7 &amp;&amp; \,(straight\, line) \\
+h(x) &amp;=&amp; 4x^2 + 3x + 2 &amp;&amp; \,(quadratic) \\
+h(x) &amp;=&amp; 5x^3 - 31x^2 + 3x  &amp;&amp; \,(cubic).
+\end{align*}
+\]</span></p>
+<p>In general, a polynomial can be written thus:</p>
+<p><span class="math display">\[
+\begin{eqnarray*}
+h(x) &amp;=&amp; a_0 + a_1 x^1 + a_2 x^2 + ... + a_n x^n \\
+      &amp;=&amp; \sum_{i=0}^{n} a_i x^i
+\end{eqnarray*}
+\]</span></p>
+<p>Thus, by linearly we mean a sum of coefficients <span class="math inline">\(a_i\)</span> times powers of <span class="math inline">\(x\)</span>, <span class="math inline">\(x^i\)</span>. In other words, the polynomial is <strong>linear in its coefficients</strong>.</p>
+<p>Let us consider as the function we used to fit the data, a hypothesis <span class="math inline">\(h\)</span> that is a straight line. We put the subscript <span class="math inline">\(1\)</span> on the <span class="math inline">\(h\)</span> to indicate that we are fitting the data with a polynomial of order 1, or a straight line. This looks like:</p>
+<p><span class="math display">\[ h_1(x) = a_0 + a_1 x \]</span></p>
+<p>We’ll call the <strong>best fit</strong> straight line the function <span class="math inline">\(g_1(x)\)</span>. The “best fit” idea is this: amongst the set of all lines (i.e., all possible choices of <span class="math inline">\(h_1(x)\)</span>), what is the best line <span class="math inline">\(g_1(x)\)</span> that represents the in-sample data we have? (The subscript <span class="math inline">\(1\)</span> on <span class="math inline">\(g\)</span> is chosen to indicate the best fit polynomial of degree 1, ie the line amongst lines that fits the data best).</p>
+<p>The best fit <span class="math inline">\(g_1(x)\)</span> is calculated and shown in the figure below:</p>
+<div id="cell-23" class="cell" data-figure_type="m" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>g1 <span class="op">=</span> np.poly1d(np.polyfit(x[indexes],f[indexes],<span class="dv">1</span>))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x[indexes],f[indexes], <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"in-sample"</span>)<span class="op">;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x,g1(x), <span class="st">'b--'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"$g_1$"</span>)<span class="op">;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>How did we calculate the best fit? We’ll come to that in a bit, but in the meanwhile, lets formalize and generalize the notion of “best fit line amongst lines” a bit.</p>
+<p>The set of all functions of a particular kind that we could have used to fit the data is called a <strong>Hypothesis Space</strong>. The words “particular kind” are deliberately vague: its our choice as to what we might want to put into a hypothesis space. A hypothesis space is denoted by the notation <span class="math inline">\(\cal{H}\)</span>.</p>
+<p>Lets consider the hypothesis space of all straight lines <span class="math inline">\(h_1(x)\)</span>. We’ll denote it as <span class="math inline">\(\cal{H}_1\)</span>, with the subscript being used to mark the order of the polynomial. Another such space might be <span class="math inline">\(\cal{H}_2\)</span>, the hypothesis space of all quadratic functions. A third such space might combine both of these together. We get to choose what we want to put into our hypothesis space.</p>
+<p>In this set-up, what we have done in the code and plot above is this: we have found the best <span class="math inline">\(g_1\)</span> to the data <span class="math inline">\(\cal{D}\)</span> from the functions in the hypothesis space <span class="math inline">\(\cal{H}_1\)</span>. This is not the best fit from all possible functions, but rather, the best fit from the set of all the straight lines.</p>
+<p>The hypothesis space is a concept we can use if we want to capture the <strong>complexity</strong> of a model you use to fit data. For example, since quadratics are more complex functions than straight lines (they curve more), <span class="math inline">\(\cal{H}_2\)</span> is more complex than <span class="math inline">\(\cal{H}_1\)</span>.</p>
+</section>
+<section id="deterministic-error-or-bias" class="level3">
+<h3 class="anchored" data-anchor-id="deterministic-error-or-bias">Deterministic Error or Bias</h3>
+<p>Notice from the figure above that models in <span class="math inline">\(\cal{H}_1\)</span>, i.e., straight lines, and the best-fit straight line <span class="math inline">\(g_1\)</span> in particular, do not do a very good job of capturing the curve of the data (and thus the underlying function <span class="math inline">\(f\)</span> that we are trying to approximate. Consider the more general case in the figure below, where a curvy <span class="math inline">\(f\)</span> is approximated by a function <span class="math inline">\(g\)</span> which just does not have the wiggling that <span class="math inline">\(f\)</span> has.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/bias.png" class="img-fluid figure-img"></p>
+<figcaption>Approximation bias: the gap between true function f and best-fit hypothesis g</figcaption>
+</figure>
+</div>
+<p>There is always going to be an error then, in approximating <span class="math inline">\(f\)</span> by <span class="math inline">\(g\)</span>. This <em>approximation error</em> is shown in the figure by the blue shaded region, and its called <strong>bias</strong>, or <strong>deterministic error</strong>. The former name comes from the fact that <span class="math inline">\(g\)</span> just does not wiggle the way <span class="math inline">\(f\)</span> does (nothing will make a straight line curve). The latter name (which I first saw used in http://www.amlbook.com/ ) comes from the notion that if you did not know the target function <span class="math inline">\(f\)</span>, which is the case in most learning situations, you would have a hard time distinguishing this error from any other errors such as measurement and noise…</p>
+<p>Going back to our model at hand, it is clear that the space of straight lines <span class="math inline">\(\cal{H_1}\)</span> does not capture the curving in the data. So let us consider the more complex hypothesis space <span class="math inline">\(\cal{H_{20}}\)</span>, the set of all 20th order polynomials <span class="math inline">\(h_{20}(x)\)</span>:</p>
+<p><span class="math display">\[h_{20}(x) = \sum_{i=0}^{20} a_i x^i\,.\]</span></p>
+<p>To see how a more complex hypothesis space does, lets find the best fit 20th order polynomial <span class="math inline">\(g_{20}(x)\)</span>.</p>
+<div id="cell-29" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>g20 <span class="op">=</span> np.poly1d(np.polyfit(x[indexes],f[indexes],<span class="dv">20</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
+  warnings.warn(msg, RankWarning)</code></pre>
+</div>
+</div>
+<div id="cell-30" class="cell" data-figure_type="m" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x[indexes],f[indexes], <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"in-sample"</span>)<span class="op">;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x,g20(x), <span class="st">'b--'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"$g_</span><span class="sc">{10}</span><span class="st">$"</span>)<span class="op">;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Voila! You can see the 20th order polynomial does a much better job of tracking the points, because of the wiggle room it has in making a curve “go near or through” all the points as opposed to a straight line, which well, cant curve. Thus it would seem that <span class="math inline">\(\cal{H}_{20}\)</span> might be a better candidate hypothesis set from which to choose a best fit model.</p>
+<p>We can quantify this by calculating some notion of the bias for both <span class="math inline">\(g_1\)</span> and <span class="math inline">\(g_{20}\)</span>. To do this we calculate the square of the difference between f and the g’s on the population of 200 points i.e.:</p>
+<p><span class="math display">\[B_1(x) = (g_1(x) - f(x))^2 \,;\,\, B_{20}(x) = (g_{20}(x) - f(x))^2\,.\]</span></p>
+<p>Squaring makes sure that we are calculating a positive quantity.</p>
+<div id="cell-32" class="cell" data-figure_type="m" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x, (g1(x)<span class="op">-</span>f)<span class="op">**</span><span class="dv">2</span>, lw<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="st">"$B_1(x)$"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x, (g20(x)<span class="op">-</span>f)<span class="op">**</span><span class="dv">2</span>, lw<span class="op">=</span><span class="dv">3</span>,label<span class="op">=</span><span class="st">"$B_</span><span class="sc">{20}</span><span class="st">(x)$"</span>)<span class="op">;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"$x$"</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"population error"</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>plt.yscale(<span class="st">"log"</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Bias"</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As you can see the <strong>bias or approximation error</strong> is much smaller for <span class="math inline">\(g_{20}\)</span>.</p>
+<p>Is <span class="math inline">\(g_{20}\)</span> the best model for this data from all possible models? Indeed, how do we find the best fit model from the best hypothesis space? This is what <strong>learning</strong> is all about.</p>
+<p>We have used the python function <code>np.polyfit</code> to find <span class="math inline">\(g_{1}\)</span> the best fit model in <span class="math inline">\(\cal{H_1}\)</span> and <span class="math inline">\(g_{20}\)</span> the best fit model in <span class="math inline">\(\cal{H_{20}}\)</span>, but how did we arrive at that conclusion? This is the subject of the next section.</p>
+</section>
+</section>
+<section id="how-to-learn-the-best-fit-model-in-a-hypothesis-space" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-learn-the-best-fit-model-in-a-hypothesis-space">How to learn the best fit model in a hypothesis space</h2>
+<p>Let’s understand in an intuitive sense, what it means for a function to be a good fit to the data. Lets consider, for now, only the hypothesis space <span class="math inline">\(\cal{H}_{1}\)</span>, the set of all straight lines. In the figure below, we draw against the data points (in red) one such line <span class="math inline">\(h_1(x)\)</span> (in red).</p>
+<p>You might think you want to do this statistically, using ML Estimation or similar, but note that at this point there is no statistical notion of a generating process. We’re just trying to approximate a function by another, with the latter being chosen amongst many in a hypothesis space.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/linreg.png" class="img-fluid figure-img"></p>
+<figcaption>Linear regression fit with residuals shown</figcaption>
+</figure>
+</div>
+<p>The natural way of thinking about a “best fit” would be to minimize the distance from the line to the points, for some notion of distance. In the diagram we depict one such notion of distance: the vertical distance from the points to the line. These distances are represented as thin black lines.</p>
+<p>The next question that then arises is this: how exactly we define the measure of this vertical distance? We cant take the measure of distance to be the y-value of the point minus the y value of the line at the same x, ie <span class="math inline">\(y_i - h_1(x_i)\)</span>. Why? If we did this, then we could have points very far from the line, and as long as the total distance above was equal to the total distance below the line, we’d get a net distance of 0 even when the line is very far from the points.</p>
+<p>Thus we must use a positive estimate of the distance as our measure. We could take either the absolute value of the distance, <span class="math inline">\(\vert y_i - h_1(x_i) \vert\)</span>, or the square of the distance as our measure, <span class="math inline">\((y_i - h_1(x_i))^2\)</span>. Both are reasonable choices, and we shall use the squared distance for now. (Now its probably clear to you why we defined bias in the last section as the pointwise square of the distance).</p>
+<p>We sum this measure up over all our data points, to create whats known as the <strong>error functional</strong> or <strong>risk functional</strong> (also just called <strong>error</strong>, <strong>cost</strong>, or <strong>risk</strong>) of using line <span class="math inline">\(h_1(x)\)</span> to fit our points <span class="math inline">\(y_i \in \cal{D}\)</span> (this notation is to be read as “<span class="math inline">\(y_i\)</span> in <span class="math inline">\(\cal{D}\)</span>”) :</p>
+<p><span class="math display">\[ R_{\cal{D}}(h_i(x)) = \frac{1}{N} \sum_{y_i \in \cal{D}} (y_i - h_1(x_i))^2 \]</span></p>
+<p>where <span class="math inline">\(N\)</span> is the number of points in <span class="math inline">\(\cal{D}\)</span>.</p>
+<p>What this formula says is: the cost or risk is just the total squared distance to the line from the observation points. Here we use the word <strong>functional</strong> to denote that, just as in functional programming, the risk is a <em>function of the function</em> <span class="math inline">\(h_1(x)\)</span>.</p>
+<p>We also make explicit the in-sample data <span class="math inline">\(\cal{D}\)</span>, because the value of the risk depends upon the points at which we made our observation. If we had made these observations <span class="math inline">\(y_i\)</span> at a different set of <span class="math inline">\(x_i\)</span>, the value of the risk would be somewhat different. The hope in learning is that the risk will not be too different, as we shall see in the next section</p>
+<p>Now, given these observations, and the hypothesis space <span class="math inline">\(\cal{H}_1\)</span>, we minimize the risk over all possible functions in the hypothesis space to find the <strong>best fit</strong> function <span class="math inline">\(g_1(x)\)</span>:</p>
+<p><span class="math display">\[ g_1(x) = \arg\min_{h_1(x) \in \cal{H}} R_{\cal{D}}(h_1(x)).\]</span></p>
+<p>Here the notation</p>
+<p><span class="math inline">\("\arg\min_{x} F(x)"\)</span></p>
+<p>means: give me the argument of the functional <span class="math inline">\(x\)</span> at which <span class="math inline">\(F(x)\)</span> is minmized. So, for us: give me the function <span class="math inline">\(g_1(x) = h_1\)</span> at which the risk <span class="math inline">\(R_{\cal{D}}(h_1)\)</span> is minimized; i.e.&nbsp;the minimization is over <em>functions</em> <span class="math inline">\(h_1\)</span>.</p>
+<p>And this is exactly what the python function <code>np.polyfit(x,h,n)</code> does for us. It minimizes this squared-error with respect to the coefficients of the polynomial.</p>
+<p>Thus we can in general write:</p>
+<p><span class="math display">\[ g(x) = \arg\min_{h(x) \in \cal{H}} R_{\cal{D}}(h(x)),\]</span></p>
+<p>where <span class="math inline">\(\cal{H}\)</span> is a general hypothesis space of functions.</p>
+<section id="the-structure-of-learning" class="level3">
+<h3 class="anchored" data-anchor-id="the-structure-of-learning">The Structure of Learning</h3>
+<p>We have a target function <span class="math inline">\(f(x)\)</span> that we do not know. But we do have a sample of data points from it, <span class="math inline">\((x_1,y_1), (x_2,y_2), ..., (x_n,y_n)\)</span>. We call this the <strong>sample</strong> or <strong>training examples</strong> <span class="math inline">\(\cal{D}\)</span>. We are interested in using this sample to estimate a function <span class="math inline">\(g\)</span> to approximate the function <span class="math inline">\(f\)</span>, and which can be used for prediction at new data points, or on the entire population, also called <strong>out-of-sample prediction</strong>.</p>
+<p>Notice the way that statistics comes into this approximation problem is from the notion that we are trying to reconstruct the original function from a small-ish sample rather than a large-ish population.</p>
+<p>To do this, we use an algorithm, called the <strong>learner</strong>, which chooses functions from a hypothesis set <span class="math inline">\(\cal{H}\)</span> and computes a cost measure or risk functional <span class="math inline">\(R\)</span> (like the sum of the squared distance over all points in the data set) for each of these functions. It then chooses the function <span class="math inline">\(g\)</span> which <strong>minimizes</strong> this cost measure amonst all the functions in <span class="math inline">\(\cal{H}\)</span>, and thus gives us a final hypothesis <span class="math inline">\(g\)</span> which we then use to approximate or estimate f <strong>everywhere</strong>, not just at the points in our data set.</p>
+<p>Here our learner is called <strong>Polynomial Regression</strong>, and it takes a hypothesis space <span class="math inline">\(\cal{H}_d\)</span> of degree <span class="math inline">\(d\)</span> polynomials, minimizes the “squared-error” risk measure, and spits out a best-fit hypothesis <span class="math inline">\(g_d\)</span>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/BasicModel.png" class="img-fluid figure-img"></p>
+<figcaption>The supervised learning framework: from target function to final hypothesis</figcaption>
+</figure>
+</div>
+</section>
+<section id="out-of-sample-and-in-sample" class="level3">
+<h3 class="anchored" data-anchor-id="out-of-sample-and-in-sample">Out-of-Sample and in-sample</h3>
+<p>We write <span class="math inline">\(g \approx f\)</span>, or <span class="math inline">\(g\)</span> is the <strong>estimand</strong> of <span class="math inline">\(f\)</span>.In statistics books you will see <span class="math inline">\(g\)</span> written as <span class="math inline">\(\hat{f}\)</span>.</p>
+<p>Why do we think that this might be a good idea? What are we really after?</p>
+<p>What we’d like to do is <strong>make good predictions</strong>. In the language of cost, what we are really after is to minimize the cost <strong>out-of-sample</strong>, on the <strong>population</strong> at large. But this presents us with a conundrum: <em>how can we minimize the risk on points we havent yet seen</em>?</p>
+<p>This is why we (a) minimize the risk on the set of points that we have to find <span class="math inline">\(g\)</span> and then (b) hope that once we have found our best model <span class="math inline">\(g\)</span>, our risk does not particularly change out-of-sample, or when using a different set of points</p>
+<p>We are, as is usual in statistics, <strong>drawing conclusions about a population from a sample</strong>.</p>
+<p>Intuitively, to do this, we need to ask ourselves, how representative is our sample? Or more precisely, how representative is our sample of our training points of the population (or for that matter the new x that we want to predict for)?</p>
+<p>We illustrate this below for our population of 200 data points and our sample of 30 data points (in red).</p>
+<div id="cell-41" class="cell" data-figure_type="m" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>plt.hist(x, normed<span class="op">=</span><span class="va">True</span>, bins<span class="op">=</span><span class="dv">30</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(x)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x[indexes], [<span class="fl">1.0</span>]<span class="op">*</span><span class="bu">len</span>(indexes),<span class="st">'o'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>plt.xlim([<span class="dv">0</span>,<span class="dv">1</span>])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/statsmodels/nonparametric/kdetools.py:20: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
+  y = X[:m/2+1] + np.r_[0,X[m/2+1:],0]*1j</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-14-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In our example, if we only want to use <span class="math inline">\(g\)</span>, our estimand of <span class="math inline">\(f\)</span> to predict for large <span class="math inline">\(x\)</span>, or more religious counties, we would need a good sampling of points <span class="math inline">\(x\)</span> closer to 1. And, similarly, the new <span class="math inline">\(x\)</span> we are using to make predictions would also need to be representative of those counties. We wont do well if we try and predict low-religiousness counties from a sample of high-religiousness ones. Or, if we do want to predict over the entire range of religiousness, our training sample better cover all <span class="math inline">\(x\)</span> well.</p>
+<p>Our red points seem to follow our (god given) histogram well.</p>
+</section>
+<section id="the-relation-to-the-law-of-large-numbers." class="level3">
+<h3 class="anchored" data-anchor-id="the-relation-to-the-law-of-large-numbers.">The relation to the Law of Large Numbers.</h3>
+<p>The process of minimization we do is called <strong>Empirical Risk Minimization</strong> (ERM) as we minimize the cost measure over the “empirically observed” training examples or points. But, on the assumption that we were given a training set representative of the population, ERM is just an attempt use of the law of large numbers.</p>
+<p>What we really want to calculate is:</p>
+<p><span class="math display">\[R_{out}(h) =  E_{p(x)}[(h(x) - f(x))^2] = \int dx p(x)  (h(x) - f(x))^2 .\]</span></p>
+<p>As usual we do not have access to the population but just some samples and thus we want to do something like:</p>
+<p><span class="math display">\[R_{out}(h) = \lim_{n \to \infty} \frac{1}{n} \sum_{x_i \sim p(x)} (h(x_i) - f(x_i))^2 = \lim_{n \to \infty} \frac{1}{n} \sum_{x_i \sim p(x)} (h(x_i) - y_i)^2.\]</span></p>
+<p>We do not have an infinitely large training “sample”. On the assumption that its representative (i.e.&nbsp;drawn from <span class="math inline">\(p(x)\)</span>) we calculate</p>
+<p><span class="math display">\[R_{\cal{D}}(h) =  \sum_{x_i \in \cal{D}} (h(x_i) - y_i)^2.\]</span></p>
+<p>We could calculate the usual mean of sample means and all that, and shall see later that it is these quantities that are related to bias and variance.</p>
+</section>
+</section>
+<section id="statement-of-the-learning-problem." class="level2">
+<h2 class="anchored" data-anchor-id="statement-of-the-learning-problem.">Statement of the learning problem.</h2>
+<p>Once we have done that, we can then intuitively say that, if we find a hypothesis <span class="math inline">\(g\)</span> that minimizes the cost or risk over the training set; this hypothesis <em>might</em> do a good job over the population that the training set was representative of, since the risk on the population ought to be similar to that on the training set, and thus small.</p>
+<p>Mathematically, we are saying that:</p>
+<p><span class="math display">\[
+\begin{eqnarray*}
+A &amp;:&amp; R_{\cal{D}}(g) \,\,smallest\,on\,\cal{H}\\
+B &amp;:&amp; R_{out} (g) \approx R_{\cal{D}}(g)
+\end{eqnarray*}
+\]</span></p>
+<p>In other words, we hope the <strong>empirical risk estimates the out of sample risk well, and thus the out of sample risk is also small</strong>.</p>
+<p>Indeed, as we can see below, <span class="math inline">\(g_{20}\)</span> does an excellent job on the population, not just on the sample.</p>
+<div id="cell-47" class="cell" data-figure_type="m" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.plot(x[indexes],f[indexes], 's', alpha=0.6, label="in-sample");</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x,g20(x), <span class="st">'b--'</span>, alpha<span class="op">=</span><span class="fl">0.9</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"$g_</span><span class="sc">{20}</span><span class="st">$"</span>)<span class="op">;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x,f, <span class="st">'o'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, label<span class="op">=</span><span class="st">"population"</span>)<span class="op">;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<!-- Inject yin-yang brand icon into navbar -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Find the navbar brand
+  const navbarBrand = document.querySelector('.navbar-brand');
+  if (navbarBrand) {
+    // Create the brand mark element
+    const brandMark = document.createElement('span');
+    brandMark.className = 'brand-mark';
+    brandMark.innerHTML = '<i class="bi bi-yin-yang"></i>';
+
+    // Insert at the beginning of navbar brand
+    navbarBrand.insertBefore(brandMark, navbarBrand.firstChild);
+  }
+});
+</script>
+<div id="discuss-links" style="margin-top: 2.5rem; padding-top: 1.5rem; margin-bottom: 4rem; border-top: 1px solid var(--color-border, #ddd);">
+  <p style="font-family: var(--font-mono, monospace); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted, #666); margin-bottom: 0.75rem;">Discuss this post</p>
+  <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+    <a id="discuss-twitter" href="#" target="_blank" rel="noopener" style="font-size: 0.9rem;">X / Twitter</a>
+    <a id="discuss-bluesky" href="#" target="_blank" rel="noopener" style="font-size: 0.9rem;">Bluesky</a>
+    <a id="discuss-linkedin" href="#" target="_blank" rel="noopener" style="font-size: 0.9rem;">LinkedIn</a>
+  </div>
+</div>
+<script>
+(function() {
+  var p = window.location.pathname;
+  var isContent = p.startsWith("/posts/") || p.startsWith("/til/") || p.startsWith("/collections/");
+  var isListing = (p === "/posts/" || p === "/posts" || p === "/til/" || p === "/til" || p === "/collections/" || p === "/collections");
+  if (!isContent || isListing) {
+    document.getElementById("discuss-links").style.display = "none";
+    return;
+  }
+
+  var url = encodeURIComponent(window.location.href);
+  var title = encodeURIComponent(document.title);
+
+  document.getElementById("discuss-twitter").href =
+    "https://twitter.com/intent/tweet?text=" + title + "&url=" + url + "&via=rahuldave";
+  document.getElementById("discuss-bluesky").href =
+    "https://bsky.app/intent/compose?text=" + title + " " + encodeURIComponent(window.location.href);
+  document.getElementById("discuss-linkedin").href =
+    "https://www.linkedin.com/sharing/share-offsite/?url=" + url;
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/rahuldave\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

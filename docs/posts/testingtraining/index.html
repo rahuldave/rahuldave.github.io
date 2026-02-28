@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2025-03-04">
+<meta name="description" content="Formalizes out-of-sample error estimation using Hoeffding’s inequality and the train/test split. Walks through scikit-learn’s data pipeline for polynomial regression, showing how the complexity parameter controls the bias-variance tradeoff.">
+
+<title>Learning Bounds and the Test Set – rahuldave</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-e0d64750a3675fa668af59a9862b8111.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-d2fef15c612ec386ae0907ffd6f4ccdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-a009389674a9596cea61ac77c12264b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-d2fef15c612ec386ae0907ffd6f4ccdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<!-- Google Fonts: Bitter (headings) + Source Serif 4 (body) + IBM Plex Mono (code) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+
+<!-- Bootstrap Icons for brand mark and UI elements -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Learning Bounds and the Test Set – rahuldave">
+<meta property="og:description" content="Formalizes out-of-sample error estimation using Hoeffding’s inequality and the train/test split. Walks through scikit-learn’s data pipeline for polynomial regression, showing how the complexity parameter controls the bias-variance tradeoff.">
+<meta property="og:image" content="https://rahuldave.github.io/posts/testingtraining/index_files/figure-html/cell-5-output-1.png">
+<meta property="og:site_name" content="rahuldave">
+<meta property="og:image:height" content="539">
+<meta property="og:image:width" content="773">
+<meta name="twitter:title" content="Learning Bounds and the Test Set – rahuldave">
+<meta name="twitter:description" content="Formalizes out-of-sample error estimation using Hoeffding’s inequality and the train/test split. Walks through scikit-learn’s data pipeline for polynomial regression, showing how the complexity parameter controls the bias-variance tradeoff.">
+<meta name="twitter:image" content="https://rahuldave.github.io/posts/testingtraining/index_files/figure-html/cell-5-output-1.png">
+<meta name="twitter:creator" content="@rahuldave">
+<meta name="twitter:image-height" content="539">
+<meta name="twitter:image-width" content="773">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">rahuldave</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../posts.html"> 
+<span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../til.html"> 
+<span class="menu-text">TIL</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../collections.html"> 
+<span class="menu-text">Collections</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#learning-bounds-and-the-test-set" id="toc-learning-bounds-and-the-test-set" class="nav-link active" data-scroll-target="#learning-bounds-and-the-test-set">Learning bounds and the Test set</a>
+  <ul class="collapse">
+  <li><a href="#contents" id="toc-contents" class="nav-link" data-scroll-target="#contents">Contents</a></li>
+  <li><a href="#revisiting-the-model" id="toc-revisiting-the-model" class="nav-link" data-scroll-target="#revisiting-the-model">Revisiting the model</a></li>
+  <li><a href="#testing-and-training-sets" id="toc-testing-and-training-sets" class="nav-link" data-scroll-target="#testing-and-training-sets">Testing and Training Sets</a></li>
+  <li><a href="#a-digression-about-scikit-learn" id="toc-a-digression-about-scikit-learn" class="nav-link" data-scroll-target="#a-digression-about-scikit-learn">A digression about scikit-learn</a>
+  <ul class="collapse">
+  <li><a href="#transformers-in-sklearn" id="toc-transformers-in-sklearn" class="nav-link" data-scroll-target="#transformers-in-sklearn">Transformers in sklearn</a></li>
+  <li><a href="#fitting-in-sklearn" id="toc-fitting-in-sklearn" class="nav-link" data-scroll-target="#fitting-in-sklearn">Fitting in sklearn</a></li>
+  </ul></li>
+  <li><a href="#how-do-training-and-testing-error-change-with-complexity" id="toc-how-do-training-and-testing-error-change-with-complexity" class="nav-link" data-scroll-target="#how-do-training-and-testing-error-change-with-complexity">How do training and testing error change with complexity?</a>
+  <ul class="collapse">
+  <li><a href="#estimating-the-out-of-sample-error" id="toc-estimating-the-out-of-sample-error" class="nav-link" data-scroll-target="#estimating-the-out-of-sample-error">Estimating the out-of-sample error</a></li>
+  <li><a href="#finding-the-appropriate-complexity" id="toc-finding-the-appropriate-complexity" class="nav-link" data-scroll-target="#finding-the-appropriate-complexity">Finding the appropriate complexity</a></li>
+  </ul></li>
+  <li><a href="#is-this-still-a-test-set" id="toc-is-this-still-a-test-set" class="nav-link" data-scroll-target="#is-this-still-a-test-set">Is this still a test set?</a>
+  <ul class="collapse">
+  <li><a href="#learning-from-finite-sized-samples" id="toc-learning-from-finite-sized-samples" class="nav-link" data-scroll-target="#learning-from-finite-sized-samples">Learning from finite sized samples</a></li>
+  <li><a href="#what-about-the-test-set" id="toc-what-about-the-test-set" class="nav-link" data-scroll-target="#what-about-the-test-set">What about the test set?</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<!-- Theme toggle persistence script -->
+<script>
+(function() {
+  // Check for saved theme preference, otherwise use system preference
+  const savedTheme = localStorage.getItem('quarto-color-scheme');
+  if (savedTheme) {
+    document.documentElement.setAttribute('data-bs-theme', savedTheme);
+  }
+
+  // Listen for theme changes (Quarto's built-in toggle) and persist
+  const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.attributeName === 'data-bs-theme') {
+        const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+        if (currentTheme) {
+          localStorage.setItem('quarto-color-scheme', currentTheme);
+        }
+      }
+    });
+  });
+
+  // Start observing once DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      observer.observe(document.documentElement, { attributes: true });
+    });
+  } else {
+    observer.observe(document.documentElement, { attributes: true });
+  }
+})();
+</script>
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Learning Bounds and the Test Set</h1>
+<p class="subtitle lead">How to honestly evaluate what your model has learned.</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">statistics</div>
+    <div class="quarto-category">models</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Formalizes out-of-sample error estimation using Hoeffding’s inequality and the train/test split. Walks through scikit-learn’s data pipeline for polynomial regression, showing how the complexity parameter controls the bias-variance tradeoff.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 4, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="learning-bounds-and-the-test-set" class="level1">
+<h1>Learning bounds and the Test set</h1>
+<section id="keywords-empirical-risk-minimization-hoeffdings-inequality-hypothesis-space-training-error-out-of-sample-error-testing-set-training-set-test-error-complexity-parameter" class="level5">
+<h5 class="anchored" data-anchor-id="keywords-empirical-risk-minimization-hoeffdings-inequality-hypothesis-space-training-error-out-of-sample-error-testing-set-training-set-test-error-complexity-parameter">Keywords: empirical risk minimization, Hoeffding’s inequality, hypothesis space, training error, out-of-sample error, testing set, training set, test error, complexity parameter</h5>
+</section>
+<section id="contents" class="level2">
+<h2 class="anchored" data-anchor-id="contents">Contents</h2>
+<p>{:.no_toc} *<br>
+{: toc}</p>
+<div id="cell-3" class="cell" data-hide="true" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib <span class="im">as</span> mpl</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.cm <span class="im">as</span> cm</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.width'</span>, <span class="dv">500</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_columns'</span>, <span class="dv">100</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.notebook_repr_html'</span>, <span class="va">True</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">"whitegrid"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>sns.set_context(<span class="st">"poster"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
+  warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
+</div>
+</div>
+<div id="cell-4" class="cell" data-hide="true" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_simple_plot():</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    fig, axes<span class="op">=</span>plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">5</span>), nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylabel(<span class="st">"$y$"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_yticklabels([])</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylim([<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>])</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_ylim([<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>])</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()<span class="op">;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> axes</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_plot():</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    fig, axes<span class="op">=</span>plt.subplots(figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">8</span>), nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylabel(<span class="st">"$p_R$"</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_yticklabels([])</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_xlim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_xlim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()<span class="op">;</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> axes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="revisiting-the-model" class="level2">
+<h2 class="anchored" data-anchor-id="revisiting-the-model">Revisiting the model</h2>
+<p>Let <span class="math inline">\(x\)</span> be the fraction of religious people in a county and <span class="math inline">\(y\)</span> be the probability of voting for Romney as a function of <span class="math inline">\(x\)</span>. In other words <span class="math inline">\(y_i\)</span> is data that pollsters have taken which tells us their estimate of people voting for Romney and <span class="math inline">\(x_i\)</span> is the fraction of religious people in county <span class="math inline">\(i\)</span>. Because poll samples are finite, there is a margin of error on each data point or county <span class="math inline">\(i\)</span>, but we will ignore that for now.</p>
+<p>Let us assume that we have a “population” of 200 counties <span class="math inline">\(x\)</span>:</p>
+<div id="cell-7" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dffull<span class="op">=</span>pd.read_csv(<span class="st">"data/religion.csv"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>dffull.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">promney</th>
+<th data-quarto-table-cell-role="th">rfrac</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>0.047790</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>0.051199</td>
+<td>0.01</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>0.054799</td>
+<td>0.02</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>0.058596</td>
+<td>0.03</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>0.062597</td>
+<td>0.04</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Lets suppose now that the Lord came by and told us that the points in the plot below captures <span class="math inline">\(f(x)\)</span> exactly.</p>
+<div id="cell-9" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>dffull.rfrac.values</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>f<span class="op">=</span>dffull.promney.values</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x,f,<span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Notice that our sampling of <span class="math inline">\(x\)</span> is not quite uniform: there are more points around <span class="math inline">\(x\)</span> of 0.7.</p>
+<p>Now, in real life we are only given a sample of points. Lets assume that out of this population of 200 points we are given a sample <span class="math inline">\(\cal{D}\)</span> of 30 data points. Such data is called <strong>in-sample data</strong>. Contrastingly, the entire population of data points is also called <strong>out-of-sample data</strong>.</p>
+<div id="cell-11" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/noisysample.csv"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div>
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">f</th>
+<th data-quarto-table-cell-role="th">i</th>
+<th data-quarto-table-cell-role="th">x</th>
+<th data-quarto-table-cell-role="th">y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>0.075881</td>
+<td>7</td>
+<td>0.07</td>
+<td>0.138973</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>0.085865</td>
+<td>9</td>
+<td>0.09</td>
+<td>0.050510</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>0.096800</td>
+<td>11</td>
+<td>0.11</td>
+<td>0.183821</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>0.184060</td>
+<td>23</td>
+<td>0.23</td>
+<td>0.057621</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>0.285470</td>
+<td>33</td>
+<td>0.33</td>
+<td>0.358174</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-12" class="cell" data-figure_type="w" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>axes<span class="op">=</span>make_plot()</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,f, <span class="st">'k-'</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">"f (from the Lord)"</span>)<span class="op">;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,f, <span class="st">'r.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, label<span class="op">=</span><span class="st">"population"</span>)<span class="op">;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(df.x,df.f, <span class="st">'o'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"in-sample noiseless data $</span><span class="er">\</span><span class="st">cal</span><span class="sc">{D}</span><span class="st">$"</span>)<span class="op">;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(df.x,df.y, <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"in-sample noisy data $</span><span class="er">\</span><span class="st">cal</span><span class="sc">{D}</span><span class="st">$"</span>)<span class="op">;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="testing-and-training-sets" class="level2">
+<h2 class="anchored" data-anchor-id="testing-and-training-sets">Testing and Training Sets</h2>
+<p>The process of learning has two parts:</p>
+<ol type="1">
+<li>Fit for a model by minimizing the in-sample risk</li>
+<li>Hope that the in-sample risk approximates the out-of-sample risk well.</li>
+</ol>
+<p>Mathematically, we are saying that:</p>
+<p><span class="math display">\[
+\begin{eqnarray*}
+A &amp;:&amp; R_{\cal{D}}(g) \,\,smallest\,on\,\cal{H}\\
+B &amp;:&amp; R_{out \,of \,sample} (g) \approx R_{\cal{D}}(g)
+\end{eqnarray*}
+\]</span></p>
+<p>Hoping does not befit us as scientists. How can we test that the in-sample risk approximates the out-of-sample risk well?</p>
+<p>The “aha” moment comes when we realize that we can hold back some of our sample, and test the performance of our learner by trying it out on this held back part! Perhaps we can compute the error or risk on the held-out part, or “test” part of our sample, and have something to say about the out-of-sample error.</p>
+<p>Let us introduce some new terminology. We take the sample of data <span class="math inline">\(\cal{D}\)</span> that we have been given (our in-sample set) and split it into two parts:</p>
+<ol type="1">
+<li>The <strong>training set</strong>, which is the part of the data we use to fit a model</li>
+<li>The <strong>testing set</strong>, a smaller part of the data set which we use to see how good our fit was.</li>
+</ol>
+<p>This split is done by choosing points at random into these two sets. Typically we might take 80% of our data and put it in the training set, with the remaining amount going into the test set. This can be carried out in python using the <code>train_test_split</code> function from <code>sklearn.cross_validation</code>.</p>
+<p>The split is shown in the diagram below:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/train-test.png" class="img-fluid figure-img"></p>
+<figcaption>Splitting dataset D into training and test sets (image after Learning from Data)</figcaption>
+</figure>
+</div>
+<p>We ARE taking a hit on the amount of data we have to train our model. The more data we have, the better we can do for our fits. But, you cannot figure out the generalization ability of a learner by looking at the same data it was trained on: there is nothing to generalize to, and as we know we can fit very complex models to training data which have no hope of generalizing (like an interpolator). Thus, to estimate the <strong>out-of-sample error or risk</strong>, we must leave data over to make this estimation.</p>
+<p>At this point you are thinking: the test set is just another sample of the population, just like the training set. What guarantee do we have that it approximates the out-of-sample error well? And furthermore, if we pick 6 out of 30 points as a test set, why would you expect the estimate to be any good?</p>
+<p>We will kind-of hand wavingly show later that the test set error is a good estimate of the out of sample error, especially for larger and larger test sets. You are right to worry that 6 points is perhaps too few, but thats what we have for now, and we shall work with them.</p>
+<p>We are <strong>using the training set then, as our in-sample set, and the test set as a proxy for out-of-sample.</strong>.</p>
+<div id="cell-16" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cross_validation <span class="im">import</span> train_test_split</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>datasize<span class="op">=</span>df.shape[<span class="dv">0</span>]</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#split dataset using the index, as we have x,f, and y that we want to split.</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>itrain,itest <span class="op">=</span> train_test_split(<span class="bu">range</span>(<span class="dv">30</span>),train_size<span class="op">=</span><span class="dv">24</span>, test_size<span class="op">=</span><span class="dv">6</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>xtrain<span class="op">=</span> df.x[itrain].values</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>ftrain <span class="op">=</span> df.f[itrain].values</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>ytrain <span class="op">=</span> df.y[itrain].values</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>xtest<span class="op">=</span> df.x[itest].values</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>ftest <span class="op">=</span> df.f[itest].values</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>ytest <span class="op">=</span> df.y[itest].values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-17" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>axes<span class="op">=</span>make_plot()</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(df.x,df.f, <span class="st">'k-'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f (from the Lord)"</span>)<span class="op">;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(df.x,df.y, <span class="st">'o'</span>,alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"$</span><span class="er">\</span><span class="st">cal</span><span class="sc">{D}</span><span class="st">$"</span>)<span class="op">;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(df.x,df.f, <span class="st">'k-'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f (from the Lord)"</span>)<span class="op">;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(xtrain, ytrain, <span class="st">'s'</span>, label<span class="op">=</span><span class="st">"training"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(xtest, ytest, <span class="st">'s'</span>, label<span class="op">=</span><span class="st">"testing"</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(loc<span class="op">=</span><span class="st">"lower right"</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend(loc<span class="op">=</span><span class="st">"lower right"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="a-digression-about-scikit-learn" class="level2">
+<h2 class="anchored" data-anchor-id="a-digression-about-scikit-learn">A digression about scikit-learn</h2>
+<p>Scikit-learn is the main python machine learning library. It consists of many learners which can learn models from data, as well as a lot of utility functions such as <code>train_test_split</code>. It can be used in python by the incantation <code>import sklearn</code>.</p>
+<p>The library has a very well defined interface. This makes the library a joy to use, and surely contributes to its popularity. As the <a href="http://arxiv.org/pdf/1309.0238v1.pdf">scikit-learn API paper</a> [Buitinck, Lars, et al.&nbsp;“API design for machine learning software: experiences from the scikit-learn project.” arXiv preprint arXiv:1309.0238 (2013).] says:</p>
+<blockquote class="blockquote">
+<p>All objects within scikit-learn share a uniform common basic API consisting of three complementary interfaces: <strong>an estimator interface for building and ﬁtting models, a predictor interface for making predictions and a transformer interface for converting data</strong>. The estimator interface is at the core of the library. It deﬁnes instantiation mechanisms of objects and exposes a <code>fit</code> method for learning a model from training data. All supervised and unsupervised learning algorithms (e.g., for classiﬁcation, regression or clustering) are oﬀered as objects implementing this interface. Machine learning tasks like feature extraction, feature selection or dimensionality reduction are also provided as estimators.</p>
+</blockquote>
+<p>Earlier we fit <code>y</code> using the python function <code>polyfit</code>. To get you familiarized with scikit-learn, we’ll use the “estimator” interface here, specifically the estimator <code>PolynomialFeatures</code>. The API paper again:</p>
+<blockquote class="blockquote">
+<p>Since it is common to modify or ﬁlter data before feeding it to a learning algorithm, some estimators in the library implement a transformer interface which deﬁnes a transform method. It takes as input some new data X and yields as output a transformed version of X. Preprocessing, feature selection, feature extraction and dimensionality reduction algorithms are all provided as transformers within the library.</p>
+</blockquote>
+<p>To start with we have one <strong>feature</strong> <code>x</code>, the fraction of religious people in a county, which we want to use to predict <code>y</code>, the fraction of people voting for Romney in that county. What we will do is the transformation:</p>
+<p><span class="math display">\[ x \rightarrow 1, x, x^2, x^3, ..., x^d \]</span></p>
+<p>for some power <span class="math inline">\(d\)</span>. Our job then is to <strong>fit</strong> for the coefficients of these features in the polynomial</p>
+<p><span class="math display">\[ a_0 + a_1 x + a_2 x^2 + ... + a_d x^d. \]</span></p>
+<section id="transformers-in-sklearn" class="level3">
+<h3 class="anchored" data-anchor-id="transformers-in-sklearn">Transformers in sklearn</h3>
+<p>In other words, we have transformed a function of one feature, into a (rather simple) <strong>linear</strong> function of many features. To do this we first construct the estimator as <code>PolynomialFeatures(d)</code>, and then transform these features into a d-dimensional space using the method <code>fit_transform</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/sklearntrans.jpg" class="img-fluid figure-img"></p>
+<figcaption>Polynomial feature transform: expanding x into a design matrix</figcaption>
+</figure>
+</div>
+<p>Here is an example. The reason for using <code>[[1],[2],[3]]</code> as opposed to <code>[1,2,3]</code> is that scikit-learn expects data to be stored in a two-dimensional array or matrix with size <code>[n_samples, n_features]</code>.</p>
+<div id="cell-20" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> PolynomialFeatures</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>PolynomialFeatures(<span class="dv">3</span>).fit_transform([[<span class="dv">1</span>],[<span class="dv">2</span>], [<span class="dv">3</span>]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>array([[  1.,   1.,   1.,   1.],
+       [  1.,   2.,   4.,   8.],
+       [  1.,   3.,   9.,  27.]])</code></pre>
+</div>
+</div>
+<p>To transform <code>[1,2,3]</code> into [[1],[2],[3]] we need to do a reshape.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/reshape.jpg" class="img-fluid figure-img"></p>
+<figcaption>NumPy reshape: converting a 1D array to a column vector</figcaption>
+</figure>
+</div>
+<div id="cell-22" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>np.array([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]).reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>array([[1],
+       [2],
+       [3]])</code></pre>
+</div>
+</div>
+<p>So now we are in the recatangular, rows=samples, columns=features form expected by <code>scikit-learn</code>. Ok, so lets see the process to transform our 1-D dataset <code>x</code> into a d-dimensional one.</p>
+<div id="cell-24" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>xtrain</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>array([ 0.33      ,  0.75868254,  0.52      ,  0.79      ,  0.63633949,
+        0.70533267,  0.71829603,  0.75841654,  0.63071361,  0.11      ,
+        0.82850909,  0.46      ,  0.64832591,  0.53596824,  0.91      ,
+        0.67      ,  0.76      ,  0.34      ,  0.56      ,  0.94      ,
+        0.6       ,  0.96      ,  0.43754875,  0.54      ])</code></pre>
+</div>
+</div>
+<div id="cell-25" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>xtrain.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>array([[ 0.33      ],
+       [ 0.75868254],
+       [ 0.52      ],
+       [ 0.79      ],
+       [ 0.63633949],
+       [ 0.70533267],
+       [ 0.71829603],
+       [ 0.75841654],
+       [ 0.63071361],
+       [ 0.11      ],
+       [ 0.82850909],
+       [ 0.46      ],
+       [ 0.64832591],
+       [ 0.53596824],
+       [ 0.91      ],
+       [ 0.67      ],
+       [ 0.76      ],
+       [ 0.34      ],
+       [ 0.56      ],
+       [ 0.94      ],
+       [ 0.6       ],
+       [ 0.96      ],
+       [ 0.43754875],
+       [ 0.54      ]])</code></pre>
+</div>
+</div>
+<div id="cell-26" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>PolynomialFeatures(<span class="dv">2</span>).fit_transform(xtrain.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>array([[ 1.        ,  0.33      ,  0.1089    ],
+       [ 1.        ,  0.75868254,  0.5755992 ],
+       [ 1.        ,  0.52      ,  0.2704    ],
+       [ 1.        ,  0.79      ,  0.6241    ],
+       [ 1.        ,  0.63633949,  0.40492794],
+       [ 1.        ,  0.70533267,  0.49749418],
+       [ 1.        ,  0.71829603,  0.51594919],
+       [ 1.        ,  0.75841654,  0.57519565],
+       [ 1.        ,  0.63071361,  0.39779966],
+       [ 1.        ,  0.11      ,  0.0121    ],
+       [ 1.        ,  0.82850909,  0.68642731],
+       [ 1.        ,  0.46      ,  0.2116    ],
+       [ 1.        ,  0.64832591,  0.42032648],
+       [ 1.        ,  0.53596824,  0.28726196],
+       [ 1.        ,  0.91      ,  0.8281    ],
+       [ 1.        ,  0.67      ,  0.4489    ],
+       [ 1.        ,  0.76      ,  0.5776    ],
+       [ 1.        ,  0.34      ,  0.1156    ],
+       [ 1.        ,  0.56      ,  0.3136    ],
+       [ 1.        ,  0.94      ,  0.8836    ],
+       [ 1.        ,  0.6       ,  0.36      ],
+       [ 1.        ,  0.96      ,  0.9216    ],
+       [ 1.        ,  0.43754875,  0.1914489 ],
+       [ 1.        ,  0.54      ,  0.2916    ]])</code></pre>
+</div>
+</div>
+</section>
+<section id="fitting-in-sklearn" class="level3">
+<h3 class="anchored" data-anchor-id="fitting-in-sklearn">Fitting in sklearn</h3>
+<p>Once again, lets see the structure of scikit-learn needed to make these fits. <code>.fit</code> always takes two arguments:</p>
+<p><code>estimator.fit(Xtrain, ytrain)</code>.</p>
+<p>Here <code>Xtrain</code> must be in the form of an array of arrays, with the inner array each corresponding to one sample, and whose elements correspond to the feature values for that sample. (This means that the 4th element for each of these arrays, in our polynomial example, corresponds to the valueof <span class="math inline">\(x^3\)</span> for each “sample” <span class="math inline">\(x\)</span>). The <code>ytrain</code> is a simple array of responses..continuous for regression problems, and categorical values or 1-0’s for classification problems.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/sklearn2.jpg" class="img-fluid figure-img"></p>
+<figcaption>Scikit-learn train/test data layout: X_train, y_train, X_test, y_test</figcaption>
+</figure>
+</div>
+<p>The test set <code>Xtest</code> has the same structure, and is used in the <code>.predict</code> interface. Once we have fit the estimator, we predict the results on the test set by:</p>
+<p><code>estimator.predict(Xtest)</code>.</p>
+<p>The results of this are a simple array of predictions, of the same form and shape as <code>ytest</code>.</p>
+<p>A summary of the scikit-learn interface can be found here:</p>
+<p>http://nbviewer.jupyter.org/github/jakevdp/sklearn_pycon2015/blob/master/notebooks/02.2-Basic-Principles.ipynb#Recap:-Scikit-learn’s-estimator-interface</p>
+<p>Lets put this alltogether. Below we write a function to create multiple datasets, one for each polynomial degree:</p>
+<div id="cell-32" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_features(train_set, test_set, degrees):</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    traintestlist<span class="op">=</span>[]</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> d <span class="kw">in</span> degrees:</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        traintestdict<span class="op">=</span>{}</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>        traintestdict[<span class="st">'train'</span>] <span class="op">=</span> PolynomialFeatures(d).fit_transform(train_set.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        traintestdict[<span class="st">'test'</span>] <span class="op">=</span> PolynomialFeatures(d).fit_transform(test_set.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        traintestlist.append(traintestdict)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> traintestlist</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+</section>
+<section id="how-do-training-and-testing-error-change-with-complexity" class="level2">
+<h2 class="anchored" data-anchor-id="how-do-training-and-testing-error-change-with-complexity">How do training and testing error change with complexity?</h2>
+<p>You will recall that the big question we were left with earlier is: what order of polynomial should we use to fit the data? Which order is too biased? Which one has too much variance and is too complex? Let us try and answer this question.</p>
+<p>We do this by fitting many different models (remember the fit is made by minimizing the empirical risk on the training set), each with increasing dimension <code>d</code>, and looking at the training-error and the test-error in each of these models. So we first try <span class="math inline">\(\cal{H}_0\)</span>, then <span class="math inline">\(\cal{H}_1\)</span>, then <span class="math inline">\(\cal{H}_2\)</span>, and so on.</p>
+<p>Since we use <code>PolynomialFeatures</code> above, each increasing dimension gives us an additional feature. <span class="math inline">\(\cal{H}_5\)</span> has 6 features, a constant and the 5 powers of <code>x</code>. What we want to do is to find the coefficients of the 5-th order polynomial that best fits the data. Since the polynomial is <strong>linear</strong> in the coefficients (we multiply coefficients by powers-of-x features and sum it up), we use a learner called a <code>LinearRegression</code> model (remember that the “linear” in the regression refers to linearity in co-efficients). The scikit-learn interface to make such a fit is also very simple, the function <code>fit</code>. And once we have learned a model, we can predict using the function <code>predict</code>. The API paper again:</p>
+<blockquote class="blockquote">
+<p>The predictor interface extends the notion of an estimator by adding a predict method that takes an array X_test and produces predictions for X_test, based on the learned parameters of the estimator.</p>
+</blockquote>
+<p>So, for increasing polynomial degree, and thus feature dimension <code>d</code>, we fit a <code>LinearRegression</code> model on the traing set. We then use scikit-learn again to calculate the error or risk. We calculate the <code>mean_squared_error</code> between the model’s predictions and the data, BOTH on the training set and test set. We plot this error as a function of the defree of the polynomial <code>d</code>.</p>
+<div id="cell-35" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>degrees<span class="op">=</span><span class="bu">range</span>(<span class="dv">21</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>error_train<span class="op">=</span>np.empty(<span class="bu">len</span>(degrees))</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>error_test<span class="op">=</span>np.empty(<span class="bu">len</span>(degrees))</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>traintestlists<span class="op">=</span>make_features(xtrain, xtest, degrees)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-36" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>traintestlists[<span class="dv">3</span>][<span class="st">'train'</span>], ytrain</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>(array([[ 1.        ,  0.33      ,  0.1089    ,  0.035937  ],
+        [ 1.        ,  0.75868254,  0.5755992 ,  0.43669706],
+        [ 1.        ,  0.52      ,  0.2704    ,  0.140608  ],
+        [ 1.        ,  0.79      ,  0.6241    ,  0.493039  ],
+        [ 1.        ,  0.63633949,  0.40492794,  0.25767164],
+        [ 1.        ,  0.70533267,  0.49749418,  0.3508989 ],
+        [ 1.        ,  0.71829603,  0.51594919,  0.37060426],
+        [ 1.        ,  0.75841654,  0.57519565,  0.4362379 ],
+        [ 1.        ,  0.63071361,  0.39779966,  0.25089766],
+        [ 1.        ,  0.11      ,  0.0121    ,  0.001331  ],
+        [ 1.        ,  0.82850909,  0.68642731,  0.56871127],
+        [ 1.        ,  0.46      ,  0.2116    ,  0.097336  ],
+        [ 1.        ,  0.64832591,  0.42032648,  0.27250855],
+        [ 1.        ,  0.53596824,  0.28726196,  0.15396329],
+        [ 1.        ,  0.91      ,  0.8281    ,  0.753571  ],
+        [ 1.        ,  0.67      ,  0.4489    ,  0.300763  ],
+        [ 1.        ,  0.76      ,  0.5776    ,  0.438976  ],
+        [ 1.        ,  0.34      ,  0.1156    ,  0.039304  ],
+        [ 1.        ,  0.56      ,  0.3136    ,  0.175616  ],
+        [ 1.        ,  0.94      ,  0.8836    ,  0.830584  ],
+        [ 1.        ,  0.6       ,  0.36      ,  0.216     ],
+        [ 1.        ,  0.96      ,  0.9216    ,  0.884736  ],
+        [ 1.        ,  0.43754875,  0.1914489 ,  0.08376823],
+        [ 1.        ,  0.54      ,  0.2916    ,  0.157464  ]]),
+ array([ 0.35817449,  0.64634662,  0.47094573,  0.80195369,  0.71040586,
+         0.64431987,  0.81167767,  0.81232659,  0.65597413,  0.18382092,
+         0.76638914,  0.52531463,  0.72006043,  0.53688748,  0.91261385,
+         0.89700996,  0.7612565 ,  0.23599998,  0.58004131,  0.93613422,
+         0.60188686,  0.87217807,  0.49208494,  0.61984169]))</code></pre>
+</div>
+</div>
+<div id="cell-37" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>traintestlists[<span class="dv">3</span>][<span class="st">'test'</span>], ytest</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>(array([[  1.00000000e+00,   6.60000000e-01,   4.35600000e-01,
+           2.87496000e-01],
+        [  1.00000000e+00,   2.30000000e-01,   5.29000000e-02,
+           1.21670000e-02],
+        [  1.00000000e+00,   8.09657516e-01,   6.55545293e-01,
+           5.30767174e-01],
+        [  1.00000000e+00,   7.00000000e-02,   4.90000000e-03,
+           3.43000000e-04],
+        [  1.00000000e+00,   9.00000000e-02,   8.10000000e-03,
+           7.29000000e-04],
+        [  1.00000000e+00,   7.49902667e-01,   5.62354010e-01,
+           4.21710772e-01]]),
+ array([ 0.60311145,  0.05762073,  0.79714359,  0.13897264,  0.05051023,
+         0.74855785]))</code></pre>
+</div>
+</div>
+<section id="estimating-the-out-of-sample-error" class="level3">
+<h3 class="anchored" data-anchor-id="estimating-the-out-of-sample-error">Estimating the out-of-sample error</h3>
+<p>We can then use <code>mean_squared_error</code> from <code>sklearn</code> to calculate the error between the predictions and actual <code>ytest</code> values. Below we calculate this error on both the training set (which we already fit on) and the test set (which we hadnt seen before), and plot how these errors change with the degree of the polynomial.</p>
+<div id="cell-39" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>est3 <span class="op">=</span> LinearRegression()</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>est3.fit(traintestlists[<span class="dv">3</span>][<span class="st">'train'</span>], ytrain)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>pred_on_train3<span class="op">=</span>est3.predict(traintestlists[<span class="dv">3</span>][<span class="st">'train'</span>])</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>pred_on_test3<span class="op">=</span>est3.predict(traintestlists[<span class="dv">3</span>][<span class="st">'test'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-40" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"errtrain"</span>,mean_squared_error(ytrain, pred_on_train3))</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"errtest"</span>,mean_squared_error(ytest, pred_on_test3))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>errtrain 0.00455053325387
+errtest 0.00949690985891</code></pre>
+</div>
+</div>
+<p>Let us now do this for a polynomial of degree 19</p>
+<div id="cell-42" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>est19 <span class="op">=</span> LinearRegression()</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>est19.fit(traintestlists[<span class="dv">19</span>][<span class="st">'train'</span>], ytrain)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>pred_on_train19<span class="op">=</span>est19.predict(traintestlists[<span class="dv">19</span>][<span class="st">'train'</span>])</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>pred_on_test19<span class="op">=</span>est19.predict(traintestlists[<span class="dv">19</span>][<span class="st">'test'</span>])</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"errtrain"</span>,mean_squared_error(ytrain, pred_on_train19))</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"errtest"</span>,mean_squared_error(ytest, pred_on_test19))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>errtrain 0.00196640248639
+errtest 14125204461.8</code></pre>
+</div>
+</div>
+<p>You can see that the test set error is larger, corresponding to an overfit model thats doing very well on some points and awful on other.</p>
+</section>
+<section id="finding-the-appropriate-complexity" class="level3">
+<h3 class="anchored" data-anchor-id="finding-the-appropriate-complexity">Finding the appropriate complexity</h3>
+<p>Lets now carry out this minimization systematically for each polynomial degree d.</p>
+<div id="cell-44" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> d <span class="kw">in</span> degrees:<span class="co">#for increasing polynomial degrees 0,1,2...</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    Xtrain <span class="op">=</span> traintestlists[d][<span class="st">'train'</span>]</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    Xtest <span class="op">=</span> traintestlists[d][<span class="st">'test'</span>]</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">#set up model</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">#fit</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">#predict</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">#calculate mean squared error</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">#set up model</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    est <span class="op">=</span> LinearRegression()</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">#fit</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>    est.fit(Xtrain, ytrain)</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">#predict</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    prediction_on_training <span class="op">=</span> est.predict(Xtrain)</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    prediction_on_test <span class="op">=</span> est.predict(Xtest)</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">#calculate mean squared error</span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>    error_train[d] <span class="op">=</span> mean_squared_error(ytrain, prediction_on_training)</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>    error_test[d] <span class="op">=</span> mean_squared_error(ytest, prediction_on_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-45" class="cell" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>plt.plot(degrees, error_train, marker<span class="op">=</span><span class="st">'o'</span>, label<span class="op">=</span><span class="st">'train (in-sample)'</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>plt.plot(degrees, error_test, marker<span class="op">=</span><span class="st">'o'</span>, label<span class="op">=</span><span class="st">'test'</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>plt.axvline(np.argmin(error_test), <span class="dv">0</span>,<span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'r'</span>, label<span class="op">=</span><span class="st">"min test error at d=</span><span class="sc">%d</span><span class="st">"</span><span class="op">%</span>np.argmin(error_test), alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'mean squared error'</span>)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'degree'</span>)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>plt.yscale(<span class="st">"log"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-23-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The graph shows a very interesting structure. The training error decreases with increasing degree of the polynomial. This ought to make sense given what you know now: one can construct an arbitrarily complex polynomial to fit all the training data: indeed one could construct an order 24 polynomial which perfectly interpolates the 24 data points in the training set. You also know that this would do very badly on the test set as it would wiggle like mad to capture all the data points. And this is indeed what we see in the test set error.</p>
+<p>For extremely low degree polynomials like <span class="math inline">\(d=0\)</span> a flat line capturing the mean value of the data or <span class="math inline">\(d=1\)</span> a straight line fitting the data, the polynomial is not curvy enough to capturve the conbtours of the data. We are in the bias/deterministic error regime, where we will always have some difference between the data and the fit since the hypothesis is too simple. But, for degrees higher than 5 or so, the polynomial starts to wiggle too much to capture the training data. The test set error increases as the predictive power of the polynomial goes down thanks to the contortions it must endure to fit the training data.</p>
+<p>Thus the test set error first decreases as the model get more expressive, and then, once we exceed a certain level of complexity (here indexed by <span class="math inline">\(d\)</span>), it increases. This idea can be used to identify just the right amount of complexity in the model by picking as <strong>the best hypothesis as the one that minimizes test set error</strong> or risk. In our case this happens around <span class="math inline">\(d=4\)</span>. (This exact number will depend on the random points chosen into the training and test sets) For complexity lower than this critical value, identified by the red vertical line in the diagram, the hypotheses underfit; for complexity higher, they overfit.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/complexity-error-plot.png" class="img-fluid figure-img"></p>
+<figcaption>Bias-variance tradeoff: underfitting vs overfitting as complexity increases</figcaption>
+</figure>
+</div>
+<p>Keep in mind that as you see in the plot above this minimum can be shallow: in this case any of the low order polynomials would be “good enough”.</p>
+</section>
+</section>
+<section id="is-this-still-a-test-set" class="level2">
+<h2 class="anchored" data-anchor-id="is-this-still-a-test-set">Is this still a test set?</h2>
+<p>But something should be troubling you about this discussion. We have made no discussion on the error bars on our error estimates, primarily because we have not carried out any resampling to make this possible.</p>
+<p>But secondly we seem to be “visually fitting” a value of <span class="math inline">\(d\)</span>. It cant be kosher to use as a test set something you did some fitting on…</p>
+<p>We have contaminated our test set. The moment we <strong>use it in the learning process, it is not a test set</strong>.</p>
+<p>The answer to the second question is to use a validation set, and leave a separate test set aside. The answer to the first is to use cross-validation, which is a kind of resampling method that uses multiple validation sets!</p>
+<p>TO make some of these concepts more concrete, let us understand the mathematics behind finite sized samples and the learning process.</p>
+<section id="learning-from-finite-sized-samples" class="level3">
+<h3 class="anchored" data-anchor-id="learning-from-finite-sized-samples">Learning from finite sized samples</h3>
+<p>If we have very large samples, the law of large numbers tells us that we can estimate expectations nicely by making sample averages.</p>
+<p>However, we rarely have very large samples in learning situations (unlike when we are looking for posteriors). But, we can use Hoeffding’s inequality to understand how our sample quantities differ from the population ones.</p>
+<p>Hoeffding’s inequality applies to the situation where we have a population of binary random variables with fraction <span class="math inline">\(\mu\)</span> of things of one type (heads vs tails, red vs green). We do not have access to this population, but rather, to a sample drawn with replacement from this population, where the fraction is <span class="math inline">\(\nu\)</span>.</p>
+<p>Then (where the probability can be thought of as amongst many samples):</p>
+<p><span class="math display">\[P(\vert \nu - \mu \vert &gt; \epsilon) \le 2e^{-2\epsilon^2 N}\]</span></p>
+<p>where N is the size of the sample. Clearly the sample fraction approaches the population fraction as N gets very large.</p>
+<p>To put this in the context of the learning problem for a hypothesis <span class="math inline">\(h\)</span>, identify heads(1) with <span class="math inline">\(h(x_i) \ne f(x_i)\)</span> at sample <span class="math inline">\(x_i\)</span>, and tails(0) otherwise. Then <span class="math inline">\(\mu\)</span> is the error rate (also called the 1-0 loss) in the population, which we dont know, while <span class="math inline">\(\nu\)</span> is the same for the sample. It can be shown that similar results hold for the mean-squared error.</p>
+<p>Then one can say:</p>
+<p><span class="math display">\[P(\vert R_{in}(h) - R_{out}(h) \vert &gt; \epsilon) \le 2e^{-2\epsilon^2 N}\]</span></p>
+<p>Now notice that we fit a <span class="math inline">\(h=g\)</span> on the training sample. This means that we see as many hypothesis as there are in out hypothesis space. Typically this is infinite, but learning theory allows us to consider a finite effective hypothesis space size, as most hypothesis are not that different from each other. (This is formalized in VC theory, definitely out of scope for this class).</p>
+<p>The problem here is that the Hoeffding inequality holds ONCE we have picked a hypothesis <span class="math inline">\(h\)</span>, as we need it to label the 1 and 0s. But over the training set we one by one pick all the models in the hypothesis space, before discarding all but one. Thus Hoeffding’s inequality does not hold.</p>
+<p>However what you can do is this: since the best fit <span class="math inline">\(g\)</span> is one of the <span class="math inline">\(h\)</span> in the hypothesis space <span class="math inline">\(\cal{H}\)</span>, <span class="math inline">\(g\)</span> must be either <span class="math inline">\(h_1\)</span> OR <span class="math inline">\(h_2\)</span> OR….and there are say <strong>effectively</strong> M such choices.</p>
+<p>Then:</p>
+<p><span class="math display">\[P(\vert R_{in}(g) - R_{out}(g) \vert \ge \epsilon) &lt;= \sum_{h_i \in \cal{H}}  P(\vert R_{in}(h_i) - R_{out}(h_i) \vert \ge \epsilon) &lt;=  2\,M\,e^{-2\epsilon^2 N}\]</span></p>
+<p>Thus this tells us that for <span class="math inline">\(N &gt;&gt; M\)</span> our in-sample risk and out-of-sample risk converge asymptotically and that minimizing our in-sample risk can be used as a proxy for minimizing the unknown out-of-sample risk.</p>
+<p>Thus we do not have to hope any more and learning is feasible.</p>
+<p>This also tells us something about complexity. M is a measure of this complexity, and it tells us that our bound is worse for more complex hypothesis spaces. This is our notion of overfitting.</p>
+<p>The Hoeffding inequality can be repharased. Pick a tolerance <span class="math inline">\(\delta\)</span>. Then, note that with probability <span class="math inline">\(1 - 2\,M\,e^{-2\epsilon^2 N}\)</span>, <span class="math inline">\(\vert R_{out} - R_{in} \vert &lt; \epsilon\)</span>. This means</p>
+<p><span class="math display">\[R_{out} &lt;= R_{in} + \epsilon\]</span></p>
+<p>Now let <span class="math inline">\(\delta =  2\,M\,e^{-2\epsilon^2 N}\)</span>.</p>
+<p>Then, <strong>with probability</strong> <span class="math inline">\(1-\delta\)</span>:</p>
+<p><span class="math display">\[R_{out} &lt;= R_{in} + \sqrt{\frac{1}{2N}ln(\frac{2M}{\delta})}\]</span></p>
+</section>
+<section id="what-about-the-test-set" class="level3">
+<h3 class="anchored" data-anchor-id="what-about-the-test-set">What about the test set?</h3>
+<p>The bound above can now be used to understand why the test set idea is a good one. One objection to using a test set might be that it just seems to be another sample like the training sample. What so great about it? How do we know that low test error means we generalize well?</p>
+<p>The key observation here is that the test set is looking at only one hypothesis because the fitting is already done on the training set. So <span class="math inline">\(M=1\)</span> for this sample, and the “in-test-sample” error approaches the population error much faster! Also, the test set does not have an optimistic bias like the training set, which is why the training set bound had the larger effective M factor.</p>
+<p>This is also why, once you start fitting for things like the complexity parameter on the test set, you cant call it a test set any more since we lose this tight guarantee.</p>
+<p>Finally, a test set has a cost. You have less data in the training set and must thus fit a less complex model.</p>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<!-- Inject yin-yang brand icon into navbar -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Find the navbar brand
+  const navbarBrand = document.querySelector('.navbar-brand');
+  if (navbarBrand) {
+    // Create the brand mark element
+    const brandMark = document.createElement('span');
+    brandMark.className = 'brand-mark';
+    brandMark.innerHTML = '<i class="bi bi-yin-yang"></i>';
+
+    // Insert at the beginning of navbar brand
+    navbarBrand.insertBefore(brandMark, navbarBrand.firstChild);
+  }
+});
+</script>
+<div id="discuss-links" style="margin-top: 2.5rem; padding-top: 1.5rem; margin-bottom: 4rem; border-top: 1px solid var(--color-border, #ddd);">
+  <p style="font-family: var(--font-mono, monospace); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted, #666); margin-bottom: 0.75rem;">Discuss this post</p>
+  <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+    <a id="discuss-twitter" href="#" target="_blank" rel="noopener" style="font-size: 0.9rem;">X / Twitter</a>
+    <a id="discuss-bluesky" href="#" target="_blank" rel="noopener" style="font-size: 0.9rem;">Bluesky</a>
+    <a id="discuss-linkedin" href="#" target="_blank" rel="noopener" style="font-size: 0.9rem;">LinkedIn</a>
+  </div>
+</div>
+<script>
+(function() {
+  var p = window.location.pathname;
+  var isContent = p.startsWith("/posts/") || p.startsWith("/til/") || p.startsWith("/collections/");
+  var isListing = (p === "/posts/" || p === "/posts" || p === "/til/" || p === "/til" || p === "/collections/" || p === "/collections");
+  if (!isContent || isListing) {
+    document.getElementById("discuss-links").style.display = "none";
+    return;
+  }
+
+  var url = encodeURIComponent(window.location.href);
+  var title = encodeURIComponent(document.title);
+
+  document.getElementById("discuss-twitter").href =
+    "https://twitter.com/intent/tweet?text=" + title + "&url=" + url + "&via=rahuldave";
+  document.getElementById("discuss-bluesky").href =
+    "https://bsky.app/intent/compose?text=" + title + " " + encodeURIComponent(window.location.href);
+  document.getElementById("discuss-linkedin").href =
+    "https://www.linkedin.com/sharing/share-offsite/?url=" + url;
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/rahuldave\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

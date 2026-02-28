@@ -3,6 +3,11 @@
     "listing": "/posts.html",
     "items": [
       "/posts/seasons/index.html",
+      "/posts/regularization/index.html",
+      "/posts/validation/index.html",
+      "/posts/testingtraining/index.html",
+      "/posts/noisylearning/index.html",
+      "/posts/noiseless_learning/index.html",
       "/posts/MLE/index.html",
       "/posts/frequentist.html",
       "/posts/montecarlointegrals/index.html",
@@ -32,6 +37,11 @@
     "listing": "/index.html",
     "items": [
       "/posts/seasons/index.html",
+      "/posts/regularization/index.html",
+      "/posts/validation/index.html",
+      "/posts/testingtraining/index.html",
+      "/posts/noisylearning/index.html",
+      "/posts/noiseless_learning/index.html",
       "/posts/MLE/index.html",
       "/posts/frequentist.html",
       "/posts/montecarlointegrals/index.html",

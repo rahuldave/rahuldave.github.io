@@ -49,7 +49,10 @@ def fix_image_paths(cell):
     """Replace images/ with assets/ in markdown cell source lines."""
     if cell["cell_type"] != "markdown":
         return cell
-    new_source = [line.replace("](images/", "](assets/") for line in cell["source"]]
+    new_source = [
+        line.replace("](./images/", "](assets/").replace("](images/", "](assets/")
+        for line in cell["source"]
+    ]
     if new_source != cell["source"]:
         cell = dict(cell)
         cell["source"] = new_source
