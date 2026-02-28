@@ -1,5 +1,6 @@
 data
 elections
+information-theory
 integration
 interactive
 macos
@@ -8,5 +9,6 @@ montecarlo
 orchestration
 pipeline
 probability
+regression
 statistics
 visualization
