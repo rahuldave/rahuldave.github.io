@@ -8,6 +8,7 @@ information-theory
 integration
 interactive
 macos
+mcmc
 models
 montecarlo
 neural-networks
