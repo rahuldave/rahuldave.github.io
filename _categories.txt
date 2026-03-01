@@ -1,6 +1,9 @@
 bayesian
+classification
 data
+decision-theory
 elections
+hierarchical
 information-theory
 integration
 interactive
