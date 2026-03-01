@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2025-01-11">
+<meta name="description" content="Demonstrates the Universal Approximation Theorem by implementing MLPs in PyTorch to fit complex 1D functions. Trains neural networks with ReLU and tanh activations using stochastic gradient descent, comparing how different architectures approximate the underlying function.">
 
-<title>claude – rahuldave</title>
+<title>Regression in PyTorch – rahuldave</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,28 +60,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-e0d64750a3675fa668af59a9862b8111.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-d2fef15c612ec386ae0907ffd6f4ccdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-a009389674a9596cea61ac77c12264b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-d2fef15c612ec386ae0907ffd6f4ccdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-e0d64750a3675fa668af59a9862b8111.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-d2fef15c612ec386ae0907ffd6f4ccdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-a009389674a9596cea61ac77c12264b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-d2fef15c612ec386ae0907ffd6f4ccdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -116,11 +118,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
 
-<meta property="og:title" content="rahuldave">
+<meta property="og:title" content="Regression in PyTorch – rahuldave">
+<meta property="og:description" content="Demonstrates the Universal Approximation Theorem by implementing MLPs in PyTorch to fit complex 1D functions. Trains neural networks with ReLU and tanh activations using stochastic gradient descent, comparing how different architectures approximate the underlying function.">
+<meta property="og:image" content="https://rahuldave.github.io/posts/functorch/assets/perceptron.png">
 <meta property="og:site_name" content="rahuldave">
-<meta name="twitter:title" content="rahuldave">
+<meta property="og:image:height" content="159">
+<meta property="og:image:width" content="493">
+<meta name="twitter:title" content="Regression in PyTorch – rahuldave">
+<meta name="twitter:description" content="Demonstrates the Universal Approximation Theorem by implementing MLPs in PyTorch to fit complex 1D functions. Trains neural networks with ReLU and tanh activations using stochastic gradient descent, comparing how different architectures approximate the underlying function.">
+<meta name="twitter:image" content="https://rahuldave.github.io/posts/functorch/assets/perceptron.png">
 <meta name="twitter:creator" content="@rahuldave">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:image-height" content="159">
+<meta name="twitter:image-width" content="493">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -292,7 +302,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">rahuldave</span>
     </a>
   </div>
@@ -303,19 +313,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./posts.html"> 
+    <a class="nav-link" href="../../posts.html"> 
 <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./til.html"> 
+    <a class="nav-link" href="../../til.html"> 
 <span class="menu-text">TIL</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./collections.html"> 
+    <a class="nav-link" href="../../collections.html"> 
 <span class="menu-text">Collections</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -335,39 +345,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#claude-session-context" id="toc-claude-session-context" class="nav-link active" data-scroll-target="#claude-session-context">Claude Session Context</a>
+  <li><a href="#mlp-as-universal-approximator" id="toc-mlp-as-universal-approximator" class="nav-link active" data-scroll-target="#mlp-as-universal-approximator">MLP as universal approximator</a>
   <ul class="collapse">
-  <li><a href="#project-overview" id="toc-project-overview" class="nav-link" data-scroll-target="#project-overview">Project Overview</a></li>
-  <li><a href="#content-source" id="toc-content-source" class="nav-link" data-scroll-target="#content-source">Content Source</a></li>
-  <li><a href="#content-import-status-from-am207-wiki" id="toc-content-import-status-from-am207-wiki" class="nav-link" data-scroll-target="#content-import-status-from-am207-wiki">Content Import Status (from AM207 wiki)</a></li>
-  <li><a href="#category-system" id="toc-category-system" class="nav-link" data-scroll-target="#category-system">Category System</a></li>
-  <li><a href="#about-page" id="toc-about-page" class="nav-link" data-scroll-target="#about-page">About Page</a></li>
-  <li><a href="#social-discussion-links" id="toc-social-discussion-links" class="nav-link" data-scroll-target="#social-discussion-links">Social / Discussion Links</a></li>
-  <li><a href="#listing-sort-order" id="toc-listing-sort-order" class="nav-link" data-scroll-target="#listing-sort-order">Listing Sort Order</a></li>
-  <li><a href="#design" id="toc-design" class="nav-link" data-scroll-target="#design">Design</a>
-  <ul class="collapse">
-  <li><a href="#colorbrewer-blues-palette" id="toc-colorbrewer-blues-palette" class="nav-link" data-scroll-target="#colorbrewer-blues-palette">ColorBrewer Blues Palette</a></li>
-  </ul></li>
-  <li><a href="#quarto-site-structure" id="toc-quarto-site-structure" class="nav-link" data-scroll-target="#quarto-site-structure">Quarto Site Structure</a>
-  <ul class="collapse">
-  <li><a href="#config" id="toc-config" class="nav-link" data-scroll-target="#config">Config</a></li>
-  <li><a href="#posts-directory-layout" id="toc-posts-directory-layout" class="nav-link" data-scroll-target="#posts-directory-layout">Posts Directory Layout</a></li>
-  <li><a href="#notebook-frontmatter-quarto-yaml" id="toc-notebook-frontmatter-quarto-yaml" class="nav-link" data-scroll-target="#notebook-frontmatter-quarto-yaml">Notebook Frontmatter (Quarto YAML)</a></li>
-  <li><a href="#card-images-for-posts-without-content-images" id="toc-card-images-for-posts-without-content-images" class="nav-link" data-scroll-target="#card-images-for-posts-without-content-images">Card Images for Posts Without Content Images</a></li>
-  <li><a href="#three.js-interactive-.qmd-posts" id="toc-three.js-interactive-.qmd-posts" class="nav-link" data-scroll-target="#three.js-interactive-.qmd-posts">Three.js / Interactive .qmd Posts</a></li>
-  <li><a href="#build-commands-makefile" id="toc-build-commands-makefile" class="nav-link" data-scroll-target="#build-commands-makefile">Build Commands (Makefile)</a></li>
-  <li><a href="#imagedata-path-conventions" id="toc-imagedata-path-conventions" class="nav-link" data-scroll-target="#imagedata-path-conventions">Image/Data Path Conventions</a></li>
-  <li><a href="#categories" id="toc-categories" class="nav-link" data-scroll-target="#categories">Categories</a></li>
-  <li><a href="#frontmatter-fields" id="toc-frontmatter-fields" class="nav-link" data-scroll-target="#frontmatter-fields">Frontmatter Fields</a></li>
-  <li><a href="#site-sections" id="toc-site-sections" class="nav-link" data-scroll-target="#site-sections">Site Sections</a></li>
-  <li><a href="#known-gotchas" id="toc-known-gotchas" class="nav-link" data-scroll-target="#known-gotchas">Known Gotchas</a></li>
-  </ul></li>
+  <li><a href="#what-is-a-perceptron" id="toc-what-is-a-perceptron" class="nav-link" data-scroll-target="#what-is-a-perceptron">What is a perceptron</a></li>
+  <li><a href="#generate-data" id="toc-generate-data" class="nav-link" data-scroll-target="#generate-data">Generate data</a></li>
+  <li><a href="#fitting-in-torch" id="toc-fitting-in-torch" class="nav-link" data-scroll-target="#fitting-in-torch">Fitting in Torch</a></li>
+  <li><a href="#the-model" id="toc-the-model" class="nav-link" data-scroll-target="#the-model">The model</a></li>
+  <li><a href="#relu-example" id="toc-relu-example" class="nav-link" data-scroll-target="#relu-example">RELU example</a></li>
+  <li><a href="#tanh-nonlinearity" id="toc-tanh-nonlinearity" class="nav-link" data-scroll-target="#tanh-nonlinearity">tanh nonlinearity</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
 
 <!-- Theme toggle persistence script -->
 <script>
@@ -401,310 +392,253 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 })();
 </script>
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Regression in PyTorch</h1>
+<p class="subtitle lead">Building and training multi-layer perceptrons as universal function approximators.</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">neural-networks</div>
+    <div class="quarto-category">optimization</div>
+    <div class="quarto-category">regression</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Demonstrates the Universal Approximation Theorem by implementing MLPs in PyTorch to fit complex 1D functions. Trains neural networks with ReLU and tanh activations using stochastic gradient descent, comparing how different architectures approximate the underlying function.
+  </div>
+</div>
 
 
+<div class="quarto-title-meta">
 
-<section id="claude-session-context" class="level1">
-<h1>Claude Session Context</h1>
-<section id="project-overview" class="level2">
-<h2 class="anchored" data-anchor-id="project-overview">Project Overview</h2>
-<p>This is a Quarto-based personal website for data science/ML educational content at rahuldave.github.io.</p>
-</section>
-<section id="content-source" class="level2">
-<h2 class="anchored" data-anchor-id="content-source">Content Source</h2>
-<ul>
-<li>AM207 course wiki at <code>~/Attic/Projects/AM207/2018fall_wiki/wiki/</code> — lectures, notebooks, markdown notes</li>
-<li>Lecture index at <code>~/Attic/Projects/AM207/2018fall_wiki/lectures/index.md</code> (replace <code>.html</code> with <code>.md</code> for source files)</li>
-<li>Each lecture <code>.md</code> links to wiki notes; check for <code>.ipynb</code> (primary source) before falling back to <code>.md</code></li>
-<li>Use <code>/import-wiki-notes</code> skill to import notes as blog posts</li>
-<li><strong>Helper scripts</strong> in <code>_scripts/</code>:
-<ul>
-<li><code>import_notebook.py</code> — creates <code>posts/&lt;name&gt;/index.ipynb</code> from wiki <code>.ipynb</code> (adds frontmatter, fixes paths, copies images). Run with <code>--help</code>.</li>
-<li><code>update_captions.py</code> — updates image captions in notebook markdown cells. Used by <code>/caption-images</code> skill.</li>
-</ul></li>
-<li>After importing, run <code>/caption-images</code> to add captions with citations to embedded images</li>
-</ul>
-</section>
-<section id="content-import-status-from-am207-wiki" class="level2">
-<h2 class="anchored" data-anchor-id="content-import-status-from-am207-wiki">Content Import Status (from AM207 wiki)</h2>
-<ul>
-<li><strong>Lecture 1 (Intro &amp; Probability)</strong>: DONE
-<ul>
-<li><code>boxloop</code> — already existed, skipped</li>
-<li><code>probability</code> — notebook, imported to <code>posts/probability/</code></li>
-<li><code>distributions</code> — markdown only, imported to <code>posts/distributions.md</code></li>
-<li><code>distrib-example</code> — notebook, imported to <code>posts/distrib-example/</code></li>
-</ul></li>
-<li><strong>Lecture 2 (Probability, Sampling, Laws, Monte Carlo)</strong>: DONE
-<ul>
-<li><code>distributions</code> — already imported (Lecture 1), skipped</li>
-<li><code>expectations</code> — notebook, imported to <code>posts/expectations/</code></li>
-<li><code>samplingclt</code> — notebook, imported to <code>posts/samplingclt/</code></li>
-<li><code>basicmontecarlo</code> — notebook, imported to <code>posts/basicmontecarlo/</code></li>
-<li><code>montecarlointegrals</code> — notebook, imported to <code>posts/montecarlointegrals/</code></li>
-</ul></li>
-<li><strong>Lecture 3 (From Monte Carlo to Frequentist Stats)</strong>: DONE
-<ul>
-<li><code>Expectations</code> — already imported (Lecture 2), skipped</li>
-<li><code>SamplingCLT</code> — already imported (Lecture 2), skipped</li>
-<li><code>basicmontecarlo</code> — already imported (Lecture 2), skipped</li>
-<li><code>montecarlointegrals</code> — already imported (Lecture 2), skipped</li>
-<li><code>frequentist</code> — markdown only, imported to <code>posts/frequentist.md</code></li>
-<li><code>MLE</code> — notebook, imported to <code>posts/MLE/</code></li>
-</ul></li>
-<li><strong>Lecture 4 (MLE, Sampling, and Learning)</strong>: DONE
-<ul>
-<li><code>noiseless_learning</code> — notebook, imported to <code>posts/noiseless_learning/</code></li>
-<li><code>noisylearning</code> — notebook, imported to <code>posts/noisylearning/</code></li>
-<li><code>MLE</code> — already imported (Lecture 3), skipped</li>
-<li><code>testingtraining</code> — notebook, imported to <code>posts/testingtraining/</code></li>
-<li><code>validation</code> — notebook, imported to <code>posts/validation/</code></li>
-<li><code>regularization</code> — notebook, imported to <code>posts/regularization/</code></li>
-</ul></li>
-<li><strong>Lecture 5 (Regression, AIC, Info. Theory)</strong>: DONE
-<ul>
-<li><code>doseplacebo</code> — notebook, imported to <code>posts/doseplacebo/</code></li>
-<li><code>noiseless_learning</code> — already imported (Lecture 4), skipped</li>
-<li><code>noisylearning</code> — already imported (Lecture 4), skipped</li>
-<li><code>testingtraining</code> — already imported (Lecture 4), skipped</li>
-<li><code>validation</code> — already imported (Lecture 4), skipped</li>
-<li><code>regularization</code> — already imported (Lecture 4), skipped</li>
-<li><code>jensens</code> — notebook, imported to <code>posts/jensens/</code></li>
-<li><code>Divergence</code> — notebook, imported to <code>posts/divergence/</code></li>
-<li><code>understandingaic</code> — notebook, imported to <code>posts/understandingaic/</code></li>
-</ul></li>
-<li><strong>Lecture 6 (Risk and Information)</strong>: DONE
-<ul>
-<li><code>jensens</code> — already imported (Lecture 5), skipped</li>
-<li><code>Divergence</code> — already imported (Lecture 5), skipped</li>
-<li><code>understandingaic</code> — already imported (Lecture 5), skipped</li>
-<li><code>Entropy</code> — notebook, imported to <code>posts/entropy/</code></li>
-</ul></li>
-<li><strong>Lecture 7 (From Entropy to Bayes)</strong>: DONE
-<ul>
-<li><code>Divergence</code> — already imported (Lecture 5), skipped</li>
-<li><code>Entropy</code> — already imported (Lecture 6), skipped</li>
-<li><code>bayes_withsampling</code> — notebook, imported to <code>posts/bayes_withsampling/</code></li>
-<li><code>globemodel</code> — notebook, imported to <code>posts/globemodel/</code></li>
-<li><code>sufstatexch</code> — notebook, imported to <code>posts/sufstatexch/</code></li>
-</ul></li>
-<li><strong>Lecture 8 (Bayes and Sampling)</strong>: DONE
-<ul>
-<li><code>bayes_withsampling</code> — already imported (Lecture 7), skipped</li>
-<li><code>globemodel</code> — already imported (Lecture 7), skipped</li>
-<li><code>sufstatexch</code> — already imported (Lecture 7), skipped</li>
-<li><code>globemodellab</code> — notebook, imported to <code>posts/globemodellab/</code></li>
-<li><code>normalmodel</code> — notebook, imported to <code>posts/normalmodel/</code></li>
-<li><code>lightspeed</code> — source not found in wiki, skipped</li>
-<li><code>inversetransform</code> — notebook, imported to <code>posts/inversetransform/</code></li>
-<li><code>rejectionsampling</code> — notebook, imported to <code>posts/rejectionsampling/</code></li>
-<li><code>importancesampling</code> — notebook, imported to <code>posts/importancesampling/</code></li>
-</ul></li>
-<li><strong>Lecture 9 (Bayes and Sampling, cont.)</strong>: DONE
-<ul>
-<li><code>bayes_withsampling</code> — already imported (Lecture 7), skipped</li>
-<li><code>normalmodel</code> — already imported (Lecture 8), skipped</li>
-<li><code>sufstatexch</code> — already imported (Lecture 7), skipped</li>
-<li><code>lightspeed</code> — source not found in wiki, skipped</li>
-<li><code>inversetransform</code> — already imported (Lecture 8), skipped</li>
-<li><code>rejectionsampling</code> — already imported (Lecture 8), skipped</li>
-<li><code>bayesianregression</code> — notebook, imported to <code>posts/bayesianregression/</code></li>
-<li><code>normalreg</code> — notebook, imported to <code>posts/normalreg/</code> (includes Howell1.csv data)</li>
-</ul></li>
-<li><strong>Lecture 10 (Sampling and Gradient Descent)</strong>: DONE
-<ul>
-<li><code>inversetransform</code> — already imported (Lecture 8), skipped</li>
-<li><code>rejectionsampling</code> — already imported (Lecture 8), skipped</li>
-<li><code>importancesampling</code> — already imported (Lecture 8), skipped</li>
-<li><code>gradientdescent</code> — notebook, imported to <code>posts/gradientdescent/</code> (SGD gif replaced with link)</li>
-<li><code>LogisticBP</code> — notebook, imported to <code>posts/logisticbp/</code></li>
-</ul></li>
-<li><strong>Lecture 11 (Gradient Descent and Neural Networks)</strong>: DONE
-<ul>
-<li><code>gradientdescent</code> — already imported (Lecture 10), skipped</li>
-<li><code>LogisticBP</code> — already imported (Lecture 10), skipped</li>
-<li><code>FuncTorch</code> — notebook, imported to <code>posts/functorch/</code></li>
-<li><code>nnreg</code> — notebook, imported to <code>posts/nnreg/</code></li>
-<li><code>MLP_Classification</code> — notebook, imported to <code>posts/mlp_classification/</code></li>
-</ul></li>
-<li><strong>Lectures 12–26</strong>: NOT YET IMPORTED</li>
-</ul>
-</section>
-<section id="category-system" class="level2">
-<h2 class="anchored" data-anchor-id="category-system">Category System</h2>
-<ul>
-<li>Canonical categories are in <code>_categories.txt</code> (root of project), one per line, sorted alphabetically</li>
-<li><strong>Current categories</strong>: bayesian, data, elections, information-theory, integration, interactive, macos, models, montecarlo, neural-networks, optimization, orchestration, pipeline, probability, regression, sampling, statistics, visualization</li>
-<li>All categories must be lowercase</li>
-<li>When importing, map source keywords to existing categories; propose new ones for user approval</li>
-<li>The <code>/import-wiki-notes</code> skill enforces this workflow (step 7c)</li>
-</ul>
-</section>
-<section id="about-page" class="level2">
-<h2 class="anchored" data-anchor-id="about-page">About Page</h2>
-<ul>
-<li>Profile photo: <code>assets/profile.jpg</code> (sourced from GitHub avatar)</li>
-<li>Comprehensive bio context: <code>~/Context/rahul-dave-profile.md</code></li>
-<li>Contact form via Formspree (ID: <code>mykjwlyk</code>) — forwards to rahuldave@univ.ai</li>
-<li>Links: GitHub, X/Twitter, Bluesky (rahuldave.bsky.social), Google Scholar, LinkedIn</li>
-</ul>
-</section>
-<section id="social-discussion-links" class="level2">
-<h2 class="anchored" data-anchor-id="social-discussion-links">Social / Discussion Links</h2>
-<ul>
-<li><code>includes/discuss-links.html</code> — “Discuss this post” links (Twitter, Bluesky, LinkedIn) on posts, til, and collections pages only</li>
-<li>Uses IIFE (not DOMContentLoaded) because <code>include-after-body</code> runs after DOM is ready</li>
-<li>Links are constructed at runtime from <code>window.location.href</code> — will use production domain automatically</li>
-<li>Open Graph and Twitter Card metadata enabled in <code>_quarto.yml</code></li>
-</ul>
-</section>
-<section id="listing-sort-order" class="level2">
-<h2 class="anchored" data-anchor-id="listing-sort-order">Listing Sort Order</h2>
-<ul>
-<li>All listing pages sort by <code>date desc</code>: <code>index.qmd</code>, <code>posts.qmd</code>, <code>til.qmd</code>, <code>collections.qmd</code></li>
-</ul>
-</section>
-<section id="design" class="level2">
-<h2 class="anchored" data-anchor-id="design">Design</h2>
-<ul>
-<li><code>designs/design1-depth/</code> — <strong>CHOSEN BASE DESIGN</strong> (Blues sequential palette, clean, scholarly)</li>
-<li><code>designs/design1-modern/</code> — fork of depth, modernized with animations/glassmorphism</li>
-<li>Serif typography: Bitter (headings) + Source Serif 4 (body) + IBM Plex Mono (code)</li>
-<li>ColorBrewer Blues palette (#eff3ff → #08306b)</li>
-<li>Dark/light mode support</li>
-</ul>
-<section id="colorbrewer-blues-palette" class="level3">
-<h3 class="anchored" data-anchor-id="colorbrewer-blues-palette">ColorBrewer Blues Palette</h3>
-<pre><code>--cb-blue-50: #eff3ff   --cb-blue-100: #c6dbef   --cb-blue-200: #9ecae1
---cb-blue-300: #6baed6  --cb-blue-400: #4292c6   --cb-blue-500: #2171b5
---cb-blue-600: #08519c  --cb-blue-700: #084594   --cb-blue-800: #08306b</code></pre>
-<hr>
-</section>
-</section>
-<section id="quarto-site-structure" class="level2">
-<h2 class="anchored" data-anchor-id="quarto-site-structure">Quarto Site Structure</h2>
-<section id="config" class="level3">
-<h3 class="anchored" data-anchor-id="config">Config</h3>
-<ul>
-<li><code>_quarto.yml</code> — project config: website type, navbar, SCSS theme (light/dark), TOC, margin references, Open Graph, Twitter Cards</li>
-<li>Themes: <code>styles/modern-light.scss</code>, <code>styles/modern-dark.scss</code></li>
-<li>Includes: <code>includes/fonts.html</code>, <code>includes/brand-icon.html</code>, <code>includes/theme-toggle.html</code>, <code>includes/discuss-links.html</code></li>
-</ul>
-</section>
-<section id="posts-directory-layout" class="level3">
-<h3 class="anchored" data-anchor-id="posts-directory-layout">Posts Directory Layout</h3>
-<p><strong>Notebooks</strong> get their own folder with <code>index.ipynb</code> (or <code>index.qmd</code> for JS demos):</p>
-<pre><code>posts/
-  probability/
-    index.ipynb        # URL becomes /posts/probability/
-    assets/            # images, data files referenced by THIS notebook only
-      venn.png
-      bishop-prob.png
-  votingforcongress/
-    index.ipynb
-    assets/
-      sep7.png
-  earth-demo/
-    index.qmd          # Three.js demo using .qmd format
-    assets/
-      earth-card.png   # Card thumbnail for listing (no content images in post)</code></pre>
-<p><strong>Markdown posts</strong> stay as flat files, images go in shared <code>posts/images/</code> or <code>posts/data/</code>:</p>
-<pre><code>posts/
-  boxloop.md           # URL becomes /posts/boxloop
-  distributions.md
-  images/              # shared images for flat .md posts
-    2tosscdf.png
-  data/                # shared data for flat .md posts (if needed)</code></pre>
-</section>
-<section id="notebook-frontmatter-quarto-yaml" class="level3">
-<h3 class="anchored" data-anchor-id="notebook-frontmatter-quarto-yaml">Notebook Frontmatter (Quarto YAML)</h3>
-<p>Notebooks must have a <strong>raw cell</strong> (cell_type: “raw”) as the first cell with YAML:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Post Title"</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">subtitle</span><span class="kw">:</span><span class="at"> </span><span class="st">"Catchy one-liner for listing cards."</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">description</span><span class="kw">:</span><span class="at"> </span><span class="st">"Two-sentence summary for the post page."</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">categories</span><span class="kw">:</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> probability</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> statistics</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span><span class="kw">:</span><span class="at"> 2025-01-08</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li><code>subtitle</code> appears on listing cards</li>
-<li><code>description</code> is the longer summary</li>
-<li><code>categories</code> are used for filtering (must be from <code>_categories.txt</code>)</li>
-<li><code>date</code> controls sort order</li>
-<li><code>image</code> — optional, for posts without content images (e.g.&nbsp;<code>image: assets/earth-card.png</code>)</li>
-</ul>
-<p>For markdown posts, the same YAML goes in the standard frontmatter block at the top.</p>
-</section>
-<section id="card-images-for-posts-without-content-images" class="level3">
-<h3 class="anchored" data-anchor-id="card-images-for-posts-without-content-images">Card Images for Posts Without Content Images</h3>
-<p>For posts with no embedded images (e.g.&nbsp;interactive Three.js demos), use the browser agent to screenshot the rendered page, crop to the key visual, save to <code>assets/</code>, and add <code>image:</code> to frontmatter. See skill step 9 for details.</p>
-</section>
-<section id="three.js-interactive-.qmd-posts" class="level3">
-<h3 class="anchored" data-anchor-id="three.js-interactive-.qmd-posts">Three.js / Interactive .qmd Posts</h3>
-<p>Use <code>.qmd</code> format (not <code>.ipynb</code>) for JavaScript-heavy interactive content: - Load external JS via <code>format: html: include-in-header:</code> in frontmatter - Use Quarto’s fenced div syntax <code>::: {.classname}</code> for layout containers - Inline <code>&lt;script&gt;</code> blocks at the end of the .qmd file - Read CSS custom properties (<code>--cb-blue-*</code>, <code>--interactive-*</code>) for theme integration - Example: <code>posts/earth-demo/index.qmd</code></p>
-</section>
-<section id="build-commands-makefile" class="level3">
-<h3 class="anchored" data-anchor-id="build-commands-makefile">Build Commands (Makefile)</h3>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> preview                <span class="co"># Live dev server with hot reload</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> render                 <span class="co"># Build full site to _site/</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> build                  <span class="co"># Render + rsync _site/ to docs/ for GitHub Pages</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render posts/probability/index.ipynb  <span class="co"># Render a single post</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li><code>render</code> produces <code>_site/</code>; <code>build</code> adds an rsync step to sync changed files into <code>docs/</code></li>
-<li>Commit and push are intentionally separate from <code>build</code></li>
-</ul>
-</section>
-<section id="imagedata-path-conventions" class="level3">
-<h3 class="anchored" data-anchor-id="imagedata-path-conventions">Image/Data Path Conventions</h3>
-<ul>
-<li>Notebook posts: <code>assets/filename.png</code> (relative to the notebook’s folder)</li>
-<li>Markdown posts: <code>images/filename.png</code> (relative to posts/)</li>
-<li>Site-wide assets already in <code>/assets/</code> (e.g.&nbsp;lawoflargenumbers images) use <code>/assets/...</code> absolute paths</li>
-<li>Profile photo: <code>assets/profile.jpg</code> (JPEG, not PNG — watch for GitHub avatar format mismatch)</li>
-</ul>
-</section>
-<section id="categories" class="level3">
-<h3 class="anchored" data-anchor-id="categories">Categories</h3>
-<ul>
-<li><strong>All categories must be lowercase</strong> — no <code>Statistics</code>, use <code>statistics</code>; no <code>MonteCarlo</code>, use <code>montecarlo</code></li>
-<li>Canonical list in <code>_categories.txt</code> at project root</li>
-<li>This prevents duplicate tags in Quarto listing filters</li>
-</ul>
-</section>
-<section id="frontmatter-fields" class="level3">
-<h3 class="anchored" data-anchor-id="frontmatter-fields">Frontmatter Fields</h3>
-<ul>
-<li><code>title</code> — post title</li>
-<li><code>subtitle</code> — catchy one-liner shown on listing cards</li>
-<li><code>description</code> — 2-sentence content summary</li>
-<li><code>categories</code> — lowercase tags for filtering (from <code>_categories.txt</code>)</li>
-<li><code>date</code> — controls sort order (YYYY-MM-DD)</li>
-<li><code>image</code> — card thumbnail path (optional, for posts without content images)</li>
-</ul>
-</section>
-<section id="site-sections" class="level3">
-<h3 class="anchored" data-anchor-id="site-sections">Site Sections</h3>
-<ul>
-<li><code>posts/</code> — main blog posts (shown on index page)</li>
-<li><code>til/</code> — Today I Learned (shown only on TIL page, NOT on index)</li>
-<li><code>collections/software/</code> — software tools (shown only on Collections page, NOT on index)</li>
-<li><code>index.qmd</code> listing contents should only include <code>posts/</code> and <code>posts/**/</code></li>
-</ul>
-</section>
-<section id="known-gotchas" class="level3">
-<h3 class="anchored" data-anchor-id="known-gotchas">Known Gotchas</h3>
-<ul>
-<li>After adding/moving/renaming files, restart <code>quarto preview</code> — the live server caches resource IDs and will show “Bad resource ID” for changed files</li>
-<li>Listing <code>.qmd</code> files must not have a stray <code>---</code> after the YAML block (causes parse errors)</li>
-<li>Listing <code>contents</code> paths should NOT have a leading <code>/</code> (use <code>til/*.qmd</code> not <code>/til/*.qmd</code>)</li>
-<li><code>include-after-body</code> scripts run after DOMContentLoaded — use IIFE, not event listeners</li>
-<li>GitHub avatar downloads are JPEG even with <code>.png</code> URL — always check with <code>file</code> command and use correct extension</li>
-</ul>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 11, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
 
 
+</header>
+
+
+<section id="mlp-as-universal-approximator" class="level1">
+<h1>MLP as universal approximator</h1>
+<section id="keywords-mlp-neural-network-pytorch-sgd" class="level5">
+<h5 class="anchored" data-anchor-id="keywords-mlp-neural-network-pytorch-sgd">Keywords: MLP, neural network, pytorch, SGD</h5>
 </section>
+<section id="what-is-a-perceptron" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-a-perceptron">What is a perceptron</h2>
+<p>A perceptron is simply a set-of-units with a construction reminiscent of logistic regression. It consists of an input, followed by a linear combination, and then a squeezing through a non-linearity such as a sigmoid, a tanh, or a RELU.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/perceptron.png" class="img-fluid figure-img"></p>
+<figcaption>A single perceptron: inputs pass through a linear combination followed by a non-linearity to produce the output.</figcaption>
+</figure>
+</div>
+<p>A multi-layer perceptron can be used to approximate any function. The <strong>Universal Approximation</strong> theorem states that any continuous function with finite support can be approximated by at-least a one hidden layer based perceptron.</p>
+<p>This is not a free lunch. The number of units required in this layer may be very high, and it might be hard for SGD to actually find the “correct” combination.</p>
+</section>
+<section id="generate-data" class="level2">
+<h2 class="anchored" data-anchor-id="generate-data">Generate data</h2>
+<p>We generate noisy data from a fairly complex function (in 1-D) to demonstrate:</p>
+<div id="cell-4" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#np.random.seed(99)</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: <span class="fl">0.2</span> <span class="op">+</span> <span class="fl">0.4</span><span class="op">*</span>x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="fl">0.3</span><span class="op">*</span>x<span class="op">*</span>np.sin(<span class="dv">15</span><span class="op">*</span>x) <span class="op">+</span> <span class="fl">0.05</span><span class="op">*</span>np.cos(<span class="dv">20</span><span class="op">*</span>x)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>xgrid <span class="op">=</span> np.linspace(<span class="fl">0.</span>,<span class="fl">1.</span>, <span class="dv">640</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>fgrid <span class="op">=</span> f(xgrid)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>ygrid <span class="op">=</span> fgrid <span class="op">+</span> <span class="fl">0.1</span><span class="op">*</span>np.random.normal(size<span class="op">=</span><span class="dv">640</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-5" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, fgrid, lw<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="fitting-in-torch" class="level2">
+<h2 class="anchored" data-anchor-id="fitting-in-torch">Fitting in Torch</h2>
+<div id="cell-7" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.nn <span class="im">import</span> functional <span class="im">as</span> fn</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-8" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.autograd <span class="im">import</span> Variable</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>xdata <span class="op">=</span> Variable(torch.Tensor(xgrid))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>ydata <span class="op">=</span> Variable(torch.Tensor(ygrid))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="the-model" class="level2">
+<h2 class="anchored" data-anchor-id="the-model">The model</h2>
+<p>Here is a general model class to fit an architecture of the style shown below:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/mlp.png" class="img-fluid figure-img"></p>
+<figcaption>A multi-layer perceptron with input layer, hidden layer, and output layer. Each node applies a linear transformation followed by a non-linearity, with bias terms at each layer.</figcaption>
+</figure>
+</div>
+<p>The basic structure is this: there is an input into a linear layer, which is then squeezed through a non-linearity. 0 or more hidden layers follow (we want atleast 1 hidden layer for universal approximation). At each of these layers, for each unit, we take all the output from the previous nonlinearity, linear-combine it with all the other non-linear outputs from the previous layer, and squeeze what we get through another non-linearity. Finally, we combine all these non-liner outputs using a linear unit into a y value. (we’d use a linear+sigmoid or linear+softmax for categorical outputs or classification).</p>
+<p>The class below makes the structure explicit. Notice the use of <code>nn.ModuleList</code>. This is a <code>pytorch</code> peculiarity.</p>
+<div id="cell-10" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MLRegP(nn.Module):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, input_dim, hidden_dim, nonlinearity <span class="op">=</span> fn.tanh, additional_hidden_wide<span class="op">=</span><span class="dv">0</span>):</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(MLRegP, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fc_initial <span class="op">=</span> nn.Linear(input_dim, hidden_dim)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fc_mid <span class="op">=</span> nn.ModuleList()</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.additional_hidden_wide <span class="op">=</span> additional_hidden_wide</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="va">self</span>.additional_hidden_wide):</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.fc_mid.append(nn.Linear(hidden_dim, hidden_dim))</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fc_final <span class="op">=</span> nn.Linear(hidden_dim, <span class="dv">1</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.nonlinearity <span class="op">=</span> nonlinearity</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.fc_initial(x)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.nonlinearity(x)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="va">self</span>.additional_hidden_wide):</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>            x <span class="op">=</span> <span class="va">self</span>.fc_mid[i](x)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>            x <span class="op">=</span> <span class="va">self</span>.nonlinearity(x)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.fc_final(x)</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="relu-example" class="level2">
+<h2 class="anchored" data-anchor-id="relu-example">RELU example</h2>
+<p>We choose 1 hidden layer with 40 units. We print out the model to see what we get. The graph is built up by <code>pytorch</code> when <code>forward</code> is hit for the first time (thats how we can get away putting the nonlinearities there). Then when we backprop the gradients are transferred properly.</p>
+<div id="cell-12" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">80</span>, nonlinearity<span class="op">=</span>fn.relu, additional_hidden_wide<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>criterion <span class="op">=</span> nn.MSELoss()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-13" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>MLRegP(
+  (fc_initial): Linear(in_features=1, out_features=80)
+  (fc_mid): ModuleList(
+  )
+  (fc_final): Linear(in_features=80, out_features=1)
+)</code></pre>
+</div>
+</div>
+<div id="cell-14" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.utils.data</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> torch.utils.data.TensorDataset(torch.from_numpy(xgrid.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)), torch.from_numpy(ygrid))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>loader <span class="op">=</span> torch.utils.data.DataLoader(dataset, batch_size<span class="op">=</span><span class="dv">64</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-15" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>lr, epochs, batch_size <span class="op">=</span> <span class="fl">1e-1</span> , <span class="dv">2000</span> , <span class="dv">64</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>optimizer <span class="op">=</span> torch.optim.SGD(model.parameters(), lr <span class="op">=</span> lr )</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>accum<span class="op">=</span>[]</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(epochs):</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    localaccum <span class="op">=</span> []</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> localx, localy <span class="kw">in</span> <span class="bu">iter</span>(loader):</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        localx <span class="op">=</span> Variable(localx.<span class="bu">float</span>())</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        localy <span class="op">=</span> Variable(localy.<span class="bu">float</span>())</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        output <span class="op">=</span> model.forward(localx)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> criterion(output, localy)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        model.zero_grad()</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        loss.backward()</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>        optimizer.step()</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>        localaccum.append(loss.data[<span class="dv">0</span>])</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    accum.append(np.mean(localaccum))</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>plt.plot(accum)<span class="op">;</span>                      </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-16" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>finaloutput <span class="op">=</span> model.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="cell-17" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, fgrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We see that RELU does a decent job. Because of the nature of RELU, the resulting function has sharp edges. Note that even though the universal approximation theorem says that we can approximate any function, stochastic noise means that the function the network thinks we are approximating need not be the function we want to approximate..</p>
+</section>
+<section id="tanh-nonlinearity" class="level2">
+<h2 class="anchored" data-anchor-id="tanh-nonlinearity">tanh nonlinearity</h2>
+<p>We get somewhat better results with the tanh nonlinearity, if we go with 2 layers. Play with the number of hidden layers and number of units per layer to see if you can do better!</p>
+<div id="cell-20" class="cell" data-execution_count="32">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>model2 <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">40</span>, nonlinearity<span class="op">=</span>fn.tanh, additional_hidden_wide<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model2)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>criterion <span class="op">=</span> nn.MSELoss()</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> torch.utils.data.TensorDataset(torch.from_numpy(xgrid.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)), torch.from_numpy(ygrid))</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>loader <span class="op">=</span> torch.utils.data.DataLoader(dataset, batch_size<span class="op">=</span><span class="dv">64</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>lr, epochs, batch_size <span class="op">=</span> <span class="fl">0.1</span> , <span class="dv">4000</span> , <span class="dv">64</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>optimizer <span class="op">=</span> torch.optim.SGD(model2.parameters(), lr <span class="op">=</span> lr )</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>accum<span class="op">=</span>[]</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(epochs):</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    localaccum <span class="op">=</span> []</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> localx, localy <span class="kw">in</span> <span class="bu">iter</span>(loader):</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>        localx <span class="op">=</span> Variable(localx.<span class="bu">float</span>())</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>        localy <span class="op">=</span> Variable(localy.<span class="bu">float</span>())</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>        output <span class="op">=</span> model2.forward(localx)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> criterion(output, localy)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>        model2.zero_grad()</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>        loss.backward()</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>        optimizer.step()</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>        localaccum.append(loss.data[<span class="dv">0</span>])</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    accum.append(np.mean(localaccum))</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>plt.plot(accum)<span class="op">;</span>                      </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>MLRegP(
+  (fc_initial): Linear(in_features=1, out_features=40)
+  (fc_mid): ModuleList(
+    (0): Linear(in_features=40, out_features=40)
+  )
+  (fc_final): Linear(in_features=40, out_features=1)
+)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-13-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-21" class="cell" data-execution_count="33">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>finaloutput <span class="op">=</span> model2.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, fgrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
 </section>
 </section>
 

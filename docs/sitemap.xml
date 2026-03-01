@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://rahuldave.github.io/CLAUDE.html</loc>
-    <lastmod>2026-03-01T01:16:37.456Z</lastmod>
+    <lastmod>2026-03-01T01:47:12.341Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/collections/software/prefect.html</loc>
@@ -33,32 +33,36 @@
     <lastmod>2026-02-28T18:41:18.583Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/posts/importancesampling/index.html</loc>
-    <lastmod>2026-02-28T23:55:36.084Z</lastmod>
+    <loc>https://rahuldave.github.io/posts/functorch/index.html</loc>
+    <lastmod>2026-03-01T01:46:41.827Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/posts/vizasstory.html</loc>
-    <lastmod>2026-01-29T14:30:14.118Z</lastmod>
+    <loc>https://rahuldave.github.io/posts/doseplacebo/index.html</loc>
+    <lastmod>2026-02-28T18:52:41.653Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/posts/seasons/index.html</loc>
-    <lastmod>2026-01-29T18:09:08.759Z</lastmod>
+    <loc>https://rahuldave.github.io/posts/noiseless_learning/index.html</loc>
+    <lastmod>2026-02-28T18:41:18.598Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/posts/samplingclt/index.html</loc>
-    <lastmod>2026-02-28T23:45:11.805Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rahuldave.github.io/posts/inversetransform/index.html</loc>
-    <lastmod>2026-02-28T23:55:36.082Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rahuldave.github.io/posts/divergence/index.html</loc>
+    <loc>https://rahuldave.github.io/posts/understandingaic/index.html</loc>
     <lastmod>2026-02-28T22:45:43.235Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/posts/normalmodel/index.html</loc>
-    <lastmod>2026-02-28T23:42:46.572Z</lastmod>
+    <loc>https://rahuldave.github.io/posts/gradientdescent/index.html</loc>
+    <lastmod>2026-03-01T01:17:30.113Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rahuldave.github.io/posts/bayesianregression/index.html</loc>
+    <lastmod>2026-03-01T00:12:15.307Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rahuldave.github.io/posts/testingtraining/index.html</loc>
+    <lastmod>2026-02-28T18:41:18.588Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rahuldave.github.io/posts/mlp_classification/index.html</loc>
+    <lastmod>2026-03-01T01:41:06.599Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/entropy/index.html</loc>
@@ -89,24 +93,28 @@
     <lastmod>2026-03-01T00:12:35.451Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/posts/globemodel/index.html</loc>
-    <lastmod>2026-02-28T22:42:24.931Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rahuldave.github.io/posts/montecarlointegrals/index.html</loc>
-    <lastmod>2026-02-28T23:43:20.926Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rahuldave.github.io/posts/boxloop.html</loc>
-    <lastmod>2026-02-28T17:10:57.147Z</lastmod>
+    <loc>https://rahuldave.github.io/posts/distributions.html</loc>
+    <lastmod>2026-02-28T17:11:14.602Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/distrib-example/index.html</loc>
     <lastmod>2026-02-28T18:41:18.608Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/posts/distributions.html</loc>
-    <lastmod>2026-02-28T17:11:14.602Z</lastmod>
+    <loc>https://rahuldave.github.io/posts/boxloop.html</loc>
+    <lastmod>2026-02-28T17:10:57.147Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rahuldave.github.io/posts/montecarlointegrals/index.html</loc>
+    <lastmod>2026-02-28T23:43:20.926Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rahuldave.github.io/posts/globemodel/index.html</loc>
+    <lastmod>2026-02-28T22:42:24.931Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rahuldave.github.io/posts/nnreg/index.html</loc>
+    <lastmod>2026-03-01T01:41:03.950Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/probability/index.html</loc>
@@ -137,28 +145,32 @@
     <lastmod>2026-02-28T18:41:18.602Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/posts/testingtraining/index.html</loc>
-    <lastmod>2026-02-28T18:41:18.588Z</lastmod>
+    <loc>https://rahuldave.github.io/posts/normalmodel/index.html</loc>
+    <lastmod>2026-02-28T23:42:46.572Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/posts/bayesianregression/index.html</loc>
-    <lastmod>2026-03-01T00:12:15.307Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rahuldave.github.io/posts/gradientdescent/index.html</loc>
-    <lastmod>2026-03-01T01:17:30.113Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rahuldave.github.io/posts/understandingaic/index.html</loc>
+    <loc>https://rahuldave.github.io/posts/divergence/index.html</loc>
     <lastmod>2026-02-28T22:45:43.235Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/posts/noiseless_learning/index.html</loc>
-    <lastmod>2026-02-28T18:41:18.598Z</lastmod>
+    <loc>https://rahuldave.github.io/posts/inversetransform/index.html</loc>
+    <lastmod>2026-02-28T23:55:36.082Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/posts/doseplacebo/index.html</loc>
-    <lastmod>2026-02-28T18:52:41.653Z</lastmod>
+    <loc>https://rahuldave.github.io/posts/samplingclt/index.html</loc>
+    <lastmod>2026-02-28T23:45:11.805Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rahuldave.github.io/posts/seasons/index.html</loc>
+    <lastmod>2026-01-29T18:09:08.759Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rahuldave.github.io/posts/vizasstory.html</loc>
+    <lastmod>2026-01-29T14:30:14.118Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rahuldave.github.io/posts/importancesampling/index.html</loc>
+    <lastmod>2026-02-28T23:55:36.084Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/globemodellab/index.html</loc>
