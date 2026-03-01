@@ -376,7 +376,6 @@ window.Quarto = {
   <ul>
   <li><a href="#from-annealing-to-metropolis" id="toc-from-annealing-to-metropolis" class="nav-link active" data-scroll-target="#from-annealing-to-metropolis">From Annealing To Metropolis</a>
   <ul class="collapse">
-  <li><a href="#contents" id="toc-contents" class="nav-link" data-scroll-target="#contents">Contents</a></li>
   <li><a href="#simulated-annealing" id="toc-simulated-annealing" class="nav-link" data-scroll-target="#simulated-annealing">Simulated Annealing</a></li>
   <li><a href="#motivating-metropolis" id="toc-motivating-metropolis" class="nav-link" data-scroll-target="#motivating-metropolis">Motivating Metropolis</a></li>
   <li><a href="#example-sampling-a-gaussian" id="toc-example-sampling-a-gaussian" class="nav-link" data-scroll-target="#example-sampling-a-gaussian">Example: Sampling a Gaussian</a></li>
@@ -458,8 +457,6 @@ window.Quarto = {
 
 <section id="from-annealing-to-metropolis" class="level1">
 <h1>From Annealing To Metropolis</h1>
-<section id="keywords-simulated-annealing-detailed-balance-stationarity-metropolis-boltzmann-distribution-irreducible-equilibrium-curse-of-dimensionality" class="level5">
-<h5 class="anchored" data-anchor-id="keywords-simulated-annealing-detailed-balance-stationarity-metropolis-boltzmann-distribution-irreducible-equilibrium-curse-of-dimensionality">Keywords: simulated annealing, detailed balance, stationarity, metropolis, boltzmann distribution, irreducible, equilibrium, curse of dimensionality</h5>
 <div id="cell-2" class="cell" data-hide="true" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -473,11 +470,6 @@ window.Quarto = {
   warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
 </div>
 </div>
-</section>
-<section id="contents" class="level2">
-<h2 class="anchored" data-anchor-id="contents">Contents</h2>
-<p>{:.no_toc} * {: toc}</p>
-</section>
 <section id="simulated-annealing" class="level2">
 <h2 class="anchored" data-anchor-id="simulated-annealing">Simulated Annealing</h2>
 <p>As we have seen, in Simulated Annealing, we reduce the temperature while accepting proposlas which increase the energy (the function we want to minimize).</p>
@@ -489,7 +481,7 @@ window.Quarto = {
 <p>where</p>
 <p><span class="math display">\[Z(T) = \sum_j \exp{ \left( \frac{ -E_j}{kT}\right)}\]</span></p>
 <p>is the normalization constant of the distribution, also called the partition function.</p>
-<div id="cell-5" class="cell" data-execution_count="4">
+<div id="cell-4" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">4</span><span class="op">*</span>np.sin(<span class="dv">2</span><span class="op">*</span>x)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>xs <span class="op">=</span> np.linspace(<span class="op">-</span><span class="fl">10.</span>,<span class="fl">10.</span>,<span class="dv">1000</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xs, f(xs))<span class="op">;</span></span>
@@ -514,7 +506,7 @@ window.Quarto = {
 <p>But even more interesting:</p>
 <p><span class="math display">\[P_{T}(x) = P(x)^{1/T}\]</span></p>
 <p>and so you get a peakier and peakier distribution as <span class="math inline">\(T \to 0\)</span> around the global minimum (the globality and the exponentiation ensures that this peak is favored over the rest in the dfunction <span class="math inline">\(f\)</span>). You can see this in the diagram below. As <span class="math inline">\(T \to 0\)</span>, we get towards a delta function at the optimum and get a global minimum instead of a distribution.</p>
-<div id="cell-8" class="cell" data-execution_count="5">
+<div id="cell-7" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> functools</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>distx <span class="op">=</span> <span class="kw">lambda</span> g, x: np.e<span class="op">**</span>(<span class="op">-</span>g(x))</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>dxf <span class="op">=</span> functools.partial(distx, f)</span>
@@ -554,7 +546,7 @@ window.Quarto = {
 <li>If the probability increased (energy decreased) we accept. If probability decreased (energy increased) we accept some of the time, based on the ratio of the new probability to the old one.</li>
 <li>We accumulate our samples, as we are now trying to sample a distribution rather than find its “global maximum”.</li>
 </ol>
-<div id="cell-10" class="cell" data-execution_count="88">
+<div id="cell-9" class="cell" data-execution_count="88">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> metropolis(p, qdraw, nsamp, xinit):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    samples<span class="op">=</span>np.empty(nsamp)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    x_prev <span class="op">=</span> xinit</span>
@@ -574,7 +566,7 @@ window.Quarto = {
 </section>
 <section id="example-sampling-a-gaussian" class="level2">
 <h2 class="anchored" data-anchor-id="example-sampling-a-gaussian">Example: Sampling a Gaussian</h2>
-<div id="cell-12" class="cell" data-execution_count="101">
+<div id="cell-11" class="cell" data-execution_count="101">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>xxx<span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">1000</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xxx, norm.pdf(xxx), <span class="st">'r'</span>)<span class="op">;</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -585,7 +577,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="102">
+<div id="cell-12" class="cell" data-execution_count="102">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> uniform</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> propmaker(delta):</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    rv <span class="op">=</span> uniform(<span class="op">-</span>delta, <span class="dv">2</span><span class="op">*</span>delta)</span>
@@ -594,16 +586,16 @@ window.Quarto = {
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> uniprop(xprev):</span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xprev<span class="op">+</span>uni.rvs()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-14" class="cell" data-execution_count="103">
+<div id="cell-13" class="cell" data-execution_count="103">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>norm.pdf(<span class="fl">0.1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="103">
 <pre><code>0.39695254747701181</code></pre>
 </div>
 </div>
-<div id="cell-15" class="cell" data-execution_count="105">
+<div id="cell-14" class="cell" data-execution_count="105">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>samps <span class="op">=</span> metropolis(norm.pdf, uniprop, <span class="dv">100000</span>, <span class="fl">0.0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-16" class="cell" data-execution_count="106">
+<div id="cell-15" class="cell" data-execution_count="106">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot our sample histogram</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>plt.hist(samps,bins<span class="op">=</span><span class="dv">80</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">u'MCMC distribution'</span>, normed<span class="op">=</span><span class="va">True</span>) </span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -655,10 +647,10 @@ window.Quarto = {
 </section>
 <section id="another-example" class="level2">
 <h2 class="anchored" data-anchor-id="another-example">Another example</h2>
-<div id="cell-19" class="cell" data-execution_count="107">
+<div id="cell-18" class="cell" data-execution_count="107">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: <span class="dv">6</span><span class="op">*</span>x<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-20" class="cell" data-execution_count="108">
+<div id="cell-19" class="cell" data-execution_count="108">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>xxx<span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">100</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xxx, f(xxx), <span class="st">'r'</span>) </span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.axvline(<span class="dv">0</span>, <span class="dv">0</span>,<span class="dv">1</span>, color<span class="op">=</span><span class="st">"gray"</span>)</span>
@@ -674,21 +666,21 @@ window.Quarto = {
 </div>
 <p>We wish to consider the support [0,1]. We could truncate our “distribution” beyond these. But it does not matter, even though we use a normal proposal whichcan propose negative and gretar-than-one <span class="math inline">\(x\)</span> values.</p>
 <p>What happens if the proposal proposes a number outside of [0,1]? Notice then that our pdf is negative(ie it is not a pdf. (we could have defined it as 0 as well). Then in the metropolis acceptance formula, we are trying to check if a uniform is less than a negative or 0 number and we will not accept. This does however mean that we will need a longer set of samples than otherwise…</p>
-<div id="cell-22" class="cell" data-execution_count="109">
+<div id="cell-21" class="cell" data-execution_count="109">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prop(x):</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.random.normal(x, <span class="fl">0.6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-23" class="cell" data-execution_count="110">
+<div id="cell-22" class="cell" data-execution_count="110">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>prop(<span class="fl">0.1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="110">
 <pre><code>-0.38115925548141294</code></pre>
 </div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="112">
+<div id="cell-23" class="cell" data-execution_count="112">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>x0<span class="op">=</span>np.random.uniform()</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>samps <span class="op">=</span> metropolis(f, prop, <span class="dv">1000000</span>, x0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-25" class="cell" data-execution_count="124">
+<div id="cell-24" class="cell" data-execution_count="124">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot our sample histogram</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>plt.hist(samps,bins<span class="op">=</span><span class="dv">100</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">u'MCMC distribution'</span>, normed<span class="op">=</span><span class="va">True</span>) </span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>somesamps<span class="op">=</span>samps[<span class="dv">0</span>::<span class="dv">100000</span>]</span>

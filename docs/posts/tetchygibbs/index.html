@@ -376,8 +376,6 @@ window.Quarto = {
   <ul>
   <li><a href="#a-gibbs-sampler-with-lots-of-autocorrelation" id="toc-a-gibbs-sampler-with-lots-of-autocorrelation" class="nav-link active" data-scroll-target="#a-gibbs-sampler-with-lots-of-autocorrelation">A gibbs sampler with lots of autocorrelation</a>
   <ul class="collapse">
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
-  <li><a href="#contents" id="toc-contents" class="nav-link" data-scroll-target="#contents">Contents</a></li>
   <li><a href="#a-tetchy-posterior" id="toc-a-tetchy-posterior" class="nav-link" data-scroll-target="#a-tetchy-posterior">A tetchy posterior</a>
   <ul class="collapse">
   <li><a href="#conditionals" id="toc-conditionals" class="nav-link" data-scroll-target="#conditionals">Conditionals</a></li>
@@ -467,8 +465,6 @@ window.Quarto = {
 
 <section id="a-gibbs-sampler-with-lots-of-autocorrelation" class="level1">
 <h1>A gibbs sampler with lots of autocorrelation</h1>
-<section id="keywords-mcmc-gibbs-sampler-autocorrelation-effective-sample-size" class="level5">
-<h5 class="anchored" data-anchor-id="keywords-mcmc-gibbs-sampler-autocorrelation-effective-sample-size">Keywords: MCMC, gibbs sampler, autocorrelation, effective sample size</h5>
 <div id="cell-2" class="cell" data-hide="true" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -486,16 +482,6 @@ window.Quarto = {
   warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
 </div>
 </div>
-</section>
-<section id="summary" class="level2">
-<h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p>Example of a sampler for a posterior with two lobes, and lots of correlation.</p>
-<hr>
-</section>
-<section id="contents" class="level2">
-<h2 class="anchored" data-anchor-id="contents">Contents</h2>
-<p>{:.no_toc} * {: toc}</p>
-</section>
 <section id="a-tetchy-posterior" class="level2">
 <h2 class="anchored" data-anchor-id="a-tetchy-posterior">A tetchy posterior</h2>
 <p>Imagine your posterior distribution has the following form:</p>
@@ -513,14 +499,14 @@ window.Quarto = {
 <p>and similarly</p>
 <p><span class="math display">\[ y \mid x, data \sim N\left(\frac{4}{1+x^2}, \sqrt{\frac{1}{1+x^2}}\right) \]</span>.</p>
 <p>We know how to draw from normal distributions, so if we iterate back and forth, we should be able to sample from <span class="math inline">\(f(x, y \mid data)\)</span>!</p>
-<div id="cell-6" class="cell" data-execution_count="2">
+<div id="cell-4" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>f<span class="op">=</span> <span class="kw">lambda</span> x,y: np.exp(<span class="op">-</span>(x<span class="op">*</span>x<span class="op">*</span>y<span class="op">*</span>y<span class="op">+</span>x<span class="op">*</span>x<span class="op">+</span>y<span class="op">*</span>y<span class="op">-</span><span class="dv">8</span><span class="op">*</span>x<span class="op">-</span><span class="dv">8</span><span class="op">*</span>y)<span class="op">/</span><span class="fl">2.</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="contour-plot" class="level3">
 <h3 class="anchored" data-anchor-id="contour-plot">Contour plot</h3>
 <p>First, let’s make a contour plot of the posterior density.</p>
-<div id="cell-8" class="cell" data-execution_count="3">
+<div id="cell-6" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>xx<span class="op">=</span>np.linspace(<span class="op">-</span><span class="dv">1</span>,<span class="dv">8</span>,<span class="dv">100</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>yy<span class="op">=</span>np.linspace(<span class="op">-</span><span class="dv">1</span>,<span class="dv">8</span>,<span class="dv">100</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>xg,yg <span class="op">=</span> np.meshgrid(xx,yy)</span>
@@ -541,7 +527,7 @@ window.Quarto = {
 <section id="gibbs-sampler" class="level2">
 <h2 class="anchored" data-anchor-id="gibbs-sampler">Gibbs Sampler</h2>
 <p>Now let’s run the sampler, by iteratively drawing from the conditional distribution of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> given the other.</p>
-<div id="cell-10" class="cell" data-execution_count="4">
+<div id="cell-8" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">400000</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>xall<span class="op">=</span>np.zeros(N<span class="op">+</span><span class="dv">1</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>yall<span class="op">=</span>np.zeros(N<span class="op">+</span><span class="dv">1</span>)</span>
@@ -563,18 +549,18 @@ window.Quarto = {
 <span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    xall[i<span class="op">+</span><span class="dv">1</span>] <span class="op">=</span> xall[i]</span>
 <span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-11" class="cell" data-execution_count="5">
+<div id="cell-9" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>xall[N<span class="op">//</span><span class="dv">10</span>::<span class="dv">10</span>]</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>y<span class="op">=</span>yall[N<span class="op">//</span><span class="dv">10</span>::<span class="dv">10</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="traceplots" class="level3">
 <h3 class="anchored" data-anchor-id="traceplots">Traceplots</h3>
 <p>To assess how the sampler is exploring the space, we can plot a <strong>traceplot</strong> for each dimension. A traceplot plots the value of each sample against the iteration number and gives a sense of how well the sampler is exploring the space.</p>
-<div id="cell-13" class="cell" data-execution_count="10">
+<div id="cell-11" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> traceplot(z):</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    plt.plot(z, alpha<span class="op">=</span><span class="fl">0.3</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-14" class="cell" data-execution_count="11">
+<div id="cell-12" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>traceplot(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -589,7 +575,7 @@ window.Quarto = {
 <section id="marginals" class="level3">
 <h3 class="anchored" data-anchor-id="marginals">Marginals</h3>
 <p>We can also draw a histogram of <span class="math inline">\(x\)</span> to get an estimate of its <strong>marginal distribution</strong>.</p>
-<div id="cell-16" class="cell" data-execution_count="12">
+<div id="cell-14" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>plt.hist(x, bins<span class="op">=</span><span class="dv">50</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -601,7 +587,7 @@ window.Quarto = {
 </div>
 <p>This is exactly what we would expect if we projected the distribution in the contour plot down to the <span class="math inline">\(x\)</span> axis.</p>
 <p>We can do the same plots for <span class="math inline">\(y\)</span>.</p>
-<div id="cell-18" class="cell" data-execution_count="13">
+<div id="cell-16" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>traceplot(y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -611,7 +597,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-19" class="cell" data-execution_count="14">
+<div id="cell-17" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>plt.hist(y, bins<span class="op">=</span><span class="dv">50</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -625,7 +611,7 @@ window.Quarto = {
 <section id="how-we-move" class="level3">
 <h3 class="anchored" data-anchor-id="how-we-move">How we move</h3>
 <p>Because we are in two dimensions, we can also plot the path that the sampler took through the <span class="math inline">\(xy\)</span> plane. Note that the path always takes right angles, because we are alternating between moves that only move in the <span class="math inline">\(x\)</span> direction and only move in the <span class="math inline">\(y\)</span> direction.</p>
-<div id="cell-21" class="cell" data-execution_count="17">
+<div id="cell-19" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plt.contourf(xg,yg,z2, alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>plt.scatter(xall[::<span class="dv">10</span>],yall[::<span class="dv">10</span>], alpha<span class="op">=</span><span class="fl">0.01</span>, c<span class="op">=</span><span class="st">'k'</span>, s<span class="op">=</span><span class="dv">5</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xall[:<span class="dv">200</span>],yall[:<span class="dv">200</span>], c<span class="op">=</span><span class="st">'r'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, lw<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -641,7 +627,7 @@ window.Quarto = {
 <section id="autocorrelations" class="level3">
 <h3 class="anchored" data-anchor-id="autocorrelations">Autocorrelations</h3>
 <p>To see how effective the samples we have drawn will be at approximating summaries of the posterior distribution (for example the posterior mean), we can look at the autocorrelation of the samples. High autocorrelation would mean that the sample average that we take to approximate the posterior mean would be higher than expected if we had taken independent samples from the posterior distribution.</p>
-<div id="cell-23" class="cell" data-execution_count="19">
+<div id="cell-21" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> corrplot(trace, maxlags<span class="op">=</span><span class="dv">50</span>):</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    plt.acorr(trace<span class="op">-</span>np.mean(trace),  normed<span class="op">=</span><span class="va">True</span>, maxlags<span class="op">=</span>maxlags)<span class="op">;</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    plt.xlim([<span class="dv">0</span>, maxlags])</span>
@@ -654,7 +640,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="57">
+<div id="cell-22" class="cell" data-execution_count="57">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>corrplot(y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -669,7 +655,7 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="effective-sample-size">Effective Sample Size</h3>
 <p>In both <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, we can see that the autocorrelation is quite high. This is not a big problem though because the sampler is so simple that we can draw millions of samples to make up for the high autocorrelation.</p>
 <p>To figure out exactly how many samples we would have to draw, we can compute <strong>effective sample size</strong>, a measure of how many independent samples our our samples are equivalent to. This usese the same quantities that were used to compute the autocorrelation plot above. The following code is taken from https://code.google.com/p/biopy/source/browse/trunk/biopy/bayesianStats.py?r=67. You don’t need to try to understand the function – it’s just here to run it, and this is a rather slow implementation.</p>
-<div id="cell-26" class="cell" data-execution_count="20">
+<div id="cell-24" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> effectiveSampleSize(data, stepSize <span class="op">=</span> <span class="dv">1</span>) :</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">""" Effective sample size, as computed by BEAST Tracer."""</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  samples <span class="op">=</span> <span class="bu">len</span>(data)</span>
@@ -719,7 +705,7 @@ window.Quarto = {
 <span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> ess</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now we can compute effective sample size for x and y.</p>
-<div id="cell-28" class="cell" data-execution_count="21">
+<div id="cell-26" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>esx <span class="op">=</span> effectiveSampleSize(xall)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>esy <span class="op">=</span> effectiveSampleSize(yall)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Effective Size for x: "</span>, esx, <span class="st">" of "</span>, <span class="bu">len</span>(x), <span class="st">" samples, rate of"</span>, esx<span class="op">/</span><span class="bu">len</span>(x)<span class="op">*</span><span class="dv">100</span>, <span class="st">"%."</span>)</span>

@@ -376,7 +376,6 @@ window.Quarto = {
   <ul>
   <li><a href="#sampling-from-a-discrete-distribution" id="toc-sampling-from-a-discrete-distribution" class="nav-link active" data-scroll-target="#sampling-from-a-discrete-distribution">Sampling from a discrete distribution</a>
   <ul class="collapse">
-  <li><a href="#contents" id="toc-contents" class="nav-link" data-scroll-target="#contents">Contents</a></li>
   <li><a href="#example-sampling-a-poisson" id="toc-example-sampling-a-poisson" class="nav-link" data-scroll-target="#example-sampling-a-poisson">Example: Sampling a Poisson</a></li>
   </ul></li>
   </ul>
@@ -454,8 +453,6 @@ window.Quarto = {
 
 <section id="sampling-from-a-discrete-distribution" class="level1">
 <h1>Sampling from a discrete distribution</h1>
-<section id="keywords-discrete-sampling-mcmc-metropolis-poisson-distribution-proposal-matrix" class="level5">
-<h5 class="anchored" data-anchor-id="keywords-discrete-sampling-mcmc-metropolis-poisson-distribution-proposal-matrix">Keywords: discrete sampling, MCMC, metropolis, poisson distribution, proposal matrix,</h5>
 <div id="cell-2" class="cell" data-hide="true" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -469,14 +466,10 @@ window.Quarto = {
   warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
 </div>
 </div>
-</section>
-<section id="contents" class="level2">
-<h2 class="anchored" data-anchor-id="contents">Contents</h2>
-<p>{:.no_toc} * {: toc}</p>
 <p>In simulated annealing, we carried out combinatorical oprimization by sampling from a state space where each state was a vector of baseball simulation features.</p>
 <p>Since Metropolis MCMC is the same algorithm, it should be clear that its possible to simulate discrete possibilities in MCMC as long as you choose proposals which satisfy detailed balance.</p>
 <p>As an example, consider simulating a poisson distribution. Since its discrete, the proposal wont be a continuous <span class="math inline">\(q(x,y)\)</span> (the proposal probability to go from y to x), but rather a matrix indexed by a variable that corresponds to (indexes) the various states that can be obtained.</p>
-<div id="cell-5" class="cell" data-execution_count="30">
+<div id="cell-4" class="cell" data-execution_count="30">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> metropolis(p, qdraw, nsamp, xinit):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    samples<span class="op">=</span>np.empty(nsamp)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    x_prev <span class="op">=</span> xinit</span>
@@ -495,12 +488,11 @@ window.Quarto = {
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>            </span>
 <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> samples, accepted</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</section>
 <section id="example-sampling-a-poisson" class="level2">
 <h2 class="anchored" data-anchor-id="example-sampling-a-poisson">Example: Sampling a Poisson</h2>
 <p>The poisson pmf is:</p>
 <p><span class="math display">\[p(k) = e^{-\mu}\frac{\mu^k}{k!}.\]</span></p>
-<div id="cell-7" class="cell" data-execution_count="12">
+<div id="cell-6" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> poisson</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>xxx<span class="op">=</span> np.arange(<span class="dv">1</span>,<span class="dv">20</span>,<span class="dv">1</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xxx, poisson.pmf(xxx, mu<span class="op">=</span><span class="dv">5</span>), <span class="st">'o'</span>)<span class="op">;</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -520,7 +512,7 @@ window.Quarto = {
 <figcaption>Symmetric random-walk proposal matrix Q for discrete MCMC: each state proposes to stay or move to an adjacent state with equal probability.</figcaption>
 </figure>
 </div>
-<div id="cell-9" class="cell" data-execution_count="13">
+<div id="cell-8" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prop_pdf(ito, ifrom):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ito <span class="op">==</span> ifrom <span class="op">-</span> <span class="dv">1</span>:</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fl">0.5</span></span>
@@ -531,7 +523,7 @@ window.Quarto = {
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-10" class="cell" data-execution_count="20">
+<div id="cell-9" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prop_draw(ifrom):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    u <span class="op">=</span> np.random.uniform()</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ifrom <span class="op">!=</span><span class="dv">0</span>:</span>
@@ -546,17 +538,17 @@ window.Quarto = {
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>            ito<span class="op">=</span><span class="dv">1</span></span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ito</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-11" class="cell" data-execution_count="31">
+<div id="cell-10" class="cell" data-execution_count="31">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>rv <span class="op">=</span> poisson(<span class="dv">5</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>samps, acc <span class="op">=</span> metropolis(rv.pmf, prop_draw, <span class="dv">50000</span>, <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-12" class="cell" data-execution_count="32">
+<div id="cell-11" class="cell" data-execution_count="32">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>acc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="32">
 <pre><code>41463</code></pre>
 </div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="33">
+<div id="cell-12" class="cell" data-execution_count="33">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>xxx <span class="op">=</span> np.arange(<span class="dv">0</span>,samps.<span class="bu">max</span>())</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>plt.hist(samps, bins<span class="op">=</span>xxx, normed<span class="op">=</span><span class="va">True</span>, align<span class="op">=</span><span class="st">'left'</span>)<span class="op">;</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xxx, rv.pmf(xxx),<span class="st">'o'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>

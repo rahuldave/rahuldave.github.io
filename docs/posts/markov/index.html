@@ -376,7 +376,6 @@ window.Quarto = {
   <ul>
   <li><a href="#markov-chains-and-mcmc" id="toc-markov-chains-and-mcmc" class="nav-link active" data-scroll-target="#markov-chains-and-mcmc">Markov Chains and MCMC</a>
   <ul class="collapse">
-  <li><a href="#contents" id="toc-contents" class="nav-link" data-scroll-target="#contents">Contents</a></li>
   <li><a href="#markov-chains" id="toc-markov-chains" class="nav-link" data-scroll-target="#markov-chains">Markov chains</a></li>
   <li><a href="#some-jargon" id="toc-some-jargon" class="nav-link" data-scroll-target="#some-jargon">Some Jargon</a>
   <ul class="collapse">
@@ -474,8 +473,6 @@ window.Quarto = {
 
 <section id="markov-chains-and-mcmc" class="level1">
 <h1>Markov Chains and MCMC</h1>
-<section id="keywords-markov-chain-mcmc-detailed-balance-metropolis-stationarity-ergodicity-transition-matrix-metropolis-hastings-irreducible" class="level5">
-<h5 class="anchored" data-anchor-id="keywords-markov-chain-mcmc-detailed-balance-metropolis-stationarity-ergodicity-transition-matrix-metropolis-hastings-irreducible">Keywords: markov chain, MCMC, detailed balance, metropolis, stationarity, ergodicity, transition matrix, metropolis-hastings, irreducible</h5>
 <div id="cell-2" class="cell" data-hide="true" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -488,11 +485,6 @@ window.Quarto = {
   warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
 </div>
 </div>
-</section>
-<section id="contents" class="level2">
-<h2 class="anchored" data-anchor-id="contents">Contents</h2>
-<p>{:.no_toc} * {: toc}</p>
-</section>
 <section id="markov-chains" class="level2">
 <h2 class="anchored" data-anchor-id="markov-chains">Markov chains</h2>
 <p>Markov Chains are the first example of a <strong>stochastic process</strong> we will see in this class. The values in a Markov chain depend on the previous values (probabilistically), with the defining characteristic being that a given value is depenendent only on the immediate previous value.</p>
@@ -567,7 +559,7 @@ window.Quarto = {
 <figcaption>Rainy-Sunny two-state Markov chain with transition probabilities.</figcaption>
 </figure>
 </div>
-<div id="cell-9" class="cell" data-execution_count="2">
+<div id="cell-8" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the transition matrix for our chain</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>transition_matrix <span class="op">=</span> np.array([[<span class="fl">1.</span><span class="op">/</span><span class="fl">3.</span>, <span class="fl">2.</span><span class="op">/</span><span class="fl">3.</span>],[<span class="fl">0.5</span>, <span class="fl">0.5</span>]])</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>transition_matrix</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -576,7 +568,7 @@ window.Quarto = {
        [ 0.5       ,  0.5       ]])</code></pre>
 </div>
 </div>
-<div id="cell-10" class="cell" data-scrolled="true" data-execution_count="3">
+<div id="cell-9" class="cell" data-scrolled="true" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># now for higher n. We should see that it converges to the</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># stationary distribution</span></span>
@@ -609,20 +601,20 @@ window.Quarto = {
 <p>gives us</p>
 <p><span class="math display">\[p \times (1/3) + (1-p) \times 1/2 =  p\]</span></p>
 <p>and thus <span class="math inline">\(p = 3/7\)</span></p>
-<div id="cell-12" class="cell" data-execution_count="4">
+<div id="cell-11" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="op">/</span><span class="dv">7</span>, <span class="dv">4</span><span class="op">/</span><span class="dv">7</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>(0.42857142857142855, 0.5714285714285714)</code></pre>
 </div>
 </div>
 <p>And we can see that we can get to this stationary distribution starting from multiple places</p>
-<div id="cell-14" class="cell" data-execution_count="5">
+<div id="cell-13" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>np.dot([<span class="fl">0.5</span>,<span class="fl">0.5</span>], tm_before)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>array([ 0.42857296,  0.57142704])</code></pre>
 </div>
 </div>
-<div id="cell-15" class="cell" data-execution_count="6">
+<div id="cell-14" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>np.dot([<span class="fl">0.9</span>,<span class="fl">0.1</span>], tm_before)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>array([ 0.42858153,  0.57141847])</code></pre>
@@ -683,7 +675,7 @@ window.Quarto = {
 <p>If we do it without taking into account this asymmetry, we will actually be sampling from a different distribution as we shall show later.</p>
 <p>However, we may also want to sample from a asymmetric proposal like a beta function because its guaranteed to be positive. However a beta distribution is not symmetric.</p>
 <p>Here is the outline code for metropolis hastings.</p>
-<div id="cell-26" class="cell" data-execution_count="7">
+<div id="cell-25" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> metropolis_hastings(p,q, qdraw, nsamp, xinit):</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    samples<span class="op">=</span>np.empty(nsamp)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    x_prev <span class="op">=</span> xinit</span>
@@ -703,7 +695,7 @@ window.Quarto = {
 </div>
 <p>Look at the <code>proposalratio</code> term. Its a ratio of proposal pdfs. But its opposite to the ratio of the pdf that we want to sample from.</p>
 <p>What is the intuition behind this? Remember that because you dont know how to sample from <span class="math inline">\(p\)</span>, you are sampling from <span class="math inline">\(q\)</span> instead. Now if q is asymmetric, you will have a greater chance of going in one direction than the other. Indeed you are more likely to get samples from the region where <span class="math inline">\(q\)</span> (more precisely each new <span class="math inline">\(q\)</span>) is high . This may not match with the <span class="math inline">\(p\)</span> you want to sample from, and you want to correct this oversampling by multiplying by the proposal ration. This helps erase the memory of <span class="math inline">\(q\)</span> a bit.</p>
-<div id="cell-28" class="cell" data-execution_count="32">
+<div id="cell-27" class="cell" data-execution_count="32">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> beta</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: <span class="dv">6</span><span class="op">*</span>x<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>x)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>xx<span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">100</span>)</span>

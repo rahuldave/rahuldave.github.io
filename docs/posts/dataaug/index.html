@@ -456,8 +456,6 @@ window.Quarto = {
 
 <section id="data-augmentation" class="level1">
 <h1>Data Augmentation</h1>
-<section id="keywords-data-augmentation-gibbs-sampler-mcmc" class="level5">
-<h5 class="anchored" data-anchor-id="keywords-data-augmentation-gibbs-sampler-mcmc">Keywords: data augmentation, gibbs sampler, MCMC</h5>
 <p>The idea is to construct iterative algorithms for sampling based on the introduction of unobserved data or <strong>hidden</strong> variables. Does the iterative part sound familiar? We did that in Gibbs sampling.</p>
 <p>We’ll soon see s deterministic version of this idea when we talk about the Expectation Maximization Algorithm (Dempster, Laird, and Rubin (1977)). Here we’ll see a stochastic version from Tanner and Wong’s (1987) <em>Data Augmentation algorithm for posterior sampling</em>. This was also explored in the physics by Swendsen and Wang’s (1987) algorithm for sampling from Ising and Potts models. (Look it up, it relates to your homework!)</p>
 <p>Indeed the general idea of introducing a hidden variable will also be exploited to introduce slice sampling and Hamiltonian Monte Carlo. Thus we shall see that the method is useful not only in “theory” to understand the decomposition of outcomes through hidden factors, but also in a practical way to construct sampling algorithms</p>
@@ -484,7 +482,6 @@ window.Quarto = {
   warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
 </div>
 </div>
-</section>
 <section id="example" class="level2">
 <h2 class="anchored" data-anchor-id="example">Example</h2>
 <p>Suppose that <span class="math inline">\(p_X\)</span> is the standard normal density, i.e.,</p>

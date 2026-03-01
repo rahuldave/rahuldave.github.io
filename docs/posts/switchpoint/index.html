@@ -379,7 +379,6 @@ window.Quarto = {
   <ul>
   <li><a href="#imputation-and-convergence" id="toc-imputation-and-convergence" class="nav-link active" data-scroll-target="#imputation-and-convergence">Imputation and Convergence</a>
   <ul class="collapse">
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
   <li><a href="#a-switchpoint-model" id="toc-a-switchpoint-model" class="nav-link" data-scroll-target="#a-switchpoint-model">A switchpoint model</a>
   <ul class="collapse">
   <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
@@ -471,14 +470,7 @@ window.Quarto = {
 
 <section id="imputation-and-convergence" class="level1">
 <h1>Imputation and Convergence</h1>
-<section id="keywords-switchpoint-bayesian-mcmc-mcmc-engineering-formal-tests-imputation" class="level5">
-<h5 class="anchored" data-anchor-id="keywords-switchpoint-bayesian-mcmc-mcmc-engineering-formal-tests-imputation">Keywords: switchpoint, bayesian, MCMC, MCMC engineering, formal tests, imputation</h5>
-</section>
-<section id="summary" class="level2">
-<h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p>We use a switchpoint model from Fonnesbeck’s Bios 8366 course to illustrate both various formal convergence test and data imputation using the posterior predictives</p>
-<hr>
-<div id="cell-3" class="cell" data-execution_count="1">
+<div id="cell-2" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
@@ -493,13 +485,12 @@ window.Quarto = {
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">"whitegrid"</span>)</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>sns.set_context(<span class="st">"poster"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</section>
 <section id="a-switchpoint-model" class="level2">
 <h2 class="anchored" data-anchor-id="a-switchpoint-model">A switchpoint model</h2>
 <p>This is a model of coal-mine diasaters in England. Somewhere around 1900, regulation was introduced, and in response, miing became safer. But if we were forensically looking at such data, we would be able to detect such change using a switchpoint model. We’d then have to search for the causality.</p>
 <section id="data" class="level3">
 <h3 class="anchored" data-anchor-id="data">Data</h3>
-<div id="cell-5" class="cell" data-execution_count="19">
+<div id="cell-4" class="cell" data-execution_count="19">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>disasters_data <span class="op">=</span> np.array([<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">6</span>,</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                         <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">5</span>,</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                         <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">0</span>,</span>
@@ -537,7 +528,7 @@ r_t = \lambda_1 \,{\rm if}\, t &lt; \tau \,{\rm else}\, \lambda_2 \,{\rm for}\, 
 \lambda_2 \sim Exp(b)\\
 \]</span></p>
 <p>The rate parameter varies before and after the switchpoint, which itseld has a discrete-uniform prior on it. Rate parameters get exponential priors.</p>
-<div id="cell-9" class="cell" data-execution_count="20">
+<div id="cell-8" class="cell" data-execution_count="20">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymc3 <span class="im">as</span> pm</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pymc3.math <span class="im">import</span> switch</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pm.Model() <span class="im">as</span> coaldis1:</span>
@@ -547,7 +538,7 @@ r_t = \lambda_1 \,{\rm if}\, t &lt; \tau \,{\rm else}\, \lambda_2 \,{\rm for}\, 
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    rate <span class="op">=</span> switch(switchpoint <span class="op">&gt;=</span> np.arange(n_years), early_mean, late_mean)</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    disasters <span class="op">=</span> pm.Poisson(<span class="st">'disasters'</span>, mu<span class="op">=</span>rate, observed<span class="op">=</span>disasters_data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-10" class="cell" data-execution_count="21">
+<div id="cell-9" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>pm.model_to_graphviz(coaldis1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
 <div>
@@ -558,26 +549,26 @@ r_t = \lambda_1 \,{\rm if}\, t &lt; \tau \,{\rm else}\, \lambda_2 \,{\rm for}\, 
 </div>
 </div>
 <p>Let us interrogate our model about the various parts of it. Notice that our stochastics are logs of the rate params and the switchpoint, while our deterministics are the rate parameters themselves.</p>
-<div id="cell-12" class="cell" data-execution_count="22">
+<div id="cell-11" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>coaldis1.<span class="bu">vars</span> <span class="co">#stochastics</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="22">
 <pre><code>[early_mean_log__, late_mean_log__, switchpoint]</code></pre>
 </div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="23">
+<div id="cell-12" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(coaldis1[<span class="st">'early_mean_log__'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="23">
 <pre><code>pymc3.model.FreeRV</code></pre>
 </div>
 </div>
-<div id="cell-14" class="cell" data-execution_count="24">
+<div id="cell-13" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>coaldis1.deterministics <span class="co">#deterministics</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="24">
 <pre><code>[early_mean, late_mean]</code></pre>
 </div>
 </div>
 <p>Labelled variables show up in traces, or for predictives. We also list the “likelihood” stochastics.</p>
-<div id="cell-16" class="cell" data-execution_count="25">
+<div id="cell-15" class="cell" data-execution_count="25">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>coaldis1.named_vars</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="25">
 <pre><code>{'disasters': disasters,
@@ -588,7 +579,7 @@ r_t = \lambda_1 \,{\rm if}\, t &lt; \tau \,{\rm else}\, \lambda_2 \,{\rm for}\, 
  'switchpoint': switchpoint}</code></pre>
 </div>
 </div>
-<div id="cell-17" class="cell" data-execution_count="26">
+<div id="cell-16" class="cell" data-execution_count="26">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>coaldis1.observed_RVs, <span class="bu">type</span>(coaldis1[<span class="st">'disasters'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="26">
 <pre><code>([disasters], pymc3.model.ObservedRV)</code></pre>
@@ -596,7 +587,7 @@ r_t = \lambda_1 \,{\rm if}\, t &lt; \tau \,{\rm else}\, \lambda_2 \,{\rm for}\, 
 </div>
 <p>The DAG based structure and notation used in pymc3 and similar software makes no distinction between random variables and data. Everything is a node, and some nodes are conditioned upon. This is reminiscent of the likelihood being considered a function of its parameters. But you can consider it as a function of data with fixed parameters and sample from it.</p>
 <p>You can sample from the distributions in <code>pymc3</code>.</p>
-<div id="cell-20" class="cell" data-execution_count="27">
+<div id="cell-19" class="cell" data-execution_count="27">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>plt.hist(switchpoint.random(size<span class="op">=</span><span class="dv">1000</span>))<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -606,20 +597,20 @@ r_t = \lambda_1 \,{\rm if}\, t &lt; \tau \,{\rm else}\, \lambda_2 \,{\rm for}\, 
 </div>
 </div>
 </div>
-<div id="cell-21" class="cell" data-execution_count="28">
+<div id="cell-20" class="cell" data-execution_count="28">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>early_mean.transformed, switchpoint.distribution</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="28">
 <pre><code>(early_mean_log__,
  &lt;pymc3.distributions.discrete.DiscreteUniform at 0x129f73b00&gt;)</code></pre>
 </div>
 </div>
-<div id="cell-22" class="cell" data-execution_count="29">
+<div id="cell-21" class="cell" data-execution_count="29">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>switchpoint.distribution.defaults</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="29">
 <pre><code>('mode',)</code></pre>
 </div>
 </div>
-<div id="cell-23" class="cell" data-execution_count="30">
+<div id="cell-22" class="cell" data-execution_count="30">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>ed<span class="op">=</span>pm.Exponential.dist(<span class="dv">1</span>)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(ed))</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>ed.random(size<span class="op">=</span><span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -631,21 +622,21 @@ r_t = \lambda_1 \,{\rm if}\, t &lt; \tau \,{\rm else}\, \lambda_2 \,{\rm for}\, 
         0.697511  ,  0.04523932,  0.36786232,  0.12309128,  0.90947997])</code></pre>
 </div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="31">
+<div id="cell-23" class="cell" data-execution_count="31">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(switchpoint), <span class="bu">type</span>(early_mean)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="31">
 <pre><code>(pymc3.model.FreeRV, pymc3.model.TransformedRV)</code></pre>
 </div>
 </div>
 <p>Most importantly, anything distribution-like must have a <code>logp</code> method. This is what enables calculating the acceptance ratio for sampling:</p>
-<div id="cell-26" class="cell" data-execution_count="32">
+<div id="cell-25" class="cell" data-execution_count="32">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>switchpoint.logp({<span class="st">'switchpoint'</span>:<span class="dv">55</span>, <span class="st">'early_mean_log__'</span>:<span class="dv">1</span>, <span class="st">'late_mean_log__'</span>:<span class="dv">1</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="32">
 <pre><code>array(-4.718498871295094)</code></pre>
 </div>
 </div>
 <p>Ok, enough talk, lets sample:</p>
-<div id="cell-28" class="cell" data-execution_count="33">
+<div id="cell-27" class="cell" data-execution_count="33">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> coaldis1:</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">#stepper=pm.Metropolis()</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">#trace = pm.sample(40000, step=stepper)</span></span>
@@ -659,7 +650,7 @@ Sampling 2 chains: 100%|██████████| 81000/81000 [00:53&lt;00
 The number of effective samples is smaller than 25% for some parameters.</code></pre>
 </div>
 </div>
-<div id="cell-29" class="cell" data-execution_count="34">
+<div id="cell-28" class="cell" data-execution_count="34">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>pm.summary(trace[<span class="dv">4000</span>::<span class="dv">5</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="34">
 <div>
@@ -715,7 +706,7 @@ The number of effective samples is smaller than 25% for some parameters.</code><
 </div>
 </div>
 </div>
-<div id="cell-30" class="cell" data-execution_count="35">
+<div id="cell-29" class="cell" data-execution_count="35">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>t2<span class="op">=</span>trace[<span class="dv">4000</span>::<span class="dv">5</span>]</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>pm.traceplot(t2)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
@@ -732,7 +723,7 @@ The `ymin` argument was deprecated in Matplotlib 3.0 and will be removed in 3.2.
 </div>
 </div>
 <p>A forestplot gives us 95% credible intervals…</p>
-<div id="cell-32" class="cell" data-execution_count="36">
+<div id="cell-31" class="cell" data-execution_count="36">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>pm.forestplot(t2)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -742,7 +733,7 @@ The `ymin` argument was deprecated in Matplotlib 3.0 and will be removed in 3.2.
 </div>
 </div>
 </div>
-<div id="cell-33" class="cell" data-execution_count="37">
+<div id="cell-32" class="cell" data-execution_count="37">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>pm.autocorrplot(t2)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -752,7 +743,7 @@ The `ymin` argument was deprecated in Matplotlib 3.0 and will be removed in 3.2.
 </div>
 </div>
 </div>
-<div id="cell-34" class="cell" data-execution_count="38">
+<div id="cell-33" class="cell" data-execution_count="38">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>plt.hist(trace[<span class="st">'switchpoint'</span>])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -762,7 +753,7 @@ The `ymin` argument was deprecated in Matplotlib 3.0 and will be removed in 3.2.
 </div>
 </div>
 </div>
-<div id="cell-35" class="cell" data-execution_count="39">
+<div id="cell-34" class="cell" data-execution_count="39">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>pm.trace_to_dataframe(t2).corr()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="39">
 <div>
@@ -808,7 +799,7 @@ The `ymin` argument was deprecated in Matplotlib 3.0 and will be removed in 3.2.
 <h2 class="anchored" data-anchor-id="imputation">Imputation</h2>
 <p>Imputation of missing data vaues has a very nice process in Bayesian stats: just sample them from the posterior predictive. There is a very nice process to do this built into pync3..you could abuse this to calculate predictives at arbitrary points. (There is a better way for that, though, using Theano shared variables, so you might want to restrict this process to the situation where you need to impute a few values only).</p>
 <p>Below we use -999 to handle mising data:</p>
-<div id="cell-37" class="cell" data-execution_count="6">
+<div id="cell-36" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>disasters_missing <span class="op">=</span> np.array([ <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">6</span>,</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">5</span>,</span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="op">-</span><span class="dv">999</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">0</span>,</span>
@@ -817,7 +808,7 @@ The `ymin` argument was deprecated in Matplotlib 3.0 and will be removed in 3.2.
 <span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="op">-</span><span class="dv">999</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>,</span>
 <span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-38" class="cell" data-execution_count="7">
+<div id="cell-37" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>disasters_masked <span class="op">=</span> np.ma.masked_values(disasters_missing, value<span class="op">=-</span><span class="dv">999</span>)</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>disasters_masked</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
@@ -837,7 +828,7 @@ The `ymin` argument was deprecated in Matplotlib 3.0 and will be removed in 3.2.
        fill_value = -999)</code></pre>
 </div>
 </div>
-<div id="cell-39" class="cell" data-execution_count="8">
+<div id="cell-38" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pm.Model() <span class="im">as</span> missing_data_model:</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    switchpoint <span class="op">=</span> pm.DiscreteUniform(<span class="st">'switchpoint'</span>, lower<span class="op">=</span><span class="dv">0</span>, upper<span class="op">=</span><span class="bu">len</span>(disasters_masked))</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>    early_mean <span class="op">=</span> pm.Exponential(<span class="st">'early_mean'</span>, lam<span class="op">=</span><span class="fl">1.</span>)</span>
@@ -846,7 +837,7 @@ The `ymin` argument was deprecated in Matplotlib 3.0 and will be removed in 3.2.
 <span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    rate <span class="op">=</span> pm.Deterministic(<span class="st">'rate'</span>, switch(switchpoint <span class="op">&gt;=</span> idx, early_mean, late_mean))</span>
 <span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    disasters <span class="op">=</span> pm.Poisson(<span class="st">'disasters'</span>, rate, observed<span class="op">=</span>disasters_masked)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-40" class="cell" data-execution_count="9">
+<div id="cell-39" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>pm.model_to_graphviz(missing_data_model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <div>
@@ -857,7 +848,7 @@ The `ymin` argument was deprecated in Matplotlib 3.0 and will be removed in 3.2.
 </div>
 </div>
 <p>By supplying a masked array to the likelihood part of our model, we ensure that the masked data points show up in our traces:</p>
-<div id="cell-42" class="cell" data-execution_count="10">
+<div id="cell-41" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> missing_data_model:</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    stepper<span class="op">=</span>pm.Metropolis()</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    trace_missing <span class="op">=</span> pm.sample(<span class="dv">40000</span>, step<span class="op">=</span>stepper)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -872,10 +863,10 @@ Sampling 2 chains: 100%|██████████| 81000/81000 [00:40&lt;00
 The number of effective samples is smaller than 10% for some parameters.</code></pre>
 </div>
 </div>
-<div id="cell-43" class="cell" data-execution_count="14">
+<div id="cell-42" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>tm2<span class="op">=</span>trace_missing[<span class="dv">4000</span>::<span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-44" class="cell" data-execution_count="15">
+<div id="cell-43" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>pm.summary(tm2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <div>
@@ -1512,13 +1503,13 @@ The number of effective samples is smaller than 10% for some parameters.</code><
 </div>
 </div>
 </div>
-<div id="cell-45" class="cell" data-execution_count="16">
+<div id="cell-44" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>missing_data_model.<span class="bu">vars</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
 <pre><code>[switchpoint, early_mean_log__, late_mean_log__, disasters_missing]</code></pre>
 </div>
 </div>
-<div id="cell-46" class="cell" data-execution_count="17">
+<div id="cell-45" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>pm.traceplot(tm2)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>//anaconda/envs/py3l/lib/python3.6/site-packages/matplotlib/axes/_base.py:3449: MatplotlibDeprecationWarning: 
@@ -1540,7 +1531,7 @@ The `ymin` argument was deprecated in Matplotlib 3.0 and will be removed in 3.2.
 <section id="histograms-every-m-samples" class="level3">
 <h3 class="anchored" data-anchor-id="histograms-every-m-samples">Histograms every m samples</h3>
 <p>As a visual check, we plot histograms or kdeplots every 500 samples and check that they look identical.</p>
-<div id="cell-48" class="cell" data-execution_count="40">
+<div id="cell-47" class="cell" data-execution_count="40">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>emtrace <span class="op">=</span> t2[<span class="st">'early_mean'</span>]</span>
@@ -1569,12 +1560,12 @@ The 'normed' kwarg was deprecated in Matplotlib 2.1 and will be removed in 3.1. 
 <h3 class="anchored" data-anchor-id="gewecke-test">Gewecke test</h3>
 <p>The gewecke test tests that the difference of means of chain-parts written as a Z-score oscilates between 1 and -1</p>
 <p><span class="math display">\[\vert \mu_{\theta_1}  - \mu_{\theta_2}  \vert &lt; 2 \sigma_{\theta_1 - \theta_2} \]</span></p>
-<div id="cell-50" class="cell" data-execution_count="44">
+<div id="cell-49" class="cell" data-execution_count="44">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pymc3 <span class="im">import</span> geweke</span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> geweke(t2, intervals<span class="op">=</span><span class="dv">15</span>)[<span class="dv">0</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-51" class="cell" data-execution_count="45">
+<div id="cell-50" class="cell" data-execution_count="45">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>z</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="45">
 <pre><code>{'early_mean': array([[  0.00000000e+00,   5.61498762e-02],
@@ -1655,7 +1646,7 @@ The 'normed' kwarg was deprecated in Matplotlib 2.1 and will be removed in 3.1. 
 </div>
 </div>
 <p>Here is a plot for <code>early_mean</code>. You sould really be plotting all of these…</p>
-<div id="cell-53" class="cell" data-execution_count="50">
+<div id="cell-52" class="cell" data-execution_count="50">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>z[<span class="st">'early_mean'</span>].T</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="50">
 <pre><code>array([[  0.00000000e+00,   2.57000000e+02,   5.14000000e+02,
@@ -1670,7 +1661,7 @@ The 'normed' kwarg was deprecated in Matplotlib 2.1 and will be removed in 3.1. 
          -3.78760002e-02,  -2.33616055e-02,  -8.93753177e-02]])</code></pre>
 </div>
 </div>
-<div id="cell-54" class="cell" data-execution_count="53">
+<div id="cell-53" class="cell" data-execution_count="53">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(<span class="op">*</span>z[<span class="st">'early_mean'</span>].T)</span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>plt.axhline(<span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, linestyle<span class="op">=</span><span class="st">'dotted'</span>)</span>
 <span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>plt.axhline(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, linestyle<span class="op">=</span><span class="st">'dotted'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1688,7 +1679,7 @@ The 'normed' kwarg was deprecated in Matplotlib 2.1 and will be removed in 3.1. 
 <p>For this test, which calculates</p>
 <p><span class="math display">\[\hat{R} = \sqrt{\frac{\hat{Var}(\theta)}{w}}\]</span></p>
 <p>we need more than 1-chain. This is done through <code>njobs=4</code> (the defaukt is 2 and reported in <code>pm.summary</code>). See the trace below:</p>
-<div id="cell-56" class="cell" data-execution_count="55">
+<div id="cell-55" class="cell" data-execution_count="55">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> coaldis1:</span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>    stepper<span class="op">=</span>pm.Metropolis()</span>
 <span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>    tr2 <span class="op">=</span> pm.sample(<span class="dv">40000</span>, step<span class="op">=</span>stepper, njobs<span class="op">=</span><span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1702,16 +1693,16 @@ Sampling 4 chains: 100%|██████████| 162000/162000 [00:57&lt;
 The number of effective samples is smaller than 10% for some parameters.</code></pre>
 </div>
 </div>
-<div id="cell-57" class="cell" data-execution_count="56">
+<div id="cell-56" class="cell" data-execution_count="56">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>tr2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="56">
 <pre><code>&lt;MultiTrace: 4 chains, 40000 iterations, 5 variables&gt;</code></pre>
 </div>
 </div>
-<div id="cell-58" class="cell" data-execution_count="61">
+<div id="cell-57" class="cell" data-execution_count="61">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>tr2_cut <span class="op">=</span> tr2[<span class="dv">4000</span>::<span class="dv">5</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-59" class="cell" data-execution_count="62">
+<div id="cell-58" class="cell" data-execution_count="62">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pymc3 <span class="im">import</span> gelman_rubin</span>
 <span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>gelman_rubin(tr2_cut)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1723,7 +1714,7 @@ The number of effective samples is smaller than 10% for some parameters.</code><
 </div>
 <p>For the best results, each chain should be initialized to highly dispersed starting values for each stochastic node.</p>
 <p>A foresplot will show you the credible-interval consistency of our chains..</p>
-<div id="cell-62" class="cell" data-execution_count="63">
+<div id="cell-61" class="cell" data-execution_count="63">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pymc3 <span class="im">import</span> forestplot</span>
 <span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>forestplot(tr2_cut)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1742,7 +1733,7 @@ The number of effective samples is smaller than 10% for some parameters.</code><
 <section id="autocorrelation" class="level3">
 <h3 class="anchored" data-anchor-id="autocorrelation">Autocorrelation</h3>
 <p>This can be probed by plotting the correlation plot and effective sample size</p>
-<div id="cell-64" class="cell" data-execution_count="64">
+<div id="cell-63" class="cell" data-execution_count="64">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pymc3 <span class="im">import</span> effective_n</span>
 <span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>effective_n(tr2_cut)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1752,7 +1743,7 @@ The number of effective samples is smaller than 10% for some parameters.</code><
  'switchpoint': 11955.470326961806}</code></pre>
 </div>
 </div>
-<div id="cell-65" class="cell" data-execution_count="65">
+<div id="cell-64" class="cell" data-execution_count="65">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>pm.autocorrplot(tr2_cut)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1762,7 +1753,7 @@ The number of effective samples is smaller than 10% for some parameters.</code><
 </div>
 </div>
 </div>
-<div id="cell-66" class="cell" data-execution_count="66">
+<div id="cell-65" class="cell" data-execution_count="66">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>pm.autocorrplot(tr2)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1777,14 +1768,14 @@ The number of effective samples is smaller than 10% for some parameters.</code><
 <section id="posterior-predictive-checks" class="level2">
 <h2 class="anchored" data-anchor-id="posterior-predictive-checks">Posterior predictive checks</h2>
 <p>Finally let us peek into posterior predictive checks: something we’ll talk more about soon.</p>
-<div id="cell-68" class="cell" data-execution_count="67">
+<div id="cell-67" class="cell" data-execution_count="67">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> coaldis1:</span>
 <span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>    sim <span class="op">=</span> pm.sample_ppc(t2, samples<span class="op">=</span><span class="dv">200</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>100%|██████████| 200/200 [00:02&lt;00:00, 99.38it/s]</code></pre>
 </div>
 </div>
-<div id="cell-69" class="cell" data-execution_count="71">
+<div id="cell-68" class="cell" data-execution_count="71">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>sim[<span class="st">'disasters'</span>].shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="71">
 <pre><code>(200, 111)</code></pre>
@@ -1792,7 +1783,7 @@ The number of effective samples is smaller than 10% for some parameters.</code><
 </div>
 <p>This gives us 200 samples at each of the 111 diasters we have data on.</p>
 <p>We plot the first 4 posteriors against actual data for consistency…</p>
-<div id="cell-72" class="cell" data-execution_count="73">
+<div id="cell-71" class="cell" data-execution_count="73">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb74"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">4</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">6</span>))</span>
 <span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(axes.shape)</span>
 <span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> obs, s, ax <span class="kw">in</span> <span class="bu">zip</span>(disasters_data, sim[<span class="st">'disasters'</span>].T, axes):</span>

@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://rahuldave.github.io/CLAUDE.html</loc>
-    <lastmod>2026-03-01T02:56:19.306Z</lastmod>
+    <lastmod>2026-03-01T03:00:23.745Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/collections/software/prefect.html</loc>
@@ -26,7 +26,7 @@
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/metropolishastings/index.html</loc>
-    <lastmod>2026-03-01T02:59:11.102Z</lastmod>
+    <lastmod>2026-03-01T03:07:44.461Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/rejectionsampling/index.html</loc>
@@ -38,7 +38,7 @@
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/functorch/index.html</loc>
-    <lastmod>2026-03-01T02:59:11.068Z</lastmod>
+    <lastmod>2026-03-01T03:07:44.444Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/gibbsfromMH/index.html</loc>
@@ -46,7 +46,7 @@
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/gibbsconj/index.html</loc>
-    <lastmod>2026-03-01T02:59:11.108Z</lastmod>
+    <lastmod>2026-03-01T03:09:30.858Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/doseplacebo/index.html</loc>
@@ -54,7 +54,7 @@
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/metropolissupport/index.html</loc>
-    <lastmod>2026-03-01T02:59:11.103Z</lastmod>
+    <lastmod>2026-03-01T03:07:44.462Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/noiseless_learning/index.html</loc>
@@ -66,15 +66,15 @@
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/switchpoint/index.html</loc>
-    <lastmod>2026-03-01T02:59:11.107Z</lastmod>
+    <lastmod>2026-03-01T03:09:30.864Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/dataaug/index.html</loc>
-    <lastmod>2026-03-01T02:59:11.108Z</lastmod>
+    <lastmod>2026-03-01T03:07:44.438Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/discretemcmc/index.html</loc>
-    <lastmod>2026-03-01T02:59:11.098Z</lastmod>
+    <lastmod>2026-03-01T03:07:44.439Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/bayesianregression/index.html</loc>
@@ -94,7 +94,7 @@
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/hmcexplore/index.html</loc>
-    <lastmod>2026-03-01T02:59:11.112Z</lastmod>
+    <lastmod>2026-03-01T03:07:44.453Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/logisticbp/index.html</loc>
@@ -114,7 +114,7 @@
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/metropolis/index.html</loc>
-    <lastmod>2026-03-01T02:59:11.098Z</lastmod>
+    <lastmod>2026-03-01T03:07:44.458Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/noisylearning/index.html</loc>
@@ -150,11 +150,11 @@
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/nnreg/index.html</loc>
-    <lastmod>2026-03-01T02:59:11.071Z</lastmod>
+    <lastmod>2026-03-01T03:07:44.472Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/typesoflearning/index.html</loc>
-    <lastmod>2026-03-01T02:59:11.086Z</lastmod>
+    <lastmod>2026-03-01T03:07:44.490Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/lawoflargenumbers.html</loc>
@@ -162,7 +162,7 @@
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/hierarch/index.html</loc>
-    <lastmod>2026-03-01T02:59:11.095Z</lastmod>
+    <lastmod>2026-03-01T03:09:30.859Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/basicmontecarlo/index.html</loc>
@@ -174,11 +174,11 @@
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/markov/index.html</loc>
-    <lastmod>2026-03-01T02:59:11.097Z</lastmod>
+    <lastmod>2026-03-01T03:07:44.457Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/em/index.html</loc>
-    <lastmod>2026-03-01T02:59:11.094Z</lastmod>
+    <lastmod>2026-03-01T03:07:44.442Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/frequentist.html</loc>
@@ -206,7 +206,7 @@
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/tetchygibbs/index.html</loc>
-    <lastmod>2026-03-01T02:59:11.110Z</lastmod>
+    <lastmod>2026-03-01T03:09:30.866Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/gradientdescent/index.html</loc>
@@ -222,7 +222,7 @@
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/introgibbs/index.html</loc>
-    <lastmod>2026-03-01T02:59:11.100Z</lastmod>
+    <lastmod>2026-03-01T03:09:30.860Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/vizasstory.html</loc>
@@ -238,7 +238,7 @@
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/utilityorrisk/index.html</loc>
-    <lastmod>2026-03-01T02:59:11.091Z</lastmod>
+    <lastmod>2026-03-01T03:07:44.492Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/globemodellab/index.html</loc>
@@ -250,7 +250,7 @@
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/generativemodels/index.html</loc>
-    <lastmod>2026-03-01T02:59:11.089Z</lastmod>
+    <lastmod>2026-03-01T03:07:44.446Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/til.html</loc>

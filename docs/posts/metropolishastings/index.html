@@ -376,7 +376,6 @@ window.Quarto = {
   <ul>
   <li><a href="#metropolis-hastings" id="toc-metropolis-hastings" class="nav-link active" data-scroll-target="#metropolis-hastings">Metropolis-Hastings</a>
   <ul class="collapse">
-  <li><a href="#contents" id="toc-contents" class="nav-link" data-scroll-target="#contents">Contents</a></li>
   <li><a href="#metropolis-hastings-1" id="toc-metropolis-hastings-1" class="nav-link" data-scroll-target="#metropolis-hastings-1">Metropolis-Hastings</a>
   <ul class="collapse">
   <li><a href="#proof-of-detailed-balance" id="toc-proof-of-detailed-balance" class="nav-link" data-scroll-target="#proof-of-detailed-balance">Proof of detailed balance</a></li>
@@ -462,8 +461,6 @@ window.Quarto = {
 
 <section id="metropolis-hastings" class="level1">
 <h1>Metropolis-Hastings</h1>
-<section id="keywords-metropolis-hastings-mcmc-detailed-balance-discrete-sampling-transition-matrix-metropolis" class="level5">
-<h5 class="anchored" data-anchor-id="keywords-metropolis-hastings-mcmc-detailed-balance-discrete-sampling-transition-matrix-metropolis">Keywords: metropolis-hastings, MCMC, detailed balance, discrete sampling, transition matrix, metropolis</h5>
 <div id="cell-2" class="cell" data-hide="true" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -474,11 +471,6 @@ window.Quarto = {
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">'whitegrid'</span>)</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>sns.set_context(<span class="st">'paper'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</section>
-<section id="contents" class="level2">
-<h2 class="anchored" data-anchor-id="contents">Contents</h2>
-<p>{:.no_toc} * {: toc}</p>
-</section>
 <section id="metropolis-hastings-1" class="level2">
 <h2 class="anchored" data-anchor-id="metropolis-hastings-1">Metropolis-Hastings</h2>
 <p>If you want to sample a distribution with limited or only positive support, you realize that a normal distribution as a proposal will still want to sample stuff in negative areas and outside the max support. So we wastefully make acceptance probability comparisons.</p>
@@ -487,7 +479,7 @@ window.Quarto = {
 <p>However, we may also want to sample from a asymmetric proposal like a beta function because its guaranteed to be positive. However a beta distribution is not symmetric.</p>
 <p>Thus Metropolis Hastings allows us to sample distributions that are defined on limited support.</p>
 <p>Here is the outline code for metropolis hastings.</p>
-<div id="cell-5" class="cell" data-execution_count="102">
+<div id="cell-4" class="cell" data-execution_count="102">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> metropolis_hastings(p,q, qdraw, nsamp, xinit):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    samples<span class="op">=</span>np.empty(nsamp)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    x_prev <span class="op">=</span> xinit</span>
@@ -508,7 +500,7 @@ window.Quarto = {
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> samples, accepted</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Compare it with the code for metropolis</p>
-<div id="cell-7" class="cell" data-execution_count="153">
+<div id="cell-6" class="cell" data-execution_count="153">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> metropolis(p, qdraw, nsamp, xinit):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    samples<span class="op">=</span>np.empty(nsamp)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    x_prev <span class="op">=</span> xinit</span>
@@ -552,10 +544,10 @@ window.Quarto = {
 <section id="mh-example" class="level2">
 <h2 class="anchored" data-anchor-id="mh-example">MH example</h2>
 <p>Let us sample from <span class="math inline">\(f(x)=0.554xe^{-(x/1.9)^2}\)</span> which is a weibull distribution used in response time analysis.</p>
-<div id="cell-14" class="cell" data-execution_count="104">
+<div id="cell-13" class="cell" data-execution_count="104">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: <span class="fl">0.554</span><span class="op">*</span>x<span class="op">*</span>np.exp(<span class="op">-</span>(x<span class="op">/</span><span class="fl">1.9</span>)<span class="op">**</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-15" class="cell" data-execution_count="106">
+<div id="cell-14" class="cell" data-execution_count="106">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>xxx<span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">10</span>,<span class="dv">100</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xxx, f(xxx), <span class="st">'r'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -568,7 +560,7 @@ window.Quarto = {
 </div>
 <p>A rule of thumb for choosing proposal distributions is to parametrize them in terms of their mean and variance or precision since that provides a notion of “centeredness” which we can use for our proposals <span class="math inline">\(x_{i-1}\)</span>. We then fix the variance to understand how widely we are sampling from.</p>
 <p>As a proposal we shall use a Gamma Distribution with parametrization <span class="math display">\[Gamma(x\tau, 1/\tau)\]</span> in the shape-scale parametrization. The mean of this Gamma then is <span class="math inline">\(shape*scale\)</span> so that x is the mean. <span class="math inline">\(\tau\)</span> is a precision parameter</p>
-<div id="cell-17" class="cell" data-execution_count="107">
+<div id="cell-16" class="cell" data-execution_count="107">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> gamma</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>t<span class="op">=</span><span class="dv">10</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gammapdf(x_new, x_old):</span>
@@ -577,17 +569,17 @@ window.Quarto = {
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> gamma.rvs(x_old<span class="op">*</span>t,scale<span class="op">=</span><span class="dv">1</span><span class="op">/</span>t)</span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-18" class="cell" data-execution_count="108">
+<div id="cell-17" class="cell" data-execution_count="108">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>x0<span class="op">=</span>np.random.uniform()</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>samps,acc <span class="op">=</span> metropolis_hastings(f, gammapdf, gammadraw, <span class="dv">100000</span>, x0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-19" class="cell" data-execution_count="109">
+<div id="cell-18" class="cell" data-execution_count="109">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>acc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="109">
 <pre><code>83244</code></pre>
 </div>
 </div>
-<div id="cell-20" class="cell" data-execution_count="110">
+<div id="cell-19" class="cell" data-execution_count="110">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot our sample histogram</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>plt.hist(samps,bins<span class="op">=</span><span class="dv">100</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">u'MCMC distribution'</span>, normed<span class="op">=</span><span class="va">True</span>) </span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>somesamps<span class="op">=</span>samps[<span class="dv">0</span>::<span class="dv">20000</span>]</span>
@@ -612,7 +604,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Remember how we said that it takes some time for the Markov chain to reach a stationary state? We should remove the samples until that point. We can see the progress of the samples using a trace-plot</p>
-<div id="cell-22" class="cell" data-execution_count="191">
+<div id="cell-21" class="cell" data-execution_count="191">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plt.plot(samps, alpha<span class="op">=</span><span class="fl">0.3</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -622,7 +614,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-23" class="cell" data-execution_count="188">
+<div id="cell-22" class="cell" data-execution_count="188">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plt.plot(samps, alpha<span class="op">=</span><span class="fl">0.3</span>)<span class="op">;</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>plt.xlim([<span class="dv">0</span>, <span class="dv">5000</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -634,7 +626,7 @@ window.Quarto = {
 </div>
 </div>
 <p>The first many samples will contain signs of the initial condition, and will also reflect the fact that you have not found the stationary distribution as yet. We will see tests later for this, but as a rule of thumb, you always want to eliminate the first 5-10% of your samples. The appearance of <strong>white noise</strong> is a good sign.</p>
-<div id="cell-25" class="cell" data-execution_count="190">
+<div id="cell-24" class="cell" data-execution_count="190">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plt.plot(samps, alpha<span class="op">=</span><span class="fl">0.3</span>)<span class="op">;</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plt.xlim([<span class="dv">20000</span>, <span class="dv">25000</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -647,7 +639,7 @@ window.Quarto = {
 </div>
 <p>Notice that strong autocorrelations persist at high sample number too. This is the nature of metropolis and MH samplers..your next move is clearly highly correlated with the previous one.</p>
 <p>This is not a disaster in itself, but many people will thin their samples to have samples uncorrelated. Here I am leaving out a burnin of 20000, and am thinning to every 10.</p>
-<div id="cell-27" class="cell" data-execution_count="184">
+<div id="cell-26" class="cell" data-execution_count="184">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>plt.plot(samps[<span class="dv">20000</span>::<span class="dv">10</span>], alpha<span class="op">=</span><span class="fl">0.3</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -658,7 +650,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Here is the last 8000 samples for comparison where you can clearly see correlations. We shall talk more about these considerations later.</p>
-<div id="cell-29" class="cell" data-execution_count="185">
+<div id="cell-28" class="cell" data-execution_count="185">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>plt.plot(samps[<span class="op">-</span><span class="dv">8000</span>:], alpha<span class="op">=</span><span class="fl">0.3</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -671,18 +663,18 @@ window.Quarto = {
 <section id="the-same-function-with-metropolis" class="level3">
 <h3 class="anchored" data-anchor-id="the-same-function-with-metropolis">The same function with Metropolis</h3>
 <p>We could do the same thing with a normal, and using metropolis</p>
-<div id="cell-32" class="cell" data-execution_count="116">
+<div id="cell-31" class="cell" data-execution_count="116">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prop(x):</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.random.normal(x, <span class="fl">0.6</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>samps_m, acc_m <span class="op">=</span> metropolis(f, prop, <span class="dv">100000</span>, x0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-33" class="cell" data-execution_count="117">
+<div id="cell-32" class="cell" data-execution_count="117">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>acc_m</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="117">
 <pre><code>79092</code></pre>
 </div>
 </div>
-<div id="cell-34" class="cell" data-execution_count="118">
+<div id="cell-33" class="cell" data-execution_count="118">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>plt.hist(samps_m,bins<span class="op">=</span><span class="dv">100</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">u'MCMC distribution'</span>, normed<span class="op">=</span><span class="va">True</span>) </span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>somesamps<span class="op">=</span>samps_m[<span class="dv">0</span>::<span class="dv">20000</span>]</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i,s <span class="kw">in</span> <span class="bu">enumerate</span>(somesamps):</span>
@@ -712,7 +704,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="rainy-sunny-reprise">Rainy Sunny Reprise</h2>
 <p>To show how we can use Metropolis Hastings to sample a discrete distribution, let us go back to our rainy sunny example from Markov Chains.</p>
 <p>There, given a transition matrix, we found a corresponding stationary distribution for it. Here we weant to fix the stationary distribution, and somehow let metropolis-hastings find the appropriate transition matrix to get us there.</p>
-<div id="cell-37" class="cell" data-execution_count="123">
+<div id="cell-36" class="cell" data-execution_count="123">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the transition matrix for our chain</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>transition_matrix <span class="op">=</span> np.array([[<span class="fl">0.3</span>, <span class="fl">0.7</span>],[<span class="fl">0.5</span>, <span class="fl">0.5</span>]])</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -731,7 +723,7 @@ Stationary distribution
 </div>
 </div>
 <p>To sample from this, we need our final stationary pdf, which is a Bernoulli with p=0.416667. This is thus a kind of fake problem because knowing the pdf for a bernoulli, we can sample from it directly by using a uniform. But thats not our point here..</p>
-<div id="cell-39" class="cell" data-execution_count="146">
+<div id="cell-38" class="cell" data-execution_count="146">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rainsunpmf(state_int):</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> <span class="fl">0.416667</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> state_int<span class="op">==</span><span class="dv">0</span>:</span>
@@ -741,21 +733,21 @@ Stationary distribution
 </div>
 <p>Now, any move that transitions us from state 0 to state 1 and back would work. In particular, we could use a symmetric transition matrix and then use plain metropolis.</p>
 <p>You might find it strange that we are calling the proposal a transition matrix. This is strictly an abuse of terminology. We just need anything that will get us a set of probablities that sum to 1 and is symettric!</p>
-<div id="cell-41" class="cell" data-execution_count="147">
+<div id="cell-40" class="cell" data-execution_count="147">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>t_sym <span class="op">=</span> np.array([[<span class="fl">0.1</span>, <span class="fl">0.9</span>],[<span class="fl">0.9</span>, <span class="fl">0.1</span>]])</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rainsunprop(sint_old):</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.random.choice(<span class="dv">2</span>,p<span class="op">=</span>t_sym[sint_old])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-42" class="cell" data-execution_count="154">
+<div id="cell-41" class="cell" data-execution_count="154">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>samps_dis, acc_dis <span class="op">=</span> metropolis(rainsunpmf, rainsunprop, <span class="dv">1000</span>, <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-43" class="cell" data-execution_count="155">
+<div id="cell-42" class="cell" data-execution_count="155">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>acc_dis</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="155">
 <pre><code>848</code></pre>
 </div>
 </div>
-<div id="cell-44" class="cell" data-execution_count="157">
+<div id="cell-43" class="cell" data-execution_count="157">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>plt.hist(samps_dis)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -766,38 +758,38 @@ Stationary distribution
 </div>
 </div>
 <p>If I wish to use metropolis hastings I can choose an asymmetric proposal and I must provide a proposal pdf.</p>
-<div id="cell-46" class="cell" data-execution_count="158">
+<div id="cell-45" class="cell" data-execution_count="158">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>t_asym <span class="op">=</span> np.array([[<span class="fl">0.1</span>, <span class="fl">0.9</span>],[<span class="fl">0.3</span>, <span class="fl">0.7</span>]])</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rainsunprop2(sint_old):</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.random.choice(<span class="dv">2</span>,p<span class="op">=</span>t_asym[sint_old])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-47" class="cell" data-execution_count="192">
+<div id="cell-46" class="cell" data-execution_count="192">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>t_asym</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="192">
 <pre><code>array([[ 0.1,  0.9],
        [ 0.3,  0.7]])</code></pre>
 </div>
 </div>
-<div id="cell-48" class="cell" data-execution_count="160">
+<div id="cell-47" class="cell" data-execution_count="160">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>t_asym[<span class="dv">0</span>][<span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="160">
 <pre><code>0.90000000000000002</code></pre>
 </div>
 </div>
-<div id="cell-49" class="cell" data-execution_count="161">
+<div id="cell-48" class="cell" data-execution_count="161">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rainsunpropfunc(sint_new, sint_old):</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t_asym[sint_old][sint_new]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-50" class="cell" data-execution_count="162">
+<div id="cell-49" class="cell" data-execution_count="162">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>samps_dis2, acc_dis2 <span class="op">=</span> metropolis_hastings(rainsunpmf, rainsunpropfunc, rainsunprop2, <span class="dv">1000</span>, <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-51" class="cell" data-execution_count="163">
+<div id="cell-50" class="cell" data-execution_count="163">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>acc_dis2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="163">
 <pre><code>797</code></pre>
 </div>
 </div>
-<div id="cell-52" class="cell" data-execution_count="164">
+<div id="cell-51" class="cell" data-execution_count="164">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>plt.hist(samps_dis2)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>

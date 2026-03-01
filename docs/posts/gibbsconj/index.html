@@ -376,8 +376,6 @@ window.Quarto = {
   <ul>
   <li><a href="#gibbs-with-conditional-a-conjugate" id="toc-gibbs-with-conditional-a-conjugate" class="nav-link active" data-scroll-target="#gibbs-with-conditional-a-conjugate">Gibbs with conditional a conjugate</a>
   <ul class="collapse">
-  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a></li>
-  <li><a href="#contents" id="toc-contents" class="nav-link" data-scroll-target="#contents">Contents</a></li>
   <li><a href="#looks-like-a-binomial" id="toc-looks-like-a-binomial" class="nav-link" data-scroll-target="#looks-like-a-binomial">Looks like a binomial</a>
   <ul class="collapse">
   <li><a href="#the-xy-conditional" id="toc-the-xy-conditional" class="nav-link" data-scroll-target="#the-xy-conditional">The $ xy$ conditional</a></li>
@@ -460,8 +458,6 @@ window.Quarto = {
 
 <section id="gibbs-with-conditional-a-conjugate" class="level1">
 <h1>Gibbs with conditional a conjugate</h1>
-<section id="keywords-conjugate-prior-gibbs-sampler-mcmc-binomial-beta-beta-binomial" class="level5">
-<h5 class="anchored" data-anchor-id="keywords-conjugate-prior-gibbs-sampler-mcmc-binomial-beta-beta-binomial">Keywords: conjugate prior, gibbs sampler, MCMC, binomial, beta, beta-binomial</h5>
 <div id="cell-2" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -478,18 +474,8 @@ window.Quarto = {
   warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
 </div>
 </div>
-</section>
-<section id="summary" class="level2">
-<h2 class="anchored" data-anchor-id="summary">Summary</h2>
-<p>Gibbs sampler for a model in which one of the conditionals look like a distribution which is part of a conjugate pair. In this case we can use Bayes theorem to get the other conditional by multiplying the known conditional by a marginal which is the other part of the conjugate pair. Our example involves a <span class="math inline">\(Binom\)</span> conditional. Multiplying by a <span class="math inline">\(Beta\)</span> marginal leaves us with the other conditional as another <span class="math inline">\(Beta\)</span>.</p>
-<hr>
-</section>
-<section id="contents" class="level2">
-<h2 class="anchored" data-anchor-id="contents">Contents</h2>
-<p>{:.no_toc} * {: toc}</p>
 <p>We now going to take a look at a slightly more complicated case that was originally outlined in full generality by Casella and George (1992). Suppose we have a nasty looking joint distribution given as:</p>
 <p><span class="math display">\[p(x,y) = \binom{16}{y} x^{y+1} (1-x)^{19-y}\]</span></p>
-</section>
 <section id="looks-like-a-binomial" class="level2">
 <h2 class="anchored" data-anchor-id="looks-like-a-binomial">Looks like a binomial</h2>
 <p>For such a situation the <em>two</em> conditional distributions are not exactly obvious. Clearly we have a binomial term staring at us, so we should be looking to try and express part of the function as a binomial of the form,</p>
@@ -512,7 +498,7 @@ window.Quarto = {
 <section id="the-sampler" class="level2">
 <h2 class="anchored" data-anchor-id="the-sampler">The sampler</h2>
 <p>With our conditionals formulated, we can move directly to our Gibbs sampler.</p>
-<div id="cell-12" class="cell" data-execution_count="2">
+<div id="cell-10" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> binom, beta</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>n<span class="op">=</span><span class="dv">16</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>alph<span class="op">=</span><span class="fl">2.</span></span>
@@ -534,7 +520,7 @@ window.Quarto = {
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        samples[i,<span class="dv">1</span>]<span class="op">=</span>y</span>
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> samples</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="3">
+<div id="cell-11" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>out<span class="op">=</span>gibbs()</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>plt.hist2d(out[:,<span class="dv">0</span>],out[:,<span class="dv">1</span>], normed<span class="op">=</span><span class="va">True</span>, bins<span class="op">=</span><span class="dv">50</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
