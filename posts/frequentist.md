@@ -5,7 +5,7 @@ description: "Introduces the frequentist philosophy of statistics: data as a sam
 categories:
     - statistics
     - probability
-date: 2025-02-21
+date: 2025-01-22
 ---
 
 $$

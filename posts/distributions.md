@@ -5,7 +5,7 @@ description: "Defines cumulative distribution functions, probability mass functi
 categories:
     - probability
     - statistics
-date: 2025-01-12
+date: 2025-01-08
 ---
 
 Remember that a [Random Variable](probability/index.ipynb) is a mapping $ X: \Omega \rightarrow \mathbb{R}$ that assigns a real number $X(\omega)$ to each outcome $\omega$ in a sample space $\Omega$.  The definitions below are taken from Larry Wasserman's All of Statistics.

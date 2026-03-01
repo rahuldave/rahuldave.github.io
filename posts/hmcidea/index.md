@@ -6,7 +6,7 @@ categories:
     - mcmc
     - sampling
     - optimization
-date: 2025-01-17
+date: 2025-04-30
 ---
 
 ## Exploring the typical set

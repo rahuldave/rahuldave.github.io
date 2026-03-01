@@ -6,7 +6,7 @@ categories:
     - mcmc
     - sampling
     - bayesian
-date: 2025-01-16
+date: 2025-04-23
 ---
 
 We need to show that Gibbs Sampling converges to our target distribution. We start with a componentwise MH update.
