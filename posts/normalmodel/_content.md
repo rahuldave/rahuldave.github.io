@@ -1,5 +1,21 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "scipy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 %matplotlib inline
 import numpy as np
 import matplotlib.pylab as plt 
@@ -9,7 +25,7 @@ from scipy.stats import norm
 
 ```
 
-<!-- cell:2 type:markdown -->
+<!-- cell:3 type:markdown -->
  A random variable $Y$ is normally distributed with mean $\mu$ and variance $\sigma^2$. Thus its density is given by :
  
  $$ p(y \vert \mu, \sigma^2) =  \frac{1}{ \sqrt{ 2 \pi \sigma^2}} e^{-( \frac{y-\mu}{2 \sigma})^2} $$
@@ -31,7 +47,7 @@ $$ p( \mu, \sigma^2 \vert  y_1, \ldots, y_n, \sigma^2)  \propto \frac{1}{ \sqrt{
 Lets see the posterior of $\mu$ assuming we 
 know $\sigma^2$.  
 
-<!-- cell:3 type:markdown -->
+<!-- cell:4 type:markdown -->
 ## Normal Model for fixed $\sigma$
 
 Now we wish to condition on a known $\sigma^2$. The prior probability distribution for it can then be written as:
@@ -46,7 +62,7 @@ $$ p( \mu \vert  y_1, \ldots, y_n, \sigma^2 = \sigma_0^2)  \propto p(\mu \vert \
 
 where I have dropped the $\frac{1}{\sqrt{2\pi\sigma_0^2}}$ factor as there is no stochasticity in it (its fixed).
 
-<!-- cell:4 type:markdown -->
+<!-- cell:5 type:markdown -->
 
 Say we have the prior
 
@@ -79,7 +95,7 @@ $$ \frac{1}{\sigma_p^2} = \frac{1}{\tau^2} + \frac{n}{\sigma^2}. $$
 
 You can see that as $n$ increases, the data dominates the prior and the posterior mean approaches the data mean, with the posterior distribution narrowing...
 
-<!-- cell:5 type:markdown -->
+<!-- cell:6 type:markdown -->
 ## Example of the normal model for fixed $\sigma$
 
 We have data on the wing length in millimeters of a nine members of a particular species of moth. We wish to make inferences from those measurements on the population mean $\mu$. Other studies show the wing length to be around 19 mm. We also know that the length must be positive. We can choose a prior that is normal and most of the density is above zero ($\mu=19.5,\tau=10$). This is only a **marginally informative** prior.
@@ -88,7 +104,7 @@ Many bayesians would prefer you choose relatively uninformative (and thus weakly
 
 The measurements were: 16.4, 17.0, 17.2, 17.4, 18.2, 18.2, 18.2, 19.9, 20.8 giving $\bar{y}=18.14$. 
 
-<!-- cell:6 type:code -->
+<!-- cell:7 type:code -->
 ```python
 Y = [16.4, 17.0, 17.2, 17.4, 18.2, 18.2, 18.2, 19.9, 20.8]
 #Data Quantities
@@ -102,7 +118,7 @@ Output:
 sigma 1.33092374864 mu 18.1444444444 n 9
 ```
 
-<!-- cell:7 type:code -->
+<!-- cell:8 type:code -->
 ```python
 # Prior mean
 mu_prior = 19.5
@@ -110,7 +126,7 @@ mu_prior = 19.5
 tau = 10 
 ```
 
-<!-- cell:8 type:code -->
+<!-- cell:9 type:code -->
 ```python
 kappa = sig**2 / tau**2
 sig_post =np.sqrt(1./( 1./tau**2 + n/sig**2));
@@ -123,7 +139,7 @@ Output:
 mu post 18.1471071751 sig_post 0.443205311006
 ```
 
-<!-- cell:9 type:code -->
+<!-- cell:10 type:code -->
 ```python
 #samples
 N = 15000
@@ -131,7 +147,7 @@ theta_prior = np.random.normal(loc=mu_prior, scale=tau, size=N);
 theta_post = np.random.normal(loc=mu_post, scale=sig_post, size=N);
 ```
 
-<!-- cell:10 type:code -->
+<!-- cell:11 type:code -->
 ```python
 plt.hist(theta_post, bins=30, alpha=0.9, label="posterior");
 plt.hist(theta_prior, bins=30, alpha=0.2, label="prior");
@@ -142,5 +158,5 @@ plt.legend();
 ```
 [Figure]
 
-<!-- cell:11 type:markdown -->
+<!-- cell:12 type:markdown -->
 In the case that we dont know $\sigma^2$ or wont estimate it the way we did above, it turns out that a conjugate prior for the precision (inverse variance) is a gamma distribution. Interested folks can see Murphy's detailed document [here](https://www.cs.ubc.ca/~murphyk/Papers/bayesGauss.pdf). but you can always just use our MH machinery to draw from any vaguely informative prior for the variance ( a gamma for the precision or even for the  variance).

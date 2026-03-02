@@ -1,5 +1,23 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "pandas",
+#   "scikit-learn",
+#   "scipy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 %matplotlib inline
 import numpy as np
 import scipy as sp
@@ -15,7 +33,7 @@ sns.set_style("whitegrid")
 sns.set_context("poster")
 ```
 
-<!-- cell:2 type:markdown -->
+<!-- cell:3 type:markdown -->
 $$
 \renewcommand{\like}{{\cal L}}
 \renewcommand{\loglike}{{\ell}}
@@ -29,7 +47,7 @@ $$
 
 First some often used routines.
 
-<!-- cell:3 type:code -->
+<!-- cell:4 type:code -->
 ```python
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
@@ -57,7 +75,7 @@ def do_classify(clf, parameters, indf, featurenames, targetname, target1val, sta
     return clf, Xtrain, ytrain, Xtest, ytest
 ```
 
-<!-- cell:4 type:code -->
+<!-- cell:5 type:code -->
 ```python
 from matplotlib.colors import ListedColormap
 cmap_light = ListedColormap(['#FFAAAA', '#AAFFAA', '#AAAAFF'])
@@ -106,13 +124,13 @@ def points_plot_prob(ax, Xtr, Xte, ytr, yte, clf, colorscale=cmap_light, cdiscre
     return ax 
 ```
 
-<!-- cell:5 type:markdown -->
+<!-- cell:6 type:markdown -->
 
 ## The different kinds of learning
 
 ![Taxonomy of learning approaches: ERM/discriminant methods versus Bayesian discriminative and generative models.](assets/learning.png)
 
-<!-- cell:6 type:markdown -->
+<!-- cell:7 type:markdown -->
 ### ERM 
 
 The Empirical Risk Maximization (ERM) approach corresponds to estimating the true distribution by the empirical distribution. In this case the Risk R is simply the average of the losses at the individual training points:
@@ -131,7 +149,7 @@ Notice that in all of this any talk of density estimation has gone away, and we 
 
 But there are drawbacks. It seems crazy to assume that the empirical distribution is a good distribution, especially for small data. A more reasonable assumption for the distribution could take into account likely x,y that could arise. If the loss changes, as it might over time, say in a financial application, then we would need to retrain $g$. There is no way to associate a confidence in this framework, as it wont give you probabilities. 
 
-<!-- cell:7 type:markdown -->
+<!-- cell:8 type:markdown -->
 ### Bayes
 
 ![Bayesian decision approach: after fitting the model, predictions minimize expected risk under the posterior. From Bishop.](assets/bayesrisk.png)
@@ -158,7 +176,7 @@ The Bayesian decision approach is a clean one, in which first one models the **e
 
 By the way, the ERM method is the only **frequentist** method which has a well defined risk. The reason for this is that it dosent depend on both a sample-estimate of the true $\theta$.
 
-<!-- cell:8 type:code -->
+<!-- cell:9 type:code -->
 ```python
 df=pd.read_csv("data/01_heights_weights_genders.csv")
 df.head()
@@ -173,10 +191,10 @@ Output:
 4   Male  69.881796  206.349801
 ```
 
-<!-- cell:9 type:markdown -->
+<!-- cell:10 type:markdown -->
 ### Discriminative Model
 
-<!-- cell:10 type:code -->
+<!-- cell:11 type:code -->
 ```python
 from sklearn.linear_model import LogisticRegression
 clf_l, Xtrain_l, ytrain_l, Xtest_l, ytest_l  = do_classify(LogisticRegression(), {"C": [0.01, 0.1, 1, 10, 100]}, df, ['Weight', 'Height'], 'Gender','Male')
@@ -188,7 +206,7 @@ Accuracy on training data: 0.92
 Accuracy on test data:     0.91
 ```
 
-<!-- cell:11 type:code -->
+<!-- cell:12 type:code -->
 ```python
 plt.figure()
 ax=plt.gca()
@@ -196,10 +214,10 @@ points_plot(ax, Xtrain_l, Xtest_l, ytrain_l, ytest_l, clf_l, alpha=0.2);
 ```
 [Figure]
 
-<!-- cell:12 type:markdown -->
+<!-- cell:13 type:markdown -->
  Let us plot the probabilities obtained from `predict_proba`, overlayed on the samples with their true labels:
 
-<!-- cell:13 type:code -->
+<!-- cell:14 type:code -->
 ```python
 plt.figure()
 ax=plt.gca()
@@ -207,12 +225,12 @@ points_plot_prob(ax, Xtrain_l, Xtest_l, ytrain_l, ytest_l, clf_l, psize=20, alph
 ```
 [Figure]
 
-<!-- cell:14 type:markdown -->
+<!-- cell:15 type:markdown -->
 Notice that lines of equal probability, as might be expected are stright lines. What the classifier does is very intuitive: if the probability is greater than 0.5, it classifies the sample as type '1' (male), otherwise it classifies the sample to be class '0'. Thus in the diagram above, where we have plotted predicted values rather than actual labels of samples, there is a clear demarcation at the 0.5 probability line.
 
 This notion of trying to obtain the line or boundary of demarcation is what makes the **discriminative** classifier. The algorithm tries to find a decision boundary that separates the males from the females. To classify a new sample as male or female, it checks on which side of the decision boundary the sample falls, and makes a prediction. In other words we are asking, given $\v{x}$, what is the probability of a given $y$, or, what is the likelihood $P(y|\v{x},\v{w})$?
 
-<!-- cell:15 type:markdown -->
+<!-- cell:16 type:markdown -->
 ### Generative Classifier
 
 This involves finding $P(\v{x} | y)$, the class conditional probability. Consider that heights and weights of males and females might be expected to be distributed using a bell curve. You might have heard of the reasons for this: so many things go into these heights/weights that the net effect is for them to be distributed as a bell curve, according to the central limit theorem. So why not use this additional information and model the heights and weights of males and females separately as 2-dimensional bell curves or **Normal Distributions**. In other words:
@@ -221,7 +239,7 @@ $$p(height, weight | male ) = Bell Curve$$
 
 centered at the mean height, weight for males, and a similar equation holds for females. This is exactly what the linear discriminant analysis classifier does.  Lets run it, only on tne training set. What we are doing is fitting the male and female sections of the training set separately, getting two 2-D bell curves, and then inverting as above to decide how to classify new samples from the testing set. (We dont cross-validate here as we are currently not fitting any hyperparameters).
 
-<!-- cell:16 type:code -->
+<!-- cell:17 type:code -->
 ```python
 from sklearn.lda import LDA
 clflda = LDA(solver="svd", store_covariance=True)
@@ -238,7 +256,7 @@ LDA(n_components=None, priors=None, shrinkage=None, solver='svd',
   store_covariance=True, tol=0.0001)
 ```
 
-<!-- cell:17 type:code -->
+<!-- cell:18 type:code -->
 ```python
 #from REF
 from scipy import linalg
@@ -272,10 +290,10 @@ def plot_lda_cov(lda, splot):
 #plt.bivariate_normal(X, Y, sigmax=1.0, sigmay=1.0, mux=0.0, muy=0.0, sigmaxy=0.0)¶
 ```
 
-<!-- cell:18 type:markdown -->
+<!-- cell:19 type:markdown -->
 We plot ellipses for equal probability contours of the two individual $P(\v{x}|y)$, the $P(height, weight | male)$ and the $P(height, weight | female)$. We also plot the discriminant line created by inverting these probabilities using Bayes theorem: we once again classify a sample as male if $P(male | height, weight \gt 0.5$ (which will ensure that $P(female | height, weight) < 0.5$ since both must add to 1).
 
-<!-- cell:19 type:code -->
+<!-- cell:20 type:code -->
 ```python
 plt.figure()
 ax=plt.gca()
@@ -284,7 +302,7 @@ plot_lda_cov(clflda, spl)
 ```
 [Figure]
 
-<!-- cell:20 type:markdown -->
+<!-- cell:21 type:markdown -->
 
 Whats happenning here? We have estimated $P(\v{x} | y, \theta_y)$ where we use $\theta_y$ to designate the parameters of the fit (the parameters of the female and male bell curves); the subscript indicates we are fitting a separate parameter set for each class.
 
@@ -310,10 +328,10 @@ The third thing is probably obvious and a bit uncomfortable to you: we are being
 
 This is true, but it is not a bad thing when the assumptions that go into individual models are well founded, such as in the case of our male and female heights and weights here. 
 
-<!-- cell:21 type:markdown -->
+<!-- cell:22 type:markdown -->
 We can also plot the output of `predict_proba` and we see something interesting: we get back exactly the same probability lines that we got using logistic regression. Indeed, LDA is the generative conterpart of Logistic regression. It is possible to prove this but we shall not do so here.
 
-<!-- cell:22 type:code -->
+<!-- cell:23 type:code -->
 ```python
 plt.figure()
 ax=plt.gca()
@@ -321,7 +339,7 @@ points_plot_prob(ax, Xtrain_l, Xtest_l, ytrain_l, ytest_l, clflda);
 ```
 [Figure]
 
-<!-- cell:23 type:markdown -->
+<!-- cell:24 type:markdown -->
 The important point here is that many generative models, including those with Poisson Likelihoods and Naive Bayes Models have Logistic Regression as their discriminative counterpart. This means that on inverting the $P(\v{x}|y)$ using Bayes theorem, we get back Logistic Regression. Thus Logistic regression if a relatively robust model, insensitive to many modelling assumptions. This is a big reason to use such Discriminative models.
 
 But if $p(\v{x}|y)$ is indeed Normal, as is here for our two classes of male and female, LDA is what is known as **asymptotically efficient**. This means that for large amounts of training data, it can be proved that no model can be better than LDA for the estimation of the probability we'd like to use to get our classification,  $p(y|\v{x})$. In particular, it can be shown that LDA will outperform Logistic regression, even for small training set sizes.
@@ -332,7 +350,7 @@ $$P(x) = \sum_y P(x|y)P(y)$$
 
 This is not surprising. A lot of elbow-grease went into the generative classifier since we had to model so much. It should pay some dividend.
 
-<!-- cell:24 type:markdown -->
+<!-- cell:25 type:markdown -->
 ### Generative vs Discriminative, redux
 
 

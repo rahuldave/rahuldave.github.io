@@ -1,5 +1,22 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "pandas",
+#   "scipy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 %matplotlib inline
 import numpy as np
 import scipy as sp
@@ -19,7 +36,7 @@ Output:
   warnings.warn(self.msg_depr % (key, alt_key))
 ```
 
-<!-- cell:2 type:markdown -->
+<!-- cell:3 type:markdown -->
 ## What is probability?
 
 Suppose you were to flip a coin. Then you expect not to be able to say whether the next toss would yield a heads or a tails.  You might tell a friend that the odds of getting a heads is equal to to the odds of getting a tails, and that both are $1/2$.
@@ -55,7 +72,7 @@ Consider some additional examples. You might ask the probability of the Yankees 
 
 They key takeaway is this: for some reasons, and possibly using some data, we have constructed a model of the universe. In other words, we have combined **prior** beliefs and past frequencies respectively. This notion of such combination is yet another notion of probability, called the **Bayesian** notion of probability. And we can now use this model to make predictions, such us the future odds of a particular event happening.
 
-<!-- cell:3 type:markdown -->
+<!-- cell:4 type:markdown -->
 ### Probability from frequency
 
 Consider doing a large number of coin flips. You would do, or imagine doing, a large number of flips or **trials** $N$, and finding the number of times you got heads $N_H$. Then the probability of getting heads would be 
@@ -65,12 +82,12 @@ This is the notion of probability as a **relative frequency**: if there are mult
 
 This jibes with our general notion of probability from symmetry: indeed you can think of it as an experimental verificaltion of a symmetry based model.
 
-<!-- cell:4 type:markdown -->
+<!-- cell:5 type:markdown -->
 #### Simulating the results of the model
 
 We dont have a coin right now. So let us **simulate** this process on a computer. To do this we will use a form of the **random number generator** built into `numpy`. In particular, we will use the function `np.random.choice`, which will with equal probability for all items pick an item from a list (thus if the list is of size 6, it will pick one of the six list items each time, with a probability 1/6). 
 
-<!-- cell:5 type:code -->
+<!-- cell:6 type:code -->
 ```python
 def throw_a_coin(N):
     return np.random.choice(['H','T'], size=N)
@@ -86,12 +103,12 @@ Number of Heads: 22
 p1 = Number of Heads/Total Throws: 0.55
 ```
 
-<!-- cell:6 type:markdown -->
+<!-- cell:7 type:markdown -->
 Notice that you do not necessarily get 20 heads.
 
 Now say that we run the entire process again, a second **replication** to obtain a second sample. Then we ask the same question: what is the fraction of heads we get this time? Lets call the odds of heads in sample 2, then, $p_2$:
 
-<!-- cell:7 type:code -->
+<!-- cell:8 type:code -->
 ```python
 def make_throws(N):
     throws=throw_a_coin(N)
@@ -110,10 +127,10 @@ Number of Heads: 25
 p1 = Number of Heads/Total Throws: 0.625
 ```
 
-<!-- cell:8 type:markdown -->
+<!-- cell:9 type:markdown -->
 Let's do many more trials
 
-<!-- cell:9 type:code -->
+<!-- cell:10 type:code -->
 ```python
 make_throws(1000)
 ```
@@ -124,10 +141,10 @@ Number of Heads: 521
 p1 = Number of Heads/Total Throws: 0.521
 ```
 
-<!-- cell:10 type:markdown -->
+<!-- cell:11 type:markdown -->
 And even more:
 
-<!-- cell:11 type:code -->
+<!-- cell:12 type:code -->
 ```python
 make_throws(10000)
 ```
@@ -138,10 +155,10 @@ Number of Heads: 5047
 p1 = Number of Heads/Total Throws: 0.5047
 ```
 
-<!-- cell:12 type:markdown -->
+<!-- cell:13 type:markdown -->
 As you can see, the larger number of trials we do, the closer we seem to get to half the tosses showing up heads. Lets see this more systematically:
 
-<!-- cell:13 type:code -->
+<!-- cell:14 type:code -->
 ```python
 trials=np.arange(0, 40000, 1000)
 plt.plot(trials, [np.sum(throw_a_coin(j)=='H')/np.float(j) for j in trials], 'o-', alpha=0.2);
@@ -152,12 +169,12 @@ plt.title('frequentist probability of heads');
 ```
 [Figure]
 
-<!-- cell:14 type:markdown -->
+<!-- cell:15 type:markdown -->
 Thus, the true odds **fluctuate** about their long-run value of 0.5, in accordance with the model of a fair coin (which we encoded in our simulation by having `np.random.choice` choose between two possibilities with equal probability), with the fluctuations becoming much smaller (we shall talk a lot more about this later in the book). These **fluctations** are what give rise to probability distributions.
 
 Each finite length run is called a **sample**, which has been obtained from the **generative** model of our fair coin. Its called generative as we can use the model to generate, using simulation, a set of samples we can play with to understand a model. Such **simulation from a model** is a key technique which we will come back to again and again in learning from data.
 
-<!-- cell:15 type:markdown -->
+<!-- cell:16 type:markdown -->
 ## The rules of probability
 
 We have seen multiple notions of probability so far. One might assign probabilities based on symmetry, for eg, 2 sides of a fair coin, or six sides of a fair dice. One might assign probabilities based on doing an experiment. such as the long run number of heads in many coin flips. One might assign probabilities based on beliefs; and one might even assign probabilities to events that have no chance of repeating, such as the 2012 presidential election, or the probability of rain between 2pm and 6pm today.
@@ -223,7 +240,7 @@ If $X$ and $Y$ are two events and $p(X)$ is the probability of the event $X$ to 
 
 
 
-<!-- cell:16 type:markdown -->
+<!-- cell:17 type:markdown -->
 ## Random Variables
 
 To link the notion of events such as $E$ and collections of events, or *probability spaces* $\Omega$ to data, we must introduce the concept of random variables. The following definition is taken from Larry Wasserman's All of Stats.
@@ -240,7 +257,7 @@ We will assign a real number P(A) to every event A, called the probability of
 A. We also call P a probability distribution or a probability measure.
 To qualify as a probability, P must satisfy the three axioms (non-negative, $P(\Omega)=1$, disjoint probs add).
 
-<!-- cell:17 type:markdown -->
+<!-- cell:18 type:markdown -->
 ## Marginals and conditionals, and Bayes Theorem
 
 The diagram  below taken from Bishop may be used to illustrate the concepts of conditionals and marginals. Consider two random variables, $X$, which takes the values ${x_i}$ where
@@ -313,7 +330,7 @@ $$ p(x| z, y) = p(x|z) $$
 
 In other words, if we condition on $z$, and now also learn about $y$, this is not going to change the probability of $x$. It is important to realize that conditional independence between $x$ and $y$ does not imply independence between $x$ and $y$. 
 
-<!-- cell:18 type:markdown -->
+<!-- cell:19 type:markdown -->
 ### Application of Bayes Theorem
 
 >Sally Clark, a lawyer who lost her first son at 11 weeks and her second at 8 weeks, was convicted in 1999. A prominent pediatrician, Sir Roy Meadow, had testified for the prosecution about Sudden Infant Death Syndrome, known as SIDS in the U.S. and cot death in Britain. Citing a government study, Meadow said the incidence of one SIDS death was one in 8,500 in a family like Clark’s–stable, affluent, nonsmoking, with a mother more than 26 years old.
@@ -328,7 +345,7 @@ p(child 1 dying of sids) = 1/8500
 P(child 2 dying of sids) = 1/100
 ```
 
-<!-- cell:19 type:markdown -->
+<!-- cell:20 type:markdown -->
 >First, we look at natural causes of sudden infant death. The chance of one random infant dying from SIDS was about 1 in 1,300 during this period in Britain. Meadow’s argument was flawed and produced a much slimmer chance of natural death. The estimated odds of a second SIDS death in the same family was much larger, perhaps one in 100, because family members can share a common environmental or genetic propensity for SIDS.
 
 >Second, we turn to the hypothesis that the babies were murdered. Only about 30 children out of 650,000 annual births in England, Scotland, and Wales were known to have been murdered by their mothers. The number of double murders must be much lower, estimated as 10 times less likely.
@@ -360,7 +377,7 @@ p(S2 | data) = P(data | S2) P(S2) /(P(data | S2) P(S2) + P(data|notS2)P(notS2))
 Sally Clark spent **3 years** in jail.
 
 
-<!-- cell:20 type:code -->
+<!-- cell:21 type:code -->
 ```python
 
 ```

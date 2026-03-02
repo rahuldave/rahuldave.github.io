@@ -10,13 +10,13 @@
     },
     {
       "cell": 1,
-      "type": "markdown",
-      "headings": []
+      "type": "code",
+      "html_id": "cell-1"
     },
     {
       "cell": 2,
-      "type": "code",
-      "html_id": "cell-2"
+      "type": "markdown",
+      "headings": []
     },
     {
       "cell": 3,
@@ -25,6 +25,11 @@
     },
     {
       "cell": 4,
+      "type": "code",
+      "html_id": "cell-4"
+    },
+    {
+      "cell": 5,
       "type": "markdown",
       "headings": [
         {
@@ -34,17 +39,17 @@
       ]
     },
     {
-      "cell": 5,
+      "cell": 6,
       "type": "markdown",
       "headings": []
     },
     {
-      "cell": 6,
+      "cell": 7,
       "type": "code",
-      "html_id": "cell-6"
+      "html_id": "cell-7"
     },
     {
-      "cell": 7,
+      "cell": 8,
       "type": "markdown",
       "headings": [
         {
@@ -54,12 +59,12 @@
       ]
     },
     {
-      "cell": 8,
+      "cell": 9,
       "type": "code",
-      "html_id": "cell-8"
+      "html_id": "cell-9"
     },
     {
-      "cell": 9,
+      "cell": 10,
       "type": "markdown",
       "headings": [
         {
@@ -67,11 +72,6 @@
           "level": 3
         }
       ]
-    },
-    {
-      "cell": 10,
-      "type": "code",
-      "html_id": "cell-10"
     },
     {
       "cell": 11,
@@ -85,6 +85,11 @@
     },
     {
       "cell": 13,
+      "type": "code",
+      "html_id": "cell-13"
+    },
+    {
+      "cell": 14,
       "type": "markdown",
       "headings": [
         {
@@ -94,17 +99,17 @@
       ]
     },
     {
-      "cell": 14,
-      "type": "code",
-      "html_id": "cell-14"
-    },
-    {
       "cell": 15,
       "type": "code",
       "html_id": "cell-15"
     },
     {
       "cell": 16,
+      "type": "code",
+      "html_id": "cell-16"
+    },
+    {
+      "cell": 17,
       "type": "markdown",
       "headings": [
         {
@@ -114,7 +119,7 @@
       ]
     },
     {
-      "cell": 17,
+      "cell": 18,
       "type": "markdown",
       "headings": [
         {
@@ -124,19 +129,14 @@
       ]
     },
     {
-      "cell": 18,
-      "type": "code",
-      "html_id": "cell-18"
-    },
-    {
       "cell": 19,
-      "type": "markdown",
-      "headings": []
+      "type": "code",
+      "html_id": "cell-19"
     },
     {
       "cell": 20,
-      "type": "code",
-      "html_id": "cell-20"
+      "type": "markdown",
+      "headings": []
     },
     {
       "cell": 21,
@@ -160,6 +160,11 @@
     },
     {
       "cell": 25,
+      "type": "code",
+      "html_id": "cell-25"
+    },
+    {
+      "cell": 26,
       "type": "markdown",
       "headings": []
     }

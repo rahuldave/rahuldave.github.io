@@ -79,9 +79,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-8ed8c4e1427b57eae15282a2f1143096.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-ccbaf13865a3c7d1254290bba16250fd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-8ed8c4e1427b57eae15282a2f1143096.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-12664055cfeed62abd852165ab0e0bfb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-69a2ed97628a4e219880992b79f066a5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-12664055cfeed62abd852165ab0e0bfb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -386,7 +386,7 @@ window.Quarto = {
   </ul></li>
   <li><a href="#semi-supervised" id="toc-semi-supervised" class="nav-link" data-scroll-target="#semi-supervised">Semi-supervised</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.out.ipynb" download="index.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -459,7 +459,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-1" class="cell" data-execution_count="1" data-cell-type="code">
+<div id="cell-2" class="cell" data-execution_count="1" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
@@ -499,7 +499,7 @@ window.Quarto = {
 <p><span class="math display">\[p(x  \vert  \theta) = \sum_z p(z)p(x  \vert  z, \theta)\]</span></p>
 <p>where <span class="math inline">\(\theta = \{ \theta_k \}\)</span> is the collection of distribution parameters.</p>
 <p>Whats going on? Pick a bitmask according to the Categorical (the analog of the bernoulli, a multinomial with n=1). Where you find the 1, thats the distribution from which you make a draw.</p>
-<div id="cell-5" class="cell" data-execution_count="2" data-cell-type="code">
+<div id="cell-6" class="cell" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> multinomial</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>multinomial.rvs(<span class="dv">1</span>,[<span class="fl">0.6</span>,<span class="fl">0.1</span>, <span class="fl">0.3</span>], size<span class="op">=</span><span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -521,7 +521,7 @@ window.Quarto = {
 <p>The Gaussian mixture model or GMM is the most widely used mixture distribution. In this model, each base distribution is a multivariate Gaussian with mean <span class="math inline">\(\mu_k\)</span> and covariance matrix <span class="math inline">\(\Sigma_k\)</span>. Thus the model has the form</p>
 <p><span class="math display">\[p(x \vert  \{\theta_{k}\}) = \zsum \lambda_k N(x \vert \mu_k , \Sigma_k ) \]</span></p>
 <p>Thus each mixture component can be thought of as represented by a different set of eliptical contours, and we add these to create our overall density.</p>
-<div id="cell-7" class="cell" data-execution_count="3" data-cell-type="code">
+<div id="cell-8" class="cell" data-execution_count="3" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#In 1-D</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># True parameter values</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>mu_true <span class="op">=</span> np.array([<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">10</span>])</span>
@@ -532,15 +532,15 @@ window.Quarto = {
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate from each distribution according to mixing proportion lambda</span></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> multinomial.rvs(<span class="dv">1</span>, lambda_true, size<span class="op">=</span>n)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="4" data-cell-type="code">
+<div id="cell-9" class="cell" data-execution_count="4" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>np.array([np.random.normal(mu_true[i.astype(<span class="st">'bool'</span>)][<span class="dv">0</span>], sigma_true[i.astype(<span class="st">'bool'</span>)][<span class="dv">0</span>]) <span class="cf">for</span> i <span class="kw">in</span> z])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-9" class="cell" data-execution_count="5" data-cell-type="code">
+<div id="cell-10" class="cell" data-execution_count="5" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sns.distplot(x, bins<span class="op">=</span><span class="dv">100</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -584,7 +584,7 @@ l(x,z \vert  \lambda,\mu_0, \mu_1, \Sigma) &amp;=&amp; \log \prod_{i=1}^{m} p(x_
 \]</span></p>
 <p>This gives us the obvious result, namely <span class="math inline">\(\lambda\)</span> is nothing more but the fraction of objects with label <span class="math inline">\(z=1\)</span> and the total number of objects, <span class="math inline">\(\mu\)</span>’s are the mean within the class and <span class="math inline">\(\Sigma\)</span> is the the covariance matrix for each group. This analysis is called “Gaussian Discriminant Analysis” or GDA, here specifically LDA as we tied the covariance matrices.</p>
 <p>Lets do this in code. First we simulate some data:</p>
-<div id="cell-12" class="cell" data-execution_count="6" data-cell-type="code">
+<div id="cell-13" class="cell" data-execution_count="6" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#In 1-D</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># True parameter values</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>mu_true <span class="op">=</span> np.array([<span class="dv">2</span>, <span class="dv">5</span>])</span>
@@ -600,35 +600,35 @@ l(x,z \vert  \lambda,\mu_0, \mu_1, \Sigma) &amp;=&amp; \log \prod_{i=1}^{m} p(x_
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Now we split into a training set and a test set.</p>
-<div id="cell-14" class="cell" data-execution_count="8" data-cell-type="code">
+<div id="cell-15" class="cell" data-execution_count="8" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#the z's are the classes in the supervised learning</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#the 'feature' is the x position of the sample</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>ztrain, ztest, xtrain, xtest <span class="op">=</span> train_test_split(z,x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-15" class="cell" data-execution_count="9" data-cell-type="code">
+<div id="cell-16" class="cell" data-execution_count="9" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>ztrain.shape, xtrain.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>((7500,), (7500,))</code></pre>
 </div>
 </div>
-<div id="cell-16" class="cell" data-execution_count="12" data-cell-type="code">
+<div id="cell-17" class="cell" data-execution_count="12" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>plt.hist(xtrain, bins<span class="op">=</span><span class="dv">20</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-17" class="cell" data-execution_count="13" data-cell-type="code">
+<div id="cell-18" class="cell" data-execution_count="13" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>lambda_train<span class="op">=</span>np.mean(ztrain)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>mu0_train <span class="op">=</span> np.<span class="bu">sum</span>(xtrain[ztrain<span class="op">==</span><span class="dv">0</span>])<span class="op">/</span>(np.<span class="bu">sum</span>(ztrain<span class="op">==</span><span class="dv">0</span>))</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>mu1_train <span class="op">=</span> np.<span class="bu">sum</span>(xtrain[ztrain<span class="op">==</span><span class="dv">1</span>])<span class="op">/</span>(np.<span class="bu">sum</span>(ztrain<span class="op">==</span><span class="dv">1</span>))</span>
@@ -643,7 +643,7 @@ l(x,z \vert  \lambda,\mu_0, \mu_1, \Sigma) &amp;=&amp; \log \prod_{i=1}^{m} p(x_
 <p>We can use the log likelihood at a given <code>x</code> as a classifier: assign the class ‘0’ or ‘1’ depending upon which probability <span class="math inline">\(p(x_j \vert \lambda, z, \Sigma)\)</span> is larger. Note that this is JUST the <span class="math inline">\(x\)</span> likelihood, because we want to compare probabilities for fixed <span class="math inline">\(z\)</span>s.</p>
 <p><span class="math display">\[log\,p(x_j \vert \lambda, z, \Sigma) = -\sum_{i=1}^{m} \log ((2\pi)^{n/2}  \vert  \Sigma \vert ^{1/2}) - \frac{1}{2} \sum_{i=1}^{m}  (x-\mu_{z_i})^T \,\Sigma^{-1}(x-\mu_{z_i})  \]</span></p>
 <p>The first term of the likelihood does not matter since it is independent of <span class="math inline">\(z\)</span>, therefore:</p>
-<div id="cell-19" class="cell" data-execution_count="14" data-cell-type="code">
+<div id="cell-20" class="cell" data-execution_count="14" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> loglikdiff(x):</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    for0<span class="op">=</span> <span class="op">-</span> (x<span class="op">-</span>mu0_train)<span class="op">*</span>(x<span class="op">-</span>mu0_train)<span class="op">/</span>(<span class="fl">2.0</span><span class="op">*</span>sigma_train<span class="op">*</span>sigma_train) </span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    for0 <span class="op">=</span> for0 <span class="op">+</span> np.log(<span class="fl">1.</span><span class="op">-</span>lambda_train)</span>
@@ -651,7 +651,7 @@ l(x,z \vert  \lambda,\mu_0, \mu_1, \Sigma) &amp;=&amp; \log \prod_{i=1}^{m} p(x_
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    for1 <span class="op">=</span> for1 <span class="op">+</span> np.log(lambda_train)</span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">1</span><span class="op">*</span>(for1 <span class="op">-</span> for0 <span class="op">&gt;=</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-20" class="cell" data-execution_count="15" data-cell-type="code">
+<div id="cell-21" class="cell" data-execution_count="15" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pred <span class="op">=</span> np.array([loglikdiff(test_x) <span class="cf">for</span> test_x <span class="kw">in</span> xtest])</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"correct classification rate"</span>, np.mean(ztest <span class="op">==</span> pred))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -750,6 +750,7 @@ document.addEventListener('DOMContentLoaded', function() {
 })();
 </script>
 <script src="../../assets/llm-explain.js"></script>
+<script src="../../assets/download-bundle.js"></script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

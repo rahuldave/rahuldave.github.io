@@ -1,5 +1,22 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "pandas",
+#   "scipy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 %matplotlib inline
 import numpy as np
 import scipy as  sp
@@ -14,7 +31,7 @@ import seaborn.apionly as sns
 sns.set_style("whitegrid")
 ```
 
-<!-- cell:2 type:markdown -->
+<!-- cell:3 type:markdown -->
 ## Frequentist Statistics
 
 In frequentist approach, a parameter estimate is computed by using some function on the data $D$. 
@@ -40,7 +57,7 @@ $$ \theta_{ML} = \arg \! \max_{\theta} \Lik $$
 
 Notice that this method wants to account for every point in the "training set". So it overfits.
 
-<!-- cell:3 type:markdown -->
+<!-- cell:4 type:markdown -->
 ## The Bayesian Approach
 
 In its essence, the Bayesian approach has two parts.
@@ -113,7 +130,7 @@ the prior we set over the parameters does influence the parameter estimation.
 
 The MAP is an example of a pont-estimate. In general point estimates come from decision risks. For example, the mean comes from a squared-errror risk. The MAP comes from 1-0 loss with equal weghts for all errors. We'll come to this later.
 
-<!-- cell:4 type:markdown -->
+<!-- cell:5 type:markdown -->
 ### The posterior predictive
 
 At the end of the day we want to make predictions, here for the number of coin tosses  (or globe throws) that come up heads (or water). This is given us by the postrior predictive, which is the average of the likelihood at the points where the data is wanted with the posterior.
@@ -123,7 +140,7 @@ The entire process is illustrated in this diagram, where the posterior is multip
 
 ![The posterior predictive distribution as a mixture: each parameter value implies a sampling distribution, weighted by the posterior probability, producing the marginal prediction. From McElreath, Statistical Rethinking.](assets/postpred.png)
 
-<!-- cell:5 type:markdown -->
+<!-- cell:6 type:markdown -->
 ## The Normal Model
 
  
@@ -148,7 +165,7 @@ $$ p( \mu, \sigma^2 \vert  y_1, \ldots, y_n, \sigma^2)  \propto \frac{1}{ \sqrt{
 Lets see the posterior of $\mu$ assuming we 
 know $\sigma^2$.  
 
-<!-- cell:6 type:markdown -->
+<!-- cell:7 type:markdown -->
 ### Normal Model for fixed $\sigma$
 
 Now we wish to condition on a known $\sigma^2$. The prior probability distribution for it can then be written as:
@@ -165,7 +182,7 @@ $$ p( \mu \vert  y_1, \ldots, y_n, \sigma^2 = \sigma_0^2)  \propto p(\mu \vert \
 
 where I have dropped the $\frac{1}{\sqrt{2\pi\sigma_0^2}}$ factor as there is no stochasticity in it (its fixed).
 
-<!-- cell:7 type:markdown -->
+<!-- cell:8 type:markdown -->
 ## Example of the normal model for fixed $\sigma$
 
 We have data on the wing length in millimeters of a nine members of a particular species of moth. We wish to make inferences from those measurements on the population mean $\mu$. Other studies show the wing length to be around 19 mm. We also know that the length must be positive. We can choose a prior that is normal and most of the density is above zero ($\mu=19.5,\tau=10$). This is only a **marginally informative** prior.
@@ -174,7 +191,7 @@ Many bayesians would prefer you choose relatively uninformative priors.
 
 The measurements were: 16.4, 17.0, 17.2, 17.4, 18.2, 18.2, 18.2, 19.9, 20.8 giving $\bar{y}=18.14$. 
 
-<!-- cell:8 type:code -->
+<!-- cell:9 type:code -->
 ```python
 Y = [16.4, 17.0, 17.2, 17.4, 18.2, 18.2, 18.2, 19.9, 20.8]
 #Data Quantities
@@ -188,7 +205,7 @@ Output:
 sigma 1.33092374864 mu 18.1444444444 n 9
 ```
 
-<!-- cell:9 type:code -->
+<!-- cell:10 type:code -->
 ```python
 # Prior mean
 mu_prior = 19.5
@@ -196,12 +213,12 @@ mu_prior = 19.5
 std_prior = 10 
 ```
 
-<!-- cell:10 type:markdown -->
+<!-- cell:11 type:markdown -->
 ## Sampling by code
 
 We now set up code to do metropolis using logs of distributions:
 
-<!-- cell:11 type:code -->
+<!-- cell:12 type:code -->
 ```python
 def metropolis(logp, qdraw, stepsize, nsamp, xinit):
     samples=np.empty(nsamp)
@@ -224,16 +241,16 @@ def metropolis(logp, qdraw, stepsize, nsamp, xinit):
 
 ```
 
-<!-- cell:12 type:code -->
+<!-- cell:13 type:code -->
 ```python
 def prop(x, step):
     return np.random.normal(x, step)
 ```
 
-<!-- cell:13 type:markdown -->
+<!-- cell:14 type:markdown -->
 Remember, that up to normalization, the posterior is the likelihood times the prior. Thus the log of the posterior is the sum of the logs of the likelihood and the prior.
 
-<!-- cell:14 type:code -->
+<!-- cell:15 type:code -->
 ```python
 from scipy.stats import norm
 logprior = lambda mu: norm.logpdf(mu, loc=mu_prior, scale=std_prior)
@@ -241,20 +258,20 @@ loglike = lambda mu: np.sum(norm.logpdf(Y, loc=mu, scale=np.std(Y)))
 logpost = lambda mu: loglike(mu) + logprior(mu)
 ```
 
-<!-- cell:15 type:markdown -->
+<!-- cell:16 type:markdown -->
 Now we sample:
 
-<!-- cell:16 type:code -->
+<!-- cell:17 type:code -->
 ```python
 x0=np.random.uniform()
 nsamps=40000
 samps, acc = metropolis(logpost, prop, 1, nsamps, x0)
 ```
 
-<!-- cell:17 type:markdown -->
+<!-- cell:18 type:markdown -->
 The acceptance rate is reasonable. You should shoot for somewhere between 20 and 50%.
 
-<!-- cell:18 type:code -->
+<!-- cell:19 type:code -->
 ```python
 acc/nsamps
 
@@ -264,54 +281,54 @@ Output:
 0.459925
 ```
 
-<!-- cell:19 type:code -->
+<!-- cell:20 type:code -->
 ```python
 def corrplot(trace, maxlags=50):
     plt.acorr(trace-np.mean(trace),  normed=True, maxlags=maxlags);
     plt.xlim([0, maxlags])
 ```
 
-<!-- cell:20 type:markdown -->
+<!-- cell:21 type:markdown -->
 While thinning is not strictly needed, appropriately thinned, we lose any correlation faster and store less
 
-<!-- cell:21 type:code -->
+<!-- cell:22 type:code -->
 ```python
 corrplot(samps)
 ```
 [Figure]
 
-<!-- cell:22 type:code -->
+<!-- cell:23 type:code -->
 ```python
 corrplot(samps[20000::]);
 ```
 [Figure]
 
-<!-- cell:23 type:code -->
+<!-- cell:24 type:code -->
 ```python
 corrplot(samps[20000::4]);
 ```
 [Figure]
 
-<!-- cell:24 type:code -->
+<!-- cell:25 type:code -->
 ```python
 sns.distplot(samps[20000::4], bins=25);
 sns.distplot(samps[20000::], bins=25);
 ```
 [Figure]
 
-<!-- cell:25 type:code -->
+<!-- cell:26 type:code -->
 ```python
 like_samples = norm.rvs(loc = mu_data, scale=sig, size=5000)
 post_samples = samps[20000::4]
 prior_samples = norm.rvs(loc = mu_prior, scale=tau, size=5000)
 ```
 
-<!-- cell:26 type:markdown -->
+<!-- cell:27 type:markdown -->
 ## Comparing distributions
 
 We plot samples from the prior against those from the sampling distribution (likelihood considered as a distribution in $\theta$ and those from the posterior.
 
-<!-- cell:27 type:code -->
+<!-- cell:28 type:code -->
 ```python
 plt.hist(like_samples, bins=25, label="likelihood (sampling dist)", alpha=0.3)
 plt.hist(prior_samples, bins=25, label="prior", alpha=0.1)
@@ -320,16 +337,16 @@ plt.legend();
 ```
 [Figure]
 
-<!-- cell:28 type:code -->
+<!-- cell:29 type:code -->
 ```python
 post_pred_func = lambda post: norm.rvs(loc = post, scale = sig)
 post_pred_samples = post_pred_func(post_samples)
 ```
 
-<!-- cell:29 type:markdown -->
+<!-- cell:30 type:markdown -->
 We then plot the posterior predictive against the sampling distribution. These are pretty close. Notice that both are wider than the distribution of the posterior, as they are distributions of $y$ rather than $\mu$. It just so happens that these distributions are on the scale so it makes sense to plot them together here and compare them.
 
-<!-- cell:30 type:code -->
+<!-- cell:31 type:code -->
 ```python
 plt.hist(like_samples, bins=25, label="likelihood (sampling dist)", alpha=0.5)
 plt.hist(post_pred_samples, bins=25, label="posterior predictive", alpha=0.3)
@@ -338,7 +355,7 @@ plt.legend();
 ```
 [Figure]
 
-<!-- cell:31 type:code -->
+<!-- cell:32 type:code -->
 ```python
 sns.distplot(like_samples);
 sns.distplot(post_pred_samples);

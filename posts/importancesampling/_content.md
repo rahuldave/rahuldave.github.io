@@ -1,9 +1,22 @@
-<!-- cell:1 type:markdown -->
+<!-- cell:1 type:code -->
+```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "scipy",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:markdown -->
 Importance sampling is directly a method to calculate integrals or expectations, which is one of our main goals at the end of things.
 
 The basic idea behind importance sampling is that we want to draw more samples where $h(x)$, a function whose integral or expectation we desire, is large.  In the case we are doing an expectation, it would indeed be even better to draw more samples where $h(x)f(x)$ is large, where $f(x)$ is the pdf we are calculating the integral with respect to.
 
-<!-- cell:2 type:markdown -->
+<!-- cell:3 type:markdown -->
 Why is this important? Often, in the computation of an expectation or other integral, the integrand has a very small value on a dominant fraction of the whole integration volume.
 If the points are chosen evenly in the integration volume, the small minority of the points close to the 'peak' give the dominant contribution to the integral.
 
@@ -68,12 +81,12 @@ All of these considerations may be seen in the diagram below:
 Another way of seeing this whole thing is that we will draw the sample from a proposal
 distribution and re-weight the integral appropriately so that the expectation with respect to the correct distribution is used. And since $f/g$ is flatter than $f$, the variance of $h \times f/g$ is smaller that the variance of $h \times f$ and therefore the error will be smaller for all $N$.
 
-<!-- cell:3 type:markdown -->
+<!-- cell:4 type:markdown -->
 ### Example: Calculate $\int_{0}^{\pi} \sin(x) \, x \, dx $
 
 The function has a shape that is similar to Gaussian and therefore we choose here a Gaussian as importance sampling distribution. 
 
-<!-- cell:4 type:code -->
+<!-- cell:5 type:code -->
 ```python
 from scipy import stats
 from scipy.stats import norm
@@ -87,7 +100,7 @@ p = lambda x: (1/np.sqrt(2*np.pi*sig**2))*np.exp(-(x-mu)**2/(2.0*sig**2))
 normfun = lambda x:  norm.cdf(x-mu, scale=sig)
 ```
 
-<!-- cell:5 type:code -->
+<!-- cell:6 type:code -->
 ```python
 plt.figure(figsize=(18,8))  # set the figure size
 
@@ -167,7 +180,7 @@ Standard deviation of our estimates:  0.0161935244302
 ```
 [Figure]
 
-<!-- cell:6 type:code -->
+<!-- cell:7 type:code -->
 ```python
 
 ```

@@ -1,5 +1,22 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "pandas",
+#   "scipy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 %matplotlib inline
 import numpy as np
 import scipy as sp
@@ -18,7 +35,7 @@ Output:
   warnings.warn(self.msg_depr % (key, alt_key))
 ```
 
-<!-- cell:2 type:markdown -->
+<!-- cell:3 type:markdown -->
 ## The problem of learning
 
 We've seen cross-validation as a way of minimizing a loss (cost, error, or risk) on the training set, and then obtaining the final model on our validation set, with the possible fitting of a hyperparameter. 
@@ -37,7 +54,7 @@ In the realm of probabilistic models, both supervized learning and unsupervized 
 
 In these cases, the problem could be cast in the following form: suppose nature has a true "population" distribution $p(x)$. As usual I am given a sample, and make my effort learning a distribution from this sample, $q(x)$. Our question then is: how good did i do? And what additional uncertainty did I introduce by using $q$ instead of $p$?
 
-<!-- cell:3 type:markdown -->
+<!-- cell:4 type:markdown -->
 ## Information Theory: KL Divergence
 
 In other words, if $p$ is nature's distribution, we want to know how far we are from "perfect accuracy" by using $q$. In other words we need to develop a distance scale for distances between distributions. 
@@ -50,7 +67,7 @@ $$\kld(p, q) = E_p[log(p) - log(q)] = E_p[log(p/q)] = \sum_i p_i log(\frac{p_i}{
 
 The distance between a distribution and itself is clearly $\kld(p,p) = 0$.
 
-<!-- cell:4 type:markdown -->
+<!-- cell:5 type:markdown -->
 We can use Jensen's inequality for expectations on a convex function $f(x)$, 
 
 $$ E[f(X)] \ge f(E[X]) $$
@@ -63,12 +80,12 @@ where we have used the fact that $-log(x)$ is a convex function, and that $q(x)$
 
 Thus we can interpret the Kullback-Leibler divergence as a measure of the dissimilarity of the two distributions p(x) and q(x). In frequentist statistics, the KL-divergence is related to the maximum likelihood, in Bayesian statistics the KL divergence can be used as a measure of the information gain in moving from a prior to posterior (with a common goal in Bayesian experimental design to maximise the expected KL divergence between the prior and the posterior). The divergence is also used to understand mutual information in clustering, and in variational bayesian inference.
 
-<!-- cell:5 type:markdown -->
+<!-- cell:6 type:markdown -->
 ### A simple example
 
 Consider a Bernoulli distribution with probability parameter $p=0.3$. This is a discrete distribution, defined at 0 and 1. Consider using another Bernoulli with parameter $q$ to approximate it. You can see that the divergence is 0 for $q=0.3$ and always higher for any other $q$.
 
-<!-- cell:6 type:code -->
+<!-- cell:7 type:code -->
 ```python
 p=0.3
 
@@ -80,7 +97,7 @@ plt.plot(qs, [kld(0.3,q) for q in qs]);
 ```
 [Figure]
 
-<!-- cell:7 type:markdown -->
+<!-- cell:8 type:markdown -->
 ### Relationship to Entropy
 
 If one defines the Cross-Entropy:
@@ -93,15 +110,15 @@ $$\kld(p, q) = H(p,q) - H(p) $$
 
 So one can think of the KL-Divergence as the additional entropy introduced by using $q$ instead of $p$.
 
-<!-- cell:8 type:markdown -->
+<!-- cell:9 type:markdown -->
 Notice that $H(p,q)$ and $\kld(p, q)$ is not symmetric. This is by design, and indeed is important. The interpretation is that if you use a unusual , low entropy distribution to approximate a usual one, you will be more surprised than if you used a high entropy, many choices one to approximate an unusual one. An example from McElreath provides some intuition: if you went to Mars from Earth you would be less suprised than  the other way: Martians have only seen very dry..we've seen it all.
 
 A corollary here is that if we use a high entropy distribution to aproximate the true one, we will incur lesser error.
 
-<!-- cell:9 type:markdown -->
+<!-- cell:10 type:markdown -->
 ##  Likelihoods and model comparison
 
-<!-- cell:10 type:markdown -->
+<!-- cell:11 type:markdown -->
 When we minimize risk or maximize likelihood, we do it by taking a sum of risks on a point wise basis, or by multiplying likelihood distributions on  a point wise basis.
 
 We have not really justified that yet, but we do it because its (a) intuitive and (b) we have an intuitive justification at the back of our mind of using the law of large numbers on a sample.
@@ -114,14 +131,14 @@ where we have used the dirac delta function. This is just another way of replaci
 
 The point here is that we dont know $p$, or else why would be doing this in the first place?
 
-<!-- cell:11 type:markdown -->
+<!-- cell:12 type:markdown -->
 ### Maximum Likelihood justification
 
 $$\kld(p, q) = E_p[log(p/q)] = \frac{1}{N}\sum_i (log(p_i) - log(q_i)$$
 
 Thus minimizing the KL-divergence involves maximizing $\sum_i log(q_i)$ which is exactly the log likelihood. Hence we can justify the maximum likelihood principle.
 
-<!-- cell:12 type:markdown -->
+<!-- cell:13 type:markdown -->
 ### Comparing Models
 
 By the same token we can use the KL-Divergences of two different models to do model comparison:
@@ -134,10 +151,10 @@ $$\kld(p, q) -\kld(p, r) = \frac{1}{N} \sum_i log(\frac{r_i}{q_i}) = \frac{1}{N}
 
 This ratio inside the brackets on the right is the likelihood ratio and  is used to test goodness of fit. You can read more about it in Wasserman.
 
-<!-- cell:13 type:markdown -->
+<!-- cell:14 type:markdown -->
 ## From Divergence to Deviance
 
-<!-- cell:14 type:markdown -->
+<!-- cell:15 type:markdown -->
 If you look at the expression above, you notice that to compare a model with distribution $r$ to one with distribution $q$, you only need the sample averages of the logarithm of $r$ and $q$:
 
 $$\kld(p, q) -\kld(p, r) = \langle log(r) \rangle - \langle log(q) \rangle$$
@@ -156,7 +173,7 @@ Notice that deviance is just a  negative log likelihood, or risk.
 
 (Notice that even though we used likelihoods in the last section, I have been vague about the word distribution here. In Bayesian stats we use the posterior averaged likelihood distribution (posterior predictive) instead to do such comparisons.)
 
-<!-- cell:15 type:markdown -->
+<!-- cell:16 type:markdown -->
 ### But we are still in-sample
 
 We spent a lot of time in machine learning figuring out how to learn out of sample. However, all the machinery developed here has made no mention of it. When we use the empirical distribution and sample quantities here we are working with our training sample.
@@ -169,7 +186,7 @@ The deviances in-sample and out-of sample, at 10,000 simulations for each model 
 
 ![In-sample vs. out-of-sample deviance as model complexity increases, for N=20 and N=100. From McElreath, Statistical Rethinking.](assets/inoutdeviance.png)
 
-<!-- cell:16 type:markdown -->
+<!-- cell:17 type:markdown -->
 Notice:
 
 - the best fit model may not be the original generating model. Remember that the choice of fit depends on the amount of data you have and the less data you have, the less parameters you should use
@@ -194,7 +211,7 @@ We wont derive the AIC here, but if you are interested, see  http://www.stat.cmu
 Why would we want to use such information criteria? Cross validation can be expensive, especially with multiple hyper-parameters.
 We will have more to say about informatiom criterion when we figure how to do model selection in the bayesian context.
 
-<!-- cell:17 type:code -->
+<!-- cell:18 type:code -->
 ```python
 
 ```

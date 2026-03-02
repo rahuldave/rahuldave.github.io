@@ -1,5 +1,22 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "pandas",
+#   "scipy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 %matplotlib inline
 import numpy as np
 import scipy as sp
@@ -18,7 +35,7 @@ Output:
   warnings.warn(self.msg_depr % (key, alt_key))
 ```
 
-<!-- cell:2 type:markdown -->
+<!-- cell:3 type:markdown -->
 ##  Information and Entropy
 
 Imagine tossing a coin. If I knew the exact physics of the coin, the initial conditions of the tossing, I could predict deterministically how the coin would land. But usually, without knowing anything, I say by symmetry or by "long-run" experince that the odds of getting heads are 50%.
@@ -40,7 +57,7 @@ Clearly we need a measure of uncertainty so that we can quantify how much it has
 - must be continuous so that there are no jumps
 - must be additive across events or states, and must increase as the number of events/states increases
 
-<!-- cell:3 type:markdown -->
+<!-- cell:4 type:markdown -->
 ## Entropy measures uncertainty
 
 A function that satisfies these desiderata is the information entropy:
@@ -49,7 +66,7 @@ $$H(p) = - E_p[log(p)] = - \int p(x) log(p(x))dx \,\,\,OR\, - \sum_i p_i log(p_i
 
 Thus the entropy is the average log probability of an event...
 
-<!-- cell:4 type:markdown -->
+<!-- cell:5 type:markdown -->
 ### Example of the coin toss or Bernoulli variable
 
 $$H(p) = - E_p[log(p)] = - p*log(p) - (1-p)*log(1-p)$$
@@ -58,7 +75,7 @@ For  $p=0$ or $p=1$ we must use L'Hospital's rule: if we have the division of tw
 
 $$\lim_{p \to 0}  \frac{log(p)}{1/p} =  \lim_{p \to 0}  \frac{1/p}{-1/p^2} = 0$$
 
-<!-- cell:5 type:code -->
+<!-- cell:6 type:code -->
 ```python
 import math
 p = np.linspace(0,1,100)
@@ -75,10 +92,10 @@ plt.axvline(0.5, 0, 1,'r')
 ```
 [Figure]
 
-<!-- cell:6 type:markdown -->
+<!-- cell:7 type:markdown -->
 Thus you can see there is maximal uncertainty at 0.5.
 
-<!-- cell:7 type:markdown -->
+<!-- cell:8 type:markdown -->
 ## Thermodynamic notion of Entropy
 
 Imagine dividing $N$ objects amongst $M$ bins. One can think of this as stone tossing, where we toss N stones and see in which bin they land up. There is a distribution for this, $\{p_i\}$, of-course, so lets see what it is.
@@ -114,10 +131,10 @@ If the probabilities of landing in each bucket are not equal, ie not uniform, th
 
 $$\frac{1}{N}log(P(n_i, n_2, ...,n_M)) = -\sum_i p_i log(\frac{p_i}{q_i})$$
 
-<!-- cell:8 type:markdown -->
+<!-- cell:9 type:markdown -->
 This definition has origins in statistical mechanics. Entropy was first introduced in thermodynamics and then later interpreted as a measure of disorder: how many events or states can a system constrained to have a given enrgy have. A physicist calls  a particular arrangement $\{n_i\} = (m_1, n_2, n_3,...,n_M)$ a microstate and the overall distribution of $\{p_i\}$, here the multinomial , a macrostate, with $W$ calledthe weight.
 
-<!-- cell:9 type:markdown -->
+<!-- cell:10 type:markdown -->
 ## Maximum Entropy (maxent)
 
 Maximum entropy is the notion of finding distributions consistent with constraints and the current state of our knowledge . In other words, what would be the least surprising distribution? The one with the least additional assumptions?
@@ -136,10 +153,10 @@ This means that the $p_j$'s are all equal and thus must be $\frac{1}{M}$: thus t
 
 The distribution that can happen in the most ways is the one with the highest entropy, as we can see above.
 
-<!-- cell:10 type:markdown -->
+<!-- cell:11 type:markdown -->
 ### Normal as maxent
 
-<!-- cell:11 type:markdown -->
+<!-- cell:12 type:markdown -->
 The origin story of the gaussian itself is that  many small effects add up to produce them. It is exactly the "many" aspect os these that makes the gaussian a maxent distribution. For every sequence that produces an unbalanced outcome(like a long string of heads), there are many more ways of producing a balanced outcome. In otherwords, there are so many microstates of the system that can produce the "peak" macrostates.
 
 This is a plot from McElreath of a bunch of generalized normal distributions. with same mean and variance. The Gaussuan has the highest entropy, as we shall prove below.
@@ -148,7 +165,7 @@ This is a plot from McElreath of a bunch of generalized normal distributions. wi
 
 If you think about entropy increasing as we make a distribution flatter, you realize that the shape must come about because finite and equal variance puts a limit on how wide the distribution can be.
 
-<!-- cell:12 type:markdown -->
+<!-- cell:13 type:markdown -->
 $$\renewcommand{kld}{D_{KL}}$$
 
 For a gaussian
@@ -165,7 +182,7 @@ To see this consider (note change in order, we are considering $\kld(q, p)$:
 
 $$\kld(q, p) = E_q[log(q/p)] = H(q,p) - H(q)$$
 
-<!-- cell:13 type:markdown -->
+<!-- cell:14 type:markdown -->
 $$H(q,p) = E_q[log(p)] = E_q[-\frac{1}{2}log(2\pi\sigma^2) - (x - \mu)^2/2\sigma^2] \\= -\frac{1}{2}log(2\pi\sigma^2) - \frac{1}{2\sigma^2}E_q[(x - \mu)^2]$$
 
 The second expectation here is the variance $\s
@@ -175,13 +192,13 @@ Thus
 
 $$H(q,p) =  -\frac{1}{2}log(2\pi\sigma^2) - \frac{1}{2} =  -\frac{1}{2}log(2\pi e \sigma^2) = H(p)$$
 
-<!-- cell:14 type:markdown -->
+<!-- cell:15 type:markdown -->
 Now as we have shown $\kld(q,p) >=0$. This means that  $H(q,p) - H(q) >= 0$. Which then means that $H(p) - H(q) >= 0$ or $H(p) >= H(q)$. This means that the Gaussian has the highest entropy of any distribution with the same mean and variance.
 
-<!-- cell:15 type:markdown -->
+<!-- cell:16 type:markdown -->
 See http://www.math.uconn.edu/~kconrad/blurbs/analysis/entropypost.pdf for details on maxent for distributions.
 
-<!-- cell:16 type:markdown -->
+<!-- cell:17 type:markdown -->
 ### Binomial as Maxent
 
 Information entropy increases as a probability distribution becomes more even. We saw that with the thermodynamic idea of entropy and the multinomial distribution.
@@ -203,13 +220,13 @@ $$ =  - \sum_i q_i \left( x_i log\left(\frac{\lambda}{n}\right) + (n - x_i) log 
 
 $$ =  - \sum_i q_i  \left( x_i log \left(\frac{\lambda}{n-\lambda}\right)  + n log \left(\frac{n-\lambda}{\lambda}\right) \right)$$
 
-<!-- cell:17 type:markdown -->
+<!-- cell:18 type:markdown -->
 $$ H (q, p) =  - n log \left(\frac{n-\lambda}{\lambda}\right) -  log\left(\frac{\lambda}{n-\lambda}\right)E_q[x]$$
 
-<!-- cell:18 type:markdown -->
+<!-- cell:19 type:markdown -->
 Now, if $E_q[x] = \lambda$, our invariant expectation, we have $H(q,p) = H(p)$ as we get the same formula if we substitute $q=p$ to get the entropy of the binomial. In other words, $H(p) >= H(q)$ and we have shown the binomial has maximum entropy amongst discrete distributions with two outcomes and fixed expectations.
 
-<!-- cell:19 type:markdown -->
+<!-- cell:20 type:markdown -->
 ## The importance of maxent
 
 The most common distributions used as likelihoods (and priors) in modeling are those in the exponential family. The exponential family can be defined  as having pmf or pdf:
@@ -234,7 +251,7 @@ Each member of the exponential family turns out to be a maximum entropy distribu
 ![Relationships among members of the exponential family: Gamma, Normal, Binomial, and Poisson distributions arise as limiting cases of the Exponential distribution.](assets/expofamily.png)
 
 
-<!-- cell:20 type:markdown -->
+<!-- cell:21 type:markdown -->
 For example, the gamma distribution, which we shall see later, is maximum entropy amongst all distributions with the same mean and same average logarithm. The poisson distribution, used for low event rates,  is maxent under similar conditions as the binomial as it is  a special case of the binomial. The exponential distribution is maxent among all non-negative continuous distributions with the same average inter-event displacement. (In our births example, the inter-birth time).
 
 We'll talk more about these distributions when we encounter them, and when we talk about generalized linear models.

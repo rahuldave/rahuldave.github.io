@@ -1,5 +1,21 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "scipy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 %matplotlib inline
 import numpy as np
 from scipy import stats
@@ -12,7 +28,7 @@ sns.set_style('whitegrid')
 sns.set_context('poster')
 ```
 
-<!-- cell:2 type:markdown -->
+<!-- cell:3 type:markdown -->
 ## The basic idea
 
 Gibbs determined the energy states of gases at equilibrium by cycling through all the particles, drawing from each one of them conditionally given the enerygy levels of the others, taking the time average. He showed that the time average approached the equilibrium distribution. Geman and Geman used this idea to denoise images.
@@ -49,17 +65,17 @@ Similarly here, if we draw $y$, from the conditional  $f(y \vert x')$ and then $
 
 Now, if I can draw from the $x$ marginal, and the $y \vert x$ conditional, i can draw from the $x, y$ joint, and I am done. 
 
-<!-- cell:3 type:markdown -->
+<!-- cell:4 type:markdown -->
 ## An example
 
 Let us consider a 2-D distribution which we wish to sample from.
 
 $$f(x,y) = x^2 {\rm exp}[-xy^2 - y^2 + 2y - 4x]$$
 
-<!-- cell:4 type:markdown -->
+<!-- cell:5 type:markdown -->
 Here's what the distribution really looks like.
 
-<!-- cell:5 type:code -->
+<!-- cell:6 type:code -->
 ```python
 
 func = lambda x,y: x**2*np.exp( -x*y**2 - y**2 + 2*y - 4*x )
@@ -77,14 +93,14 @@ plt.contourf(xx,yy,zz);
 ```
 [Figure]
 
-<!-- cell:6 type:markdown -->
+<!-- cell:7 type:markdown -->
 On first glance the functional form of this distribution looks terrible and difficult to deal with. 
 
 However, Gibbs Sampling comes to the rescue. The power of the Gibbs sampler is that you can directly sample from the conditionals alternately. 
 
 Let us do a little math to construct the functional form of the conditionals and express them in terms of distributions we know how to sample from. 
 
-<!-- cell:7 type:markdown -->
+<!-- cell:8 type:markdown -->
 We have:
 
 $$f(x,y) = x^2 {\rm exp}[-xy^2 - y^2 + 2y - 4x]$$
@@ -99,13 +115,13 @@ where $g(y) = {\rm exp}[- y^2 + 2y]$. Thus:
 
 $$f(x|y) = g(y){\rm Gamma}(3,y^2+4)$$
 
-<!-- cell:8 type:code -->
+<!-- cell:9 type:code -->
 ```python
 def xcond(y):
     return gamma.rvs(3, scale=1/(y*y + 4))
 ```
 
-<!-- cell:9 type:markdown -->
+<!-- cell:10 type:markdown -->
 then assume we hold $x$ constant...
 
 $$f(y|x) = x^2 {\rm exp}[-y^2(1+x) + 2y]{\rm exp}[-4x]$$
@@ -118,20 +134,20 @@ Writing $h(x) = x^2 {\rm exp}[-4x]$ we have
 
 $$f(y|x) = N(\frac{1}{1+x},\frac{1}{\sqrt{(2(1+x))}}) h(x)$$
 
-<!-- cell:10 type:code -->
+<!-- cell:11 type:code -->
 ```python
 def ycond(x):
     return norm.rvs(1/(1+x), scale=1.0/np.sqrt(2*(x+1)))
 ```
 
-<!-- cell:11 type:markdown -->
+<!-- cell:12 type:markdown -->
 So we can use Gibbs sampler to select directly from the functional forms of the conditionals because we know how to sample from a Normal distribution and we know how to sample from a Gamma distribution. 
 
 The key thing which makes Gibbs useful is **knowing how to directly sample from the conditionals**.
 
 ## The sampler
 
-<!-- cell:12 type:code -->
+<!-- cell:13 type:code -->
 ```python
 def gibbs(xgiveny_sample, ygivenx_sample, N, start = [0,0]):
     x=start[0]
@@ -152,7 +168,7 @@ def gibbs(xgiveny_sample, ygivenx_sample, N, start = [0,0]):
     return samples
 ```
 
-<!-- cell:13 type:code -->
+<!-- cell:14 type:code -->
 ```python
 out=gibbs(xcond, ycond, 100000)
 cmap = sns.cubehelix_palette(light=1, as_cmap=True)
@@ -162,12 +178,12 @@ plt.show()
 ```
 [Figure]
 
-<!-- cell:14 type:markdown -->
+<!-- cell:15 type:markdown -->
 ### Gibbs Moves
 
 Let's look at the single steps the Gibbs sampler is taking:
 
-<!-- cell:15 type:code -->
+<!-- cell:16 type:code -->
 ```python
 out=gibbs(xcond, ycond, 10000, start = [2,2])
 nr_t = 50
@@ -181,12 +197,12 @@ Output:
 ```
 [Figure]
 
-<!-- cell:16 type:markdown -->
+<!-- cell:17 type:markdown -->
 ### Autocorrelation
 
 Looking at the autocorrelation of our samples we are in pretty good shape and probably don't have to worry much about thinning here. Note that this is not always the case for Gibbs sampling. The other notebook has an example where we need to have a lot of thinning to account for the autocorrelation of the samples. It all depends on the shape of our target distribution. 
 
-<!-- cell:17 type:code -->
+<!-- cell:18 type:code -->
 ```python
 def corrplot(trace, maxlags=50):
     plt.acorr(trace-np.mean(trace),  normed=True, maxlags=maxlags);
@@ -195,11 +211,11 @@ corrplot(out[4000:,0], 100)
 ```
 [Figure]
 
-<!-- cell:18 type:code -->
+<!-- cell:19 type:code -->
 ```python
 corrplot(out[4000:,1], 100)
 ```
 [Figure]
 
-<!-- cell:19 type:markdown -->
+<!-- cell:20 type:markdown -->
 Generally, gibbs samplers can show a lot of autocorrelation, needing quite a bit of thinning. This is especially true when the functions you are sampling from have lots of correlation amongst the components. But as in all MCMC algorithms, the number of samples needed depends on what you are doing. Fully characterizing a posterior needs a lot of samples, but  you might be able to get away with less in computing expectations...

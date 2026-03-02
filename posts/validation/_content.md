@@ -1,5 +1,23 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "pandas",
+#   "scikit-learn",
+#   "scipy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 %matplotlib inline
 import numpy as np
 import scipy as sp
@@ -20,7 +38,7 @@ Output:
   warnings.warn(self.msg_depr % (key, alt_key))
 ```
 
-<!-- cell:2 type:code -->
+<!-- cell:3 type:code -->
 ```python
 def make_simple_plot():
     fig, axes=plt.subplots(figsize=(12,5), nrows=1, ncols=2);
@@ -46,12 +64,12 @@ def make_plot():
     return axes
 ```
 
-<!-- cell:3 type:markdown -->
+<!-- cell:4 type:markdown -->
 ## Revisiting the model
 
 Let $x$ be the fraction of religious people in a county and $y$ be the probability of voting for Romney as a function of $x$. In other words $y_i$ is data that pollsters have taken which tells us their estimate of people voting for Romney and $x_i$ is the fraction of religious people in county $i$. Because poll samples are finite, there is a margin of error on each data point or county $i$, but we will ignore that for now.
 
-<!-- cell:4 type:code -->
+<!-- cell:5 type:code -->
 ```python
 dffull=pd.read_csv("data/religion.csv")
 dffull.head()
@@ -66,13 +84,13 @@ Output:
 4  0.062597   0.04
 ```
 
-<!-- cell:5 type:code -->
+<!-- cell:6 type:code -->
 ```python
 x=dffull.rfrac.values
 f=dffull.promney.values
 ```
 
-<!-- cell:6 type:code -->
+<!-- cell:7 type:code -->
 ```python
 df = pd.read_csv("data/noisysample.csv")
 df.head()
@@ -87,7 +105,7 @@ Output:
 4  0.285470  33  0.33  0.358174
 ```
 
-<!-- cell:7 type:code -->
+<!-- cell:8 type:code -->
 ```python
 from sklearn.cross_validation import train_test_split
 datasize=df.shape[0]
@@ -101,10 +119,10 @@ ftest = df.f[itest].values
 ytest = df.y[itest].values
 ```
 
-<!-- cell:8 type:markdown -->
+<!-- cell:9 type:markdown -->
 ## Validation
 
-<!-- cell:9 type:markdown -->
+<!-- cell:10 type:markdown -->
 A separate validation set is needed because what we have done in picking a given polynomial degree $d$ as the best hypothesis is that we have used the test set as a training set. How?
 
 Our process used the training set to fit for the **parameters**(values of the coefficients) of the polynomial of given degree $d$ based on minimizing the traing set error (empirical risk minimization). We then calculated the error on the test set at that $d$. If we go further and choose the best $d$ based on minimizing the test set error, we have then "fit for" $d$ on the test set. We will thus call $d$ a **hyperparameter** of the model.
@@ -119,7 +137,7 @@ We have split the old training set into a training set and a validation set, hol
 
 ![Validation workflow: train, validate, choose hypothesis, retrain, test](assets/train-validate-test-cont.png)
 
-<!-- cell:10 type:markdown -->
+<!-- cell:11 type:markdown -->
 The validation process is illustrated in these two figures. We first loop over all the hypothesis sets that we wish to consider: in our case this is a loop over the complexity parameter $d$, the degree of the polynomials we will try and fit. Then for each degree $d$, we obtain a best fit model $g^-_d$ where the "minus" superscript indicates that we fit our model on the new training set which is obtained by removing ("minusing") a validation chunk (often the same size as the test chunk) from the old training set. We then "test" this model on the validation chunk, obtaining the validation error for the best-fit polynomial coefficients and for degree $d$. We move on to the next degree $d$ and repeat the process, just like before. We compare all the validation set errors, just like we did with the test errors earlier, and pick the degree $d_*$ which minimizes this validation set error.
 
 ![Looping over hypothesis sets with validation to select the best model](assets/train-validate-test3.png)
@@ -142,14 +160,14 @@ We finally now retrain on the entire train+validation set using the appropriate 
 
 We carry out this process for one training/validation split below. Note the smaller size of the new training set. We hold the test set at the same size.
 
-<!-- cell:11 type:code -->
+<!-- cell:12 type:code -->
 ```python
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 ```
 
-<!-- cell:12 type:code -->
+<!-- cell:13 type:code -->
 ```python
 def make_features(train_set, test_set, degrees):
     traintestlist=[]
@@ -161,7 +179,7 @@ def make_features(train_set, test_set, degrees):
     return traintestlist
 ```
 
-<!-- cell:13 type:code -->
+<!-- cell:14 type:code -->
 ```python
 #we split the training set down further
 intrain,invalid = train_test_split(itrain,train_size=18, test_size=6)
@@ -204,7 +222,7 @@ pred = clf.predict(test_features_at_mindeg)
 err = mean_squared_error(ytest, pred)
 ```
 
-<!-- cell:14 type:code -->
+<!-- cell:15 type:code -->
 ```python
 plt.plot(degrees, error_train, marker='o', label='train (in-sample)')
 plt.plot(degrees, error_valid, marker='o', label='validation')
@@ -221,10 +239,10 @@ Output:
 ```
 [Figure]
 
-<!-- cell:15 type:markdown -->
+<!-- cell:16 type:markdown -->
 Lets do this again, choosing a new random split between training and validation data: 
 
-<!-- cell:16 type:code -->
+<!-- cell:17 type:code -->
 ```python
 intrain,invalid = train_test_split(itrain,train_size=18, test_size=6)
 xntrain= df.x[intrain].values
@@ -260,7 +278,7 @@ pred = clf.predict(test_features_at_mindeg)
 err = mean_squared_error(ytest, pred)
 ```
 
-<!-- cell:17 type:code -->
+<!-- cell:18 type:code -->
 ```python
 plt.plot(degrees, error_train, marker='o', label='train (in-sample)')
 plt.plot(degrees, error_valid, marker='o', label='validation')
@@ -278,31 +296,31 @@ Output:
 ```
 [Figure]
 
-<!-- cell:18 type:markdown -->
+<!-- cell:19 type:markdown -->
 This time the validation error minimizing polynomial degree might change! What happened?
 
-<!-- cell:19 type:markdown -->
+<!-- cell:20 type:markdown -->
 ## Cross Validation
 
-<!-- cell:20 type:markdown -->
+<!-- cell:21 type:markdown -->
 ### The problem
 
-<!-- cell:21 type:markdown -->
+<!-- cell:22 type:markdown -->
 1. Since we are dealing with small data sizes here, you should worry that a given split exposes us to the peculiarity of the data set that got randomly chosen for us. This naturally leads us to want to choose multiple such random splits and somehow average over this process to find the "best" validation minimizing polynomial degree or complexity $d$.
 2. The multiple splits process also allows us to get an estimate of how consistent our prediction error is: in other words, just like in the hair example, it gives us a distribution. So far we have been channeling the hair through the bootstrap, but choosing multiple splits  is another way to get different training samples..
 3. Furthermore the validation set that we left out has two competing demands on it. The larger the set is, the better is our estimate of the out-of-sample error. So we'd like to hold out as much as possible. But the smaller the validation set is, the more data we have to train ourmodel on. Thus we can fit a better, more expressive model. We want to balance these two desires, and additionally, not be exposed to any peculiarities that might randomly arise in any single train-validate split of the old training set.
 
-<!-- cell:22 type:markdown -->
+<!-- cell:23 type:markdown -->
 ### The Idea
 
-<!-- cell:23 type:markdown -->
+<!-- cell:24 type:markdown -->
 To deal with this we engage in a process called **cross-validation**, which is illustrated in the figure below, for a given hypothesis set $\cal{H}_a$ with complexity parameter $d=a$ (the polynomial degree). We do the train/validate split, not once but multiple times. 
 
 In the figure below we create 4-folds from the training set part of our data set $\cal{D}$. By this we mean that we divide our set roughly into 4 equal parts. As illustrated below, this can be done in 4 different ways, or folds. In each fold we train a model on 3 of the parts. The model so trained is denoted as $g^-_{Fi}$, for example $g^-_{F3}$ . The minus sign in the superscript once again indicates that we are training on a reduced set. The $F3$ indicates that this model was trained on the third fold. Note that the model trained on each fold will be different!
 
 For each fold, after training the model, we calculate the risk or error on the remaining one validation part. We then add the validation errors together from the different folds, and divide by the number of folds to calculate an average error. Note again that this average error is an average over different models $g^-_{Fi}$. We use this error as the validation error for $d=a$ in the validation process described earlier.
 
-<!-- cell:24 type:markdown -->
+<!-- cell:25 type:markdown -->
 ![K-fold cross-validation: rotating the validation fold across the dataset](assets/train-cv2.png)
 
 Note that the number of folds is equal to the number of splits in the data. For example, if we have 5 splits, there will be 5 folds. To illustrate cross-validation consider below fits in $\cal{H}_0$ and $\cal{H}_1$ (means and straight lines) to a sine curve, with only 3 data points.
@@ -311,10 +329,10 @@ We have described cross-validation here from the perspective of sensibly fitting
 
 Notice  that just like the bootstraps we do in frequentist inference, **cross-validation is a re-sampling method**. Indeed, a question might be, why not use bootstrap instead. See http://stats.stackexchange.com/questions/18348/differences-between-cross-validation-and-bootstrapping-to-estimate-the-predictio , and note that the so-called "out-of-bag" errors from "bagging" in random forests utilizes the bootstrap.
 
-<!-- cell:25 type:markdown -->
+<!-- cell:26 type:markdown -->
 ### The entire description of K-fold Cross-validation
 
-<!-- cell:26 type:markdown -->
+<!-- cell:27 type:markdown -->
 We put thogether this scheme to calculate the error for a given polynomial degree $d$ with the method we used earlier to choose a model given the validation-set risk as a function of $d$:
 
 1. create `n_folds` partitions of the training data. 
@@ -326,10 +344,10 @@ We put thogether this scheme to calculate the error for a given polynomial degre
 
 ![Cross-validation over multiple hypothesis sets, then retrain and test](assets/train-cv3.png)
 
-<!-- cell:27 type:markdown -->
+<!-- cell:28 type:markdown -->
 Let us now do 4-fold cross-validation on our Romney votes data set. We increase the complexity from degree 0 to degree 20. In each case we take the old training set, split in 4 ways into 4 folds, train on 3 folds, and calculate the validation error on the ramining one. We then average the erros over the four folds to get a cross-validation error for that $d$. Then we did what we did before: find the hypothesis space $\cal{H_*}$ with the lowest cross-validation error, and refit it using the entire training set. We can then use the test set to estimate $E_{out}$.
 
-<!-- cell:28 type:code -->
+<!-- cell:29 type:code -->
 ```python
 from sklearn.cross_validation import KFold
 n_folds=4
@@ -345,7 +363,7 @@ for d in degrees:
     results.append((np.mean(hypothesisresults), np.min(hypothesisresults), np.max(hypothesisresults), np.std(hypothesisresults))) # average
 ```
 
-<!-- cell:29 type:code -->
+<!-- cell:30 type:code -->
 ```python
 mindeg = np.argmin([r[0] for r in results])
 ttlist=make_features(xtrain, xtest, degrees)
@@ -379,12 +397,12 @@ Output:
 ```
 [Figure]
 
-<!-- cell:30 type:markdown -->
+<!-- cell:31 type:markdown -->
 We see that the cross-validation error minimizes at a low degree, and then increases. Because we have so few data points the spread in fold errors increases as well.
 
 So now we have an average out of sample error, matched to the in-sample error, and error bars telling is that  the entire order 1-8 polynomial region (roughly) is trustable...
 
-<!-- cell:31 type:markdown -->
+<!-- cell:32 type:markdown -->
 ### What does Cross Validation do?
 
 One can think about the validation process as one that estimates $R_{out}$ directly, on the validation set. It's critical use is in the model selection process. Once you do that you can estimate $R_{out}$ using the test set as usual, but now you have also got the benefit of a robust average and error bars.

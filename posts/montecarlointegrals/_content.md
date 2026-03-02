@@ -1,5 +1,20 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 %matplotlib inline
 import numpy as np
 import matplotlib.pyplot as plt
@@ -11,7 +26,7 @@ Output:
   warnings.warn(self.msg_depr % (key, alt_key))
 ```
 
-<!-- cell:2 type:markdown -->
+<!-- cell:3 type:markdown -->
 ## The basic idea
 
 Let us formalize the basic idea behind Monte Carlo Integration in 1-D.
@@ -37,7 +52,7 @@ $$I  = V  \times \lim_{n \to \infty} \frac{1}{N}\sum_{x_i \sim U} f(x_i) $$
 
 Practically speaking, our estimate will only be as exact as the number of samples we draw, but more on this soon..
 
-<!-- cell:3 type:markdown -->
+<!-- cell:4 type:markdown -->
 ### Example. 
 
 **Calculate the integral $ I= \int_{2}^{3} [x^2 + 4 \, x \,\sin(x)] \, dx. $**
@@ -47,7 +62,7 @@ $$ x^3/3 + 4\sin(x) -4x\cos(x). $$
 
 To solve this using MC, we simply draw $N$ random numbers from 2 to 3 and then take the average of all the values $f(x)=x^2 + 4 \, x \,\sin(x)$ and normalized over the volume; this case the volume is 1 (3-2=1). 
 
-<!-- cell:4 type:code -->
+<!-- cell:5 type:code -->
 ```python
 def f(x):
     return x**2 + 4*x*np.sin(x) 
@@ -56,7 +71,7 @@ def intf(x):
     return x**3/3.0+4.0*np.sin(x) - 4.0*x*np.cos(x) 
 ```
 
-<!-- cell:5 type:code -->
+<!-- cell:6 type:code -->
 ```python
 a = 2;    
 b = 3; 
@@ -79,7 +94,7 @@ Output:
 Monte Carlo estimation= 11.8120823531 Exact number= 11.8113589251
 ```
 
-<!-- cell:6 type:markdown -->
+<!-- cell:7 type:markdown -->
 ### Mutlidimensional integral. 
 That is nice but how about a multidimensional case? 
 
@@ -89,12 +104,12 @@ over the region deﬁned by the condition $x^2 +y^2 ≤ 1$
 In other words we are talking about a uniform distribution on the unit circle
 
 
-<!-- cell:7 type:code -->
+<!-- cell:8 type:code -->
 ```python
 fmd = lambda x,y: x*x + y*y
 ```
 
-<!-- cell:8 type:code -->
+<!-- cell:9 type:code -->
 ```python
 # use N draws 
 N= 8000
@@ -114,12 +129,12 @@ Output:
 I= 1.56308724855 actual 1.5707963267948966
 ```
 
-<!-- cell:9 type:markdown -->
+<!-- cell:10 type:markdown -->
 ## Monte-Carlo as a function of number of samples
 
 How does the accuracy depends on the number of points(samples)? Lets try the same 1-D integral $ I= \int_{2}^{3} [x^2 + 4 \, x \,\sin(x)] \, dx $ as a function of the number of points. 
 
-<!-- cell:10 type:code -->
+<!-- cell:11 type:code -->
 ```python
 Imc=np.zeros(1000)
 Na = np.linspace(0,1000,1000)
@@ -143,10 +158,10 @@ plt.ylabel("sqrt((Imc-ExactValue)$^2$)")
 ```
 [Figure]
 
-<!-- cell:11 type:markdown -->
+<!-- cell:12 type:markdown -->
 Obviously this depends on the number of $N$ as $1/\sqrt{N}$. 
 
-<!-- cell:12 type:markdown -->
+<!-- cell:13 type:markdown -->
 ## Errors in MC
 
 Monte Carlo methods yield approximate
@@ -158,7 +173,7 @@ But in the usual case, the exact answer is unknown. Why do this otherwise?
 
 So, lets repeat the same evaluation $m$ times and check the variance of the estimate. 
 
-<!-- cell:13 type:code -->
+<!-- cell:14 type:code -->
 ```python
 # multiple MC estimations
 m=1000
@@ -185,7 +200,7 @@ Output:
 ```
 [Figure]
 
-<!-- cell:14 type:markdown -->
+<!-- cell:15 type:markdown -->
 This looks like our telltale Normal distribution.
 
 This is not surprising
@@ -216,7 +231,7 @@ Whatever the original variance of f(X) might be, we can see that the variance of
 Why is this important?
 
 
-<!-- cell:15 type:markdown -->
+<!-- cell:16 type:markdown -->
 
 
 ### Comparing to standard integration techniques

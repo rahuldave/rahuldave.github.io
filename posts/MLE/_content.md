@@ -1,5 +1,22 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "pandas",
+#   "scipy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 # The %... is an iPython thing, and is not part of the Python language.
 # In this case we're just telling the plotting library to draw things on
 # the notebook, instead of on a separate window.
@@ -21,7 +38,7 @@ sns.set_style("whitegrid")
 sns.set_context("poster")
 ```
 
-<!-- cell:2 type:markdown -->
+<!-- cell:3 type:markdown -->
 $$
 \newcommand{\Ex}{\mathbb{E}}
 \newcommand{\Var}{\mathrm{Var}}
@@ -34,7 +51,7 @@ $$
 \newcommand{\Gam}[1]{\mathrm{Gamma}#1}
 $$
 
-<!-- cell:3 type:markdown -->
+<!-- cell:4 type:markdown -->
 $$
 \renewcommand{\like}{\cal L}
 \renewcommand{\loglike}{\ell}
@@ -46,7 +63,7 @@ $$
 \renewcommand{\v}[1]{\mathbf #1}
 $$
 
-<!-- cell:4 type:markdown -->
+<!-- cell:5 type:markdown -->
 ## Choosing a parametric model
 
 When we do data analysis in a parametric way, we start by characterizing our particular sample statistically then, using a *probability distribution* (or mass function). This distribution has some parameters. Lets refer to these as $\theta$.
@@ -63,7 +80,7 @@ The first question is tackled by the Maximum Likelihood estimate, or MLE. The se
 
 Lets learn about the MLE in the context of a particular distribution, the exponential.
 
-<!-- cell:5 type:markdown -->
+<!-- cell:6 type:markdown -->
 ### The idea behind the MLE
 
 The diagram below  illustrates the idea behind the MLE.
@@ -78,7 +95,7 @@ In our case the blue is more likely since the product of the height of the 3 ver
 
 Indeed the question that MLE asks is: how can we move and scale the distribution, that is, change $\theta$, until the product of the 3 bars is maximised!
 
-<!-- cell:6 type:markdown -->
+<!-- cell:7 type:markdown -->
 That is, the product 
 
 $$
@@ -125,7 +142,7 @@ which is the sample mean of our sample. Usually one is not so lucky and one must
 
 A crucial property is that, for many commonly occurring situations, maximum likelihood parameter estimators have an approximate normal distribution when n is large. 
 
-<!-- cell:7 type:markdown -->
+<!-- cell:8 type:markdown -->
 ## Inference 
 
 Just having an estimate is no good. We will want to put confidence intervals on the estimation of the parameters. This presents a conundrum: we have access to only one sample, but want to compute a error estimate over multiple samples, using an estimator such as the standard deviation.
@@ -136,7 +153,7 @@ So how then are we to find the sampling distribution of our parameters?
 
 In the last two decades, **resampling** the ONE dataset we have has become computationally feasible. Resampling involves making new samples from the observations, each of which is analysed in the same way as out original dataset. One way to do this is the Bootstrap. 
 
-<!-- cell:8 type:markdown -->
+<!-- cell:9 type:markdown -->
 ##  Linear Regression MLE
 
 Linear regression is the workhorse algorithm thats used in many sciences, social and natural. The diagram below illustrates the probabilistic interpretation of linear regression, and the idea behind the MLE for linear regression. We illustrate a point $(x_i, y_i)$, and the corresponding prediction  for $x_i$ using the line, that is $yhat_i$ or $\hat{y}_i$.
@@ -173,7 +190,7 @@ $$\sigma^2_{MLE} =  \frac{1}{n} \sum_i (y_i -  \v{w}\cdot\v{x}_i)^2  . $$
 
 These are the standard results of linear regression.
 
-<!-- cell:9 type:markdown -->
+<!-- cell:10 type:markdown -->
 ## Logistic Regression MLE
 
 Logistic regression if one of the well known **supervized** learning algorithms used for classification.
@@ -205,7 +222,7 @@ Notice that at $z=0$ this function has the value 0.5. If $z > 0$, $h > 0.5$ and 
 
 This function is plotted below:
 
-<!-- cell:10 type:code -->
+<!-- cell:11 type:code -->
 ```python
 h = lambda z: 1./(1+np.exp(-z))
 zs=np.arange(-5,5,0.1)
@@ -213,7 +230,7 @@ plt.plot(zs, h(zs), alpha=0.5);
 ```
 [Figure]
 
-<!-- cell:11 type:markdown -->
+<!-- cell:12 type:markdown -->
 So we then come up with our rule by identifying:
 
 $$z = \v{w}\cdot\v{x}.$$
@@ -227,7 +244,7 @@ y = 0 &if& h(\v{w}\cdot\v{x}) \lt 0.5.
 \end{eqnarray}
 $$
 
-<!-- cell:12 type:markdown -->
+<!-- cell:13 type:markdown -->
 We said above that if $h > 0.5$ we ought to identify the sample with $y=1$? One way of thinking about this is to identify $h(\v{w}\cdot\v{x})$ with the probability that the sample is a '1' ($y=1$). Then we have the intuitive notion that lets identify a sample as 1 if we find that the probabilty of being a '1' is $\ge 0.5$.
 
 So suppose we say then that the probability of $y=1$ for a given $\v{x}$ is given by $h(\v{w}\cdot\v{x})$?
@@ -261,7 +278,7 @@ Thus its desirable to have probabilistic, or at the very least, ranked models of
 
 
 
-<!-- cell:13 type:markdown -->
+<!-- cell:14 type:markdown -->
 Now if we maximize $$P(y \mid \v{x},\v{w})$$, we will maximize the chance that each point is classified correctly, which is what we want to do. This is a principled way of obtaining the highest probability classification. This **maximum likelihood** estimation maximises the **likelihood of the sample y**, 
 
 $$\like = P(y \mid \v{x},\v{w}).$$ 

@@ -79,9 +79,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-8ed8c4e1427b57eae15282a2f1143096.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-ccbaf13865a3c7d1254290bba16250fd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-8ed8c4e1427b57eae15282a2f1143096.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-12664055cfeed62abd852165ab0e0bfb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-69a2ed97628a4e219880992b79f066a5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-12664055cfeed62abd852165ab0e0bfb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -152,13 +152,13 @@ window.Quarto = {
 
 <meta property="og:title" content="From the Normal Model to Regression – rahuldave">
 <meta property="og:description" content="Walks through the progression from a normal model to Bayesian linear regression using Howell’s Kung San height and weight data. Implements grid approximation and PyMC3 MCMC, covering prior predictive checks, posterior inference, and polynomial regression.">
-<meta property="og:image" content="https://rahuldave.github.io/posts/normalreg/index_files/figure-html/cell-5-output-1.png">
+<meta property="og:image" content="https://rahuldave.github.io/posts/normalreg/index_files/figure-html/cell-6-output-1.png">
 <meta property="og:site_name" content="rahuldave">
 <meta property="og:image:height" content="258">
 <meta property="og:image:width" content="378">
 <meta name="twitter:title" content="From the Normal Model to Regression – rahuldave">
 <meta name="twitter:description" content="Walks through the progression from a normal model to Bayesian linear regression using Howell’s Kung San height and weight data. Implements grid approximation and PyMC3 MCMC, covering prior predictive checks, posterior inference, and polynomial regression.">
-<meta name="twitter:image" content="https://rahuldave.github.io/posts/normalreg/index_files/figure-html/cell-5-output-1.png">
+<meta name="twitter:image" content="https://rahuldave.github.io/posts/normalreg/index_files/figure-html/cell-6-output-1.png">
 <meta name="twitter:creator" content="@rahuldave">
 <meta name="twitter:image-height" content="258">
 <meta name="twitter:image-width" content="378">
@@ -385,7 +385,7 @@ window.Quarto = {
   <li><a href="#posterior-predictive-distribution" id="toc-posterior-predictive-distribution" class="nav-link" data-scroll-target="#posterior-predictive-distribution">Posterior Predictive Distribution</a></li>
   </ul></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.out.ipynb" download="index.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -459,7 +459,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-1" class="cell" data-execution_count="1" data-cell-type="code">
+<div id="cell-2" class="cell" data-execution_count="1" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
@@ -478,7 +478,7 @@ window.Quarto = {
 <section id="howells-data" class="level2">
 <h2 class="anchored" data-anchor-id="howells-data">Howell’s data</h2>
 <p>These are census data for the Dobe area !Kung San (https://en.wikipedia.org/wiki/%C7%83Kung_people). Nancy Howell conducted detailed quantitative studies of this Kalahari foraging population in the 1960s.</p>
-<div id="cell-4" class="cell" data-execution_count="2" data-cell-type="code">
+<div id="cell-5" class="cell" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">'assets/Howell1.csv'</span>, sep<span class="op">=</span><span class="st">';'</span>, header<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -537,7 +537,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-5" class="cell" data-execution_count="3" data-cell-type="code">
+<div id="cell-6" class="cell" data-execution_count="3" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df.tail()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <div>
@@ -595,24 +595,24 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-6" class="cell" data-execution_count="4" data-cell-type="code">
+<div id="cell-7" class="cell" data-execution_count="4" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plt.hist(df.height, bins<span class="op">=</span><span class="dv">30</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>We get rid of the kids and only look at the heights of the adults.</p>
-<div id="cell-8" class="cell" data-execution_count="5" data-cell-type="code">
+<div id="cell-9" class="cell" data-execution_count="5" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df2 <span class="op">=</span> df[df.age <span class="op">&gt;=</span> <span class="dv">18</span>]</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plt.hist(df2.height, bins<span class="op">=</span><span class="dv">30</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -628,7 +628,7 @@ h \sim N(\mu, \sigma)\\
 \mu \sim Normal(148, 20)\\
 \sigma = Std. dev.
 \]</span></p>
-<div id="cell-10" class="cell" data-execution_count="6" data-cell-type="code">
+<div id="cell-11" class="cell" data-execution_count="6" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> df2.height.values</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Data Quantities</span></span>
@@ -640,23 +640,23 @@ h \sim N(\mu, \sigma)\\
 <pre><code>sigma 7.73132668454 mu 154.597092614 n 352</code></pre>
 </div>
 </div>
-<div id="cell-11" class="cell" data-execution_count="12" data-cell-type="code">
+<div id="cell-12" class="cell" data-execution_count="12" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>plt.hist(Y, bins<span class="op">=</span><span class="dv">30</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-12" class="cell" data-execution_count="7" data-cell-type="code">
+<div id="cell-13" class="cell" data-execution_count="7" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prior mean</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>mu_prior <span class="op">=</span> <span class="dv">148</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># prior std</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>tau <span class="op">=</span> <span class="dv">20</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="8" data-cell-type="code">
+<div id="cell-14" class="cell" data-execution_count="8" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>kappa <span class="op">=</span> sig<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> tau<span class="op">**</span><span class="dv">2</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>sig_post <span class="op">=</span>np.sqrt(<span class="fl">1.</span><span class="op">/</span>( <span class="fl">1.</span><span class="op">/</span>tau<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> n<span class="op">/</span>sig<span class="op">**</span><span class="dv">2</span>))<span class="op">;</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># posterior mean</span></span>
@@ -666,13 +666,13 @@ h \sim N(\mu, \sigma)\\
 <pre><code>mu post 154.594293158 sig_post 0.41199365493</code></pre>
 </div>
 </div>
-<div id="cell-14" class="cell" data-execution_count="9" data-cell-type="code">
+<div id="cell-15" class="cell" data-execution_count="9" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#samples</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">15000</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>theta_prior <span class="op">=</span> np.random.normal(loc<span class="op">=</span>mu_prior, scale<span class="op">=</span>tau, size<span class="op">=</span>N)<span class="op">;</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>theta_post <span class="op">=</span> np.random.normal(loc<span class="op">=</span>mu_post, scale<span class="op">=</span>sig_post, size<span class="op">=</span>N)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-15" class="cell" data-execution_count="263" data-cell-type="code">
+<div id="cell-16" class="cell" data-execution_count="263" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plt.hist(theta_post, bins<span class="op">=</span><span class="dv">30</span>, alpha<span class="op">=</span><span class="fl">0.9</span>, label<span class="op">=</span><span class="st">"posterior"</span>)<span class="op">;</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>plt.hist(theta_prior, bins<span class="op">=</span><span class="dv">30</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, label<span class="op">=</span><span class="st">"prior"</span>)<span class="op">;</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.xlim([10, 30])</span></span>
@@ -680,25 +680,25 @@ h \sim N(\mu, \sigma)\\
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-16" class="cell" data-execution_count="13" data-cell-type="code">
+<div id="cell-17" class="cell" data-execution_count="13" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>Y_postpred <span class="op">=</span> np.random.normal(loc<span class="op">=</span>mu_post, scale<span class="op">=</span>np.sqrt(sig_post<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> sig<span class="op">**</span><span class="dv">2</span>), size<span class="op">=</span>N)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-17" class="cell" data-execution_count="14" data-cell-type="code">
+<div id="cell-18" class="cell" data-execution_count="14" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>Y_postpred_sample <span class="op">=</span> np.random.normal(loc<span class="op">=</span>theta_post, scale<span class="op">=</span>sig)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-18" class="cell" data-execution_count="22" data-cell-type="code">
+<div id="cell-19" class="cell" data-execution_count="22" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>plt.hist(Y_postpred, bins<span class="op">=</span><span class="dv">100</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)<span class="op">;</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>plt.hist(Y_postpred_sample, bins<span class="op">=</span><span class="dv">100</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)<span class="op">;</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>plt.hist(np.random.choice(Y, replace<span class="op">=</span><span class="va">True</span>, size<span class="op">=</span>N), bins<span class="op">=</span><span class="dv">100</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -706,12 +706,12 @@ h \sim N(\mu, \sigma)\\
 </section>
 <section id="regression-adding-a-predictor" class="level2">
 <h2 class="anchored" data-anchor-id="regression-adding-a-predictor">Regression: adding a predictor</h2>
-<div id="cell-20" class="cell" data-execution_count="21" data-cell-type="code">
+<div id="cell-21" class="cell" data-execution_count="21" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>plt.plot(df2.height, df2.weight, <span class="st">'.'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -725,13 +725,13 @@ slope \sim N(0, 10)\\
 \sigma = std. dev,
 \]</span></p>
 <p>Why should you not use a uniform prior on a slope?</p>
-<div id="cell-22" class="cell" data-execution_count="49" data-cell-type="code">
+<div id="cell-23" class="cell" data-execution_count="49" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>minweight <span class="op">=</span> df2.weight.<span class="bu">min</span>()</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>maxweight <span class="op">=</span> df2.weight.<span class="bu">max</span>()</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>minheight <span class="op">=</span> df2.height.<span class="bu">min</span>()</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>maxheight <span class="op">=</span> df2.height.<span class="bu">max</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-23" class="cell" data-execution_count="160" data-cell-type="code">
+<div id="cell-24" class="cell" data-execution_count="160" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> multivariate_normal</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cplot(f, ax<span class="op">=</span><span class="va">None</span>, lims<span class="op">=</span><span class="va">None</span>):</span>
@@ -768,7 +768,7 @@ slope \sim N(0, 10)\\
 <span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>    <span class="co">#ax.set_ylim([minheight,maxheight])</span></span>
 <span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="161" data-cell-type="code">
+<div id="cell-25" class="cell" data-execution_count="161" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>priorMean <span class="op">=</span> np.array([<span class="dv">150</span>, <span class="dv">0</span>])</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>priorPrecision<span class="op">=</span><span class="fl">2.0</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>priorCovariance <span class="op">=</span> np.array([[<span class="dv">100</span><span class="op">*</span><span class="dv">100</span>, <span class="dv">0</span>],[<span class="dv">0</span>, <span class="dv">10</span><span class="op">*</span><span class="dv">10</span>]])</span>
@@ -778,18 +778,8 @@ slope \sim N(0, 10)\\
 <pre><code>5.1409768989960456e-05</code></pre>
 </div>
 </div>
-<div id="cell-25" class="cell" data-execution_count="162" data-cell-type="code">
+<div id="cell-26" class="cell" data-execution_count="162" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>cplot(priorPDF)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-20-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<div id="cell-26" class="cell" data-execution_count="166" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>plotSampleLines(priorMean,priorCovariance,<span class="dv">50</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -798,7 +788,17 @@ slope \sim N(0, 10)\\
 </div>
 </div>
 </div>
-<div id="cell-27" class="cell" data-execution_count="167" data-cell-type="code">
+<div id="cell-27" class="cell" data-execution_count="166" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>plotSampleLines(priorMean,priorCovariance,<span class="dv">50</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-22-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-28" class="cell" data-execution_count="167" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>likelihoodPrecision <span class="op">=</span> <span class="fl">1.</span><span class="op">/</span>(sig<span class="op">*</span>sig)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="posterior" class="level3">
@@ -820,7 +820,7 @@ p(\bf w| \bf y,X)  \propto  \exp \left( -\frac{1}{2} (\bf w - \bar{\bf w})^T  (\
 <p>where the new mean is</p>
 <p><span class="math display">\[\bar{\bf w} = A^{-1}\Sigma^{-1}{\bf w_0} + \sigma_n^{-2}( A^{-1} X^T \bf y )\]</span></p>
 <p>To make predictions for a test case we average over all possible parameter predictive distribution values, weighted by their posterior probability. This is in contrast to non Bayesian schemes, where a single parameter is typically chosen by some criterion.</p>
-<div id="cell-29" class="cell" data-execution_count="168" data-cell-type="code">
+<div id="cell-30" class="cell" data-execution_count="168" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Given the mean = priorMu and covarianceMatrix = priorSigma of a prior</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Gaussian distribution over regression parameters; observed data, x</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># and y; and the likelihood precision, generate the posterior</span></span>
@@ -834,11 +834,11 @@ p(\bf w| \bf y,X)  \propto  \exp \left( -\frac{1}{2} (\bf w - \bar{\bf w})^T  (\
 <span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    postW <span class="op">=</span> <span class="kw">lambda</span> w: multivariate_normal.pdf(w,postMu,postCovariance)</span>
 <span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> postW, postMu, postCovariance</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-30" class="cell" data-execution_count="169" data-cell-type="code">
+<div id="cell-31" class="cell" data-execution_count="169" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>design <span class="op">=</span> np.concatenate([np.ones(n).reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>), df2.weight.values.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)], axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>response <span class="op">=</span> df2.height.values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-31" class="cell" data-execution_count="171" data-cell-type="code">
+<div id="cell-32" class="cell" data-execution_count="171" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For each iteration plot  the</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># posterior over the first i data points and sample lines whose</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters are drawn from the corresponding posterior. </span></span>
@@ -853,34 +853,34 @@ p(\bf w| \bf y,X)  \propto  \exp \left( -\frac{1}{2} (\bf w - \bar{\bf w})^T  (\
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-25-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-26-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Lets get the posteriors “at each point”</p>
-<div id="cell-33" class="cell" data-execution_count="245" data-cell-type="code">
+<div id="cell-34" class="cell" data-execution_count="245" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>weightgrid <span class="op">=</span> np.arange(<span class="op">-</span><span class="dv">20</span>, <span class="dv">100</span>)</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>test_design <span class="op">=</span> np.concatenate([np.ones(<span class="bu">len</span>(weightgrid)).reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>), weightgrid.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)], axis<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-34" class="cell" data-execution_count="255" data-cell-type="code">
+<div id="cell-35" class="cell" data-execution_count="255" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> np.random.multivariate_normal(mu,cov, <span class="dv">1000</span>) <span class="co">#1000 samples</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>w[:,<span class="dv">0</span>].shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="255">
 <pre><code>(1000,)</code></pre>
 </div>
 </div>
-<div id="cell-35" class="cell" data-execution_count="264" data-cell-type="code">
+<div id="cell-36" class="cell" data-execution_count="264" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>sns.distplot(w[:,<span class="dv">0</span>] <span class="op">+</span> w[:,<span class="dv">1</span>] <span class="op">*</span> <span class="dv">55</span>) <span class="co"># the weight=55 posterior</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-28-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-29-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-36" class="cell" data-execution_count="257" data-cell-type="code">
+<div id="cell-37" class="cell" data-execution_count="257" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>mu_pred <span class="op">=</span> np.zeros((<span class="bu">len</span>(weightgrid), <span class="dv">1000</span>))</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, weight <span class="kw">in</span> <span class="bu">enumerate</span>(weightgrid):</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    mu_pred[i, :] <span class="op">=</span> w[:,<span class="dv">0</span>] <span class="op">+</span> w[:,<span class="dv">1</span>] <span class="op">*</span> weight</span>
@@ -891,7 +891,7 @@ p(\bf w| \bf y,X)  \propto  \exp \left( -\frac{1}{2} (\bf w - \bar{\bf w})^T  (\
 <pre><code>(120,)</code></pre>
 </div>
 </div>
-<div id="cell-37" class="cell" data-execution_count="258" data-cell-type="code">
+<div id="cell-38" class="cell" data-execution_count="258" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sns.plotting_context(<span class="st">'poster'</span>):</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    plt.scatter(df2.weight, df2.height, c<span class="op">=</span><span class="st">'b'</span>, alpha<span class="op">=</span><span class="fl">0.9</span>, s<span class="op">=</span><span class="dv">10</span>)</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    plt.plot(weightgrid, post_means, <span class="st">'r'</span>)</span>
@@ -905,7 +905,7 @@ p(\bf w| \bf y,X)  \propto  \exp \left( -\frac{1}{2} (\bf w - \bar{\bf w})^T  (\
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-30-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-31-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -922,7 +922,7 @@ p(y^{*} | x^{*}, {\bf x,y}) &amp;=&amp; \int p({\bf y}^{*}| {\bf x}^{*}, {\bf w}
 \end{eqnarray}
 \]</span></p>
 <p>which is again Gaussian, with a mean given by the posterior mean multiplied by the test input and the variance is a quadratic form of the test input with the posterior covariance matrix, showing that the predictive uncertainties grow with the magnitude of the test input, as one would expect for a linear model.</p>
-<div id="cell-39" class="cell" data-execution_count="259" data-cell-type="code">
+<div id="cell-40" class="cell" data-execution_count="259" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>ppmeans <span class="op">=</span> np.empty(<span class="bu">len</span>(weightgrid))</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>ppsigs <span class="op">=</span> np.empty(<span class="bu">len</span>(weightgrid))</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>t2 <span class="op">=</span> np.empty(<span class="bu">len</span>(weightgrid))</span>
@@ -934,13 +934,13 @@ p(y^{*} | x^{*}, {\bf x,y}) &amp;=&amp; \int p({\bf y}^{*}| {\bf x}^{*}, {\bf w}
 <span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>    ppsigs[i] <span class="op">=</span> np.sqrt(sig<span class="op">*</span>sig <span class="op">+</span> tp<span class="op">@</span>cov<span class="op">@</span>tp)</span>
 <span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    t2[i] <span class="op">=</span> np.sqrt(tp<span class="op">@</span>cov<span class="op">@</span>tp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-40" class="cell" data-execution_count="268" data-cell-type="code">
+<div id="cell-41" class="cell" data-execution_count="268" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>weightgrid[<span class="dv">75</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="268">
 <pre><code>55</code></pre>
 </div>
 </div>
-<div id="cell-41" class="cell" data-execution_count="270" data-cell-type="code">
+<div id="cell-42" class="cell" data-execution_count="270" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>plt.hist(w[:,<span class="dv">0</span>] <span class="op">+</span> w[:,<span class="dv">1</span>] <span class="op">*</span> <span class="dv">55</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>plt.hist(norm.rvs(ppmeans[<span class="dv">75</span>], ppsigs[<span class="dv">75</span>], <span class="dv">1000</span>), alpha<span class="op">=</span><span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="270">
@@ -953,12 +953,12 @@ p(y^{*} | x^{*}, {\bf x,y}) &amp;=&amp; \int p({\bf y}^{*}| {\bf x}^{*}, {\bf w}
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-33-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-34-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-42" class="cell" data-execution_count="249" data-cell-type="code">
+<div id="cell-43" class="cell" data-execution_count="249" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sns.plotting_context(<span class="st">'poster'</span>):</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    plt.scatter(df2.weight, df2.height, c<span class="op">=</span><span class="st">'b'</span>, alpha<span class="op">=</span><span class="fl">0.9</span>, s<span class="op">=</span><span class="dv">10</span>)</span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    plt.plot(weightgrid, ppmeans, <span class="st">'r'</span>)</span>
@@ -971,7 +971,7 @@ p(y^{*} | x^{*}, {\bf x,y}) &amp;=&amp; \int p({\bf y}^{*}| {\bf x}^{*}, {\bf w}
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-34-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-35-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1029,6 +1029,7 @@ document.addEventListener('DOMContentLoaded', function() {
 })();
 </script>
 <script src="../../assets/llm-explain.js"></script>
+<script src="../../assets/download-bundle.js"></script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

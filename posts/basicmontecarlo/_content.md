@@ -1,5 +1,21 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "scipy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 %matplotlib inline
 import numpy as np
 from scipy import stats
@@ -15,7 +31,7 @@ Output:
   warnings.warn(self.msg_depr % (key, alt_key))
 ```
 
-<!-- cell:2 type:markdown -->
+<!-- cell:3 type:markdown -->
 ## Monte Carlo
 
 The basic idea of a Monte Carlo Algorithm is to use randomness to solve what is often a deterministic problem. In this course, we'll study their application in 3 different places: optimization, integration, and obtaining draws from a probability distribution. These uses are often intertwined: optimization is needed to find modes of distributions and integration to find expectations.
@@ -27,14 +43,14 @@ Wikipedia has a facinating bit of [history](https://en.wikipedia.org/wiki/Monte_
 
 >Being secret, the work of von Neumann and Ulam required a code name.[citation needed] A colleague of von Neumann and Ulam, Nicholas Metropolis, suggested using the name Monte Carlo, which refers to the Monte Carlo Casino in Monaco where Ulam's uncle would borrow money from relatives to gamble.
 
-<!-- cell:3 type:markdown -->
+<!-- cell:4 type:markdown -->
 ## Estimate the area of a unit circle
 
 To understand how randomness can be brought to bear upon solving deterministic problems, consider a very simple example: the value of $\pi$. If you could uniformly generate random numbers on a square, you could ask, how many of these numbers would fall inside a unit circle embedded in and touching the midpoints of the sides of the square. This ratio would be
 
 $$\frac{\pi \times 1^2}{2^2} = \frac{\pi}{4}.$$
 
-<!-- cell:4 type:code -->
+<!-- cell:5 type:code -->
 ```python
 #area of the bounding box
 box_area = 4.0    
@@ -80,7 +96,7 @@ pi =  3.141592653589793
 ```
 [Figure]
 
-<!-- cell:5 type:markdown -->
+<!-- cell:6 type:markdown -->
 Intuitively, one might expect our estimate of $\pi$ to get better as we draw more and more samples: we are covering the areas with samples much better when we do that.
 
 Lets try to think about the mathematics in the intuition which tells us that we can calculate $\pi$ in this way. 
@@ -111,7 +127,7 @@ once we choose a uniform distribution. Here $V$ is the support, the normalizing 
 
 
 
-<!-- cell:6 type:markdown -->
+<!-- cell:7 type:markdown -->
 ## Hit or miss method
 
 This simple scenario of inside-or-outside can be used as a general (but poor, as missing increases exponentially with dimension)  way to use the generation of samples to carry out integration

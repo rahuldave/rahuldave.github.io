@@ -1,5 +1,22 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "pandas",
+#   "scipy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 %matplotlib inline
 import numpy as np
 import scipy as sp
@@ -18,7 +35,7 @@ Output:
   warnings.warn(self.msg_depr % (key, alt_key))
 ```
 
-<!-- cell:2 type:markdown -->
+<!-- cell:3 type:markdown -->
 ## Convexity
 
 Let $f$ be a function with domain the set of real numbers. If the second derivative is greater than zero 
@@ -42,7 +59,7 @@ $f$ is said to be strictly convex if the inequality is strict. Intuitively, this
 states that the function falls below  the
 straight line (the secant) from points $(x_1, f(x_1))$ to $(x_2, f(x_2))$. In other words, the equality is satisfied only for $\lambda = 0$ and $\lambda = 1$.
 
-<!-- cell:3 type:markdown -->
+<!-- cell:4 type:markdown -->
 ## Jensen's Inequality
 
 Let $f$ be a convex function defined on an interval $I$. 
@@ -73,7 +90,7 @@ $$f(\mathrm{E}[x]) \le \mathrm{E}[f(x)]$$
 
  
 
-<!-- cell:4 type:markdown -->
+<!-- cell:5 type:markdown -->
 **Theorem**. Let $f$ be a convex function, and $X$ be a random variable, then
 
 $$ E[f(X)] \ge f(E[X]) $$ 

@@ -1,5 +1,21 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "scipy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 %matplotlib inline
 import numpy as np
 import matplotlib.pylab as plt 
@@ -14,7 +30,7 @@ Output:
   warnings.warn(self.msg_depr % (key, alt_key))
 ```
 
-<!-- cell:2 type:markdown -->
+<!-- cell:3 type:markdown -->
 ## Sufficient Statistics and the Exponential Family
 
 Probability distributions that belong to an exponential family have natural conjugate prior distributions. The form of the exponential family is:
@@ -25,7 +41,7 @@ Thus the likelihood corresponding to n i.i.d. points is:
 
 $$ p(y \vert \theta) = \left(\prod_{i=1}^{n} f(y_i) \right) g(\theta)^n \,\, \exp\left(\phi(\theta)\sum_{i=1}^{n} u(y_i)\right)$$
 
-<!-- cell:3 type:markdown -->
+<!-- cell:4 type:markdown -->
 Now notice that the product of y -dependent stuff in front is irrelavant as far as sampling goes: it does not  **interact with $\theta$** in any way! If I wanted the actual value of the likelihood it would be important to model it well. But if all I want is to use this expression in a samples generator, I dont care. This kind of observation will bve critical for us as we sample from ever more complex models: indeed isolating such dependencies is at the cornerstone of the gibbs method.
 
 Thus one can say, that for all n and y, this has a fixed form as a functio of $\theta$:
@@ -38,7 +54,7 @@ In general the exponential families are the only classes of distributions that h
 
 This family includes exponential, poisson, gamma, beta, pareto, binomial, gaussian....
 
-<!-- cell:4 type:markdown -->
+<!-- cell:5 type:markdown -->
 ## An example with Poissons and Gammas
 
 Consider some data gathered in the 1990s on educational attainment.
@@ -67,7 +83,7 @@ $$ p(Y_{1,1}, \ldots, Y_{n_1,1}  \vert  \theta_1)  = \prod_{i=1}^{n_1} p(Y_{i,1}
 
 $$ Y_{1,2}, \ldots, Y_{n_1,2}  \vert  \theta_2 \sim Poisson(n_2\theta_2) $$
 
-<!-- cell:5 type:markdown -->
+<!-- cell:6 type:markdown -->
 ** The distributions are still poisson **
 
 ### Obtaining the Posterior
@@ -84,7 +100,7 @@ The quantity $\sum Y_i$ contains all the information about $\theta$ and thus $\s
 
 So as long as we dont need the exact value of the likelihood, we are go ob treating the likelihood as a 
 
-<!-- cell:6 type:markdown -->
+<!-- cell:7 type:markdown -->
 For our example we have $n_1 =111$, $\sum_i^{n_1} Y_{i,1} =217$ and $n_2=44$, $\sum_i^{n_2} Y_{i,2} =66$.
 
 ### Congugate Priors
@@ -108,7 +124,7 @@ $$  p( \theta  \vert  Y_1, \ldots, Y_n) \sim \rm{Gamma}(\theta, a+\sum Y_i, b+n)
 
 In other words $b$ "regularizes" the total number of moms and $a$ the kids. In other words, you have a data set of $b$ observations with an observed poisson count of $a$.
 
-<!-- cell:7 type:markdown -->
+<!-- cell:8 type:markdown -->
 Back to our example. Suppose we choose priors $p(\theta_{1,2}) \sim  \rm{Gamma}(\theta_{1,2}, a=2, b=1) $. The mean and variance of gamma distributions are known 
 
 $$ E[\theta] = a/b, var[\theta] = a/b^2 .$$
@@ -117,7 +133,7 @@ So the mean of the gamma is roughly a notion  of your belief of prior kids to mo
 
 
 
-<!-- cell:8 type:code -->
+<!-- cell:9 type:code -->
 ```python
 from scipy.stats import gamma
 xxx=np.linspace(0,10,100)
@@ -129,7 +145,7 @@ plt.legend();
 ```
 [Figure]
 
-<!-- cell:9 type:markdown -->
+<!-- cell:10 type:markdown -->
 ### Our Posteriors
 
 $$ p(\theta_1 \vert n_1 = 111,  \sum_i^{n_1} Y_{i,1}=217 ) \sim  \rm{Gamma}(\theta_1, 2+217, 1+111) =  \rm{Gamma}(\theta_1, 219, 112) $$
@@ -142,7 +158,7 @@ $$ E[\theta] = (a + \sum y_i)/(b + N), var[\theta] = (a + \sum y_i)/(b + N)^2 .$
 
 In this case  219/112 and 68/45 which is not very sensitive to our prior as you might expect.
 
-<!-- cell:10 type:code -->
+<!-- cell:11 type:code -->
 ```python
 219/112, 68/45
 ```
@@ -151,10 +167,10 @@ Output:
 (1.9553571428571428, 1.511111111111111)
 ```
 
-<!-- cell:11 type:markdown -->
+<!-- cell:12 type:markdown -->
 We can calculate and plot the posterior predictives. We  do that here for $\theta_1$ and $\theta_2$. We also show  (lack of) sensitivity to the prior by considering a wierd prior with a=20, b=2.
 
-<!-- cell:12 type:code -->
+<!-- cell:13 type:code -->
 ```python
 from scipy.stats import gamma
 a = 2 # Gamma prior, a,b values 
@@ -216,14 +232,14 @@ plt.legend()
 ```
 [Figure]
 
-<!-- cell:13 type:markdown -->
+<!-- cell:14 type:markdown -->
 The mean birth-rates can be calculated from the samples, as can the variances, which are also given us by the formulae from above:
 
 $$ E[\theta] = (a + \sum y_i)/(b + N), var[\theta] = (a + \sum y_i)/(b + N)^2 .$$
 
 
 
-<!-- cell:14 type:code -->
+<!-- cell:15 type:code -->
 ```python
 np.mean(theta1), np.var(theta1)
 ```
@@ -232,7 +248,7 @@ Output:
 (1.9516881521791478, 0.018527204185785785)
 ```
 
-<!-- cell:15 type:code -->
+<!-- cell:16 type:code -->
 ```python
 np.mean(theta2), np.var(theta2)
 ```
@@ -241,10 +257,10 @@ Output:
 (1.5037252100213609, 0.034220717257786061)
 ```
 
-<!-- cell:16 type:markdown -->
+<!-- cell:17 type:markdown -->
 Its easy to get the posterior birth-rate difference from the samples
 
-<!-- cell:17 type:code -->
+<!-- cell:18 type:code -->
 ```python
 np.mean(theta1 - theta2)
 ```
@@ -253,7 +269,7 @@ Output:
 (0.43687373794997003, -0.43687373794997003)
 ```
 
-<!-- cell:18 type:markdown -->
+<!-- cell:19 type:markdown -->
 ### Posterior predictives
 
 Remember that the posterior predictive  is the following integral
@@ -262,26 +278,26 @@ $$p(y^{*} \vert D) = \int d\theta p(y^{*} \vert \theta) p(\theta \vert D)$$
 
 From the perspective of sampling, all we have to do is to first draw the thetas from the posterior, then draw y's from the likelihood, and histogram the likelihood. This is the same logic as marginal posteriors, with the addition of the fact that we must draw  y from the likelihood once we drew $\theta$. You might think that we have to draw multiple $y$s at a theta, but this is already taken care of for us because of the nature of sampling. We already have multiple $\theta$a in a bin.
 
-<!-- cell:19 type:code -->
+<!-- cell:20 type:code -->
 ```python
 from scipy.stats import poisson
 postpred1 = poisson.rvs(theta1)
 postpred2 = poisson.rvs(theta2)
 ```
 
-<!-- cell:20 type:code -->
+<!-- cell:21 type:code -->
 ```python
 plt.hist(postpred1, alpha=0.4, align="left");
 plt.hist(postpred2, alpha=0.4, align="left");
 ```
 [Figure]
 
-<!-- cell:21 type:markdown -->
+<!-- cell:22 type:markdown -->
 It turns out that the distribution characterizing the posterior predictive is a negative binomial (see wikipedia, this requires some manipulations of gamma functions which we shall not reproduce here). The mean of  the posterior predictive distribution is the same as that of the posterior
 
 $$ E[y^*] = \frac{(a + \sum y_i)}{(b + N)}, var[y^*] = \frac{(a + \sum y_i)}{(b + N)^2} (N + b + 1) .$$
 
-<!-- cell:22 type:code -->
+<!-- cell:23 type:code -->
 ```python
 np.mean(postpred1), np.var(postpred1)
 ```
@@ -290,7 +306,7 @@ Output:
 (1.976, 1.8554239999999997)
 ```
 
-<!-- cell:23 type:code -->
+<!-- cell:24 type:code -->
 ```python
 np.mean(postpred2), np.var(postpred2)
 ```
@@ -299,10 +315,10 @@ Output:
 (1.502, 1.5719960000000002)
 ```
 
-<!-- cell:24 type:markdown -->
+<!-- cell:25 type:markdown -->
 Notice that the error on the posterior predictive is much larger, even with the same means. The reason for this is that in the posterior predictive, you are smearing out the posterior error. At each point in the posterior, there is the smearing associated with the sampling distribution for $y^* \sim \theta$, and thus the posterior predictive is conservative.
 
-<!-- cell:25 type:code -->
+<!-- cell:26 type:code -->
 ```python
 np.mean(postpred1 - postpred2)
 ```
@@ -311,7 +327,7 @@ Output:
 0.47399999999999998
 ```
 
-<!-- cell:26 type:markdown -->
+<!-- cell:27 type:markdown -->
 Why bother with the posterior predictive?
 
 - you might want to make predictions

@@ -79,9 +79,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-8ed8c4e1427b57eae15282a2f1143096.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-ccbaf13865a3c7d1254290bba16250fd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-8ed8c4e1427b57eae15282a2f1143096.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-12664055cfeed62abd852165ab0e0bfb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-69a2ed97628a4e219880992b79f066a5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-12664055cfeed62abd852165ab0e0bfb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -149,13 +149,13 @@ window.Quarto = {
 
 <meta property="og:title" content="Sufficient Statistics and Exchangeability – rahuldave">
 <meta property="og:description" content="Connects the exponential family to conjugate priors through sufficient statistics. Introduces exchangeability and de Finetti’s theorem, then develops the Poisson-Gamma conjugate model as a worked example.">
-<meta property="og:image" content="https://rahuldave.github.io/posts/sufstatexch/index_files/figure-html/cell-3-output-1.png">
+<meta property="og:image" content="https://rahuldave.github.io/posts/sufstatexch/index_files/figure-html/cell-4-output-1.png">
 <meta property="og:site_name" content="rahuldave">
 <meta property="og:image:height" content="341">
 <meta property="og:image:width" content="487">
 <meta name="twitter:title" content="Sufficient Statistics and Exchangeability – rahuldave">
 <meta name="twitter:description" content="Connects the exponential family to conjugate priors through sufficient statistics. Introduces exchangeability and de Finetti’s theorem, then develops the Poisson-Gamma conjugate model as a worked example.">
-<meta name="twitter:image" content="https://rahuldave.github.io/posts/sufstatexch/index_files/figure-html/cell-3-output-1.png">
+<meta name="twitter:image" content="https://rahuldave.github.io/posts/sufstatexch/index_files/figure-html/cell-4-output-1.png">
 <meta name="twitter:creator" content="@rahuldave">
 <meta name="twitter:image-height" content="341">
 <meta name="twitter:image-width" content="487">
@@ -384,7 +384,7 @@ window.Quarto = {
   <li><a href="#posterior-predictives" id="toc-posterior-predictives" class="nav-link" data-scroll-target="#posterior-predictives">Posterior predictives</a></li>
   </ul></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.out.ipynb" download="index.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -457,7 +457,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-1" class="cell" data-execution_count="1" data-cell-type="code">
+<div id="cell-2" class="cell" data-execution_count="1" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pylab <span class="im">as</span> plt </span>
@@ -520,7 +520,7 @@ window.Quarto = {
 <p>If <span class="math inline">\(p(\theta) =  \rm{Gamma}(\theta, a, b)\)</span> and $ p(Y_1 , Y_n ) \rm{Gamma}(_{1,2}, a=2, b=1) $. The mean and variance of gamma distributions are known</p>
 <p><span class="math display">\[ E[\theta] = a/b, var[\theta] = a/b^2 .\]</span></p>
 <p>So the mean of the gamma is roughly a notion of your belief of prior kids to moms. Here we say 2.</p>
-<div id="cell-8" class="cell" data-execution_count="18" data-cell-type="code">
+<div id="cell-9" class="cell" data-execution_count="18" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> gamma</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>xxx<span class="op">=</span>np.linspace(<span class="dv">0</span>,<span class="dv">10</span>,<span class="dv">100</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xxx, gamma.pdf(xxx, <span class="dv">3</span>, scale<span class="op">=</span><span class="dv">1</span>), label<span class="op">=</span><span class="st">"3 kids 1 mom"</span>)<span class="op">;</span></span>
@@ -531,7 +531,7 @@ window.Quarto = {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -544,14 +544,14 @@ window.Quarto = {
 <p>The mean of our posterior is then a ratio of posterior kids to moms:</p>
 <p><span class="math display">\[ E[\theta] = (a + \sum y_i)/(b + N), var[\theta] = (a + \sum y_i)/(b + N)^2 .\]</span></p>
 <p>In this case 219/112 and 68/45 which is not very sensitive to our prior as you might expect.</p>
-<div id="cell-10" class="cell" data-execution_count="38" data-cell-type="code">
+<div id="cell-11" class="cell" data-execution_count="38" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">219</span><span class="op">/</span><span class="dv">112</span>, <span class="dv">68</span><span class="op">/</span><span class="dv">45</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="38">
 <pre><code>(1.9553571428571428, 1.511111111111111)</code></pre>
 </div>
 </div>
 <p>We can calculate and plot the posterior predictives. We do that here for <span class="math inline">\(\theta_1\)</span> and <span class="math inline">\(\theta_2\)</span>. We also show (lack of) sensitivity to the prior by considering a wierd prior with a=20, b=2.</p>
-<div id="cell-12" class="cell" data-execution_count="53" data-cell-type="code">
+<div id="cell-13" class="cell" data-execution_count="53" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> gamma</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">2</span> <span class="co"># Gamma prior, a,b values </span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="dv">1</span> </span>
@@ -612,27 +612,27 @@ window.Quarto = {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>The mean birth-rates can be calculated from the samples, as can the variances, which are also given us by the formulae from above:</p>
 <p><span class="math display">\[ E[\theta] = (a + \sum y_i)/(b + N), var[\theta] = (a + \sum y_i)/(b + N)^2 .\]</span></p>
-<div id="cell-14" class="cell" data-execution_count="41" data-cell-type="code">
+<div id="cell-15" class="cell" data-execution_count="41" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>np.mean(theta1), np.var(theta1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="41">
 <pre><code>(1.9516881521791478, 0.018527204185785785)</code></pre>
 </div>
 </div>
-<div id="cell-15" class="cell" data-execution_count="42" data-cell-type="code">
+<div id="cell-16" class="cell" data-execution_count="42" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>np.mean(theta2), np.var(theta2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="42">
 <pre><code>(1.5037252100213609, 0.034220717257786061)</code></pre>
 </div>
 </div>
 <p>Its easy to get the posterior birth-rate difference from the samples</p>
-<div id="cell-17" class="cell" data-execution_count="21" data-cell-type="code">
+<div id="cell-18" class="cell" data-execution_count="21" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>np.mean(theta1 <span class="op">-</span> theta2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
 <pre><code>(0.43687373794997003, -0.43687373794997003)</code></pre>
@@ -644,38 +644,38 @@ window.Quarto = {
 <p>Remember that the posterior predictive is the following integral</p>
 <p><span class="math display">\[p(y^{*} \vert D) = \int d\theta p(y^{*} \vert \theta) p(\theta \vert D)\]</span></p>
 <p>From the perspective of sampling, all we have to do is to first draw the thetas from the posterior, then draw y’s from the likelihood, and histogram the likelihood. This is the same logic as marginal posteriors, with the addition of the fact that we must draw y from the likelihood once we drew <span class="math inline">\(\theta\)</span>. You might think that we have to draw multiple <span class="math inline">\(y\)</span>s at a theta, but this is already taken care of for us because of the nature of sampling. We already have multiple <span class="math inline">\(\theta\)</span>a in a bin.</p>
-<div id="cell-19" class="cell" data-execution_count="22" data-cell-type="code">
+<div id="cell-20" class="cell" data-execution_count="22" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> poisson</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>postpred1 <span class="op">=</span> poisson.rvs(theta1)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>postpred2 <span class="op">=</span> poisson.rvs(theta2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-20" class="cell" data-execution_count="31" data-cell-type="code">
+<div id="cell-21" class="cell" data-execution_count="31" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plt.hist(postpred1, alpha<span class="op">=</span><span class="fl">0.4</span>, align<span class="op">=</span><span class="st">"left"</span>)<span class="op">;</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plt.hist(postpred2, alpha<span class="op">=</span><span class="fl">0.4</span>, align<span class="op">=</span><span class="st">"left"</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>It turns out that the distribution characterizing the posterior predictive is a negative binomial (see wikipedia, this requires some manipulations of gamma functions which we shall not reproduce here). The mean of the posterior predictive distribution is the same as that of the posterior</p>
 <p><span class="math display">\[ E[y^*] = \frac{(a + \sum y_i)}{(b + N)}, var[y^*] = \frac{(a + \sum y_i)}{(b + N)^2} (N + b + 1) .\]</span></p>
-<div id="cell-22" class="cell" data-execution_count="43" data-cell-type="code">
+<div id="cell-23" class="cell" data-execution_count="43" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>np.mean(postpred1), np.var(postpred1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="43">
 <pre><code>(1.976, 1.8554239999999997)</code></pre>
 </div>
 </div>
-<div id="cell-23" class="cell" data-execution_count="44" data-cell-type="code">
+<div id="cell-24" class="cell" data-execution_count="44" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>np.mean(postpred2), np.var(postpred2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="44">
 <pre><code>(1.502, 1.5719960000000002)</code></pre>
 </div>
 </div>
 <p>Notice that the error on the posterior predictive is much larger, even with the same means. The reason for this is that in the posterior predictive, you are smearing out the posterior error. At each point in the posterior, there is the smearing associated with the sampling distribution for <span class="math inline">\(y^* \sim \theta\)</span>, and thus the posterior predictive is conservative.</p>
-<div id="cell-25" class="cell" data-execution_count="45" data-cell-type="code">
+<div id="cell-26" class="cell" data-execution_count="45" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>np.mean(postpred1 <span class="op">-</span> postpred2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="45">
 <pre><code>0.47399999999999998</code></pre>
@@ -744,6 +744,7 @@ document.addEventListener('DOMContentLoaded', function() {
 })();
 </script>
 <script src="../../assets/llm-explain.js"></script>
+<script src="../../assets/download-bundle.js"></script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

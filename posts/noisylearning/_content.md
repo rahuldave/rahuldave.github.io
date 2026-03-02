@@ -1,5 +1,22 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "pandas",
+#   "scipy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 %matplotlib inline
 import numpy as np
 import scipy as sp
@@ -15,7 +32,7 @@ sns.set_style("whitegrid")
 sns.set_context("poster")
 ```
 
-<!-- cell:2 type:code -->
+<!-- cell:3 type:code -->
 ```python
 def make_simple_plot():
     fig, axes=plt.subplots(figsize=(12,5), nrows=1, ncols=2);
@@ -41,18 +58,18 @@ def make_plot():
     return axes
 ```
 
-<!-- cell:3 type:markdown -->
+<!-- cell:4 type:markdown -->
 ## Revisiting our model
 
-<!-- cell:4 type:markdown -->
+<!-- cell:5 type:markdown -->
 Let us revisit our model from noiseless_learning.
 
 Let $x$ be the fraction of religious people in a county and $y$ be the probability of voting for Romney as a function of $x$. In other words $y_i$ is data that pollsters have taken which tells us their estimate of people voting for Romney and $x_i$ is the fraction of religious people in county $i$. Because poll samples are finite, there is a margin of error on each data point or county $i$, but we will ignore that for now.
 
-<!-- cell:5 type:markdown -->
+<!-- cell:6 type:markdown -->
 Let us assume that we have a "population" of 200 counties $x$:
 
-<!-- cell:6 type:code -->
+<!-- cell:7 type:code -->
 ```python
 df=pd.read_csv("data/religion.csv")
 df.head()
@@ -67,10 +84,10 @@ Output:
 4  0.062597   0.04
 ```
 
-<!-- cell:7 type:markdown -->
+<!-- cell:8 type:markdown -->
 Lets suppose now that the Lord came by and told us that the points in the plot below captures $f(x)$ exactly. 
 
-<!-- cell:8 type:code -->
+<!-- cell:9 type:code -->
 ```python
 x=df.rfrac.values
 f=df.promney.values
@@ -82,18 +99,18 @@ Output:
 ```
 [Figure]
 
-<!-- cell:9 type:markdown -->
+<!-- cell:10 type:markdown -->
 Notice that our sampling of $x$ is not quite uniform: there are more points around $x$ of 0.7.
 
 Now, in real life we are only given a sample of points. Lets assume that out of this population of 200 points we are given a sample $\cal{D}$ of 30 data points. Such data is called **in-sample data**. Contrastingly, the entire population of data points is also called **out-of-sample data**.
 
-<!-- cell:10 type:code -->
+<!-- cell:11 type:code -->
 ```python
 dfsample = pd.read_csv("data/noisysample.csv")
 indexes=dfsample.i.values
 ```
 
-<!-- cell:11 type:code -->
+<!-- cell:12 type:code -->
 ```python
 dfpop = pd.read_csv("data/noisypopulation.csv")
 dfpop.head()
@@ -108,13 +125,13 @@ Output:
 4  0.062597  0.04  0.010000
 ```
 
-<!-- cell:12 type:code -->
+<!-- cell:13 type:code -->
 ```python
 samplex = x[indexes]
 samplef = f[indexes]
 ```
 
-<!-- cell:13 type:code -->
+<!-- cell:14 type:code -->
 ```python
 axes=make_plot()
 axes[0].plot(x,f, 'k-', alpha=0.4, label="f (from the Lord)");
@@ -125,10 +142,10 @@ axes[1].legend(loc=4);
 ```
 [Figure]
 
-<!-- cell:14 type:markdown -->
+<!-- cell:15 type:markdown -->
 ### Statement of the learning problem.
 
-<!-- cell:15 type:markdown -->
+<!-- cell:16 type:markdown -->
 Let us restate  the learning problem from [noiseless learning](noiseless_learning.html).
 
 If we find a hypothesis $g$ that minimizes the cost or risk over the training set (our sample), this hypothesis *might* do a good job over the population that the training set was representative of, since the risk on the population ought to be similar to that on the training set, and thus small.
@@ -144,10 +161,10 @@ $$
 
 In other words, we hope the **empirical risk estimates the out of sample risk well, and thus the out of sample risk is also small**.
 
-<!-- cell:16 type:markdown -->
+<!-- cell:17 type:markdown -->
 ## Why go out-of-sample
 
-<!-- cell:17 type:markdown -->
+<!-- cell:18 type:markdown -->
 Clearly we want tolearn something about a population, a population we dont have access to. So far we have stayed within the constraints of our sample and just like we did in the case of monte-carlo, might want to draw all our conclusions from this sample.
 
 This is a bad idea.
@@ -156,13 +173,13 @@ You probably noticed that I used weasel words like "might" and "hope" in the las
 
 Suppose I construct a model which memorizes all the data points in the training set. Then its emprical risk is zero by definition, but it has no way of predicting anything on a test set. Thus it might as well choose the value at a new point randomly, and will perform very poorly. The process of interpolating a curve from points is precisely this memorization
 
-<!-- cell:18 type:markdown -->
+<!-- cell:19 type:markdown -->
 ### Stochastic Noise
 
-<!-- cell:19 type:markdown -->
+<!-- cell:20 type:markdown -->
 We saw before that $g_{20}$ did a very good job in capturing the curves of the population. However, note that the data obtained from $f$, our target, was still quite smooth. Most real-world data sets are not smooth at all, because of various effects such as measurement errors, other co-variates, and so on. Such **stochastic noise** plays havoc with our fits, as we shall see soon.
 
-<!-- cell:20 type:markdown -->
+<!-- cell:21 type:markdown -->
 Stochastic noise bedevils almost every data set known to humans, and happens for many different reasons. 
 
 Consider for example two customers of a bank with identical credit histories and salaries. One defaults on their mortgage, and the other does not. In this case we have identical $x = (credit, salary)$ for these two customers, but different $y$, which is a variable that is 1 if the customer defaulted and 0 otherwise. The true $y$ here might be a function of other co-variates, such as marital strife, sickness of parents, etc. But, as the bank, we might not have this information. So we get different $y$ for different customers at the information $x$ that we possess.
@@ -176,7 +193,7 @@ Indeed, we wish to estimate a function $f(x)$ so that the values $y_i$ come from
 
 
 
-<!-- cell:21 type:code -->
+<!-- cell:22 type:code -->
 ```python
 dfsample.head()
 ```
@@ -190,7 +207,7 @@ Output:
 4  0.285470  33  0.33  0.358174
 ```
 
-<!-- cell:22 type:code -->
+<!-- cell:23 type:code -->
 ```python
 dfsample.shape
 ```
@@ -199,14 +216,14 @@ Output:
 (30, 4)
 ```
 
-<!-- cell:23 type:code -->
+<!-- cell:24 type:code -->
 ```python
 x = dfpop.x.values
 f = dfpop.f.values
 y = dfpop.y.values
 ```
 
-<!-- cell:24 type:code -->
+<!-- cell:25 type:code -->
 ```python
 plt.plot(x,f, 'r-', alpha=0.6, label="f");
 plt.plot(x[indexes], y[indexes], 's', alpha=0.6, label="in-sample y (observed)");
@@ -217,13 +234,13 @@ plt.legend(loc=4);
 ```
 [Figure]
 
-<!-- cell:25 type:markdown -->
+<!-- cell:26 type:markdown -->
 In the figure above, one can see the scatter of the $y$ population about the curve of $f$. The errors of the 30 observation points ("in-sample") are shown as squares. One can see that observations next to each other can now be fairly different, as we descibed above.
 
-<!-- cell:26 type:markdown -->
+<!-- cell:27 type:markdown -->
 ## Fitting a noisy model
 
-<!-- cell:27 type:markdown -->
+<!-- cell:28 type:markdown -->
 Let us now try and fit the noisy data we simulated above, both using straight lines ($\cal{H_1}$), and 20th order polynomials($\cal{H_{20}}$). 
 
 What we have done is introduced a noisy target $y$, so that
@@ -244,7 +261,7 @@ Now the entire learning problem can be cast as a problem in probability **densit
 
 We now fit in both $\cal{H_1}$ and $\cal{H_{20}}$ to find the best fit straight line and best fit 20th order polynomial respectively.
 
-<!-- cell:28 type:code -->
+<!-- cell:29 type:code -->
 ```python
 g1 = np.poly1d(np.polyfit(x[indexes],f[indexes],1))
 g20 = np.poly1d(np.polyfit(x[indexes],f[indexes],20))
@@ -255,7 +272,7 @@ Output:
   warnings.warn(msg, RankWarning)
 ```
 
-<!-- cell:29 type:code -->
+<!-- cell:30 type:code -->
 ```python
 g1noisy = np.poly1d(np.polyfit(x[indexes],y[indexes],1))
 g20noisy = np.poly1d(np.polyfit(x[indexes],y[indexes],20))
@@ -266,7 +283,7 @@ Output:
   warnings.warn(msg, RankWarning)
 ```
 
-<!-- cell:30 type:code -->
+<!-- cell:31 type:code -->
 ```python
 axes=make_plot()
 axes[0].plot(x,f, 'r-', alpha=0.6, label="f");
@@ -282,14 +299,14 @@ axes[1].legend(loc=4);
 ```
 [Figure]
 
-<!-- cell:31 type:markdown -->
+<!-- cell:32 type:markdown -->
 The results are (to put it mildly) very interesting. 
 
 Lets look at the figure on the left first. The noise changes the best fit line by a little but not by much. The best fit line still does a very poor job of capturing the variation in the data.
 
 The best fit 20th order polynomial, in the presence of noise, is very interesting. It tries to follow all the curves of the observations..in other words, it tries to fit the noise. This is a disaster, as you can see if you plot the population (out-of-sample) points on the plot as well:
 
-<!-- cell:32 type:code -->
+<!-- cell:33 type:code -->
 ```python
 plt.plot(x,f, 'r-', alpha=0.6, label="f");
 plt.plot(x[indexes],y[indexes], 's', alpha=0.6, label="y in-sample");
@@ -300,14 +317,14 @@ plt.legend(loc=4);
 ```
 [Figure]
 
-<!-- cell:33 type:markdown -->
+<!-- cell:34 type:markdown -->
 Whoa. The best-fit 20th order polynomial does a reasonable job fitting the in-sample data, and is even well behaved in the middle where we have a lot of in-sample data points. But at places with less in-sample data points, the polynomial wiggles maniacally.
 
 This fitting to the noise is a danger you will encounter again and again in learning. Its called **overfitting**. So, $\cal{H_{20}}$ which seemed to be such a good candidate hypothesis space in the absence of noise, ceases to be one. The take away lesson from this is that we must further ensure that our **model does not fit the noise**.
 
 Lets make a plot similar to the one we made for the deterministic noise earlier, and compare the error in the new $g_1$ and $g_{20}$ fits on the noisy data.
 
-<!-- cell:34 type:code -->
+<!-- cell:35 type:code -->
 ```python
 plt.plot(x, ((g1noisy(x)-f)**2), lw=3, label="$g_1$")
 plt.plot(x, ((g20noisy(x)-f)**2), lw=3,label="$g_{20}$");
@@ -323,18 +340,18 @@ plt.title("Noisy Data");
 ```
 [Figure]
 
-<!-- cell:35 type:markdown -->
+<!-- cell:36 type:markdown -->
 $g_1$ now, for the most part, has a lower error! So you'd be better off by having chosen a set of models with much more bias (the straight lines, $\cal{H}_1$) than a more complex model set ($\cal{H}_{20}$) in the case of noisy data. 
 
-<!-- cell:36 type:markdown -->
+<!-- cell:37 type:markdown -->
 ### The Variance of your model
 
-<!-- cell:37 type:markdown -->
+<!-- cell:38 type:markdown -->
 This tendency of a more complex model to overfit, by having enough freedom to fit the noise, is described by something called high **variance**. What is variance?
 
 Variance, simply put, is the "error-bar" or spread in models that would be learnt by training on different data sets $\cal{D_1}, \cal{D_2},...$ drawn from the population. Now, this seems like a circular concept, as in real-life, you do not have access to the population. But since we simulated our data here anyways, we do, and so let us see what happens if we choose **different 30 points randomly from our population of 200**, and fit models in both $\cal{H_1}$ and $\cal{H_{20}}$ to them. We do this on 200 sets of randomly chosen (from the population) data sets of 30 points each and plot the best fit models in noth hypothesis spaces for all 200 sets.
 
-<!-- cell:38 type:code -->
+<!-- cell:39 type:code -->
 ```python
 def gen(degree, nsims, size, x, out):
     outpoly=[]
@@ -346,7 +363,7 @@ def gen(degree, nsims, size, x, out):
     return outpoly
 ```
 
-<!-- cell:39 type:code -->
+<!-- cell:40 type:code -->
 ```python
 polys1 = gen(1, 200, 30,x, y);
 polys20 = gen(20, 200, 30,x, y);
@@ -755,7 +772,7 @@ Output:
   warnings.warn(msg, RankWarning)
 ```
 
-<!-- cell:40 type:code -->
+<!-- cell:41 type:code -->
 ```python
 axes=make_plot()
 axes[0].plot(x,f, 'r-', lw=3, alpha=0.6, label="f");
@@ -781,14 +798,14 @@ Output:
 ```
 [Figure]
 
-<!-- cell:41 type:markdown -->
+<!-- cell:42 type:markdown -->
 On the left panel, you see the 200 best fit straight lines, each a fit on a different 30 point training sets from the 200 point population. The best-fit lines bunch together, even if they dont quite capture $f$ (the thick red line) or the data (squares) terribly well.
 
 On the right panel, we see the same with best-fit models chosen from $\cal{H}_{20}$. It is a diaster. While most of the models still band around the central trend of the real curve $f$ and data $y$ (and you still see the waves corresponding to all too wiggly 20th order polynomials), a substantial amount of models veer off into all kinds of noisy hair all over the plot. This is **variance**: the the predictions at any given $x$ are all over the place.
 
 The variance can be seen in a different way by plotting the coefficients of the polynomial fit. Below we plot the coefficients of the fit in $\cal{H}_1$. The variance is barely 0.2 about the mean for both co-efficients.
 
-<!-- cell:42 type:code -->
+<!-- cell:43 type:code -->
 ```python
 pdict1={}
 pdict20={}
@@ -826,10 +843,10 @@ Output:
 ```
 [Figure]
 
-<!-- cell:43 type:markdown -->
+<!-- cell:44 type:markdown -->
 In the right panel we plot the coefficients of the fit in $\cal{H}_{20}$. This is why we use the word "variance": the spread in the values of the middle coefficients about their means (dashed lines) is of the order $10^{10}$ (the vertical height of the bulges), with huge outliers!! The 20th order polynomial fits are a disaster!
 
-<!-- cell:44 type:markdown -->
+<!-- cell:45 type:markdown -->
 ## Bias and Variance
 
 We have so far informally described two different concepts: bias and variance. Bias is deterministic error, the kind of error you get when your model is not expressive enough to describe the data. Variance describes the opposite problem, where it is too expressive.
@@ -882,14 +899,14 @@ The first term here is called the **variance**, and captures the squared error o
 
 Note that if we set the stochastic noise to 0 we get back the noiseless model we started out with. So even in a noiseless model, we do have bias and variance. This is because we still have sampling noise in such a model, and this is one of the sources of variance.
 
-<!-- cell:45 type:markdown -->
+<!-- cell:46 type:markdown -->
 ## So far?
 
 - you have learnt the basic formulation of the learning problem, the concept of a hypothesis space, and a strategy using minimization of distance (called cost or risk) to find the best fit model for the target function from this hypothesis space. 
 - You learned the effect of noise on this fit, and the issues that crop up in learning target functions from data, chiefly the problem of overfitting to this noise. 
 
 
-<!-- cell:46 type:markdown -->
+<!-- cell:47 type:markdown -->
 The process of learning has two parts:
 
 1. Fit for a model by minimizing the in-sample risk
@@ -905,5 +922,5 @@ B &:& R_{out} (g) \approx R_{\cal{D}}(g)
 $$
 
 
-<!-- cell:47 type:markdown -->
+<!-- cell:48 type:markdown -->
 Well, we are scientists. Just hoping does not befit us. But we only have a sample. What are we to do? We can model the in-sample risk and out-of-sample risk. And we can use a test set to estimate our out of sample risk, as we see [here](testingtraining.html).

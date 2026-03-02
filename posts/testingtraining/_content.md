@@ -1,5 +1,23 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "pandas",
+#   "scikit-learn",
+#   "scipy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 %matplotlib inline
 import numpy as np
 import scipy as sp
@@ -20,7 +38,7 @@ Output:
   warnings.warn(self.msg_depr % (key, alt_key))
 ```
 
-<!-- cell:2 type:code -->
+<!-- cell:3 type:code -->
 ```python
 def make_simple_plot():
     fig, axes=plt.subplots(figsize=(12,5), nrows=1, ncols=2);
@@ -46,15 +64,15 @@ def make_plot():
     return axes
 ```
 
-<!-- cell:3 type:markdown -->
+<!-- cell:4 type:markdown -->
 ## Revisiting the model
 
 Let $x$ be the fraction of religious people in a county and $y$ be the probability of voting for Romney as a function of $x$. In other words $y_i$ is data that pollsters have taken which tells us their estimate of people voting for Romney and $x_i$ is the fraction of religious people in county $i$. Because poll samples are finite, there is a margin of error on each data point or county $i$, but we will ignore that for now.
 
-<!-- cell:4 type:markdown -->
+<!-- cell:5 type:markdown -->
 Let us assume that we have a "population" of 200 counties $x$:
 
-<!-- cell:5 type:code -->
+<!-- cell:6 type:code -->
 ```python
 dffull=pd.read_csv("data/religion.csv")
 dffull.head()
@@ -69,10 +87,10 @@ Output:
 4  0.062597   0.04
 ```
 
-<!-- cell:6 type:markdown -->
+<!-- cell:7 type:markdown -->
 Lets suppose now that the Lord came by and told us that the points in the plot below captures $f(x)$ exactly. 
 
-<!-- cell:7 type:code -->
+<!-- cell:8 type:code -->
 ```python
 x=dffull.rfrac.values
 f=dffull.promney.values
@@ -84,12 +102,12 @@ Output:
 ```
 [Figure]
 
-<!-- cell:8 type:markdown -->
+<!-- cell:9 type:markdown -->
 Notice that our sampling of $x$ is not quite uniform: there are more points around $x$ of 0.7.
 
 Now, in real life we are only given a sample of points. Lets assume that out of this population of 200 points we are given a sample $\cal{D}$ of 30 data points. Such data is called **in-sample data**. Contrastingly, the entire population of data points is also called **out-of-sample data**.
 
-<!-- cell:9 type:code -->
+<!-- cell:10 type:code -->
 ```python
 df = pd.read_csv("data/noisysample.csv")
 df.head()
@@ -104,7 +122,7 @@ Output:
 4  0.285470  33  0.33  0.358174
 ```
 
-<!-- cell:10 type:code -->
+<!-- cell:11 type:code -->
 ```python
 axes=make_plot()
 axes[0].plot(x,f, 'k-', alpha=0.4, label="f (from the Lord)");
@@ -116,10 +134,10 @@ axes[1].legend(loc=4);
 ```
 [Figure]
 
-<!-- cell:11 type:markdown -->
+<!-- cell:12 type:markdown -->
 ## Testing and Training Sets
 
-<!-- cell:12 type:markdown -->
+<!-- cell:13 type:markdown -->
 The process of learning has two parts:
 
 1. Fit for a model by minimizing the in-sample risk
@@ -138,7 +156,7 @@ Hoping does not befit us as scientists. How can we test that the in-sample risk 
 
 The "aha" moment comes when we realize that we can hold back some of our sample, and test the performance of our learner by trying it out on this held back part! Perhaps we can compute the error or risk on the held-out part, or "test" part of our sample, and have something to say about the out-of-sample error.
 
-<!-- cell:13 type:markdown -->
+<!-- cell:14 type:markdown -->
 Let us introduce some new terminology. We take the sample of data $\cal{D}$ that we have been given (our in-sample set) and split it into two parts:
 
 1. The **training set**, which is the part of the data we use to fit a model
@@ -158,7 +176,7 @@ We will kind-of hand wavingly show later that the test set error is a good estim
 
 We are **using the training set then, as our in-sample set, and the test set as a proxy for out-of-sample.**.
 
-<!-- cell:14 type:code -->
+<!-- cell:15 type:code -->
 ```python
 from sklearn.cross_validation import train_test_split
 datasize=df.shape[0]
@@ -172,7 +190,7 @@ ftest = df.f[itest].values
 ytest = df.y[itest].values
 ```
 
-<!-- cell:15 type:code -->
+<!-- cell:16 type:code -->
 ```python
 axes=make_plot()
 axes[0].plot(df.x,df.f, 'k-', alpha=0.6, label="f (from the Lord)");
@@ -185,10 +203,10 @@ axes[1].legend(loc="lower right")
 ```
 [Figure]
 
-<!-- cell:16 type:markdown -->
+<!-- cell:17 type:markdown -->
 ## A digression about scikit-learn
 
-<!-- cell:17 type:markdown -->
+<!-- cell:18 type:markdown -->
 Scikit-learn is the main python machine learning library. It consists of many learners which can learn models from data, as well as a lot of utility functions such as `train_test_split`. It can be used in python by the incantation `import sklearn`.
 
 The library has a very well defined interface. This makes the library a joy to use, and surely contributes to its popularity. As the [scikit-learn API paper](http://arxiv.org/pdf/1309.0238v1.pdf) [Buitinck, Lars, et al. "API design for machine learning software: experiences from the scikit-learn project." arXiv preprint arXiv:1309.0238 (2013).] says:
@@ -215,7 +233,7 @@ In other words, we have transformed a function of one feature, into a (rather si
 
 Here is an example. The reason for using `[[1],[2],[3]]` as opposed to `[1,2,3]` is that scikit-learn expects data to be stored in a two-dimensional array or matrix with size `[n_samples, n_features]`.
 
-<!-- cell:18 type:code -->
+<!-- cell:19 type:code -->
 ```python
 from sklearn.preprocessing import PolynomialFeatures
 PolynomialFeatures(3).fit_transform([[1],[2], [3]])
@@ -227,12 +245,12 @@ array([[  1.,   1.,   1.,   1.],
        [  1.,   3.,   9.,  27.]])
 ```
 
-<!-- cell:19 type:markdown -->
+<!-- cell:20 type:markdown -->
 To transform `[1,2,3]` into [[1],[2],[3]] we need to do a reshape.
 
 ![NumPy reshape: converting a 1D array to a column vector](assets/reshape.jpg)
 
-<!-- cell:20 type:code -->
+<!-- cell:21 type:code -->
 ```python
 np.array([1,2,3]).reshape(-1,1)
 ```
@@ -243,10 +261,10 @@ array([[1],
        [3]])
 ```
 
-<!-- cell:21 type:markdown -->
+<!-- cell:22 type:markdown -->
 So now we are in the recatangular, rows=samples, columns=features form expected by `scikit-learn`. Ok, so lets see the process to transform our 1-D dataset `x` into a d-dimensional one. 
 
-<!-- cell:22 type:code -->
+<!-- cell:23 type:code -->
 ```python
 xtrain
 ```
@@ -259,7 +277,7 @@ array([ 0.33      ,  0.75868254,  0.52      ,  0.79      ,  0.63633949,
         0.6       ,  0.96      ,  0.43754875,  0.54      ])
 ```
 
-<!-- cell:23 type:code -->
+<!-- cell:24 type:code -->
 ```python
 xtrain.reshape(-1,1)
 ```
@@ -291,7 +309,7 @@ array([[ 0.33      ],
        [ 0.54      ]])
 ```
 
-<!-- cell:24 type:code -->
+<!-- cell:25 type:code -->
 ```python
 PolynomialFeatures(2).fit_transform(xtrain.reshape(-1,1))
 ```
@@ -323,7 +341,7 @@ array([[ 1.        ,  0.33      ,  0.1089    ],
        [ 1.        ,  0.54      ,  0.2916    ]])
 ```
 
-<!-- cell:25 type:markdown -->
+<!-- cell:26 type:markdown -->
 ### Fitting in sklearn
 
 Once again, lets see the structure of scikit-learn needed to make these fits. `.fit` always takes two arguments:
@@ -333,25 +351,25 @@ Once again, lets see the structure of scikit-learn needed to make these fits. `.
 Here `Xtrain` must be in the form of an array of arrays, with the inner array each corresponding to one sample, and whose elements correspond to the feature values for that sample. (This means that the 4th element for each of these arrays, in our polynomial example, corresponds to the valueof $x^3$ for each "sample" $x$). The `ytrain` is a simple array of responses..continuous for regression problems, and categorical values or 1-0's for classification problems.
 
 
-<!-- cell:26 type:markdown -->
+<!-- cell:27 type:markdown -->
 ![Scikit-learn train/test data layout: X_train, y_train, X_test, y_test](assets/sklearn2.jpg)
 
-<!-- cell:27 type:markdown -->
+<!-- cell:28 type:markdown -->
 The test set `Xtest` has the same structure, and is used in the `.predict` interface. Once we have fit the estimator, we predict the results on the test set by:
 
 `estimator.predict(Xtest)`.
 
 The results of this are a simple array of predictions, of the same form and shape as `ytest`.
 
-<!-- cell:28 type:markdown -->
+<!-- cell:29 type:markdown -->
 A summary of the scikit-learn interface can be found here:
 
 http://nbviewer.jupyter.org/github/jakevdp/sklearn_pycon2015/blob/master/notebooks/02.2-Basic-Principles.ipynb#Recap:-Scikit-learn's-estimator-interface
 
-<!-- cell:29 type:markdown -->
+<!-- cell:30 type:markdown -->
 Lets put this alltogether. Below we write a function to create multiple datasets, one for each polynomial degree:
 
-<!-- cell:30 type:code -->
+<!-- cell:31 type:code -->
 ```python
 def make_features(train_set, test_set, degrees):
     traintestlist=[]
@@ -363,10 +381,10 @@ def make_features(train_set, test_set, degrees):
     return traintestlist
 ```
 
-<!-- cell:31 type:markdown -->
+<!-- cell:32 type:markdown -->
 ## How do training and testing error change with complexity?
 
-<!-- cell:32 type:markdown -->
+<!-- cell:33 type:markdown -->
 You will recall that the big question we were left with earlier is: what order of polynomial should we use to fit the data? Which order is too biased? Which one has too much variance and is too complex? Let us try and answer this question.
 
 We do this by fitting many different models (remember the fit is made by minimizing the empirical risk on the training set), each with increasing dimension `d`, and looking at the training-error and the test-error in each of these models. So we first try $\cal{H}_0$, then $\cal{H}_1$, then $\cal{H}_2$, and so on.
@@ -377,7 +395,7 @@ Since we use `PolynomialFeatures` above, each increasing dimension gives us an a
 
 So, for increasing polynomial degree, and thus feature dimension `d`, we fit a `LinearRegression` model on the traing set. We then use scikit-learn again to calculate the error or risk. We calculate the `mean_squared_error` between the model's predictions and the data, BOTH on the training set and test set. We plot this error as a function of the defree of the polynomial `d`.
 
-<!-- cell:33 type:code -->
+<!-- cell:34 type:code -->
 ```python
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
@@ -389,7 +407,7 @@ error_test=np.empty(len(degrees))
 traintestlists=make_features(xtrain, xtest, degrees)
 ```
 
-<!-- cell:34 type:code -->
+<!-- cell:35 type:code -->
 ```python
 traintestlists[3]['train'], ytrain
 ```
@@ -426,7 +444,7 @@ Output:
          0.60188686,  0.87217807,  0.49208494,  0.61984169]))
 ```
 
-<!-- cell:35 type:code -->
+<!-- cell:36 type:code -->
 ```python
 traintestlists[3]['test'], ytest
 ```
@@ -448,12 +466,12 @@ Output:
          0.74855785]))
 ```
 
-<!-- cell:36 type:markdown -->
+<!-- cell:37 type:markdown -->
 ### Estimating the out-of-sample error
 
 We can then use `mean_squared_error` from `sklearn` to calculate the error between the predictions and actual `ytest` values. Below we calculate this error on both the training set (which we already fit on) and the test set (which we hadnt seen before), and plot how these errors change with the degree of the polynomial.
 
-<!-- cell:37 type:code -->
+<!-- cell:38 type:code -->
 ```python
 est3 = LinearRegression()
 est3.fit(traintestlists[3]['train'], ytrain)
@@ -461,7 +479,7 @@ pred_on_train3=est3.predict(traintestlists[3]['train'])
 pred_on_test3=est3.predict(traintestlists[3]['test'])
 ```
 
-<!-- cell:38 type:code -->
+<!-- cell:39 type:code -->
 ```python
 print("errtrain",mean_squared_error(ytrain, pred_on_train3))
 print("errtest",mean_squared_error(ytest, pred_on_test3))
@@ -472,10 +490,10 @@ errtrain 0.00455053325387
 errtest 0.00949690985891
 ```
 
-<!-- cell:39 type:markdown -->
+<!-- cell:40 type:markdown -->
 Let us now do this for a polynomial of degree 19
 
-<!-- cell:40 type:code -->
+<!-- cell:41 type:code -->
 ```python
 est19 = LinearRegression()
 est19.fit(traintestlists[19]['train'], ytrain)
@@ -490,7 +508,7 @@ errtrain 0.00196640248639
 errtest 14125204461.8
 ```
 
-<!-- cell:41 type:markdown -->
+<!-- cell:42 type:markdown -->
 You can see that the test set error is larger, corresponding to an overfit model thats doing very well on some points and awful on other.
 
 
@@ -498,7 +516,7 @@ You can see that the test set error is larger, corresponding to an overfit model
 
 Lets now carry out this minimization systematically for each polynomial degree d.
 
-<!-- cell:42 type:code -->
+<!-- cell:43 type:code -->
 ```python
 for d in degrees:#for increasing polynomial degrees 0,1,2...
     Xtrain = traintestlists[d]['train']
@@ -519,7 +537,7 @@ for d in degrees:#for increasing polynomial degrees 0,1,2...
     error_test[d] = mean_squared_error(ytest, prediction_on_test)
 ```
 
-<!-- cell:43 type:code -->
+<!-- cell:44 type:code -->
 ```python
 plt.plot(degrees, error_train, marker='o', label='train (in-sample)')
 plt.plot(degrees, error_test, marker='o', label='test')
@@ -531,7 +549,7 @@ plt.yscale("log")
 ```
 [Figure]
 
-<!-- cell:44 type:markdown -->
+<!-- cell:45 type:markdown -->
 The graph shows a very interesting structure. The training error decreases with increasing degree of the polynomial. This ought to make sense given what you know now: one can construct an arbitrarily complex polynomial to fit all the training data: indeed one could construct an order 24 polynomial which perfectly interpolates the 24 data points in the training set. You also know that this would do very badly on the test set as it would wiggle like mad to capture all the data points. And this is indeed what we see in the test set error. 
 
 For extremely low degree polynomials like $d=0$ a flat line capturing the mean value of the data or $d=1$ a straight line fitting the data, the polynomial is not curvy enough to capturve the conbtours of the data. We are in the bias/deterministic error regime, where we will always have some difference between the data and the fit since the hypothesis is too simple. But, for degrees higher than 5 or so, the polynomial starts to wiggle too much to capture the training data. The test set error increases as the predictive power of the polynomial goes down thanks to the contortions it must endure to fit the training data.
@@ -542,7 +560,7 @@ Thus the test set error first decreases as the model get more expressive, and th
 
 Keep in mind that as you see in the plot above this minimum can be shallow: in this case any of the low order polynomials would be "good enough".
 
-<!-- cell:45 type:markdown -->
+<!-- cell:46 type:markdown -->
 ## Is this still a test set?
 
 But something should be troubling you about this discussion. We have made no discussion on the error bars on our error estimates, primarily because we have not carried out any resampling to make this possible. 
@@ -555,7 +573,7 @@ The answer to the second question is to use a validation set, and leave a separa
 
 TO make some of these concepts more concrete, let us understand the mathematics behind finite sized samples and the learning process.
 
-<!-- cell:46 type:markdown -->
+<!-- cell:47 type:markdown -->
 ### Learning from finite sized samples
 
 If we have very large samples, the law of large numbers tells us that we can estimate expectations nicely by making sample averages.
@@ -602,7 +620,7 @@ Then, **with probability** $1-\delta$:
 
 $$R_{out} <= R_{in} + \sqrt{\frac{1}{2N}ln(\frac{2M}{\delta})}$$
 
-<!-- cell:47 type:markdown -->
+<!-- cell:48 type:markdown -->
 ### What about the test set?
 
 The bound above can now be used to understand why the test set idea is a good one. One objection to using a test set might be that it just seems to be another sample like the training sample. What so great about it? How do we know that low test error means we generalize well? 

@@ -1,5 +1,20 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 %matplotlib inline
 import numpy as np
 import matplotlib.pyplot as plt
@@ -11,7 +26,7 @@ Output:
 Setup Finished
 ```
 
-<!-- cell:2 type:markdown -->
+<!-- cell:3 type:markdown -->
 ## Basic Rejection Sampling
 
 The basic idea, come up with by von Neumann is:
@@ -41,7 +56,7 @@ As we have more samples the accept-to-total ratio reflects the probablity mass i
 The following code produces samples that follow the distribution $P(x)=e^{-x}$ 
   for $x=[0,10]$ and generates a histogram of the sampled distribution. 
 
-<!-- cell:3 type:code -->
+<!-- cell:4 type:code -->
 ```python
 
 P = lambda x: np.exp(-x)
@@ -97,10 +112,10 @@ Count 99359 Accepted 10000
 ```
 [Figure]
 
-<!-- cell:4 type:markdown -->
+<!-- cell:5 type:markdown -->
 Notice that $y_{max}$ was just assumed here. In general we might have to do a maximization. This has a cost. We want to keep this cost low, or we might be spending some time there. If the optimization is complex, it might be cheaper to  do something else...
 
-<!-- cell:5 type:markdown -->
+<!-- cell:6 type:markdown -->
 ## Rejection Sampling with Steroids
 
 The simple rejection sampling method has fundamental problems.  
@@ -142,7 +157,7 @@ The entire process is illustrated in the diagram below:
 The following code produces samples that follow the distribution $P(x)=e^{-x}$ 
   for $x=[0,10]$ and generates a histogram of the sampled distribution. 
 
-<!-- cell:6 type:code -->
+<!-- cell:7 type:code -->
 ```python
 
 p = lambda x: np.exp(-x)  # our distribution

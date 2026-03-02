@@ -1,5 +1,22 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "pandas",
+#   "scipy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 %matplotlib inline
 import numpy as np
 import scipy as sp
@@ -15,15 +32,15 @@ sns.set_style("whitegrid")
 sns.set_context("poster")
 ```
 
-<!-- cell:2 type:markdown -->
+<!-- cell:3 type:markdown -->
 The example we use here is described in McElreath's book, and our discussion mostly follows the one there, in sections 4.3 and 4.4. 
 
-<!-- cell:3 type:markdown -->
+<!-- cell:4 type:markdown -->
 ## Howell's data
 
 These are census data for the Dobe area !Kung San (https://en.wikipedia.org/wiki/%C7%83Kung_people). Nancy Howell conducted detailed quantitative studies of this Kalahari foraging population in the 1960s.
 
-<!-- cell:4 type:code -->
+<!-- cell:5 type:code -->
 ```python
 df = pd.read_csv('assets/Howell1.csv', sep=';', header=0)
 df.head()
@@ -38,7 +55,7 @@ Output:
 4  145.415  41.276872  51.0     0
 ```
 
-<!-- cell:5 type:code -->
+<!-- cell:6 type:code -->
 ```python
 df.tail()
 ```
@@ -52,23 +69,23 @@ Output:
 543  158.750  52.531624  68.0     1
 ```
 
-<!-- cell:6 type:code -->
+<!-- cell:7 type:code -->
 ```python
 plt.hist(df.height, bins=30);
 ```
 [Figure]
 
-<!-- cell:7 type:markdown -->
+<!-- cell:8 type:markdown -->
 We get rid of the kids and only look at the heights of the adults.
 
-<!-- cell:8 type:code -->
+<!-- cell:9 type:code -->
 ```python
 df2 = df[df.age >= 18]
 plt.hist(df2.height, bins=30);
 ```
 [Figure]
 
-<!-- cell:9 type:markdown -->
+<!-- cell:10 type:markdown -->
 ## Model for heights
 
 We will now get relatively formal in specifying our models.
@@ -83,7 +100,7 @@ h \sim N(\mu, \sigma)\\
 \sigma = Std. dev.
 $$
 
-<!-- cell:10 type:code -->
+<!-- cell:11 type:code -->
 ```python
 from scipy.stats import norm
 Y = df2.height.values
@@ -98,13 +115,13 @@ Output:
 sigma 7.73132668454 mu 154.597092614 n 352
 ```
 
-<!-- cell:11 type:code -->
+<!-- cell:12 type:code -->
 ```python
 plt.hist(Y, bins=30, alpha=0.5);
 ```
 [Figure]
 
-<!-- cell:12 type:code -->
+<!-- cell:13 type:code -->
 ```python
 # Prior mean
 mu_prior = 148
@@ -112,7 +129,7 @@ mu_prior = 148
 tau = 20
 ```
 
-<!-- cell:13 type:code -->
+<!-- cell:14 type:code -->
 ```python
 kappa = sig**2 / tau**2
 sig_post =np.sqrt(1./( 1./tau**2 + n/sig**2));
@@ -125,7 +142,7 @@ Output:
 mu post 154.594293158 sig_post 0.41199365493
 ```
 
-<!-- cell:14 type:code -->
+<!-- cell:15 type:code -->
 ```python
 #samples
 N = 15000
@@ -133,7 +150,7 @@ theta_prior = np.random.normal(loc=mu_prior, scale=tau, size=N);
 theta_post = np.random.normal(loc=mu_post, scale=sig_post, size=N);
 ```
 
-<!-- cell:15 type:code -->
+<!-- cell:16 type:code -->
 ```python
 plt.hist(theta_post, bins=30, alpha=0.9, label="posterior");
 plt.hist(theta_prior, bins=30, alpha=0.2, label="prior");
@@ -142,17 +159,17 @@ plt.legend();
 ```
 [Figure]
 
-<!-- cell:16 type:code -->
+<!-- cell:17 type:code -->
 ```python
 Y_postpred = np.random.normal(loc=mu_post, scale=np.sqrt(sig_post**2 + sig**2), size=N);
 ```
 
-<!-- cell:17 type:code -->
+<!-- cell:18 type:code -->
 ```python
 Y_postpred_sample = np.random.normal(loc=theta_post, scale=sig);
 ```
 
-<!-- cell:18 type:code -->
+<!-- cell:19 type:code -->
 ```python
 plt.hist(Y_postpred, bins=100, alpha=0.2);
 plt.hist(Y_postpred_sample, bins=100, alpha=0.2);
@@ -160,16 +177,16 @@ plt.hist(np.random.choice(Y, replace=True, size=N), bins=100, alpha=0.5);
 ```
 [Figure]
 
-<!-- cell:19 type:markdown -->
+<!-- cell:20 type:markdown -->
 ## Regression: adding a predictor
 
-<!-- cell:20 type:code -->
+<!-- cell:21 type:code -->
 ```python
 plt.plot(df2.height, df2.weight, '.');
 ```
 [Figure]
 
-<!-- cell:21 type:markdown -->
+<!-- cell:22 type:markdown -->
 So lets write our model out now:
 
 $$
@@ -182,7 +199,7 @@ $$
 
 Why should you not use a uniform prior on a slope?
 
-<!-- cell:22 type:code -->
+<!-- cell:23 type:code -->
 ```python
 minweight = df2.weight.min()
 maxweight = df2.weight.max()
@@ -190,7 +207,7 @@ minheight = df2.height.min()
 maxheight = df2.height.max()
 ```
 
-<!-- cell:23 type:code -->
+<!-- cell:24 type:code -->
 ```python
 from scipy.stats import norm
 from scipy.stats import multivariate_normal
@@ -230,7 +247,7 @@ def plotSampleLines(mu, sigma, numberOfLines, dataPoints=None, ax=None):
 
 ```
 
-<!-- cell:24 type:code -->
+<!-- cell:25 type:code -->
 ```python
 priorMean = np.array([150, 0])
 priorPrecision=2.0
@@ -243,24 +260,24 @@ Output:
 5.1409768989960456e-05
 ```
 
-<!-- cell:25 type:code -->
+<!-- cell:26 type:code -->
 ```python
 cplot(priorPDF);
 ```
 [Figure]
 
-<!-- cell:26 type:code -->
+<!-- cell:27 type:code -->
 ```python
 plotSampleLines(priorMean,priorCovariance,50)
 ```
 [Figure]
 
-<!-- cell:27 type:code -->
+<!-- cell:28 type:code -->
 ```python
 likelihoodPrecision = 1./(sig*sig)
 ```
 
-<!-- cell:28 type:markdown -->
+<!-- cell:29 type:markdown -->
 ### Posterior
 We can now continue with the standard Bayesian formalism 
 
@@ -291,7 +308,7 @@ $$\bar{\bf w} = A^{-1}\Sigma^{-1}{\bf w_0} + \sigma_n^{-2}( A^{-1} X^T \bf y )$$
 To make predictions for a test case we average over all possible parameter predictive distribution
 values, weighted by their posterior probability. This is in contrast to non Bayesian schemes, where a single parameter is typically chosen by some criterion. 
 
-<!-- cell:29 type:code -->
+<!-- cell:30 type:code -->
 ```python
 # Given the mean = priorMu and covarianceMatrix = priorSigma of a prior
 # Gaussian distribution over regression parameters; observed data, x
@@ -307,13 +324,13 @@ def update(x,y,likelihoodPrecision,priorMu,priorCovariance):
     return postW, postMu, postCovariance
 ```
 
-<!-- cell:30 type:code -->
+<!-- cell:31 type:code -->
 ```python
 design = np.concatenate([np.ones(n).reshape(-1,1), df2.weight.values.reshape(-1,1)], axis=1)
 response = df2.height.values
 ```
 
-<!-- cell:31 type:code -->
+<!-- cell:32 type:code -->
 ```python
 # For each iteration plot  the
 # posterior over the first i data points and sample lines whose
@@ -330,16 +347,16 @@ plotSampleLines(mu, cov,50, (df2.weight.values,df2.height.values), axes[1])
 ```
 [Figure]
 
-<!-- cell:32 type:markdown -->
+<!-- cell:33 type:markdown -->
 Lets get the posteriors "at each point"
 
-<!-- cell:33 type:code -->
+<!-- cell:34 type:code -->
 ```python
 weightgrid = np.arange(-20, 100)
 test_design = np.concatenate([np.ones(len(weightgrid)).reshape(-1,1), weightgrid.reshape(-1,1)], axis=1)
 ```
 
-<!-- cell:34 type:code -->
+<!-- cell:35 type:code -->
 ```python
 w = np.random.multivariate_normal(mu,cov, 1000) #1000 samples
 w[:,0].shape
@@ -349,13 +366,13 @@ Output:
 (1000,)
 ```
 
-<!-- cell:35 type:code -->
+<!-- cell:36 type:code -->
 ```python
 sns.distplot(w[:,0] + w[:,1] * 55) # the weight=55 posterior
 ```
 [Figure]
 
-<!-- cell:36 type:code -->
+<!-- cell:37 type:code -->
 ```python
 mu_pred = np.zeros((len(weightgrid), 1000))
 for i, weight in enumerate(weightgrid):
@@ -369,7 +386,7 @@ Output:
 (120,)
 ```
 
-<!-- cell:37 type:code -->
+<!-- cell:38 type:code -->
 ```python
 with sns.plotting_context('poster'):
     plt.scatter(df2.weight, df2.height, c='b', alpha=0.9, s=10)
@@ -385,7 +402,7 @@ with sns.plotting_context('poster'):
 ```
 [Figure]
 
-<!-- cell:38 type:markdown -->
+<!-- cell:39 type:markdown -->
 Oops, what happened here? Our correlations in parameters are huge! But the regression lines do make some sense. Lets look at the posterior predictive.
 
 ### Posterior Predictive Distribution
@@ -406,7 +423,7 @@ form of the test input with the posterior covariance matrix, showing that the
 predictive uncertainties grow with the magnitude of the test input, as one would
 expect for a linear model. 
 
-<!-- cell:39 type:code -->
+<!-- cell:40 type:code -->
 ```python
 ppmeans = np.empty(len(weightgrid))
 ppsigs = np.empty(len(weightgrid))
@@ -420,7 +437,7 @@ for i, tp in enumerate(test_design):
     t2[i] = np.sqrt(tp@cov@tp)
 ```
 
-<!-- cell:40 type:code -->
+<!-- cell:41 type:code -->
 ```python
 weightgrid[75]
 ```
@@ -429,7 +446,7 @@ Output:
 55
 ```
 
-<!-- cell:41 type:code -->
+<!-- cell:42 type:code -->
 ```python
 plt.hist(w[:,0] + w[:,1] * 55, alpha=0.8)
 plt.hist(norm.rvs(ppmeans[75], ppsigs[75], 1000), alpha=0.5)
@@ -444,7 +461,7 @@ Output:
 ```
 [Figure]
 
-<!-- cell:42 type:code -->
+<!-- cell:43 type:code -->
 ```python
 with sns.plotting_context('poster'):
     plt.scatter(df2.weight, df2.height, c='b', alpha=0.9, s=10)
@@ -459,5 +476,5 @@ with sns.plotting_context('poster'):
 ```
 [Figure]
 
-<!-- cell:43 type:markdown -->
+<!-- cell:44 type:markdown -->
 However, by including the $\mu$ as a deterministic in our traces we only get to see the traces at existing data points. If we want the traces on a grid of weights, we'll have to explivitly plug in the intercept and slope traces in the regression formula

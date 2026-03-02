@@ -1,5 +1,22 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "pandas",
+#   "scipy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 # The %... is an iPython thing, and is not part of the Python language.
 # In this case we're just telling the plotting library to draw things on
 # the notebook, instead of on a separate window.
@@ -26,11 +43,11 @@ Output:
   warnings.warn(self.msg_depr % (key, alt_key))
 ```
 
-<!-- cell:2 type:markdown -->
+<!-- cell:3 type:markdown -->
 In the last section, we made a simple simulation of a coin-toss on the computer from a fair-coin model which associated equal probability with heads and tails. Let us consider another model here, a table of probabilities that [PredictWise](http://www.predictwise.com/results/2012/president) made on October 2, 2012 for the US presidential elections. 
 PredictWise aggregated polling data and, for each state, estimated the probability that the Obama or Romney would win. Here are those estimated probabilities:
 
-<!-- cell:3 type:code -->
+<!-- cell:4 type:code -->
 ```python
 predictwise = pd.read_csv('assets/predictwise.csv').set_index('States')
 predictwise.head()
@@ -46,7 +63,7 @@ Arkansas    0.000   1.000      6
 California  1.000   0.000     55
 ```
 
-<!-- cell:4 type:markdown -->
+<!-- cell:5 type:markdown -->
 Say you toss a coin and have a model which says that the probability of heads is 0.5 (you have figured this out from symmetry, or physics, or something). Still, there will be sequences of flips in which more or less than half the flips are heads.  These **fluctuations** induce a distribution on the number of heads (say k) in N coin tosses (this is a binomial distribution).
 
 Similarly, here, if the probability of Romney winning in Arizona is 0.938, it means that if somehow, there were 10000 replications (as if we were running the election in 10000 parallel universes) with an election each, Romney would win in 9380 of those Arizonas **on the average** across the replications. And there would be some replications with Romney winning more, and some with less. We can run these **simulated** universes or replications on a computer though not in real life.
@@ -80,10 +97,10 @@ for x in the set {0,1}.
 
 The Predictwise probability of Obama winning in each state is a Bernoulli Parameter. You can think of it as a different loaded coin being tossed in each state, and thus there is a bernoulli distribution for each state
 
-<!-- cell:5 type:markdown -->
+<!-- cell:6 type:markdown -->
 Note: **some of the code, and ALL of the visual style for the distribution plots below was shamelessly stolen from https://gist.github.com/mattions/6113437/ **.
 
-<!-- cell:6 type:code -->
+<!-- cell:7 type:code -->
 ```python
 from scipy.stats import bernoulli
 #bernoulli random variable
@@ -116,12 +133,12 @@ Output:
 ```
 [Figure]
 
-<!-- cell:7 type:markdown -->
+<!-- cell:8 type:markdown -->
 ### Running the simulation using the Uniform distribution
 
 In the code below, each column simulates a single outcome from the 50 states + DC by choosing a random number between 0 and 1. Obama wins that simulation if the random number is $<$ the win probability. If he wins that simulation, we add in the electoral votes for that state, otherwise we dont. We do this `n_sim` times and return a list of total Obama electoral votes in each simulation.
 
-<!-- cell:8 type:code -->
+<!-- cell:9 type:code -->
 ```python
 def simulate_election(model, n_sim):
     simulations = np.random.uniform(size=(51, n_sim))
@@ -130,7 +147,7 @@ def simulate_election(model, n_sim):
     return obama_votes.sum(axis=0)
 ```
 
-<!-- cell:9 type:markdown -->
+<!-- cell:10 type:markdown -->
 The first thing to pick up on here is that `np.random.uniform` gives you a random number between 0 and 1, uniformly. In other words, the number is equally likely to be between 0 and 0.1, 0.1 and 0.2, and so on. This is a very intuitive idea, but it is formalized by the notion of the **Uniform Distribution**.
 
 We then say:
@@ -146,12 +163,12 @@ P(X = x) &=& 0 \, for \, x \notin [0,1]
 
 What assigning the vote to Obama when the random variable **drawn** from the Uniform distribution is less than the Predictwise probability of Obama winning (which is a Bernoulli Parameter) does for us is this: if we have a large number of simulations and $p_{Obama}=0.7$ , then 70\% of the time, the random numbes drawn will be below 0.7. And then, assigning those as Obama wins will hew to the frequentist notion of probability of the Obama win. But remember, of course, that in 30% of the simulations, Obama wont win, and this will induce fluctuations and a distribution on the total number of electoral college votes that Obama gets. And this is what we see in the histogram below. 
 
-<!-- cell:10 type:markdown -->
+<!-- cell:11 type:markdown -->
 The following code takes the necessary probabilities for the Predictwise data, and runs 10000 simulations. If you think of this in terms of our coins, think of it as having 51 biased coins, one for each state, and tossing them 10,000 times each.
 
 We use the results to compute the number of simulations, according to this predictive model, that Obama wins the election (i.e., the probability that he receives 269 or more electoral college votes)
 
-<!-- cell:11 type:code -->
+<!-- cell:12 type:code -->
 ```python
 result = simulate_election(predictwise, 10000)
 print((result >= 269).sum())
@@ -161,7 +178,7 @@ Output:
 9955
 ```
 
-<!-- cell:12 type:code -->
+<!-- cell:13 type:code -->
 ```python
 result
 ```
@@ -170,7 +187,7 @@ Output:
 array([303, 326, 329, ..., 332, 281, 324])
 ```
 
-<!-- cell:13 type:markdown -->
+<!-- cell:14 type:markdown -->
 There are roughly only 50 simulations in which Romney wins the election!
 
 ## Displaying the prediction
@@ -182,7 +199,7 @@ We also compute the number of votes at the 5th and 95th quantiles, which we call
 We also display the probability of an Obama victory    
     
 
-<!-- cell:14 type:code -->
+<!-- cell:15 type:code -->
 ```python
 def plot_simulation(simulation):    
     plt.hist(simulation, bins=np.arange(200, 538, 1), 
@@ -200,26 +217,26 @@ def plot_simulation(simulation):
     sns.despine()
 ```
 
-<!-- cell:15 type:code -->
+<!-- cell:16 type:code -->
 ```python
 plot_simulation(result)
 ```
 [Figure]
 
-<!-- cell:16 type:markdown -->
+<!-- cell:17 type:markdown -->
 The model created by combining the probabilities we obtained from Predictwise with the simulation of a biased coin flip corresponding to the win probability in each states leads us to obtain a histogram of election outcomes. We are plotting the probabilities of a prediction, so we call this distribution over outcomes the **predictive distribution**. Simulating from our model and plotting a histogram allows us to visualize this predictive distribution. In general, such a set of probabilities is called a  **probability mass function**. 
 
-<!-- cell:17 type:markdown -->
+<!-- cell:18 type:markdown -->
 ## Empirical Distribution
 
-<!-- cell:18 type:markdown -->
+<!-- cell:19 type:markdown -->
 This is an **empirical Probability Mass Function**. 
 
 Lets summarize: the way the mass function arose here that we did ran 10,000 tosses (for each state), and depending on the value, assigned the state to Obama or Romney, and then summed up the electoral votes over the states.
 
 There is a second, very useful question, we can ask of any such probability mass or probability density: what is the probability that a random variable is less than some value. In other words: $P(X < x)$. This is *also* a probability distribution and is called the **Cumulative Distribution Function**, or CDF (sometimes just called the **distribution**, as opposed to the **density**, or **mass function**). Its obtained by "summing" the probability density function for all $X$ less than $x$.
 
-<!-- cell:19 type:code -->
+<!-- cell:20 type:code -->
 ```python
 CDF = lambda x: np.float(np.sum(result < x))/result.shape[0]
 for votes in [200, 300, 320, 340, 360, 400, 500]:
@@ -236,7 +253,7 @@ Obama Win CDF at votes= 400  is  1.0
 Obama Win CDF at votes= 500  is  1.0
 ```
 
-<!-- cell:20 type:code -->
+<!-- cell:21 type:code -->
 ```python
 votelist=np.arange(0, 540, 5)
 plt.plot(votelist, [CDF(v) for v in votelist], '.-');
@@ -247,7 +264,7 @@ plt.ylabel("probability of Obama win");
 ```
 [Figure]
 
-<!-- cell:21 type:markdown -->
+<!-- cell:22 type:markdown -->
 ## Binomial Distribution 
 
 Let us consider a population of coinflips, n of them to be precise, $x_1,x_2,...,x_n$. The distribution of coin flips is the binomial distribution. By this we mean that each coin flip represents a bernoulli random variable (or comes from a bernoulli distribution) with $p=0.5$.
@@ -270,7 +287,7 @@ How did we obtain this? The $p^k(1-p)^{n-k}$ comes simply from multiplying the p
 
 We show the distribution below for 200 trials.
 
-<!-- cell:22 type:code -->
+<!-- cell:23 type:code -->
 ```python
 from scipy.stats import binom
 plt.figure(figsize=(12,6))
@@ -287,7 +304,7 @@ q=plt.xlabel("$k$")
 ```
 [Figure]
 
-<!-- cell:23 type:markdown -->
+<!-- cell:24 type:markdown -->
 ### Applying the CLT to elections: Binomial distribution in the large n, large k limit
 
 Consider the binomial distribution Binomial(n,k, p) in the limit of large n. The number of successes k in n trials can be regarded as the sum of n IID Bernoulli variables with values 1 or 0.  Call these $x_i$.
@@ -309,7 +326,7 @@ The accuracy of this approximation depends on the variance. A large variance mak
 
 This approximation is used a lot in studying elections. For example, suppose I told you that I'd polled 1000 people in Ohio and found that 600 would vote Democratic, and 400 republican. Imagine that this 1000 is a "sample" drawn from the voting "population" of Ohio. Assume then that these are 1000 independent bernoulli trials with p=600/1000 = 0.6. Then we can say that, from the CLT, the mean of the sampling distribution of the mean of the bernoulli or is 0.6 (equivalently the binomial's mean is 600), with a variance of $0.6*0.4/1000 = 0.00024$ (equivalently the binomials variance is 240). Thus the standard deviation is 0.015 for a mean of 0.6, or 1.5% on a mean of 60% voting Democratic.  This 1.5% if part of what pollsters quote as the margin of error of a candidates winning; they often include other factors such as errors in polling methodology.
 
-<!-- cell:24 type:markdown -->
+<!-- cell:25 type:markdown -->
 ### Gallup Party Affiliation Poll
 
 [Earlier](probability.html) we had used the Predictwise probabilities from Octover 12th to create a predictive model for the elections. This time we will try to **estimate** our own win probabilities to plug into our predictive model.
@@ -318,7 +335,7 @@ We will start with a simple forecast model. We will try to predict the outcome o
 
 Gallup measures the political leaning of each state, based on asking random people which party they identify or affiliate with. [Here's the data](http://www.gallup.com/poll/156437/heavily-democratic-states-concentrated-east.aspx#2) they collected from January-June of 2012:
 
-<!-- cell:25 type:code -->
+<!-- cell:26 type:code -->
 ```python
 gallup_2012=pd.read_csv("assets/g12.csv").set_index('State')
 gallup_2012["Unknown"] = 100 - gallup_2012.Democrat - gallup_2012.Republican
@@ -335,12 +352,12 @@ Arkansas        41.5        40.8      0.7   2071     17.7
 California      48.3        34.6     13.7  16197     17.1
 ```
 
-<!-- cell:26 type:markdown -->
+<!-- cell:27 type:markdown -->
 Each row lists a state, the percent of surveyed individuals who identify as Democrat/Republican, the percent whose identification is unknown or who haven't made an affiliation yet, the margin between Democrats and Republicans (`Dem_Adv`: the percentage identifying as Democrats minus the percentage identifying as Republicans), and the number `N` of people surveyed.
 
 The most obvious source of error in the Gallup data is the finite sample size -- Gallup did not poll *everybody* in America, and thus the party affilitions are subject to sampling errors. How much uncertainty does this introduce? Lets estimate the sampling error using  the definition of the standard error (we use N-1 rather than N; see the sample error section in the page on the [CLT](SamplingCLT.html)).
 
-<!-- cell:27 type:code -->
+<!-- cell:28 type:code -->
 ```python
 gallup_2012["SE_percentage"]=100.0*np.sqrt((gallup_2012.Democrat/100.)*((100. - gallup_2012.Democrat)/100.)/(gallup_2012.N -1))
 gallup_2012.head()
@@ -356,7 +373,7 @@ Arkansas        41.5        40.8      0.7   2071     17.7       1.082971
 California      48.3        34.6     13.7  16197     17.1       0.392658
 ```
 
-<!-- cell:28 type:markdown -->
+<!-- cell:29 type:markdown -->
 On their [webpage](http://www.gallup.com/poll/156437/heavily-democratic-states-concentrated-east.aspx#2) discussing these data, Gallup notes that the sampling error for the states is between 3 and 6%, with it being 3% for most states. This is more than what we find, so lets go with what Gallup says.
 
 We now use Gallup's estimate of 3% to build a Gallup model with some uncertainty. We will, using the CLT, assume that the sampling distribution of the Obama win percentage is a gaussian with mean the democrat percentage and standard error the sampling error of 3\%. 
@@ -370,7 +387,7 @@ $$
 CDF(z) = \frac1{2}\left(1 + {\mathrm erf}\left(\frac{z - \mu}{\sqrt{2 \sigma^2}}\right)\right) 
 $$
 
-<!-- cell:29 type:code -->
+<!-- cell:30 type:code -->
 ```python
 from scipy.special import erf
 def uncertain_gallup_model(gallup):
@@ -379,25 +396,25 @@ def uncertain_gallup_model(gallup):
     return pd.DataFrame(dict(Obama=prob), index=gallup.index)
 ```
 
-<!-- cell:30 type:code -->
+<!-- cell:31 type:code -->
 ```python
 model = uncertain_gallup_model(gallup_2012)
 model = model.join(predictwise.Votes)
 ```
 
-<!-- cell:31 type:code -->
+<!-- cell:32 type:code -->
 ```python
 prediction = simulate_election(model, 10000)
 plot_simulation(prediction)
 ```
 [Figure]
 
-<!-- cell:32 type:markdown -->
+<!-- cell:33 type:markdown -->
 ### Multiple Pollsters
 
 If one has results from multiple pollsters, one can now treat them as independent samples from the voting population. Now we use the CLT again. Then the average from these samples will approach the average in the population, with the sample means distributed normally around it. So we can average the averages of the samples to get the population mean, and estimate the variance around this population mean as well.
 
-<!-- cell:33 type:code -->
+<!-- cell:34 type:code -->
 ```python
 
 ```

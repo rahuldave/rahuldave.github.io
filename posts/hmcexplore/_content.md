@@ -1,5 +1,24 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "ipython",
+#   "matplotlib",
+#   "numpy",
+#   "pandas",
+#   "pymc3",
+#   "scipy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 %matplotlib inline
 import numpy as np
 import scipy as sp
@@ -14,23 +33,23 @@ from IPython.core.display import Image
 import pymc3 as pm
 ```
 
-<!-- cell:2 type:markdown -->
+<!-- cell:3 type:markdown -->
 ## Introduction 
 
 A lot of HMC's recent appreciation as an MCMC method is due to [Neal](https://arxiv.org/pdf/1206.1901.pdf), and we'll follow him and [Betancourt](https://arxiv.org/abs/1701.02434) heavily here. All the signature Maroon diagrams are from Betancourt's review paper.
 
-<!-- cell:3 type:markdown -->
+<!-- cell:4 type:markdown -->
 ## Looking for the perfect MCMC?
 
 The problem with MH is that is sensitive to the step size, Gibbs we need to know how to draw from the conditionals. What we want is the ability to adjust the step size but at the same time preserving the properties of MCMC, namely being able to sample the whole space and at the same time converge to the target distribution. We also would like to have no burnin, no autocorrelation, guarantee mixing and convergence very fast and no tunable parameters (and a pony). 
 
 
-<!-- cell:4 type:markdown -->
+<!-- cell:5 type:markdown -->
 In other words, we'd like to explore the typical-set surface smoothly. To do this we must first characterize the surface, something we can do via a gradient. To do this we must identify the equation of the typical set surface so that we can find the gradient which is perpendicular to the surface. And once we do that, we are not done, as the gradient points towards regions of higher density (modes) from the surface of the typical set.
 
 To do this imagine a sliver $dP = p(q)dq$ thats in the typical set. If $dq$ (we are using $q$ instead of $x$) is small enough, then we can consider the typical set as a collection of foliates $\{q_i\}$ each of constant probability density  $p(q)=c_i$ where $c_i$ is a constant. Thus there are n such foliates, or "orbits", or level sets. Now we know that the gradient is perpendicular to such level-sets and we can use it to characterize these sets.
 
-<!-- cell:5 type:markdown -->
+<!-- cell:6 type:markdown -->
 ## Mechanics to the rescue
 
 We can make our usual connection to the energy of a physical system by tentatively identifying the energy $E = - log(p(q))$. This is what we did to find distributions in Metropolis and the inverse $p(q) = e^{-E(q)/T}$ the minima of functions in simulated annealing. There we proposed a move using a proposal distribution, creating a random walk.
@@ -45,7 +64,7 @@ such that
 
 $$p(q) = e^{-V(q)}.$$
 
-<!-- cell:6 type:code -->
+<!-- cell:7 type:code -->
 ```python
 fun = lambda q: sp.stats.norm.pdf(q) 
 
@@ -58,7 +77,7 @@ Output:
 ```
 [Figure]
 
-<!-- cell:7 type:code -->
+<!-- cell:8 type:code -->
 ```python
 V = lambda q: -np.log(fun(q))
 plt.plot(qq, V(qq))
@@ -69,7 +88,7 @@ Output:
 ```
 [Figure]
 
-<!-- cell:8 type:markdown -->
+<!-- cell:9 type:markdown -->
 The basic idea is to add a **momentum** variable $p$ for each $q$ in our probability density, adding a kinetic energy term to the potential energy to create a total energy, and thus creating a joint pdf $p(p,q)$. 
 
 How would this work? And why momentum? Lets think about a rocket (or a satellite with thrusters it can fire) in orbit around the earth
@@ -80,7 +99,7 @@ If this rocket had no velocity, it would simply fall down to the earth because i
 
 If we add just the right amount of momentum, it will exactly counterbalance the gravitational force, and the satellite will continue to move in its orbit. And this is an orbit of minimum energy (and therefore constant energy, since a system at minumum energy wont lift from it unless kicked(perhaps stochastically) to do so). Thus the satellite will move exactly along a level-curve of the energy level, in a direction exactly perpendicular to the gradient. Such motion is called **conservative**, as it conserves energy. In mechanics, the conserving of energy is related to the time-independence and thus time irreversibility of motion: is there is no *explicit* dependence on time in the equations of motion (there always is implicit dependence as positions and momenta depend on time), energy is conserved.
 
-<!-- cell:9 type:markdown -->
+<!-- cell:10 type:markdown -->
 ## Data Augmentation
 
 Recall that the basic idea behind Data Augmentation is to resolve difficulty in simulate from $p(x)$ using the traditional methods by constructing a joint pdf such that:
@@ -98,7 +117,7 @@ The simplest form of DA algorithm takes the following form:
 
 After disregarding the $Y_i$ in our samples in making a $X$ histogram, we have  samples $X_i \sim P(x)$.
 
-<!-- cell:10 type:markdown -->
+<!-- cell:11 type:markdown -->
 To achieve our goal we introduce a new variable as we did for DA and Slice Sampling we now call $p$. As we explained in DA the new joint distribution 
 
 $$p(q) = \int p(q,p) \, dp $$
@@ -114,7 +133,7 @@ The choice of a kinetic energy term then is the choice of a conditional probabil
 $$\int dp p(p, q) = \int dp p(p \vert q) p(q) = p(q) \int p(p \vert q) dp = p(q).$$
 
 
-<!-- cell:11 type:markdown -->
+<!-- cell:12 type:markdown -->
 Thus the key to moving a sampler along a probability level curve is to give the sampler momentum and thus kinetic energy via the augmented momemtum variable. In other words, we must carry out an augmentation with an additional momentum which leaves the energy **Hamiltonian**
 
 $$H(p, q) = \frac{p^2}{2m} +  V(q) = E_i,$$
@@ -131,7 +150,7 @@ With a quadratic in $p$ and if $V(q) = \frac{1}{2}q^2$ our distribution is gauss
 
 ![Hamiltonian level sets in phase space: constant-energy elliptical orbits in (p,q) for a Gaussian target. From Betancourt.](assets/levelsets.png)
 
-<!-- cell:12 type:markdown -->
+<!-- cell:13 type:markdown -->
 ##  Hamiltonian Mechanics
 
 The game now is to sample from this two-N-dimensional distribution and marginalize over the momenta to get the distribution from the $q$. To carry out this sampling, we'll use the physics equations of motion in the **Hamiltonian Formalism** (thus leading to the name Hamiltonian Monte Carlo) to "glide" over a level set.   Given a Hamiltonian H, the Hamiltonian equations of motion are as follows:
@@ -153,7 +172,7 @@ then $\frac{dp}{dt} = -\frac {\partial H}{\partial q} = -\frac {\partial V}{\par
 
 Here is an example of a harmonic oscillator with mass 1 and spring-constant 1
 
-<!-- cell:13 type:code -->
+<!-- cell:14 type:code -->
 ```python
 q_t = lambda t: 4. * np.cos(t)
 p_t = lambda t: -4. * np.sin(t)
@@ -185,7 +204,7 @@ Output:
 min and max of H:  8.0 8.0
 ```
 
-<!-- cell:14 type:markdown -->
+<!-- cell:15 type:markdown -->
 ### The Hamiltonian is conserved
 
 Notice that in the example above the Hamiltonian is conserved. While the $q$ amd $p$ have time dependencies, the $H$ does not.
@@ -265,7 +284,7 @@ Thus as our system evolves, any contraction or expansion in position space must 
 
 As a result of this, the momenta we augment our distribution with must be **dual** to our pdf's parameters, transforming in the opposite way so that phase space volumes are invariant.
 
-<!-- cell:15 type:markdown -->
+<!-- cell:16 type:markdown -->
 ### The microcanonical distribution
 
 We have expanded our pdf's parameter space by auxillary momenta. We have lift our target distribution in $q$ space to a joint probability distribution on phase space called the **canonical** distribution. In this phase space, we can explore the joint typical set by integrating Hamiltonian equations for a time.
@@ -282,11 +301,11 @@ The microcanonical distribution thus gives us the states for a given energy (or 
 
 This decomposition of the problem tells us how to explore the entire typical set. We integrate Hamilton's equations for a while to explore the microcanonical distribution on a given level set.
 
-<!-- cell:16 type:markdown -->
+<!-- cell:17 type:markdown -->
 ## Stochasticity
 
 
-<!-- cell:17 type:markdown -->
+<!-- cell:18 type:markdown -->
 But this then leaves us with the problem of having to go from one level-set to another: after all, we wish to explore the entire typical set. We thus need to stochastically explore the marginal energy distribution to go from one level-set to the other.
 
 ### Sampling the momentum
@@ -305,7 +324,7 @@ If the transition distribution is narrow compared to the marginal energy distrib
 
 Thus we will draw $p$ from a distribution that is determined by the distribution of momentum, i.e. $p \sim  N(0,\sqrt{M})$ for example, and attempt to explore the level sets.
 
-<!-- cell:18 type:markdown -->
+<!-- cell:19 type:markdown -->
 ## Tuning
 
 It should be clear now that HMC needs to be tuned in at-least two ways:
@@ -314,7 +333,7 @@ It should be clear now that HMC needs to be tuned in at-least two ways:
 - how long shall we integrate along a certain level set
 
 
-<!-- cell:19 type:markdown -->
+<!-- cell:20 type:markdown -->
 ### Choice of Kinetic Energy
 
 In theory we can choose any Kinetic Energy function K(p) that we deem useful.  The ideal kinetic energy would interact with the target distribution to make microcanonical exploration as easy and uniform as possible and marginal exploration well matched by the transition distribution.
@@ -344,7 +363,7 @@ But in general, no single optimal integration time will hold...this depends on w
 
 Thus in general we will want to identify the integration time dynamically. This is the idea behind the No U-Turn Sampler (NUTS) which is the default in both pymc3 and Stan: the basic idea is that when the Hamiltonian flows starts to double back on itself and retrace its steps, we resample momentum again.
 
-<!-- cell:20 type:markdown -->
+<!-- cell:21 type:markdown -->
 ## Simulating Hamiltonian Systems:  Discretization
 
 Unfortunately we can't simulate Hamiltonian systems exactly and we have to rely on discretization!  What does that mean?  Well in the derivations above, we assumed that we could solve the differential equations in question exactly.  Since we're going to be sampling from our Hamiltonian dynamics we need to discretize our systems in to small timesteps of size $ \epsilon $.  
@@ -367,7 +386,7 @@ See code and plot below for harmonic oscillator, $ H = U(q) + K(p) = \frac{q^2}{
 
 
 
-<!-- cell:21 type:code -->
+<!-- cell:22 type:code -->
 ```python
 U = lambda q: q**2/2
 K = lambda p:  (p**2)/2
@@ -412,7 +431,7 @@ plt.ylabel('H')
 ```
 [Figure]
 
-<!-- cell:22 type:markdown -->
+<!-- cell:23 type:markdown -->
 Most ODE solvers, like the one we just wrote, suffer from drift:
 
 ![Numerical integration error: the exact trajectory (red) versus the leapfrog approximation (green) in a vector field. From Neal.](assets/nummodeerr.png)
@@ -423,7 +442,7 @@ If you think about the Jacobian, then the diagonal terms are 1. But if you updat
 
 What we want are **symplectic** integrators, which preserve phase space volume elements.
 
-<!-- cell:23 type:markdown -->
+<!-- cell:24 type:markdown -->
 ### Being symplectic: the Leapfrog method
 
 Any method that has only *shear* transforms: ie something that changes only one thing at a time, will work. The **leapfrog** method is one such idea, involving stage-wise updating the momentum and position.  The algorithm is as follows:
@@ -436,7 +455,7 @@ If we do this repeatedly, the first and last steps can be combined as you can se
 
 Notice that  volume is preserved and the trajectory is very stable.  In addition the discretization is reversible.  The leapfrog method (named because updating momentum and position leapfrog each other) is a symplectic discretization.  
 
-<!-- cell:24 type:code -->
+<!-- cell:25 type:code -->
 ```python
 U = lambda q: (q)**2/2.
 K = lambda p:  (p**2)/2.
@@ -494,12 +513,12 @@ min and max of leapfrog H:  7.6190477193 8.42105060531
 ```
 [Figure]
 
-<!-- cell:25 type:markdown -->
+<!-- cell:26 type:markdown -->
 One thing to note, see the diagram and code above, is that even though the discretization is symplectic it (like the Euler modification) doesn't preserve the Hamiltonian perfectly.  That's because of the approximation errors incumbant in discretization.  The error is very stable and the value of the Hamiltonian at each step oscillates around the true value.  
 
 Because of this exact reversibility is lost. There is no reason to sweat though, superman to the rescue! When we sample from the potential in our HMC, we will use the acceptance probability to balance out the error in H.
 
-<!-- cell:26 type:markdown -->
+<!-- cell:27 type:markdown -->
 ### The Acceptance Probability
 
 At the beginning of each sampling step we choose a new $p$ and our current $q$ and then run the Leapfrog algorithm for $L$ steps of size $ \epsilon $. The new $q_L$ and $p_L$ at the end of our Leapfrog steps is our new proposed values, with our proposal being
@@ -532,12 +551,12 @@ But the critical thing with HMC is that our **time evolution is on a level set**
 
 The momentum reversal could be left out if you are not within a more complex sampling scheme like HMC within gibbs since you will be resampling anyways. But if you are updating both a discrete parameter and a continuous parameter, you will want to reverse the sign so that you are using the correct $p$ when sampling from the conditionals.
 
-<!-- cell:27 type:markdown -->
+<!-- cell:28 type:markdown -->
 ![Reversibility in leapfrog integration: negating momentum at the endpoint and reintegrating returns to the starting point. From Neal.](assets/reversemom.png)
 
 In general we'll want to sum over all such points in the orbit, since we want time averages to represent a sample from the microcanonical distribution.
 
-<!-- cell:28 type:markdown -->
+<!-- cell:29 type:markdown -->
 ## The HMC Algorithm
 
 Now that we have the tools in place, let's describe the HMC algorithm.  We're going to assume as above a Kinetic Energy $ K(p) = \frac{p^{\top}M^{-1}p}{2}  $.  The algorithm is as follows
@@ -560,12 +579,12 @@ Now that we have the tools in place, let's describe the HMC algorithm.  We're go
        * otherwise reject
        
 
-<!-- cell:29 type:markdown -->
+<!-- cell:30 type:markdown -->
 ### A simple implementation
 
 We implement the HMC algorithm below with a gaussian Kinetic energy
 
-<!-- cell:30 type:code -->
+<!-- cell:31 type:code -->
 ```python
 #constants
 
@@ -626,7 +645,7 @@ def HMC(U,K,dUdq,N,q_0, p_0, epsilon=0.01, L=100):
     return H, qall
 ```
 
-<!-- cell:31 type:code -->
+<!-- cell:32 type:code -->
 ```python
 
 # functions
@@ -637,7 +656,7 @@ dUdq= lambda q: q
 
 ```
 
-<!-- cell:32 type:code -->
+<!-- cell:33 type:code -->
 ```python
 H, qall= HMC(U=U,K=K,dUdq=dUdq,N=10000,q_0=0, p_0=-4, epsilon=0.01, L=200)
 plt.hist(qall, bins=50, normed=True)
@@ -651,10 +670,10 @@ accept= 1.0
 ```
 [Figure]
 
-<!-- cell:33 type:markdown -->
+<!-- cell:34 type:markdown -->
 We compare it to a MH sampler with the same number of steps
 
-<!-- cell:34 type:code -->
+<!-- cell:35 type:code -->
 ```python
 def MH_simple(p, n, sig, x0):
     x_prev = x0
@@ -682,7 +701,7 @@ def MH_simple(p, n, sig, x0):
     return x
 ```
 
-<!-- cell:35 type:code -->
+<!-- cell:36 type:code -->
 ```python
 samples_mh = MH_simple(p=P, n=10000, sig=4.0, x0=0)
 
@@ -703,10 +722,10 @@ accept= 0.3002
 ```
 [Figure]
 
-<!-- cell:36 type:markdown -->
+<!-- cell:37 type:markdown -->
 Here we see that the MH acceptance ration is much lower and the correlation much higher!
 
-<!-- cell:37 type:code -->
+<!-- cell:38 type:code -->
 ```python
 def corrplot(trace,  maxlags=100):
     plt.acorr(trace-np.mean(trace),  normed=True, maxlags=maxlags);
@@ -716,14 +735,14 @@ plt.title('hmc');
 ```
 [Figure]
 
-<!-- cell:38 type:code -->
+<!-- cell:39 type:code -->
 ```python
 corrplot(samples_mh)
 plt.title('mh');
 ```
 [Figure]
 
-<!-- cell:39 type:code -->
+<!-- cell:40 type:code -->
 ```python
 
 ```

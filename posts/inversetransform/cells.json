@@ -15,6 +15,11 @@
     },
     {
       "cell": 2,
+      "type": "code",
+      "html_id": "cell-2"
+    },
+    {
+      "cell": 3,
       "type": "markdown",
       "headings": [
         {
@@ -32,17 +37,17 @@
       ]
     },
     {
-      "cell": 3,
+      "cell": 4,
       "type": "markdown",
       "headings": []
     },
     {
-      "cell": 4,
+      "cell": 5,
       "type": "code",
-      "html_id": "cell-4"
+      "html_id": "cell-5"
     },
     {
-      "cell": 5,
+      "cell": 6,
       "type": "markdown",
       "headings": [
         {
@@ -52,7 +57,7 @@
       ]
     },
     {
-      "cell": 6,
+      "cell": 7,
       "type": "markdown",
       "headings": []
     }

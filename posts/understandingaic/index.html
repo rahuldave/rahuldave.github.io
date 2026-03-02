@@ -79,9 +79,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-8ed8c4e1427b57eae15282a2f1143096.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-ccbaf13865a3c7d1254290bba16250fd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-8ed8c4e1427b57eae15282a2f1143096.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-12664055cfeed62abd852165ab0e0bfb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-69a2ed97628a4e219880992b79f066a5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-12664055cfeed62abd852165ab0e0bfb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -152,13 +152,13 @@ window.Quarto = {
 
 <meta property="og:title" content="Understanding AIC – rahuldave">
 <meta property="og:description" content="Explains the Akaike Information Criterion from first principles: how deviance, effective parameters, and information theory combine to estimate out-of-sample predictive accuracy without a validation set.">
-<meta property="og:image" content="https://rahuldave.github.io/posts/understandingaic/index_files/figure-html/cell-10-output-2.png">
+<meta property="og:image" content="https://rahuldave.github.io/posts/understandingaic/index_files/figure-html/cell-11-output-2.png">
 <meta property="og:site_name" content="rahuldave">
 <meta property="og:image:height" content="278">
 <meta property="og:image:width" content="386">
 <meta name="twitter:title" content="Understanding AIC – rahuldave">
 <meta name="twitter:description" content="Explains the Akaike Information Criterion from first principles: how deviance, effective parameters, and information theory combine to estimate out-of-sample predictive accuracy without a validation set.">
-<meta name="twitter:image" content="https://rahuldave.github.io/posts/understandingaic/index_files/figure-html/cell-10-output-2.png">
+<meta name="twitter:image" content="https://rahuldave.github.io/posts/understandingaic/index_files/figure-html/cell-11-output-2.png">
 <meta name="twitter:creator" content="@rahuldave">
 <meta name="twitter:image-height" content="278">
 <meta name="twitter:image-width" content="386">
@@ -387,7 +387,7 @@ window.Quarto = {
   <li><a href="#aic-for-linear-regression" id="toc-aic-for-linear-regression" class="nav-link" data-scroll-target="#aic-for-linear-regression">AIC for Linear Regression</a></li>
   <li><a href="#a-complete-understanding-of-the-comparison-diagram" id="toc-a-complete-understanding-of-the-comparison-diagram" class="nav-link" data-scroll-target="#a-complete-understanding-of-the-comparison-diagram">A complete understanding of the comparison diagram</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.out.ipynb" download="index.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -463,7 +463,7 @@ window.Quarto = {
 <p>This notebook is based on McElreath, Rethinking Statistics, Chapter 6.</p>
 <p>When we use the empirical distribution and sample quantities here we are working with our training sample (s).</p>
 <p>Clearly we can calculate deviance on the validation and test samples as well to remedy this issue. And the results will be similar to what we found in lecture for MSE, with the training deviance decreasing with complexity and the testing deviance increasing at some point.</p>
-<div id="cell-3" class="cell" data-execution_count="1" data-cell-type="code">
+<div id="cell-4" class="cell" data-execution_count="1" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -474,7 +474,7 @@ window.Quarto = {
 <p><span class="math display">\[\mu_i = 0.15 x_{1,i} - 0.4 x_{2,i}, y \sim N(\mu, 1).\]</span></p>
 <p>This is a <strong>2 parameter</strong> model.</p>
 <p>We use an interesting trick to generate this data, directly using the regression coefficients as correlations with the response variable.</p>
-<div id="cell-5" class="cell" data-execution_count="2" data-cell-type="code">
+<div id="cell-6" class="cell" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_data(N, k, rho<span class="op">=</span>[<span class="fl">0.15</span>, <span class="op">-</span><span class="fl">0.4</span>]):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    n_dim <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> <span class="bu">len</span>(rho)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n_dim <span class="op">&lt;</span> k:</span>
@@ -494,7 +494,7 @@ window.Quarto = {
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Xtrain[:,:k], ytrain, Xtest[:,:k], ytest</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We want to generate data for 5 different cases, a one parameter (intercept) fit, a two parameter (intercept and <span class="math inline">\(x_1\)</span>), three parameters (add a $x_2), and four and five parameters. Here is what the data looks like for 2 parameters:</p>
-<div id="cell-7" class="cell" data-execution_count="3" data-cell-type="code">
+<div id="cell-8" class="cell" data-execution_count="3" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>generate_data(<span class="dv">20</span>,<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>(array([[ 1.        , -0.83978695],
@@ -548,7 +548,7 @@ window.Quarto = {
 </div>
 </div>
 <p>And for four parameters</p>
-<div id="cell-9" class="cell" data-execution_count="5" data-cell-type="code">
+<div id="cell-10" class="cell" data-execution_count="5" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>generate_data(<span class="dv">20</span>,<span class="dv">4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>(array([[  1.00000000e+00,  -5.64117484e-01,  -1.30408291e+00,
@@ -621,7 +621,7 @@ window.Quarto = {
          0.38210287,  1.27868801, -1.71473971,  0.6498696 , -0.27036068]))</code></pre>
 </div>
 </div>
-<div id="cell-10" class="cell" data-execution_count="8" data-cell-type="code">
+<div id="cell-11" class="cell" data-execution_count="8" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
@@ -635,7 +635,7 @@ window.Quarto = {
 <p>Here is the main loop of our analysis. We take the 5 models we talked about. For each model we generate 10000 samples of the data, split into an equal sized (N=20 each) training and testing set. We fit the regression on the training set, and calculate the deviance on the training set. Notice how we have simply used the <code>logpdf</code> from <code>scipy.stats</code>. You can easily do this for other distributions.</p>
 <p>We then use the fit to calculate the <span class="math inline">\(\mu\)</span> on the test set, and calculate the deviance there. We then find the average and the standard deviation across the 10000 simulations.</p>
 <p>Why do we do 10000 simulations? These are our <strong>multiple samples from some hypothetical population</strong>.</p>
-<div id="cell-12" class="cell" data-execution_count="9" data-cell-type="code">
+<div id="cell-13" class="cell" data-execution_count="9" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>reps<span class="op">=</span><span class="dv">10000</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>results_20 <span class="op">=</span> {}</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">6</span>):</span>
@@ -654,7 +654,7 @@ window.Quarto = {
 <span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>        tedevs[r] <span class="op">=</span> devte</span>
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    results_20[k] <span class="op">=</span> (np.mean(trdevs), np.std(trdevs), np.mean(tedevs), np.std(tedevs))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="10" data-cell-type="code">
+<div id="cell-14" class="cell" data-execution_count="10" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(results_20).T</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.rename(columns <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(<span class="bu">range</span>(<span class="dv">4</span>), [<span class="st">'train'</span>, <span class="st">'train_std'</span>, <span class="st">'test'</span>, <span class="st">'test_std'</span>])))</span>
@@ -715,7 +715,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-14" class="cell" data-execution_count="11" data-cell-type="code">
+<div id="cell-15" class="cell" data-execution_count="11" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn.apionly <span class="im">as</span> sns</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> sns.color_palette()</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>colors</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -733,7 +733,7 @@ window.Quarto = {
 </div>
 </div>
 <p>We plot the traing and testing deviances</p>
-<div id="cell-16" class="cell" data-execution_count="13" data-cell-type="code">
+<div id="cell-17" class="cell" data-execution_count="13" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plt.plot(df.index, df.train, <span class="st">'o'</span>, color <span class="op">=</span> colors[<span class="dv">0</span>])</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>plt.errorbar(df.index, df.train, yerr<span class="op">=</span>df.train_std, fmt<span class="op">=</span><span class="va">None</span>, color<span class="op">=</span>colors[<span class="dv">0</span>])</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>plt.plot(df.index<span class="op">+</span><span class="fl">0.2</span>, df.test, <span class="st">'o'</span>, color <span class="op">=</span> colors[<span class="dv">1</span>])</span>
@@ -748,7 +748,7 @@ window.Quarto = {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-10-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-11-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -762,7 +762,7 @@ window.Quarto = {
 <section id="aic-or-the-difference-in-deviances" class="level2">
 <h2 class="anchored" data-anchor-id="aic-or-the-difference-in-deviances">AIC, or the difference in deviances</h2>
 <p>Let us see the difference between the mean testing and training deviances. This is the difference in <em>bias</em> between the two sets.</p>
-<div id="cell-18" class="cell" data-execution_count="14" data-cell-type="code">
+<div id="cell-19" class="cell" data-execution_count="14" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df.test <span class="op">-</span> df.train</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>1    2.018779
@@ -776,7 +776,7 @@ dtype: float64</code></pre>
 <p>Voila, this seems to be roughly twice the number of parameters. In other words we might be able to get away without a test set if we “correct” the bias on the traing set by <span class="math inline">\(2n_p\)</span>. This is the observation that motivates the AIC.</p>
 <section id="analysis-n100" class="level3">
 <h3 class="anchored" data-anchor-id="analysis-n100">Analysis N=100</h3>
-<div id="cell-21" class="cell" data-cell-type="code">
+<div id="cell-22" class="cell" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>reps<span class="op">=</span><span class="dv">10000</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>results_100 <span class="op">=</span> {}</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">6</span>):</span>
@@ -794,12 +794,12 @@ dtype: float64</code></pre>
 <span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>        tedevs[r] <span class="op">=</span> devte</span>
 <span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    results_100[k] <span class="op">=</span> (np.mean(trdevs), np.std(trdevs), np.mean(tedevs), np.std(tedevs))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-22" class="cell" data-cell-type="code">
+<div id="cell-23" class="cell" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df100 <span class="op">=</span> pd.DataFrame(results_100).T</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>df100 <span class="op">=</span> df100.rename(columns <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(<span class="bu">range</span>(<span class="dv">4</span>), [<span class="st">'train'</span>, <span class="st">'train_std'</span>, <span class="st">'test'</span>, <span class="st">'test_std'</span>])))</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>df100</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-23" class="cell" data-cell-type="code">
+<div id="cell-24" class="cell" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>plt.plot(df100.index, df100.train, <span class="st">'o'</span>, color <span class="op">=</span> colors[<span class="dv">0</span>])</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>plt.errorbar(df100.index, df100.train, yerr<span class="op">=</span>df100.train_std, fmt<span class="op">=</span><span class="va">None</span>, color<span class="op">=</span>colors[<span class="dv">0</span>])</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plt.plot(df100.index<span class="op">+</span><span class="fl">0.2</span>, df100.test, <span class="st">'o'</span>, color <span class="op">=</span> colors[<span class="dv">1</span>])</span>
@@ -808,7 +808,7 @@ dtype: float64</code></pre>
 <span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"deviance"</span>)</span>
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"N=100"</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="234" data-cell-type="code">
+<div id="cell-25" class="cell" data-execution_count="234" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>df100.test <span class="op">-</span> df100.train</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="234">
 <pre><code>1    1.900383
@@ -920,6 +920,7 @@ document.addEventListener('DOMContentLoaded', function() {
 })();
 </script>
 <script src="../../assets/llm-explain.js"></script>
+<script src="../../assets/download-bundle.js"></script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

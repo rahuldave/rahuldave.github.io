@@ -1,5 +1,22 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "pandas",
+#   "scipy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 %matplotlib inline
 import numpy as np
 import scipy as sp
@@ -20,7 +37,7 @@ Output:
   warnings.warn(self.msg_depr % (key, alt_key))
 ```
 
-<!-- cell:2 type:code -->
+<!-- cell:3 type:code -->
 ```python
 def make_simple_plot():
     fig, axes=plt.subplots(figsize=(12,5), nrows=1, ncols=2);
@@ -46,10 +63,10 @@ def make_plot():
     return axes
 ```
 
-<!-- cell:3 type:markdown -->
+<!-- cell:4 type:markdown -->
 ## The process of learning
 
-<!-- cell:4 type:markdown -->
+<!-- cell:5 type:markdown -->
 There are challenges that occur in learning a model from data:
 
 - small samples of data
@@ -74,19 +91,19 @@ $$ y = f(x) $$
 
 and our jobs is to take $x$ such as data from the census about race, religiousness, and so on, and $y$ as previous elections and the results of polls that pollsters come up with, and to make a predictive model for the elections. That is, we wish to estimate $f(x)$.
 
-<!-- cell:5 type:markdown -->
+<!-- cell:6 type:markdown -->
 ### A real simple model
 
-<!-- cell:6 type:markdown -->
+<!-- cell:7 type:markdown -->
 To gently step feet in the modelling world, lets see consider very simple model, where the probability of voting for Romney is a function only of how religious the population in a county is. This is a model I've cooked up, and the data is fake. 
 
-<!-- cell:7 type:markdown -->
+<!-- cell:8 type:markdown -->
 Let $x$ be the fraction of religious people in a county and $y$ be the probability of voting for Romney as a function of $x$. In other words $y_i$ is data that pollsters have taken which tells us their estimate of people voting for Romney and $x_i$ is the fraction of religious people in county $i$. Because poll samples are finite, there is a margin of error on each data point or county $i$, but we will ignore that for now.
 
-<!-- cell:8 type:markdown -->
+<!-- cell:9 type:markdown -->
 Let us assume that we have a "population" of 200 counties $x$:
 
-<!-- cell:9 type:code -->
+<!-- cell:10 type:code -->
 ```python
 df=pd.read_csv("data/religion.csv")
 df.head()
@@ -101,10 +118,10 @@ Output:
 4  0.062597   0.04
 ```
 
-<!-- cell:10 type:markdown -->
+<!-- cell:11 type:markdown -->
 Lets suppose now that the Lord came by and told us that the points in the plot below captures $f(x)$ exactly. In other words, there is no specification error, and  God knows the generating process exactly.
 
-<!-- cell:11 type:code -->
+<!-- cell:12 type:code -->
 ```python
 x=df.rfrac.values
 f=df.promney.values
@@ -116,12 +133,12 @@ Output:
 ```
 [Figure]
 
-<!-- cell:12 type:markdown -->
+<!-- cell:13 type:markdown -->
 Notice that our sampling of $x$ is not quite uniform: there are more points around $x$ of 0.7.
 
 Now, in real life we are only given a sample of points. Lets assume that out of this population of 200 points we are given a sample $\cal{D}$ of 30 data points. Such data is called **in-sample data**. Contrastingly, the entire population of data points is also called **out-of-sample data**.
 
-<!-- cell:13 type:code -->
+<!-- cell:14 type:code -->
 ```python
 #indexes=np.sort(np.random.choice(x.shape[0], size=30, replace=False))
 dfsample = pd.read_csv("data/noisysample.csv")
@@ -137,18 +154,18 @@ Output:
 4  0.285470  33  0.33  0.358174
 ```
 
-<!-- cell:14 type:code -->
+<!-- cell:15 type:code -->
 ```python
 indexes = dfsample.i.values
 ```
 
-<!-- cell:15 type:code -->
+<!-- cell:16 type:code -->
 ```python
 samplex = x[indexes]
 samplef = f[indexes]
 ```
 
-<!-- cell:16 type:code -->
+<!-- cell:17 type:code -->
 ```python
 axes=make_plot()
 axes[0].plot(x,f, 'k-', alpha=0.4, label="f (from the Lord)");
@@ -159,16 +176,16 @@ axes[1].legend(loc=4);
 ```
 [Figure]
 
-<!-- cell:17 type:markdown -->
+<!-- cell:18 type:markdown -->
 The lightly shaded squares in the right panel plot are the in-sample $\cal{D}$ of 30 points given to us. Let us then pretend that we have forgotten the curve that the Lord gave us. Thus, all we know is the blue points on the plot on the right, and we have no clue about what the original curve was, nor do we remember the original "population".
 
-<!-- cell:18 type:markdown -->
+<!-- cell:19 type:markdown -->
 That is, imagine the Lord gave us $f$ but then also gave us amnesia. Remember that such amnesia is the general case in learning, where we *do not know* the target function, but rather just have some data. Thus what we will be doing is *trying to find functions that might have generated the 30 points of data that we can see* in the hope that one of these functions might approximate $f$ well, and provide us a **predictive model** for future data. This is known as **fitting** the data.
 
-<!-- cell:19 type:markdown -->
+<!-- cell:20 type:markdown -->
 ### The Hypothesis or Model Space
 
-<!-- cell:20 type:markdown -->
+<!-- cell:21 type:markdown -->
 Such a function, one that we use to fit the data, is called a **hypothesis**. We'll use the notation $h$ to denote a hypothesis. Lets consider as hypotheses for the data above, a particular class of functions called polynomials. 
 
 A polynomial is a function that combines multiple powers of x linearly.  You've probably seen these in school, when working with quadratic or cubic equations and functions:
@@ -200,7 +217,7 @@ We'll call the **best fit** straight line the function $g_1(x)$. The "best fit" 
 
 The best fit $g_1(x)$ is calculated and shown in the figure below:
 
-<!-- cell:21 type:code -->
+<!-- cell:22 type:code -->
 ```python
 g1 = np.poly1d(np.polyfit(x[indexes],f[indexes],1))
 plt.plot(x[indexes],f[indexes], 's', alpha=0.6, label="in-sample");
@@ -209,7 +226,7 @@ plt.legend(loc=4);
 ```
 [Figure]
 
-<!-- cell:22 type:markdown -->
+<!-- cell:23 type:markdown -->
 How did we calculate the best fit? We'll come to that in a bit, but in the meanwhile, lets formalize and generalize the notion of "best fit line amongst lines" a bit.
 
 The set of all functions of a particular kind that we could have used to fit the data is called a **Hypothesis Space**. The words "particular kind" are deliberately vague: its our choice as to what we might want to put into a hypothesis space. A hypothesis space is denoted by the notation $\cal{H}$.
@@ -221,17 +238,17 @@ In this set-up, what we have done in the code and plot above is this: we have fo
 The hypothesis space is a concept we can use if we want to capture the **complexity** of a model you use to fit data. For example, since quadratics are more complex functions than straight lines (they curve more), $\cal{H}_2$ is more complex than $\cal{H}_1$. 
 
 
-<!-- cell:23 type:markdown -->
+<!-- cell:24 type:markdown -->
 ### Deterministic Error or Bias
 
-<!-- cell:24 type:markdown -->
+<!-- cell:25 type:markdown -->
 Notice from the figure above that models in $\cal{H}_1$, i.e., straight lines, and the best-fit straight line $g_1$ in particular, do not do a very good job of capturing the curve of  the data (and thus the underlying function $f$ that we are trying to approximate. Consider the more general case in the figure below, where a curvy $f$ is approximated by a function $g$ which just does not have the wiggling that $f$ has. 
 
 ![Approximation bias: the gap between true function f and best-fit hypothesis g](assets/bias.png)
 
 There is always going to be an error then, in approximating $f$ by $g$. This *approximation error* is shown in the figure by the blue shaded region, and its called **bias**, or **deterministic error**. The former name comes from the fact that $g$ just does not wiggle the way $f$ does (nothing will make a straight line curve). The latter name (which I first saw used in http://www.amlbook.com/ ) comes from the notion that if you did not know the target function $f$, which is the case in most learning situations, you would have a hard time distinguishing this error from any other errors such as measurement and noise...
 
-<!-- cell:25 type:markdown -->
+<!-- cell:26 type:markdown -->
 Going back to our model at hand, it is clear that the space of 
 straight lines $\cal{H_1}$ does not capture the curving in the data. So let us consider the more complex hypothesis space $\cal{H_{20}}$, the set of all 20th order 
 polynomials $h_{20}(x)$:
@@ -239,10 +256,10 @@ polynomials $h_{20}(x)$:
 $$h_{20}(x) = \sum_{i=0}^{20} a_i x^i\,.$$
 
 
-<!-- cell:26 type:markdown -->
+<!-- cell:27 type:markdown -->
 To see how a more complex hypothesis space does, lets find the best fit 20th order polynomial $g_{20}(x)$.
 
-<!-- cell:27 type:code -->
+<!-- cell:28 type:code -->
 ```python
 g20 = np.poly1d(np.polyfit(x[indexes],f[indexes],20))
 ```
@@ -252,7 +269,7 @@ Output:
   warnings.warn(msg, RankWarning)
 ```
 
-<!-- cell:28 type:code -->
+<!-- cell:29 type:code -->
 ```python
 plt.plot(x[indexes],f[indexes], 's', alpha=0.6, label="in-sample");
 plt.plot(x,g20(x), 'b--', alpha=0.6, label="$g_{10}$");
@@ -260,7 +277,7 @@ plt.legend(loc=4);
 ```
 [Figure]
 
-<!-- cell:29 type:markdown -->
+<!-- cell:30 type:markdown -->
 Voila! You can see the 20th order polynomial does a much better job of tracking the points, because of the wiggle room it has in making a curve "go near or through" all the points as opposed to a straight line, which well, cant curve. Thus it would seem that $\cal{H}_{20}$ might be a better candidate hypothesis set from which to choose a best fit model. 
 
 We can quantify this by calculating some notion of the bias for both $g_1$ and $g_{20}$. 
@@ -270,7 +287,7 @@ $$B_1(x) = (g_1(x) - f(x))^2 \,;\,\, B_{20}(x) = (g_{20}(x) - f(x))^2\,.$$
 
 Squaring makes sure that we are calculating a positive quantity.
 
-<!-- cell:30 type:code -->
+<!-- cell:31 type:code -->
 ```python
 plt.plot(x, (g1(x)-f)**2, lw=3, label="$B_1(x)$")
 plt.plot(x, (g20(x)-f)**2, lw=3,label="$B_{20}(x)$");
@@ -282,17 +299,17 @@ plt.title("Bias");
 ```
 [Figure]
 
-<!-- cell:31 type:markdown -->
+<!-- cell:32 type:markdown -->
 As you can see the **bias or approximation error** is much smaller for $g_{20}$.
 
 Is $g_{20}$ the best model for this data from all possible models? Indeed, how do we find the best fit model from the best hypothesis space? This is what **learning** is all about.
 
 We have used the python function `np.polyfit` to find $g_{1}$ the best fit model in $\cal{H_1}$ and $g_{20}$ the best fit model in $\cal{H_{20}}$, but how did we arrive at that conclusion? This is the subject of the next section. 
 
-<!-- cell:32 type:markdown -->
+<!-- cell:33 type:markdown -->
 ## How to learn the best fit model in a hypothesis space
 
-<!-- cell:33 type:markdown -->
+<!-- cell:34 type:markdown -->
 Let's understand in an intuitive sense, what it means for a function to be a good fit to the data. Lets consider, for now, only the hypothesis space $\cal{H}_{1}$, the set of all straight lines. In the figure below, we draw against the data points (in red) one such line $h_1(x)$ (in red).
 
 You might think you want to do this statistically, using ML Estimation or similar, but note that at this point there is no statistical notion of a generating process. We're just trying to approximate a function by another, with the latter being chosen amongst many in a hypothesis space.
@@ -333,10 +350,10 @@ $$ g(x) = \arg\min_{h(x) \in \cal{H}} R_{\cal{D}}(h(x)),$$
 
 where $\cal{H}$ is a general hypothesis space of functions.
 
-<!-- cell:34 type:markdown -->
+<!-- cell:35 type:markdown -->
 ### The Structure of Learning
 
-<!-- cell:35 type:markdown -->
+<!-- cell:36 type:markdown -->
 We have a target function $f(x)$ that we do not know. But we do have a sample of data points from it, $(x_1,y_1), (x_2,y_2), ..., (x_n,y_n)$. We call this the **sample** or **training examples** $\cal{D}$. We are interested in using this sample to estimate a function $g$ to approximate the function $f$, and which can be used for prediction at new data points, or on the entire population, also called **out-of-sample prediction**. 
 
 Notice the way that statistics comes into this approximation problem is from the notion that we are trying to reconstruct the original function from a small-ish sample rather than a large-ish population.
@@ -347,10 +364,10 @@ Here our learner is called **Polynomial Regression**, and it takes a hypothesis 
 
 ![The supervised learning framework: from target function to final hypothesis](assets/BasicModel.png)
 
-<!-- cell:36 type:markdown -->
+<!-- cell:37 type:markdown -->
 ### Out-of-Sample and in-sample
 
-<!-- cell:37 type:markdown -->
+<!-- cell:38 type:markdown -->
 We write $g \approx f$, or $g$ is the **estimand** of $f$.In statistics books you will see $g$ written as $\hat{f}$. 
 
 Why do we think that this might be a good idea? What are we really after?
@@ -361,12 +378,12 @@ This is why we (a) minimize the risk on the set of points that we have to find $
 
 We are, as is usual in statistics, **drawing conclusions about a population from a sample**. 
 
-<!-- cell:38 type:markdown -->
+<!-- cell:39 type:markdown -->
 Intuitively, to do this, we need to ask ourselves, how representative is our sample? Or more precisely, how representative is our sample of our training points of the population (or for that matter the new x that we want to predict for)? 
 
 We illustrate this below for our population of 200 data points and our sample of 30 data points (in red).
 
-<!-- cell:39 type:code -->
+<!-- cell:40 type:code -->
 ```python
 plt.hist(x, normed=True, bins=30, alpha=0.7)
 sns.kdeplot(x)
@@ -380,12 +397,12 @@ Output:
 ```
 [Figure]
 
-<!-- cell:40 type:markdown -->
+<!-- cell:41 type:markdown -->
 In our example, if we only want to use $g$, our estimand of $f$ to predict for large $x$, or more religious counties, we would need a good sampling of points $x$ closer to 1. And, similarly, the new $x$ we are using to make predictions would also need to be representative of those counties. We wont do well if we try and predict low-religiousness counties from a sample of high-religiousness ones. Or, if we do want to predict over the entire range of religiousness, our training sample better cover all $x$ well.
 
 Our red points seem to follow our (god given) histogram well.
 
-<!-- cell:41 type:markdown -->
+<!-- cell:42 type:markdown -->
 ### The relation to the Law of Large Numbers.
 
 The process of minimization we do is called **Empirical Risk Minimization** (ERM) as we minimize the cost measure over the "empirically observed" training examples or points. But, on the assumption that we  were given a training set representative of the population, ERM is just an attempt use of the law of large numbers.
@@ -404,10 +421,10 @@ $$R_{\cal{D}}(h) =  \sum_{x_i \in \cal{D}} (h(x_i) - y_i)^2.$$
 
 We could calculate the usual mean of sample means and all that, and shall see later that it is these quantities that are related to bias and variance.
 
-<!-- cell:42 type:markdown -->
+<!-- cell:43 type:markdown -->
 ## Statement of the learning problem.
 
-<!-- cell:43 type:markdown -->
+<!-- cell:44 type:markdown -->
 Once we have done that, we can then intuitively say that, if we find a hypothesis $g$ that minimizes the cost or risk over the training set; this hypothesis *might* do a good job over the population that the training set was representative of, since the risk on the population ought to be similar to that on the training set, and thus small.
 
 Mathematically, we are saying that:
@@ -421,10 +438,10 @@ $$
 
 In other words, we hope the **empirical risk estimates the out of sample risk well, and thus the out of sample risk is also small**.
 
-<!-- cell:44 type:markdown -->
+<!-- cell:45 type:markdown -->
 Indeed, as we can see below, $g_{20}$ does an excellent job on the population, not just on the sample.
 
-<!-- cell:45 type:code -->
+<!-- cell:46 type:code -->
 ```python
 #plt.plot(x[indexes],f[indexes], 's', alpha=0.6, label="in-sample");
 plt.plot(x,g20(x), 'b--', alpha=0.9, lw=2, label="$g_{20}$");

@@ -1,17 +1,30 @@
-<!-- cell:1 type:markdown -->
+<!-- cell:1 type:code -->
+```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "pandas",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:markdown -->
 ![PredictWise congressional voting visualization](assets/sep7.png)
 
-<!-- cell:2 type:code -->
+<!-- cell:3 type:code -->
 ```python
 import pandas as pd
 ```
 
-<!-- cell:3 type:code -->
+<!-- cell:4 type:code -->
 ```python
 tbl = pd.read_html("https://www.presidency.ucsb.edu/statistics/data/seats-congress-gainedlost-the-presidents-party-mid-term-elections")
 ```
 
-<!-- cell:4 type:code -->
+<!-- cell:5 type:code -->
 ```python
 df = tbl[0]
 df.columns = df.columns.to_flat_index()
@@ -320,7 +333,7 @@ Output:
 22                                            TBD
 ```
 
-<!-- cell:5 type:code -->
+<!-- cell:6 type:code -->
 ```python
 
 ```

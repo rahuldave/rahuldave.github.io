@@ -1,4 +1,21 @@
-<!-- cell:1 type:markdown -->
+<!-- cell:1 type:code -->
+```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "pandas",
+#   "scipy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:markdown -->
 $$
 \renewcommand{\like}{\cal L}
 \renewcommand{\loglike}{\ell}
@@ -10,7 +27,7 @@ $$
 \renewcommand{\v}[1]{\mathbf #1}
 $$
 
-<!-- cell:2 type:code -->
+<!-- cell:3 type:code -->
 ```python
 %matplotlib inline
 import numpy as np
@@ -27,7 +44,7 @@ sns.set_style("whitegrid")
 sns.set_context("poster")
 ```
 
-<!-- cell:3 type:code -->
+<!-- cell:4 type:code -->
 ```python
 from scipy.stats import norm
 from scipy.stats import multivariate_normal
@@ -63,10 +80,10 @@ def plotSampleLines(mu, sigma, numberOfLines, dataPoints=None, ax=None):
 
 ```
 
-<!-- cell:4 type:markdown -->
+<!-- cell:5 type:markdown -->
 ## The Bayesian formulation of regression
 
-<!-- cell:5 type:markdown -->
+<!-- cell:6 type:markdown -->
 Let us say we have data $D$, of $n$ observations  
 $D=\left\{ ({\bf x}_1, y_1), ({\bf x}_2,y_2), \ldots, ({\bf x}_n, y_n) \right\} $ where ${\bf x}$ 
 denotes an input vector of dimension $D$ and $y$ denotes a scalar output (dependent variable). 
@@ -84,7 +101,7 @@ zero mean and variance $\sigma_n^2$
 
 $$ \epsilon \sim N(0, \sigma^2_n) $$
 
-<!-- cell:6 type:code -->
+<!-- cell:7 type:code -->
 ```python
 a0=-0.3
 a1=0.5
@@ -99,7 +116,7 @@ plt.scatter(x,y)
 ```
 [Figure]
 
-<!-- cell:7 type:markdown -->
+<!-- cell:8 type:markdown -->
 ### Likelihood
 
 The likelihood is, because we assume independency, the product 
@@ -113,13 +130,13 @@ $$
    
 where $|x|$ denotes the Euclidean length of vector $\bf x$. 
 
-<!-- cell:8 type:code -->
+<!-- cell:9 type:code -->
 ```python
 likelihoodSD = noiseSD # Assume the likelihood precision is known.
 likelihoodPrecision = 1./(likelihoodSD*likelihoodSD)
 ```
 
-<!-- cell:9 type:markdown -->
+<!-- cell:10 type:markdown -->
 ### Prior
 
 In the Bayesian framework inference we need to specify a prior
@@ -135,7 +152,7 @@ If we assume that $\Sigma$ is a diagonal covariance matrix then
 
 $$\bf w \sim N(w_0, \tau^2 \bf I)$$
 
-<!-- cell:10 type:code -->
+<!-- cell:11 type:code -->
 ```python
 priorMean = np.zeros(2)
 priorPrecision=2.0
@@ -149,19 +166,19 @@ Output:
 0.0021447551423913074
 ```
 
-<!-- cell:11 type:code -->
+<!-- cell:12 type:code -->
 ```python
 cplot(priorPDF);
 ```
 [Figure]
 
-<!-- cell:12 type:code -->
+<!-- cell:13 type:code -->
 ```python
 plotSampleLines(priorMean,priorCovariance,15)
 ```
 [Figure]
 
-<!-- cell:13 type:markdown -->
+<!-- cell:14 type:markdown -->
 ### Posterior
 We can now continue with the standard Bayesian formalism 
 
@@ -192,7 +209,7 @@ $$\bar{\bf w} = A^{-1}\Sigma^{-1}{\bf w_0} + \sigma_n^{-2}( A^{-1} X^T \bf y )$$
 To make predictions for a test case we average over all possible parameter predictive distribution
 values, weighted by their posterior probability. This is in contrast to non Bayesian schemes, where a single parameter is typically chosen by some criterion. 
 
-<!-- cell:14 type:code -->
+<!-- cell:15 type:code -->
 ```python
 # Given the mean = priorMu and covarianceMatrix = priorSigma of a prior
 # Gaussian distribution over regression parameters; observed data, x
@@ -209,7 +226,7 @@ def update(x,y,likelihoodPrecision,priorMu,priorCovariance):
     return postW, postMu, postCovariance
 ```
 
-<!-- cell:15 type:code -->
+<!-- cell:16 type:code -->
 ```python
 # For each iteration plot  the
 # posterior over the first i data points and sample lines whose
@@ -232,7 +249,7 @@ for i in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]:
 ```
 [Figure]
 
-<!-- cell:16 type:markdown -->
+<!-- cell:17 type:markdown -->
 ## Posterior Predictive Distribution
 
 Thus the predictive distribution at some $x^{*}$ is given by averaging the output of all possible linear models w.r.t. the  posterior
@@ -251,13 +268,13 @@ form of the test input with the posterior covariance matrix, showing that the
 predictive uncertainties grow with the magnitude of the test input, as one would
 expect for a linear model. 
 
-<!-- cell:17 type:markdown -->
+<!-- cell:18 type:markdown -->
 ## Regularization
 
 $\alpha = \sigma_n^2/\tau^2$ (prior precision/likelihood precision) is the regularization parameter from ridge regression. An uninformative (tending to uniform) prior means no regularization which is the standard MLE result.
 
 
-<!-- cell:18 type:code -->
+<!-- cell:19 type:code -->
 ```python
 priorPrecision/likelihoodPrecision
 ```
@@ -266,10 +283,10 @@ Output:
 0.08000000000000002
 ```
 
-<!-- cell:19 type:markdown -->
+<!-- cell:20 type:markdown -->
 But now say you had a  strong belief the both the slope and intercept ought to be 0. Or in other words you are trying to restrict your parameters to a certain range.
 
-<!-- cell:20 type:code -->
+<!-- cell:21 type:code -->
 ```python
 priorPrecision=100.0
 priorCovariance = prior_covariance(1/priorPrecision )
@@ -278,7 +295,7 @@ cplot(priorPDF)
 ```
 [Figure]
 
-<!-- cell:21 type:code -->
+<!-- cell:22 type:code -->
 ```python
 priorPrecision/likelihoodPrecision
 ```
@@ -287,12 +304,12 @@ Output:
 4.000000000000001
 ```
 
-<!-- cell:22 type:code -->
+<!-- cell:23 type:code -->
 ```python
 choices=np.random.choice([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19],4,replace=False)
 ```
 
-<!-- cell:23 type:code -->
+<!-- cell:24 type:code -->
 ```python
 choices
 ```
@@ -301,7 +318,7 @@ Output:
 array([ 1, 18, 13, 19])
 ```
 
-<!-- cell:24 type:code -->
+<!-- cell:25 type:code -->
 ```python
 
 # For each iteration plot  the
@@ -327,5 +344,5 @@ for j,i in enumerate(choices):
 ```
 [Figure]
 
-<!-- cell:25 type:markdown -->
+<!-- cell:26 type:markdown -->
 Notice how our prior tries to keep things as flat as possible!

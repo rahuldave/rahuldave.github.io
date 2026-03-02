@@ -79,9 +79,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-8ed8c4e1427b57eae15282a2f1143096.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-ccbaf13865a3c7d1254290bba16250fd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-8ed8c4e1427b57eae15282a2f1143096.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-12664055cfeed62abd852165ab0e0bfb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-69a2ed97628a4e219880992b79f066a5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-12664055cfeed62abd852165ab0e0bfb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -149,13 +149,13 @@ window.Quarto = {
 
 <meta property="og:title" content="Monte Carlo Integration – rahuldave">
 <meta property="og:description" content="Formalizes Monte Carlo integration using uniform random samples and LOTUS, then extends to multidimensional integrals. Uses the Central Limit Theorem to estimate integration error and compares convergence rates with classical quadrature.">
-<meta property="og:image" content="https://rahuldave.github.io/posts/montecarlointegrals/index_files/figure-html/cell-7-output-1.png">
+<meta property="og:image" content="https://rahuldave.github.io/posts/montecarlointegrals/index_files/figure-html/cell-8-output-1.png">
 <meta property="og:site_name" content="rahuldave">
 <meta property="og:image:height" content="356">
 <meta property="og:image:width" content="520">
 <meta name="twitter:title" content="Monte Carlo Integration – rahuldave">
 <meta name="twitter:description" content="Formalizes Monte Carlo integration using uniform random samples and LOTUS, then extends to multidimensional integrals. Uses the Central Limit Theorem to estimate integration error and compares convergence rates with classical quadrature.">
-<meta name="twitter:image" content="https://rahuldave.github.io/posts/montecarlointegrals/index_files/figure-html/cell-7-output-1.png">
+<meta name="twitter:image" content="https://rahuldave.github.io/posts/montecarlointegrals/index_files/figure-html/cell-8-output-1.png">
 <meta name="twitter:creator" content="@rahuldave">
 <meta name="twitter:image-height" content="356">
 <meta name="twitter:image-width" content="520">
@@ -386,7 +386,7 @@ window.Quarto = {
   <li><a href="#comparing-to-standard-integration-techniques" id="toc-comparing-to-standard-integration-techniques" class="nav-link" data-scroll-target="#comparing-to-standard-integration-techniques">Comparing to standard integration techniques</a></li>
   </ul></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.out.ipynb" download="index.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -460,7 +460,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-1" class="cell" data-execution_count="3" data-cell-type="code">
+<div id="cell-2" class="cell" data-execution_count="3" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -488,14 +488,14 @@ window.Quarto = {
 <p>**Calculate the integral $ I= _{2}^{3} [x^2 + 4 , x ,(x)] , dx. $**</p>
 <p>We know from calculus that the anti-derivative is <span class="math display">\[ x^3/3 + 4\sin(x) -4x\cos(x). \]</span></p>
 <p>To solve this using MC, we simply draw <span class="math inline">\(N\)</span> random numbers from 2 to 3 and then take the average of all the values <span class="math inline">\(f(x)=x^2 + 4 \, x \,\sin(x)\)</span> and normalized over the volume; this case the volume is 1 (3-2=1).</p>
-<div id="cell-4" class="cell" data-execution_count="4" data-cell-type="code">
+<div id="cell-5" class="cell" data-execution_count="4" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">4</span><span class="op">*</span>x<span class="op">*</span>np.sin(x) </span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> intf(x): </span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="dv">3</span><span class="op">/</span><span class="fl">3.0</span><span class="op">+</span><span class="fl">4.0</span><span class="op">*</span>np.sin(x) <span class="op">-</span> <span class="fl">4.0</span><span class="op">*</span>x<span class="op">*</span>np.cos(x) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-5" class="cell" data-execution_count="6" data-cell-type="code">
+<div id="cell-6" class="cell" data-execution_count="6" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">2</span><span class="op">;</span>    </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="dv">3</span><span class="op">;</span> </span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -520,10 +520,10 @@ window.Quarto = {
 <p>That is nice but how about a multidimensional case?</p>
 <p>Let us calculate the two dimensional integral <span class="math inline">\(I=\int \int f(x, y) dx dy\)</span> where <span class="math inline">\(f(x,y) = x^2 +y^2\)</span> over the region deﬁned by the condition <span class="math inline">\(x^2 +y^2 ≤ 1\)</span></p>
 <p>In other words we are talking about a uniform distribution on the unit circle</p>
-<div id="cell-7" class="cell" data-execution_count="7" data-cell-type="code">
+<div id="cell-8" class="cell" data-execution_count="7" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fmd <span class="op">=</span> <span class="kw">lambda</span> x,y: x<span class="op">*</span>x <span class="op">+</span> y<span class="op">*</span>y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="9" data-cell-type="code">
+<div id="cell-9" class="cell" data-execution_count="9" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># use N draws </span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>N<span class="op">=</span> <span class="dv">8000</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>X<span class="op">=</span> np.random.uniform(low<span class="op">=-</span><span class="dv">1</span>, high<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span>N) </span>
@@ -545,7 +545,7 @@ window.Quarto = {
 <section id="monte-carlo-as-a-function-of-number-of-samples" class="level2">
 <h2 class="anchored" data-anchor-id="monte-carlo-as-a-function-of-number-of-samples">Monte-Carlo as a function of number of samples</h2>
 <p>How does the accuracy depends on the number of points(samples)? Lets try the same 1-D integral $ I= _{2}^{3} [x^2 + 4 , x ,(x)] , dx $ as a function of the number of points.</p>
-<div id="cell-10" class="cell" data-execution_count="10" data-cell-type="code">
+<div id="cell-11" class="cell" data-execution_count="10" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Imc<span class="op">=</span>np.zeros(<span class="dv">1000</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>Na <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">1000</span>,<span class="dv">1000</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -567,7 +567,7 @@ window.Quarto = {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -579,7 +579,7 @@ window.Quarto = {
 <p>Monte Carlo methods yield approximate answers whose accuracy depends on the number of draws. So far, we have used our knowledge of the exact value to determine that the error in the Monte Carlo method approaches zero as approximately <span class="math inline">\(1/\sqrt{N}\)</span> for large <span class="math inline">\(N\)</span>, where <span class="math inline">\(N\)</span> is the number of trials.</p>
 <p>But in the usual case, the exact answer is unknown. Why do this otherwise?</p>
 <p>So, lets repeat the same evaluation <span class="math inline">\(m\)</span> times and check the variance of the estimate.</p>
-<div id="cell-13" class="cell" data-execution_count="13" data-cell-type="code">
+<div id="cell-14" class="cell" data-execution_count="13" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># multiple MC estimations</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>m<span class="op">=</span><span class="dv">1000</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>N<span class="op">=</span><span class="dv">10000</span></span>
@@ -603,7 +603,7 @@ window.Quarto = {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-8-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-9-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -698,6 +698,7 @@ document.addEventListener('DOMContentLoaded', function() {
 })();
 </script>
 <script src="../../assets/llm-explain.js"></script>
+<script src="../../assets/download-bundle.js"></script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

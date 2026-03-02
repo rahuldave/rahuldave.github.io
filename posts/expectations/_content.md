@@ -1,5 +1,22 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "pandas",
+#   "scipy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 # The %... is an iPython thing, and is not part of the Python language.
 # In this case we're just telling the plotting library to draw things on
 # the notebook, instead of on a separate window.
@@ -26,7 +43,7 @@ Output:
   warnings.warn(self.msg_depr % (key, alt_key))
 ```
 
-<!-- cell:2 type:markdown -->
+<!-- cell:3 type:markdown -->
 ## Expectations 
 
 $$ \newcommand{\E}[1]{E[#1]}$$
@@ -89,14 +106,14 @@ In general, we can find this mean that by obtaining a large bunch of samples fro
 
 However the intuition is obvious: for a large number of samples, the frequencies will tract probabilities well, so high probability samples with roughly the same value will re-occur, and a simple arithmetic sun will capture the curves of the distribution.
 
-<!-- cell:3 type:markdown -->
+<!-- cell:4 type:markdown -->
 ## The Law of Large Numbers
 
 Imagine a sequence of length n of coin flips. Lets keep increasing the length of the sequence of coin flips n, and compute a running average $S_n$ of the coin-flip random variables,
 $$S_n = \frac{1}{n} \sum_{i=1}^{n} x_i .$$
 We plot this running mean, and notice that it *converges to the mean of the distribution from which the random variables are plucked*, ie the Bernoulli distribution with p=0.5. 
 
-<!-- cell:4 type:code -->
+<!-- cell:5 type:code -->
 ```python
 from scipy.stats.distributions import bernoulli
 def throw_a_coin(n):
@@ -104,7 +121,7 @@ def throw_a_coin(n):
     return brv.rvs(size=n)
 ```
 
-<!-- cell:5 type:code -->
+<!-- cell:6 type:code -->
 ```python
 random_flips = throw_a_coin(10000)
 running_means = np.zeros(10000)
@@ -113,14 +130,14 @@ for i in sequence_lengths:
     running_means[i-1] = np.mean(random_flips[:i])
 ```
 
-<!-- cell:6 type:code -->
+<!-- cell:7 type:code -->
 ```python
 plt.plot(sequence_lengths, running_means);
 plt.xscale('log')
 ```
 [Figure]
 
-<!-- cell:7 type:markdown -->
+<!-- cell:8 type:markdown -->
 
 This is an example of a very important theorem in statistics, the law of large numbers, which says this:
 

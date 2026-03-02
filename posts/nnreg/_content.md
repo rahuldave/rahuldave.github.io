@@ -1,5 +1,21 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "scikit-learn",
+#   "torch",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 import torch
 import torch.nn as nn
 from torch.nn import functional as fn
@@ -26,7 +42,7 @@ class MLRegP(nn.Module):
         return out_final, x, out_init
 ```
 
-<!-- cell:2 type:code -->
+<!-- cell:3 type:code -->
 ```python
 %matplotlib inline
 import numpy as np
@@ -39,7 +55,7 @@ plt.plot(x,y, '.', alpha=0.2);
 ```
 [Figure]
 
-<!-- cell:3 type:code -->
+<!-- cell:4 type:code -->
 ```python
 xgrid.shape
 ```
@@ -48,7 +64,7 @@ Output:
 (629,)
 ```
 
-<!-- cell:4 type:code -->
+<!-- cell:5 type:code -->
 ```python
 from sklearn.linear_model import LinearRegression
 est = LinearRegression().fit(x.reshape(-1,1), y)
@@ -57,20 +73,20 @@ plt.plot(x,est.predict(x.reshape(-1,1)), 'k-', lw=3, alpha=0.2);
 ```
 [Figure]
 
-<!-- cell:5 type:code -->
+<!-- cell:6 type:code -->
 ```python
 xdata = Variable(torch.Tensor(xgrid))
 ydata = Variable(torch.Tensor(ygrid))
 ```
 
-<!-- cell:6 type:code -->
+<!-- cell:7 type:code -->
 ```python
 import torch.utils.data
 dataset = torch.utils.data.TensorDataset(torch.from_numpy(xgrid.reshape(-1,1)), torch.from_numpy(ygrid))
 loader = torch.utils.data.DataLoader(dataset, batch_size=64, shuffle=True)
 ```
 
-<!-- cell:7 type:code -->
+<!-- cell:8 type:code -->
 ```python
 dataset.data_tensor.shape, dataset.target_tensor.shape
 ```
@@ -79,7 +95,7 @@ Output:
 (torch.Size([629, 1]), torch.Size([629]))
 ```
 
-<!-- cell:8 type:code -->
+<!-- cell:9 type:code -->
 ```python
 def run_model(model, epochs):
     criterion = nn.MSELoss()
@@ -101,15 +117,15 @@ def run_model(model, epochs):
     return accum
 ```
 
-<!-- cell:9 type:markdown -->
+<!-- cell:10 type:markdown -->
 ### input dim 1, 2 hidden layers width 2, linear output
 
-<!-- cell:10 type:code -->
+<!-- cell:11 type:code -->
 ```python
 model = MLRegP(1, 2, nonlinearity=fn.sigmoid, additional_hidden_wide=1)
 ```
 
-<!-- cell:11 type:code -->
+<!-- cell:12 type:code -->
 ```python
 print(model)
 ```
@@ -124,18 +140,18 @@ MLRegP(
 )
 ```
 
-<!-- cell:12 type:code -->
+<!-- cell:13 type:code -->
 ```python
 accum = run_model(model, 2000)
 ```
 
-<!-- cell:13 type:code -->
+<!-- cell:14 type:code -->
 ```python
 plt.plot([a[0] for a in accum]);
 ```
 [Figure]
 
-<!-- cell:14 type:code -->
+<!-- cell:15 type:code -->
 ```python
 plt.plot([a[0]+a[1] for a in accum]);
 plt.plot([a[0]-a[1] for a in accum]);
@@ -147,7 +163,7 @@ Output:
 ```
 [Figure]
 
-<!-- cell:15 type:code -->
+<!-- cell:16 type:code -->
 ```python
 finaloutput, init_output, mid_output = model.forward(xdata.view(-1,1))
 plt.plot(xgrid, ygrid, '.')
@@ -161,7 +177,7 @@ Output:
 ```
 [Figure]
 
-<!-- cell:16 type:code -->
+<!-- cell:17 type:code -->
 ```python
 io = mid_output.data.numpy()
 io.shape
@@ -171,7 +187,7 @@ Output:
 (629, 2)
 ```
 
-<!-- cell:17 type:code -->
+<!-- cell:18 type:code -->
 ```python
 plt.plot(xgrid, ygrid, '.', alpha=0.2)
 for j in range(io.shape[1]):
@@ -179,16 +195,16 @@ for j in range(io.shape[1]):
 ```
 [Figure]
 
-<!-- cell:18 type:markdown -->
+<!-- cell:19 type:markdown -->
 ### input dim 1, 2 hidden layers width 4, linear output
 
-<!-- cell:19 type:code -->
+<!-- cell:20 type:code -->
 ```python
 model2 = MLRegP(1, 4, nonlinearity=fn.sigmoid, additional_hidden_wide=1)
 accum = run_model(model2, 4000)
 ```
 
-<!-- cell:20 type:code -->
+<!-- cell:21 type:code -->
 ```python
 print(model2)
 ```
@@ -203,13 +219,13 @@ MLRegP(
 )
 ```
 
-<!-- cell:21 type:code -->
+<!-- cell:22 type:code -->
 ```python
 plt.plot([a[0] for a in accum]);
 ```
 [Figure]
 
-<!-- cell:22 type:code -->
+<!-- cell:23 type:code -->
 ```python
 finaloutput, init_output, mid_output = model2.forward(xdata.view(-1,1))
 plt.plot(xgrid, ygrid, '.')
@@ -221,7 +237,7 @@ Output:
 ```
 [Figure]
 
-<!-- cell:23 type:code -->
+<!-- cell:24 type:code -->
 ```python
 io = mid_output.data.numpy()
 io.shape
@@ -231,7 +247,7 @@ Output:
 (629, 4)
 ```
 
-<!-- cell:24 type:code -->
+<!-- cell:25 type:code -->
 ```python
 plt.plot(xgrid, ygrid, '.', alpha=0.2)
 for j in range(io.shape[1]):
@@ -239,10 +255,10 @@ for j in range(io.shape[1]):
 ```
 [Figure]
 
-<!-- cell:25 type:markdown -->
+<!-- cell:26 type:markdown -->
 ### input dim 1, 2 hidden layers width 8, linear output
 
-<!-- cell:26 type:code -->
+<!-- cell:27 type:code -->
 ```python
 model3 = MLRegP(1, 8, nonlinearity=fn.sigmoid, additional_hidden_wide=1)
 accum = run_model(model3, 4000)
@@ -250,7 +266,7 @@ plt.plot([a[0] for a in accum]);
 ```
 [Figure]
 
-<!-- cell:27 type:code -->
+<!-- cell:28 type:code -->
 ```python
 print(model3)
 ```
@@ -265,7 +281,7 @@ MLRegP(
 )
 ```
 
-<!-- cell:28 type:code -->
+<!-- cell:29 type:code -->
 ```python
 finaloutput, init_output, mid_output = model3.forward(xdata.view(-1,1))
 plt.plot(xgrid, ygrid, '.')
@@ -277,7 +293,7 @@ Output:
 ```
 [Figure]
 
-<!-- cell:29 type:code -->
+<!-- cell:30 type:code -->
 ```python
 io = mid_output.data.numpy()
 plt.plot(xgrid, ygrid, '.', alpha=0.2)
@@ -286,10 +302,10 @@ for j in range(io.shape[1]):
 ```
 [Figure]
 
-<!-- cell:30 type:markdown -->
+<!-- cell:31 type:markdown -->
 ### input dim 1, 3 hidden layers width 4, linear output
 
-<!-- cell:31 type:code -->
+<!-- cell:32 type:code -->
 ```python
 model4 = MLRegP(1, 4, nonlinearity=fn.sigmoid, additional_hidden_wide=2)
 accum = run_model(model4, 4000)
@@ -297,7 +313,7 @@ plt.plot([a[0] for a in accum]);
 ```
 [Figure]
 
-<!-- cell:32 type:code -->
+<!-- cell:33 type:code -->
 ```python
 print(model4)
 ```
@@ -313,7 +329,7 @@ MLRegP(
 )
 ```
 
-<!-- cell:33 type:code -->
+<!-- cell:34 type:code -->
 ```python
 finaloutput, init_output, mid_output = model4.forward(xdata.view(-1,1))
 plt.plot(xgrid, ygrid, '.')
@@ -325,10 +341,10 @@ Output:
 ```
 [Figure]
 
-<!-- cell:34 type:markdown -->
+<!-- cell:35 type:markdown -->
 ### input dim 1, 3 hidden layers width 2, linear output
 
-<!-- cell:35 type:code -->
+<!-- cell:36 type:code -->
 ```python
 model5 = MLRegP(1, 2, nonlinearity=fn.sigmoid, additional_hidden_wide=2)
 accum = run_model(model5, 4000)
@@ -336,7 +352,7 @@ plt.plot([a[0] for a in accum]);
 ```
 [Figure]
 
-<!-- cell:36 type:code -->
+<!-- cell:37 type:code -->
 ```python
 print(model5)
 ```
@@ -352,7 +368,7 @@ MLRegP(
 )
 ```
 
-<!-- cell:37 type:code -->
+<!-- cell:38 type:code -->
 ```python
 finaloutput, init_output, mid_output = model5.forward(xdata.view(-1,1))
 plt.plot(xgrid, ygrid, '.')
@@ -364,7 +380,7 @@ Output:
 ```
 [Figure]
 
-<!-- cell:38 type:code -->
+<!-- cell:39 type:code -->
 ```python
 io = mid_output.data.numpy()
 plt.plot(xgrid, ygrid, '.', alpha=0.2)
@@ -373,10 +389,10 @@ for j in range(io.shape[1]):
 ```
 [Figure]
 
-<!-- cell:39 type:markdown -->
+<!-- cell:40 type:markdown -->
 ### input dim 1, 1 hidden layers width 2, linear output
 
-<!-- cell:40 type:code -->
+<!-- cell:41 type:code -->
 ```python
 model6 = MLRegP(1, 2, nonlinearity=fn.sigmoid, additional_hidden_wide=0)
 accum = run_model(model6, 4000)
@@ -384,7 +400,7 @@ plt.plot([a[0] for a in accum]);
 ```
 [Figure]
 
-<!-- cell:41 type:code -->
+<!-- cell:42 type:code -->
 ```python
 print(model6)
 ```
@@ -398,7 +414,7 @@ MLRegP(
 )
 ```
 
-<!-- cell:42 type:code -->
+<!-- cell:43 type:code -->
 ```python
 finaloutput, init_output, mid_output = model6.forward(xdata.view(-1,1))
 plt.plot(xgrid, ygrid, '.')
@@ -410,7 +426,7 @@ Output:
 ```
 [Figure]
 
-<!-- cell:43 type:code -->
+<!-- cell:44 type:code -->
 ```python
 io = mid_output.data.numpy()
 plt.plot(xgrid, ygrid, '.', alpha=0.2)
@@ -419,10 +435,10 @@ for j in range(io.shape[1]):
 ```
 [Figure]
 
-<!-- cell:44 type:markdown -->
+<!-- cell:45 type:markdown -->
 ### input dim 1, 1 hidden layers width 1, linear output
 
-<!-- cell:45 type:code -->
+<!-- cell:46 type:code -->
 ```python
 model7 = MLRegP(1, 1, nonlinearity=fn.sigmoid, additional_hidden_wide=0)
 accum = run_model(model7, 4000)
@@ -430,7 +446,7 @@ plt.plot([a[0] for a in accum]);
 ```
 [Figure]
 
-<!-- cell:46 type:code -->
+<!-- cell:47 type:code -->
 ```python
 print(model7)
 ```
@@ -444,7 +460,7 @@ MLRegP(
 )
 ```
 
-<!-- cell:47 type:code -->
+<!-- cell:48 type:code -->
 ```python
 finaloutput, init_output, mid_output = model7.forward(xdata.view(-1,1))
 plt.plot(xgrid, ygrid, '.')
@@ -456,7 +472,7 @@ Output:
 ```
 [Figure]
 
-<!-- cell:48 type:code -->
+<!-- cell:49 type:code -->
 ```python
 io = mid_output.data.numpy()
 plt.plot(xgrid, ygrid, '.', alpha=0.2)
@@ -465,10 +481,10 @@ for j in range(io.shape[1]):
 ```
 [Figure]
 
-<!-- cell:49 type:markdown -->
+<!-- cell:50 type:markdown -->
 ### input dim 1, 1 hidden layers width 16, linear output
 
-<!-- cell:50 type:code -->
+<!-- cell:51 type:code -->
 ```python
 model8 = MLRegP(1, 16, nonlinearity=fn.sigmoid, additional_hidden_wide=0)
 accum = run_model(model8, 4000)
@@ -476,7 +492,7 @@ plt.plot([a[0] for a in accum]);
 ```
 [Figure]
 
-<!-- cell:51 type:code -->
+<!-- cell:52 type:code -->
 ```python
 print(model8)
 ```
@@ -490,7 +506,7 @@ MLRegP(
 )
 ```
 
-<!-- cell:52 type:code -->
+<!-- cell:53 type:code -->
 ```python
 finaloutput, init_output, mid_output = model8.forward(xdata.view(-1,1))
 plt.plot(xgrid, ygrid, '.')
@@ -499,7 +515,7 @@ plt.title("input dim 1, 1 hidden layers width 16, linear output");
 ```
 [Figure]
 
-<!-- cell:53 type:code -->
+<!-- cell:54 type:code -->
 ```python
 io = mid_output.data.numpy()
 plt.plot(xgrid, ygrid, '.', alpha=0.2)

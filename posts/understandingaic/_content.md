@@ -1,19 +1,37 @@
-<!-- cell:1 type:markdown -->
-This notebook is based on McElreath, Rethinking Statistics, Chapter 6.
+<!-- cell:1 type:code -->
+```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "pandas",
+#   "scipy",
+#   "seaborn",
+#   "statsmodels",
+# ]
+# ///
+
+```
 
 <!-- cell:2 type:markdown -->
+This notebook is based on McElreath, Rethinking Statistics, Chapter 6.
+
+<!-- cell:3 type:markdown -->
 When we use the empirical distribution and sample quantities here we are working with our training sample (s).
 
 Clearly we can calculate deviance on the validation and test samples as well to remedy this issue. And the results will be similar to what we found in lecture for MSE, with the training deviance decreasing with complexity and the testing deviance increasing at some point. 
 
-<!-- cell:3 type:code -->
+<!-- cell:4 type:code -->
 ```python
 import numpy as np
 %matplotlib inline
 import matplotlib.pyplot as plt
 ```
 
-<!-- cell:4 type:markdown -->
+<!-- cell:5 type:markdown -->
 ## A trick to generate data
 
 We generate data from a gaussian with standard deviation 1 and means given by:
@@ -24,7 +42,7 @@ This is a **2 parameter** model.
 
 We use an interesting trick to generate this data, directly using the regression coefficients as correlations with the response variable.
 
-<!-- cell:5 type:code -->
+<!-- cell:6 type:code -->
 ```python
 def generate_data(N, k, rho=[0.15, -0.4]):
     n_dim = 1 + len(rho)
@@ -45,10 +63,10 @@ def generate_data(N, k, rho=[0.15, -0.4]):
     return Xtrain[:,:k], ytrain, Xtest[:,:k], ytest
 ```
 
-<!-- cell:6 type:markdown -->
+<!-- cell:7 type:markdown -->
 We want to generate data for 5 different cases, a one parameter (intercept) fit, a two parameter (intercept and $x_1$), three parameters (add a $x_2), and four and five parameters. Here is what the data looks like for 2 parameters:
 
-<!-- cell:7 type:code -->
+<!-- cell:8 type:code -->
 ```python
 generate_data(20,2)
 ```
@@ -104,10 +122,10 @@ Output:
          0.36671712, -0.73570139, -0.381103  , -0.3126861 , -0.61196652]))
 ```
 
-<!-- cell:8 type:markdown -->
+<!-- cell:9 type:markdown -->
 And for four parameters
 
-<!-- cell:9 type:code -->
+<!-- cell:10 type:code -->
 ```python
 generate_data(20,4)
 ```
@@ -183,7 +201,7 @@ Output:
          0.38210287,  1.27868801, -1.71473971,  0.6498696 , -0.27036068]))
 ```
 
-<!-- cell:10 type:code -->
+<!-- cell:11 type:code -->
 ```python
 from scipy.stats import norm
 import statsmodels.api as sm
@@ -194,7 +212,7 @@ Output:
   from pandas.core import datetools
 ```
 
-<!-- cell:11 type:markdown -->
+<!-- cell:12 type:markdown -->
 ## Analysis, n=20
 
 Here is the main loop of our analysis. We take the 5 models we talked about. For each model we generate 10000 samples of the data, split into an equal sized (N=20 each) training and testing set. We fit the regression on the training set, and calculate the deviance on the training set. Notice how we have simply used the `logpdf` from `scipy.stats`. You can easily do this for other distributions.
@@ -203,7 +221,7 @@ We then use the fit to calculate the $\mu$ on the test set, and calculate the de
 
 Why do we do 10000 simulations? These are our **multiple samples from some hypothetical population**.
 
-<!-- cell:12 type:code -->
+<!-- cell:13 type:code -->
 ```python
 reps=10000
 results_20 = {}
@@ -224,7 +242,7 @@ for k in range(1,6):
     results_20[k] = (np.mean(trdevs), np.std(trdevs), np.mean(tedevs), np.std(tedevs))
 ```
 
-<!-- cell:13 type:code -->
+<!-- cell:14 type:code -->
 ```python
 import pandas as pd
 df = pd.DataFrame(results_20).T
@@ -241,7 +259,7 @@ Output:
 5  49.026424   4.431733  58.718321  8.279063
 ```
 
-<!-- cell:14 type:code -->
+<!-- cell:15 type:code -->
 ```python
 import seaborn.apionly as sns
 colors = sns.color_palette()
@@ -261,10 +279,10 @@ Output:
  (0.09019607843137255, 0.7450980392156863, 0.8117647058823529)]
 ```
 
-<!-- cell:15 type:markdown -->
+<!-- cell:16 type:markdown -->
 We plot the traing and testing deviances
 
-<!-- cell:16 type:code -->
+<!-- cell:17 type:code -->
 ```python
 plt.plot(df.index, df.train, 'o', color = colors[0])
 plt.errorbar(df.index, df.train, yerr=df.train_std, fmt=None, color=colors[0])
@@ -281,7 +299,7 @@ Output:
 ```
 [Figure]
 
-<!-- cell:17 type:markdown -->
+<!-- cell:18 type:markdown -->
 Notice:
 
 - the best fit model may not be the original generating model. Remember that the choice of fit depends on the amount of data you have and the less data you have, the less parameters you should use
@@ -291,7 +309,7 @@ Notice:
 
 Let us see the difference between the mean testing and training deviances. This is the difference in *bias* between the two sets.
 
-<!-- cell:18 type:code -->
+<!-- cell:19 type:code -->
 ```python
 df.test - df.train
 ```
@@ -305,13 +323,13 @@ Output:
 dtype: float64
 ```
 
-<!-- cell:19 type:markdown -->
+<!-- cell:20 type:markdown -->
 Voila, this seems to be roughly twice the number of parameters. In other words we might be able to get away without a test set if we "correct" the bias on the traing set by $2n_p$. This is the observation that motivates the AIC.
 
-<!-- cell:20 type:markdown -->
+<!-- cell:21 type:markdown -->
 ### Analysis N=100
 
-<!-- cell:21 type:code -->
+<!-- cell:22 type:code -->
 ```python
 reps=10000
 results_100 = {}
@@ -331,14 +349,14 @@ for k in range(1,6):
     results_100[k] = (np.mean(trdevs), np.std(trdevs), np.mean(tedevs), np.std(tedevs))
 ```
 
-<!-- cell:22 type:code -->
+<!-- cell:23 type:code -->
 ```python
 df100 = pd.DataFrame(results_100).T
 df100 = df100.rename(columns = dict(zip(range(4), ['train', 'train_std', 'test', 'test_std'])))
 df100
 ```
 
-<!-- cell:23 type:code -->
+<!-- cell:24 type:code -->
 ```python
 plt.plot(df100.index, df100.train, 'o', color = colors[0])
 plt.errorbar(df100.index, df100.train, yerr=df100.train_std, fmt=None, color=colors[0])
@@ -349,7 +367,7 @@ plt.ylabel("deviance")
 plt.title("N=100");
 ```
 
-<!-- cell:24 type:code -->
+<!-- cell:25 type:code -->
 ```python
 df100.test - df100.train
 ```
@@ -363,10 +381,10 @@ Output:
 dtype: float64
 ```
 
-<!-- cell:25 type:markdown -->
+<!-- cell:26 type:markdown -->
 We get pretty much the same result at N=100.
 
-<!-- cell:26 type:markdown -->
+<!-- cell:27 type:markdown -->
 ## Assumptions for AIC
 
 This observation leads to an estimate of the out-of-sample deviance by what is called an **information criterion**, the Akaike Information Criterion, or AIC:
@@ -410,14 +428,14 @@ Since the deviance for a OLS model is just proportional to the log(MSE) upto a p
 
 The fact that the (log-likelihood) and thus the deviance  carries an expectation over the true distribution as estimated on the sample means that the **Deviance is a stochastic quantity, varying from sample to sample**.
 
-<!-- cell:27 type:markdown -->
+<!-- cell:28 type:markdown -->
 ## A complete understanding of the comparison diagram
 
 (taken from McElreath, but see upstairs as well)
 
 ![In-sample vs. out-of-sample deviance as model complexity increases, for N=20 and N=100. From McElreath, Statistical Rethinking.](assets/inoutdeviance.png)
 
-<!-- cell:28 type:markdown -->
+<!-- cell:29 type:markdown -->
 Now we are equipped to understand this diagram completely. Lets focus on the training (in) set first: blue points. 
 
 1. There is some irreducible noise which contributes to the deviance no matter the number of parameters.

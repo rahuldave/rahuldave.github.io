@@ -1,5 +1,22 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "pandas",
+#   "scipy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 # The %... is an iPython thing, and is not part of the Python language.
 # In this case we're just telling the plotting library to draw things on
 # the notebook, instead of on a separate window.
@@ -21,7 +38,7 @@ sns.set_style("whitegrid")
 sns.set_context("poster")
 ```
 
-<!-- cell:2 type:markdown -->
+<!-- cell:3 type:markdown -->
 $$
 \newcommand{\Ex}{\mathbb{E}}
 \newcommand{\Var}{\mathrm{Var}}
@@ -34,7 +51,7 @@ $$
 \newcommand{\Gam}[1]{\mathrm{Gamma}#1}
 $$
 
-<!-- cell:3 type:markdown -->
+<!-- cell:4 type:markdown -->
 $$
 \renewcommand{\like}{\cal L}
 \renewcommand{\loglike}{\ell}
@@ -46,7 +63,7 @@ $$
 \renewcommand{\v}[1]{\mathbf #1}
 $$
 
-<!-- cell:4 type:markdown -->
+<!-- cell:5 type:markdown -->
 ## Logistic Regression MLE
 
 Logistic regression if one of the well known **supervized** learning algorithms used for classification.
@@ -78,7 +95,7 @@ Notice that at $z=0$ this function has the value 0.5. If $z > 0$, $h > 0.5$ and 
 
 This function is plotted below:
 
-<!-- cell:5 type:code -->
+<!-- cell:6 type:code -->
 ```python
 h = lambda z: 1./(1+np.exp(-z))
 zs=np.arange(-5,5,0.1)
@@ -86,7 +103,7 @@ plt.plot(zs, h(zs), alpha=0.5);
 ```
 [Figure]
 
-<!-- cell:6 type:markdown -->
+<!-- cell:7 type:markdown -->
 So we then come up with our rule by identifying:
 
 $$z = \v{w}\cdot\v{x}.$$
@@ -100,7 +117,7 @@ y = 0 &if& h(\v{w}\cdot\v{x}) \lt 0.5.
 \end{eqnarray}
 $$
 
-<!-- cell:7 type:markdown -->
+<!-- cell:8 type:markdown -->
 We said above that if $h > 0.5$ we ought to identify the sample with $y=1$? One way of thinking about this is to identify $h(\v{w}\cdot\v{x})$ with the probability that the sample is a '1' ($y=1$). Then we have the intuitive notion that lets identify a sample as 1 if we find that the probabilty of being a '1' is $\ge 0.5$.
 
 So suppose we say then that the probability of $y=1$ for a given $\v{x}$ is given by $h(\v{w}\cdot\v{x})$?
@@ -134,7 +151,7 @@ Thus its desirable to have probabilistic, or at the very least, ranked models of
 
 
 
-<!-- cell:8 type:markdown -->
+<!-- cell:9 type:markdown -->
 Now if we maximize $$P(y \mid \v{x},\v{w})$$, we will maximize the chance that each point is classified correctly, which is what we want to do. This is a principled way of obtaining the highest probability classification. This **maximum likelihood** estimation maximises the **likelihood of the sample y**, 
 
 $$\like = P(y \mid \v{x},\v{w}).$$ 
@@ -159,7 +176,7 @@ $$\begin{eqnarray}
                   &=& \sum_{y_i \in \cal{D}} \left ( y_i log(h(\v{w}\cdot\v{x_i})) + ( 1 - y_i) log(1 - h(\v{w}\cdot\v{x_i})) \right )
 \end{eqnarray}$$
 
-<!-- cell:9 type:markdown -->
+<!-- cell:10 type:markdown -->
 The negative of this log likelihood (henceforth abbreviated NLL), is also called the cross-entropy, for reasons that will become clearer soon.
 
 $$ NLL = - \sum_{y_i \in \cal{D}} \left ( y_i log(h(\v{w}\cdot\v{x})) + ( 1 - y_i) log(1 - h(\v{w}\cdot\v{x})) \right )$$
@@ -174,7 +191,7 @@ Logistic regression can be represented by the following diagram. This diagram us
 
 ![Logistic regression as a computational graph: input passes through a linear layer and sigmoid activation to produce the negative log-likelihood cost.](assets/layershorstd.png)
 
-<!-- cell:10 type:markdown -->
+<!-- cell:11 type:markdown -->
 ## Softmax formulation
 
 The softmax formulation of logistic regression comes from the desire togeneralize logistic regression to the multinomial case, that is more than 2 classes. Its instructive to see the two-class problem formulated in softmax as well.
@@ -183,7 +200,7 @@ The basic idea is to identify the probabilities $p_i$ and $1-p_i$ as two separat
 
 $$p_{1i} = p_i ; p_{2i} = 1 - p_i. $$
 
-<!-- cell:11 type:markdown -->
+<!-- cell:12 type:markdown -->
 Then, the function $h$ which is used to supply this probability can be reformulated as well:
 
 $$p_{1i} = \frac{e^{\v{w_1} \cdot \v{x}}}{e^{\v{w_1} \cdot \v{x}} + e^{\v{w_2} \cdot \v{x}}}$$
@@ -196,12 +213,12 @@ The constraint that these probabilities add to 1 is clearly satisfied, but notic
 
 This then identifies $\v{w} = \v{w_1} - \v{w_2}$. In general, we can see that we can always translate the coefficients by a fixed amount $\psi$ without any change. This leads to a lack of "identification" of the parameters in the softmax formalism, which leads to problems for inference that we must fix. On the plus side, it also suggests a way to calculate softmax in a stable way (see the log-sum-exp trick). We'll tackle both of these later.
 
-<!-- cell:12 type:markdown -->
+<!-- cell:13 type:markdown -->
 The softmax formulation of logistic regression can be illustrated using the following diagram, where we now have 2 linear units. These units are now fed into a nonlinear log-softmax unit (which requires outputs of both the linear units) to produce two log-softmax outputs which is then fed to the NLL loss (cross-entropy).
 
 ![Multiclass logistic regression: two linear units feed into a softmax layer, producing class probabilities for the negative log-likelihood cost.](assets/layershorsm.png)
 
-<!-- cell:13 type:markdown -->
+<!-- cell:14 type:markdown -->
 In this formalism, we can write the likelihood and thus NLL more succintly:
 
 $$\like = \prod_i p_{1i}^{\mathbb1_1(y_i)} p_{2i}^{\mathbb1_2(y_i)}$$
@@ -216,7 +233,7 @@ and
 
 $$\frac{\partial NLL}{\partial \v{w_2}} = -\sum_i \v{x_i} (y_i - p_{2i})$$
 
-<!-- cell:14 type:markdown -->
+<!-- cell:15 type:markdown -->
 ## Layer Structure
 
 Writing the $NLL$ slightly differently suggests a layer structure:
@@ -227,7 +244,7 @@ $$NLL = -\sum_i \left( \mathbb1_1(y_i) LSM_1(\v{w_1} \cdot \v{x}, \v{w_2} \cdot 
 
 where $SM_1 = \frac{e^{\v{w_1} \cdot \v{x}}}{e^{\v{w_1} \cdot \v{x}} + e^{\v{w_2} \cdot \v{x}}}$ puts the first argument in the numerator. Ditto for $LSM_1$ which is simply $log(SM_1)$.
 
-<!-- cell:15 type:markdown -->
+<!-- cell:16 type:markdown -->
 The layer structure suggested is captured in the diagram below. There are 4 layers, which we shall generally label using the notation $\v{z}^l$ where the vector on $z$ indicates multiple values and the $l$ indicates the number of the layer (it is NOT a power).
 
 ![The computational graph with intermediate variables z labeled at each layer, preparing for the backpropagation derivation.](assets/layershororig.png)
@@ -239,26 +256,26 @@ $$\v{z}^1 = \v{x_i}$$
 Notice here that we are writing this data-point by data-point. We will follow this structure for everything but the cost function. The dimension of this $\v{z}^1$ depends on the number of features $\v{x_i}$ has.
 
 
-<!-- cell:16 type:markdown -->
+<!-- cell:17 type:markdown -->
 Then, the second layer.
 
 $$\v{z}^2 = (z^2_1, z^2_2) = (\v{w_1} \cdot \v{x_i}, \v{w_2} \cdot \v{x_i}) = (\v{w_1} \cdot \v{z^1_i}, \v{w_2} \cdot \v{z^1_i})$$
 
 The dimension of $\v{z}^2$ is 2 corresponding to the two linear layers.
 
-<!-- cell:17 type:markdown -->
+<!-- cell:18 type:markdown -->
 Then the third layer is also two dimensional, corresponding to the 2 log-softmax functions we have.
 
 $$\v{z}^3 = (z^3_1, z^3_2) = \left( LSM_1(z^2_1, z^2_2), LSM_2(z^2_1, z^2_2) \right)$$
 
-<!-- cell:18 type:markdown -->
+<!-- cell:19 type:markdown -->
 Finally, the fourth layer is just the cost layer, and is actually a scalar.
 
 $$z^4 = NLL(\v{z}^3) = NLL(z^3_1, z^3_2) = - \sum_i \left( \mathbb1_1(y_i)z^3_1(i) + \mathbb1_2(y_i)z^3_1(i) \right)$$
 
 Notice how these expressions are different from the fully expanded expressions we had earlier. Here each layer only depends on the previous layer. We shall utilize this structure soon to make our lives easier. Our tool to do this is **backpropagation**, which is just an example of Reverse Mode differentiation, which as can be surmised from the above structure, is a matter of taking derivatives by substitution, but in a particular order.
 
-<!-- cell:19 type:markdown -->
+<!-- cell:20 type:markdown -->
 ## Reverse Mode Differentiation
 
 We wont go into many details, but the key observation is this. An operation like finding the loss in our logistic regression problem can be considered as an exercise in function composition, where the last function ($z^4$, or the NLL cost) is a scalar. In other words, we are wanting to calculate:
@@ -269,7 +286,7 @@ where the vectorial function or the $\v{x}$ is a short form notation for both da
 
 $$\nabla_{\v{x}} Cost = \frac{\partial f^{Loss}}{\partial \v{f}^3}\,\frac{\partial \v{f}^3}{\partial \v{f}^2}\,\frac{\partial \v{f}^2}{\partial \v{f}^1}\frac{\partial \v{f}^1}{\partial \v{x}}$$
 
-<!-- cell:20 type:markdown -->
+<!-- cell:21 type:markdown -->
 Now, based on the observation that the first term in the above product is a vector while the second is a (Jacobian!) matrix, we can consider rewriting the product in this fashion:
 
 $$\nabla_{\v{x}} Cost = (((\frac{\partial f^{Loss}}{\partial \v{f}^3}\,\frac{\partial \v{f}^3}{\partial \v{f}^2})\,\frac{\partial \v{f}^2}{\partial \v{f}^1})\,\frac{\partial \v{f}^1}{\partial \v{x}})$$
@@ -278,7 +295,7 @@ This way of writing things always provides us with a vector times a matrix givin
 
 Backpropagation falls easily out of this. We add a "cost layer" to $z^4$. The derivative of this layer with respect to $z^4$ will always be 1. We then propagate this derivative back.
 
-<!-- cell:21 type:markdown -->
+<!-- cell:22 type:markdown -->
 ## Backpropagation
 
 Everything comes together now. Let us illustrate with a diagram:
@@ -309,7 +326,7 @@ $$\delta^l_u = \frac{\partial C}{\partial z^l_u} = \sum_v \frac{\partial C}{\par
 
 
 
-<!-- cell:22 type:markdown -->
+<!-- cell:23 type:markdown -->
 Once again the first term in the product is obviously a vector, and the second term a matrix, so we can recursively get the derivatives all the way down. So this gives us the compositional derivative at any depth we want. In particular we will start with
 
 $$\delta^3_u = \frac{\partial z^{4}}{\partial z^3_u} = \frac{\partial C}{\partial z^3_u}$$
@@ -318,7 +335,7 @@ which is now simply a derivative of the NLL with respect to "dummy" variables re
 
 
 
-<!-- cell:23 type:markdown -->
+<!-- cell:24 type:markdown -->
 One formula remains: the derivatives with respect to any parameter in any layer. In our case we have the $\vec{w}$ parameters at level-2, but these could be parameters at a higher level as well. For them we have
 
 RULE 3: Parameters
@@ -327,7 +344,7 @@ $$\frac{\partial C}{\partial \theta^l} = \sum_u \frac{\partial C}{\partial z^{l+
 
 Another recursion! Uses the derivatives we calculate in the backward pass. Both those derivates and these are used to fill the `variable.grad` parts of the various parameters in pytorch. This is also the reason for the strange choice to hold the gradients along with the variables rather than with the cost: we back propagate those gradients into the variables, so to speak.
 
-<!-- cell:24 type:markdown -->
+<!-- cell:25 type:markdown -->
 ## Coding a layer
 
 This extreme modularity suggests that we can define our own layers (or recursively, even our own combination of layers). even though we wont want to do this for logistic regression, this functionality is useful in defining Artificial Neural Network architectures.
@@ -338,7 +355,7 @@ What we must specifically provide is a way to implement the 3 rules for a layer:
 
 Such modularity allows for lots of experimentation.
 
-<!-- cell:25 type:code -->
+<!-- cell:26 type:code -->
 ```python
 
 ```

@@ -79,9 +79,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-8ed8c4e1427b57eae15282a2f1143096.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-ccbaf13865a3c7d1254290bba16250fd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-8ed8c4e1427b57eae15282a2f1143096.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-12664055cfeed62abd852165ab0e0bfb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-69a2ed97628a4e219880992b79f066a5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-12664055cfeed62abd852165ab0e0bfb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -149,13 +149,13 @@ window.Quarto = {
 
 <meta property="og:title" content="Introduction to Gibbs Sampling – rahuldave">
 <meta property="og:description" content="Gibbs sampling enables sampling from complex joint distributions by alternately sampling from univariate conditionals. Demonstrates the method through a 2D example, deriving analytically tractable conditional distributions and generating samples matching the target.">
-<meta property="og:image" content="https://rahuldave.github.io/posts/introgibbs/index_files/figure-html/cell-3-output-1.png">
+<meta property="og:image" content="https://rahuldave.github.io/posts/introgibbs/index_files/figure-html/cell-4-output-1.png">
 <meta property="og:site_name" content="rahuldave">
 <meta property="og:image:height" content="539">
 <meta property="og:image:width" content="782">
 <meta name="twitter:title" content="Introduction to Gibbs Sampling – rahuldave">
 <meta name="twitter:description" content="Gibbs sampling enables sampling from complex joint distributions by alternately sampling from univariate conditionals. Demonstrates the method through a 2D example, deriving analytically tractable conditional distributions and generating samples matching the target.">
-<meta name="twitter:image" content="https://rahuldave.github.io/posts/introgibbs/index_files/figure-html/cell-3-output-1.png">
+<meta name="twitter:image" content="https://rahuldave.github.io/posts/introgibbs/index_files/figure-html/cell-4-output-1.png">
 <meta name="twitter:creator" content="@rahuldave">
 <meta name="twitter:image-height" content="539">
 <meta name="twitter:image-width" content="782">
@@ -382,7 +382,7 @@ window.Quarto = {
   <li><a href="#autocorrelation" id="toc-autocorrelation" class="nav-link" data-scroll-target="#autocorrelation">Autocorrelation</a></li>
   </ul></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.out.ipynb" download="index.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -455,7 +455,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-1" class="cell" data-execution_count="42" data-cell-type="code">
+<div id="cell-2" class="cell" data-execution_count="42" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
@@ -492,7 +492,7 @@ window.Quarto = {
 <p>Let us consider a 2-D distribution which we wish to sample from.</p>
 <p><span class="math display">\[f(x,y) = x^2 {\rm exp}[-xy^2 - y^2 + 2y - 4x]\]</span></p>
 <p>Here’s what the distribution really looks like.</p>
-<div id="cell-5" class="cell" data-execution_count="43" data-cell-type="code">
+<div id="cell-6" class="cell" data-execution_count="43" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>func <span class="op">=</span> <span class="kw">lambda</span> x,y: x<span class="op">**</span><span class="dv">2</span><span class="op">*</span>np.exp( <span class="op">-</span>x<span class="op">*</span>y<span class="op">**</span><span class="dv">2</span> <span class="op">-</span> y<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>y <span class="op">-</span> <span class="dv">4</span><span class="op">*</span>x )</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -509,7 +509,7 @@ window.Quarto = {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -524,7 +524,7 @@ window.Quarto = {
 <p><span class="math display">\[f(x|y) = x^2 {\rm exp}[-x (y^2 +4)] g(y)\]</span></p>
 <p>where <span class="math inline">\(g(y) = {\rm exp}[- y^2 + 2y]\)</span>. Thus:</p>
 <p><span class="math display">\[f(x|y) = g(y){\rm Gamma}(3,y^2+4)\]</span></p>
-<div id="cell-8" class="cell" data-execution_count="49" data-cell-type="code">
+<div id="cell-9" class="cell" data-execution_count="49" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> xcond(y):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> gamma.rvs(<span class="dv">3</span>, scale<span class="op">=</span><span class="dv">1</span><span class="op">/</span>(y<span class="op">*</span>y <span class="op">+</span> <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -534,7 +534,7 @@ window.Quarto = {
 <p><span class="math display">\[f(y|x) = x^2 {\rm exp}[-(1+x)(y^2 - 2y\frac{1}{1+x} + \frac{1}{(1+x)^2})]{\rm exp}[-4x]\]</span></p>
 <p>Writing <span class="math inline">\(h(x) = x^2 {\rm exp}[-4x]\)</span> we have</p>
 <p><span class="math display">\[f(y|x) = N(\frac{1}{1+x},\frac{1}{\sqrt{(2(1+x))}}) h(x)\]</span></p>
-<div id="cell-10" class="cell" data-execution_count="50" data-cell-type="code">
+<div id="cell-11" class="cell" data-execution_count="50" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ycond(x):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> norm.rvs(<span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span>x), scale<span class="op">=</span><span class="fl">1.0</span><span class="op">/</span>np.sqrt(<span class="dv">2</span><span class="op">*</span>(x<span class="op">+</span><span class="dv">1</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -543,7 +543,7 @@ window.Quarto = {
 </section>
 <section id="the-sampler" class="level2">
 <h2 class="anchored" data-anchor-id="the-sampler">The sampler</h2>
-<div id="cell-12" class="cell" data-execution_count="51" data-cell-type="code">
+<div id="cell-13" class="cell" data-execution_count="51" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gibbs(xgiveny_sample, ygivenx_sample, N, start <span class="op">=</span> [<span class="dv">0</span>,<span class="dv">0</span>]):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>start[<span class="dv">0</span>]</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>start[<span class="dv">1</span>]</span>
@@ -562,7 +562,7 @@ window.Quarto = {
 <span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        </span>
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> samples</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="52" data-cell-type="code">
+<div id="cell-14" class="cell" data-execution_count="52" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>out<span class="op">=</span>gibbs(xcond, ycond, <span class="dv">100000</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>cmap <span class="op">=</span> sns.cubehelix_palette(light<span class="op">=</span><span class="dv">1</span>, as_cmap<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>plt.hist2d(out[<span class="dv">10000</span>:,<span class="dv">0</span>],out[<span class="dv">10000</span>:,<span class="dv">1</span>], normed<span class="op">=</span><span class="va">True</span>, bins<span class="op">=</span><span class="dv">100</span>, cmap<span class="op">=</span>cmap)</span>
@@ -571,7 +571,7 @@ window.Quarto = {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -579,7 +579,7 @@ window.Quarto = {
 <section id="gibbs-moves" class="level3">
 <h3 class="anchored" data-anchor-id="gibbs-moves">Gibbs Moves</h3>
 <p>Let’s look at the single steps the Gibbs sampler is taking:</p>
-<div id="cell-15" class="cell" data-execution_count="53" data-cell-type="code">
+<div id="cell-16" class="cell" data-execution_count="53" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>out<span class="op">=</span>gibbs(xcond, ycond, <span class="dv">10000</span>, start <span class="op">=</span> [<span class="dv">2</span>,<span class="dv">2</span>])</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>nr_t <span class="op">=</span> <span class="dv">50</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>plt.contour(xx,yy,zz)</span>
@@ -588,7 +588,7 @@ window.Quarto = {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -597,7 +597,7 @@ window.Quarto = {
 <section id="autocorrelation" class="level3">
 <h3 class="anchored" data-anchor-id="autocorrelation">Autocorrelation</h3>
 <p>Looking at the autocorrelation of our samples we are in pretty good shape and probably don’t have to worry much about thinning here. Note that this is not always the case for Gibbs sampling. The other notebook has an example where we need to have a lot of thinning to account for the autocorrelation of the samples. It all depends on the shape of our target distribution.</p>
-<div id="cell-17" class="cell" data-execution_count="40" data-cell-type="code">
+<div id="cell-18" class="cell" data-execution_count="40" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> corrplot(trace, maxlags<span class="op">=</span><span class="dv">50</span>):</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    plt.acorr(trace<span class="op">-</span>np.mean(trace),  normed<span class="op">=</span><span class="va">True</span>, maxlags<span class="op">=</span>maxlags)<span class="op">;</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    plt.xlim([<span class="dv">0</span>, maxlags])</span>
@@ -605,17 +605,17 @@ window.Quarto = {
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-18" class="cell" data-execution_count="41" data-cell-type="code">
+<div id="cell-19" class="cell" data-execution_count="41" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>corrplot(out[<span class="dv">4000</span>:,<span class="dv">1</span>], <span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -673,6 +673,7 @@ document.addEventListener('DOMContentLoaded', function() {
 })();
 </script>
 <script src="../../assets/llm-explain.js"></script>
+<script src="../../assets/download-bundle.js"></script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

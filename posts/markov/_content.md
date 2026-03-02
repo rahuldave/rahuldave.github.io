@@ -1,5 +1,21 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "scipy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 %matplotlib inline
 import numpy as np
 from scipy import stats
@@ -13,7 +29,7 @@ Output:
   warnings.warn(self.msg_depr % (key, alt_key))
 ```
 
-<!-- cell:2 type:markdown -->
+<!-- cell:3 type:markdown -->
 ## Markov chains
 
 Markov Chains are the first example of a **stochastic process** we will see in this class.  The values in a Markov chain depend on the previous values (probabilistically), with the defining characteristic being that a given value is depenendent only on the immediate previous value.
@@ -26,7 +42,7 @@ Using the notation of transition probabilities to define the probability of goin
 
 $$T(x_n \vert x_{n-1}, x_{n-1}..., x_1) = T(x_n \vert x_{n-1})$$
 
-<!-- cell:3 type:markdown -->
+<!-- cell:4 type:markdown -->
 ## Some Jargon
 
 
@@ -82,7 +98,7 @@ $$\int g(x) f(x) dx  = \frac{1}{N} \sum_{j=B+1}^{B+N} g(x_j)$$
 
 Here B is called the burin (which comes from the approach to stationarity after a while) and T is called the thinning (which comes from ergodicity). So we have this "ergodic" law of large numbers.
 
-<!-- cell:4 type:markdown -->
+<!-- cell:5 type:markdown -->
 ## Getting a stationary distribution
 
 A irreducible (goes everywhere) and aperiodic (no cycles) markov chain  will converge to a stationary markov chain. It is the marginal distribution of this chain that we want to sample from, and which we do in metropolis (and for that matter, in simulated annealing).
@@ -99,15 +115,15 @@ $$\int dx s(x) t(y \vert x) = s(y) \int dx T(x \vert y)$$ which gives us back th
 
 Thus we want to design us samplers which  satisfy detailed balance.
 
-<!-- cell:5 type:markdown -->
+<!-- cell:6 type:markdown -->
 ## Example Rainy - Sunny
 
-<!-- cell:6 type:markdown -->
+<!-- cell:7 type:markdown -->
 We look at a very simple Markov Chain, with only two states: Rainy or Sunny. This chain is aperiodic and irreducible, so it has a stationary distribution. We find it by looking at powers of the transition matrix.
 
 ![Rainy-Sunny two-state Markov chain with transition probabilities.](assets/mchain.png)
 
-<!-- cell:7 type:code -->
+<!-- cell:8 type:code -->
 ```python
 # the transition matrix for our chain
 transition_matrix = np.array([[1./3., 2./3.],[0.5, 0.5]])
@@ -119,7 +135,7 @@ array([[ 0.33333333,  0.66666667],
        [ 0.5       ,  0.5       ]])
 ```
 
-<!-- cell:8 type:code -->
+<!-- cell:9 type:code -->
 ```python
 
 # now for higher n. We should see that it converges to the
@@ -150,7 +166,7 @@ Output:
 -----------------
 ```
 
-<!-- cell:9 type:markdown -->
+<!-- cell:10 type:markdown -->
 The stationary distribution can be solved for. Assume that it is $$s = [p, 1-p]$$.  Then:
 
 $$sT = s$$
@@ -161,7 +177,7 @@ $$p \times (1/3) + (1-p) \times 1/2 =  p$$
 
 and thus $p = 3/7$
 
-<!-- cell:10 type:code -->
+<!-- cell:11 type:code -->
 ```python
 3/7, 4/7
 ```
@@ -170,10 +186,10 @@ Output:
 (0.42857142857142855, 0.5714285714285714)
 ```
 
-<!-- cell:11 type:markdown -->
+<!-- cell:12 type:markdown -->
 And  we can see that we can get to this stationary distribution starting from multiple places
 
-<!-- cell:12 type:code -->
+<!-- cell:13 type:code -->
 ```python
 np.dot([0.5,0.5], tm_before)
 ```
@@ -182,7 +198,7 @@ Output:
 array([ 0.42857296,  0.57142704])
 ```
 
-<!-- cell:13 type:code -->
+<!-- cell:14 type:code -->
 ```python
 np.dot([0.9,0.1], tm_before)
 ```
@@ -191,7 +207,7 @@ Output:
 array([ 0.42858153,  0.57141847])
 ```
 
-<!-- cell:14 type:markdown -->
+<!-- cell:15 type:markdown -->
 ## Back to Metropolis
 
 Now we can put our Metropolis sampler on a sure footing.  And this foOting based on Markov Chain theory is why we call this a **MCMC** or Markov Chain Monte Carlo technique.
@@ -202,7 +218,7 @@ As long as we set up a sampling scheme that follows detailed balance we are ok.
 
 $$ s(x_i)T( x_{i-1} \vert x_i ) = s(x_{i-1}) T( x_i \vert x_{i-1} )$$
 
-<!-- cell:15 type:markdown -->
+<!-- cell:16 type:markdown -->
 ### Proof of Detailed Balance
 
 The transition matrix (or kernel) can be written in this form for Metropolis:
@@ -217,7 +233,7 @@ is the Metropolis acceptance probability (you propose the move and accept it) an
 
 $$r(x_i) = \int dy q(y \vert x_i)(1 - A(y, x_i))$$ is the rejection term. In the event you dont move, this could have happened 2 ways: (a) you proposed to move to the same position and accepted it, or you proposes moves aevrywhere else but dont accept any of those proposals and stay where you are.
 
-<!-- cell:16 type:markdown -->
+<!-- cell:17 type:markdown -->
 Lets parse the term above:
 
 - the transition probability has two terms
@@ -225,13 +241,13 @@ Lets parse the term above:
 - the second term is the probability $r(x_{i-1})$ of rejecting it with the delta function setting it so that $x_i = x_{i-1}$
 - the integral adds over all the points $y$ that might have been proposed and then rejected, so we stayed at $x_{i-1}$
 
-<!-- cell:17 type:markdown -->
+<!-- cell:18 type:markdown -->
 $$s(x_i)T( x_{i-1} \vert x_i ) =  s(x_i) q(x_{i-1} \vert x_{i})\,A(x_{i-1}, x_{i}) +  s(x_i) \delta(x_{i} - x_{i-1})r(x_{i})$$
 
-<!-- cell:18 type:markdown -->
+<!-- cell:19 type:markdown -->
 $$s(x_{i-1})T( x_{i} \vert x_{i-1} ) =  s(x_{i-1}) q(x_i \vert x_{i-1})\,A(x_i, x_{i-1}) +  s(x_{i-1})\delta(x_{i-1} - x_i)r(x_{i-1})$$
 
-<!-- cell:19 type:markdown -->
+<!-- cell:20 type:markdown -->
 The second term in each expression is equal.
 
 Assume, without loss of generality that $s(x_i) < s(x_{i-1})$. Then the first term of the first expression gives us $s(x_i) q(x_{i-1} \vert x_i)$. The first term of the second expression gives us $s(x_{i}) q(x_i \vert x_{i-1})$. Since the proposals are symmetric, detailed balance holds.
@@ -239,7 +255,7 @@ Assume, without loss of generality that $s(x_i) < s(x_{i-1})$. Then the first te
 Thus the  Metropolis algorithm  respects $s(x)$ as the stationary distribution.
 
 
-<!-- cell:20 type:markdown -->
+<!-- cell:21 type:markdown -->
 ### Intuition
 
 All this math boils down to the following intuition:
@@ -247,7 +263,7 @@ All this math boils down to the following intuition:
 ![MCMC intuition: a Markov chain converging toward a target distribution shown in green, with the stationary distribution on the right.](assets/mcapproach.png)
 
 
-<!-- cell:21 type:markdown -->
+<!-- cell:22 type:markdown -->
 Instead of sampling $s$ (or $p$) (since we dont know how to do that) we sample $q$ instead.  Sampling from this distribution yields a new state, and a *new proposal distribution* from which to sample.
 
 ![Proposal distributions (black curves) overlaid on the true target distribution (red) and the resulting MCMC histogram (blue).](assets/gsample.png)
@@ -255,11 +271,11 @@ Instead of sampling $s$ (or $p$) (since we dont know how to do that) we sample $
 In general such a markov chain would meander around. But the aperiodicity and irreducibility means that it will preserve the (stationary) target distribution and go for the typical set (red), no matter where it is applied. 
 
 
-<!-- cell:22 type:markdown -->
+<!-- cell:23 type:markdown -->
 The possibility of rejection in the Metropolis algorithm based on the throw of a random uniform makes the chain aperiodic. And if we want it to be irreducible, we need to make sure $q$ can go everywhere that $p$ can, or that the support of $q$ includes everywhere the support of $p$. Thus our Metropolis algorithm converges.
 
 
-<!-- cell:23 type:markdown -->
+<!-- cell:24 type:markdown -->
 ## Onwards to Metropolis-Hastings
 
 Prior to a full discussion of Metropolis Hastings, let us motivate the season why we may want to tinker with the Metropolis algorithm.
@@ -274,7 +290,7 @@ However, we may also want to sample from a asymmetric proposal like a beta funct
 
 Here is the outline code for metropolis hastings.
 
-<!-- cell:24 type:code -->
+<!-- cell:25 type:code -->
 ```python
 def metropolis_hastings(p,q, qdraw, nsamp, xinit):
     samples=np.empty(nsamp)
@@ -294,12 +310,12 @@ def metropolis_hastings(p,q, qdraw, nsamp, xinit):
     return samples
 ```
 
-<!-- cell:25 type:markdown -->
+<!-- cell:26 type:markdown -->
 Look at the `proposalratio` term. Its a ratio of proposal pdfs. But its opposite to the ratio of the pdf that we want to sample from.
 
 What is the intuition behind this? Remember that because you dont know how to sample from $p$, you are sampling from $q$ instead.  Now if q is asymmetric, you will have a greater chance of going in one direction than the other. Indeed you are more likely to get samples from the region where $q$ (more precisely each new $q$) is high . This may not match with the $p$ you want to sample from, and you want to correct this oversampling by multiplying by the proposal ration. This helps erase the memory of $q$ a bit.
 
-<!-- cell:26 type:code -->
+<!-- cell:27 type:code -->
 ```python
 from scipy.stats import beta
 f = lambda x: 6*x*(1-x)

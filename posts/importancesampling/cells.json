@@ -10,8 +10,8 @@
     },
     {
       "cell": 1,
-      "type": "markdown",
-      "headings": []
+      "type": "code",
+      "html_id": "cell-1"
     },
     {
       "cell": 2,
@@ -21,17 +21,17 @@
     {
       "cell": 3,
       "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
       "headings": [
         {
           "slug": "example-calculate-int_0pi-sinx-x-dx",
           "level": 3
         }
       ]
-    },
-    {
-      "cell": 4,
-      "type": "code",
-      "html_id": "cell-4"
     },
     {
       "cell": 5,
@@ -42,6 +42,11 @@
       "cell": 6,
       "type": "code",
       "html_id": "cell-6"
+    },
+    {
+      "cell": 7,
+      "type": "code",
+      "html_id": "cell-7"
     }
   ]
 }

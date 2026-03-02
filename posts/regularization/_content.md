@@ -1,5 +1,23 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "pandas",
+#   "scikit-learn",
+#   "scipy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 %matplotlib inline
 import numpy as np
 import scipy as sp
@@ -20,7 +38,7 @@ Output:
   warnings.warn(self.msg_depr % (key, alt_key))
 ```
 
-<!-- cell:2 type:code -->
+<!-- cell:3 type:code -->
 ```python
 def make_simple_plot():
     fig, axes=plt.subplots(figsize=(12,5), nrows=1, ncols=2);
@@ -46,12 +64,12 @@ def make_plot():
     return axes
 ```
 
-<!-- cell:3 type:markdown -->
+<!-- cell:4 type:markdown -->
 ## Revisiting the model
 
 Let $x$ be the fraction of religious people in a county and $y$ be the probability of voting for Romney as a function of $x$. In other words $y_i$ is data that pollsters have taken which tells us their estimate of people voting for Romney and $x_i$ is the fraction of religious people in county $i$. Because poll samples are finite, there is a margin of error on each data point or county $i$, but we will ignore that for now.
 
-<!-- cell:4 type:code -->
+<!-- cell:5 type:code -->
 ```python
 dffull=pd.read_csv("data/religion.csv")
 dffull.head()
@@ -66,13 +84,13 @@ Output:
 4  0.062597   0.04
 ```
 
-<!-- cell:5 type:code -->
+<!-- cell:6 type:code -->
 ```python
 x=dffull.rfrac.values
 f=dffull.promney.values
 ```
 
-<!-- cell:6 type:code -->
+<!-- cell:7 type:code -->
 ```python
 df = pd.read_csv("data/noisysample.csv")
 df.head()
@@ -87,7 +105,7 @@ Output:
 4  0.285470  33  0.33  0.358174
 ```
 
-<!-- cell:7 type:code -->
+<!-- cell:8 type:code -->
 ```python
 from sklearn.cross_validation import train_test_split
 datasize=df.shape[0]
@@ -101,14 +119,14 @@ ftest = df.f[itest].values
 ytest = df.y[itest].values
 ```
 
-<!-- cell:8 type:code -->
+<!-- cell:9 type:code -->
 ```python
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 ```
 
-<!-- cell:9 type:code -->
+<!-- cell:10 type:code -->
 ```python
 def make_features(train_set, test_set, degrees):
     traintestlist=[]
@@ -120,16 +138,16 @@ def make_features(train_set, test_set, degrees):
     return traintestlist
 ```
 
-<!-- cell:10 type:code -->
+<!-- cell:11 type:code -->
 ```python
 degrees=range(21)
 traintestlists=make_features(xtrain, xtest, degrees)
 ```
 
-<!-- cell:11 type:markdown -->
+<!-- cell:12 type:markdown -->
 ## Constraining parameters by penalty
 
-<!-- cell:12 type:markdown -->
+<!-- cell:13 type:markdown -->
 Upto now we have focussed on finding the polynomial with the right degree of complexity $d^*$ given the data that we have.
 
 Let us now ask a different question: if we are going to fit the data with an expressive model such as 20th order polynomials, how can we **regularize** or smooth or restrict the choices of the kinds of 20th order polynomials that we allow in our fits. In other words, we are again trying to bring down the complexity of the hypothesis space, but by a different tack: a tack which prefers smooth polynomials over wiggly ones.
@@ -164,7 +182,7 @@ This technique is called **regularization** or **shrinkage** as it takes the coe
 
 Even though we are not doing any proofs, let us illustrate the concept of regularization using a line fit to a sine wave. We fit a straight line to 3 points, choosing 100 such sets of 3 points from the data set.
 
-<!-- cell:13 type:code -->
+<!-- cell:14 type:code -->
 ```python
 xs=np.arange(-1.,1.,0.01)
 ff = lambda x: np.sin(np.pi*x)
@@ -202,20 +220,20 @@ Output:
 ```
 [Figure]
 
-<!-- cell:14 type:markdown -->
+<!-- cell:15 type:markdown -->
 In the left panel we plot unregularized straight line fits. The plot is hairy, since choosing 3 points from 200 between -1 and 1 dosent constrain the lines much at all. On the right panel, we plot the output of **Ridge** regression with $\alpha=1$. This corresponds to adding a term to the empirical risk of $\alpha\, (a_0^2 + a_1^2)$ where $a_0$ and $a_1$ are the intercept and slope of the line respectively. Notice that the lines are much more constrained  in this second plot. The penalty term has regularized the values of the intercept and slope, and forced the intercept to be closer to 0 and the lines to be flatter.
 
-<!-- cell:15 type:markdown -->
+<!-- cell:16 type:markdown -->
 ### Contrast with complexity parameter validation
 
 Notice that in regularization, we are adding a term to the **training error**, once $\alpha$ is defined. It is this term that is estimated..
 
 When we were fitting for the degree of the polynomial, there was no explicit added term, we just fit the regular model. But there, as with regularization, the choice of the hyperparameter was made by comparing validation risks which were calculated by taking the parameters found with fixed hyperparameters on the training set.
 
-<!-- cell:16 type:markdown -->
+<!-- cell:17 type:markdown -->
 ## Regularization of the Romney model with Cross-Validation
 
-<!-- cell:17 type:code -->
+<!-- cell:18 type:code -->
 ```python
 def plot_functions(est, ax, df, alpha, xtest, Xtest, xtrain, ytrain):
     """Plot the approximation of ``est`` on axis ``ax``. """
@@ -240,14 +258,14 @@ def plot_coefficients(est, ax, alpha):
     ax.legend(loc='upper left')
 ```
 
-<!-- cell:18 type:markdown -->
+<!-- cell:19 type:markdown -->
 Lets now go back to the Romney voting model and see what regularization does to the fits in that model. The addition of a penalty term to the risk or error causes us to choose a smaller subset of the entire set of complex $\cal{H_{20}}$ polynomials. This is shown in the diagram below where the balance between bias and variance occurs at some subset $S_{\*}$ of the set of 20th order polynomials indexed by $\alpha_{\*}$ (there is an error on the diagram, the 13 there should actually be a 20).
 
 ![Bias-variance tradeoff controlled by regularization strength alpha](assets/complexity-error-reg.png)
 
 Lets see what some of the $\alpha$s do. The diagram below trains on the entire training set, for given values of $\alpha$, minimizing the penalty-term-added training error.
 
-<!-- cell:19 type:code -->
+<!-- cell:20 type:code -->
 ```python
 fig, rows = plt.subplots(5, 2, figsize=(12, 16))
 d=20
@@ -263,7 +281,7 @@ for i, alpha in enumerate(alphas):
 ```
 [Figure]
 
-<!-- cell:20 type:markdown -->
+<!-- cell:21 type:markdown -->
 As you can see, as we increase $\alpha$ from 0 to 1, we start out overfitting, then doing well, and then, our fits, develop a mind of their own irrespective of data, as the penalty term dominates the risk.
 
 Lets use cross-validation to figure what this critical $\alpha_*$ is. To do this we use the concept of a *meta-estimator* from scikit-learn. As the API paper puts it:
@@ -278,7 +296,7 @@ The concept of a meta-estimator allows us to wrap, for example, cross-validation
     
 The `GridSearchCV` replaces the manual iteration over thefolds using `KFolds` and the averaging we did previously, doint it all for us. It takes a parameter grid in the shape of a dictionary as input, and sets $\alpha$ to the appropriate parameter values one by one. It then trains the model, cross-validation fashion, and gets the error. Finally it compares the errors for the different $\alpha$'s, and picks the best choice model.
 
-<!-- cell:21 type:code -->
+<!-- cell:22 type:code -->
 ```python
 from sklearn.metrics import make_scorer
 #, 1e-6, 1e-5, 1e-3, 1.0
@@ -293,12 +311,12 @@ def cv_optimize_ridge(X, y, n_folds=4):
     return gs
 ```
 
-<!-- cell:22 type:code -->
+<!-- cell:23 type:code -->
 ```python
 fitmodel = cv_optimize_ridge(Xtrain, ytrain, n_folds=4)
 ```
 
-<!-- cell:23 type:code -->
+<!-- cell:24 type:code -->
 ```python
 fitmodel.best_estimator_, fitmodel.best_params_, fitmodel.best_score_, fitmodel.grid_scores_
 ```
@@ -320,18 +338,18 @@ Output:
   mean: -0.01280, std: 0.00548, params: {'alpha': 1.0}])
 ```
 
-<!-- cell:24 type:markdown -->
+<!-- cell:25 type:markdown -->
 Our best model occurs for $\alpha=0.01$. We also output the mean cross-validation error at different $\alpha$ (with a negative sign, as scikit-learn likes to maximize negative error which is equivalent to minimizing error).
 
 We refit the estimator on old training set, and calculate and plot the test set error and the polynomial coefficients. Notice how many of these coefficients have been pushed to lower values or 0.
 
-<!-- cell:25 type:code -->
+<!-- cell:26 type:code -->
 ```python
 alphawechoose = fitmodel.best_params_['alpha']
 clf = Ridge(alpha=alphawechoose).fit(Xtrain,ytrain)
 ```
 
-<!-- cell:26 type:code -->
+<!-- cell:27 type:code -->
 ```python
 def plot_functions_onall(est, ax, df, alpha, xtrain, ytrain, Xtrain, xtest, ytest):
     """Plot the approximation of ``est`` on axis ``ax``. """
@@ -349,7 +367,7 @@ def plot_functions_onall(est, ax, df, alpha, xtrain, ytrain, Xtrain, xtest, ytes
     ax.legend(loc='lower right')
 ```
 
-<!-- cell:27 type:code -->
+<!-- cell:28 type:code -->
 ```python
 fig, rows = plt.subplots(1, 2, figsize=(12, 5))
 l,r=rows
@@ -358,5 +376,5 @@ plot_coefficients(clf, r, alphawechoose)
 ```
 [Figure]
 
-<!-- cell:28 type:markdown -->
+<!-- cell:29 type:markdown -->
 As we can see, the best fit model is now chosen from the entire set of 20th order polynomials, and a non-zero hyperparameter $\alpha$ that we fit for ensures that only smooth models amonst these polynomials are chosen, by setting most of the polynomial coefficients to something close to 0 (Lasso sets them exactly to 0).

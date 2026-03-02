@@ -79,9 +79,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-8ed8c4e1427b57eae15282a2f1143096.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-ccbaf13865a3c7d1254290bba16250fd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-8ed8c4e1427b57eae15282a2f1143096.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-12664055cfeed62abd852165ab0e0bfb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-69a2ed97628a4e219880992b79f066a5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-12664055cfeed62abd852165ab0e0bfb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -149,13 +149,13 @@ window.Quarto = {
 
 <meta property="og:title" content="Bayesian Regression – rahuldave">
 <meta property="og:description" content="Formulates linear regression in the Bayesian framework with conjugate normal priors on the coefficients. Derives the posterior distribution over weights, shows how the posterior contracts with more data, and connects MAP estimation to ridge regression.">
-<meta property="og:image" content="https://rahuldave.github.io/posts/bayesianregression/index_files/figure-html/cell-4-output-1.png">
+<meta property="og:image" content="https://rahuldave.github.io/posts/bayesianregression/index_files/figure-html/cell-5-output-1.png">
 <meta property="og:site_name" content="rahuldave">
 <meta property="og:image:height" content="258">
 <meta property="og:image:width" content="400">
 <meta name="twitter:title" content="Bayesian Regression – rahuldave">
 <meta name="twitter:description" content="Formulates linear regression in the Bayesian framework with conjugate normal priors on the coefficients. Derives the posterior distribution over weights, shows how the posterior contracts with more data, and connects MAP estimation to ridge regression.">
-<meta name="twitter:image" content="https://rahuldave.github.io/posts/bayesianregression/index_files/figure-html/cell-4-output-1.png">
+<meta name="twitter:image" content="https://rahuldave.github.io/posts/bayesianregression/index_files/figure-html/cell-5-output-1.png">
 <meta name="twitter:creator" content="@rahuldave">
 <meta name="twitter:image-height" content="258">
 <meta name="twitter:image-width" content="400">
@@ -383,7 +383,7 @@ window.Quarto = {
   <li><a href="#posterior-predictive-distribution" id="toc-posterior-predictive-distribution" class="nav-link" data-scroll-target="#posterior-predictive-distribution">Posterior Predictive Distribution</a></li>
   <li><a href="#regularization" id="toc-regularization" class="nav-link" data-scroll-target="#regularization">Regularization</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.out.ipynb" download="index.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -466,7 +466,7 @@ window.Quarto = {
 \renewcommand{\x}{\mathbf x}
 \renewcommand{\v}[1]{\mathbf #1}
 \]</span></p>
-<div id="cell-2" class="cell" data-execution_count="1" data-cell-type="code">
+<div id="cell-3" class="cell" data-execution_count="1" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
@@ -481,7 +481,7 @@ window.Quarto = {
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">"whitegrid"</span>)</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>sns.set_context(<span class="st">"poster"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-3" class="cell" data-execution_count="2" data-cell-type="code">
+<div id="cell-4" class="cell" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> multivariate_normal</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cplot(f, ax<span class="op">=</span><span class="va">None</span>):</span>
@@ -522,7 +522,7 @@ $D={ ({}_1, y_1), ({}_2,y_2), , ({}_n, y_n) } $ where <span class="math inline">
 <p>where <span class="math inline">\({\bf w}\)</span> is a vector of parameters of the linear model. Usually there is a bias or offset is included, but for now we ignore it.</p>
 <p>We assume that the additive noise <span class="math inline">\(\epsilon\)</span> is iid Gaussian with zero mean and variance <span class="math inline">\(\sigma_n^2\)</span></p>
 <p><span class="math display">\[ \epsilon \sim N(0, \sigma^2_n) \]</span></p>
-<div id="cell-6" class="cell" data-execution_count="3" data-cell-type="code">
+<div id="cell-7" class="cell" data-execution_count="3" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>a0<span class="op">=-</span><span class="fl">0.3</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>a1<span class="op">=</span><span class="fl">0.5</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>N<span class="op">=</span><span class="dv">20</span></span>
@@ -536,7 +536,7 @@ $D={ ({}_1, y_1), ({}_2,y_2), , ({}_n, y_n) } $ where <span class="math inline">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -551,7 +551,7 @@ $D={ ({}_1, y_1), ({}_2,y_2), , ({}_n, y_n) } $ where <span class="math inline">
 \end{eqnarray}
 \]</span></p>
 <p>where <span class="math inline">\(|x|\)</span> denotes the Euclidean length of vector <span class="math inline">\(\bf x\)</span>.</p>
-<div id="cell-8" class="cell" data-execution_count="4" data-cell-type="code">
+<div id="cell-9" class="cell" data-execution_count="4" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>likelihoodSD <span class="op">=</span> noiseSD <span class="co"># Assume the likelihood precision is known.</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>likelihoodPrecision <span class="op">=</span> <span class="fl">1.</span><span class="op">/</span>(likelihoodSD<span class="op">*</span>likelihoodSD)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -564,7 +564,7 @@ $D={ ({}_1, y_1), ({}_2,y_2), , ({}_n, y_n) } $ where <span class="math inline">
 \]</span></p>
 <p>If we assume that <span class="math inline">\(\Sigma\)</span> is a diagonal covariance matrix then</p>
 <p><span class="math display">\[\bf w \sim N(w_0, \tau^2 \bf I)\]</span></p>
-<div id="cell-10" class="cell" data-execution_count="5" data-cell-type="code">
+<div id="cell-11" class="cell" data-execution_count="5" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>priorMean <span class="op">=</span> np.zeros(<span class="dv">2</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>priorPrecision<span class="op">=</span><span class="fl">2.0</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>prior_covariance <span class="op">=</span> <span class="kw">lambda</span> alpha: alpha<span class="op">*</span>np.eye(<span class="dv">2</span>)<span class="co">#Covariance Matrix</span></span>
@@ -575,22 +575,22 @@ $D={ ({}_1, y_1), ({}_2,y_2), , ({}_n, y_n) } $ where <span class="math inline">
 <pre><code>0.0021447551423913074</code></pre>
 </div>
 </div>
-<div id="cell-11" class="cell" data-execution_count="6" data-cell-type="code">
+<div id="cell-12" class="cell" data-execution_count="6" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>cplot(priorPDF)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-12" class="cell" data-execution_count="7" data-cell-type="code">
+<div id="cell-13" class="cell" data-execution_count="7" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>plotSampleLines(priorMean,priorCovariance,<span class="dv">15</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -615,7 +615,7 @@ p(\bf w| \bf y,X)  \propto  \exp \left( -\frac{1}{2} (\bf w - \bar{\bf w})^T  (\
 <p>where the new mean is</p>
 <p><span class="math display">\[\bar{\bf w} = A^{-1}\Sigma^{-1}{\bf w_0} + \sigma_n^{-2}( A^{-1} X^T \bf y )\]</span></p>
 <p>To make predictions for a test case we average over all possible parameter predictive distribution values, weighted by their posterior probability. This is in contrast to non Bayesian schemes, where a single parameter is typically chosen by some criterion.</p>
-<div id="cell-14" class="cell" data-execution_count="8" data-cell-type="code">
+<div id="cell-15" class="cell" data-execution_count="8" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Given the mean = priorMu and covarianceMatrix = priorSigma of a prior</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Gaussian distribution over regression parameters; observed data, x</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># and y; and the likelihood precision, generate the posterior</span></span>
@@ -630,7 +630,7 @@ p(\bf w| \bf y,X)  \propto  \exp \left( -\frac{1}{2} (\bf w - \bar{\bf w})^T  (\
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    postW <span class="op">=</span> <span class="kw">lambda</span> w: multivariate_normal.pdf(w,postMu,postCovariance)</span>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> postW, postMu, postCovariance</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-15" class="cell" data-execution_count="9" data-cell-type="code">
+<div id="cell-16" class="cell" data-execution_count="9" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For each iteration plot  the</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># posterior over the first i data points and sample lines whose</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># parameters are drawn from the corresponding posterior. </span></span>
@@ -651,7 +651,7 @@ p(\bf w| \bf y,X)  \propto  \exp \left( -\frac{1}{2} (\bf w - \bar{\bf w})^T  (\
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -672,14 +672,14 @@ p(y^{*} | x^{*}, {\bf x,y}) &amp;=&amp; \int p({\bf y}^{*}| {\bf x}^{*}, {\bf w}
 <section id="regularization" class="level2">
 <h2 class="anchored" data-anchor-id="regularization">Regularization</h2>
 <p><span class="math inline">\(\alpha = \sigma_n^2/\tau^2\)</span> (prior precision/likelihood precision) is the regularization parameter from ridge regression. An uninformative (tending to uniform) prior means no regularization which is the standard MLE result.</p>
-<div id="cell-18" class="cell" data-execution_count="10" data-cell-type="code">
+<div id="cell-19" class="cell" data-execution_count="10" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>priorPrecision<span class="op">/</span>likelihoodPrecision</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>0.08000000000000002</code></pre>
 </div>
 </div>
 <p>But now say you had a strong belief the both the slope and intercept ought to be 0. Or in other words you are trying to restrict your parameters to a certain range.</p>
-<div id="cell-20" class="cell" data-execution_count="11" data-cell-type="code">
+<div id="cell-21" class="cell" data-execution_count="11" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>priorPrecision<span class="op">=</span><span class="fl">100.0</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>priorCovariance <span class="op">=</span> prior_covariance(<span class="dv">1</span><span class="op">/</span>priorPrecision )</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>priorPDF <span class="op">=</span> <span class="kw">lambda</span> w: multivariate_normal.pdf(w,mean<span class="op">=</span>priorMean,cov<span class="op">=</span>priorCovariance)</span>
@@ -687,27 +687,27 @@ p(y^{*} | x^{*}, {\bf x,y}) &amp;=&amp; \int p({\bf y}^{*}| {\bf x}^{*}, {\bf w}
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-21" class="cell" data-execution_count="12" data-cell-type="code">
+<div id="cell-22" class="cell" data-execution_count="12" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>priorPrecision<span class="op">/</span>likelihoodPrecision</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>4.000000000000001</code></pre>
 </div>
 </div>
-<div id="cell-22" class="cell" data-execution_count="13" data-cell-type="code">
+<div id="cell-23" class="cell" data-execution_count="13" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>choices<span class="op">=</span>np.random.choice([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>,<span class="dv">11</span>,<span class="dv">12</span>,<span class="dv">13</span>,<span class="dv">14</span>,<span class="dv">15</span>,<span class="dv">16</span>,<span class="dv">17</span>,<span class="dv">18</span>,<span class="dv">19</span>],<span class="dv">4</span>,replace<span class="op">=</span><span class="va">False</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-23" class="cell" data-execution_count="14" data-cell-type="code">
+<div id="cell-24" class="cell" data-execution_count="14" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>choices</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>array([ 1, 18, 13, 19])</code></pre>
 </div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="15" data-cell-type="code">
+<div id="cell-25" class="cell" data-execution_count="15" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># For each iteration plot  the</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># posterior over the first i data points and sample lines whose</span></span>
@@ -731,7 +731,7 @@ p(y^{*} | x^{*}, {\bf x,y}) &amp;=&amp; \int p({\bf y}^{*}| {\bf x}^{*}, {\bf w}
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -788,6 +788,7 @@ document.addEventListener('DOMContentLoaded', function() {
 })();
 </script>
 <script src="../../assets/llm-explain.js"></script>
+<script src="../../assets/download-bundle.js"></script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

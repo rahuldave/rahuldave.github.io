@@ -1,5 +1,21 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "scipy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 %matplotlib inline
 import numpy as np
 from scipy import stats
@@ -13,7 +29,7 @@ sns.set_style('whitegrid')
 sns.set_context('poster')
 ```
 
-<!-- cell:2 type:markdown -->
+<!-- cell:3 type:markdown -->
 ## An Example: Rats tumors (from [Gelman](http://www.stat.columbia.edu/~gelman/book/), chapter 5)
 
 
@@ -21,7 +37,7 @@ The below data is from tumors in female rats of type "F344" that recieve a parti
 
 The first column is the number that get the tumor; the second is the total number or rats tested
 
-<!-- cell:3 type:code -->
+<!-- cell:4 type:code -->
 ```python
 tumordata="""0 20 
 0 20 
@@ -96,7 +112,7 @@ tumordata="""0 20
 """
 ```
 
-<!-- cell:4 type:code -->
+<!-- cell:5 type:code -->
 ```python
 tumortuples=[e.strip().split() for e in tumordata.split("\n")]
 tumory=np.array([np.int(e[0].strip()) for e in tumortuples if len(e) > 0])
@@ -117,12 +133,12 @@ Output:
         47, 24]))
 ```
 
-<!-- cell:5 type:markdown -->
+<!-- cell:6 type:markdown -->
 Now, a 71st experiment is done and we are told that 4 out of 14 rats develop tumors. Our problem is  to estimate the risk of tumor in the rats in the 71st experiment .
 
 Thus we are considering the problem of estimating the tumor rate from a small experiment (no 71) and a prior constructed from previous experiments with similar structure. Mathematically, we consider the current and historical experiments as random samples from a common population.
 
-<!-- cell:6 type:code -->
+<!-- cell:7 type:code -->
 ```python
 tumor_rat = [e[0]/e[1] for e in zip(tumory, tumorn)]
 tmean = np.mean(tumor_rat)
@@ -134,16 +150,16 @@ Output:
 (0.13600653889043893, 0.010557640623609196)
 ```
 
-<!-- cell:7 type:code -->
+<!-- cell:8 type:code -->
 ```python
 plt.hist(tumor_rat);
 ```
 [Figure]
 
-<!-- cell:8 type:markdown -->
+<!-- cell:9 type:markdown -->
 ## Setting up the model
 
-<!-- cell:9 type:markdown -->
+<!-- cell:10 type:markdown -->
 
 In the $j$-th historical experiment, let the number of rats with tumors be $y_j$ and the total number of rats be $n_j$.
 Since the rats either have or dont have the tumor, it makes sense to use a Binomial Model for **each** experiment, assuming a sample size $n_j$ and a probability $\theta_j$ that a rat has a tumor. For any one of the experiments
@@ -194,7 +210,7 @@ Such a model is called a **hierarchical** model, with observable outcomes modele
 
 
 
-<!-- cell:10 type:markdown -->
+<!-- cell:11 type:markdown -->
 ###  Priors from data
 
 Now, to complete the story, we need to ask, where do $\alpha$ and $\beta$ come from? Why are we calling them hyperparameters? So far, in all the bayesian models we have created, we have assumed known values of the "hyperparameters" in the priors. The criteria for the values we have used have been to create either uninformative or weakly-informative(weakly-regularizing) priors.
@@ -203,7 +219,7 @@ Now we wish to estimate the parameters of these priors themselves from the data.
 
 The key idea here is that some of our **units** (experiments in our example) are statistically more robust than others. The non-robust experiments may have smaller samples or outlier like behavior, for example. What we wish to do is to borrow strength from all the data as a whole through the estimation of the hyperparameters. In this sense, our procedure will help us create a **regularized partial pooling model** in which the "lower level" (closer to data) parameter ($\theta$s) estimations are tied together by "upper level" parameters.
 
-<!-- cell:11 type:markdown -->
+<!-- cell:12 type:markdown -->
 ## Another example: kidney cancer
 
 Another example comes from kidney cancer rates across counties in the US. Here is a  map of counties with the highest kidney cancer rated in blue and the lowest kidney cancer rates in red:
@@ -218,7 +234,7 @@ It is hard to estimate rates in counties with low populations. 1 case maybe a ra
 
 Here hierarchical models can also come to the rescue! By assuming that the rates are drawn from a common prior distribution with hyperparameters somehow estimated using all the data, we borrow statistical strength from more populated counties and give it to less populated counties, thus regularizing their rate estimates.
 
-<!-- cell:12 type:markdown -->
+<!-- cell:13 type:markdown -->
 ## Empirical Bayes
 
 Our first idea to this is to simply estimate these hyperparameters ($\alpha$ and $\beta$) directly from the data. The idea here is simple. We find the posterior-predictive distribution, as a function of these upper level parameters. Lets call these parameters $\eta$ (in our case $\eta = (\alpha, \beta)$).
@@ -233,14 +249,14 @@ This method is called **Emprical Bayes** or **Type-2 Maximum Likelihood**.
 
 In practice, we often match moments of the hyperparameter likelihood with our data. In our example, there are two parameters $\alpha$ and $\beta$ to be estimated. By computing the mean and the variance of the type-2 likelihood (the posterior predictive as a function of the hyperparameters) we can solve for both $\alpha$ and $\beta$. Sometimes we will use the prior instead: it depends on the meaning of either distribution.
 
-<!-- cell:13 type:markdown -->
+<!-- cell:14 type:markdown -->
 ### Empirical Bayes rat tumors
 
 ![Empirical Bayes approach: point estimates of the hyperparameters alpha and beta yield Beta posterior updates for each unit's theta_s.](assets/ratsempbayes.png)
 
 (image from http://seor.vse.gmu.edu/~klaskey/SYST664/Bayes_Unit7.pdf)
 
-<!-- cell:14 type:markdown -->
+<!-- cell:15 type:markdown -->
 We'll insert point estimates from the method of moments, used on the prior distribution. Since the prior  is the beta distribution, we need to find the mean and variance of it:
 
 $$\mu =  \frac{\alpha}{\alpha + \beta}$$
@@ -251,7 +267,7 @@ $$V  = \frac{\alpha\beta}{(\alpha + \beta)^2 (\alpha + \beta + 1)}$$
 
 Note that there are different ratios for each experiment, and we are taking the average of these.
 
-<!-- cell:15 type:code -->
+<!-- cell:16 type:code -->
 ```python
 aplusb = tmean*(1-tmean)/tvar - 1
 a_est=aplusb*tmean
@@ -263,7 +279,7 @@ Output:
 (1.3777748392916778, 8.7524354471531129)
 ```
 
-<!-- cell:16 type:markdown -->
+<!-- cell:17 type:markdown -->
 We can now use these to compute the posterior means for all the experiments.
 
 The conditional posterior distribution for each of the $\theta_i$, given everything else is a Beta distribution itself (remember Beta is conjugate prior to Bionomial).
@@ -274,12 +290,12 @@ Thus the posterior mean is
 
 $$\bar{\theta}_{post, i} = \frac{\alpha + y_i}{\alpha + \beta + n_i}$$
 
-<!-- cell:17 type:code -->
+<!-- cell:18 type:code -->
 ```python
 post_means = (a_est + tumory)/(a_est + b_est + tumorn)
 ```
 
-<!-- cell:18 type:code -->
+<!-- cell:19 type:code -->
 ```python
 plt.plot(tumor_rat, post_means,'o')
 plt.plot([0,0.5],[0,0.5],'k-')
@@ -288,14 +304,14 @@ plt.ylabel("posterior means under EB");
 ```
 [Figure]
 
-<!-- cell:19 type:markdown -->
+<!-- cell:20 type:markdown -->
 As you can see, the posterior rates are shrunk towards flatness, which would correspond to complete pooling. The 45 degree line would be for completely unpooled estimate.
 
 Now, for the 71st experiment, we have 4 out of 14 rats having tumors. The posterior estimate for this would be
 
 $$\frac{\alpha + y_{71}}{\alpha + \beta + n_{71}}$$
 
-<!-- cell:20 type:code -->
+<!-- cell:21 type:code -->
 ```python
 4/14, (4+a_est)/(14+a_est+b_est)
 ```
@@ -304,10 +320,10 @@ Output:
 (0.2857142857142857, 0.22286481449822493)
 ```
 
-<!-- cell:21 type:markdown -->
+<!-- cell:22 type:markdown -->
 So we would revise our estimate downwards for this experiment.
 
-<!-- cell:22 type:markdown -->
+<!-- cell:23 type:markdown -->
 ## A fully Bayesian treatment
 
 Empirical bayes seems a nice procedure, but suffers from the problem that one is still carrying out an optimization, even if with respect to the hyperparameters $\eta$. And every optimization is a chance to overfit. 
@@ -320,7 +336,7 @@ We could go turtles all the way and create hyper-hyper-priors on the hyper-hyper
 
 Modeling in this way has two advantages: (a) as we shall see, it helps us develop a computational strategy to solve the problem which naturally relies on the structure of gibbs sampling, and (b) similar to empirical-bayes, it allows estimates of the probabilities of any one of the units (here, one of the experiments) to borrow strength from all the data as a whole through the finding of posterior distributions on the hyperparameters, instead of just fitting for them. In other words, if some of the experiments had lower sample sizes or other outlier like behavior, the procedure helps **regularize** this, with the additional smearing from the hyper-parameter posteriors mitigating any overfitting.
 
-<!-- cell:23 type:markdown -->
+<!-- cell:24 type:markdown -->
 ### Fully Bayesian rat tumors
 
 We write out a joint posterior distribution for the $\theta$s, $\alpha$ and $\beta$.
@@ -346,14 +362,14 @@ $$P(\beta | Y, \Theta ,\alpha ) \propto p(\alpha, \beta) \, \left(\frac{\Gamma(\
 
 Note: The conditional posteriors do depend on $Y$ and $\{n\}$ via the $\theta$'s. 
 
-<!-- cell:24 type:markdown -->
+<!-- cell:25 type:markdown -->
 Now notice something: if $\alpha$ and $\beta$ are fixed I cn easily sample from any of the 70 $\theta_i$s. And I can do this in order. Thus we have a  Gibbs step for the $\theta_i$s.
 
 The sampling for $\alpha$ and $\beta$ is a bit more complex. From the expressions, its clear that these do not split out in a simple fashion, leaving us known distributions that would allow for straightforward gibbs sampling. But we can use metropolis steps with normal proposals for both. So, when we sample for $\alpha$, we will propose a new value using a normal proposal, while holding all the $\theta$s and $\beta$ constant at the old value.
 
 We will write the sampler for this model in lab.
 
-<!-- cell:25 type:markdown -->
+<!-- cell:26 type:markdown -->
 ##  Why are hierarchical models useful?
 
 Hierarchical models provide a simple way to organize inference into a directed acyclic graph, with the observations layer at the bottom of a tree, the next layer being the intermediate parameters, and the upper layers being the hyper-parameters, as we have seen above. This graph structure allows us to sample conditionals easily.
@@ -369,10 +385,10 @@ In the case that we can use conjugacy like we did above, this simplifies even fu
 Hierarchical modelling also provides us a disciplined way to think about exchangeability in modelling, which is very important to understand as it guides us in setting up models correctly.
 
 
-<!-- cell:26 type:markdown -->
+<!-- cell:27 type:markdown -->
 ### Exchangeability
 
-<!-- cell:27 type:markdown -->
+<!-- cell:28 type:markdown -->
 The iid assumption in statistics is an assumption that the values $y_i$ that go into a density (or likelihood) are **exchangeable**. That is, the likelihood is invariant to the permutation of data indices. If one has covariates, we are then talking about the joint density $p(x,y)$ or $p(x,y \vert \theta)$ and it is $(x,y)$ thats assumed to be the unit of permutation. 
 
 In practice, ignorance implies exchangeability. Maximal exchangeability is indeed the argument underlying maximum entropy.

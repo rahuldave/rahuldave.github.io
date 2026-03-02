@@ -79,9 +79,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-8ed8c4e1427b57eae15282a2f1143096.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-ccbaf13865a3c7d1254290bba16250fd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-8ed8c4e1427b57eae15282a2f1143096.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-12664055cfeed62abd852165ab0e0bfb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-69a2ed97628a4e219880992b79f066a5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-12664055cfeed62abd852165ab0e0bfb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -393,7 +393,7 @@ window.Quarto = {
   <li><a href="#sampling-by-code" id="toc-sampling-by-code" class="nav-link" data-scroll-target="#sampling-by-code">Sampling by code</a></li>
   <li><a href="#comparing-distributions" id="toc-comparing-distributions" class="nav-link" data-scroll-target="#comparing-distributions">Comparing distributions</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.out.ipynb" download="index.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -467,7 +467,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-1" class="cell" data-hide="true" data-execution_count="49" data-cell-type="code">
+<div id="cell-2" class="cell" data-hide="true" data-execution_count="49" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span>  sp</span>
@@ -588,7 +588,7 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 <p>We have data on the wing length in millimeters of a nine members of a particular species of moth. We wish to make inferences from those measurements on the population mean <span class="math inline">\(\mu\)</span>. Other studies show the wing length to be around 19 mm. We also know that the length must be positive. We can choose a prior that is normal and most of the density is above zero (<span class="math inline">\(\mu=19.5,\tau=10\)</span>). This is only a <strong>marginally informative</strong> prior.</p>
 <p>Many bayesians would prefer you choose relatively uninformative priors.</p>
 <p>The measurements were: 16.4, 17.0, 17.2, 17.4, 18.2, 18.2, 18.2, 19.9, 20.8 giving <span class="math inline">\(\bar{y}=18.14\)</span>.</p>
-<div id="cell-8" class="cell" data-execution_count="50" data-cell-type="code">
+<div id="cell-9" class="cell" data-execution_count="50" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> [<span class="fl">16.4</span>, <span class="fl">17.0</span>, <span class="fl">17.2</span>, <span class="fl">17.4</span>, <span class="fl">18.2</span>, <span class="fl">18.2</span>, <span class="fl">18.2</span>, <span class="fl">19.9</span>, <span class="fl">20.8</span>]</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Data Quantities</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>sig <span class="op">=</span> np.std(Y) <span class="co"># assume that is the value of KNOWN sigma (in the likelihood)</span></span>
@@ -599,7 +599,7 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 <pre><code>sigma 1.33092374864 mu 18.1444444444 n 9</code></pre>
 </div>
 </div>
-<div id="cell-9" class="cell" data-execution_count="52" data-cell-type="code">
+<div id="cell-10" class="cell" data-execution_count="52" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prior mean</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>mu_prior <span class="op">=</span> <span class="fl">19.5</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># prior std</span></span>
@@ -609,7 +609,7 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 <section id="sampling-by-code" class="level2">
 <h2 class="anchored" data-anchor-id="sampling-by-code">Sampling by code</h2>
 <p>We now set up code to do metropolis using logs of distributions:</p>
-<div id="cell-11" class="cell" data-execution_count="53" data-cell-type="code">
+<div id="cell-12" class="cell" data-execution_count="53" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> metropolis(logp, qdraw, stepsize, nsamp, xinit):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    samples<span class="op">=</span>np.empty(nsamp)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    x_prev <span class="op">=</span> xinit</span>
@@ -629,48 +629,38 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>            </span>
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> samples, accepted</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-12" class="cell" data-execution_count="54" data-cell-type="code">
+<div id="cell-13" class="cell" data-execution_count="54" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prop(x, step):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.random.normal(x, step)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Remember, that up to normalization, the posterior is the likelihood times the prior. Thus the log of the posterior is the sum of the logs of the likelihood and the prior.</p>
-<div id="cell-14" class="cell" data-execution_count="56" data-cell-type="code">
+<div id="cell-15" class="cell" data-execution_count="56" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>logprior <span class="op">=</span> <span class="kw">lambda</span> mu: norm.logpdf(mu, loc<span class="op">=</span>mu_prior, scale<span class="op">=</span>std_prior)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>loglike <span class="op">=</span> <span class="kw">lambda</span> mu: np.<span class="bu">sum</span>(norm.logpdf(Y, loc<span class="op">=</span>mu, scale<span class="op">=</span>np.std(Y)))</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>logpost <span class="op">=</span> <span class="kw">lambda</span> mu: loglike(mu) <span class="op">+</span> logprior(mu)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now we sample:</p>
-<div id="cell-16" class="cell" data-execution_count="57" data-cell-type="code">
+<div id="cell-17" class="cell" data-execution_count="57" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>x0<span class="op">=</span>np.random.uniform()</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>nsamps<span class="op">=</span><span class="dv">40000</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>samps, acc <span class="op">=</span> metropolis(logpost, prop, <span class="dv">1</span>, nsamps, x0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The acceptance rate is reasonable. You should shoot for somewhere between 20 and 50%.</p>
-<div id="cell-18" class="cell" data-execution_count="58" data-cell-type="code">
+<div id="cell-19" class="cell" data-execution_count="58" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>acc<span class="op">/</span>nsamps</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="58">
 <pre><code>0.459925</code></pre>
 </div>
 </div>
-<div id="cell-19" class="cell" data-execution_count="59" data-cell-type="code">
+<div id="cell-20" class="cell" data-execution_count="59" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> corrplot(trace, maxlags<span class="op">=</span><span class="dv">50</span>):</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    plt.acorr(trace<span class="op">-</span>np.mean(trace),  normed<span class="op">=</span><span class="va">True</span>, maxlags<span class="op">=</span>maxlags)<span class="op">;</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    plt.xlim([<span class="dv">0</span>, maxlags])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>While thinning is not strictly needed, appropriately thinned, we lose any correlation faster and store less</p>
-<div id="cell-21" class="cell" data-execution_count="60" data-cell-type="code">
+<div id="cell-22" class="cell" data-execution_count="60" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>corrplot(samps)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="index_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<div id="cell-22" class="cell" data-execution_count="61" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>corrplot(samps[<span class="dv">20000</span>::])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -679,8 +669,8 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 </div>
 </div>
 </div>
-<div id="cell-23" class="cell" data-execution_count="62" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>corrplot(samps[<span class="dv">20000</span>::<span class="dv">4</span>])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-23" class="cell" data-execution_count="61" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>corrplot(samps[<span class="dv">20000</span>::])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -689,9 +679,8 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 </div>
 </div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="63" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sns.distplot(samps[<span class="dv">20000</span>::<span class="dv">4</span>], bins<span class="op">=</span><span class="dv">25</span>)<span class="op">;</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>sns.distplot(samps[<span class="dv">20000</span>::], bins<span class="op">=</span><span class="dv">25</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-24" class="cell" data-execution_count="62" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>corrplot(samps[<span class="dv">20000</span>::<span class="dv">4</span>])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -700,7 +689,18 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 </div>
 </div>
 </div>
-<div id="cell-25" class="cell" data-execution_count="64" data-cell-type="code">
+<div id="cell-25" class="cell" data-execution_count="63" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sns.distplot(samps[<span class="dv">20000</span>::<span class="dv">4</span>], bins<span class="op">=</span><span class="dv">25</span>)<span class="op">;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>sns.distplot(samps[<span class="dv">20000</span>::], bins<span class="op">=</span><span class="dv">25</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-26" class="cell" data-execution_count="64" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>like_samples <span class="op">=</span> norm.rvs(loc <span class="op">=</span> mu_data, scale<span class="op">=</span>sig, size<span class="op">=</span><span class="dv">5000</span>)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>post_samples <span class="op">=</span> samps[<span class="dv">20000</span>::<span class="dv">4</span>]</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>prior_samples <span class="op">=</span> norm.rvs(loc <span class="op">=</span> mu_prior, scale<span class="op">=</span>tau, size<span class="op">=</span><span class="dv">5000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -709,7 +709,7 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 <section id="comparing-distributions" class="level2">
 <h2 class="anchored" data-anchor-id="comparing-distributions">Comparing distributions</h2>
 <p>We plot samples from the prior against those from the sampling distribution (likelihood considered as a distribution in <span class="math inline">\(\theta\)</span> and those from the posterior.</p>
-<div id="cell-27" class="cell" data-execution_count="65" data-cell-type="code">
+<div id="cell-28" class="cell" data-execution_count="65" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>plt.hist(like_samples, bins<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"likelihood (sampling dist)"</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.hist(prior_samples, bins<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"prior"</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plt.hist(post_samples, bins<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"posterior"</span>, alpha<span class="op">=</span><span class="fl">0.4</span>)</span>
@@ -717,17 +717,17 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-28" class="cell" data-execution_count="66" data-cell-type="code">
+<div id="cell-29" class="cell" data-execution_count="66" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>post_pred_func <span class="op">=</span> <span class="kw">lambda</span> post: norm.rvs(loc <span class="op">=</span> post, scale <span class="op">=</span> sig)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>post_pred_samples <span class="op">=</span> post_pred_func(post_samples)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We then plot the posterior predictive against the sampling distribution. These are pretty close. Notice that both are wider than the distribution of the posterior, as they are distributions of <span class="math inline">\(y\)</span> rather than <span class="math inline">\(\mu\)</span>. It just so happens that these distributions are on the scale so it makes sense to plot them together here and compare them.</p>
-<div id="cell-30" class="cell" data-execution_count="67" data-cell-type="code">
+<div id="cell-31" class="cell" data-execution_count="67" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>plt.hist(like_samples, bins<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"likelihood (sampling dist)"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>plt.hist(post_pred_samples, bins<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"posterior predictive"</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plt.hist(post_samples, bins<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"posterior"</span>, alpha<span class="op">=</span><span class="fl">0.4</span>)</span>
@@ -735,18 +735,18 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-18-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-31" class="cell" data-execution_count="70" data-cell-type="code">
+<div id="cell-32" class="cell" data-execution_count="70" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>sns.distplot(like_samples)<span class="op">;</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>sns.distplot(post_pred_samples)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-20-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -802,6 +802,7 @@ document.addEventListener('DOMContentLoaded', function() {
 })();
 </script>
 <script src="../../assets/llm-explain.js"></script>
+<script src="../../assets/download-bundle.js"></script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

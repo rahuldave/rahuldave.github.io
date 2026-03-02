@@ -1,5 +1,21 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "scipy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 %matplotlib inline
 import numpy as np
 from scipy import stats
@@ -14,7 +30,7 @@ Output:
   warnings.warn(self.msg_depr % (key, alt_key))
 ```
 
-<!-- cell:2 type:markdown -->
+<!-- cell:3 type:markdown -->
 ## Formulation of the problem
 
 This problem, taken from McElreath's book, involves a seal (or a well trained human) tossing a globe, catching it  on the nose, and noting down if the globe came down on  water or land.
@@ -38,14 +54,14 @@ Since our seal hasnt really seen any water or land, (strange, I know), it assign
 For reasons of conjugacy we 
 choose as prior the beta distribution, with $Beta(1,1)$ being the uniform prior.
 
-<!-- cell:3 type:markdown -->
+<!-- cell:4 type:markdown -->
 ## Choosing a prior and posterior
 
 The  mean of $Beta(\alpha, \beta)$ is  $\mu = \frac{\alpha}{\alpha+\beta}$ while the variance is 
 
 $$V=\mu (1- \mu)/(\alpha + \beta + 1)$$
 
-<!-- cell:4 type:code -->
+<!-- cell:5 type:code -->
 ```python
 from scipy.stats import beta
 x=np.linspace(0., 1., 100)
@@ -56,10 +72,10 @@ plt.plot(x, beta.pdf(x, 2, 18));
 ```
 [Figure]
 
-<!-- cell:5 type:markdown -->
+<!-- cell:6 type:markdown -->
 We shall choose $\alpha=1$ and $\beta=1$ to be uniform.
 
-<!-- cell:6 type:markdown -->
+<!-- cell:7 type:markdown -->
 $$ p(\theta) = {\rm Beta}(\theta,\alpha, \beta) = \frac{\theta^{\alpha-1} (1-x)^{\beta-1} }{B(\alpha, \beta)} $$
 where $B(\alpha, \beta)$ is independent of $\theta$ and it is the normalization factor.
 
@@ -71,7 +87,7 @@ which can be shown to be
 
 $${\rm Beta}(\theta, \alpha+k, \beta+n-k)$$
 
-<!-- cell:7 type:code -->
+<!-- cell:8 type:code -->
 ```python
 from scipy.stats import beta, binom
 
@@ -113,12 +129,12 @@ Output:
 ```
 [Figure]
 
-<!-- cell:8 type:markdown -->
+<!-- cell:9 type:markdown -->
 ## Interrogating the posterior
 
 Since we can sample from the posterior now after 9 observations, lets do so!
 
-<!-- cell:9 type:code -->
+<!-- cell:10 type:code -->
 ```python
 samples = beta.rvs(*posterior_params, size=10000)
 plt.hist(samples, bins=50, normed=True);
@@ -131,12 +147,12 @@ Output:
 ```
 [Figure]
 
-<!-- cell:10 type:markdown -->
+<!-- cell:11 type:markdown -->
 Now we can calculate all sorts of stuff.
 
 The probability that the amount of water is less than 50%
 
-<!-- cell:11 type:code -->
+<!-- cell:12 type:code -->
 ```python
 np.mean(samples < 0.5)
 ```
@@ -145,10 +161,10 @@ Output:
 0.17299999999999999
 ```
 
-<!-- cell:12 type:markdown -->
+<!-- cell:13 type:markdown -->
 The probability by which we get 80% of the samples.
 
-<!-- cell:13 type:code -->
+<!-- cell:14 type:code -->
 ```python
 np.percentile(samples, 80)
 ```
@@ -157,10 +173,10 @@ Output:
 0.76255263476156399
 ```
 
-<!-- cell:14 type:markdown -->
+<!-- cell:15 type:markdown -->
 You might try and find a **credible interval**. This, unlike the wierd definition of confidence intervals, is exactly what you think it is, the amount of probability mass between certain percentages, like the middle 80%
 
-<!-- cell:15 type:code -->
+<!-- cell:16 type:code -->
 ```python
 np.percentile(samples, [10, 90])
 ```
@@ -169,10 +185,10 @@ Output:
 array([ 0.44604094,  0.81516349])
 ```
 
-<!-- cell:16 type:markdown -->
+<!-- cell:17 type:markdown -->
 You can make various point estimates: mean, median
 
-<!-- cell:17 type:code -->
+<!-- cell:18 type:code -->
 ```python
 np.mean(samples), np.median(samples), np.percentile(samples, 50) #last 2 are same
 ```
@@ -181,10 +197,10 @@ Output:
 (0.63787343440335842, 0.6473143052303143, 0.6473143052303143)
 ```
 
-<!-- cell:18 type:markdown -->
+<!-- cell:19 type:markdown -->
 A particularly important and useful point estimate is the **MAP**, or "maximum a-posteriori" estimate, the value of the parameter at which the pdf (num-samples) reach a maximum.
 
-<!-- cell:19 type:code -->
+<!-- cell:20 type:code -->
 ```python
 sampleshisto = np.histogram(samples, bins=50)
 ```
@@ -207,7 +223,7 @@ Output:
          0.96540526]))
 ```
 
-<!-- cell:20 type:code -->
+<!-- cell:21 type:code -->
 ```python
 maxcountindex = np.argmax(sampleshisto[0])
 mapvalue = sampleshisto[1][maxcountindex]
@@ -218,7 +234,7 @@ Output:
 31 0.662578641304
 ```
 
-<!-- cell:21 type:markdown -->
+<!-- cell:22 type:markdown -->
 A principled way to get these point estimates is a **loss function**. This is the subject of decision theory, and we shall come to it soon. Different losses correspond to different well known point estimates, as we shall see.
 
 But as a quick idea of this,  consider the squared error decision loss:
@@ -235,7 +251,7 @@ or the mean of the posterior.
 
 We can see this with some quick computation:
 
-<!-- cell:22 type:code -->
+<!-- cell:23 type:code -->
 ```python
 mse = [np.mean((xi-samples)**2) for xi in x]
 plt.plot(x, mse);
@@ -247,12 +263,12 @@ Mean 0.634941511888
 ```
 [Figure]
 
-<!-- cell:23 type:markdown -->
+<!-- cell:24 type:markdown -->
 ## Obtaining the posterior predictive
 
 Its easy to sample from any one probability to get the sampling distribution at a particular $\theta$
 
-<!-- cell:24 type:code -->
+<!-- cell:25 type:code -->
 ```python
 point3samps = np.random.binomial( len(data), 0.3, size=10000);
 point7samps = np.random.binomial( len(data), 0.7, size=10000);
@@ -261,7 +277,7 @@ plt.hist(point7samps, lw=3, alpha=0.3,histtype="stepfilled", bins=np.arange(11))
 ```
 [Figure]
 
-<!-- cell:25 type:markdown -->
+<!-- cell:26 type:markdown -->
 The posterior predictive:
 
 $$p(y^{*} \vert D) = \int d\theta p(y^{*} \vert \theta) p(\theta \vert D)$$
@@ -289,31 +305,31 @@ $$p(y^{*} \vert D) = p(y^{*} \vert \theta_{MAP})$$
 
 (the same thing could be done for $\theta_{mean}$).
 
-<!-- cell:26 type:code -->
+<!-- cell:27 type:code -->
 ```python
 pluginpreds = np.random.binomial( len(data), mapvalue, size = len(samples))
 ```
 
-<!-- cell:27 type:code -->
+<!-- cell:28 type:code -->
 ```python
 plt.hist(pluginpreds, bins=np.arange(11));
 ```
 [Figure]
 
-<!-- cell:28 type:markdown -->
+<!-- cell:29 type:markdown -->
 This approximation is just sampling from the likelihood(sampling distribution), at a posterior-obtained value of $\theta$.  It might be useful if the posterior is an expensive MCMC and the MAP is easier to find by optimization, and can be used in conjunction with quadratic (gaussian) approximations to the posterior, as we will see in variational inference. But for now we have all the samples, and it would be inane not to use them...
 
-<!-- cell:29 type:markdown -->
+<!-- cell:30 type:markdown -->
 ### The posterior predictive from sampling
 
 But really from the perspective of sampling, all we have to do is to first draw the thetas from the posterior, then draw y's from the likelihood, and histogram the likelihood. This is the same logic as marginal posteriors, with the addition of the fact that we must draw  y from the likelihood once we drew $\theta$. You might think that we have to draw multiple $y$s at a theta, but this is already taken care of for us because of the nature of sampling. We already have multiple $\theta$a in a bin.
 
-<!-- cell:30 type:code -->
+<!-- cell:31 type:code -->
 ```python
 postpred = np.random.binomial( len(data), samples);
 ```
 
-<!-- cell:31 type:code -->
+<!-- cell:32 type:code -->
 ```python
 postpred
 ```
@@ -322,7 +338,7 @@ Output:
 array([5, 5, 7, ..., 7, 5, 8])
 ```
 
-<!-- cell:32 type:code -->
+<!-- cell:33 type:code -->
 ```python
 samples.shape, postpred.shape
 ```
@@ -331,7 +347,7 @@ Output:
 ((10000,), (10000,))
 ```
 
-<!-- cell:33 type:code -->
+<!-- cell:34 type:code -->
 ```python
 plt.hist(postpred, bins=np.arange(11), alpha=0.5, align="left", label="predictive")
 plt.hist(pluginpreds, bins=np.arange(11), alpha=0.2, align="left", label="plug-in (MAP)")
@@ -341,5 +357,5 @@ plt.legend()
 ```
 [Figure]
 
-<!-- cell:34 type:markdown -->
+<!-- cell:35 type:markdown -->
 You can interrogate the posterior-predictive, or **simulated** samples in other ways, asking about the longest run of water tosses, or the number of times the water/land switched. This is left as an exercise. In particular, you will find that the number of switches is not consistent with what you see in our data. This might lead you to question our model...always a good thing..but note that we have very little data as yet to go on

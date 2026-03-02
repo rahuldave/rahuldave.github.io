@@ -1,0 +1,810 @@
+{
+  "MLE": {
+    "zip": "/posts/MLE/MLE.zip",
+    "size_bytes": 86437,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/gaussmle.png",
+      "assets/linregmle.png"
+    ]
+  },
+  "basicmontecarlo": {
+    "zip": "/posts/basicmontecarlo/basicmontecarlo.zip",
+    "size_bytes": 223547,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/hitormiss.png"
+    ]
+  },
+  "bayes_withsampling": {
+    "zip": "/posts/bayes_withsampling/bayes_withsampling.zip",
+    "size_bytes": 249411,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/postpred.png",
+      "assets/priorxlike.png"
+    ]
+  },
+  "bayesianregression": {
+    "zip": "/posts/bayesianregression/bayesianregression.zip",
+    "size_bytes": 288348,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb"
+    ]
+  },
+  "dataaug": {
+    "zip": "/posts/dataaug/dataaug.zip",
+    "size_bytes": 20278,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb"
+    ]
+  },
+  "discretemcmc": {
+    "zip": "/posts/discretemcmc/discretemcmc.zip",
+    "size_bytes": 35406,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/propmatrix.png"
+    ]
+  },
+  "distrib-example": {
+    "zip": "/posts/distrib-example/distrib-example.zip",
+    "size_bytes": 271069,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/3flips.png",
+      "assets/binomial.png",
+      "assets/g12.csv",
+      "assets/predictwise.csv"
+    ]
+  },
+  "divergence": {
+    "zip": "/posts/divergence/divergence.zip",
+    "size_bytes": 213510,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/devianceaic.png",
+      "assets/inoutdeviance.png"
+    ]
+  },
+  "doseplacebo": {
+    "zip": "/posts/doseplacebo/doseplacebo.zip",
+    "size_bytes": 16761,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scipy"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb"
+    ]
+  },
+  "em": {
+    "zip": "/posts/em/em.zip",
+    "size_bytes": 209888,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "pymc3",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": false,
+    "files": [
+      "index.ipynb",
+      "assets/emupdate.png",
+      "assets/gform1.png",
+      "assets/gform2.png",
+      "assets/klsplitestep.png",
+      "assets/klsplitmstep.png",
+      "assets/klsplitup.png"
+    ]
+  },
+  "entropy": {
+    "zip": "/posts/entropy/entropy.zip",
+    "size_bytes": 265843,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/expofamily.png",
+      "assets/gen_norm.png"
+    ]
+  },
+  "expectations": {
+    "zip": "/posts/expectations/expectations.zip",
+    "size_bytes": 35094,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb"
+    ]
+  },
+  "functorch": {
+    "zip": "/posts/functorch/functorch.zip",
+    "size_bytes": 145583,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "torch"
+    ],
+    "pyodide_compatible": false,
+    "files": [
+      "index.ipynb",
+      "assets/mlp.png",
+      "assets/perceptron.png"
+    ]
+  },
+  "generativemodels": {
+    "zip": "/posts/generativemodels/generativemodels.zip",
+    "size_bytes": 540717,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scikit-learn",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/bayesrisk.png",
+      "assets/erm.png",
+      "assets/genvsdiscrim.png",
+      "assets/learning.png",
+      "data/01_heights_weights_genders.csv"
+    ]
+  },
+  "gibbsconj": {
+    "zip": "/posts/gibbsconj/gibbsconj.zip",
+    "size_bytes": 13935,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb"
+    ]
+  },
+  "globemodel": {
+    "zip": "/posts/globemodel/globemodel.zip",
+    "size_bytes": 374187,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/postpred.png"
+    ]
+  },
+  "globemodellab": {
+    "zip": "/posts/globemodellab/globemodellab.zip",
+    "size_bytes": 413623,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/postpred.png"
+    ]
+  },
+  "gradientdescent": {
+    "zip": "/posts/gradientdescent/gradientdescent.zip",
+    "size_bytes": 4195925,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "scikit-learn",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/animsgd.gif"
+    ]
+  },
+  "hierarch": {
+    "zip": "/posts/hierarch/hierarch.zip",
+    "size_bytes": 340112,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/kidneycancerus.png",
+      "assets/kidneycanceruspop.png",
+      "assets/rat-tumor-hier2.png",
+      "assets/ratsempbayes.png"
+    ]
+  },
+  "hmcexplore": {
+    "zip": "/posts/hmcexplore/hmcexplore.zip",
+    "size_bytes": 398575,
+    "dependencies": [
+      "ipython",
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "pymc3",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": false,
+    "files": [
+      "index.ipynb",
+      "assets/levelsets.png",
+      "assets/lsetexp.png",
+      "assets/momresample.png",
+      "assets/nummodeerr.png",
+      "assets/reversemom.png",
+      "assets/rocketorbit.png"
+    ]
+  },
+  "importancesampling": {
+    "zip": "/posts/importancesampling/importancesampling.zip",
+    "size_bytes": 94867,
+    "dependencies": [
+      "scipy"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/importance.png"
+    ]
+  },
+  "introgibbs": {
+    "zip": "/posts/introgibbs/introgibbs.zip",
+    "size_bytes": 139539,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb"
+    ]
+  },
+  "inversetransform": {
+    "zip": "/posts/inversetransform/inversetransform.zip",
+    "size_bytes": 56253,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/invtrans.png"
+    ]
+  },
+  "jensens": {
+    "zip": "/posts/jensens/jensens.zip",
+    "size_bytes": 149136,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/EM1.png"
+    ]
+  },
+  "logisticbp": {
+    "zip": "/posts/logisticbp/logisticbp.zip",
+    "size_bytes": 138044,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/layercake.png",
+      "assets/layerl.png",
+      "assets/layershororig.png",
+      "assets/layershorsm.png",
+      "assets/layershorstd.png"
+    ]
+  },
+  "markov": {
+    "zip": "/posts/markov/markov.zip",
+    "size_bytes": 167264,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/gsample.png",
+      "assets/mcapproach.png",
+      "assets/mchain.png",
+      "assets/mchain2.png"
+    ]
+  },
+  "metropolis": {
+    "zip": "/posts/metropolis/metropolis.zip",
+    "size_bytes": 183770,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/cod.png",
+      "assets/cod2.png"
+    ]
+  },
+  "metropolishastings": {
+    "zip": "/posts/metropolishastings/metropolishastings.zip",
+    "size_bytes": 157887,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb"
+    ]
+  },
+  "metropolissupport": {
+    "zip": "/posts/metropolissupport/metropolissupport.zip",
+    "size_bytes": 52927,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb"
+    ]
+  },
+  "mlp_classification": {
+    "zip": "/posts/mlp_classification/mlp_classification.zip",
+    "size_bytes": 2150117,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scikit-learn",
+      "scipy",
+      "seaborn",
+      "torch",
+      "tqdm"
+    ],
+    "pyodide_compatible": false,
+    "files": [
+      "index.ipynb"
+    ]
+  },
+  "montecarlointegrals": {
+    "zip": "/posts/montecarlointegrals/montecarlointegrals.zip",
+    "size_bytes": 43266,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb"
+    ]
+  },
+  "nnreg": {
+    "zip": "/posts/nnreg/nnreg.zip",
+    "size_bytes": 478204,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "scikit-learn",
+      "torch"
+    ],
+    "pyodide_compatible": false,
+    "files": [
+      "index.ipynb"
+    ]
+  },
+  "noiseless_learning": {
+    "zip": "/posts/noiseless_learning/noiseless_learning.zip",
+    "size_bytes": 336627,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/BasicModel.png",
+      "assets/bias.png",
+      "assets/linreg.png",
+      "data/noisysample.csv",
+      "data/religion.csv"
+    ]
+  },
+  "noisylearning": {
+    "zip": "/posts/noisylearning/noisylearning.zip",
+    "size_bytes": 871381,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/NoisyModelPxy.png",
+      "data/noisypopulation.csv",
+      "data/noisysample.csv",
+      "data/religion.csv"
+    ]
+  },
+  "normalmodel": {
+    "zip": "/posts/normalmodel/normalmodel.zip",
+    "size_bytes": 15338,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb"
+    ]
+  },
+  "normalreg": {
+    "zip": "/posts/normalreg/normalreg.zip",
+    "size_bytes": 214417,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/Howell1.csv"
+    ]
+  },
+  "probability": {
+    "zip": "/posts/probability/probability.zip",
+    "size_bytes": 112649,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/2flips.png",
+      "assets/bishop-prob.png",
+      "assets/venn.png"
+    ]
+  },
+  "regularization": {
+    "zip": "/posts/regularization/regularization.zip",
+    "size_bytes": 427749,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scikit-learn",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/complexity-error-reg.png",
+      "data/noisysample.csv",
+      "data/religion.csv"
+    ]
+  },
+  "rejectionsampling": {
+    "zip": "/posts/rejectionsampling/rejectionsampling.zip",
+    "size_bytes": 126774,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/Rejection.png",
+      "assets/rejsteroid.png"
+    ]
+  },
+  "samplingclt": {
+    "zip": "/posts/samplingclt/samplingclt.zip",
+    "size_bytes": 217617,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb"
+    ]
+  },
+  "sufstatexch": {
+    "zip": "/posts/sufstatexch/sufstatexch.zip",
+    "size_bytes": 50564,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb"
+    ]
+  },
+  "switchpoint": {
+    "zip": "/posts/switchpoint/switchpoint.zip",
+    "size_bytes": 416973,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "pymc3",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": false,
+    "files": [
+      "index.ipynb"
+    ]
+  },
+  "testingtraining": {
+    "zip": "/posts/testingtraining/testingtraining.zip",
+    "size_bytes": 859452,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scikit-learn",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/complexity-error-plot.png",
+      "assets/reshape.jpg",
+      "assets/sklearn2.jpg",
+      "assets/sklearntrans.jpg",
+      "assets/train-test.png",
+      "data/noisysample.csv",
+      "data/religion.csv"
+    ]
+  },
+  "tetchygibbs": {
+    "zip": "/posts/tetchygibbs/tetchygibbs.zip",
+    "size_bytes": 203903,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb"
+    ]
+  },
+  "typesoflearning": {
+    "zip": "/posts/typesoflearning/typesoflearning.zip",
+    "size_bytes": 108914,
+    "dependencies": [
+      "ipython",
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scikit-learn",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/zinfmonks.png"
+    ]
+  },
+  "understandingaic": {
+    "zip": "/posts/understandingaic/understandingaic.zip",
+    "size_bytes": 105708,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scipy",
+      "seaborn",
+      "statsmodels"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/inoutdeviance.png"
+    ]
+  },
+  "utilityorrisk": {
+    "zip": "/posts/utilityorrisk/utilityorrisk.zip",
+    "size_bytes": 254966,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "pymc3",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": false,
+    "files": [
+      "index.ipynb"
+    ]
+  },
+  "validation": {
+    "zip": "/posts/validation/validation.zip",
+    "size_bytes": 290772,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scikit-learn",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/train-cv2.png",
+      "assets/train-cv3.png",
+      "assets/train-validate-test-cont.png",
+      "assets/train-validate-test.png",
+      "assets/train-validate-test3.png",
+      "data/noisysample.csv",
+      "data/religion.csv"
+    ]
+  },
+  "votingforcongress": {
+    "zip": "/posts/votingforcongress/votingforcongress.zip",
+    "size_bytes": 3274869,
+    "dependencies": [
+      "pandas"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/sep7.png"
+    ]
+  }
+}

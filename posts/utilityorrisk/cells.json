@@ -15,6 +15,11 @@
     },
     {
       "cell": 2,
+      "type": "code",
+      "html_id": "cell-2"
+    },
+    {
+      "cell": 3,
       "type": "markdown",
       "headings": [
         {
@@ -24,7 +29,7 @@
       ]
     },
     {
-      "cell": 3,
+      "cell": 4,
       "type": "markdown",
       "headings": [
         {
@@ -34,7 +39,7 @@
       ]
     },
     {
-      "cell": 4,
+      "cell": 5,
       "type": "markdown",
       "headings": [
         {
@@ -48,7 +53,7 @@
       ]
     },
     {
-      "cell": 5,
+      "cell": 6,
       "type": "markdown",
       "headings": [
         {
@@ -58,19 +63,14 @@
       ]
     },
     {
-      "cell": 6,
-      "type": "code",
-      "html_id": "cell-6"
-    },
-    {
       "cell": 7,
-      "type": "markdown",
-      "headings": []
+      "type": "code",
+      "html_id": "cell-7"
     },
     {
       "cell": 8,
-      "type": "code",
-      "html_id": "cell-8"
+      "type": "markdown",
+      "headings": []
     },
     {
       "cell": 9,
@@ -79,13 +79,13 @@
     },
     {
       "cell": 10,
-      "type": "markdown",
-      "headings": []
+      "type": "code",
+      "html_id": "cell-10"
     },
     {
       "cell": 11,
-      "type": "code",
-      "html_id": "cell-11"
+      "type": "markdown",
+      "headings": []
     },
     {
       "cell": 12,
@@ -94,21 +94,26 @@
     },
     {
       "cell": 13,
-      "type": "markdown",
-      "headings": []
+      "type": "code",
+      "html_id": "cell-13"
     },
     {
       "cell": 14,
-      "type": "code",
-      "html_id": "cell-14"
-    },
-    {
-      "cell": 15,
       "type": "markdown",
       "headings": []
     },
     {
+      "cell": 15,
+      "type": "code",
+      "html_id": "cell-15"
+    },
+    {
       "cell": 16,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 17,
       "type": "markdown",
       "headings": [
         {
@@ -118,7 +123,7 @@
       ]
     },
     {
-      "cell": 17,
+      "cell": 18,
       "type": "markdown",
       "headings": [
         {
@@ -128,7 +133,7 @@
       ]
     },
     {
-      "cell": 18,
+      "cell": 19,
       "type": "markdown",
       "headings": [
         {
@@ -138,7 +143,7 @@
       ]
     },
     {
-      "cell": 19,
+      "cell": 20,
       "type": "markdown",
       "headings": [
         {
@@ -148,7 +153,7 @@
       ]
     },
     {
-      "cell": 20,
+      "cell": 21,
       "type": "markdown",
       "headings": [
         {
@@ -158,7 +163,7 @@
       ]
     },
     {
-      "cell": 21,
+      "cell": 22,
       "type": "markdown",
       "headings": [
         {
@@ -166,11 +171,6 @@
           "level": 2
         }
       ]
-    },
-    {
-      "cell": 22,
-      "type": "markdown",
-      "headings": []
     },
     {
       "cell": 23,
@@ -190,6 +190,11 @@
     {
       "cell": 26,
       "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 27,
+      "type": "markdown",
       "headings": [
         {
           "slug": "risk-from-the-posterior-posterior-points",
@@ -198,9 +203,9 @@
       ]
     },
     {
-      "cell": 27,
+      "cell": 28,
       "type": "code",
-      "html_id": "cell-27"
+      "html_id": "cell-28"
     }
   ]
 }

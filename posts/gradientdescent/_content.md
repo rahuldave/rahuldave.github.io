@@ -1,5 +1,22 @@
 <!-- cell:1 type:code -->
 ```python
+#| include: false
+
+# /// script
+# requires-python = ">=3.10"
+# dependencies = [
+#   "matplotlib",
+#   "numpy",
+#   "scikit-learn",
+#   "scipy",
+#   "seaborn",
+# ]
+# ///
+
+```
+
+<!-- cell:2 type:code -->
+```python
 %matplotlib inline
 import numpy as np
 import seaborn as sns
@@ -10,7 +27,7 @@ from scipy import stats
 from sklearn.datasets.samples_generator import make_regression 
 ```
 
-<!-- cell:2 type:markdown -->
+<!-- cell:3 type:markdown -->
 A lot of the animations here were adapted from: http://tillbergmann.com/blog/python-gradient-descent.html
 
 A great discussion (and where momentum image was stolen from) is at http://sebastianruder.com/optimizing-gradient-descent/
@@ -19,7 +36,7 @@ Gradient descent is one of the most popular algorithms to perform optimization a
 
 There are three variants of gradient descent, which differ in how much data we use to compute the gradient of the objective function. Depending on the amount of data, we make a trade-off between the accuracy of the parameter update and the time it takes to perform an update.
 
-<!-- cell:3 type:markdown -->
+<!-- cell:4 type:markdown -->
 ## Example: Linear regression
 
 Let's see briefly how gradient descent can be useful to us in least squares regression. Let's asssume we have an output variable $y$ which we think depends linearly on the input vector $x$. We approximate $y$ by
@@ -33,7 +50,7 @@ $$J(\theta) = \frac{1}{2} \sum_{i=1}^m (f_\theta (x^{(i)}-y^{(i)})^2$$
 
 We create a regression problem using sklearn's `make_regression` function:
 
-<!-- cell:4 type:code -->
+<!-- cell:5 type:code -->
 ```python
 #code adapted from http://tillbergmann.com/blog/python-gradient-descent.html
 x, y = make_regression(n_samples = 100, 
@@ -43,18 +60,18 @@ x, y = make_regression(n_samples = 100,
                        random_state=2017)
 ```
 
-<!-- cell:5 type:code -->
+<!-- cell:6 type:code -->
 ```python
 x = x.flatten()
 ```
 
-<!-- cell:6 type:code -->
+<!-- cell:7 type:code -->
 ```python
 slope, intercept, _,_,_ = stats.linregress(x,y)
 best_fit = np.vectorize(lambda x: x * slope + intercept)
 ```
 
-<!-- cell:7 type:code -->
+<!-- cell:8 type:code -->
 ```python
 plt.plot(x,y, 'o', alpha=0.5)
 grid = np.arange(-3,3,0.1)
@@ -66,7 +83,7 @@ Output:
 ```
 [Figure]
 
-<!-- cell:8 type:markdown -->
+<!-- cell:9 type:markdown -->
 ## Batch gradient descent
 
 Assume that we have a vector of paramters $\theta$ and a cost function $J(\theta)$ which is simply the variable we want to minimize (our objective function). Typically, we will find that the objective function has the form:
@@ -97,7 +114,7 @@ $$\theta_j := \theta_j + \alpha \sum_{i=1}^m (y^{(i)}-f_\theta (x^{(i)})) x_j^{(
 for every $j$ (note $\theta_j$ is simply the j-th component of the $\theta$ vector).
 
 
-<!-- cell:9 type:code -->
+<!-- cell:10 type:code -->
 ```python
 def gradient_descent(x, y, theta_init, step=0.001, maxsteps=0, precision=0.001, ):
     costs = []
@@ -134,7 +151,7 @@ def gradient_descent(x, y, theta_init, step=0.001, maxsteps=0, precision=0.001, 
     return history, costs, preds, counter
 ```
 
-<!-- cell:10 type:code -->
+<!-- cell:11 type:code -->
 ```python
 np.random.rand(2)
 ```
@@ -143,7 +160,7 @@ Output:
 array([ 0.75307882,  0.98388838])
 ```
 
-<!-- cell:11 type:code -->
+<!-- cell:12 type:code -->
 ```python
 xaug = np.c_[np.ones(x.shape[0]), x]
 theta_i = [-15, 40] + np.random.rand(2)
@@ -151,7 +168,7 @@ history, cost, preds, iters = gradient_descent(xaug, y, theta_i)
 theta = history[-1]
 ```
 
-<!-- cell:12 type:code -->
+<!-- cell:13 type:code -->
 ```python
 print("Gradient Descent: {:.2f}, {:.2f} {:d}".format(theta[0], theta[1], iters))
 print("Least Squares: {:.2f}, {:.2f}".format(intercept, slope))
@@ -162,7 +179,7 @@ Gradient Descent: -3.93, 81.67 4454
 Least Squares: -3.71, 82.90
 ```
 
-<!-- cell:13 type:code -->
+<!-- cell:14 type:code -->
 ```python
 theta
 ```
@@ -171,24 +188,24 @@ Output:
 array([ -3.92778924,  81.67155225])
 ```
 
-<!-- cell:14 type:markdown -->
+<!-- cell:15 type:markdown -->
 One can plot the reduction of cost:
 
-<!-- cell:15 type:code -->
+<!-- cell:16 type:code -->
 ```python
 plt.plot(range(len(cost)), cost);
 ```
 [Figure]
 
-<!-- cell:16 type:markdown -->
+<!-- cell:17 type:markdown -->
 The following animation shows how the regression line forms:
 
-<!-- cell:17 type:code -->
+<!-- cell:18 type:code -->
 ```python
 from JSAnimation import IPython_display
 ```
 
-<!-- cell:18 type:code -->
+<!-- cell:19 type:code -->
 ```python
 def init():
     line.set_data([], [])
@@ -221,10 +238,10 @@ To change this limit, set the config variable
 `--NotebookApp.iopub_data_rate_limit`.
 ```
 
-<!-- cell:19 type:markdown -->
+<!-- cell:20 type:markdown -->
 Remember that the linear regression cost function is convex, and more precisely quadratic. We can see the path that gradient descent takes in arriving at the optimum:
 
-<!-- cell:20 type:code -->
+<!-- cell:21 type:code -->
 ```python
 from mpl_toolkits.mplot3d import Axes3D
 
@@ -255,13 +272,13 @@ def gd_plot(xaug, y, theta, cost, hist):
     make_3d_plot(theta[0], theta[1], cost[-1], hist, cost, xaug, y)
 ```
 
-<!-- cell:21 type:code -->
+<!-- cell:22 type:code -->
 ```python
 gd_plot(xaug, y, theta, cost, history)
 ```
 [Figure]
 
-<!-- cell:22 type:markdown -->
+<!-- cell:23 type:markdown -->
 ## Stochastic gradient descent
 
 As noted, the gradient descent algorithm makes intuitive sense as it always proceeds in the direction of steepest descent (the gradient of $J$) and guarantees that we find a local minimum (global under certain assumptions on $J$). When we have very large data sets, however, the calculation of $\nabla (J(\theta))$ can be costly as we must process every data point before making a single step (hence the name "batch"). An alternative approach, the stochastic gradient descent method, is to update $\theta$ sequentially with every observation. The updates then take the form:
@@ -294,7 +311,7 @@ The update for linear regression is:
 $$\theta_j := \theta_j + \alpha (y^{(i)}-f_\theta (x^{(i)})) x_j^{(i)}$$
 
 
-<!-- cell:23 type:code -->
+<!-- cell:24 type:code -->
 ```python
 def sgd(x, y, theta_init, step=0.001, maxsteps=0, precision=0.001, ):
     costs = []
@@ -365,7 +382,7 @@ def sgd(x, y, theta_init, step=0.001, maxsteps=0, precision=0.001, ):
     return history, costs, preds, grads, counter, epoch, xs, ys, currentcosts
 ```
 
-<!-- cell:24 type:code -->
+<!-- cell:25 type:code -->
 ```python
 history2, cost2, preds2, grads2, iters2, epoch2, x2, y2, cc2 = sgd(xaug, y, theta_i, maxsteps=5000, step=0.01)
 
@@ -377,7 +394,7 @@ Init2 308.000997364 [-14.58474841  40.31239274]
 start 1 [308.00099736389291] 0
 ```
 
-<!-- cell:25 type:code -->
+<!-- cell:26 type:code -->
 ```python
 print(iters2, history2[-1], epoch2, grads2[-1])
 ```
@@ -386,19 +403,19 @@ Output:
 5000 [ -3.18011506  82.93875465] 49 [ 10.47922297  -5.63332413]
 ```
 
-<!-- cell:26 type:code -->
+<!-- cell:27 type:code -->
 ```python
 plt.plot(range(len(cost2[-10000:])), cost2[-10000:], alpha=0.4);
 ```
 [Figure]
 
-<!-- cell:27 type:code -->
+<!-- cell:28 type:code -->
 ```python
 gd_plot(xaug, y, theta, cost2, history2)
 ```
 [Figure]
 
-<!-- cell:28 type:code -->
+<!-- cell:29 type:code -->
 ```python
 plt.plot([t[0] for t in history2], [t[1] for t in history2],'o-', alpha=0.1)
 ```
@@ -408,12 +425,12 @@ Output:
 ```
 [Figure]
 
-<!-- cell:29 type:markdown -->
+<!-- cell:30 type:markdown -->
 #### Animating SGD
 
 Here is some code to make an animation of SGD. It shows how the risk surfaces being minimized change, and how the minimum desired is approached.
 
-<!-- cell:30 type:code -->
+<!-- cell:31 type:code -->
 ```python
 def error2(X, Y, THETA):
     #print("XYT", THETA, np.sum((X.dot(THETA) - Y)**2))
@@ -446,7 +463,7 @@ def make_3d_plot2(num, it, xfinal, yfinal, zfinal, hist, cost, xaug, y):
     plt.close()
 ```
 
-<!-- cell:31 type:code -->
+<!-- cell:32 type:code -->
 ```python
 print("fthetas",theta[0], theta[1], "len", len(history2))
 ST = list(range(0, 750, 10)) + list(range(750, 5000, 250))
@@ -461,14 +478,14 @@ Output:
 92
 ```
 
-<!-- cell:32 type:code -->
+<!-- cell:33 type:code -->
 ```python
 for i in range(len(ST)):
     #print(history2[i*ST[i]], cc2[i*ST[i]])
     make_3d_plot2(i, ST[i], theta[0], theta[1], cost2[-1], [history2[ST[i]]], [cc2[ST[i]]], np.array([x2[ST[i]]]), np.array([y2[ST[i]]]))
 ```
 
-<!-- cell:33 type:markdown -->
+<!-- cell:34 type:markdown -->
 Using Imagemagick we can produce a gif animation:
 (`convert -delay 20 -loop 1 3danim*.png animsgd.gif`)
 
@@ -476,7 +493,7 @@ Using Imagemagick we can produce a gif animation:
 
 ![](assets/animsgd.gif)
 
-<!-- cell:34 type:markdown -->
+<!-- cell:35 type:markdown -->
 ## Mini-batch gradient descent
 What if instead of single example from the dataset, we use a batch of data examples witha given size every time we calculate the gradient:
 
@@ -494,7 +511,7 @@ for i in range(mb_epochs):
 
 The difference with SGD is that for each update we use a batch of 50 examples to estimate the gradient.
 
-<!-- cell:35 type:markdown -->
+<!-- cell:36 type:markdown -->
 ## Variations on a theme
 
 ### Momentum
