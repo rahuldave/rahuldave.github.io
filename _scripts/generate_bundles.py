@@ -62,6 +62,59 @@ def get_pep723_deps(nb_path: Path) -> list[str]:
     return []
 
 
+def get_notebook_title(nb_path: Path) -> str:
+    """Extract title from notebook frontmatter raw cell."""
+    with open(nb_path) as f:
+        nb = json.load(f)
+    if not nb.get("cells"):
+        return nb_path.parent.name
+    cell = nb["cells"][0]
+    if cell.get("cell_type") != "raw":
+        return nb_path.parent.name
+    source = "".join(cell.get("source", []))
+    for line in source.splitlines():
+        line = line.strip()
+        if line.startswith("title:"):
+            title = line[6:].strip().strip('"').strip("'")
+            return title
+    return nb_path.parent.name
+
+
+SITE_URL = "https://rahuldave.github.io"
+
+
+def build_readme(slug: str, title: str, deps: list[str]) -> str:
+    """Build a README.md for the bundle."""
+    lines = [
+        f"# {title}\n",
+        "\n",
+        f"From <{SITE_URL}/posts/{slug}/>\n",
+        "\n",
+        "## Quick start\n",
+        "\n",
+        "```bash\n",
+        "# Install uv (if you don't have it)\n",
+        "curl -LsSf https://astral.sh/uv/install.sh | sh\n",
+        "\n",
+        "# Run the notebook (installs dependencies automatically)\n",
+        "uvx juv run index.ipynb\n",
+        "```\n",
+        "\n",
+        "`juv` reads the PEP 723 metadata inside the notebook and installs\n",
+        "the required packages into an isolated environment.\n",
+        "\n",
+        "## Dependencies\n",
+        "\n",
+    ]
+    for dep in deps:
+        lines.append(f"- {dep}\n")
+    lines.append("\n")
+    lines.append("## License\n")
+    lines.append("\n")
+    lines.append("Educational content from Harvard AM207.\n")
+    return "".join(lines)
+
+
 def collect_bundle_files(post_dir: Path) -> list[tuple[Path, str]]:
     """Collect files to include in the zip bundle.
 
@@ -115,11 +168,14 @@ def generate_bundle(post_dir: Path, site_dir: Path) -> dict | None:
 
     zip_path = out_dir / f"{slug}.zip"
 
+    deps = get_pep723_deps(nb_path)
+    title = get_notebook_title(nb_path)
+    readme = build_readme(slug, title, deps)
+
     with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as zf:
         for abs_path, arc_name in files:
             zf.write(abs_path, arc_name)
-
-    deps = get_pep723_deps(nb_path)
+        zf.writestr("README.md", readme)
     pyodide_incompatible = {"torch", "pymc3", "theano-pymc", "theano"}
 
     return {
