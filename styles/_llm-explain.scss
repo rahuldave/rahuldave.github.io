@@ -26,10 +26,9 @@
 
 // Show buttons when hovering the preceding element or the buttons themselves
 .cell:hover + .llm-buttons,
-section:hover + .llm-buttons,
 div.sourceCode:hover + .llm-buttons,
-h2:hover ~ .llm-buttons:first-of-type,
-h3:hover ~ .llm-buttons:first-of-type,
+h2:hover + .llm-buttons,
+h3:hover + .llm-buttons,
 .llm-buttons:hover {
   opacity: 1;
 }

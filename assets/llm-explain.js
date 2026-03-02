@@ -58,81 +58,67 @@
   }
 
   function injectCellButtons() {
-    var sourceType = cellsData ? cellsData.source_type : 'ipynb';
-
-    // --- Notebook posts (ipynb): buttons after Quarto's div.cell elements ---
-    var notebookCells = document.querySelectorAll('div.cell[id^="cell-"]');
-    for (var i = 0; i < notebookCells.length; i++) {
-      var cell = notebookCells[i];
-      var cellIndex = parseInt(cell.id.replace('cell-', ''), 10);
-      if (isNaN(cellIndex)) continue;
-
-      var container = document.createElement('div');
-      container.className = 'llm-buttons';
-
-      container.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', cellIndex));
-      container.appendChild(makeLlmBtn('Explain this code', 'explain-code', cellIndex));
-
-      cell.parentNode.insertBefore(container, cell.nextSibling);
-    }
-
-    // --- Non-notebook posts (md/qmd): buttons after headings and code blocks ---
-    if (sourceType !== 'ipynb' || notebookCells.length === 0) {
-      // Build a lookup: heading slug -> cell index from cells.json
-      var slugToCellIndex = {};
-      if (cellsData && cellsData.cells) {
-        for (var c = 0; c < cellsData.cells.length; c++) {
-          var meta = cellsData.cells[c];
-          if (meta.headings) {
-            for (var h = 0; h < meta.headings.length; h++) {
-              slugToCellIndex[meta.headings[h].slug] = meta.cell;
-            }
+    // Build heading slug -> cell index lookup from cells.json
+    var slugToCellIndex = {};
+    if (cellsData && cellsData.cells) {
+      for (var c = 0; c < cellsData.cells.length; c++) {
+        var meta = cellsData.cells[c];
+        if (meta.headings) {
+          for (var h = 0; h < meta.headings.length; h++) {
+            slugToCellIndex[meta.headings[h].slug] = meta.cell;
           }
         }
       }
+    }
 
-      // "Explain up to here" after h2/h3 headings
-      // Quarto puts the id on the parent <section>, and data-anchor-id on the <h>
-      var headings = document.querySelectorAll('h2[data-anchor-id], h3[data-anchor-id], h2[id], h3[id]');
-      var seen = new Set();
-      for (var i = 0; i < headings.length; i++) {
-        var heading = headings[i];
-        var headingSlug = heading.getAttribute('data-anchor-id') || heading.id;
-        if (!headingSlug || headingSlug === 'toc-title') continue;
-        if (seen.has(headingSlug)) continue; // deduplicate
-        seen.add(headingSlug);
+    // --- "Explain up to here" after h2/h3 headings (all post types) ---
+    var headings = document.querySelectorAll('h2[data-anchor-id], h3[data-anchor-id], h2[id], h3[id]');
+    var seen = new Set();
+    for (var i = 0; i < headings.length; i++) {
+      var heading = headings[i];
+      var headingSlug = heading.getAttribute('data-anchor-id') || heading.id;
+      if (!headingSlug || headingSlug === 'toc-title') continue;
+      if (seen.has(headingSlug)) continue;
+      seen.add(headingSlug);
 
-        var cellIdx = slugToCellIndex[headingSlug];
-        if (cellIdx === undefined) cellIdx = i; // fallback to DOM order
+      var cellIdx = slugToCellIndex[headingSlug];
+      if (cellIdx === undefined) cellIdx = i;
 
-        var wrap = document.createElement('div');
-        wrap.className = 'llm-buttons';
-        wrap.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', cellIdx));
+      var wrap = document.createElement('div');
+      wrap.className = 'llm-buttons';
+      wrap.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', cellIdx));
 
-        // Insert after the heading's parent section, or after the heading itself
-        var section = heading.closest('section');
-        var target = section || heading;
-        if (target.nextSibling) {
-          target.parentNode.insertBefore(wrap, target.nextSibling);
-        } else {
-          target.parentNode.appendChild(wrap);
-        }
+      heading.parentNode.insertBefore(wrap, heading.nextSibling);
+    }
+
+    // --- "Explain this code" after code cells ---
+    var sourceType = cellsData ? cellsData.source_type : 'ipynb';
+
+    if (sourceType === 'ipynb') {
+      // Notebook: buttons after Quarto's div.cell elements
+      var notebookCells = document.querySelectorAll('div.cell[id^="cell-"]');
+      for (var i = 0; i < notebookCells.length; i++) {
+        var cell = notebookCells[i];
+        var cellIndex = parseInt(cell.id.replace('cell-', ''), 10);
+        if (isNaN(cellIndex)) continue;
+
+        var container = document.createElement('div');
+        container.className = 'llm-buttons';
+        container.appendChild(makeLlmBtn('Explain this code', 'explain-code', cellIndex));
+
+        cell.parentNode.insertBefore(container, cell.nextSibling);
       }
-
-      // "Explain this code" after standalone code blocks (not inside div.cell)
+    } else {
+      // Markdown/QMD: buttons after standalone div.sourceCode blocks
       var codeBlocks = document.querySelectorAll('div.sourceCode');
       for (var i = 0; i < codeBlocks.length; i++) {
         var block = codeBlocks[i];
-        // Skip code blocks that are inside Quarto notebook cells
         if (block.closest('div.cell')) continue;
 
-        // Find the matching cell index from cells.json
-        // Use position in DOM relative to headings to estimate cell index
         var codeIdx = findCodeCellIndex(block, slugToCellIndex);
 
         var wrap = document.createElement('div');
         wrap.className = 'llm-buttons';
-        wrap.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', codeIdx));
         wrap.appendChild(makeLlmBtn('Explain this code', 'explain-code', codeIdx));
 
         block.parentNode.insertBefore(wrap, block.nextSibling);
@@ -141,11 +127,8 @@
   }
 
   function findCodeCellIndex(codeBlock, slugToCellIndex) {
-    // Walk backwards from the code block to find the nearest heading
-    // then look up its cell index and add 1 (the code cell follows the heading)
     if (!cellsData || !cellsData.cells) return 0;
 
-    // Find code cells in cells.json
     var codeCells = [];
     for (var i = 0; i < cellsData.cells.length; i++) {
       if (cellsData.cells[i].type === 'code') {
@@ -153,7 +136,6 @@
       }
     }
 
-    // Find which code block this is in DOM order (among standalone code blocks)
     var allCodeBlocks = document.querySelectorAll('div.sourceCode:not(.cell-code)');
     for (var i = 0; i < allCodeBlocks.length; i++) {
       if (allCodeBlocks[i] === codeBlock && i < codeCells.length) {
@@ -226,7 +208,6 @@
     var lines = contentMd.split('\n');
 
     if (action === 'explain-upto') {
-      // Include everything from start through the target cell
       var result = [];
       var foundTarget = false;
       for (var i = 0; i < lines.length; i++) {
@@ -242,7 +223,6 @@
     }
 
     if (action === 'explain-code') {
-      // Extract the specific code cell + preceding context
       var cellStart = -1;
       var cellEnd = lines.length;
 
@@ -258,9 +238,8 @@
         }
       }
 
-      if (cellStart < 0) return contentMd; // fallback
+      if (cellStart < 0) return contentMd;
 
-      // Get preceding context (limited to ~3000 chars for focus)
       var preceding = lines.slice(0, cellStart).join('\n');
       if (preceding.length > 3000) {
         preceding = '...\n' + preceding.slice(-3000);
@@ -415,6 +394,20 @@
     responseEl.classList.add('llm-streaming');
 
     var fullText = '';
+    var renderTimer = null;
+
+    // Throttled render: update markdown + math every 150ms during streaming
+    function scheduleRender() {
+      if (renderTimer) return;
+      renderTimer = setTimeout(function() {
+        renderTimer = null;
+        responseEl.innerHTML = renderMarkdown(fullText);
+        typesetMath(responseEl);
+        // Auto-scroll
+        var body = responseEl.closest('.llm-chat-body');
+        if (body) body.scrollTop = body.scrollHeight;
+      }, 150);
+    }
 
     fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
@@ -453,13 +446,14 @@
       function processChunk() {
         reader.read().then(function(result) {
           if (result.done) {
+            clearTimeout(renderTimer);
             finishResponse(fullText, responseEl);
             return;
           }
 
           buffer += decoder.decode(result.value, { stream: true });
           var lines = buffer.split('\n');
-          buffer = lines.pop(); // keep incomplete line
+          buffer = lines.pop();
 
           for (var i = 0; i < lines.length; i++) {
             var line = lines[i];
@@ -471,8 +465,7 @@
                 if (parsed.type === 'content_block_delta' &&
                     parsed.delta && parsed.delta.text) {
                   fullText += parsed.delta.text;
-                  responseEl.textContent = fullText;
-                  responseEl.scrollTop = responseEl.scrollHeight;
+                  scheduleRender();
                 }
               } catch (e) { /* skip unparseable lines */ }
             }
@@ -480,6 +473,7 @@
 
           processChunk();
         }).catch(function(err) {
+          clearTimeout(renderTimer);
           finishResponse(fullText || 'Stream interrupted: ' + err.message, responseEl);
         });
       }
@@ -495,12 +489,21 @@
   function finishResponse(text, el) {
     el.classList.remove('llm-streaming');
     el.innerHTML = renderMarkdown(text);
+    typesetMath(el);
+  }
 
-    // Re-typeset math if MathJax is available
+  // --- MathJax Integration ---
+
+  function typesetMath(el) {
     if (window.MathJax && window.MathJax.typesetPromise) {
+      // Clear previous typesetting for this element so MathJax re-scans
+      window.MathJax.typesetClear && window.MathJax.typesetClear([el]);
       window.MathJax.typesetPromise([el]).catch(function() {});
     } else if (window.MathJax && window.MathJax.typeset) {
-      try { window.MathJax.typeset([el]); } catch (e) {}
+      try {
+        window.MathJax.typesetClear && window.MathJax.typesetClear([el]);
+        window.MathJax.typeset([el]);
+      } catch (e) {}
     }
   }
 
@@ -509,16 +512,26 @@
   function renderMarkdown(text) {
     if (!text) return '';
 
-    // Protect LaTeX display blocks ($$...$$)
+    // Protect LaTeX display blocks ($$...$$) — convert to \[...\] for MathJax
     var displayLatex = [];
-    text = text.replace(/\$\$([\s\S]+?)\$\$/g, function(m) {
-      displayLatex.push(m);
+    text = text.replace(/\$\$([\s\S]+?)\$\$/g, function(m, inner) {
+      displayLatex.push('\\[' + inner + '\\]');
       return '\x00DLATEX' + (displayLatex.length - 1) + '\x00';
     });
 
-    // Protect LaTeX inline ($...$) — avoid matching currency like $5
+    // Protect LaTeX inline ($...$) — convert to \(...\) for MathJax
     var inlineLatex = [];
-    text = text.replace(/\$([^\$\n]+?)\$/g, function(m) {
+    text = text.replace(/\$([^\$\n]+?)\$/g, function(m, inner) {
+      inlineLatex.push('\\(' + inner + '\\)');
+      return '\x00ILATEX' + (inlineLatex.length - 1) + '\x00';
+    });
+
+    // Also protect already-escaped LaTeX: \[...\] and \(...\)
+    text = text.replace(/\\\[([\s\S]+?)\\\]/g, function(m) {
+      displayLatex.push(m);
+      return '\x00DLATEX' + (displayLatex.length - 1) + '\x00';
+    });
+    text = text.replace(/\\\(([\s\S]+?)\\\)/g, function(m) {
       inlineLatex.push(m);
       return '\x00ILATEX' + (inlineLatex.length - 1) + '\x00';
     });
@@ -564,9 +577,7 @@
     var html = blocks.map(function(block) {
       block = block.trim();
       if (!block) return '';
-      // Don't wrap already-wrapped elements
       if (/^<(h[2-5]|pre|li|ul|ol|\x00)/.test(block)) {
-        // Wrap loose <li> in <ul>
         if (block.indexOf('<li>') >= 0 && block.indexOf('<ul>') < 0 && block.indexOf('<ol>') < 0) {
           return '<ul>' + block + '</ul>';
         }
@@ -585,7 +596,7 @@
       html = html.replace('\x00CBLOCK' + i + '\x00', codeBlocks[i]);
     }
 
-    // Restore LaTeX
+    // Restore LaTeX (as \(...\) and \[...\] for MathJax)
     for (var i = 0; i < inlineLatex.length; i++) {
       html = html.replace('\x00ILATEX' + i + '\x00', inlineLatex[i]);
     }
