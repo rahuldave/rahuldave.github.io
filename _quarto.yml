@@ -18,6 +18,9 @@ website:
       - href: about.qmd
         text: About
 
+filters:
+  - _filters/cell-markers.lua
+
 format:
   html:
     theme:
@@ -31,5 +34,6 @@ format:
     include-after-body:
       - includes/brand-icon.html
       - includes/discuss-links.html
+      - includes/llm-explain.html
     include-before-body:
       - includes/theme-toggle.html

@@ -1,0 +1,227 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Sampling and the Central Limit Theorem",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "cell-1"
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "samples-from-a-population-of-coin-flips",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 3,
+      "type": "code",
+      "html_id": "cell-3"
+    },
+    {
+      "cell": 4,
+      "type": "code",
+      "html_id": "cell-4"
+    },
+    {
+      "cell": 5,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 6,
+      "type": "code",
+      "html_id": "cell-6"
+    },
+    {
+      "cell": 7,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 8,
+      "type": "code",
+      "html_id": "cell-8"
+    },
+    {
+      "cell": 9,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 10,
+      "type": "code",
+      "html_id": "cell-10"
+    },
+    {
+      "cell": 11,
+      "type": "code",
+      "html_id": "cell-11"
+    },
+    {
+      "cell": 12,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 13,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-notion-of-a-sampling-distribution",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 14,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-sampling-distribution-as-a-function-of-sample-size",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 15,
+      "type": "code",
+      "html_id": "cell-15"
+    },
+    {
+      "cell": 16,
+      "type": "code",
+      "html_id": "cell-16"
+    },
+    {
+      "cell": 17,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 18,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 19,
+      "type": "code",
+      "html_id": "cell-19"
+    },
+    {
+      "cell": 20,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-variation-of-the-sample-mean",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 21,
+      "type": "code",
+      "html_id": "cell-21"
+    },
+    {
+      "cell": 22,
+      "type": "code",
+      "html_id": "cell-22"
+    },
+    {
+      "cell": 23,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 24,
+      "type": "code",
+      "html_id": "cell-24"
+    },
+    {
+      "cell": 25,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 26,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-gaussian-distribution",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 27,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 28,
+      "type": "code",
+      "html_id": "cell-28"
+    },
+    {
+      "cell": 29,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-central-limit-theorem",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 30,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 31,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "what-does-this-all-mean",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 32,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-sampling-distribution-of-the-variance",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 33,
+      "type": "code",
+      "html_id": "cell-33"
+    },
+    {
+      "cell": 34,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 35,
+      "type": "code",
+      "html_id": "cell-35"
+    }
+  ]
+}

@@ -79,9 +79,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-d2fef15c612ec386ae0907ffd6f4ccdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-a009389674a9596cea61ac77c12264b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-d2fef15c612ec386ae0907ffd6f4ccdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-764a92b7e1b6fc0e52d4d5c8240a771d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-19e976df401a0b2f5d466fd3cf3ebe9e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-764a92b7e1b6fc0e52d4d5c8240a771d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -467,7 +467,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-1" class="cell" data-hide="true" data-execution_count="49">
+<div id="cell-1" class="cell" data-hide="true" data-execution_count="49" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span>  sp</span>
@@ -588,7 +588,7 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 <p>We have data on the wing length in millimeters of a nine members of a particular species of moth. We wish to make inferences from those measurements on the population mean <span class="math inline">\(\mu\)</span>. Other studies show the wing length to be around 19 mm. We also know that the length must be positive. We can choose a prior that is normal and most of the density is above zero (<span class="math inline">\(\mu=19.5,\tau=10\)</span>). This is only a <strong>marginally informative</strong> prior.</p>
 <p>Many bayesians would prefer you choose relatively uninformative priors.</p>
 <p>The measurements were: 16.4, 17.0, 17.2, 17.4, 18.2, 18.2, 18.2, 19.9, 20.8 giving <span class="math inline">\(\bar{y}=18.14\)</span>.</p>
-<div id="cell-8" class="cell" data-execution_count="50">
+<div id="cell-8" class="cell" data-execution_count="50" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> [<span class="fl">16.4</span>, <span class="fl">17.0</span>, <span class="fl">17.2</span>, <span class="fl">17.4</span>, <span class="fl">18.2</span>, <span class="fl">18.2</span>, <span class="fl">18.2</span>, <span class="fl">19.9</span>, <span class="fl">20.8</span>]</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Data Quantities</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>sig <span class="op">=</span> np.std(Y) <span class="co"># assume that is the value of KNOWN sigma (in the likelihood)</span></span>
@@ -599,7 +599,7 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 <pre><code>sigma 1.33092374864 mu 18.1444444444 n 9</code></pre>
 </div>
 </div>
-<div id="cell-9" class="cell" data-execution_count="52">
+<div id="cell-9" class="cell" data-execution_count="52" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prior mean</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>mu_prior <span class="op">=</span> <span class="fl">19.5</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># prior std</span></span>
@@ -609,7 +609,7 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 <section id="sampling-by-code" class="level2">
 <h2 class="anchored" data-anchor-id="sampling-by-code">Sampling by code</h2>
 <p>We now set up code to do metropolis using logs of distributions:</p>
-<div id="cell-11" class="cell" data-execution_count="53">
+<div id="cell-11" class="cell" data-execution_count="53" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> metropolis(logp, qdraw, stepsize, nsamp, xinit):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    samples<span class="op">=</span>np.empty(nsamp)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    x_prev <span class="op">=</span> xinit</span>
@@ -629,37 +629,37 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>            </span>
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> samples, accepted</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-12" class="cell" data-execution_count="54">
+<div id="cell-12" class="cell" data-execution_count="54" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prop(x, step):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.random.normal(x, step)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Remember, that up to normalization, the posterior is the likelihood times the prior. Thus the log of the posterior is the sum of the logs of the likelihood and the prior.</p>
-<div id="cell-14" class="cell" data-execution_count="56">
+<div id="cell-14" class="cell" data-execution_count="56" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>logprior <span class="op">=</span> <span class="kw">lambda</span> mu: norm.logpdf(mu, loc<span class="op">=</span>mu_prior, scale<span class="op">=</span>std_prior)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>loglike <span class="op">=</span> <span class="kw">lambda</span> mu: np.<span class="bu">sum</span>(norm.logpdf(Y, loc<span class="op">=</span>mu, scale<span class="op">=</span>np.std(Y)))</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>logpost <span class="op">=</span> <span class="kw">lambda</span> mu: loglike(mu) <span class="op">+</span> logprior(mu)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now we sample:</p>
-<div id="cell-16" class="cell" data-execution_count="57">
+<div id="cell-16" class="cell" data-execution_count="57" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>x0<span class="op">=</span>np.random.uniform()</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>nsamps<span class="op">=</span><span class="dv">40000</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>samps, acc <span class="op">=</span> metropolis(logpost, prop, <span class="dv">1</span>, nsamps, x0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The acceptance rate is reasonable. You should shoot for somewhere between 20 and 50%.</p>
-<div id="cell-18" class="cell" data-execution_count="58">
+<div id="cell-18" class="cell" data-execution_count="58" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>acc<span class="op">/</span>nsamps</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="58">
 <pre><code>0.459925</code></pre>
 </div>
 </div>
-<div id="cell-19" class="cell" data-execution_count="59">
+<div id="cell-19" class="cell" data-execution_count="59" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> corrplot(trace, maxlags<span class="op">=</span><span class="dv">50</span>):</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    plt.acorr(trace<span class="op">-</span>np.mean(trace),  normed<span class="op">=</span><span class="va">True</span>, maxlags<span class="op">=</span>maxlags)<span class="op">;</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    plt.xlim([<span class="dv">0</span>, maxlags])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>While thinning is not strictly needed, appropriately thinned, we lose any correlation faster and store less</p>
-<div id="cell-21" class="cell" data-execution_count="60">
+<div id="cell-21" class="cell" data-execution_count="60" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>corrplot(samps)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -669,7 +669,7 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 </div>
 </div>
 </div>
-<div id="cell-22" class="cell" data-execution_count="61">
+<div id="cell-22" class="cell" data-execution_count="61" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>corrplot(samps[<span class="dv">20000</span>::])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -679,7 +679,7 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 </div>
 </div>
 </div>
-<div id="cell-23" class="cell" data-execution_count="62">
+<div id="cell-23" class="cell" data-execution_count="62" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>corrplot(samps[<span class="dv">20000</span>::<span class="dv">4</span>])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -689,7 +689,7 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 </div>
 </div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="63">
+<div id="cell-24" class="cell" data-execution_count="63" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sns.distplot(samps[<span class="dv">20000</span>::<span class="dv">4</span>], bins<span class="op">=</span><span class="dv">25</span>)<span class="op">;</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>sns.distplot(samps[<span class="dv">20000</span>::], bins<span class="op">=</span><span class="dv">25</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -700,7 +700,7 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 </div>
 </div>
 </div>
-<div id="cell-25" class="cell" data-execution_count="64">
+<div id="cell-25" class="cell" data-execution_count="64" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>like_samples <span class="op">=</span> norm.rvs(loc <span class="op">=</span> mu_data, scale<span class="op">=</span>sig, size<span class="op">=</span><span class="dv">5000</span>)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>post_samples <span class="op">=</span> samps[<span class="dv">20000</span>::<span class="dv">4</span>]</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>prior_samples <span class="op">=</span> norm.rvs(loc <span class="op">=</span> mu_prior, scale<span class="op">=</span>tau, size<span class="op">=</span><span class="dv">5000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -709,7 +709,7 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 <section id="comparing-distributions" class="level2">
 <h2 class="anchored" data-anchor-id="comparing-distributions">Comparing distributions</h2>
 <p>We plot samples from the prior against those from the sampling distribution (likelihood considered as a distribution in <span class="math inline">\(\theta\)</span> and those from the posterior.</p>
-<div id="cell-27" class="cell" data-execution_count="65">
+<div id="cell-27" class="cell" data-execution_count="65" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>plt.hist(like_samples, bins<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"likelihood (sampling dist)"</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.hist(prior_samples, bins<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"prior"</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plt.hist(post_samples, bins<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"posterior"</span>, alpha<span class="op">=</span><span class="fl">0.4</span>)</span>
@@ -722,12 +722,12 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 </div>
 </div>
 </div>
-<div id="cell-28" class="cell" data-execution_count="66">
+<div id="cell-28" class="cell" data-execution_count="66" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>post_pred_func <span class="op">=</span> <span class="kw">lambda</span> post: norm.rvs(loc <span class="op">=</span> post, scale <span class="op">=</span> sig)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>post_pred_samples <span class="op">=</span> post_pred_func(post_samples)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We then plot the posterior predictive against the sampling distribution. These are pretty close. Notice that both are wider than the distribution of the posterior, as they are distributions of <span class="math inline">\(y\)</span> rather than <span class="math inline">\(\mu\)</span>. It just so happens that these distributions are on the scale so it makes sense to plot them together here and compare them.</p>
-<div id="cell-30" class="cell" data-execution_count="67">
+<div id="cell-30" class="cell" data-execution_count="67" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>plt.hist(like_samples, bins<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"likelihood (sampling dist)"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>plt.hist(post_pred_samples, bins<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"posterior predictive"</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plt.hist(post_samples, bins<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"posterior"</span>, alpha<span class="op">=</span><span class="fl">0.4</span>)</span>
@@ -740,7 +740,7 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 </div>
 </div>
 </div>
-<div id="cell-31" class="cell" data-execution_count="70">
+<div id="cell-31" class="cell" data-execution_count="70" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>sns.distplot(like_samples)<span class="op">;</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>sns.distplot(post_pred_samples)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -799,6 +799,615 @@ document.addEventListener('DOMContentLoaded', function() {
     "https://bsky.app/intent/compose?text=" + title + " " + encodeURIComponent(window.location.href);
   document.getElementById("discuss-linkedin").href =
     "https://www.linkedin.com/sharing/share-offsite/?url=" + url;
+})();
+</script>
+<script>
+(function() {
+  // Gate: only activate on individual post pages
+  var p = window.location.pathname;
+  if (!p.startsWith('/posts/')) return;
+  var listingPaths = ['/posts/', '/posts', '/posts/index.html'];
+  if (listingPaths.indexOf(p) >= 0) return;
+
+  // Extract post slug from URL
+  var match = p.match(/\/posts\/([^/.]+)/);
+  if (!match) return;
+  var slug = match[1];
+  var baseUrl = '/posts/' + slug + '/';
+
+  // State
+  var cellsData = null;
+  var contentMd = null;
+  var apiKey = localStorage.getItem('claude-api-key');
+  var MODEL = 'claude-sonnet-4-20250514';
+  var SYSTEM_PROMPT = 'You are a helpful teaching assistant for a data science and machine learning course. ' +
+    'Explain concepts clearly and concisely. Reference specific code examples when relevant. ' +
+    'Use LaTeX notation (with $...$ for inline and $$...$$ for display) for mathematical expressions. ' +
+    'Keep responses focused and educational.';
+
+  // --- Initialization ---
+
+  fetch(baseUrl + 'cells.json')
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(data) {
+      if (!data) return;
+      cellsData = data;
+      injectButtons();
+    })
+    .catch(function() { /* No cells.json — feature disabled for this post */ });
+
+  // --- Button Injection ---
+
+  function injectButtons() {
+    injectSummarizeButton();
+    injectCellButtons();
+  }
+
+  function injectSummarizeButton() {
+    var anchor = document.querySelector('#title-block-header') ||
+                 document.querySelector('.quarto-title-block') ||
+                 document.querySelector('header');
+    if (!anchor) return;
+
+    var wrap = document.createElement('div');
+    wrap.className = 'llm-summarize-wrap';
+
+    var btn = document.createElement('button');
+    btn.className = 'llm-btn llm-btn-summarize';
+    btn.textContent = 'Summarize this page';
+    btn.addEventListener('click', function() { handleAction('summarize', null); });
+
+    wrap.appendChild(btn);
+    anchor.parentNode.insertBefore(wrap, anchor.nextSibling);
+  }
+
+  function injectCellButtons() {
+    var sourceType = cellsData ? cellsData.source_type : 'ipynb';
+
+    // --- Notebook posts (ipynb): buttons after Quarto's div.cell elements ---
+    var notebookCells = document.querySelectorAll('div.cell[id^="cell-"]');
+    for (var i = 0; i < notebookCells.length; i++) {
+      var cell = notebookCells[i];
+      var cellIndex = parseInt(cell.id.replace('cell-', ''), 10);
+      if (isNaN(cellIndex)) continue;
+
+      var container = document.createElement('div');
+      container.className = 'llm-buttons';
+
+      container.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', cellIndex));
+      container.appendChild(makeLlmBtn('Explain this code', 'explain-code', cellIndex));
+
+      cell.parentNode.insertBefore(container, cell.nextSibling);
+    }
+
+    // --- Non-notebook posts (md/qmd): buttons after headings and code blocks ---
+    if (sourceType !== 'ipynb' || notebookCells.length === 0) {
+      // Build a lookup: heading slug -> cell index from cells.json
+      var slugToCellIndex = {};
+      if (cellsData && cellsData.cells) {
+        for (var c = 0; c < cellsData.cells.length; c++) {
+          var meta = cellsData.cells[c];
+          if (meta.headings) {
+            for (var h = 0; h < meta.headings.length; h++) {
+              slugToCellIndex[meta.headings[h].slug] = meta.cell;
+            }
+          }
+        }
+      }
+
+      // "Explain up to here" after h2/h3 headings
+      // Quarto puts the id on the parent <section>, and data-anchor-id on the <h>
+      var headings = document.querySelectorAll('h2[data-anchor-id], h3[data-anchor-id], h2[id], h3[id]');
+      var seen = new Set();
+      for (var i = 0; i < headings.length; i++) {
+        var heading = headings[i];
+        var headingSlug = heading.getAttribute('data-anchor-id') || heading.id;
+        if (!headingSlug || headingSlug === 'toc-title') continue;
+        if (seen.has(headingSlug)) continue; // deduplicate
+        seen.add(headingSlug);
+
+        var cellIdx = slugToCellIndex[headingSlug];
+        if (cellIdx === undefined) cellIdx = i; // fallback to DOM order
+
+        var wrap = document.createElement('div');
+        wrap.className = 'llm-buttons';
+        wrap.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', cellIdx));
+
+        // Insert after the heading's parent section, or after the heading itself
+        var section = heading.closest('section');
+        var target = section || heading;
+        if (target.nextSibling) {
+          target.parentNode.insertBefore(wrap, target.nextSibling);
+        } else {
+          target.parentNode.appendChild(wrap);
+        }
+      }
+
+      // "Explain this code" after standalone code blocks (not inside div.cell)
+      var codeBlocks = document.querySelectorAll('div.sourceCode');
+      for (var i = 0; i < codeBlocks.length; i++) {
+        var block = codeBlocks[i];
+        // Skip code blocks that are inside Quarto notebook cells
+        if (block.closest('div.cell')) continue;
+
+        // Find the matching cell index from cells.json
+        // Use position in DOM relative to headings to estimate cell index
+        var codeIdx = findCodeCellIndex(block, slugToCellIndex);
+
+        var wrap = document.createElement('div');
+        wrap.className = 'llm-buttons';
+        wrap.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', codeIdx));
+        wrap.appendChild(makeLlmBtn('Explain this code', 'explain-code', codeIdx));
+
+        block.parentNode.insertBefore(wrap, block.nextSibling);
+      }
+    }
+  }
+
+  function findCodeCellIndex(codeBlock, slugToCellIndex) {
+    // Walk backwards from the code block to find the nearest heading
+    // then look up its cell index and add 1 (the code cell follows the heading)
+    if (!cellsData || !cellsData.cells) return 0;
+
+    // Find code cells in cells.json
+    var codeCells = [];
+    for (var i = 0; i < cellsData.cells.length; i++) {
+      if (cellsData.cells[i].type === 'code') {
+        codeCells.push(cellsData.cells[i].cell);
+      }
+    }
+
+    // Find which code block this is in DOM order (among standalone code blocks)
+    var allCodeBlocks = document.querySelectorAll('div.sourceCode:not(.cell-code)');
+    for (var i = 0; i < allCodeBlocks.length; i++) {
+      if (allCodeBlocks[i] === codeBlock && i < codeCells.length) {
+        return codeCells[i];
+      }
+    }
+    return codeCells.length > 0 ? codeCells[0] : 0;
+  }
+
+  function makeLlmBtn(text, action, cellIndex) {
+    var btn = document.createElement('button');
+    btn.className = 'llm-btn';
+    btn.textContent = text;
+    btn.setAttribute('data-action', action);
+    btn.setAttribute('data-cell', cellIndex);
+    btn.addEventListener('click', makeHandler(action, cellIndex));
+    return btn;
+  }
+
+  function makeHandler(action, cellIndex) {
+    return function() { handleAction(action, cellIndex); };
+  }
+
+  // --- Action Handler ---
+
+  function handleAction(action, cellIndex) {
+    apiKey = localStorage.getItem('claude-api-key');
+    if (!apiKey) {
+      showApiKeyModal(function() { handleAction(action, cellIndex); });
+      return;
+    }
+
+    if (contentMd) {
+      executeAction(action, cellIndex);
+    } else {
+      fetch(baseUrl + 'content.md')
+        .then(function(r) {
+          if (!r.ok) throw new Error('Could not load content');
+          return r.text();
+        })
+        .then(function(text) {
+          contentMd = text;
+          executeAction(action, cellIndex);
+        })
+        .catch(function(err) {
+          showChatModal();
+          var el = document.querySelector('.llm-chat-response');
+          if (el) {
+            el.classList.remove('llm-loading');
+            el.innerHTML = '<p class="llm-error">Error loading content: ' + escapeHtml(err.message) + '</p>';
+          }
+        });
+    }
+  }
+
+  function executeAction(action, cellIndex) {
+    var context = sliceContent(action, cellIndex);
+    var userPrompt = buildUserPrompt(action, context);
+    showChatModal();
+    streamResponse(userPrompt);
+  }
+
+  // --- Content Slicing ---
+
+  function sliceContent(action, cellIndex) {
+    if (action === 'summarize') {
+      return contentMd;
+    }
+
+    var lines = contentMd.split('\n');
+
+    if (action === 'explain-upto') {
+      // Include everything from start through the target cell
+      var result = [];
+      var foundTarget = false;
+      for (var i = 0; i < lines.length; i++) {
+        var m = lines[i].match(/<!-- cell:(\d+)/);
+        if (m) {
+          var idx = parseInt(m[1], 10);
+          if (idx > cellIndex && foundTarget) break;
+          if (idx === cellIndex) foundTarget = true;
+        }
+        result.push(lines[i]);
+      }
+      return result.join('\n');
+    }
+
+    if (action === 'explain-code') {
+      // Extract the specific code cell + preceding context
+      var cellStart = -1;
+      var cellEnd = lines.length;
+
+      for (var i = 0; i < lines.length; i++) {
+        var m = lines[i].match(/<!-- cell:(\d+)/);
+        if (m) {
+          var idx = parseInt(m[1], 10);
+          if (idx === cellIndex) cellStart = i;
+          else if (idx > cellIndex && cellStart >= 0) {
+            cellEnd = i;
+            break;
+          }
+        }
+      }
+
+      if (cellStart < 0) return contentMd; // fallback
+
+      // Get preceding context (limited to ~3000 chars for focus)
+      var preceding = lines.slice(0, cellStart).join('\n');
+      if (preceding.length > 3000) {
+        preceding = '...\n' + preceding.slice(-3000);
+      }
+
+      var codeSection = lines.slice(cellStart, cellEnd).join('\n');
+      return preceding + '\n\n' + codeSection;
+    }
+
+    return contentMd;
+  }
+
+  // --- Prompt Building ---
+
+  function buildUserPrompt(action, context) {
+    var title = (cellsData && cellsData.title) ? cellsData.title : slug;
+
+    if (action === 'summarize') {
+      return 'Summarize the key concepts from this lecture note titled "' + title +
+        '" in 3-5 bullet points. Be concise but thorough.\n\n' + context;
+    }
+
+    if (action === 'explain-upto') {
+      return 'The student has read up to this point in the lecture note "' + title +
+        '". Explain the key concepts covered so far in clear, accessible language. ' +
+        'Reference specific code examples where relevant.\n\n' + context;
+    }
+
+    if (action === 'explain-code') {
+      return 'Explain what this code does and why, in the context of the surrounding lecture material. ' +
+        'Be specific about what each part does and the reasoning behind it.\n\n' + context;
+    }
+
+    return context;
+  }
+
+  // --- API Key Modal ---
+
+  function showApiKeyModal(callback) {
+    var overlay = document.createElement('div');
+    overlay.className = 'llm-modal-overlay';
+
+    var modal = document.createElement('div');
+    modal.className = 'llm-modal llm-key-modal';
+    modal.innerHTML =
+      '<h3>Enter your Claude API key</h3>' +
+      '<p>Your key stays in your browser (localStorage) and is sent only to api.anthropic.com. ' +
+      'It is never sent to this website\'s server.</p>' +
+      '<input type="password" id="llm-api-key-input" placeholder="sk-ant-..." autocomplete="off">' +
+      '<div class="llm-modal-actions">' +
+        '<button class="llm-btn-cancel">Cancel</button>' +
+        '<button class="llm-btn-save">Save &amp; Continue</button>' +
+      '</div>';
+
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+
+    var input = document.getElementById('llm-api-key-input');
+    setTimeout(function() { input.focus(); }, 50);
+
+    modal.querySelector('.llm-btn-cancel').addEventListener('click', function() {
+      overlay.remove();
+    });
+
+    modal.querySelector('.llm-btn-save').addEventListener('click', function() {
+      var key = input.value.trim();
+      if (key) {
+        localStorage.setItem('claude-api-key', key);
+        apiKey = key;
+        overlay.remove();
+        if (callback) callback();
+      }
+    });
+
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') modal.querySelector('.llm-btn-save').click();
+    });
+
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) overlay.remove();
+    });
+  }
+
+  // --- Chat Modal ---
+
+  function showChatModal() {
+    var existing = document.querySelector('.llm-chat-overlay');
+    if (existing) existing.remove();
+
+    var overlay = document.createElement('div');
+    overlay.className = 'llm-modal-overlay llm-chat-overlay';
+
+    var modal = document.createElement('div');
+    modal.className = 'llm-modal llm-chat-modal';
+    modal.innerHTML =
+      '<div class="llm-chat-header">' +
+        '<span>Claude Explanation</span>' +
+        '<div class="llm-chat-actions">' +
+          '<button class="llm-btn-icon llm-btn-settings" title="API key settings">\u2699</button>' +
+          '<button class="llm-btn-icon llm-btn-copy" title="Copy response">\u2398</button>' +
+          '<button class="llm-btn-icon llm-btn-close" title="Close">\u2715</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="llm-chat-body">' +
+        '<div class="llm-chat-response llm-loading">Thinking\u2026</div>' +
+      '</div>';
+
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+
+    modal.querySelector('.llm-btn-close').addEventListener('click', function() {
+      overlay.remove();
+    });
+
+    modal.querySelector('.llm-btn-settings').addEventListener('click', function() {
+      overlay.remove();
+      showApiKeyModal(null);
+    });
+
+    modal.querySelector('.llm-btn-copy').addEventListener('click', function() {
+      var text = modal.querySelector('.llm-chat-response').textContent;
+      navigator.clipboard.writeText(text).then(function() {
+        var toast = document.createElement('div');
+        toast.className = 'llm-copied-toast';
+        toast.textContent = 'Copied!';
+        document.body.appendChild(toast);
+        setTimeout(function() { toast.remove(); }, 1500);
+      });
+    });
+
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) overlay.remove();
+    });
+
+    var escHandler = function(e) {
+      if (e.key === 'Escape') {
+        overlay.remove();
+        document.removeEventListener('keydown', escHandler);
+      }
+    };
+    document.addEventListener('keydown', escHandler);
+  }
+
+  // --- Streaming API Call ---
+
+  function streamResponse(userPrompt) {
+    var responseEl = document.querySelector('.llm-chat-response');
+    if (!responseEl) return;
+
+    responseEl.textContent = '';
+    responseEl.classList.remove('llm-loading');
+    responseEl.classList.add('llm-streaming');
+
+    var fullText = '';
+
+    fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: MODEL,
+        max_tokens: 2048,
+        stream: true,
+        system: SYSTEM_PROMPT,
+        messages: [{ role: 'user', content: userPrompt }]
+      })
+    })
+    .then(function(response) {
+      if (response.status === 401) {
+        responseEl.classList.remove('llm-streaming');
+        responseEl.innerHTML = '<p class="llm-error">Invalid API key. Click the gear icon to update it.</p>';
+        localStorage.removeItem('claude-api-key');
+        apiKey = null;
+        return;
+      }
+      if (!response.ok) {
+        return response.text().then(function(body) {
+          throw new Error('API error ' + response.status + ': ' + body.slice(0, 200));
+        });
+      }
+
+      var reader = response.body.getReader();
+      var decoder = new TextDecoder();
+      var buffer = '';
+
+      function processChunk() {
+        reader.read().then(function(result) {
+          if (result.done) {
+            finishResponse(fullText, responseEl);
+            return;
+          }
+
+          buffer += decoder.decode(result.value, { stream: true });
+          var lines = buffer.split('\n');
+          buffer = lines.pop(); // keep incomplete line
+
+          for (var i = 0; i < lines.length; i++) {
+            var line = lines[i];
+            if (line.startsWith('data: ')) {
+              var data = line.slice(6);
+              if (data === '[DONE]') continue;
+              try {
+                var parsed = JSON.parse(data);
+                if (parsed.type === 'content_block_delta' &&
+                    parsed.delta && parsed.delta.text) {
+                  fullText += parsed.delta.text;
+                  responseEl.textContent = fullText;
+                  responseEl.scrollTop = responseEl.scrollHeight;
+                }
+              } catch (e) { /* skip unparseable lines */ }
+            }
+          }
+
+          processChunk();
+        }).catch(function(err) {
+          finishResponse(fullText || 'Stream interrupted: ' + err.message, responseEl);
+        });
+      }
+
+      processChunk();
+    })
+    .catch(function(err) {
+      responseEl.classList.remove('llm-streaming');
+      responseEl.innerHTML = '<p class="llm-error">' + escapeHtml(err.message) + '</p>';
+    });
+  }
+
+  function finishResponse(text, el) {
+    el.classList.remove('llm-streaming');
+    el.innerHTML = renderMarkdown(text);
+
+    // Re-typeset math if MathJax is available
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      window.MathJax.typesetPromise([el]).catch(function() {});
+    } else if (window.MathJax && window.MathJax.typeset) {
+      try { window.MathJax.typeset([el]); } catch (e) {}
+    }
+  }
+
+  // --- Markdown Rendering ---
+
+  function renderMarkdown(text) {
+    if (!text) return '';
+
+    // Protect LaTeX display blocks ($$...$$)
+    var displayLatex = [];
+    text = text.replace(/\$\$([\s\S]+?)\$\$/g, function(m) {
+      displayLatex.push(m);
+      return '\x00DLATEX' + (displayLatex.length - 1) + '\x00';
+    });
+
+    // Protect LaTeX inline ($...$) — avoid matching currency like $5
+    var inlineLatex = [];
+    text = text.replace(/\$([^\$\n]+?)\$/g, function(m) {
+      inlineLatex.push(m);
+      return '\x00ILATEX' + (inlineLatex.length - 1) + '\x00';
+    });
+
+    // Protect fenced code blocks
+    var codeBlocks = [];
+    text = text.replace(/```(\w*)\n([\s\S]*?)```/g, function(m, lang, code) {
+      codeBlocks.push(
+        '<pre><code' + (lang ? ' class="language-' + lang + '"' : '') + '>' +
+        escapeHtml(code) + '</code></pre>'
+      );
+      return '\x00CBLOCK' + (codeBlocks.length - 1) + '\x00';
+    });
+
+    // Protect inline code
+    var inlineCodes = [];
+    text = text.replace(/`([^`\n]+)`/g, function(m, code) {
+      inlineCodes.push('<code>' + escapeHtml(code) + '</code>');
+      return '\x00ICODE' + (inlineCodes.length - 1) + '\x00';
+    });
+
+    // HTML-escape the remaining text
+    text = escapeHtml(text);
+
+    // Bold and italic
+    text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    text = text.replace(/\*(.+?)\*/g, '<em>$1</em>');
+
+    // Headers
+    text = text.replace(/^#### (.+)$/gm, '<h5>$1</h5>');
+    text = text.replace(/^### (.+)$/gm, '<h4>$1</h4>');
+    text = text.replace(/^## (.+)$/gm, '<h3>$1</h3>');
+    text = text.replace(/^# (.+)$/gm, '<h2>$1</h2>');
+
+    // Unordered list items
+    text = text.replace(/^[-*] (.+)$/gm, '<li>$1</li>');
+
+    // Numbered list items
+    text = text.replace(/^\d+\. (.+)$/gm, '<li>$1</li>');
+
+    // Paragraphs: split on double newlines
+    var blocks = text.split(/\n\n+/);
+    var html = blocks.map(function(block) {
+      block = block.trim();
+      if (!block) return '';
+      // Don't wrap already-wrapped elements
+      if (/^<(h[2-5]|pre|li|ul|ol|\x00)/.test(block)) {
+        // Wrap loose <li> in <ul>
+        if (block.indexOf('<li>') >= 0 && block.indexOf('<ul>') < 0 && block.indexOf('<ol>') < 0) {
+          return '<ul>' + block + '</ul>';
+        }
+        return block;
+      }
+      return '<p>' + block.replace(/\n/g, '<br>') + '</p>';
+    }).join('\n');
+
+    // Restore inline code
+    for (var i = 0; i < inlineCodes.length; i++) {
+      html = html.replace('\x00ICODE' + i + '\x00', inlineCodes[i]);
+    }
+
+    // Restore code blocks
+    for (var i = 0; i < codeBlocks.length; i++) {
+      html = html.replace('\x00CBLOCK' + i + '\x00', codeBlocks[i]);
+    }
+
+    // Restore LaTeX
+    for (var i = 0; i < inlineLatex.length; i++) {
+      html = html.replace('\x00ILATEX' + i + '\x00', inlineLatex[i]);
+    }
+    for (var i = 0; i < displayLatex.length; i++) {
+      html = html.replace('\x00DLATEX' + i + '\x00', displayLatex[i]);
+    }
+
+    return html;
+  }
+
+  function escapeHtml(text) {
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
 })();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">

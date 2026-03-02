@@ -1,0 +1,302 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Learning Bounds and the Test Set",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "cell-1"
+    },
+    {
+      "cell": 2,
+      "type": "code",
+      "html_id": "cell-2"
+    },
+    {
+      "cell": 3,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "revisiting-the-model",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 5,
+      "type": "code",
+      "html_id": "cell-5"
+    },
+    {
+      "cell": 6,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 7,
+      "type": "code",
+      "html_id": "cell-7"
+    },
+    {
+      "cell": 8,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 9,
+      "type": "code",
+      "html_id": "cell-9"
+    },
+    {
+      "cell": 10,
+      "type": "code",
+      "html_id": "cell-10"
+    },
+    {
+      "cell": 11,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "testing-and-training-sets",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 12,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 13,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 14,
+      "type": "code",
+      "html_id": "cell-14"
+    },
+    {
+      "cell": 15,
+      "type": "code",
+      "html_id": "cell-15"
+    },
+    {
+      "cell": 16,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "a-digression-about-scikit-learn",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 17,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "transformers-in-sklearn",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 18,
+      "type": "code",
+      "html_id": "cell-18"
+    },
+    {
+      "cell": 19,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 20,
+      "type": "code",
+      "html_id": "cell-20"
+    },
+    {
+      "cell": 21,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 22,
+      "type": "code",
+      "html_id": "cell-22"
+    },
+    {
+      "cell": 23,
+      "type": "code",
+      "html_id": "cell-23"
+    },
+    {
+      "cell": 24,
+      "type": "code",
+      "html_id": "cell-24"
+    },
+    {
+      "cell": 25,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "fitting-in-sklearn",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 26,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 27,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 28,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 29,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 30,
+      "type": "code",
+      "html_id": "cell-30"
+    },
+    {
+      "cell": 31,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "how-do-training-and-testing-error-change-with-complexity",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 32,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 33,
+      "type": "code",
+      "html_id": "cell-33"
+    },
+    {
+      "cell": 34,
+      "type": "code",
+      "html_id": "cell-34"
+    },
+    {
+      "cell": 35,
+      "type": "code",
+      "html_id": "cell-35"
+    },
+    {
+      "cell": 36,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "estimating-the-out-of-sample-error",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 37,
+      "type": "code",
+      "html_id": "cell-37"
+    },
+    {
+      "cell": 38,
+      "type": "code",
+      "html_id": "cell-38"
+    },
+    {
+      "cell": 39,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 40,
+      "type": "code",
+      "html_id": "cell-40"
+    },
+    {
+      "cell": 41,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "finding-the-appropriate-complexity",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 42,
+      "type": "code",
+      "html_id": "cell-42"
+    },
+    {
+      "cell": 43,
+      "type": "code",
+      "html_id": "cell-43"
+    },
+    {
+      "cell": 44,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 45,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "is-this-still-a-test-set",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 46,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "learning-from-finite-sized-samples",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 47,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "what-about-the-test-set",
+          "level": 3
+        }
+      ]
+    }
+  ]
+}

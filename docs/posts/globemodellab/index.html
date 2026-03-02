@@ -79,9 +79,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-d2fef15c612ec386ae0907ffd6f4ccdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-a009389674a9596cea61ac77c12264b2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-d2fef15c612ec386ae0907ffd6f4ccdb.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-764a92b7e1b6fc0e52d4d5c8240a771d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-19e976df401a0b2f5d466fd3cf3ebe9e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-764a92b7e1b6fc0e52d4d5c8240a771d.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -464,7 +464,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-1" class="cell" data-execution_count="1">
+<div id="cell-1" class="cell" data-execution_count="1" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
@@ -499,15 +499,15 @@ window.Quarto = {
 </section>
 <section id="grid-approximation" class="level2">
 <h2 class="anchored" data-anchor-id="grid-approximation">Grid Approximation</h2>
-<div id="cell-5" class="cell" data-execution_count="21">
+<div id="cell-5" class="cell" data-execution_count="21" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> binom</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-6" class="cell" data-execution_count="27">
+<div id="cell-6" class="cell" data-execution_count="27" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>prior_pdf <span class="op">=</span> <span class="kw">lambda</span> p: <span class="dv">1</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>like_pdf <span class="op">=</span> <span class="kw">lambda</span> p: binom.pmf(k<span class="op">=</span><span class="dv">6</span>, n<span class="op">=</span><span class="dv">9</span>, p<span class="op">=</span>p)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>post_pdf <span class="op">=</span> <span class="kw">lambda</span> p: like_pdf(p)<span class="op">*</span>prior_pdf(p)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-7" class="cell" data-execution_count="28">
+<div id="cell-7" class="cell" data-execution_count="28" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>p_grid <span class="op">=</span> np.linspace(<span class="fl">0.</span>, <span class="fl">1.</span>, <span class="dv">20</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>p_grid</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="28">
@@ -517,7 +517,7 @@ window.Quarto = {
         0.78947368,  0.84210526,  0.89473684,  0.94736842,  1.        ])</code></pre>
 </div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="30">
+<div id="cell-8" class="cell" data-execution_count="30" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plt.plot(p_grid, post_pdf(p_grid),<span class="st">'o-'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -527,13 +527,13 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-9" class="cell" data-execution_count="37">
+<div id="cell-9" class="cell" data-execution_count="37" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>p_grid <span class="op">=</span> np.linspace(<span class="fl">0.</span>, <span class="fl">1.</span>, <span class="dv">1000</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>post_vals <span class="op">=</span> post_pdf(p_grid)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>post_vals_normed <span class="op">=</span> post_vals<span class="op">/</span>np.<span class="bu">sum</span>(post_vals)</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>grid_post_samples <span class="op">=</span> np.random.choice(p_grid, size<span class="op">=</span><span class="dv">10000</span>, replace<span class="op">=</span><span class="va">True</span>, p<span class="op">=</span>post_vals_normed)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-10" class="cell" data-execution_count="150">
+<div id="cell-10" class="cell" data-execution_count="150" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>plt.plot(p_grid, post_vals)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -543,7 +543,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-11" class="cell" data-execution_count="38">
+<div id="cell-11" class="cell" data-execution_count="38" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sns.distplot(grid_post_samples)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -556,7 +556,7 @@ window.Quarto = {
 </section>
 <section id="laplace-approximation" class="level2">
 <h2 class="anchored" data-anchor-id="laplace-approximation">Laplace Approximation</h2>
-<div id="cell-13" class="cell" data-execution_count="42">
+<div id="cell-13" class="cell" data-execution_count="42" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>p_start <span class="op">=</span> <span class="fl">0.5</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> minimize</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>post_pdf_inv <span class="op">=</span> <span class="kw">lambda</span> p: <span class="op">-</span>post_pdf(p)</span>
@@ -568,7 +568,7 @@ window.Quarto = {
          Function evaluations: 26</code></pre>
 </div>
 </div>
-<div id="cell-14" class="cell" data-execution_count="80">
+<div id="cell-14" class="cell" data-execution_count="80" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>res</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="80">
 <pre><code> final_simplex: (array([[ 0.66669922],
@@ -582,28 +582,28 @@ window.Quarto = {
              x: array([ 0.66669922])</code></pre>
 </div>
 </div>
-<div id="cell-15" class="cell" data-execution_count="47">
+<div id="cell-15" class="cell" data-execution_count="47" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>post_MAP <span class="op">=</span> res.x[<span class="dv">0</span>]</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>post_MAP</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="47">
 <pre><code>0.66669921875000038</code></pre>
 </div>
 </div>
-<div id="cell-16" class="cell" data-execution_count="86">
+<div id="cell-16" class="cell" data-execution_count="86" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>insertbefore <span class="op">=</span> np.searchsorted(p_grid, post_MAP)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>insertbefore</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="86">
 <pre><code>667</code></pre>
 </div>
 </div>
-<div id="cell-17" class="cell" data-execution_count="88">
+<div id="cell-17" class="cell" data-execution_count="88" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>postmapval <span class="op">=</span> (post_vals[insertbefore<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> post_vals[insertbefore])<span class="op">/</span><span class="fl">2.</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>postmapval</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="88">
 <pre><code>0.27312632244812729</code></pre>
 </div>
 </div>
-<div id="cell-18" class="cell" data-execution_count="77">
+<div id="cell-18" class="cell" data-execution_count="77" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>plt.plot(p_grid, post_vals)<span class="op">;</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>plt.plot(p_grid, norm.pdf(p_grid, loc<span class="op">=</span>post_MAP, scale<span class="op">=</span><span class="fl">0.16</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -614,13 +614,13 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-19" class="cell" data-execution_count="142">
+<div id="cell-19" class="cell" data-execution_count="142" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>zq <span class="op">=</span> <span class="kw">lambda</span> sigma: sigma<span class="op">*</span>postmapval<span class="op">*</span>np.sqrt(<span class="dv">2</span><span class="op">*</span>np.pi)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fit_loss(sigma):</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    vec <span class="op">=</span> (post_vals<span class="op">/</span>zq(sigma)) <span class="op">-</span> norm.pdf(p_grid, loc<span class="op">=</span>post_MAP, scale<span class="op">=</span>sigma)</span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.dot(vec, vec)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-20" class="cell" data-execution_count="144">
+<div id="cell-20" class="cell" data-execution_count="144" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>res2 <span class="op">=</span> minimize(fit_loss, <span class="fl">0.2</span>, method <span class="op">=</span> <span class="st">'Nelder-Mead'</span>, options<span class="op">=</span>{<span class="st">'disp'</span>: <span class="va">True</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Optimization terminated successfully.
@@ -629,7 +629,7 @@ window.Quarto = {
          Function evaluations: 24</code></pre>
 </div>
 </div>
-<div id="cell-21" class="cell" data-execution_count="145">
+<div id="cell-21" class="cell" data-execution_count="145" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>res2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="145">
 <pre><code> final_simplex: (array([[ 0.14921875],
@@ -643,17 +643,17 @@ window.Quarto = {
              x: array([ 0.14921875])</code></pre>
 </div>
 </div>
-<div id="cell-22" class="cell" data-execution_count="146">
+<div id="cell-22" class="cell" data-execution_count="146" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>post_SIG <span class="op">=</span> res2.x[<span class="dv">0</span>]</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>post_SIG</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="146">
 <pre><code>0.14921875000000009</code></pre>
 </div>
 </div>
-<div id="cell-23" class="cell" data-execution_count="147">
+<div id="cell-23" class="cell" data-execution_count="147" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>frozen_laplace <span class="op">=</span> norm(post_MAP, post_SIG)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="149">
+<div id="cell-24" class="cell" data-execution_count="149" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>plt.plot(p_grid, post_pdf(p_grid)<span class="op">/</span>zq(post_SIG), label <span class="op">=</span> <span class="st">"normalized posterior"</span>)<span class="op">;</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>plt.plot(p_grid, frozen_laplace.pdf(p_grid), label <span class="op">=</span> <span class="st">"laplace approx"</span>)</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -665,14 +665,14 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-25" class="cell" data-execution_count="151">
+<div id="cell-25" class="cell" data-execution_count="151" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>zq(post_SIG)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="151">
 <pre><code>0.10215906016979832</code></pre>
 </div>
 </div>
 <p>Now we can get samples from here:</p>
-<div id="cell-27" class="cell" data-execution_count="156">
+<div id="cell-27" class="cell" data-execution_count="156" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>sns.distplot(frozen_laplace.rvs(<span class="dv">10000</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -687,7 +687,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="conjugate-priors">Conjugate Priors</h2>
 <p>The mean of <span class="math inline">\(Beta(\alpha, \beta)\)</span> is <span class="math inline">\(\mu = \frac{\alpha}{\alpha+\beta}\)</span> while the variance is</p>
 <p><span class="math display">\[V=\mu (1- \mu)/(\alpha + \beta + 1)\]</span></p>
-<div id="cell-29" class="cell" data-execution_count="152">
+<div id="cell-29" class="cell" data-execution_count="152" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> beta</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>np.linspace(<span class="fl">0.</span>, <span class="fl">1.</span>, <span class="dv">100</span>)</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x, beta.pdf(x, <span class="dv">1</span>, <span class="dv">1</span>))<span class="op">;</span></span>
@@ -708,7 +708,7 @@ window.Quarto = {
 <p><span class="math display">\[ p(\theta|D) \propto  p(\theta) \, p(n,k|\theta)  =  Binom(n,k, \theta) \,  {\rm Beta}(\theta,\alpha, \beta)  \]</span></p>
 <p>which can be shown to be</p>
 <p><span class="math display">\[{\rm Beta}(\theta, \alpha+k, \beta+n-k)\]</span></p>
-<div id="cell-32" class="cell" data-execution_count="153">
+<div id="cell-32" class="cell" data-execution_count="153" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> beta, binom</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>( <span class="dv">15</span>, <span class="dv">18</span>))</span>
@@ -757,7 +757,7 @@ window.Quarto = {
 <section id="interrogating-the-posterior" class="level2">
 <h2 class="anchored" data-anchor-id="interrogating-the-posterior">Interrogating the posterior</h2>
 <p>Since we can sample from the posterior now after 9 observations, lets do so!</p>
-<div id="cell-34" class="cell" data-execution_count="154">
+<div id="cell-34" class="cell" data-execution_count="154" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>samples <span class="op">=</span> beta.rvs(<span class="op">*</span>posterior_params, size<span class="op">=</span><span class="dv">10000</span>)</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>plt.hist(samples, bins<span class="op">=</span><span class="dv">50</span>, normed<span class="op">=</span><span class="va">True</span>)<span class="op">;</span></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(samples)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -773,38 +773,38 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="sampling-to-summarize">Sampling to summarize</h3>
 <p>Now we can calculate all sorts of stuff.</p>
 <p>The probability that the amount of water is less than 50%</p>
-<div id="cell-36" class="cell" data-execution_count="155">
+<div id="cell-36" class="cell" data-execution_count="155" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>np.mean(samples <span class="op">&lt;</span> <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="155">
 <pre><code>0.17180000000000001</code></pre>
 </div>
 </div>
 <p>The probability by which we get 80% of the samples.</p>
-<div id="cell-38" class="cell" data-execution_count="110">
+<div id="cell-38" class="cell" data-execution_count="110" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>np.percentile(samples, <span class="dv">80</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="110">
 <pre><code>0.75998662608698764</code></pre>
 </div>
 </div>
 <p>You might try and find a <strong>credible interval</strong>. This, unlike the wierd definition of confidence intervals, is exactly what you think it is, the amount of probability mass between certain percentages, like the middle 95%</p>
-<div id="cell-40" class="cell" data-execution_count="111">
+<div id="cell-40" class="cell" data-execution_count="111" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>np.percentile(samples, [<span class="fl">2.5</span>, <span class="fl">97.5</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="111">
 <pre><code>array([ 0.35115415,  0.8774055 ])</code></pre>
 </div>
 </div>
 <p>You can make various point estimates: mean, median</p>
-<div id="cell-42" class="cell" data-execution_count="112">
+<div id="cell-42" class="cell" data-execution_count="112" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>np.mean(samples), np.median(samples), np.percentile(samples, <span class="dv">50</span>) <span class="co">#last 2 are same</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="112">
 <pre><code>(0.63736799839639757, 0.64714663472562717, 0.64714663472562717)</code></pre>
 </div>
 </div>
 <p>A particularly important and useful point estimate that we just saw is the <strong>MAP</strong>, or “maximum a-posteriori” estimate, the value of the parameter at which the pdf (num-samples) reach a maximum. It can be obtained from the samples as well.</p>
-<div id="cell-44" class="cell" data-execution_count="113">
+<div id="cell-44" class="cell" data-execution_count="113" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>sampleshisto <span class="op">=</span> np.histogram(samples, bins<span class="op">=</span><span class="dv">50</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-45" class="cell" data-execution_count="114">
+<div id="cell-45" class="cell" data-execution_count="114" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>maxcountindex <span class="op">=</span> np.argmax(sampleshisto[<span class="dv">0</span>])</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>mapvalue <span class="op">=</span> sampleshisto[<span class="dv">1</span>][maxcountindex]</span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(maxcountindex, mapvalue)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -813,7 +813,7 @@ window.Quarto = {
 </div>
 </div>
 <p>The mean of the posterior samples corresponds to minimizing the squared loss.</p>
-<div id="cell-47" class="cell" data-execution_count="159">
+<div id="cell-47" class="cell" data-execution_count="159" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>mse <span class="op">=</span> [np.mean((xi<span class="op">-</span>samples)<span class="op">**</span><span class="dv">2</span>) <span class="cf">for</span> xi <span class="kw">in</span> x]</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x, mse)<span class="op">;</span></span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>plt.axvline(np.mean(samples), <span class="dv">0</span>, <span class="dv">1</span>, color<span class="op">=</span><span class="st">"r"</span>)</span>
@@ -841,7 +841,7 @@ window.Quarto = {
 <li>Forecasting</li>
 </ol>
 <p>Its easy to sample from any one probability to get the sampling distribution at a particular <span class="math inline">\(\theta\)</span></p>
-<div id="cell-49" class="cell" data-execution_count="116">
+<div id="cell-49" class="cell" data-execution_count="116" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>point3samps <span class="op">=</span> np.random.binomial( <span class="bu">len</span>(data), <span class="fl">0.3</span>, size<span class="op">=</span><span class="dv">10000</span>)<span class="op">;</span></span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>point7samps <span class="op">=</span> np.random.binomial( <span class="bu">len</span>(data), <span class="fl">0.7</span>, size<span class="op">=</span><span class="dv">10000</span>)<span class="op">;</span></span>
 <span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>plt.hist(point3samps, lw<span class="op">=</span><span class="dv">3</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, histtype<span class="op">=</span><span class="st">"stepfilled"</span>, bins<span class="op">=</span>np.arange(<span class="dv">11</span>))<span class="op">;</span></span>
@@ -870,10 +870,10 @@ window.Quarto = {
 <p>and then simply drawing the posterior predictive from :</p>
 <p><span class="math display">\[p(y^{*} \vert D) = p(y^{*} \vert \theta_{MAP})\]</span></p>
 <p>(the same thing could be done for <span class="math inline">\(\theta_{mean}\)</span>).</p>
-<div id="cell-51" class="cell" data-execution_count="117">
+<div id="cell-51" class="cell" data-execution_count="117" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>pluginpreds <span class="op">=</span> np.random.binomial( <span class="bu">len</span>(data), mapvalue, size <span class="op">=</span> <span class="bu">len</span>(samples))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-52" class="cell" data-execution_count="118">
+<div id="cell-52" class="cell" data-execution_count="118" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>plt.hist(pluginpreds, bins<span class="op">=</span>np.arange(<span class="dv">11</span>))<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -888,22 +888,22 @@ window.Quarto = {
 <section id="the-posterior-predictive-from-sampling" class="level3">
 <h3 class="anchored" data-anchor-id="the-posterior-predictive-from-sampling">The posterior predictive from sampling</h3>
 <p>But really from the perspective of sampling, all we have to do is to first draw the thetas from the posterior, then draw y’s from the likelihood, and histogram the likelihood. This is the same logic as marginal posteriors, with the addition of the fact that we must draw y from the likelihood once we drew <span class="math inline">\(\theta\)</span>. You might think that we have to draw multiple <span class="math inline">\(y\)</span>s at a theta, but this is already taken care of for us because of the nature of sampling. We already have multiple <span class="math inline">\(\theta\)</span>s in a bin.</p>
-<div id="cell-55" class="cell" data-execution_count="119">
+<div id="cell-55" class="cell" data-execution_count="119" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>postpred <span class="op">=</span> np.random.binomial( <span class="bu">len</span>(data), samples)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-56" class="cell" data-execution_count="120">
+<div id="cell-56" class="cell" data-execution_count="120" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>postpred</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="120">
 <pre><code>array([7, 7, 5, ..., 6, 7, 5])</code></pre>
 </div>
 </div>
-<div id="cell-57" class="cell" data-execution_count="121">
+<div id="cell-57" class="cell" data-execution_count="121" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>samples.shape, postpred.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="121">
 <pre><code>((10000,), (10000,))</code></pre>
 </div>
 </div>
-<div id="cell-58" class="cell" data-execution_count="123">
+<div id="cell-58" class="cell" data-execution_count="123" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>plt.hist(postpred, bins<span class="op">=</span>np.arange(<span class="dv">11</span>), alpha<span class="op">=</span><span class="fl">0.5</span>, align<span class="op">=</span><span class="st">"left"</span>, label<span class="op">=</span><span class="st">"predictive"</span>)</span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>plt.hist(pluginpreds, bins<span class="op">=</span>np.arange(<span class="dv">11</span>), alpha<span class="op">=</span><span class="fl">0.2</span>, align<span class="op">=</span><span class="st">"left"</span>, label<span class="op">=</span><span class="st">"plug-in (MAP)"</span>)</span>
 <span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Posterior predictive'</span>)</span>
@@ -923,13 +923,13 @@ window.Quarto = {
 <p>There is a different kind of predictive sampling that us useful (and what you might have thought was predictive sampling). This is replicative sampling. It can be used with both priors and posteriors; the former for model callibration and the latter for model checking. We shall see both of these soon.</p>
 <p>The idea here is to generate an entire dataset from one of the parameter samples in the posterior. So you are not generating 10000 ys for 10000 thetas, but rather 10000 y’s per theta. (you can play the same game with the prior). This kind of inverts the diagram we saw earlier to produce the posterior predictive.</p>
 <p>Our usual sample vs replication 2D setup can come useful here. Consider generating 1000 y’s per replication for each theta.</p>
-<div id="cell-60" class="cell" data-execution_count="160">
+<div id="cell-60" class="cell" data-execution_count="160" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>postpred.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="160">
 <pre><code>(10000,)</code></pre>
 </div>
 </div>
-<div id="cell-61" class="cell" data-execution_count="162">
+<div id="cell-61" class="cell" data-execution_count="162" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>reppostpred <span class="op">=</span>np.empty((<span class="dv">1000</span>, <span class="dv">10000</span>))</span>
 <span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1000</span>):</span>
 <span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>    reppostpred[i,:] <span class="op">=</span> np.random.binomial( <span class="bu">len</span>(data), samples)<span class="op">;</span></span>
@@ -938,14 +938,14 @@ window.Quarto = {
 <pre><code>(1000, 10000)</code></pre>
 </div>
 </div>
-<div id="cell-62" class="cell" data-execution_count="163">
+<div id="cell-62" class="cell" data-execution_count="163" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>per_theta_avgs <span class="op">=</span> np.mean(reppostpred, axis<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>per_theta_avgs.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="163">
 <pre><code>(10000,)</code></pre>
 </div>
 </div>
-<div id="cell-63" class="cell" data-execution_count="165">
+<div id="cell-63" class="cell" data-execution_count="165" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(samples, per_theta_avgs, alpha<span class="op">=</span><span class="fl">0.1</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -956,19 +956,19 @@ window.Quarto = {
 </div>
 </div>
 <p>In particular, you will find that the number of switches is not consistent with what you see in our data. This might lead you to question our model…always a good thing..but note that we have very little data as yet to go on</p>
-<div id="cell-65" class="cell" data-execution_count="175">
+<div id="cell-65" class="cell" data-execution_count="175" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="175">
 <pre><code>array([1, 0, 1, 1, 1, 0, 1, 0, 1])</code></pre>
 </div>
 </div>
-<div id="cell-66" class="cell" data-execution_count="173">
+<div id="cell-66" class="cell" data-execution_count="173" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>data[:<span class="op">-</span><span class="dv">1</span>] <span class="op">!=</span> data[<span class="dv">1</span>:]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="173">
 <pre><code>array([ True,  True, False, False,  True,  True,  True,  True], dtype=bool)</code></pre>
 </div>
 </div>
-<div id="cell-67" class="cell" data-execution_count="174">
+<div id="cell-67" class="cell" data-execution_count="174" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>np.<span class="bu">sum</span>(data[:<span class="op">-</span><span class="dv">1</span>] <span class="op">!=</span> data[<span class="dv">1</span>:])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="174">
 <pre><code>6</code></pre>
@@ -1027,6 +1027,615 @@ document.addEventListener('DOMContentLoaded', function() {
     "https://bsky.app/intent/compose?text=" + title + " " + encodeURIComponent(window.location.href);
   document.getElementById("discuss-linkedin").href =
     "https://www.linkedin.com/sharing/share-offsite/?url=" + url;
+})();
+</script>
+<script>
+(function() {
+  // Gate: only activate on individual post pages
+  var p = window.location.pathname;
+  if (!p.startsWith('/posts/')) return;
+  var listingPaths = ['/posts/', '/posts', '/posts/index.html'];
+  if (listingPaths.indexOf(p) >= 0) return;
+
+  // Extract post slug from URL
+  var match = p.match(/\/posts\/([^/.]+)/);
+  if (!match) return;
+  var slug = match[1];
+  var baseUrl = '/posts/' + slug + '/';
+
+  // State
+  var cellsData = null;
+  var contentMd = null;
+  var apiKey = localStorage.getItem('claude-api-key');
+  var MODEL = 'claude-sonnet-4-20250514';
+  var SYSTEM_PROMPT = 'You are a helpful teaching assistant for a data science and machine learning course. ' +
+    'Explain concepts clearly and concisely. Reference specific code examples when relevant. ' +
+    'Use LaTeX notation (with $...$ for inline and $$...$$ for display) for mathematical expressions. ' +
+    'Keep responses focused and educational.';
+
+  // --- Initialization ---
+
+  fetch(baseUrl + 'cells.json')
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(data) {
+      if (!data) return;
+      cellsData = data;
+      injectButtons();
+    })
+    .catch(function() { /* No cells.json — feature disabled for this post */ });
+
+  // --- Button Injection ---
+
+  function injectButtons() {
+    injectSummarizeButton();
+    injectCellButtons();
+  }
+
+  function injectSummarizeButton() {
+    var anchor = document.querySelector('#title-block-header') ||
+                 document.querySelector('.quarto-title-block') ||
+                 document.querySelector('header');
+    if (!anchor) return;
+
+    var wrap = document.createElement('div');
+    wrap.className = 'llm-summarize-wrap';
+
+    var btn = document.createElement('button');
+    btn.className = 'llm-btn llm-btn-summarize';
+    btn.textContent = 'Summarize this page';
+    btn.addEventListener('click', function() { handleAction('summarize', null); });
+
+    wrap.appendChild(btn);
+    anchor.parentNode.insertBefore(wrap, anchor.nextSibling);
+  }
+
+  function injectCellButtons() {
+    var sourceType = cellsData ? cellsData.source_type : 'ipynb';
+
+    // --- Notebook posts (ipynb): buttons after Quarto's div.cell elements ---
+    var notebookCells = document.querySelectorAll('div.cell[id^="cell-"]');
+    for (var i = 0; i < notebookCells.length; i++) {
+      var cell = notebookCells[i];
+      var cellIndex = parseInt(cell.id.replace('cell-', ''), 10);
+      if (isNaN(cellIndex)) continue;
+
+      var container = document.createElement('div');
+      container.className = 'llm-buttons';
+
+      container.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', cellIndex));
+      container.appendChild(makeLlmBtn('Explain this code', 'explain-code', cellIndex));
+
+      cell.parentNode.insertBefore(container, cell.nextSibling);
+    }
+
+    // --- Non-notebook posts (md/qmd): buttons after headings and code blocks ---
+    if (sourceType !== 'ipynb' || notebookCells.length === 0) {
+      // Build a lookup: heading slug -> cell index from cells.json
+      var slugToCellIndex = {};
+      if (cellsData && cellsData.cells) {
+        for (var c = 0; c < cellsData.cells.length; c++) {
+          var meta = cellsData.cells[c];
+          if (meta.headings) {
+            for (var h = 0; h < meta.headings.length; h++) {
+              slugToCellIndex[meta.headings[h].slug] = meta.cell;
+            }
+          }
+        }
+      }
+
+      // "Explain up to here" after h2/h3 headings
+      // Quarto puts the id on the parent <section>, and data-anchor-id on the <h>
+      var headings = document.querySelectorAll('h2[data-anchor-id], h3[data-anchor-id], h2[id], h3[id]');
+      var seen = new Set();
+      for (var i = 0; i < headings.length; i++) {
+        var heading = headings[i];
+        var headingSlug = heading.getAttribute('data-anchor-id') || heading.id;
+        if (!headingSlug || headingSlug === 'toc-title') continue;
+        if (seen.has(headingSlug)) continue; // deduplicate
+        seen.add(headingSlug);
+
+        var cellIdx = slugToCellIndex[headingSlug];
+        if (cellIdx === undefined) cellIdx = i; // fallback to DOM order
+
+        var wrap = document.createElement('div');
+        wrap.className = 'llm-buttons';
+        wrap.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', cellIdx));
+
+        // Insert after the heading's parent section, or after the heading itself
+        var section = heading.closest('section');
+        var target = section || heading;
+        if (target.nextSibling) {
+          target.parentNode.insertBefore(wrap, target.nextSibling);
+        } else {
+          target.parentNode.appendChild(wrap);
+        }
+      }
+
+      // "Explain this code" after standalone code blocks (not inside div.cell)
+      var codeBlocks = document.querySelectorAll('div.sourceCode');
+      for (var i = 0; i < codeBlocks.length; i++) {
+        var block = codeBlocks[i];
+        // Skip code blocks that are inside Quarto notebook cells
+        if (block.closest('div.cell')) continue;
+
+        // Find the matching cell index from cells.json
+        // Use position in DOM relative to headings to estimate cell index
+        var codeIdx = findCodeCellIndex(block, slugToCellIndex);
+
+        var wrap = document.createElement('div');
+        wrap.className = 'llm-buttons';
+        wrap.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', codeIdx));
+        wrap.appendChild(makeLlmBtn('Explain this code', 'explain-code', codeIdx));
+
+        block.parentNode.insertBefore(wrap, block.nextSibling);
+      }
+    }
+  }
+
+  function findCodeCellIndex(codeBlock, slugToCellIndex) {
+    // Walk backwards from the code block to find the nearest heading
+    // then look up its cell index and add 1 (the code cell follows the heading)
+    if (!cellsData || !cellsData.cells) return 0;
+
+    // Find code cells in cells.json
+    var codeCells = [];
+    for (var i = 0; i < cellsData.cells.length; i++) {
+      if (cellsData.cells[i].type === 'code') {
+        codeCells.push(cellsData.cells[i].cell);
+      }
+    }
+
+    // Find which code block this is in DOM order (among standalone code blocks)
+    var allCodeBlocks = document.querySelectorAll('div.sourceCode:not(.cell-code)');
+    for (var i = 0; i < allCodeBlocks.length; i++) {
+      if (allCodeBlocks[i] === codeBlock && i < codeCells.length) {
+        return codeCells[i];
+      }
+    }
+    return codeCells.length > 0 ? codeCells[0] : 0;
+  }
+
+  function makeLlmBtn(text, action, cellIndex) {
+    var btn = document.createElement('button');
+    btn.className = 'llm-btn';
+    btn.textContent = text;
+    btn.setAttribute('data-action', action);
+    btn.setAttribute('data-cell', cellIndex);
+    btn.addEventListener('click', makeHandler(action, cellIndex));
+    return btn;
+  }
+
+  function makeHandler(action, cellIndex) {
+    return function() { handleAction(action, cellIndex); };
+  }
+
+  // --- Action Handler ---
+
+  function handleAction(action, cellIndex) {
+    apiKey = localStorage.getItem('claude-api-key');
+    if (!apiKey) {
+      showApiKeyModal(function() { handleAction(action, cellIndex); });
+      return;
+    }
+
+    if (contentMd) {
+      executeAction(action, cellIndex);
+    } else {
+      fetch(baseUrl + 'content.md')
+        .then(function(r) {
+          if (!r.ok) throw new Error('Could not load content');
+          return r.text();
+        })
+        .then(function(text) {
+          contentMd = text;
+          executeAction(action, cellIndex);
+        })
+        .catch(function(err) {
+          showChatModal();
+          var el = document.querySelector('.llm-chat-response');
+          if (el) {
+            el.classList.remove('llm-loading');
+            el.innerHTML = '<p class="llm-error">Error loading content: ' + escapeHtml(err.message) + '</p>';
+          }
+        });
+    }
+  }
+
+  function executeAction(action, cellIndex) {
+    var context = sliceContent(action, cellIndex);
+    var userPrompt = buildUserPrompt(action, context);
+    showChatModal();
+    streamResponse(userPrompt);
+  }
+
+  // --- Content Slicing ---
+
+  function sliceContent(action, cellIndex) {
+    if (action === 'summarize') {
+      return contentMd;
+    }
+
+    var lines = contentMd.split('\n');
+
+    if (action === 'explain-upto') {
+      // Include everything from start through the target cell
+      var result = [];
+      var foundTarget = false;
+      for (var i = 0; i < lines.length; i++) {
+        var m = lines[i].match(/<!-- cell:(\d+)/);
+        if (m) {
+          var idx = parseInt(m[1], 10);
+          if (idx > cellIndex && foundTarget) break;
+          if (idx === cellIndex) foundTarget = true;
+        }
+        result.push(lines[i]);
+      }
+      return result.join('\n');
+    }
+
+    if (action === 'explain-code') {
+      // Extract the specific code cell + preceding context
+      var cellStart = -1;
+      var cellEnd = lines.length;
+
+      for (var i = 0; i < lines.length; i++) {
+        var m = lines[i].match(/<!-- cell:(\d+)/);
+        if (m) {
+          var idx = parseInt(m[1], 10);
+          if (idx === cellIndex) cellStart = i;
+          else if (idx > cellIndex && cellStart >= 0) {
+            cellEnd = i;
+            break;
+          }
+        }
+      }
+
+      if (cellStart < 0) return contentMd; // fallback
+
+      // Get preceding context (limited to ~3000 chars for focus)
+      var preceding = lines.slice(0, cellStart).join('\n');
+      if (preceding.length > 3000) {
+        preceding = '...\n' + preceding.slice(-3000);
+      }
+
+      var codeSection = lines.slice(cellStart, cellEnd).join('\n');
+      return preceding + '\n\n' + codeSection;
+    }
+
+    return contentMd;
+  }
+
+  // --- Prompt Building ---
+
+  function buildUserPrompt(action, context) {
+    var title = (cellsData && cellsData.title) ? cellsData.title : slug;
+
+    if (action === 'summarize') {
+      return 'Summarize the key concepts from this lecture note titled "' + title +
+        '" in 3-5 bullet points. Be concise but thorough.\n\n' + context;
+    }
+
+    if (action === 'explain-upto') {
+      return 'The student has read up to this point in the lecture note "' + title +
+        '". Explain the key concepts covered so far in clear, accessible language. ' +
+        'Reference specific code examples where relevant.\n\n' + context;
+    }
+
+    if (action === 'explain-code') {
+      return 'Explain what this code does and why, in the context of the surrounding lecture material. ' +
+        'Be specific about what each part does and the reasoning behind it.\n\n' + context;
+    }
+
+    return context;
+  }
+
+  // --- API Key Modal ---
+
+  function showApiKeyModal(callback) {
+    var overlay = document.createElement('div');
+    overlay.className = 'llm-modal-overlay';
+
+    var modal = document.createElement('div');
+    modal.className = 'llm-modal llm-key-modal';
+    modal.innerHTML =
+      '<h3>Enter your Claude API key</h3>' +
+      '<p>Your key stays in your browser (localStorage) and is sent only to api.anthropic.com. ' +
+      'It is never sent to this website\'s server.</p>' +
+      '<input type="password" id="llm-api-key-input" placeholder="sk-ant-..." autocomplete="off">' +
+      '<div class="llm-modal-actions">' +
+        '<button class="llm-btn-cancel">Cancel</button>' +
+        '<button class="llm-btn-save">Save &amp; Continue</button>' +
+      '</div>';
+
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+
+    var input = document.getElementById('llm-api-key-input');
+    setTimeout(function() { input.focus(); }, 50);
+
+    modal.querySelector('.llm-btn-cancel').addEventListener('click', function() {
+      overlay.remove();
+    });
+
+    modal.querySelector('.llm-btn-save').addEventListener('click', function() {
+      var key = input.value.trim();
+      if (key) {
+        localStorage.setItem('claude-api-key', key);
+        apiKey = key;
+        overlay.remove();
+        if (callback) callback();
+      }
+    });
+
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') modal.querySelector('.llm-btn-save').click();
+    });
+
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) overlay.remove();
+    });
+  }
+
+  // --- Chat Modal ---
+
+  function showChatModal() {
+    var existing = document.querySelector('.llm-chat-overlay');
+    if (existing) existing.remove();
+
+    var overlay = document.createElement('div');
+    overlay.className = 'llm-modal-overlay llm-chat-overlay';
+
+    var modal = document.createElement('div');
+    modal.className = 'llm-modal llm-chat-modal';
+    modal.innerHTML =
+      '<div class="llm-chat-header">' +
+        '<span>Claude Explanation</span>' +
+        '<div class="llm-chat-actions">' +
+          '<button class="llm-btn-icon llm-btn-settings" title="API key settings">\u2699</button>' +
+          '<button class="llm-btn-icon llm-btn-copy" title="Copy response">\u2398</button>' +
+          '<button class="llm-btn-icon llm-btn-close" title="Close">\u2715</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="llm-chat-body">' +
+        '<div class="llm-chat-response llm-loading">Thinking\u2026</div>' +
+      '</div>';
+
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+
+    modal.querySelector('.llm-btn-close').addEventListener('click', function() {
+      overlay.remove();
+    });
+
+    modal.querySelector('.llm-btn-settings').addEventListener('click', function() {
+      overlay.remove();
+      showApiKeyModal(null);
+    });
+
+    modal.querySelector('.llm-btn-copy').addEventListener('click', function() {
+      var text = modal.querySelector('.llm-chat-response').textContent;
+      navigator.clipboard.writeText(text).then(function() {
+        var toast = document.createElement('div');
+        toast.className = 'llm-copied-toast';
+        toast.textContent = 'Copied!';
+        document.body.appendChild(toast);
+        setTimeout(function() { toast.remove(); }, 1500);
+      });
+    });
+
+    overlay.addEventListener('click', function(e) {
+      if (e.target === overlay) overlay.remove();
+    });
+
+    var escHandler = function(e) {
+      if (e.key === 'Escape') {
+        overlay.remove();
+        document.removeEventListener('keydown', escHandler);
+      }
+    };
+    document.addEventListener('keydown', escHandler);
+  }
+
+  // --- Streaming API Call ---
+
+  function streamResponse(userPrompt) {
+    var responseEl = document.querySelector('.llm-chat-response');
+    if (!responseEl) return;
+
+    responseEl.textContent = '';
+    responseEl.classList.remove('llm-loading');
+    responseEl.classList.add('llm-streaming');
+
+    var fullText = '';
+
+    fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: MODEL,
+        max_tokens: 2048,
+        stream: true,
+        system: SYSTEM_PROMPT,
+        messages: [{ role: 'user', content: userPrompt }]
+      })
+    })
+    .then(function(response) {
+      if (response.status === 401) {
+        responseEl.classList.remove('llm-streaming');
+        responseEl.innerHTML = '<p class="llm-error">Invalid API key. Click the gear icon to update it.</p>';
+        localStorage.removeItem('claude-api-key');
+        apiKey = null;
+        return;
+      }
+      if (!response.ok) {
+        return response.text().then(function(body) {
+          throw new Error('API error ' + response.status + ': ' + body.slice(0, 200));
+        });
+      }
+
+      var reader = response.body.getReader();
+      var decoder = new TextDecoder();
+      var buffer = '';
+
+      function processChunk() {
+        reader.read().then(function(result) {
+          if (result.done) {
+            finishResponse(fullText, responseEl);
+            return;
+          }
+
+          buffer += decoder.decode(result.value, { stream: true });
+          var lines = buffer.split('\n');
+          buffer = lines.pop(); // keep incomplete line
+
+          for (var i = 0; i < lines.length; i++) {
+            var line = lines[i];
+            if (line.startsWith('data: ')) {
+              var data = line.slice(6);
+              if (data === '[DONE]') continue;
+              try {
+                var parsed = JSON.parse(data);
+                if (parsed.type === 'content_block_delta' &&
+                    parsed.delta && parsed.delta.text) {
+                  fullText += parsed.delta.text;
+                  responseEl.textContent = fullText;
+                  responseEl.scrollTop = responseEl.scrollHeight;
+                }
+              } catch (e) { /* skip unparseable lines */ }
+            }
+          }
+
+          processChunk();
+        }).catch(function(err) {
+          finishResponse(fullText || 'Stream interrupted: ' + err.message, responseEl);
+        });
+      }
+
+      processChunk();
+    })
+    .catch(function(err) {
+      responseEl.classList.remove('llm-streaming');
+      responseEl.innerHTML = '<p class="llm-error">' + escapeHtml(err.message) + '</p>';
+    });
+  }
+
+  function finishResponse(text, el) {
+    el.classList.remove('llm-streaming');
+    el.innerHTML = renderMarkdown(text);
+
+    // Re-typeset math if MathJax is available
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      window.MathJax.typesetPromise([el]).catch(function() {});
+    } else if (window.MathJax && window.MathJax.typeset) {
+      try { window.MathJax.typeset([el]); } catch (e) {}
+    }
+  }
+
+  // --- Markdown Rendering ---
+
+  function renderMarkdown(text) {
+    if (!text) return '';
+
+    // Protect LaTeX display blocks ($$...$$)
+    var displayLatex = [];
+    text = text.replace(/\$\$([\s\S]+?)\$\$/g, function(m) {
+      displayLatex.push(m);
+      return '\x00DLATEX' + (displayLatex.length - 1) + '\x00';
+    });
+
+    // Protect LaTeX inline ($...$) — avoid matching currency like $5
+    var inlineLatex = [];
+    text = text.replace(/\$([^\$\n]+?)\$/g, function(m) {
+      inlineLatex.push(m);
+      return '\x00ILATEX' + (inlineLatex.length - 1) + '\x00';
+    });
+
+    // Protect fenced code blocks
+    var codeBlocks = [];
+    text = text.replace(/```(\w*)\n([\s\S]*?)```/g, function(m, lang, code) {
+      codeBlocks.push(
+        '<pre><code' + (lang ? ' class="language-' + lang + '"' : '') + '>' +
+        escapeHtml(code) + '</code></pre>'
+      );
+      return '\x00CBLOCK' + (codeBlocks.length - 1) + '\x00';
+    });
+
+    // Protect inline code
+    var inlineCodes = [];
+    text = text.replace(/`([^`\n]+)`/g, function(m, code) {
+      inlineCodes.push('<code>' + escapeHtml(code) + '</code>');
+      return '\x00ICODE' + (inlineCodes.length - 1) + '\x00';
+    });
+
+    // HTML-escape the remaining text
+    text = escapeHtml(text);
+
+    // Bold and italic
+    text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    text = text.replace(/\*(.+?)\*/g, '<em>$1</em>');
+
+    // Headers
+    text = text.replace(/^#### (.+)$/gm, '<h5>$1</h5>');
+    text = text.replace(/^### (.+)$/gm, '<h4>$1</h4>');
+    text = text.replace(/^## (.+)$/gm, '<h3>$1</h3>');
+    text = text.replace(/^# (.+)$/gm, '<h2>$1</h2>');
+
+    // Unordered list items
+    text = text.replace(/^[-*] (.+)$/gm, '<li>$1</li>');
+
+    // Numbered list items
+    text = text.replace(/^\d+\. (.+)$/gm, '<li>$1</li>');
+
+    // Paragraphs: split on double newlines
+    var blocks = text.split(/\n\n+/);
+    var html = blocks.map(function(block) {
+      block = block.trim();
+      if (!block) return '';
+      // Don't wrap already-wrapped elements
+      if (/^<(h[2-5]|pre|li|ul|ol|\x00)/.test(block)) {
+        // Wrap loose <li> in <ul>
+        if (block.indexOf('<li>') >= 0 && block.indexOf('<ul>') < 0 && block.indexOf('<ol>') < 0) {
+          return '<ul>' + block + '</ul>';
+        }
+        return block;
+      }
+      return '<p>' + block.replace(/\n/g, '<br>') + '</p>';
+    }).join('\n');
+
+    // Restore inline code
+    for (var i = 0; i < inlineCodes.length; i++) {
+      html = html.replace('\x00ICODE' + i + '\x00', inlineCodes[i]);
+    }
+
+    // Restore code blocks
+    for (var i = 0; i < codeBlocks.length; i++) {
+      html = html.replace('\x00CBLOCK' + i + '\x00', codeBlocks[i]);
+    }
+
+    // Restore LaTeX
+    for (var i = 0; i < inlineLatex.length; i++) {
+      html = html.replace('\x00ILATEX' + i + '\x00', inlineLatex[i]);
+    }
+    for (var i = 0; i < displayLatex.length; i++) {
+      html = html.replace('\x00DLATEX' + i + '\x00', displayLatex[i]);
+    }
+
+    return html;
+  }
+
+  function escapeHtml(text) {
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
 })();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">

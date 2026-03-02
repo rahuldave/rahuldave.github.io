@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Maximum Likelihood Estimation",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "cell-1"
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 3,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "choosing-a-parametric-model",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 5,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-idea-behind-the-mle",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 6,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 7,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "inference",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 8,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "linear-regression-mle",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 9,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "logistic-regression-mle",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 10,
+      "type": "code",
+      "html_id": "cell-10"
+    },
+    {
+      "cell": 11,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 12,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 13,
+      "type": "markdown",
+      "headings": []
+    }
+  ]
+}

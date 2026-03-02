@@ -1,0 +1,326 @@
+// ==============================================
+// LLM Explain Feature — Buttons + Modals
+// Uses CSS custom properties for light/dark mode
+// ==============================================
+
+// Invisible cell wrapper (if Lua filter wraps markdown cells)
+.nb-cell {
+  display: contents;
+}
+
+// ---- Buttons ----
+
+.llm-buttons {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  margin: 0.25rem 0 1rem;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+
+  // Show on hover of the parent cell or the buttons themselves
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// Show buttons when hovering the preceding element or the buttons themselves
+.cell:hover + .llm-buttons,
+section:hover + .llm-buttons,
+div.sourceCode:hover + .llm-buttons,
+h2:hover ~ .llm-buttons:first-of-type,
+h3:hover ~ .llm-buttons:first-of-type,
+.llm-buttons:hover {
+  opacity: 1;
+}
+
+.llm-btn {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 100px;
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+
+  &:hover {
+    border-color: var(--cb-blue-300);
+    color: var(--cb-blue-300);
+  }
+}
+
+// Summarize button at top of page
+.llm-summarize-wrap {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0.5rem 0 1.5rem;
+}
+
+// ---- Modal Overlay ----
+
+.llm-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  animation: llmFadeIn 0.15s ease-out;
+}
+
+@keyframes llmFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.llm-modal {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-xl);
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: llmSlideUp 0.2s ease-out;
+}
+
+@keyframes llmSlideUp {
+  from { transform: translateY(16px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+// ---- API Key Modal ----
+
+.llm-key-modal {
+  padding: 2rem;
+
+  h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+    font-family: var(--font-heading);
+    color: var(--color-text);
+  }
+
+  p {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    margin-bottom: 1rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+      border-color: var(--cb-blue-400);
+      box-shadow: 0 0 0 3px rgba(66, 146, 198, 0.2);
+    }
+  }
+}
+
+.llm-modal-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+
+  button {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .llm-btn-cancel {
+    background: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+
+    &:hover {
+      background: var(--color-surface);
+    }
+  }
+
+  .llm-btn-save {
+    background: var(--cb-blue-500);
+    border: none;
+    color: white;
+
+    &:hover {
+      background: var(--cb-blue-600);
+    }
+  }
+}
+
+// ---- Chat Modal ----
+
+.llm-chat-modal {
+  max-width: 700px;
+}
+
+.llm-chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  flex-shrink: 0;
+}
+
+.llm-chat-actions {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.llm-btn-icon {
+  background: none;
+  border: none;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 6px;
+  color: var(--color-text-muted);
+  transition: all var(--transition-fast);
+  line-height: 1;
+
+  &:hover {
+    background: var(--color-border);
+    color: var(--color-text);
+  }
+}
+
+.llm-chat-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 100px;
+}
+
+.llm-chat-response {
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: var(--color-text-secondary);
+
+  &.llm-streaming {
+    // Plain text during streaming — use pre-wrap
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: var(--font-body);
+  }
+
+  &.llm-loading {
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
+  // Rendered markdown styles
+  h2, h3, h4 {
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    color: var(--color-text);
+  }
+
+  p {
+    margin-bottom: 0.75em;
+  }
+
+  ul, ol {
+    margin: 0.5em 0;
+    padding-left: 1.5em;
+  }
+
+  li {
+    margin-bottom: 0.25em;
+  }
+
+  pre {
+    margin: 0.75em 0;
+    padding: 0.75rem;
+    border-radius: 8px;
+    background: var(--color-code-bg) !important;
+    overflow-x: auto;
+    border: 1px solid var(--color-border);
+  }
+
+  code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+  }
+
+  :not(pre) > code {
+    padding: 0.1rem 0.3rem;
+    border-radius: 3px;
+    background: var(--color-code-bg);
+    color: var(--color-code-text);
+  }
+
+  strong {
+    color: var(--color-text);
+  }
+
+  blockquote {
+    border-left: 3px solid var(--cb-blue-300);
+    padding-left: 1em;
+    margin: 0.75em 0;
+    color: var(--color-text-muted);
+  }
+}
+
+.llm-error {
+  color: #c62828;
+  font-style: italic;
+}
+
+.llm-copied-toast {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: var(--color-text);
+  color: var(--color-surface);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  z-index: 10001;
+  animation: llmFadeIn 0.15s ease-out;
+}
+
+// ---- Responsive ----
+
+@media (max-width: 768px) {
+  .llm-modal {
+    width: 95%;
+    max-height: 90vh;
+    border-radius: 12px;
+  }
+
+  .llm-buttons {
+    opacity: 0.5;
+  }
+
+  .llm-chat-body {
+    padding: 1rem;
+  }
+}

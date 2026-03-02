@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Basic Monte Carlo",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "cell-1"
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "monte-carlo",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 3,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "estimate-the-area-of-a-unit-circle",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 4,
+      "type": "code",
+      "html_id": "cell-4"
+    },
+    {
+      "cell": 5,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 6,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "hit-or-miss-method",
+          "level": 2
+        }
+      ]
+    }
+  ]
+}
