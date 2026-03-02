@@ -1,4 +1,4 @@
-.PHONY: preview render build llm-context
+.PHONY: preview render build llm-context deploy
 
 ## Live preview with hot reload
 preview:
@@ -12,7 +12,15 @@ render:
 llm-context:
 	python3 _scripts/generate_llm_context.py
 
-## Render and sync to docs/ for GitHub Pages (only copies changed files)
+## Build: render site + generate LLM context
 build: render llm-context
-	rsync -av _site/ docs/
-	touch docs/.nojekyll
+
+## Deploy _site/ to gh-pages branch via git worktree
+deploy: build
+	@echo "Deploying to gh-pages..."
+	@rm -rf /tmp/gh-pages-deploy
+	@git worktree add /tmp/gh-pages-deploy gh-pages
+	@rsync -av --delete --exclude='.git' _site/ /tmp/gh-pages-deploy/
+	@cd /tmp/gh-pages-deploy && git add -A && git commit -m "Deploy site" --allow-empty && git push origin gh-pages
+	@git worktree remove /tmp/gh-pages-deploy
+	@echo "Done! Site deployed to gh-pages branch."
