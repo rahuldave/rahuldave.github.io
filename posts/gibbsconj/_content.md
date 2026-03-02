@@ -1,8 +1,4 @@
-<!-- cell:1 type:markdown -->
-# Gibbs with conditional a conjugate
-
-
-<!-- cell:2 type:code -->
+<!-- cell:1 type:code -->
 ```python
 %matplotlib inline
 import numpy as np
@@ -21,25 +17,25 @@ Output:
   warnings.warn(self.msg_depr % (key, alt_key))
 ```
 
-<!-- cell:3 type:markdown -->
+<!-- cell:2 type:markdown -->
 We now going to take a look at a slightly more complicated case that was originally outlined in full generality by Casella and George (1992). Suppose we have a nasty looking joint distribution given as: 
 
 $$p(x,y) = \binom{16}{y} x^{y+1} (1-x)^{19-y}$$
 
-<!-- cell:4 type:markdown -->
+<!-- cell:3 type:markdown -->
 ## Looks like a binomial
 
-<!-- cell:5 type:markdown -->
+<!-- cell:4 type:markdown -->
 For such a situation the *two* conditional distributions are not exactly obvious. Clearly we have a binomial term staring at us, so we should be looking to try and express part of the function as a binomial of the form, 
 
 $$p(\theta \vert \pi ) = \binom{n}{\theta} \pi^{\theta} (1-\pi)^{n-\theta}$$
 
-<!-- cell:6 type:markdown -->
+<!-- cell:5 type:markdown -->
 It follows directly that for our example we have a binomial with $n=16$ and $\theta =y$, 
 
 $$p( y \vert x ) = g(x) \binom{16}{y} x^{y+1} (1-x)^{16-y} .$$
 
-<!-- cell:7 type:markdown -->
+<!-- cell:6 type:markdown -->
 ### The  $ x\vert y$ conditional
 
 So, now we need the conditional for x|y, and we know from Bayes' theorem that :
@@ -50,7 +46,7 @@ so what we should be looking for is a conjugate prior to a Binomial distribution
 
 $$Beta(\alpha,\beta) = x^{\alpha-1}(1-x)^{\beta-1}$$
 
-<!-- cell:8 type:markdown -->
+<!-- cell:7 type:markdown -->
 With this intuition in mind, the math is now trivial:
 
 $$p(x \vert y) = h(y) x^{\alpha + y - 1}(1-x)^{\beta + n - y -1}$$
@@ -61,12 +57,12 @@ $$p(x \vert y) \sim Beta(y+\alpha,n-y+\beta)$$
 
 with $\alpha=2$ and $\beta=4$.
 
-<!-- cell:9 type:markdown -->
+<!-- cell:8 type:markdown -->
 ## The sampler
 
 With our conditionals formulated, we can move directly to our Gibbs sampler.
 
-<!-- cell:10 type:code -->
+<!-- cell:9 type:code -->
 ```python
 from scipy.stats import binom, beta
 n=16
@@ -90,7 +86,7 @@ def gibbs(N=10000,thin=50):
     return samples
 ```
 
-<!-- cell:11 type:code -->
+<!-- cell:10 type:code -->
 ```python
 out=gibbs()
 plt.hist2d(out[:,0],out[:,1], normed=True, bins=50)

@@ -1,11 +1,7 @@
 <!-- cell:1 type:markdown -->
-# Wrongly combining rejection with sampling
-
-
-<!-- cell:2 type:markdown -->
 From https://darrenjw.wordpress.com/2012/06/04/metropolis-hastings-mcmc-when-the-proposal-and-target-have-differing-support/
 
-<!-- cell:3 type:code -->
+<!-- cell:2 type:code -->
 ```python
 %matplotlib inline
 import numpy as np
@@ -21,10 +17,10 @@ import seaborn.apionly as sns
 sns.set_style("whitegrid")
 ```
 
-<!-- cell:4 type:markdown -->
+<!-- cell:3 type:markdown -->
 As a simple example, lets target `Gamma(2,1)` or $xe^{-x}, x \gt 0$.
 
-<!-- cell:5 type:code -->
+<!-- cell:4 type:code -->
 ```python
 target = lambda x: x*np.exp(-x)
 xx = np.linspace(0, 20, 1000)
@@ -32,12 +28,12 @@ plt.plot(xx, target(xx));
 ```
 [Figure]
 
-<!-- cell:6 type:markdown -->
+<!-- cell:5 type:markdown -->
 ## Using Metropolis to sample
 
 Here, copied from before, is the metropolis code.
 
-<!-- cell:7 type:code -->
+<!-- cell:6 type:code -->
 ```python
 def metropolis(p, qdraw, nsamp, xinit):
     samples=np.empty(nsamp)
@@ -57,29 +53,29 @@ def metropolis(p, qdraw, nsamp, xinit):
 
 ```
 
-<!-- cell:8 type:code -->
+<!-- cell:7 type:code -->
 ```python
 def prop(x):
     return np.random.normal(x, 1.0)
 out = metropolis(target, prop, 100000, 1.0)
 ```
 
-<!-- cell:9 type:code -->
+<!-- cell:8 type:code -->
 ```python
 sns.distplot(out)
 plt.plot(xx, target(xx));
 ```
 [Figure]
 
-<!-- cell:10 type:markdown -->
+<!-- cell:9 type:markdown -->
 Since we use the functional form directly without checking for $x \gt 0$, we are **not sampling on the correct support**. This does not land up costing us, as the acceptance ratio being negative the first time we sample a negative $x$ will ensure that we *never* sample a negative $x$. We would be better using `scipy.stats` built in gamma support.
 
 We have seen this before, in sampling from a weibull using a normal as well. Also from sampling from a function only defined on [0,1]. Some people consider the lax use of a larger-support proposal a bug. But it does not bite us anywhere but efficiency due to the mechanism of the acceptance ratio.
 
-<!-- cell:11 type:markdown -->
+<!-- cell:10 type:markdown -->
 Let us see what this lack of efficiency is:
 
-<!-- cell:12 type:code -->
+<!-- cell:11 type:code -->
 ```python
 def metropolis_instrument(p, qdraw, nsamp, xinit):
     samples=np.empty(nsamp)
@@ -103,12 +99,12 @@ def metropolis_instrument(p, qdraw, nsamp, xinit):
     return samples, acc1, rej_neg
 ```
 
-<!-- cell:13 type:code -->
+<!-- cell:12 type:code -->
 ```python
 out2, a1, rn = out = metropolis_instrument(target, prop, 100000, 1.0)
 ```
 
-<!-- cell:14 type:code -->
+<!-- cell:13 type:code -->
 ```python
 a1/100000, rn/(100000 - a1)
 ```
@@ -117,15 +113,15 @@ Output:
 (0.7298, 0.3654700222057735)
 ```
 
-<!-- cell:15 type:markdown -->
+<!-- cell:14 type:markdown -->
 Thus, out of a 73% acceptance, a full 36% is wasted on proposing negatives.
 
-<!-- cell:16 type:markdown -->
+<!-- cell:15 type:markdown -->
 ## A wrong built-in regection sampler
 
 You might think that simply rejecting is ok, but you would be wrong. You are then sampling from some other distribution.
 
-<!-- cell:17 type:code -->
+<!-- cell:16 type:code -->
 ```python
 def metropolis_broken(p, qdraw, nsamp, xinit):
     samples=np.empty(nsamp)
@@ -150,7 +146,7 @@ def metropolis_broken(p, qdraw, nsamp, xinit):
 
 ```
 
-<!-- cell:18 type:code -->
+<!-- cell:17 type:code -->
 ```python
 out3 = metropolis_broken(target, prop, 100000, 1.0)
 sns.distplot(out3)
@@ -158,7 +154,7 @@ plt.plot(xx, target(xx));
 ```
 [Figure]
 
-<!-- cell:19 type:markdown -->
+<!-- cell:18 type:markdown -->
 ## Fix using MH
 
 To fix this use Metropolis-Hastings instead and sample from a distribution eith the correct support, a truncated normal. Since the truncated normal is not symmetric:
@@ -167,7 +163,7 @@ $$ \frac{e^{(x-x_0)^2}}{CDF(x)} != \frac{e^{(x_0-x)^2}}{CDF(x_0)} $$
 
 we must use a MH Sampler
 
-<!-- cell:20 type:code -->
+<!-- cell:19 type:code -->
 ```python
 def metropolis_hastings(p,q, qdraw, nsamp, xinit):
     samples=np.empty(nsamp)
@@ -193,7 +189,7 @@ def metropolis_hastings(p,q, qdraw, nsamp, xinit):
     return samples, accepted
 ```
 
-<!-- cell:21 type:code -->
+<!-- cell:20 type:code -->
 ```python
 from scipy.stats import norm
 def prop2(x):
@@ -203,15 +199,15 @@ def q(x_prev, x_star):
     return num
 ```
 
-<!-- cell:22 type:code -->
+<!-- cell:21 type:code -->
 ```python
 out4, _ = metropolis_hastings(target, q, prop2, 100000, 1.0)
 ```
 
-<!-- cell:23 type:markdown -->
+<!-- cell:22 type:markdown -->
 Now we get the correct output!
 
-<!-- cell:24 type:code -->
+<!-- cell:23 type:code -->
 ```python
 sns.distplot(out4)
 plt.plot(xx, target(xx));

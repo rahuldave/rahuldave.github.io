@@ -1,8 +1,4 @@
-<!-- cell:1 type:markdown -->
-#  Sampling from a discrete distribution
-
-
-<!-- cell:2 type:code -->
+<!-- cell:1 type:code -->
 ```python
 %matplotlib inline
 import numpy as np
@@ -18,14 +14,14 @@ Output:
   warnings.warn(self.msg_depr % (key, alt_key))
 ```
 
-<!-- cell:3 type:markdown -->
+<!-- cell:2 type:markdown -->
 In simulated annealing, we carried out combinatorical oprimization by sampling from a state space where each state was a vector of baseball simulation features.
 
 Since Metropolis MCMC is the same algorithm, it should be clear that its possible to simulate discrete possibilities in MCMC as long as you choose proposals which satisfy detailed balance. 
 
 As an example, consider simulating a poisson distribution. Since its discrete, the proposal wont be a continuous $q(x,y)$ (the proposal probability to go from y to x), but rather a matrix indexed by a variable that corresponds to (indexes) the various states that can be obtained.
 
-<!-- cell:4 type:code -->
+<!-- cell:3 type:code -->
 ```python
 def metropolis(p, qdraw, nsamp, xinit):
     samples=np.empty(nsamp)
@@ -46,14 +42,14 @@ def metropolis(p, qdraw, nsamp, xinit):
     return samples, accepted
 ```
 
-<!-- cell:5 type:markdown -->
+<!-- cell:4 type:markdown -->
 ## Example: Sampling a Poisson
 
 The poisson pmf is:
 
 $$p(k) = e^{-\mu}\frac{\mu^k}{k!}.$$
 
-<!-- cell:6 type:code -->
+<!-- cell:5 type:code -->
 ```python
 from scipy.stats import poisson
 xxx= np.arange(1,20,1)
@@ -61,14 +57,14 @@ plt.plot(xxx, poisson.pmf(xxx, mu=5), 'o');
 ```
 [Figure]
 
-<!-- cell:7 type:markdown -->
+<!-- cell:6 type:markdown -->
 To sample from this distribution, we must create a proposal matrix which allows us to go from any integer output to any other in a finite number of steps. This matrix must be symmetric, since we wish to use Metropolis.
 
 A simple such matrix, which is although a bit slow, would be one which has immediate off-diagonal elements (from Stats 580 at Iowa state..)
 
 ![Symmetric random-walk proposal matrix Q for discrete MCMC: each state proposes to stay or move to an adjacent state with equal probability.](assets/propmatrix.png)
 
-<!-- cell:8 type:code -->
+<!-- cell:7 type:code -->
 ```python
 def prop_pdf(ito, ifrom):
     if ito == ifrom - 1:
@@ -81,7 +77,7 @@ def prop_pdf(ito, ifrom):
         return 0
 ```
 
-<!-- cell:9 type:code -->
+<!-- cell:8 type:code -->
 ```python
 def prop_draw(ifrom):
     u = np.random.uniform()
@@ -98,13 +94,13 @@ def prop_draw(ifrom):
     return ito
 ```
 
-<!-- cell:10 type:code -->
+<!-- cell:9 type:code -->
 ```python
 rv = poisson(5)
 samps, acc = metropolis(rv.pmf, prop_draw, 50000, 1)
 ```
 
-<!-- cell:11 type:code -->
+<!-- cell:10 type:code -->
 ```python
 acc
 ```
@@ -113,7 +109,7 @@ Output:
 41463
 ```
 
-<!-- cell:12 type:code -->
+<!-- cell:11 type:code -->
 ```python
 xxx = np.arange(0,samps.max())
 plt.hist(samps, bins=xxx, normed=True, align='left');

@@ -77,9 +77,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-5ebd13ccc45e2d8b7e0ce2c5ab43e761.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-8a6f08b2ced7792903d5f10496a7a536.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-5ebd13ccc45e2d8b7e0ce2c5ab43e761.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-5aa3f4b21411a16d8c2b8c4091f84306.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-3772b01e8296b7d46c6f0feecfdb0e85.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-5aa3f4b21411a16d8c2b8c4091f84306.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -356,11 +356,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#notebook-frontmatter-quarto-yaml" id="toc-notebook-frontmatter-quarto-yaml" class="nav-link" data-scroll-target="#notebook-frontmatter-quarto-yaml">Notebook Frontmatter (Quarto YAML)</a></li>
   <li><a href="#card-images-for-posts-without-content-images" id="toc-card-images-for-posts-without-content-images" class="nav-link" data-scroll-target="#card-images-for-posts-without-content-images">Card Images for Posts Without Content Images</a></li>
   <li><a href="#three.js-interactive-.qmd-posts" id="toc-three.js-interactive-.qmd-posts" class="nav-link" data-scroll-target="#three.js-interactive-.qmd-posts">Three.js / Interactive .qmd Posts</a></li>
-  <li><a href="#build-commands-makefile" id="toc-build-commands-makefile" class="nav-link" data-scroll-target="#build-commands-makefile">Build Commands (Makefile)</a></li>
+  <li><a href="#build-deploy-makefile" id="toc-build-deploy-makefile" class="nav-link" data-scroll-target="#build-deploy-makefile">Build &amp; Deploy (Makefile)</a></li>
   <li><a href="#imagedata-path-conventions" id="toc-imagedata-path-conventions" class="nav-link" data-scroll-target="#imagedata-path-conventions">Image/Data Path Conventions</a></li>
   <li><a href="#categories" id="toc-categories" class="nav-link" data-scroll-target="#categories">Categories</a></li>
   <li><a href="#frontmatter-fields" id="toc-frontmatter-fields" class="nav-link" data-scroll-target="#frontmatter-fields">Frontmatter Fields</a></li>
   <li><a href="#site-sections" id="toc-site-sections" class="nav-link" data-scroll-target="#site-sections">Site Sections</a></li>
+  <li><a href="#llm-explain-feature-byok" id="toc-llm-explain-feature-byok" class="nav-link" data-scroll-target="#llm-explain-feature-byok">LLM Explain Feature (BYOK)</a></li>
   <li><a href="#known-gotchas" id="toc-known-gotchas" class="nav-link" data-scroll-target="#known-gotchas">Known Gotchas</a></li>
   </ul></li>
   </ul></li>
@@ -707,15 +708,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="three.js-interactive-.qmd-posts">Three.js / Interactive .qmd Posts</h3>
 <p>Use <code>.qmd</code> format (not <code>.ipynb</code>) for JavaScript-heavy interactive content: - Load external JS via <code>format: html: include-in-header:</code> in frontmatter - Use Quarto’s fenced div syntax <code>::: {.classname}</code> for layout containers - Inline <code>&lt;script&gt;</code> blocks at the end of the .qmd file - Read CSS custom properties (<code>--cb-blue-*</code>, <code>--interactive-*</code>) for theme integration - Example: <code>posts/earth-demo/index.qmd</code></p>
 </section>
-<section id="build-commands-makefile" class="level3">
-<h3 class="anchored" data-anchor-id="build-commands-makefile">Build Commands (Makefile)</h3>
+<section id="build-deploy-makefile" class="level3">
+<h3 class="anchored" data-anchor-id="build-deploy-makefile">Build &amp; Deploy (Makefile)</h3>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> preview                <span class="co"># Live dev server with hot reload</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> render                 <span class="co"># Build full site to _site/</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> build                  <span class="co"># Render + rsync _site/ to docs/ for GitHub Pages</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render posts/probability/index.ipynb  <span class="co"># Render a single post</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> build                  <span class="co"># Render + generate LLM context files</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span> deploy                 <span class="co"># Build + push _site/ to gh-pages branch</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render posts/probability/index.ipynb  <span class="co"># Render a single post</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
-<li><code>render</code> produces <code>_site/</code>; <code>build</code> adds an rsync step to sync changed files into <code>docs/</code></li>
-<li>Commit and push are intentionally separate from <code>build</code></li>
+<li><code>render</code> produces <code>_site/</code>; <code>build</code> also runs <code>generate_llm_context.py</code></li>
+<li><code>deploy</code> uses <code>git worktree</code> to check out <code>gh-pages</code> into <code>/tmp/</code>, rsync <code>_site/</code> there, commit, push</li>
+<li>GitHub Pages deploys from <code>gh-pages</code> branch (root <code>/</code>), NOT from <code>docs/</code> on <code>main</code></li>
+<li><code>CNAME</code> and <code>.nojekyll</code> live in project root — Quarto copies them to <code>_site/</code> automatically</li>
+<li>Commit and push of <code>main</code> are separate from deploy</li>
 </ul>
 </section>
 <section id="imagedata-path-conventions" class="level3">
@@ -754,6 +759,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>collections/software/</code> — software tools (shown only on Collections page, NOT on index)</li>
 <li><code>index.qmd</code> listing contents should only include <code>posts/</code> and <code>posts/**/</code></li>
 </ul>
+</section>
+<section id="llm-explain-feature-byok" class="level3">
+<h3 class="anchored" data-anchor-id="llm-explain-feature-byok">LLM Explain Feature (BYOK)</h3>
+<p>Readers use their own Claude API key (browser localStorage) to get AI explanations. No backend — Anthropic API supports CORS directly via <code>anthropic-dangerous-direct-browser-access: true</code> header.</p>
+<p><strong>Architecture (3 layers):</strong> 1. <strong>Lua filter</strong> (<code>_filters/cell-markers.lua</code>) — adds <code>data-cell-type="code"</code> to notebook cell divs 2. <strong>Python script</strong> (<code>_scripts/generate_llm_context.py</code>) — generates <code>_content.md</code> + <code>cells.json</code> per post in <code>_site/</code> 3. <strong>Runtime JS</strong> (<code>assets/llm-explain.js</code>) — button injection, API key modal, streaming chat modal with markdown+MathJax rendering</p>
+<p><strong>Key files:</strong> <code>assets/llm-explain.js</code>, <code>styles/_llm-explain.scss</code>, <code>_filters/cell-markers.lua</code>, <code>_scripts/generate_llm_context.py</code>, <code>includes/llm-explain.html</code> (just a <code>&lt;script src&gt;</code> tag)</p>
+<p><strong>LLM context files use <code>_content.md</code></strong> (underscore prefix) because Quarto skips <code>_</code>-prefixed files. Without the underscore, Quarto would scan them as renderable source and break listings. <code>cells.json</code> is fine (<code>.json</code> isn’t a Quarto source type).</p>
+<p><strong>Full internal docs:</strong> <code>_internal_docs/llm-explain-system.md</code></p>
 </section>
 <section id="known-gotchas" class="level3">
 <h3 class="anchored" data-anchor-id="known-gotchas">Known Gotchas</h3>

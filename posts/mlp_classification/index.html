@@ -79,9 +79,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-5ebd13ccc45e2d8b7e0ce2c5ab43e761.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-8a6f08b2ced7792903d5f10496a7a536.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-5ebd13ccc45e2d8b7e0ce2c5ab43e761.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-5aa3f4b21411a16d8c2b8c4091f84306.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-3772b01e8296b7d46c6f0feecfdb0e85.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-5aa3f4b21411a16d8c2b8c4091f84306.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -349,9 +349,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#classification-using-multi-layer-perceptrons" id="toc-classification-using-multi-layer-perceptrons" class="nav-link active" data-scroll-target="#classification-using-multi-layer-perceptrons">Classification using Multi-Layer Perceptrons</a>
-  <ul class="collapse">
-  <li><a href="#create-some-noisy-moon-shaped-data" id="toc-create-some-noisy-moon-shaped-data" class="nav-link" data-scroll-target="#create-some-noisy-moon-shaped-data">Create some noisy moon shaped data</a></li>
+  <li><a href="#create-some-noisy-moon-shaped-data" id="toc-create-some-noisy-moon-shaped-data" class="nav-link active" data-scroll-target="#create-some-noisy-moon-shaped-data">Create some noisy moon shaped data</a></li>
   <li><a href="#writing-a-multi-layer-perceptron-class" id="toc-writing-a-multi-layer-perceptron-class" class="nav-link" data-scroll-target="#writing-a-multi-layer-perceptron-class">Writing a Multi-Layer Perceptron class</a>
   <ul class="collapse">
   <li><a href="#training-the-model" id="toc-training-the-model" class="nav-link" data-scroll-target="#training-the-model">Training the model</a></li>
@@ -359,7 +357,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#making-a-scikit-learn-like-interface" id="toc-making-a-scikit-learn-like-interface" class="nav-link" data-scroll-target="#making-a-scikit-learn-like-interface">Making a <code>scikit-learn</code> like interface</a></li>
   <li><a href="#the-simplest-model-and-a-more-complex-model" id="toc-the-simplest-model-and-a-more-complex-model" class="nav-link" data-scroll-target="#the-simplest-model-and-a-more-complex-model">The simplest model, and a more complex model</a></li>
   <li><a href="#experimentation-space" id="toc-experimentation-space" class="nav-link" data-scroll-target="#experimentation-space">Experimentation Space</a></li>
-  </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.out.ipynb" download="index.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
     </div>
@@ -434,9 +431,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="classification-using-multi-layer-perceptrons" class="level1">
-<h1>Classification using Multi-Layer Perceptrons</h1>
-<div id="cell-2" class="cell" data-execution_count="1" data-cell-type="code">
+<div id="cell-1" class="cell" data-execution_count="1" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
@@ -451,12 +446,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>sns.set_context(<span class="st">"poster"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Two additional imports here, seaborn and tqdm. Install via pip or conda</p>
-<div id="cell-4" class="cell" data-execution_count="2" data-cell-type="code">
+<div id="cell-3" class="cell" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>c0<span class="op">=</span>sns.color_palette()[<span class="dv">0</span>]</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>c1<span class="op">=</span>sns.color_palette()[<span class="dv">1</span>]</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>c2<span class="op">=</span>sns.color_palette()[<span class="dv">2</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-5" class="cell" data-execution_count="3" data-cell-type="code">
+<div id="cell-4" class="cell" data-execution_count="3" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> ListedColormap</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>cmap_light <span class="op">=</span> ListedColormap([<span class="st">'#FFAAAA'</span>, <span class="st">'#AAFFAA'</span>, <span class="st">'#AAAAFF'</span>])</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>cmap_bold <span class="op">=</span> ListedColormap([<span class="st">'#FF0000'</span>, <span class="st">'#00FF00'</span>, <span class="st">'#0000FF'</span>])</span>
@@ -488,7 +483,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="create-some-noisy-moon-shaped-data">Create some noisy moon shaped data</h2>
 <p>In order to illustrate classification by a MLP, we first create some noisy moon shaped data. The <em>noise level</em> here and the <em>amount of data</em> is the first thing you might want to experiment with to understand the interplay of amount of data, noise level, number of parameters in the model we use to fit, and overfitting as illustrated by jagged boundaries.</p>
 <p>We standardize the data so that it is distributed about 0 as well</p>
-<div id="cell-7" class="cell" data-execution_count="31" data-cell-type="code">
+<div id="cell-6" class="cell" data-execution_count="31" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_moons</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
@@ -496,7 +491,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>dataX <span class="op">=</span> StandardScaler().fit_transform(dataX)</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(dataX, datay, test_size<span class="op">=</span><span class="fl">.4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="32" data-cell-type="code">
+<div id="cell-7" class="cell" data-execution_count="32" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>h<span class="op">=</span><span class="fl">.02</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>x_min, x_max <span class="op">=</span> dataX[:, <span class="dv">0</span>].<span class="bu">min</span>() <span class="op">-</span> <span class="fl">.5</span>, dataX[:, <span class="dv">0</span>].<span class="bu">max</span>() <span class="op">+</span> <span class="fl">.5</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>y_min, y_max <span class="op">=</span> dataX[:, <span class="dv">1</span>].<span class="bu">min</span>() <span class="op">-</span> <span class="fl">.5</span>, dataX[:, <span class="dv">1</span>].<span class="bu">max</span>() <span class="op">+</span> <span class="fl">.5</span></span>
@@ -521,7 +516,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-9" class="cell" data-execution_count="33" data-cell-type="code">
+<div id="cell-8" class="cell" data-execution_count="33" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.nn <span class="im">import</span> functional <span class="im">as</span> fn</span>
@@ -532,7 +527,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="writing-a-multi-layer-perceptron-class" class="level2">
 <h2 class="anchored" data-anchor-id="writing-a-multi-layer-perceptron-class">Writing a Multi-Layer Perceptron class</h2>
 <p>We wrap the construction of our network</p>
-<div id="cell-11" class="cell" data-execution_count="34" data-cell-type="code">
+<div id="cell-10" class="cell" data-execution_count="34" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MLP(nn.Module):</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, input_dim, hidden_dim, output_dim, nonlinearity <span class="op">=</span> fn.tanh, additional_hidden_wide<span class="op">=</span><span class="dv">0</span>):</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(MLP, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
@@ -556,7 +551,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We use it to train. Notice the double-&gt;float casting. Numpy defautlts to double but torch defaulta to float to enable memory efficient GPU usage.</p>
-<div id="cell-13" class="cell" data-execution_count="35" data-cell-type="code">
+<div id="cell-12" class="cell" data-execution_count="35" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>np.dtype(np.<span class="bu">float</span>).itemsize, np.dtype(np.double).itemsize</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="35">
 <pre><code>(8, 8)</code></pre>
@@ -572,7 +567,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>model.parameters</code> gives us params, <code>model.named_parameters()</code> gives us assigned names. You can set your own names when you create a layer</li>
 <li>we create an iterator over the data, more precisely over batches by doing <code>iter(loader)</code>. This dispatches to the <code>__iter__</code> method of the dataloader. (see https://github.com/pytorch/pytorch/blob/4157562c37c76902c79e7eca275951f3a4b1ef78/torch/utils/data/dataloader.py#L416) Always explore source code to understand what is going on</li>
 </ul>
-<div id="cell-15" class="cell" data-execution_count="36" data-cell-type="code">
+<div id="cell-14" class="cell" data-execution_count="36" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model2 <span class="op">=</span> MLP(input_dim<span class="op">=</span><span class="dv">2</span>, hidden_dim<span class="op">=</span><span class="dv">3</span>, output_dim<span class="op">=</span><span class="dv">2</span>, nonlinearity<span class="op">=</span>fn.tanh, additional_hidden_wide<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model2)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>criterion <span class="op">=</span> nn.CrossEntropyLoss(size_average<span class="op">=</span><span class="va">True</span>)</span>
@@ -612,7 +607,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>The out put from the foward pass is run on the entire test set. Since pytorch tracks layers upto but before the loss, this handily gives us the softmax output, which we can then use <code>np.argmax</code> on.</p>
-<div id="cell-17" class="cell" data-execution_count="37" data-cell-type="code">
+<div id="cell-16" class="cell" data-execution_count="37" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>testoutput <span class="op">=</span> model2.forward(Variable(torch.from_numpy(X_test).<span class="bu">float</span>()))</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>testoutput</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="37">
@@ -780,7 +775,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 [torch.FloatTensor of size 160x2]</code></pre>
 </div>
 </div>
-<div id="cell-18" class="cell" data-execution_count="38" data-cell-type="code">
+<div id="cell-17" class="cell" data-execution_count="38" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> testoutput.data.numpy().argmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>y_pred</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="38">
@@ -794,7 +789,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>You can write your own but we import some metrics from sklearn</p>
-<div id="cell-20" class="cell" data-execution_count="39" data-cell-type="code">
+<div id="cell-19" class="cell" data-execution_count="39" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix, accuracy_score</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>confusion_matrix(y_test, y_pred)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="39">
@@ -802,19 +797,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
        [ 5, 73]])</code></pre>
 </div>
 </div>
-<div id="cell-21" class="cell" data-execution_count="40" data-cell-type="code">
+<div id="cell-20" class="cell" data-execution_count="40" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>accuracy_score(y_test, y_pred)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="40">
 <pre><code>0.86875000000000002</code></pre>
 </div>
 </div>
 <p>We can wrap this machinery in a function, and pass this function to <code>points_plot</code> to predict on a grid and thus give us a boundary viz</p>
-<div id="cell-23" class="cell" data-execution_count="41" data-cell-type="code">
+<div id="cell-22" class="cell" data-execution_count="41" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_pred(X_set):</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    output <span class="op">=</span> model2.forward(Variable(torch.from_numpy(X_set).<span class="bu">float</span>()))</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> output.data.numpy().argmax(axis<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="42" data-cell-type="code">
+<div id="cell-23" class="cell" data-execution_count="42" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sns.plotting_context(<span class="st">'poster'</span>):</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> plt.gca()</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    points_plot(ax, X_train, X_test, y_train, y_test, make_pred)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -831,7 +826,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="making-a-scikit-learn-like-interface" class="level2">
 <h2 class="anchored" data-anchor-id="making-a-scikit-learn-like-interface">Making a <code>scikit-learn</code> like interface</h2>
 <p>Since we want to run many experiments, we’ll go ahead and wrap our fitting process in a sklearn style interface. Another example of such an interface is <a href="https://github.com/vinhkhuc/PyTorch-Mini-Tutorials/blob/master/3_neural_net.py">here</a></p>
-<div id="cell-26" class="cell" data-execution_count="43" data-cell-type="code">
+<div id="cell-25" class="cell" data-execution_count="43" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tqdm <span class="im">import</span> tnrange, tqdm_notebook</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MLPClassifier:</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -899,7 +894,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="the-simplest-model-and-a-more-complex-model" class="level2">
 <h2 class="anchored" data-anchor-id="the-simplest-model-and-a-more-complex-model">The simplest model, and a more complex model</h2>
-<div id="cell-29" class="cell" data-execution_count="44" data-cell-type="code">
+<div id="cell-28" class="cell" data-execution_count="44" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>logistic <span class="op">=</span> MLPClassifier(input_dim<span class="op">=</span><span class="dv">2</span>, hidden_dim<span class="op">=</span><span class="dv">2</span>, output_dim<span class="op">=</span><span class="dv">2</span>, nonlinearity<span class="op">=</span><span class="kw">lambda</span> x: x, additional_hidden_wide<span class="op">=-</span><span class="dv">1</span>)</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>logistic.set_fit_params(epochs<span class="op">=</span><span class="dv">1000</span>)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(logistic)</span>
@@ -922,7 +917,7 @@ Num Params: 6</code></pre>
 <pre><code></code></pre>
 </div>
 </div>
-<div id="cell-30" class="cell" data-execution_count="45" data-cell-type="code">
+<div id="cell-29" class="cell" data-execution_count="45" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sns.plotting_context(<span class="st">'poster'</span>):</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    logistic.plot_loss()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -933,7 +928,7 @@ Num Params: 6</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-31" class="cell" data-execution_count="46" data-cell-type="code">
+<div id="cell-30" class="cell" data-execution_count="46" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>ypred <span class="op">=</span> logistic.predict(X_test)</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co">#training and test accuracy</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>accuracy_score(y_train, logistic.predict(X_train)), accuracy_score(y_test, ypred)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -941,7 +936,7 @@ Num Params: 6</code></pre>
 <pre><code>(0.84583333333333333, 0.80625000000000002)</code></pre>
 </div>
 </div>
-<div id="cell-32" class="cell" data-execution_count="47" data-cell-type="code">
+<div id="cell-31" class="cell" data-execution_count="47" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sns.plotting_context(<span class="st">'poster'</span>):</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    logistic.plot_boundary(X_train, X_test, y_train, y_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -952,7 +947,7 @@ Num Params: 6</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-33" class="cell" data-execution_count="48" data-cell-type="code">
+<div id="cell-32" class="cell" data-execution_count="48" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>clf <span class="op">=</span> MLPClassifier(input_dim<span class="op">=</span><span class="dv">2</span>, hidden_dim<span class="op">=</span><span class="dv">20</span>, output_dim<span class="op">=</span><span class="dv">2</span>, nonlinearity<span class="op">=</span>fn.tanh, additional_hidden_wide<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>clf.set_fit_params(epochs<span class="op">=</span><span class="dv">1000</span>)</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(clf)</span>
@@ -977,7 +972,7 @@ Num Params: 522</code></pre>
 <pre><code></code></pre>
 </div>
 </div>
-<div id="cell-34" class="cell" data-execution_count="49" data-cell-type="code">
+<div id="cell-33" class="cell" data-execution_count="49" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sns.plotting_context(<span class="st">'poster'</span>):</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    clf.plot_loss()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -988,7 +983,7 @@ Num Params: 522</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-35" class="cell" data-execution_count="50" data-cell-type="code">
+<div id="cell-34" class="cell" data-execution_count="50" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>ypred <span class="op">=</span> clf.predict(X_test)</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co">#training and test accuracy</span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>accuracy_score(y_train, clf.predict(X_train)), accuracy_score(y_test, ypred)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -996,7 +991,7 @@ Num Params: 522</code></pre>
 <pre><code>(0.875, 0.875)</code></pre>
 </div>
 </div>
-<div id="cell-36" class="cell" data-execution_count="51" data-cell-type="code">
+<div id="cell-35" class="cell" data-execution_count="51" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sns.plotting_context(<span class="st">'poster'</span>):</span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    clf.plot_boundary(X_train, X_test, y_train, y_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -1011,7 +1006,7 @@ Num Params: 522</code></pre>
 <section id="experimentation-space" class="level2">
 <h2 class="anchored" data-anchor-id="experimentation-space">Experimentation Space</h2>
 <p>Here is space for you to play. You might want to collect accuracies on the traing and test set and plot on a grid of these parameters or some other visualization. Notice how you might want to adjust number of epochs for convergence.</p>
-<div id="cell-38" class="cell" data-scrolled="false" data-execution_count="52" data-cell-type="code">
+<div id="cell-37" class="cell" data-scrolled="false" data-execution_count="52" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> additional <span class="kw">in</span> [<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>]:</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> hdim <span class="kw">in</span> [<span class="dv">2</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">1000</span>]:</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'===================='</span>)</span>
@@ -1489,7 +1484,6 @@ Test acc 0.80625</code></pre>
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

@@ -1,22 +1,18 @@
 <!-- cell:1 type:markdown -->
-# Data Augmentation
-
-
-<!-- cell:2 type:markdown -->
 The idea is to construct iterative algorithms for sampling based on the introduction of unobserved data or **hidden** variables. Does the iterative part sound familiar? We did that in Gibbs sampling.
 
 We'll soon see s deterministic version of this idea when we talk about the Expectation Maximization Algorithm (Dempster, Laird, and Rubin (1977)). Here we'll see a stochastic version from Tanner and Wong's (1987) *Data Augmentation algorithm for posterior sampling*. This was also explored in the physics by Swendsen and Wang's (1987) algorithm for sampling from Ising and Potts models. (Look it up, it relates to your homework!)
 
 Indeed the general idea of introducing a hidden variable will also be exploited to introduce slice sampling and Hamiltonian Monte Carlo. Thus we shall see that the method is useful not only in "theory" to understand the decomposition of outcomes through hidden factors, but also in a practical way to construct sampling algorithms
 
-<!-- cell:3 type:markdown -->
+<!-- cell:2 type:markdown -->
 The difference from Gibbs Sampling here is that we are thinking of a 1 (or lower) dimensional distribution or posterior we want to sample from, say $x$, and the other variable, say $y$, is to be treated as latent.
 
 The game is, like in Gibbs, to construct a joint $p(x,y)$ such that we can sample from $p(x \vert y)$ and $p(y \vert x)$, and then find the marginal
 
 $$p(x) = \int dy\,p(x,y).$$
 
-<!-- cell:4 type:markdown -->
+<!-- cell:3 type:markdown -->
 The simplest form of a Data aumentation algorithm looks like this:
 
 1. Draw $Y\sim p_{Y \vert X}(. \vert x)$ and call the observed value y
@@ -25,7 +21,7 @@ The simplest form of a Data aumentation algorithm looks like this:
 
 Here is an example
 
-<!-- cell:5 type:code -->
+<!-- cell:4 type:code -->
 ```python
 %matplotlib inline
 import numpy as np
@@ -42,7 +38,7 @@ Output:
   warnings.warn(self.msg_depr % (key, alt_key))
 ```
 
-<!-- cell:6 type:markdown -->
+<!-- cell:5 type:markdown -->
 ## Example
 
 
@@ -68,7 +64,7 @@ $$\propto e^{-x^{2}/2} \int e^{-(y-x/\sqrt{2})^2 }dy $$
 
 and clearly thus gets back the old normal we want to draw from.
 
-<!-- cell:7 type:code -->
+<!-- cell:6 type:code -->
 ```python
 N=100000
 x=np.zeros(N)
@@ -78,7 +74,7 @@ for i in np.arange(1,N):
     x[i]=sp.stats.norm.rvs(Y/np.sqrt(2), 0.5)
 ```
 
-<!-- cell:8 type:code -->
+<!-- cell:7 type:code -->
 ```python
 plt.hist(x, bins=30, alpha=0.3, normed=True);
 sns.kdeplot(x)
@@ -91,7 +87,7 @@ Output:
 ```
 [Figure]
 
-<!-- cell:9 type:markdown -->
+<!-- cell:8 type:markdown -->
 ## Data Augmentation is a Markov Chain Monte Carlo
 
 Lets start from the "transition kernel" that we identified when we learnt about gibbs sampling
@@ -114,13 +110,13 @@ $$
 \end{eqnarray}
 $$
 
-<!-- cell:10 type:markdown -->
+<!-- cell:9 type:markdown -->
   
 Therefore for each fixed $x$, $h(x' \vert x)$ is non-negative and integrates to 1. The function $h$ therefore
 could be a Markov Chain transition density and if the current state is $x_n$ then the density of the next state 
 would be $h(. \vert x_n)$. 
 
-<!-- cell:11 type:markdown -->
+<!-- cell:10 type:markdown -->
 Also  note that the $h(x' \vert x)\, p(x)$ is symmetric 
 in $(x,x')$. 
  
@@ -131,7 +127,7 @@ The rhs is symmetric in  $(x,x')$ and so is $ h(x' \vert x) p(x)$.
 The Markov chain generated with transition probability $h(x' \vert x)$ is **REVERSIBLE** and thus supports detailed balance.  
 
 
-<!-- cell:12 type:markdown -->
+<!-- cell:11 type:markdown -->
 ## Sequential Simulation
 
 Now consider the practical issue of simulating the Markov chain $X$. Given that the current

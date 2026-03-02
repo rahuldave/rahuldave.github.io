@@ -1,8 +1,4 @@
-<!-- cell:1 type:markdown -->
-# Imputation and Convergence
-
-
-<!-- cell:2 type:code -->
+<!-- cell:1 type:code -->
 ```python
 %matplotlib inline
 import numpy as np
@@ -19,14 +15,14 @@ sns.set_style("whitegrid")
 sns.set_context("poster")
 ```
 
-<!-- cell:3 type:markdown -->
+<!-- cell:2 type:markdown -->
 ## A switchpoint model
 
 This is a model of coal-mine diasaters in England. Somewhere around 1900, regulation was introduced, and in response, miing became safer. But if we were forensically looking at such data, we would be able to detect such change using a switchpoint model. We'd then have to search for the causality.
 
 ### Data
 
-<!-- cell:4 type:code -->
+<!-- cell:3 type:code -->
 ```python
 disasters_data = np.array([4, 5, 4, 0, 1, 4, 3, 4, 0, 6, 3, 3, 4, 0, 2, 6,
                          3, 3, 5, 4, 5, 3, 1, 4, 4, 1, 5, 5, 3, 4, 2, 5,
@@ -47,10 +43,10 @@ plt.xlim(1851, 1962);
 ```
 [Figure]
 
-<!-- cell:5 type:markdown -->
+<!-- cell:4 type:markdown -->
 One can see the swtich roughly in the picture above.
 
-<!-- cell:6 type:markdown -->
+<!-- cell:5 type:markdown -->
 ### Model
 
 We'll assume a Poisson model for the mine disasters; appropriate because the counts are low.
@@ -63,10 +59,10 @@ r_t = \lambda_1 \,{\rm if}\, t < \tau \,{\rm else}\, \lambda_2 \,{\rm for}\, t \
 \lambda_2 \sim Exp(b)\\
 $$
 
-<!-- cell:7 type:markdown -->
+<!-- cell:6 type:markdown -->
 The rate parameter varies before and after the switchpoint, which itseld has a discrete-uniform prior on it. Rate parameters get exponential priors.
 
-<!-- cell:8 type:code -->
+<!-- cell:7 type:code -->
 ```python
 import pymc3 as pm
 from pymc3.math import switch
@@ -79,15 +75,15 @@ with pm.Model() as coaldis1:
 
 ```
 
-<!-- cell:9 type:code -->
+<!-- cell:8 type:code -->
 ```python
 pm.model_to_graphviz(coaldis1)
 ```
 
-<!-- cell:10 type:markdown -->
+<!-- cell:9 type:markdown -->
 Let us interrogate our model about the various parts of it. Notice that our stochastics are logs of the rate params and the switchpoint, while our deterministics are the rate parameters themselves.
 
-<!-- cell:11 type:code -->
+<!-- cell:10 type:code -->
 ```python
 coaldis1.vars #stochastics
 ```
@@ -96,7 +92,7 @@ Output:
 [early_mean_log__, late_mean_log__, switchpoint]
 ```
 
-<!-- cell:12 type:code -->
+<!-- cell:11 type:code -->
 ```python
 type(coaldis1['early_mean_log__'])
 ```
@@ -105,7 +101,7 @@ Output:
 pymc3.model.FreeRV
 ```
 
-<!-- cell:13 type:code -->
+<!-- cell:12 type:code -->
 ```python
 coaldis1.deterministics #deterministics
 ```
@@ -114,10 +110,10 @@ Output:
 [early_mean, late_mean]
 ```
 
-<!-- cell:14 type:markdown -->
+<!-- cell:13 type:markdown -->
 Labelled variables show up in traces, or for predictives. We also list the "likelihood" stochastics.
 
-<!-- cell:15 type:code -->
+<!-- cell:14 type:code -->
 ```python
 coaldis1.named_vars
 ```
@@ -131,7 +127,7 @@ Output:
  'switchpoint': switchpoint}
 ```
 
-<!-- cell:16 type:code -->
+<!-- cell:15 type:code -->
 ```python
 coaldis1.observed_RVs, type(coaldis1['disasters'])
 ```
@@ -140,19 +136,19 @@ Output:
 ([disasters], pymc3.model.ObservedRV)
 ```
 
-<!-- cell:17 type:markdown -->
+<!-- cell:16 type:markdown -->
 The DAG based structure and notation used in pymc3 and similar software makes no distinction between random variables and data. Everything is a node, and some nodes are conditioned upon. This is reminiscent of the likelihood being considered a function of its parameters. But you can consider it as a function of data with fixed parameters and sample from it.
 
-<!-- cell:18 type:markdown -->
+<!-- cell:17 type:markdown -->
 You can sample from the distributions in `pymc3`.
 
-<!-- cell:19 type:code -->
+<!-- cell:18 type:code -->
 ```python
 plt.hist(switchpoint.random(size=1000));
 ```
 [Figure]
 
-<!-- cell:20 type:code -->
+<!-- cell:19 type:code -->
 ```python
 early_mean.transformed, switchpoint.distribution
 ```
@@ -162,7 +158,7 @@ Output:
  <pymc3.distributions.discrete.DiscreteUniform at 0x129f73b00>)
 ```
 
-<!-- cell:21 type:code -->
+<!-- cell:20 type:code -->
 ```python
 switchpoint.distribution.defaults
 ```
@@ -171,7 +167,7 @@ Output:
 ('mode',)
 ```
 
-<!-- cell:22 type:code -->
+<!-- cell:21 type:code -->
 ```python
 ed=pm.Exponential.dist(1)
 print(type(ed))
@@ -187,7 +183,7 @@ array([ 0.82466332,  0.10209366,  3.35122292,  0.22771453,  1.35351198,
         0.697511  ,  0.04523932,  0.36786232,  0.12309128,  0.90947997])
 ```
 
-<!-- cell:23 type:code -->
+<!-- cell:22 type:code -->
 ```python
 type(switchpoint), type(early_mean)
 ```
@@ -196,10 +192,10 @@ Output:
 (pymc3.model.FreeRV, pymc3.model.TransformedRV)
 ```
 
-<!-- cell:24 type:markdown -->
+<!-- cell:23 type:markdown -->
 Most importantly, anything distribution-like must have a `logp` method. This is what enables calculating the acceptance ratio for sampling:
 
-<!-- cell:25 type:code -->
+<!-- cell:24 type:code -->
 ```python
 switchpoint.logp({'switchpoint':55, 'early_mean_log__':1, 'late_mean_log__':1})
 ```
@@ -208,10 +204,10 @@ Output:
 array(-4.718498871295094)
 ```
 
-<!-- cell:26 type:markdown -->
+<!-- cell:25 type:markdown -->
 Ok, enough talk, lets sample:
 
-<!-- cell:27 type:code -->
+<!-- cell:26 type:code -->
 ```python
 with coaldis1:
     #stepper=pm.Metropolis()
@@ -228,7 +224,7 @@ Sampling 2 chains: 100%|██████████| 81000/81000 [00:53<00:00
 The number of effective samples is smaller than 25% for some parameters.
 ```
 
-<!-- cell:28 type:code -->
+<!-- cell:27 type:code -->
 ```python
 pm.summary(trace[4000::5])
 ```
@@ -240,7 +236,7 @@ early_mean    3.070557  0.283927  0.002575   2.537039   3.641404  13267.970663  
 late_mean     0.936715  0.118837  0.001056   0.709629   1.174810  13197.164982  1.000034
 ```
 
-<!-- cell:29 type:code -->
+<!-- cell:28 type:code -->
 ```python
 t2=trace[4000::5]
 pm.traceplot(t2);
@@ -253,28 +249,28 @@ The `ymin` argument was deprecated in Matplotlib 3.0 and will be removed in 3.2.
 ```
 [Figure]
 
-<!-- cell:30 type:markdown -->
+<!-- cell:29 type:markdown -->
 A forestplot gives us 95% credible intervals...
 
-<!-- cell:31 type:code -->
+<!-- cell:30 type:code -->
 ```python
 pm.forestplot(t2);
 ```
 [Figure]
 
-<!-- cell:32 type:code -->
+<!-- cell:31 type:code -->
 ```python
 pm.autocorrplot(t2);
 ```
 [Figure]
 
-<!-- cell:33 type:code -->
+<!-- cell:32 type:code -->
 ```python
 plt.hist(trace['switchpoint']);
 ```
 [Figure]
 
-<!-- cell:34 type:code -->
+<!-- cell:33 type:code -->
 ```python
 pm.trace_to_dataframe(t2).corr()
 ```
@@ -286,14 +282,14 @@ early_mean     -0.257867    1.000000   0.058679
 late_mean      -0.235158    0.058679   1.000000
 ```
 
-<!-- cell:35 type:markdown -->
+<!-- cell:34 type:markdown -->
 ## Imputation
 
 Imputation of missing data vaues has a very nice process in Bayesian stats: just sample them from the posterior predictive. There is a very nice process to do this built into pync3..you could abuse this to calculate predictives at arbitrary points. (There is a better way for that, though, using Theano shared variables, so you might want to restrict this process to the situation where you need to impute a few values only).
 
 Below we use -999 to handle mising data:
 
-<!-- cell:36 type:code -->
+<!-- cell:35 type:code -->
 ```python
 disasters_missing = np.array([ 4, 5, 4, 0, 1, 4, 3, 4, 0, 6, 3, 3, 4, 0, 2, 6,
 3, 3, 5, 4, 5, 3, 1, 4, 4, 1, 5, 5, 3, 4, 2, 5,
@@ -304,7 +300,7 @@ disasters_missing = np.array([ 4, 5, 4, 0, 1, 4, 3, 4, 0, 6, 3, 3, 4, 0, 2, 6,
 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1])
 ```
 
-<!-- cell:37 type:code -->
+<!-- cell:36 type:code -->
 ```python
 disasters_masked = np.ma.masked_values(disasters_missing, value=-999)
 disasters_masked
@@ -327,7 +323,7 @@ masked_array(data = [4 5 4 0 1 4 3 4 0 6 3 3 4 0 2 6 3 3 5 4 5 3 1 4 4 1 5 5 3 4
        fill_value = -999)
 ```
 
-<!-- cell:38 type:code -->
+<!-- cell:37 type:code -->
 ```python
 with pm.Model() as missing_data_model:
     switchpoint = pm.DiscreteUniform('switchpoint', lower=0, upper=len(disasters_masked))
@@ -338,15 +334,15 @@ with pm.Model() as missing_data_model:
     disasters = pm.Poisson('disasters', rate, observed=disasters_masked)
 ```
 
-<!-- cell:39 type:code -->
+<!-- cell:38 type:code -->
 ```python
 pm.model_to_graphviz(missing_data_model)
 ```
 
-<!-- cell:40 type:markdown -->
+<!-- cell:39 type:markdown -->
 By supplying a masked array to the likelihood part of our model, we ensure that the masked data points show up in our traces:
 
-<!-- cell:41 type:code -->
+<!-- cell:40 type:code -->
 ```python
 with missing_data_model:
     stepper=pm.Metropolis()
@@ -364,12 +360,12 @@ Sampling 2 chains: 100%|██████████| 81000/81000 [00:40<00:00
 The number of effective samples is smaller than 10% for some parameters.
 ```
 
-<!-- cell:42 type:code -->
+<!-- cell:41 type:code -->
 ```python
 tm2=trace_missing[4000::5]
 ```
 
-<!-- cell:43 type:code -->
+<!-- cell:42 type:code -->
 ```python
 pm.summary(tm2)
 ```
@@ -441,7 +437,7 @@ rate__110              0.931478  0.118384  0.001440   0.713553   1.177016  7011.
 [116 rows x 7 columns]
 ```
 
-<!-- cell:44 type:code -->
+<!-- cell:43 type:code -->
 ```python
 missing_data_model.vars
 ```
@@ -450,7 +446,7 @@ Output:
 [switchpoint, early_mean_log__, late_mean_log__, disasters_missing]
 ```
 
-<!-- cell:45 type:code -->
+<!-- cell:44 type:code -->
 ```python
 pm.traceplot(tm2);
 ```
@@ -462,7 +458,7 @@ The `ymin` argument was deprecated in Matplotlib 3.0 and will be removed in 3.2.
 ```
 [Figure]
 
-<!-- cell:46 type:markdown -->
+<!-- cell:45 type:markdown -->
 ## Convergence of our model
 
 Going back to the original model...
@@ -471,7 +467,7 @@ Going back to the original model...
 
 As a visual check, we plot histograms or kdeplots every 500 samples and check that they look identical.
 
-<!-- cell:47 type:code -->
+<!-- cell:46 type:code -->
 ```python
 import matplotlib.pyplot as plt
 
@@ -492,7 +488,7 @@ The 'normed' kwarg was deprecated in Matplotlib 2.1 and will be removed in 3.1. 
 ```
 [Figure]
 
-<!-- cell:48 type:markdown -->
+<!-- cell:47 type:markdown -->
 ### Gewecke test
 
 The gewecke test tests that the difference of means of chain-parts written as a Z-score oscilates between 1 and -1
@@ -501,14 +497,14 @@ $$\vert \mu_{\theta_1}  - \mu_{\theta_2}  \vert < 2 \sigma_{\theta_1 - \theta_2}
 
 
 
-<!-- cell:49 type:code -->
+<!-- cell:48 type:code -->
 ```python
 from pymc3 import geweke
     
 z = geweke(t2, intervals=15)[0]
 ```
 
-<!-- cell:50 type:code -->
+<!-- cell:49 type:code -->
 ```python
 z
 ```
@@ -591,10 +587,10 @@ Output:
         [  3.59800000e+03,   5.57747320e-03]])}
 ```
 
-<!-- cell:51 type:markdown -->
+<!-- cell:50 type:markdown -->
 Here is a plot for `early_mean`. You sould really be plotting all of these...
 
-<!-- cell:52 type:code -->
+<!-- cell:51 type:code -->
 ```python
 z['early_mean'].T
 ```
@@ -612,7 +608,7 @@ array([[  0.00000000e+00,   2.57000000e+02,   5.14000000e+02,
          -3.78760002e-02,  -2.33616055e-02,  -8.93753177e-02]])
 ```
 
-<!-- cell:53 type:code -->
+<!-- cell:52 type:code -->
 ```python
 plt.scatter(*z['early_mean'].T)
 plt.axhline(-1, 0, 1, linestyle='dotted')
@@ -620,7 +616,7 @@ plt.axhline(1, 0, 1, linestyle='dotted')
 ```
 [Figure]
 
-<!-- cell:54 type:markdown -->
+<!-- cell:53 type:markdown -->
 ### Gelman-Rubin
 
 For this test, which calculates 
@@ -629,7 +625,7 @@ $$\hat{R} = \sqrt{\frac{\hat{Var}(\theta)}{w}}$$
 
 we need more than 1-chain. This is done through `njobs=4` (the defaukt is 2 and reported in `pm.summary`). See the trace below:
 
-<!-- cell:55 type:code -->
+<!-- cell:54 type:code -->
 ```python
 with coaldis1:
     stepper=pm.Metropolis()
@@ -646,17 +642,17 @@ Sampling 4 chains: 100%|██████████| 162000/162000 [00:57<00:
 The number of effective samples is smaller than 10% for some parameters.
 ```
 
-<!-- cell:56 type:code -->
+<!-- cell:55 type:code -->
 ```python
 tr2
 ```
 
-<!-- cell:57 type:code -->
+<!-- cell:56 type:code -->
 ```python
 tr2_cut = tr2[4000::5]
 ```
 
-<!-- cell:58 type:code -->
+<!-- cell:57 type:code -->
 ```python
 from pymc3 import gelman_rubin
 
@@ -669,13 +665,13 @@ Output:
  'switchpoint': 1.0002808010976048}
 ```
 
-<!-- cell:59 type:markdown -->
+<!-- cell:58 type:markdown -->
 For the best results, each chain should be initialized to highly dispersed starting values for each stochastic node.
 
-<!-- cell:60 type:markdown -->
+<!-- cell:59 type:markdown -->
 A foresplot will show you the credible-interval consistency of our chains..
 
-<!-- cell:61 type:code -->
+<!-- cell:60 type:code -->
 ```python
 from pymc3 import forestplot
 
@@ -687,12 +683,12 @@ GridSpec(1, 2, width_ratios=[3, 1])
 ```
 [Figure]
 
-<!-- cell:62 type:markdown -->
+<!-- cell:61 type:markdown -->
 ### Autocorrelation
 
 This can be probed by plotting the correlation plot and effective sample size
 
-<!-- cell:63 type:code -->
+<!-- cell:62 type:code -->
 ```python
 from pymc3 import effective_n
 
@@ -705,24 +701,24 @@ Output:
  'switchpoint': 11955.470326961806}
 ```
 
-<!-- cell:64 type:code -->
+<!-- cell:63 type:code -->
 ```python
 pm.autocorrplot(tr2_cut);
 ```
 [Figure]
 
-<!-- cell:65 type:code -->
+<!-- cell:64 type:code -->
 ```python
 pm.autocorrplot(tr2);
 ```
 [Figure]
 
-<!-- cell:66 type:markdown -->
+<!-- cell:65 type:markdown -->
 ## Posterior predictive checks
 
 Finally let us peek into posterior predictive checks: something we'll talk more about soon.
 
-<!-- cell:67 type:code -->
+<!-- cell:66 type:code -->
 ```python
 with coaldis1:
     sim = pm.sample_ppc(t2, samples=200)
@@ -732,7 +728,7 @@ Output:
 100%|██████████| 200/200 [00:02<00:00, 99.38it/s]
 ```
 
-<!-- cell:68 type:code -->
+<!-- cell:67 type:code -->
 ```python
 sim['disasters'].shape
 ```
@@ -741,13 +737,13 @@ Output:
 (200, 111)
 ```
 
-<!-- cell:69 type:markdown -->
+<!-- cell:68 type:markdown -->
 This gives us 200 samples at each of the 111 diasters we have data on.
 
-<!-- cell:70 type:markdown -->
+<!-- cell:69 type:markdown -->
 We plot the first 4 posteriors against actual data for consistency...
 
-<!-- cell:71 type:code -->
+<!-- cell:70 type:code -->
 ```python
 fig, axes = plt.subplots(1, 4, figsize=(12, 6))
 print(axes.shape)

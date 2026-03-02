@@ -1,8 +1,4 @@
-<!-- cell:1 type:markdown -->
-# From Annealing To Metropolis
-
-
-<!-- cell:2 type:code -->
+<!-- cell:1 type:code -->
 ```python
 %matplotlib inline
 import numpy as np
@@ -18,7 +14,7 @@ Output:
   warnings.warn(self.msg_depr % (key, alt_key))
 ```
 
-<!-- cell:3 type:markdown -->
+<!-- cell:2 type:markdown -->
 ## Simulated Annealing
 
 As we have seen, in Simulated Annealing, we reduce the temperature while accepting proposlas which increase the energy (the function we want to minimize).
@@ -40,7 +36,7 @@ $p(X=i) = \frac{1}{Z(T)} \exp{ \left( \frac{-E_i}{kT}\right) }$$
  
  is the normalization constant of the distribution, also called the partition function.
 
-<!-- cell:4 type:code -->
+<!-- cell:3 type:code -->
 ```python
 f = lambda x: x**2 + 4*np.sin(2*x)
 xs = np.linspace(-10.,10.,1000)
@@ -50,7 +46,7 @@ plt.ylabel('f');
 ```
 [Figure]
 
-<!-- cell:5 type:markdown -->
+<!-- cell:4 type:markdown -->
 Simulated Annealing works by us making a proposal to change the current state, and then calculating the new energy of the state. We mentioned earlier that this works because simulated annealing produces a set of homogeneous markov chains, one at each temperature. We will explore this idea soon, but intuitively speaking, we can see that Simulated Annealing **samples** the boltzmann distribution by using our proposal "distribution".(It is critical that this proposal is symmetric, or supports what we have been calling detailed balance, which in our physical analogy corresponds to  isothermal reversibility.
 
 This was the argument we made then, promising we would explain it later:
@@ -62,7 +58,7 @@ By stationary distribution, we mean an unchanging one. We'll define this careful
 Or, in physics words, you are in equilibrium .
 
 
-<!-- cell:6 type:markdown -->
+<!-- cell:5 type:markdown -->
 If you think of our example in terms of the Boltzmann probability distribution as the stationary distribution, then you can identify
 
 $$p_{T}(x) = e^{-f(x)/T}$$ 
@@ -75,7 +71,7 @@ $$P_{T}(x) = P(x)^{1/T}$$
 
 and so you get a peakier and peakier distribution as $T \to 0$ around the global minimum (the globality and the exponentiation ensures that this peak is favored over the rest in the dfunction $f$). You can see this in the diagram below. As $T \to 0$, we get towards a delta function at the optimum and get a global minimum instead of a distribution.
 
-<!-- cell:7 type:code -->
+<!-- cell:6 type:code -->
 ```python
 import functools
 distx = lambda g, x: np.e**(-g(x))
@@ -99,7 +95,7 @@ plt.title("distribution corresponding to function f")
 ```
 [Figure]
 
-<!-- cell:8 type:markdown -->
+<!-- cell:7 type:markdown -->
 ## Motivating Metropolis
 
 Lets turn the question on its head. Suppose we wanted to sample from  a distribution $p(x)$ (corresponding to a minimization of energy $-log(p(x))$). 
@@ -113,7 +109,7 @@ So we stick to one temperature $T=1$, and sample from $p(x)$ using the same tech
 3. If the probability increased (energy decreased) we accept. If probability decreased (energy increased) we accept some of the time, based on the ratio of the new probability to the old one.
 4. We accumulate our samples, as we are now trying to sample a distribution rather than find its "global maximum".
 
-<!-- cell:9 type:code -->
+<!-- cell:8 type:code -->
 ```python
 def metropolis(p, qdraw, nsamp, xinit):
     samples=np.empty(nsamp)
@@ -132,17 +128,17 @@ def metropolis(p, qdraw, nsamp, xinit):
     return samples
 ```
 
-<!-- cell:10 type:markdown -->
+<!-- cell:9 type:markdown -->
 ## Example: Sampling a Gaussian
 
-<!-- cell:11 type:code -->
+<!-- cell:10 type:code -->
 ```python
 xxx= np.linspace(-10,10,1000)
 plt.plot(xxx, norm.pdf(xxx), 'r'); 
 ```
 [Figure]
 
-<!-- cell:12 type:code -->
+<!-- cell:11 type:code -->
 ```python
 from scipy.stats import uniform
 def propmaker(delta):
@@ -153,7 +149,7 @@ def uniprop(xprev):
     return xprev+uni.rvs()
 ```
 
-<!-- cell:13 type:code -->
+<!-- cell:12 type:code -->
 ```python
 norm.pdf(0.1)
 ```
@@ -162,12 +158,12 @@ Output:
 0.39695254747701181
 ```
 
-<!-- cell:14 type:code -->
+<!-- cell:13 type:code -->
 ```python
 samps = metropolis(norm.pdf, uniprop, 100000, 0.0)
 ```
 
-<!-- cell:15 type:code -->
+<!-- cell:14 type:code -->
 ```python
 # plot our sample histogram
 plt.hist(samps,bins=80, alpha=0.4, label=u'MCMC distribution', normed=True) 
@@ -186,7 +182,7 @@ Output:
 starting point was  0.0
 ```
 
-<!-- cell:16 type:markdown -->
+<!-- cell:15 type:markdown -->
 ## Motivating Metropolis: why not Rejection Sampling, etc?
 
 We've learnt how to do the inverse transform and how to use rejection sampling with a majorizing function. So why not use these methods to sample a distribution?
@@ -217,15 +213,15 @@ It is the neighborhood between these extremes, called the **typical set** which 
 
 We'll come back to this picture later...
 
-<!-- cell:17 type:markdown -->
+<!-- cell:16 type:markdown -->
 ## Another example
 
-<!-- cell:18 type:code -->
+<!-- cell:17 type:code -->
 ```python
 f = lambda x: 6*x*(1-x)
 ```
 
-<!-- cell:19 type:code -->
+<!-- cell:18 type:code -->
 ```python
 xxx= np.linspace(-1,2,100)
 plt.plot(xxx, f(xxx), 'r') 
@@ -235,18 +231,18 @@ plt.axhline(0, 0,1, color="gray");
 ```
 [Figure]
 
-<!-- cell:20 type:markdown -->
+<!-- cell:19 type:markdown -->
 We wish to consider the support [0,1]. We could truncate our "distribution" beyond these. But it does not matter, even though we use a normal proposal whichcan propose negative and gretar-than-one $x$ values.
 
 What happens if the proposal proposes a number outside of [0,1]? Notice then that our pdf is negative(ie it is not a pdf. (we could have defined it as 0 as well). Then in the metropolis acceptance formula, we are trying to check if a uniform is less than a negative or 0 number and we will not accept. This does however mean that we will need a longer set of samples than otherwise...
 
-<!-- cell:21 type:code -->
+<!-- cell:20 type:code -->
 ```python
 def prop(x):
     return np.random.normal(x, 0.6)
 ```
 
-<!-- cell:22 type:code -->
+<!-- cell:21 type:code -->
 ```python
 prop(0.1)
 ```
@@ -255,13 +251,13 @@ Output:
 -0.38115925548141294
 ```
 
-<!-- cell:23 type:code -->
+<!-- cell:22 type:code -->
 ```python
 x0=np.random.uniform()
 samps = metropolis(f, prop, 1000000, x0)
 ```
 
-<!-- cell:24 type:code -->
+<!-- cell:23 type:code -->
 ```python
 # plot our sample histogram
 plt.hist(samps,bins=100, alpha=0.4, label=u'MCMC distribution', normed=True) 
@@ -283,5 +279,5 @@ Output:
 starting point was  0.16855486023328337
 ```
 
-<!-- cell:25 type:markdown -->
+<!-- cell:24 type:markdown -->
 What happens if we just reject samples from the normal proposal outside the range we are interested in? This seems like a legitimate thing to do: we are mixing rejection sampling with our Metropolis. However, you may realize that such a proposal has the problem of asymmetry: by rejecting in one direction we destroythe symmetry needed for "detailed balance" or equilibrium to hold.

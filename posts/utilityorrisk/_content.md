@@ -1,8 +1,4 @@
-<!-- cell:1 type:markdown -->
-# Utility or Risk - Back to optimization
-
-
-<!-- cell:2 type:code -->
+<!-- cell:1 type:code -->
 ```python
 %matplotlib inline
 import numpy as np
@@ -20,7 +16,7 @@ sns.set_context("poster")
 import pymc3 as pm
 ```
 
-<!-- cell:3 type:markdown -->
+<!-- cell:2 type:markdown -->
 ## Decision Theory
 
 The basic idea behind decision theory is this: predictions (or actions based on predictions) are described by a utility or loss function, whose values can be computed given the observed data.
@@ -58,7 +54,7 @@ $$ d(a,p) = \bar{u}(p, p) - \bar{u}(a, p)$$
 
 Then one can think of minimizing $d(a,p)$ with respect to $a$ to get $\hat{a}$, so that this discrepancy can be thought of as a loss function.
 
-<!-- cell:4 type:markdown -->
+<!-- cell:3 type:markdown -->
 ### Risk from the posterior predictive
 
 To make this concrete consider the problem in which $\omega$ is a future observation $y^*$. We will then get a posterior predictive distribution with respect to some model $M$ that we shall put into our conditioned-upon variables as well (the reason to do this is that we'll consider later, averaging with respect to sufficiently expressive or true distributions, rather than any particular posterior predictive).
@@ -78,7 +74,7 @@ $$\bar{u}(a(x)) = \int dy^* \, u(a(x), y^*) \, p(y^* \vert x^*, D, M)$$
 
 $$ \hat{a}(x) = \arg\max_a \bar{u}(a(x))$$
 
-<!-- cell:5 type:markdown -->
+<!-- cell:4 type:markdown -->
 ## Point prediction
 
 We have not specified above what the action $a$ is. This is on purpose. Sometimes we want to make point predictions. In this case $a$ is a single number. Sometimes we want to find a distribution. And sometimes we want to compare multiple models. We'll see all of these below...
@@ -105,14 +101,14 @@ $$\bar{l}(\hat{a}) = \int dy^* \, (\hat{a} - y^*)^2 \, p(y^* \vert D, M) = \int 
 
 Using such a loss thus indicates that you only care about the first two moments about the distribution, and that there is no gain to considering things like skewness and kurtosis.
 
-<!-- cell:6 type:markdown -->
+<!-- cell:5 type:markdown -->
 ### Custom utility: Stock Market Returns
 
 This is a regression example.
 
 We generate some data to have returns as a function of stock price or trading signals. We generate it as a line with noise, which is perhaps the most unlikely stock market signal...:-)
 
-<!-- cell:7 type:code -->
+<!-- cell:6 type:code -->
 ```python
 ## Code to create artificial data
 N = 100
@@ -134,7 +130,7 @@ plt.legend(loc="upper left");
 ```
 [Figure]
 
-<!-- cell:8 type:markdown -->
+<!-- cell:7 type:markdown -->
 
 A squared-error loss is agnostic to the signage and would penalize a prediction of -0.01 equally as bad a prediction of 0.03:
 
@@ -144,7 +140,7 @@ Thus we want to define a loss that is sensitive to the difference between the pr
 
 Notice that the loss is quadratic when the sign is different, as this will create an even higher penalty. There is still a penalty for guessing wrong with the same sign, since you will overcommit money that could have been used more usefully elsewhere.
 
-<!-- cell:9 type:code -->
+<!-- cell:8 type:code -->
 ```python
 def stock_loss(stock_return, pred, alpha = 100.):
     if stock_return * pred < 0:
@@ -155,7 +151,7 @@ def stock_loss(stock_return, pred, alpha = 100.):
         return abs(stock_return - pred)
 ```
 
-<!-- cell:10 type:code -->
+<!-- cell:9 type:code -->
 ```python
 true_value = .05
 pred = np.linspace(-.12, .12, 75)
@@ -177,12 +173,12 @@ plt.title("Stock returns loss if true value = 0.05, -0.02");
 ```
 [Figure]
 
-<!-- cell:11 type:markdown -->
+<!-- cell:10 type:markdown -->
 Notice how the loss changes after you cross the 0 line.
 
 Let us fit our returns model
 
-<!-- cell:12 type:code -->
+<!-- cell:11 type:code -->
 ```python
 import pymc3 as pm
 
@@ -206,16 +202,16 @@ Output:
 100%|██████████| 100000/100000 [00:28<00:00, 3488.01it/s]| 3/100000 [00:00<55:42, 29.92it/s]
 ```
 
-<!-- cell:13 type:code -->
+<!-- cell:12 type:code -->
 ```python
 pm.plots.traceplot(trace=burned_trace, varnames=["std", "beta", "alpha"]);
 ```
 [Figure]
 
-<!-- cell:14 type:markdown -->
+<!-- cell:13 type:markdown -->
 We seem to have converged. Now, the game is to find a point estimate y from the predictive samples at each point(`possible_outcomes`) that minimizes the stock loss, instead of the standard least squares line which is just the mean of the posterior predictive.
 
-<!-- cell:15 type:code -->
+<!-- cell:14 type:code -->
 ```python
 from scipy.optimize import fmin
 
@@ -257,10 +253,10 @@ plt.legend(loc="upper left");
 ```
 [Figure]
 
-<!-- cell:16 type:markdown -->
+<!-- cell:15 type:markdown -->
 The plot above takes the posterior-predictive distribution at each trading signal, applies the risk to it by calculating the integral as a mean over posterior-predictive samples. Then we minimize over the action $a$ which here is a prediction at each trading signal. This is plotted as the green line above. Notice that when the signal is close to 0, our prediction is close to 0, we take no position as its very easy for the sign to be different. Far away from 0, we approach the suared risk more...
 
-<!-- cell:17 type:markdown -->
+<!-- cell:16 type:markdown -->
 ## The logarithmic utility function and probabilistic prediction
 
 The logaraithmic utility is used for probabilistic prediction when the unknown state is a future observation $y^*$. This is a subtle point, the squared error loss was used for a non-probabilistic point-prediction from the posterior predictive. But here we want to find our future observations themselves (and the entire distribution of them).
@@ -285,7 +281,7 @@ This is just the negative entropy of the posterior predictive distribution, and 
 
 Our entire analysis here seems to be tautological, but is indeed at the base of model comparison. There we started from the KL-divergence to motivate the use of log scores that went into deriving the AIC, DIC, and WAIC. But decision theory generalizes this notion to the making of any point predictions or probabilistic predictions.
 
-<!-- cell:18 type:markdown -->
+<!-- cell:17 type:markdown -->
 ### Single prediction vs multiple prediction
 
 We have so far considered the notion above of predicting a single value from a future dataset. If you had such a dataset (like a test dataset) you can think of this as trying to predict the marginal predictive distribution.
@@ -300,7 +296,7 @@ In practice we often use n-marginal distributions for the n future points with r
 
 
 
-<!-- cell:19 type:markdown -->
+<!-- cell:18 type:markdown -->
 ## Predictions with respect to which model/distribution?
 
 So far we have considered the distribution over which we calculate the expectation of the risk to be the posterior predictive distribution of a given model $M$. But if we want to compare models, for example, using the log score as a utility, it does not make sense to do the comparision with respect to one of the distributions being evaluated.
@@ -317,7 +313,7 @@ Some researchers actually try and approximate the true distribution by a **true 
 
 This is useful for calculating the difference in predictions between the distribution used and such a true belief distribution: this allows us to see how much worse we are doing. We shall not go further down the line on that, but see Vehtari and Ojanen if you are interested.
 
-<!-- cell:20 type:markdown -->
+<!-- cell:19 type:markdown -->
 ### Bayesian Model averaging
 
 Instead, let us briefly dwell on the idea of Bayesian Model averaging. We have seen this earlier, where in a very ad hoc fashion, we weighted models we were comparing by their WAIC weight, and averaged them together. These averaged models typically gave better predictions with more sensible posterior-predictive envelopes.
@@ -330,14 +326,14 @@ where the averaging is with repect to weights $w_k = p(M_k \vert D)$, the poster
 
 We can use the true belief models derived thus at places where we want to use the "true distribution:.
 
-<!-- cell:21 type:markdown -->
+<!-- cell:20 type:markdown -->
 ### Where are the models?
 
 Note that you might have chosen expressive and best fit models, but if the true generating process is outside the hypothesis set of the models you are using, then you will never capture the true predictive distribution. This is called misfit or bias. Sometimes, your hypothesis set might be too expressive: this is called overfitting and the true generating process is simpler.
 
 The former is a problem for finding the true belief distribution, and is especially a problem in mechanisms like cross-validation, which we will talk about soon, where holding out data means that we can only fit a less expressive model. The latter needs amelioration by regularization with stronger priors
 
-<!-- cell:22 type:markdown -->
+<!-- cell:21 type:markdown -->
 ## Model comparison
 
 The key idea in model comparison is that we will sort our average utilities in some order. The exact values are not important, and may be computed with respect to some true distribution or true-belief distribution $M_{tb}$. Remember that the utility is computed (and maximized) with respect to some model $M_k$ whereas the average of the utility is computed with respect to either the true, or true belief distribution.
@@ -350,7 +346,7 @@ $$\hat{M} = \arg\max_k \bar{u}(M_k, \hat{a}_k)$$
 
 There is no-calibration of these actions. However, calculating the standard error of the difference can be used to see if the difference is significant, as we did with the WAIC score.
 
-<!-- cell:23 type:markdown -->
+<!-- cell:22 type:markdown -->
 For the log score we first get the $M_k$ optimal prediction by
 
 $$\bar{u}(M_k, a_k) = \int dy^* log a_k(y^*) p(y^* \vert D, M_{k})$$
@@ -360,18 +356,18 @@ As we know, for this, $a_k = p((y^* \vert D, M_{k})$ which we then plug in to ge
 $$\bar{u}(M_k, a_k) = \int dy^* p(y^* \vert D, M_{k}) p(y^* \vert D, M_{tb})$$
 
 
-<!-- cell:24 type:markdown -->
+<!-- cell:23 type:markdown -->
 We now maximize this over $M_k$. This is equivalent to minimizing the KL-divergence as it is the negative KL divergence upto a $M_k$ independent constant. This is the approach we used to develop model comparison information criteria.
 
-<!-- cell:25 type:markdown -->
+<!-- cell:24 type:markdown -->
 For the squared loss the first step gives us $\hat{a}_k = E_{p(y^* \vert D,M_k)}[y^*]$. We then plug this in to get the expected utility under the true belief model
 
 $$\bar{l}(\hat{a_k}) = \int dy^* \, (\hat{a}_k - y^*)^2 \, p(y^* \vert D, M_{tb}) = \int dy^* \, (E_{p_k}[y^*] - y^*)^2 \, p(y^* \vert D, M_{tb}) = Var_{p_{tb}}[y^*] + (E_{p_{tb}}[y^*] - E_{p_{k}}[y^*])^2$$
 
-<!-- cell:26 type:markdown -->
+<!-- cell:25 type:markdown -->
 Thus if we are model comparing for the squared error, we want the model whose expectation is closest to the true-belief model.
 
-<!-- cell:27 type:markdown -->
+<!-- cell:26 type:markdown -->
 ## Risk from the posterior: posterior points
 
 Now consider the problem in which $\omega$, the unknown state of the world is some $\theta$ posterior parameter $\in \Theta$. Then our utility function is of the form $u(a, \theta)$ and our belief about the unknown state of the world is captured by the posterior distribution $p(\theta \vert D, M)$.
@@ -396,7 +392,7 @@ the two approaches are equivalent and we have merely changed the order of integr
 
 This approach can be used to give us point estimates from the posterior such as means and medians.
 
-<!-- cell:28 type:code -->
+<!-- cell:27 type:code -->
 ```python
 
 ```

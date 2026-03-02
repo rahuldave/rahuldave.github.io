@@ -10,23 +10,18 @@
     },
     {
       "cell": 1,
-      "type": "markdown",
-      "headings": [
-        {
-          "slug": "classification-using-multi-layer-perceptrons",
-          "level": 1
-        }
-      ]
+      "type": "code",
+      "html_id": "cell-1"
     },
     {
       "cell": 2,
-      "type": "code",
-      "html_id": "cell-2"
+      "type": "markdown",
+      "headings": []
     },
     {
       "cell": 3,
-      "type": "markdown",
-      "headings": []
+      "type": "code",
+      "html_id": "cell-3"
     },
     {
       "cell": 4,
@@ -35,11 +30,6 @@
     },
     {
       "cell": 5,
-      "type": "code",
-      "html_id": "cell-5"
-    },
-    {
-      "cell": 6,
       "type": "markdown",
       "headings": [
         {
@@ -47,6 +37,11 @@
           "level": 2
         }
       ]
+    },
+    {
+      "cell": 6,
+      "type": "code",
+      "html_id": "cell-6"
     },
     {
       "cell": 7,
@@ -60,11 +55,6 @@
     },
     {
       "cell": 9,
-      "type": "code",
-      "html_id": "cell-9"
-    },
-    {
-      "cell": 10,
       "type": "markdown",
       "headings": [
         {
@@ -74,22 +64,22 @@
       ]
     },
     {
-      "cell": 11,
+      "cell": 10,
       "type": "code",
-      "html_id": "cell-11"
+      "html_id": "cell-10"
     },
     {
-      "cell": 12,
+      "cell": 11,
       "type": "markdown",
       "headings": []
     },
     {
-      "cell": 13,
+      "cell": 12,
       "type": "code",
-      "html_id": "cell-13"
+      "html_id": "cell-12"
     },
     {
-      "cell": 14,
+      "cell": 13,
       "type": "markdown",
       "headings": [
         {
@@ -99,14 +89,19 @@
       ]
     },
     {
-      "cell": 15,
+      "cell": 14,
       "type": "code",
-      "html_id": "cell-15"
+      "html_id": "cell-14"
+    },
+    {
+      "cell": 15,
+      "type": "markdown",
+      "headings": []
     },
     {
       "cell": 16,
-      "type": "markdown",
-      "headings": []
+      "type": "code",
+      "html_id": "cell-16"
     },
     {
       "cell": 17,
@@ -115,13 +110,13 @@
     },
     {
       "cell": 18,
-      "type": "code",
-      "html_id": "cell-18"
+      "type": "markdown",
+      "headings": []
     },
     {
       "cell": 19,
-      "type": "markdown",
-      "headings": []
+      "type": "code",
+      "html_id": "cell-19"
     },
     {
       "cell": 20,
@@ -130,13 +125,13 @@
     },
     {
       "cell": 21,
-      "type": "code",
-      "html_id": "cell-21"
+      "type": "markdown",
+      "headings": []
     },
     {
       "cell": 22,
-      "type": "markdown",
-      "headings": []
+      "type": "code",
+      "html_id": "cell-22"
     },
     {
       "cell": 23,
@@ -145,11 +140,6 @@
     },
     {
       "cell": 24,
-      "type": "code",
-      "html_id": "cell-24"
-    },
-    {
-      "cell": 25,
       "type": "markdown",
       "headings": [
         {
@@ -159,17 +149,17 @@
       ]
     },
     {
-      "cell": 26,
+      "cell": 25,
       "type": "code",
-      "html_id": "cell-26"
+      "html_id": "cell-25"
     },
     {
-      "cell": 27,
+      "cell": 26,
       "type": "markdown",
       "headings": []
     },
     {
-      "cell": 28,
+      "cell": 27,
       "type": "markdown",
       "headings": [
         {
@@ -177,6 +167,11 @@
           "level": 2
         }
       ]
+    },
+    {
+      "cell": 28,
+      "type": "code",
+      "html_id": "cell-28"
     },
     {
       "cell": 29,
@@ -215,11 +210,6 @@
     },
     {
       "cell": 36,
-      "type": "code",
-      "html_id": "cell-36"
-    },
-    {
-      "cell": 37,
       "type": "markdown",
       "headings": [
         {
@@ -229,14 +219,14 @@
       ]
     },
     {
+      "cell": 37,
+      "type": "code",
+      "html_id": "cell-37"
+    },
+    {
       "cell": 38,
       "type": "code",
       "html_id": "cell-38"
-    },
-    {
-      "cell": 39,
-      "type": "code",
-      "html_id": "cell-39"
     }
   ]
 }

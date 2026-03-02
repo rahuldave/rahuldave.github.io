@@ -79,9 +79,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-5ebd13ccc45e2d8b7e0ce2c5ab43e761.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-8a6f08b2ced7792903d5f10496a7a536.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-5ebd13ccc45e2d8b7e0ce2c5ab43e761.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-5aa3f4b21411a16d8c2b8c4091f84306.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-3772b01e8296b7d46c6f0feecfdb0e85.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-5aa3f4b21411a16d8c2b8c4091f84306.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -374,9 +374,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#hierarchical-models" id="toc-hierarchical-models" class="nav-link active" data-scroll-target="#hierarchical-models">Hierarchical Models</a>
-  <ul class="collapse">
-  <li><a href="#an-example-rats-tumors-from-gelman-chapter-5" id="toc-an-example-rats-tumors-from-gelman-chapter-5" class="nav-link" data-scroll-target="#an-example-rats-tumors-from-gelman-chapter-5">An Example: Rats tumors (from Gelman, chapter 5)</a></li>
+  <li><a href="#an-example-rats-tumors-from-gelman-chapter-5" id="toc-an-example-rats-tumors-from-gelman-chapter-5" class="nav-link active" data-scroll-target="#an-example-rats-tumors-from-gelman-chapter-5">An Example: Rats tumors (from Gelman, chapter 5)</a></li>
   <li><a href="#setting-up-the-model" id="toc-setting-up-the-model" class="nav-link" data-scroll-target="#setting-up-the-model">Setting up the model</a>
   <ul class="collapse">
   <li><a href="#no-pooling" id="toc-no-pooling" class="nav-link" data-scroll-target="#no-pooling">No Pooling</a></li>
@@ -398,7 +396,6 @@ window.Quarto = {
   <li><a href="#why-are-hierarchical-models-useful" id="toc-why-are-hierarchical-models-useful" class="nav-link" data-scroll-target="#why-are-hierarchical-models-useful">Why are hierarchical models useful?</a>
   <ul class="collapse">
   <li><a href="#exchangeability" id="toc-exchangeability" class="nav-link" data-scroll-target="#exchangeability">Exchangeability</a></li>
-  </ul></li>
   </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.out.ipynb" download="index.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
@@ -474,9 +471,7 @@ window.Quarto = {
 </header>
 
 
-<section id="hierarchical-models" class="level1">
-<h1>Hierarchical Models</h1>
-<div id="cell-2" class="cell" data-execution_count="2" data-cell-type="code">
+<div id="cell-1" class="cell" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
@@ -493,7 +488,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="an-example-rats-tumors-from-gelman-chapter-5">An Example: Rats tumors (from <a href="http://www.stat.columbia.edu/~gelman/book/">Gelman</a>, chapter 5)</h2>
 <p>The below data is from tumors in female rats of type “F344” that recieve a particular drug, in 70 different experiments.</p>
 <p>The first column is the number that get the tumor; the second is the total number or rats tested</p>
-<div id="cell-4" class="cell" data-execution_count="3" data-cell-type="code">
+<div id="cell-3" class="cell" data-execution_count="3" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tumordata<span class="op">=</span><span class="st">"""0 20 </span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="st">0 20 </span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="st">0 20 </span></span>
@@ -566,7 +561,7 @@ window.Quarto = {
 <span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="st">9 24 </span></span>
 <span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-5" class="cell" data-execution_count="4" data-cell-type="code">
+<div id="cell-4" class="cell" data-execution_count="4" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tumortuples<span class="op">=</span>[e.strip().split() <span class="cf">for</span> e <span class="kw">in</span> tumordata.split(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)]</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>tumory<span class="op">=</span>np.array([np.<span class="bu">int</span>(e[<span class="dv">0</span>].strip()) <span class="cf">for</span> e <span class="kw">in</span> tumortuples <span class="cf">if</span> <span class="bu">len</span>(e) <span class="op">&gt;</span> <span class="dv">0</span>])</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>tumorn<span class="op">=</span>np.array([np.<span class="bu">int</span>(e[<span class="dv">1</span>].strip()) <span class="cf">for</span> e <span class="kw">in</span> tumortuples <span class="cf">if</span> <span class="bu">len</span>(e) <span class="op">&gt;</span> <span class="dv">0</span>])</span>
@@ -586,7 +581,7 @@ window.Quarto = {
 </div>
 <p>Now, a 71st experiment is done and we are told that 4 out of 14 rats develop tumors. Our problem is to estimate the risk of tumor in the rats in the 71st experiment .</p>
 <p>Thus we are considering the problem of estimating the tumor rate from a small experiment (no 71) and a prior constructed from previous experiments with similar structure. Mathematically, we consider the current and historical experiments as random samples from a common population.</p>
-<div id="cell-7" class="cell" data-execution_count="7" data-cell-type="code">
+<div id="cell-6" class="cell" data-execution_count="7" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tumor_rat <span class="op">=</span> [e[<span class="dv">0</span>]<span class="op">/</span>e[<span class="dv">1</span>] <span class="cf">for</span> e <span class="kw">in</span> <span class="bu">zip</span>(tumory, tumorn)]</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>tmean <span class="op">=</span> np.mean(tumor_rat)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>tvar <span class="op">=</span> np.var(tumor_rat)</span>
@@ -595,7 +590,7 @@ window.Quarto = {
 <pre><code>(0.13600653889043893, 0.010557640623609196)</code></pre>
 </div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="10" data-cell-type="code">
+<div id="cell-7" class="cell" data-execution_count="10" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>plt.hist(tumor_rat)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -689,7 +684,7 @@ window.Quarto = {
 <p>and</p>
 <p><span class="math display">\[V  = \frac{\alpha\beta}{(\alpha + \beta)^2 (\alpha + \beta + 1)}\]</span></p>
 <p>Note that there are different ratios for each experiment, and we are taking the average of these.</p>
-<div id="cell-16" class="cell" data-execution_count="11" data-cell-type="code">
+<div id="cell-15" class="cell" data-execution_count="11" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>aplusb <span class="op">=</span> tmean<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>tmean)<span class="op">/</span>tvar <span class="op">-</span> <span class="dv">1</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>a_est<span class="op">=</span>aplusb<span class="op">*</span>tmean</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>b_est<span class="op">=</span>aplusb<span class="op">*</span>(<span class="fl">1.0</span> <span class="op">-</span> tmean)</span>
@@ -703,10 +698,10 @@ window.Quarto = {
 <p><span class="math inline">\(p(\theta_i | y_i, n_i, \alpha, \beta) = Beta(\alpha + y_i, \beta + n_i - y_i)\)</span></p>
 <p>Thus the posterior mean is</p>
 <p><span class="math display">\[\bar{\theta}_{post, i} = \frac{\alpha + y_i}{\alpha + \beta + n_i}\]</span></p>
-<div id="cell-18" class="cell" data-execution_count="12" data-cell-type="code">
+<div id="cell-17" class="cell" data-execution_count="12" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>post_means <span class="op">=</span> (a_est <span class="op">+</span> tumory)<span class="op">/</span>(a_est <span class="op">+</span> b_est <span class="op">+</span> tumorn)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-19" class="cell" data-execution_count="13" data-cell-type="code">
+<div id="cell-18" class="cell" data-execution_count="13" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>plt.plot(tumor_rat, post_means,<span class="st">'o'</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">0</span>,<span class="fl">0.5</span>],[<span class="dv">0</span>,<span class="fl">0.5</span>],<span class="st">'k-'</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"observed rates"</span>)</span>
@@ -722,7 +717,7 @@ window.Quarto = {
 <p>As you can see, the posterior rates are shrunk towards flatness, which would correspond to complete pooling. The 45 degree line would be for completely unpooled estimate.</p>
 <p>Now, for the 71st experiment, we have 4 out of 14 rats having tumors. The posterior estimate for this would be</p>
 <p><span class="math display">\[\frac{\alpha + y_{71}}{\alpha + \beta + n_{71}}\]</span></p>
-<div id="cell-21" class="cell" data-execution_count="15" data-cell-type="code">
+<div id="cell-20" class="cell" data-execution_count="15" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span><span class="op">/</span><span class="dv">14</span>, (<span class="dv">4</span><span class="op">+</span>a_est)<span class="op">/</span>(<span class="dv">14</span><span class="op">+</span>a_est<span class="op">+</span>b_est)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>(0.2857142857142857, 0.22286481449822493)</code></pre>
@@ -771,7 +766,6 @@ window.Quarto = {
 <p>In hierarchical models, we use the notion of exchangeability at the level of ‘units’. By units we mean an observationally cohesive bunch of data. For example, our unit may be observations in a particular experiment, and then hierarchically, we might talk about exchangeability between different experiments. For our rats, the <span class="math inline">\(y_j\)</span> were exchangeable since we had no additional information about experimental conditions. But if we knew that specific groups of experiments came from specific laboratories, we would now only assume partial exchangeability. We’d assume that experiments were interchangeable if they came from the same lab. So then we’d have lab specific <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> parameters, and add another level of hierarchy to figure how these might themselves be drawn from some common distribution.</p>
 
 
-</section>
 </section>
 </section>
 

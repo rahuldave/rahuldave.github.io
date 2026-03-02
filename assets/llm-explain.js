@@ -50,7 +50,7 @@
 
     var btn = document.createElement('button');
     btn.className = 'llm-btn llm-btn-summarize';
-    btn.textContent = 'Summarize this page';
+    btn.textContent = 'Summarize this article';
     btn.addEventListener('click', function() { handleAction('summarize', null); });
 
     wrap.appendChild(btn);
@@ -71,9 +71,11 @@
       }
     }
 
-    // --- "Explain up to here" after h2/h3 headings (all post types) ---
+    // --- "Explain up to here" inline with h2/h3 headings (all post types) ---
     var headings = document.querySelectorAll('h2[data-anchor-id], h3[data-anchor-id], h2[id], h3[id]');
     var seen = new Set();
+    var isFirstHeading = true;
+    var lastCellIdx = 0;
     for (var i = 0; i < headings.length; i++) {
       var heading = headings[i];
       var headingSlug = heading.getAttribute('data-anchor-id') || heading.id;
@@ -83,12 +85,29 @@
 
       var cellIdx = slugToCellIndex[headingSlug];
       if (cellIdx === undefined) cellIdx = i;
+      lastCellIdx = cellIdx;
 
-      var wrap = document.createElement('div');
-      wrap.className = 'llm-buttons';
-      wrap.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', cellIdx));
+      // Skip first h2 — only preamble content precedes it
+      if (isFirstHeading) {
+        isFirstHeading = false;
+        continue;
+      }
 
-      heading.parentNode.insertBefore(wrap, heading.nextSibling);
+      // Insert button inside heading (flush-right, inline with text)
+      heading.classList.add('llm-heading-with-btn');
+      heading.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', cellIdx));
+    }
+
+    // "Explain up to here" at page end (so final section isn't left out)
+    var totalCells = (cellsData && cellsData.cells) ? cellsData.cells.length : lastCellIdx + 1;
+    var articleEl = document.getElementById('quarto-document-content') ||
+                    document.querySelector('main.content') ||
+                    document.querySelector('article');
+    if (articleEl) {
+      var endWrap = document.createElement('div');
+      endWrap.className = 'llm-buttons llm-buttons-end';
+      endWrap.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', totalCells));
+      articleEl.appendChild(endWrap);
     }
 
     // --- "Explain this code" after code cells ---

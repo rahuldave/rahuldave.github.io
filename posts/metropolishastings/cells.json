@@ -10,21 +10,11 @@
     },
     {
       "cell": 1,
-      "type": "markdown",
-      "headings": [
-        {
-          "slug": "metropolis-hastings",
-          "level": 1
-        }
-      ]
+      "type": "code",
+      "html_id": "cell-1"
     },
     {
       "cell": 2,
-      "type": "code",
-      "html_id": "cell-2"
-    },
-    {
-      "cell": 3,
       "type": "markdown",
       "headings": [
         {
@@ -34,22 +24,22 @@
       ]
     },
     {
-      "cell": 4,
+      "cell": 3,
       "type": "code",
-      "html_id": "cell-4"
+      "html_id": "cell-3"
     },
     {
-      "cell": 5,
+      "cell": 4,
       "type": "markdown",
       "headings": []
     },
     {
-      "cell": 6,
+      "cell": 5,
       "type": "code",
-      "html_id": "cell-6"
+      "html_id": "cell-5"
     },
     {
-      "cell": 7,
+      "cell": 6,
       "type": "markdown",
       "headings": [
         {
@@ -57,6 +47,11 @@
           "level": 3
         }
       ]
+    },
+    {
+      "cell": 7,
+      "type": "markdown",
+      "headings": []
     },
     {
       "cell": 8,
@@ -76,11 +71,6 @@
     {
       "cell": 11,
       "type": "markdown",
-      "headings": []
-    },
-    {
-      "cell": 12,
-      "type": "markdown",
       "headings": [
         {
           "slug": "mh-example",
@@ -89,19 +79,24 @@
       ]
     },
     {
+      "cell": 12,
+      "type": "code",
+      "html_id": "cell-12"
+    },
+    {
       "cell": 13,
       "type": "code",
       "html_id": "cell-13"
     },
     {
       "cell": 14,
-      "type": "code",
-      "html_id": "cell-14"
+      "type": "markdown",
+      "headings": []
     },
     {
       "cell": 15,
-      "type": "markdown",
-      "headings": []
+      "type": "code",
+      "html_id": "cell-15"
     },
     {
       "cell": 16,
@@ -120,13 +115,13 @@
     },
     {
       "cell": 19,
-      "type": "code",
-      "html_id": "cell-19"
+      "type": "markdown",
+      "headings": []
     },
     {
       "cell": 20,
-      "type": "markdown",
-      "headings": []
+      "type": "code",
+      "html_id": "cell-20"
     },
     {
       "cell": 21,
@@ -135,41 +130,36 @@
     },
     {
       "cell": 22,
-      "type": "code",
-      "html_id": "cell-22"
+      "type": "markdown",
+      "headings": []
     },
     {
       "cell": 23,
-      "type": "markdown",
-      "headings": []
+      "type": "code",
+      "html_id": "cell-23"
     },
     {
       "cell": 24,
-      "type": "code",
-      "html_id": "cell-24"
+      "type": "markdown",
+      "headings": []
     },
     {
       "cell": 25,
-      "type": "markdown",
-      "headings": []
+      "type": "code",
+      "html_id": "cell-25"
     },
     {
       "cell": 26,
-      "type": "code",
-      "html_id": "cell-26"
-    },
-    {
-      "cell": 27,
       "type": "markdown",
       "headings": []
     },
     {
-      "cell": 28,
+      "cell": 27,
       "type": "code",
-      "html_id": "cell-28"
+      "html_id": "cell-27"
     },
     {
-      "cell": 29,
+      "cell": 28,
       "type": "markdown",
       "headings": [
         {
@@ -179,9 +169,14 @@
       ]
     },
     {
-      "cell": 30,
+      "cell": 29,
       "type": "markdown",
       "headings": []
+    },
+    {
+      "cell": 30,
+      "type": "code",
+      "html_id": "cell-30"
     },
     {
       "cell": 31,
@@ -195,16 +190,11 @@
     },
     {
       "cell": 33,
-      "type": "code",
-      "html_id": "cell-33"
-    },
-    {
-      "cell": 34,
       "type": "markdown",
       "headings": []
     },
     {
-      "cell": 35,
+      "cell": 34,
       "type": "markdown",
       "headings": [
         {
@@ -214,24 +204,29 @@
       ]
     },
     {
-      "cell": 36,
+      "cell": 35,
       "type": "code",
-      "html_id": "cell-36"
+      "html_id": "cell-35"
+    },
+    {
+      "cell": 36,
+      "type": "markdown",
+      "headings": []
     },
     {
       "cell": 37,
-      "type": "markdown",
-      "headings": []
+      "type": "code",
+      "html_id": "cell-37"
     },
     {
       "cell": 38,
-      "type": "code",
-      "html_id": "cell-38"
+      "type": "markdown",
+      "headings": []
     },
     {
       "cell": 39,
-      "type": "markdown",
-      "headings": []
+      "type": "code",
+      "html_id": "cell-39"
     },
     {
       "cell": 40,
@@ -250,13 +245,13 @@
     },
     {
       "cell": 43,
-      "type": "code",
-      "html_id": "cell-43"
+      "type": "markdown",
+      "headings": []
     },
     {
       "cell": 44,
-      "type": "markdown",
-      "headings": []
+      "type": "code",
+      "html_id": "cell-44"
     },
     {
       "cell": 45,
@@ -287,11 +282,6 @@
       "cell": 50,
       "type": "code",
       "html_id": "cell-50"
-    },
-    {
-      "cell": 51,
-      "type": "code",
-      "html_id": "cell-51"
     }
   ]
 }

@@ -1,8 +1,4 @@
-<!-- cell:1 type:markdown -->
-# Mixture Models, and types of learning
-
-
-<!-- cell:2 type:code -->
+<!-- cell:1 type:code -->
 ```python
 %matplotlib inline
 import numpy as np
@@ -15,12 +11,12 @@ import seaborn as sns
 from IPython.display import Image
 ```
 
-<!-- cell:3 type:markdown -->
+<!-- cell:2 type:markdown -->
 $$\newcommand{\isum}{\sum_{i}}$$
 $$\newcommand{\zsum}{\sum_{k=1}^{K}}$$
 $$\newcommand{\zsumi}{\sum_{\{z_i\}}}$$
 
-<!-- cell:4 type:markdown -->
+<!-- cell:3 type:markdown -->
 ## Mixture models
 
 It is common to assume that observations are correlated due to some common “cause”. Hierarchical bayesian models are an example where we assume that information flows between observations through a tied-together set of higher level hyper-parameters. 
@@ -64,10 +60,10 @@ $$p(x  \vert  \theta) = \sum_z p(z)p(x  \vert  z, \theta)$$
 
 where $\theta = \{ \theta_k \}$ is the collection of distribution parameters.
 
-<!-- cell:5 type:markdown -->
+<!-- cell:4 type:markdown -->
 Whats going on? Pick a bitmask according to the Categorical (the analog of the bernoulli, a multinomial with n=1). Where you find the 1, thats the distribution from which you make a draw.
 
-<!-- cell:6 type:code -->
+<!-- cell:5 type:code -->
 ```python
 from scipy.stats import multinomial
 multinomial.rvs(1,[0.6,0.1, 0.3], size=10)
@@ -86,7 +82,7 @@ array([[1, 0, 0],
        [1, 0, 0]])
 ```
 
-<!-- cell:7 type:markdown -->
+<!-- cell:6 type:markdown -->
 ## Gaussian Mixture Models
 
 The Gaussian mixture model or GMM is the most widely used mixture distribution. In this model, each base distribution  is a multivariate Gaussian with mean $\mu_k$ and covariance matrix $\Sigma_k$. Thus the model has the form
@@ -95,7 +91,7 @@ $$p(x \vert  \{\theta_{k}\}) = \zsum \lambda_k N(x \vert \mu_k , \Sigma_k ) $$
 
 Thus each mixture component can be thought of as represented by a different set of eliptical contours, and we add these to create our overall density.
 
-<!-- cell:8 type:code -->
+<!-- cell:7 type:code -->
 ```python
 #In 1-D
 # True parameter values
@@ -108,18 +104,18 @@ n = 10000
 z = multinomial.rvs(1, lambda_true, size=n)
 ```
 
-<!-- cell:9 type:code -->
+<!-- cell:8 type:code -->
 ```python
 x=np.array([np.random.normal(mu_true[i.astype('bool')][0], sigma_true[i.astype('bool')][0]) for i in z])
 ```
 
-<!-- cell:10 type:code -->
+<!-- cell:9 type:code -->
 ```python
 sns.distplot(x, bins=100);
 ```
 [Figure]
 
-<!-- cell:11 type:markdown -->
+<!-- cell:10 type:markdown -->
 ## Supervised learning
 
 In supervised learning, we have some training data of $N$ data points, each with $m$ features. The big idea is that on the training set, we have **a label associated with each data point**. Here the label is $z$.
@@ -136,7 +132,7 @@ An alternative approach is to directly fit the class posterior, $p(z = c \vert x
 
 **The supervised learning case is the one in which where hidden variables $z$ are known on the training set**. So the supervized case is one in which the model is not a hidden variables model at all.
 
-<!-- cell:12 type:markdown -->
+<!-- cell:11 type:markdown -->
 ### Gaussian Discriminant Analysis
 
 Suppose we have input data 
@@ -190,7 +186,7 @@ for each group. This analysis is called "Gaussian Discriminant Analysis" or GDA,
 
 Lets do this in code. First we simulate some data:
 
-<!-- cell:13 type:code -->
+<!-- cell:12 type:code -->
 ```python
 #In 1-D
 # True parameter values
@@ -207,10 +203,10 @@ sns.distplot(x, bins=100);
 ```
 [Figure]
 
-<!-- cell:14 type:markdown -->
+<!-- cell:13 type:markdown -->
 Now we split into a training set and a test set.
 
-<!-- cell:15 type:code -->
+<!-- cell:14 type:code -->
 ```python
 #the z's are the classes in the supervised learning
 #the 'feature' is the x position of the sample
@@ -218,7 +214,7 @@ from sklearn.model_selection import train_test_split
 ztrain, ztest, xtrain, xtest = train_test_split(z,x)
 ```
 
-<!-- cell:16 type:code -->
+<!-- cell:15 type:code -->
 ```python
 ztrain.shape, xtrain.shape
 ```
@@ -227,13 +223,13 @@ Output:
 ((7500,), (7500,))
 ```
 
-<!-- cell:17 type:code -->
+<!-- cell:16 type:code -->
 ```python
 plt.hist(xtrain, bins=20);
 ```
 [Figure]
 
-<!-- cell:18 type:code -->
+<!-- cell:17 type:code -->
 ```python
 lambda_train=np.mean(ztrain)
 mu0_train = np.sum(xtrain[ztrain==0])/(np.sum(ztrain==0))
@@ -248,14 +244,14 @@ Output:
 0.407066666667 1.99814996529 5.0176232719 0.599407546657
 ```
 
-<!-- cell:19 type:markdown -->
+<!-- cell:18 type:markdown -->
 We can use the log likelihood at a given `x` as a classifier: assign the class '0' or '1' depending upon which probability $p(x_j \vert \lambda, z, \Sigma)$ is larger. Note that this is JUST the $x$ likelihood, because we want to compare probabilities for fixed $z$s.
 
 $$log\,p(x_j \vert \lambda, z, \Sigma) = -\sum_{i=1}^{m} \log ((2\pi)^{n/2}  \vert  \Sigma \vert ^{1/2}) - \frac{1}{2} \sum_{i=1}^{m}  (x-\mu_{z_i})^T \,\Sigma^{-1}(x-\mu_{z_i})  $$
 
 The first term of the likelihood does not matter since it is independent of $z$, therefore:
 
-<!-- cell:20 type:code -->
+<!-- cell:19 type:code -->
 ```python
 def loglikdiff(x):
     for0= - (x-mu0_train)*(x-mu0_train)/(2.0*sigma_train*sigma_train) 
@@ -265,7 +261,7 @@ def loglikdiff(x):
     return 1*(for1 - for0 >= 0)
 ```
 
-<!-- cell:21 type:code -->
+<!-- cell:20 type:code -->
 ```python
 pred = np.array([loglikdiff(test_x) for test_x in xtest])
 print("correct classification rate", np.mean(ztest == pred))
@@ -275,7 +271,7 @@ Output:
 correct classification rate 0.9944
 ```
 
-<!-- cell:22 type:markdown -->
+<!-- cell:21 type:markdown -->
 ## Unsupervised learning: Mixture of Gaussians 
 
 In unsupervised learning, we do not know the class labels. We wish to generate these labels automatically from the data. An example of an unsupervised model is clustering.  In the context of mixture models we then do not know what the components of the mixture model are, i.e. what the parameters of the components and their admixture ($\lambda$s) are. Indeed, we might not even know how many components we have!!
@@ -297,7 +293,7 @@ $$p(x) = \sum_c p(x \vert z) p(z).$$
 
 In other words we discover the marginal p(x) through the generative model $p(x \vert z)$. This is also very useful in discovering **outliers** in our data.
 
-<!-- cell:23 type:markdown -->
+<!-- cell:22 type:markdown -->
 ### Concretely formulating the problem
 
 So let us turn our attention to the case where we do not know the labels $z$. 
@@ -331,7 +327,7 @@ maximum likelihood estimates Futhermore, we have to enforce constraints such as 
 
 For all of these reasons, its simpler, but not always faster to use an iterative algorithm called the EM algorithm to get the local maximum likelihood or MAP estimate. We shall learn this algorithm soon. But we can also set this problem up as a bayesian problem with reasonable priors on the parameters and try to use MCMC.
 
-<!-- cell:24 type:markdown -->
+<!-- cell:23 type:markdown -->
 ## Semi-supervised
 
 In unsupervized learning we are given samples from some unknown data distribution with density $p(x)$. Our goal is to estimate this density or a known functional  (like the risk) thereof. Supervized learning can be treated as estimating $p(x,c)$ or a known functional of it. But there is usually no need to estimate the input distribution so estimating the complete density is wasteful, and we usually focus on estimating $p(c \vert x)$ discriminatively or generatively(via $p(x \vert c) p(c)$. Here $c$ or $y$ or $z$ are the classes we are trying to estimate. In the unsupervized case we often estimate $\sum_z p(x \vert z) p(z) = p(x)$ with latent (hidden) $z$, which you may or may not wish to identify with classes.

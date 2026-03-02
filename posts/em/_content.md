@@ -1,8 +1,4 @@
-<!-- cell:1 type:markdown -->
-# The EM algorithm
-
-
-<!-- cell:2 type:code -->
+<!-- cell:1 type:code -->
 ```python
 %matplotlib inline
 import numpy as np
@@ -20,12 +16,12 @@ sns.set_context("poster")
 import pymc3 as pm
 ```
 
-<!-- cell:3 type:markdown -->
+<!-- cell:2 type:markdown -->
 $$\newcommand{\isum}{\sum_{i}}$$
 $$\newcommand{\zsum}{\sum_{k=1}^{K}}$$
 $$\newcommand{\zsumi}{\sum_{\{z_i\}}}$$
 
-<!-- cell:4 type:markdown -->
+<!-- cell:3 type:markdown -->
 ## A toy problem
 
 This example is taken from Efron and Hastie, Computer Age Statistical Inference.
@@ -35,7 +31,7 @@ Assume we have data drawn from a bi-variate Normal
 ![Bivariate normal model: the joint distribution of (x1, x2) with means, variances, and correlation parameter rho.](assets/gform1.png)
 
 
-<!-- cell:5 type:code -->
+<!-- cell:4 type:code -->
 ```python
 sig1=1
 sig2=0.75
@@ -55,15 +51,15 @@ Output:
         [ 0.615 ,  0.5625]]))
 ```
 
-<!-- cell:6 type:markdown -->
+<!-- cell:5 type:markdown -->
 We plot the samples below as blue circles. Now say we lose the y-values of the last-20 pieces of data. We are left with a missing data or hidden data or latent-variables problem. We plot both datasets below, with the y-values of the lost points set to 0
 
-<!-- cell:7 type:code -->
+<!-- cell:6 type:code -->
 ```python
 samples=np.random.multivariate_normal(means, cov, size=40)
 ```
 
-<!-- cell:8 type:code -->
+<!-- cell:7 type:code -->
 ```python
 samples_censored=np.copy(samples)
 samples_censored[20:,1]=0
@@ -76,13 +72,13 @@ Output:
 ```
 [Figure]
 
-<!-- cell:9 type:markdown -->
+<!-- cell:8 type:markdown -->
 
 We would use MLE if we had all the data. 
 
 ![Maximum likelihood estimators for the bivariate normal parameters: sample means, standard deviations, and correlation.](assets/gform2.png)
 
-<!-- cell:10 type:code -->
+<!-- cell:9 type:code -->
 ```python
 mu1 = lambda s: np.mean(s[:,0])
 mu2 = lambda s: np.mean(s[:,1])
@@ -91,10 +87,10 @@ s2 = lambda s: np.std(s[:,1])
 rho = lambda s: np.mean((s[:,0] - mu1(s))*(s[:,1] - mu2(s)))/(s1(s)*s2(s))
 ```
 
-<!-- cell:11 type:markdown -->
+<!-- cell:10 type:markdown -->
 But we dont. So we shall follow an iterative process to find them.
 
-<!-- cell:12 type:code -->
+<!-- cell:11 type:code -->
 ```python
 mu1s=[]
 mu2s=[]
@@ -103,10 +99,10 @@ s2s=[]
 rhos=[]
 ```
 
-<!-- cell:13 type:markdown -->
+<!-- cell:12 type:markdown -->
 Bur remember our data are missing in the y-direction. Assume 0 and go. Since we are using the MLE of the **full-data** likelihood, with this assumption we can use the MLE formulae. This is called M-step or maximization step since we used the MLE formulae.
 
-<!-- cell:14 type:code -->
+<!-- cell:13 type:code -->
 ```python
 mu1s.append(mu1(samples_censored))
 mu2s.append(mu2(samples_censored))
@@ -124,7 +120,7 @@ Output:
  [0.52348014627786521])
 ```
 
-<!-- cell:15 type:markdown -->
+<!-- cell:14 type:markdown -->
 Now having new estimates of our parameters due to our (fake) y-data, lets go in the other direction. Using these parameters let us calculate new y-values.
 
 One way we might do this is to replace the old-missing-y values with the means of these fixing the parameters of the multi-variate normal and the non-missing data. In other words:
@@ -137,14 +133,14 @@ This **posterior** distribution (in the sense of bayes theorem, not bayesian ana
 
 $$\bar{y}(t+1) - \hat{\mu_2}(t) = \hat{\rho}(t)\frac{\hat{\sigma_2}(t)}{\hat{\sigma_1}(t)} \left( \bar{x} - \hat{\mu_1}(t) \right)$$
 
-<!-- cell:16 type:code -->
+<!-- cell:15 type:code -->
 ```python
 def ynew(x, mu1, mu2, s1, s2, rho):
     return mu2 + rho*(s2/s1)*(x - mu1)
     
 ```
 
-<!-- cell:17 type:code -->
+<!-- cell:16 type:code -->
 ```python
 newys=ynew(samples_censored[20:,0], mu1s[0], mu2s[0], s1s[0], s2s[0], rhos[0])
 newys
@@ -157,10 +153,10 @@ array([-0.25149771,  0.71551635,  0.81675223,  0.85921124,  0.08168773,
         0.5396655 ,  0.25878933,  0.36945243,  0.99094696,  0.53980901])
 ```
 
-<!-- cell:18 type:markdown -->
+<!-- cell:17 type:markdown -->
 This is called the E-step as it computes an expectation for us. Lets run this iteratively and see if we converge.
 
-<!-- cell:19 type:code -->
+<!-- cell:18 type:code -->
 ```python
 for step in range(1,20):
     samples_censored[20:,1] = newys
@@ -200,12 +196,12 @@ Output:
 19  1.754766  0.917261  0.935870  1.271897  0.806242
 ```
 
-<!-- cell:20 type:markdown -->
+<!-- cell:19 type:markdown -->
 Voila. We converge to stable values of our parameters.
 
 But they may not be the ones we seeded the samples with. The Em algorithm is only good upto finding local minima, and a finite sample size also means that the minimum found can be slightly different.
 
-<!-- cell:21 type:markdown -->
+<!-- cell:20 type:markdown -->
 ## The EM algorithm
 
 ** Expectation-maximization (EM)** method is an iterative method for maximizing difficult 
@@ -231,7 +227,7 @@ Then, at each iteration, replace the augmented data by its conditional expectati
 
 
 
-<!-- cell:22 type:markdown -->
+<!-- cell:21 type:markdown -->
 ## Why does EM work?
 
 To understand why EM works we will start with our old friend the KL-divergence. All images in this section are stolen from Bishop
@@ -272,7 +268,7 @@ Now at first blush this does not seem to have bought us anything as we dont know
 
 $$D_{KL}(q, p) = - \left( E_q[log \frac{p(x, z \vert \theta)}{q}] - E_q[log\,p(x \vert \theta)] \right)$$
 
-<!-- cell:23 type:markdown -->
+<!-- cell:22 type:markdown -->
 The second term does not depend on $q$, and $q$ is normalized so the expectation just gives 1 and we can rewrite the equation in terns of the x-data log likelihoood thus:
 
 $$log\,p(x \vert \theta) = E_q[log \frac{p(x, z \vert \theta)}{q}] + D_{KL}(q, p)$$
@@ -287,10 +283,10 @@ $log\,p(x \vert \theta)$ = ELBO + KL-divergence
 
 a situation made clear in the diagram below where the ELBO goues upto the blue line and the divergence from the blue to the red. Be careful with the p's, the one on the right is for the x-data and the one on the left for the latent-variable posterior.
 
-<!-- cell:24 type:markdown -->
+<!-- cell:23 type:markdown -->
 ![Decomposition of the log marginal likelihood into the ELBO and KL divergence between the variational distribution q and the true posterior p. From Bishop.](assets/klsplitup.png)
 
-<!-- cell:25 type:markdown -->
+<!-- cell:24 type:markdown -->
 Now recall that the Kullback Liebler divergence is 0 only if the distributions as a function of $z$ are the same at every poiny; it is otherwise **ALWAYS** greater than 0. This tells us that the quantity $\mathcal{L}(q, \theta)$, is **ALWAYS** smaller than or equal to the log-likelihood of $p(x  \vert  \theta)$, as illustrated above. In other words, $\mathcal{L}(q, \theta)$ is a lower bound on the log-likelihood. This is why its called the ELBO, with the "evidence" aspect of it coming from Variational calculus (next lecture).
 
 The ELBO itself is the expected value of the full-data log-likelihood minus the entropy of $q$:
@@ -309,7 +305,7 @@ Using this missing data posterior, conditioned on observed data, and $\theta_{ol
 
 ![The E-step of EM: setting q equal to the posterior makes KL(q||p)=0, raising the ELBO to match the log likelihood. From Bishop.](assets/klsplitestep.png)
 
-<!-- cell:26 type:markdown -->
+<!-- cell:25 type:markdown -->
 ### Now the **M-step**. 
 
 Since after the E-step, the lower bound touches the log-likelihood, any maximization of this ELBO from its current value with respect to $\theta$ will also “push up” on the likelihood itself. Thus M step guaranteedly modifies the parameters $\theta$ to increase (or keep same) the likelihood of the observed data.
@@ -320,10 +316,10 @@ The distribution $q$, calculated as it is at $\theta_{old}$ will not in general 
 
 The M in “M-step” and “EM” stands for “maximization”.
 
-<!-- cell:27 type:markdown -->
+<!-- cell:26 type:markdown -->
 ![The M-step of EM: holding q fixed and maximizing the ELBO with respect to theta increases the log likelihood by at least as much. From Bishop.](assets/klsplitmstep.png)
 
-<!-- cell:28 type:markdown -->
+<!-- cell:27 type:markdown -->
 ### The process
 
 Note that since $\mathcal{L}$ is maximized with respect to $\theta$, one can equivalently maximize the expectation of the full-data log likelihood $\mathrm{E_q[\ell( x,z  \vert  \theta)]}$ in the M-step since the difference is purely a function of $q$. Furthermore, if the joint distribution $p(x, z \vert  \theta)$ is a member of the exponential family, the log-likelihood will have a particularly simple form and will lead to a much simpler maximization than that of the incomple-data log-likelihood $p(x \vert \theta)$.
@@ -346,10 +342,10 @@ $$\ell(\theta_{t+1}) \ge \mathcal{L}(q(z,\theta_t), \theta_{t+1}) \ge \mathcal{L
 
 The first equality follows since $\mathcal{L}$ is a lower bound on $\ell$, the second from the M-step's maximization of $\mathcal{L}$, and the last from the vanishing of the KL-divergence after the E-step. As a consequence, you **must** observe monotonic increase of the observed-data log likelihood $\ell$ across iterations. **This is a  powerful debugging tool for your code**.
 
-<!-- cell:29 type:markdown -->
+<!-- cell:28 type:markdown -->
 Note that as shown above, since each EM iteration can only improve the likelihood, you are guaranteeing convergence to a local maximum. Because it **IS** local , you must try some different initial values of $\theta_{old}$ and take the one that gives you the largest $\ell$.
 
-<!-- cell:30 type:markdown -->
+<!-- cell:29 type:markdown -->
 ## The EM algorithm with indices laid out
 
 I often find it confusing as to what the indices are actually doing if I dont write them out explicitly. So lets visit the EM derivation once more, focussing on mixtures, and explicitly writing out indices. The derivation does not need mixtures, but I find it helpful to imagine that we are fitting such a model.
@@ -404,7 +400,7 @@ $$\mathrm{KL}(q  \vert  \vert  p) = \sum_i \mathrm{KL}\left(q_i   \vert  \vert  
 
 as the sum of the KL-divergence at each data point, and $\mathcal{L}(q, \theta)$ as the sum of $\mathcal{L}$ at each data point.
 
-<!-- cell:31 type:markdown -->
+<!-- cell:30 type:markdown -->
 ## The Gaussian Mixture model using EM
 
 We dont know how to solve for the MLE of the unsupervised problem. The EM algorithm comes to the rescue. As described above here is the algorithm:
@@ -446,7 +442,7 @@ If we to compare these formulas in the M-step with the ones we found in GDA we c
 that are very similar except that instead of using $\delta$ functions we use the $w$'s. Thus the EM algorithm corresponds here to a weighted maximum likelihood and the weights are interpreted as the 'probability' of coming from that Gaussian instead of the deterministic 
 $\delta$ functions. Thus we have achived a **soft clustering** (as opposed to k-means in the unsupervised case and classification in the supervised case).
 
-<!-- cell:32 type:code -->
+<!-- cell:31 type:code -->
 ```python
 #In 1-D
 # True parameter values
@@ -463,7 +459,7 @@ plt.hist(x, bins=20);
 ```
 [Figure]
 
-<!-- cell:33 type:code -->
+<!-- cell:32 type:code -->
 ```python
 #from Bios366 lecture notes
 from scipy.stats.distributions import norm
@@ -476,7 +472,7 @@ def Estep(x, mu, sigma, lam):
 
 ```
 
-<!-- cell:34 type:code -->
+<!-- cell:33 type:code -->
 ```python
 def Mstep(x, w):
     lam = np.mean(1.-w) 
@@ -489,7 +485,7 @@ def Mstep(x, w):
     return mu, sigma, lam
 ```
 
-<!-- cell:35 type:code -->
+<!-- cell:34 type:code -->
 ```python
 print(lambda_true, mu_true, sigma_true)
 # Initialize values
@@ -544,7 +540,7 @@ B: N(2.0261, 0.5936)
 lam: 0.4116
 ```
 
-<!-- cell:36 type:markdown -->
+<!-- cell:35 type:markdown -->
 ## Why is EM important?
 
 We have motivated the EM algorithm using mixture models and missing data, but that is not its only place of use. 

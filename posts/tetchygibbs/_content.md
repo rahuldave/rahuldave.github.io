@@ -1,8 +1,4 @@
-<!-- cell:1 type:markdown -->
-# A gibbs sampler with lots of autocorrelation
-
-
-<!-- cell:2 type:code -->
+<!-- cell:1 type:code -->
 ```python
 %matplotlib inline
 import numpy as np
@@ -22,7 +18,7 @@ Output:
   warnings.warn(self.msg_depr % (key, alt_key))
 ```
 
-<!-- cell:3 type:markdown -->
+<!-- cell:2 type:markdown -->
 ## A tetchy posterior
 
 Imagine your posterior distribution has the following form:
@@ -53,17 +49,17 @@ $$ y \mid x, data \sim N\left(\frac{4}{1+x^2}, \sqrt{\frac{1}{1+x^2}}\right) $$.
 
 We know how to draw from normal distributions, so if we iterate back and forth, we should be able to sample from $f(x, y \mid data)$!
 
-<!-- cell:4 type:code -->
+<!-- cell:3 type:code -->
 ```python
 f= lambda x,y: np.exp(-(x*x*y*y+x*x+y*y-8*x-8*y)/2.)
 ```
 
-<!-- cell:5 type:markdown -->
+<!-- cell:4 type:markdown -->
 ### Contour plot
 
 First, let's make a contour plot of the posterior density.
 
-<!-- cell:6 type:code -->
+<!-- cell:5 type:code -->
 ```python
 xx=np.linspace(-1,8,100)
 yy=np.linspace(-1,8,100)
@@ -75,12 +71,12 @@ plt.contourf(xg,yg,z2)
 ```
 [Figure]
 
-<!-- cell:7 type:markdown -->
+<!-- cell:6 type:markdown -->
 ## Gibbs Sampler
 
 Now let's run the sampler, by iteratively drawing from the conditional distribution of $x$ and $y$ given the other.
 
-<!-- cell:8 type:code -->
+<!-- cell:7 type:code -->
 ```python
 N = 400000
 xall=np.zeros(N+1)
@@ -105,65 +101,65 @@ for i in range(1,N,2):
 
 ```
 
-<!-- cell:9 type:code -->
+<!-- cell:8 type:code -->
 ```python
 x=xall[N//10::10]
 y=yall[N//10::10]
 ```
 
-<!-- cell:10 type:markdown -->
+<!-- cell:9 type:markdown -->
 ### Traceplots
 
 To assess how the sampler is exploring the space, we can plot a **traceplot** for each dimension. A traceplot plots the value of each sample against the iteration number and gives a sense of how well the sampler is exploring the space.
 
-<!-- cell:11 type:code -->
+<!-- cell:10 type:code -->
 ```python
 def traceplot(z):
     plt.plot(z, alpha=0.3);
 ```
 
-<!-- cell:12 type:code -->
+<!-- cell:11 type:code -->
 ```python
 traceplot(x)
 ```
 [Figure]
 
-<!-- cell:13 type:markdown -->
+<!-- cell:12 type:markdown -->
 You can see from the traceplot the when sampling $x$, the sampler spends long periods of time near zero, and occasionally moves to and hangs out at higher values. These correspond to the two areas of high density in the countour plot.
 
 ### Marginals
 
 We can also draw a histogram of $x$ to get an estimate of its **marginal distribution**.
 
-<!-- cell:14 type:code -->
+<!-- cell:13 type:code -->
 ```python
 plt.hist(x, bins=50);
 ```
 [Figure]
 
-<!-- cell:15 type:markdown -->
+<!-- cell:14 type:markdown -->
 This is exactly what we would expect if we projected the distribution in the contour plot down to the $x$ axis.
 
 We can do the same plots for $y$.
 
-<!-- cell:16 type:code -->
+<!-- cell:15 type:code -->
 ```python
 traceplot(y)
 ```
 [Figure]
 
-<!-- cell:17 type:code -->
+<!-- cell:16 type:code -->
 ```python
 plt.hist(y, bins=50);
 ```
 [Figure]
 
-<!-- cell:18 type:markdown -->
+<!-- cell:17 type:markdown -->
 ### How we move
 
 Because we are in two dimensions, we can also plot the path that the sampler took through the $xy$ plane. Note that the path always takes right angles, because we are alternating between moves that only move in the $x$ direction and only move in the $y$ direction.
 
-<!-- cell:19 type:code -->
+<!-- cell:18 type:code -->
 ```python
 plt.contourf(xg,yg,z2, alpha=0.6)
 plt.scatter(xall[::10],yall[::10], alpha=0.01, c='k', s=5)
@@ -175,12 +171,12 @@ Output:
 ```
 [Figure]
 
-<!-- cell:20 type:markdown -->
+<!-- cell:19 type:markdown -->
 ### Autocorrelations
 
 To see how effective the samples we have drawn will be at approximating summaries of the posterior distribution (for example the posterior mean), we can look at the autocorrelation of the samples. High autocorrelation would mean that the sample average that we take to approximate the posterior mean would be higher than expected if we had taken independent samples from the posterior distribution.
 
-<!-- cell:21 type:code -->
+<!-- cell:20 type:code -->
 ```python
 def corrplot(trace, maxlags=50):
     plt.acorr(trace-np.mean(trace),  normed=True, maxlags=maxlags);
@@ -189,20 +185,20 @@ corrplot(xall[N//10:])
 ```
 [Figure]
 
-<!-- cell:22 type:code -->
+<!-- cell:21 type:code -->
 ```python
 corrplot(y)
 ```
 [Figure]
 
-<!-- cell:23 type:markdown -->
+<!-- cell:22 type:markdown -->
 ### Effective Sample Size
 
 In both $x$ and $y$, we can see that the autocorrelation is quite high. This is not a big problem though because the sampler is so simple that we can draw millions of samples to make up for the high autocorrelation.
 
 To figure out exactly how many samples we would have to draw, we can compute **effective sample size**, a measure of how many independent samples our our samples are equivalent to. This usese the same quantities that were used to compute the autocorrelation plot above. The following code is taken from https://code.google.com/p/biopy/source/browse/trunk/biopy/bayesianStats.py?r=67. You don't need to try to understand the function -- it's just here to run it, and this is a rather slow implementation.
 
-<!-- cell:24 type:code -->
+<!-- cell:23 type:code -->
 ```python
 def effectiveSampleSize(data, stepSize = 1) :
   """ Effective sample size, as computed by BEAST Tracer."""
@@ -253,10 +249,10 @@ def effectiveSampleSize(data, stepSize = 1) :
   return ess
 ```
 
-<!-- cell:25 type:markdown -->
+<!-- cell:24 type:markdown -->
 Now we can compute effective sample size for x and y.
 
-<!-- cell:26 type:code -->
+<!-- cell:25 type:code -->
 ```python
 esx = effectiveSampleSize(xall)
 esy = effectiveSampleSize(yall)
@@ -269,5 +265,5 @@ Effective Size for x:  10115.8236073  of  36001  samples, rate of 28.0987295001 
 Effective Size for y:  10264.5088434  of  36001  samples, rate of 28.5117325726 %.
 ```
 
-<!-- cell:27 type:markdown -->
+<!-- cell:26 type:markdown -->
 Note that while the effective size is only just over 25% of the actual sample size, we can draw samples so quickly from the posterior that this is not a major hindrance. 

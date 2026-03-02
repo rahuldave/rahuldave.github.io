@@ -79,9 +79,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-5ebd13ccc45e2d8b7e0ce2c5ab43e761.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-8a6f08b2ced7792903d5f10496a7a536.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-5ebd13ccc45e2d8b7e0ce2c5ab43e761.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-5aa3f4b21411a16d8c2b8c4091f84306.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-3772b01e8296b7d46c6f0feecfdb0e85.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-5aa3f4b21411a16d8c2b8c4091f84306.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -374,12 +374,9 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#data-augmentation" id="toc-data-augmentation" class="nav-link active" data-scroll-target="#data-augmentation">Data Augmentation</a>
-  <ul class="collapse">
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
+  <li><a href="#example" id="toc-example" class="nav-link active" data-scroll-target="#example">Example</a></li>
   <li><a href="#data-augmentation-is-a-markov-chain-monte-carlo" id="toc-data-augmentation-is-a-markov-chain-monte-carlo" class="nav-link" data-scroll-target="#data-augmentation-is-a-markov-chain-monte-carlo">Data Augmentation is a Markov Chain Monte Carlo</a></li>
   <li><a href="#sequential-simulation" id="toc-sequential-simulation" class="nav-link" data-scroll-target="#sequential-simulation">Sequential Simulation</a></li>
-  </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.out.ipynb" download="index.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
     </div>
@@ -454,8 +451,6 @@ window.Quarto = {
 </header>
 
 
-<section id="data-augmentation" class="level1">
-<h1>Data Augmentation</h1>
 <p>The idea is to construct iterative algorithms for sampling based on the introduction of unobserved data or <strong>hidden</strong> variables. Does the iterative part sound familiar? We did that in Gibbs sampling.</p>
 <p>We’ll soon see s deterministic version of this idea when we talk about the Expectation Maximization Algorithm (Dempster, Laird, and Rubin (1977)). Here we’ll see a stochastic version from Tanner and Wong’s (1987) <em>Data Augmentation algorithm for posterior sampling</em>. This was also explored in the physics by Swendsen and Wang’s (1987) algorithm for sampling from Ising and Potts models. (Look it up, it relates to your homework!)</p>
 <p>Indeed the general idea of introducing a hidden variable will also be exploited to introduce slice sampling and Hamiltonian Monte Carlo. Thus we shall see that the method is useful not only in “theory” to understand the decomposition of outcomes through hidden factors, but also in a practical way to construct sampling algorithms</p>
@@ -468,7 +463,7 @@ window.Quarto = {
 <li>Draw <span class="math inline">\(X_{n+1} \sim p_{X \vert Y}(. \vert y)\)</span></li>
 </ol>
 <p>Here is an example</p>
-<div id="cell-5" class="cell" data-execution_count="1" data-cell-type="code">
+<div id="cell-4" class="cell" data-execution_count="1" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
@@ -495,7 +490,7 @@ Y \vert X = x \, \, \sim N(x/\sqrt{2}, 1/2) \,\,\,  \rm{and} \,\,\, X \vert Y= y
 <p>The x-marginal is</p>
 <p><span class="math display">\[\propto e^{-x^{2}/2} \int e^{-(y-x/\sqrt{2})^2 }dy \]</span></p>
 <p>and clearly thus gets back the old normal we want to draw from.</p>
-<div id="cell-7" class="cell" data-execution_count="2" data-cell-type="code">
+<div id="cell-6" class="cell" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>N<span class="op">=</span><span class="dv">100000</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>np.zeros(N)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>x[<span class="dv">0</span>] <span class="op">=</span> np.random.rand() <span class="co"># INITIALIZE</span></span>
@@ -503,7 +498,7 @@ Y \vert X = x \, \, \sim N(x/\sqrt{2}, 1/2) \,\,\,  \rm{and} \,\,\, X \vert Y= y
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    Y<span class="op">=</span>sp.stats.norm.rvs(x[i<span class="op">-</span><span class="dv">1</span>]<span class="op">/</span>np.sqrt(<span class="dv">2</span>), <span class="fl">0.5</span>)</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    x[i]<span class="op">=</span>sp.stats.norm.rvs(Y<span class="op">/</span>np.sqrt(<span class="dv">2</span>), <span class="fl">0.5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="3" data-cell-type="code">
+<div id="cell-7" class="cell" data-execution_count="3" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plt.hist(x, bins<span class="op">=</span><span class="dv">30</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, normed<span class="op">=</span><span class="va">True</span>)<span class="op">;</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(x)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'x'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -555,7 +550,6 @@ Y \vert X = x \, \, \sim N(x/\sqrt{2}, 1/2) \,\,\,  \rm{and} \,\,\, X \vert Y= y
 </ol>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

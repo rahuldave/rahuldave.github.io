@@ -79,9 +79,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-5ebd13ccc45e2d8b7e0ce2c5ab43e761.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-8a6f08b2ced7792903d5f10496a7a536.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-5ebd13ccc45e2d8b7e0ce2c5ab43e761.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-5aa3f4b21411a16d8c2b8c4091f84306.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-3772b01e8296b7d46c6f0feecfdb0e85.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-5aa3f4b21411a16d8c2b8c4091f84306.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -374,9 +374,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#exploring-hamiltonian-monte-carlo" id="toc-exploring-hamiltonian-monte-carlo" class="nav-link active" data-scroll-target="#exploring-hamiltonian-monte-carlo">Exploring Hamiltonian Monte Carlo</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a>
-  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#looking-for-the-perfect-mcmc" id="toc-looking-for-the-perfect-mcmc" class="nav-link" data-scroll-target="#looking-for-the-perfect-mcmc">Looking for the perfect MCMC?</a></li>
   <li><a href="#mechanics-to-the-rescue" id="toc-mechanics-to-the-rescue" class="nav-link" data-scroll-target="#mechanics-to-the-rescue">Mechanics to the rescue</a></li>
   <li><a href="#data-augmentation" id="toc-data-augmentation" class="nav-link" data-scroll-target="#data-augmentation">Data Augmentation</a></li>
@@ -406,7 +404,6 @@ window.Quarto = {
   <li><a href="#the-hmc-algorithm" id="toc-the-hmc-algorithm" class="nav-link" data-scroll-target="#the-hmc-algorithm">The HMC Algorithm</a>
   <ul class="collapse">
   <li><a href="#a-simple-implementation" id="toc-a-simple-implementation" class="nav-link" data-scroll-target="#a-simple-implementation">A simple implementation</a></li>
-  </ul></li>
   </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.out.ipynb" download="index.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
@@ -482,9 +479,7 @@ window.Quarto = {
 </header>
 
 
-<section id="exploring-hamiltonian-monte-carlo" class="level1">
-<h1>Exploring Hamiltonian Monte Carlo</h1>
-<div id="cell-2" class="cell" data-execution_count="2" data-cell-type="code">
+<div id="cell-1" class="cell" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
@@ -498,10 +493,10 @@ window.Quarto = {
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymc3 <span class="im">as</span> pm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</section>
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>A lot of HMC’s recent appreciation as an MCMC method is due to <a href="https://arxiv.org/pdf/1206.1901.pdf">Neal</a>, and we’ll follow him and <a href="https://arxiv.org/abs/1701.02434">Betancourt</a> heavily here. All the signature Maroon diagrams are from Betancourt’s review paper.</p>
+</section>
 <section id="looking-for-the-perfect-mcmc" class="level2">
 <h2 class="anchored" data-anchor-id="looking-for-the-perfect-mcmc">Looking for the perfect MCMC?</h2>
 <p>The problem with MH is that is sensitive to the step size, Gibbs we need to know how to draw from the conditionals. What we want is the ability to adjust the step size but at the same time preserving the properties of MCMC, namely being able to sample the whole space and at the same time converge to the target distribution. We also would like to have no burnin, no autocorrelation, guarantee mixing and convergence very fast and no tunable parameters (and a pony).</p>
@@ -516,7 +511,7 @@ window.Quarto = {
 <p><span class="math display">\[V(q) = - log\, p(q)\]</span></p>
 <p>such that</p>
 <p><span class="math display">\[p(q) = e^{-V(q)}.\]</span></p>
-<div id="cell-7" class="cell" data-execution_count="31" data-cell-type="code">
+<div id="cell-6" class="cell" data-execution_count="31" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fun <span class="op">=</span> <span class="kw">lambda</span> q: sp.stats.norm.pdf(q) </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>qq <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">100</span>)</span>
@@ -529,7 +524,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="33" data-cell-type="code">
+<div id="cell-7" class="cell" data-execution_count="33" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>V <span class="op">=</span> <span class="kw">lambda</span> q: <span class="op">-</span>np.log(fun(q))</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>plt.plot(qq, V(qq))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -599,7 +594,7 @@ window.Quarto = {
 <section id="an-example" class="level3">
 <h3 class="anchored" data-anchor-id="an-example">An example</h3>
 <p>Here is an example of a harmonic oscillator with mass 1 and spring-constant 1</p>
-<div id="cell-14" class="cell" data-execution_count="6" data-cell-type="code">
+<div id="cell-13" class="cell" data-execution_count="6" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>q_t <span class="op">=</span> <span class="kw">lambda</span> t: <span class="fl">4.</span> <span class="op">*</span> np.cos(t)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>p_t <span class="op">=</span> <span class="kw">lambda</span> t: <span class="op">-</span><span class="fl">4.</span> <span class="op">*</span> np.sin(t)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>H_x_r_t <span class="op">=</span> <span class="kw">lambda</span> t: q_t(t)<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="fl">2.</span> <span class="op">+</span> p_t(t)<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="fl">2.</span></span>
@@ -765,7 +760,7 @@ window.Quarto = {
 <li>$q_i(t + ) = q_i(t) + $</li>
 </ul>
 <p>See code and plot below for harmonic oscillator, $ H = U(q) + K(p) = + $. Notice that the volume is not preserved as the trajectory we plot for the harmonic oscillator, which should be an elipse, diverges to infinity and the Hamiltonian is not conserved as we’d expect it to be. Something is wrong with this discretization.</p>
-<div id="cell-22" class="cell" data-execution_count="8" data-cell-type="code">
+<div id="cell-21" class="cell" data-execution_count="8" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> <span class="kw">lambda</span> q: q<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="dv">2</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> <span class="kw">lambda</span> p:  (p<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span><span class="dv">2</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>dUdq<span class="op">=</span> <span class="kw">lambda</span> q: q</span>
@@ -835,7 +830,7 @@ window.Quarto = {
 </ul>
 <p>If we do this repeatedly, the first and last steps can be combined as you can see in the code below.</p>
 <p>Notice that volume is preserved and the trajectory is very stable. In addition the discretization is reversible. The leapfrog method (named because updating momentum and position leapfrog each other) is a symplectic discretization.</p>
-<div id="cell-25" class="cell" data-execution_count="27" data-cell-type="code">
+<div id="cell-24" class="cell" data-execution_count="27" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> <span class="kw">lambda</span> q: (q)<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="fl">2.</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> <span class="kw">lambda</span> p:  (p<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span><span class="fl">2.</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>dUdq<span class="op">=</span> <span class="kw">lambda</span> q: q</span>
@@ -953,7 +948,7 @@ window.Quarto = {
 <section id="a-simple-implementation" class="level3">
 <h3 class="anchored" data-anchor-id="a-simple-implementation">A simple implementation</h3>
 <p>We implement the HMC algorithm below with a gaussian Kinetic energy</p>
-<div id="cell-31" class="cell" data-execution_count="42" data-cell-type="code">
+<div id="cell-30" class="cell" data-execution_count="42" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#constants</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> HMC(U,K,dUdq,N,q_0, p_0, epsilon<span class="op">=</span><span class="fl">0.01</span>, L<span class="op">=</span><span class="dv">100</span>):</span>
@@ -1012,7 +1007,7 @@ window.Quarto = {
 <span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"accept="</span>,accept<span class="op">/</span>np.double(N))</span>
 <span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> H, qall</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-32" class="cell" data-execution_count="43" data-cell-type="code">
+<div id="cell-31" class="cell" data-execution_count="43" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># functions</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> <span class="kw">lambda</span> q: q<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="fl">2.</span></span>
@@ -1020,7 +1015,7 @@ window.Quarto = {
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>dUdq<span class="op">=</span> <span class="kw">lambda</span> q: q</span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-33" class="cell" data-execution_count="45" data-cell-type="code">
+<div id="cell-32" class="cell" data-execution_count="45" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>H, qall<span class="op">=</span> HMC(U<span class="op">=</span>U,K<span class="op">=</span>K,dUdq<span class="op">=</span>dUdq,N<span class="op">=</span><span class="dv">10000</span>,q_0<span class="op">=</span><span class="dv">0</span>, p_0<span class="op">=-</span><span class="dv">4</span>, epsilon<span class="op">=</span><span class="fl">0.01</span>, L<span class="op">=</span><span class="dv">200</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>plt.hist(qall, bins<span class="op">=</span><span class="dv">50</span>, normed<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">100</span>)</span>
@@ -1038,7 +1033,7 @@ window.Quarto = {
 </div>
 </div>
 <p>We compare it to a MH sampler with the same number of steps</p>
-<div id="cell-35" class="cell" data-execution_count="46" data-cell-type="code">
+<div id="cell-34" class="cell" data-execution_count="46" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> MH_simple(p, n, sig, x0):</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    x_prev <span class="op">=</span> x0</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>[]</span>
@@ -1064,7 +1059,7 @@ window.Quarto = {
 <span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"accept="</span>,k<span class="op">/</span>np.double(n))</span>
 <span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-36" class="cell" data-execution_count="47" data-cell-type="code">
+<div id="cell-35" class="cell" data-execution_count="47" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>samples_mh <span class="op">=</span> MH_simple(p<span class="op">=</span>P, n<span class="op">=</span><span class="dv">10000</span>, sig<span class="op">=</span><span class="fl">4.0</span>, x0<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span>
@@ -1089,7 +1084,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Here we see that the MH acceptance ration is much lower and the correlation much higher!</p>
-<div id="cell-38" class="cell" data-scrolled="false" data-execution_count="54" data-cell-type="code">
+<div id="cell-37" class="cell" data-scrolled="false" data-execution_count="54" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> corrplot(trace,  maxlags<span class="op">=</span><span class="dv">100</span>):</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    plt.acorr(trace<span class="op">-</span>np.mean(trace),  normed<span class="op">=</span><span class="va">True</span>, maxlags<span class="op">=</span>maxlags)<span class="op">;</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    plt.xlim([<span class="dv">0</span>, maxlags])</span>
@@ -1103,7 +1098,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-39" class="cell" data-execution_count="55" data-cell-type="code">
+<div id="cell-38" class="cell" data-execution_count="55" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>corrplot(samples_mh)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'mh'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -1116,7 +1111,6 @@ window.Quarto = {
 </div>
 
 
-</section>
 </section>
 </section>
 

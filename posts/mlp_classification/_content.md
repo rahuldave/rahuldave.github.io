@@ -1,8 +1,4 @@
-<!-- cell:1 type:markdown -->
-# Classification using Multi-Layer Perceptrons
-
-
-<!-- cell:2 type:code -->
+<!-- cell:1 type:code -->
 ```python
 %matplotlib inline
 import numpy as np
@@ -18,17 +14,17 @@ import seaborn.apionly as sns
 sns.set_context("poster")
 ```
 
-<!-- cell:3 type:markdown -->
+<!-- cell:2 type:markdown -->
 Two additional imports here, seaborn and tqdm. Install via pip or conda
 
-<!-- cell:4 type:code -->
+<!-- cell:3 type:code -->
 ```python
 c0=sns.color_palette()[0]
 c1=sns.color_palette()[1]
 c2=sns.color_palette()[2]
 ```
 
-<!-- cell:5 type:code -->
+<!-- cell:4 type:code -->
 ```python
 from matplotlib.colors import ListedColormap
 cmap_light = ListedColormap(['#FFAAAA', '#AAFFAA', '#AAAAFF'])
@@ -58,14 +54,14 @@ def points_plot(ax, Xtr, Xte, ytr, yte, clf_predict, colorscale=cmap_light, cdis
     return ax,xx,yy
 ```
 
-<!-- cell:6 type:markdown -->
+<!-- cell:5 type:markdown -->
 ## Create some noisy moon shaped data
 
 In order to illustrate classification by a MLP, we first create some noisy moon shaped data. The *noise level* here and the *amount of data* is the first thing you might want to experiment with to understand the interplay of amount of data, noise level, number of parameters in the model we use to fit, and overfitting as illustrated by jagged boundaries.
 
 We standardize the data so that it is distributed about 0 as well
 
-<!-- cell:7 type:code -->
+<!-- cell:6 type:code -->
 ```python
 from sklearn.datasets import make_moons
 from sklearn.model_selection import train_test_split
@@ -75,7 +71,7 @@ dataX = StandardScaler().fit_transform(dataX)
 X_train, X_test, y_train, y_test = train_test_split(dataX, datay, test_size=.4)
 ```
 
-<!-- cell:8 type:code -->
+<!-- cell:7 type:code -->
 ```python
 h=.02
 x_min, x_max = dataX[:, 0].min() - .5, dataX[:, 0].max() + .5
@@ -100,7 +96,7 @@ Output:
 ```
 [Figure]
 
-<!-- cell:9 type:code -->
+<!-- cell:8 type:code -->
 ```python
 import torch
 import torch.nn as nn
@@ -109,12 +105,12 @@ from torch.autograd import Variable
 import torch.utils.data
 ```
 
-<!-- cell:10 type:markdown -->
+<!-- cell:9 type:markdown -->
 ## Writing a Multi-Layer Perceptron class
 
 We wrap the construction of our network 
 
-<!-- cell:11 type:code -->
+<!-- cell:10 type:code -->
 ```python
 class MLP(nn.Module):
     def __init__(self, input_dim, hidden_dim, output_dim, nonlinearity = fn.tanh, additional_hidden_wide=0):
@@ -139,10 +135,10 @@ class MLP(nn.Module):
         return x
 ```
 
-<!-- cell:12 type:markdown -->
+<!-- cell:11 type:markdown -->
 We use it to train. Notice the double->float casting. Numpy defautlts to double but torch defaulta to float to enable memory efficient GPU usage.
 
-<!-- cell:13 type:code -->
+<!-- cell:12 type:code -->
 ```python
 np.dtype(np.float).itemsize, np.dtype(np.double).itemsize
 ```
@@ -151,7 +147,7 @@ Output:
 (8, 8)
 ```
 
-<!-- cell:14 type:markdown -->
+<!-- cell:13 type:markdown -->
 But torch floats are 4 byte as can be seen from here: http://pytorch.org/docs/master/tensors.html
 
 
@@ -164,7 +160,7 @@ Points to note:
 - `model.parameters` gives us params, `model.named_parameters()` gives us assigned names. You can set your own names when you create a layer
 - we create an iterator over the data, more precisely over batches by doing `iter(loader)`. This dispatches to the `__iter__` method of the dataloader. (see https://github.com/pytorch/pytorch/blob/4157562c37c76902c79e7eca275951f3a4b1ef78/torch/utils/data/dataloader.py#L416) Always explore source code to understand what is going on
 
-<!-- cell:15 type:code -->
+<!-- cell:14 type:code -->
 ```python
 model2 = MLP(input_dim=2, hidden_dim=3, output_dim=2, nonlinearity=fn.tanh, additional_hidden_wide=1)
 print(model2)
@@ -200,10 +196,10 @@ MLP(
 ```
 [Figure]
 
-<!-- cell:16 type:markdown -->
+<!-- cell:15 type:markdown -->
 The out put from the foward pass is run on the entire test set. Since pytorch tracks layers upto but before the loss, this handily gives us the softmax output, which we can then use `np.argmax` on.
 
-<!-- cell:17 type:code -->
+<!-- cell:16 type:code -->
 ```python
 testoutput = model2.forward(Variable(torch.from_numpy(X_test).float()))
 testoutput
@@ -374,7 +370,7 @@ Variable containing:
 [torch.FloatTensor of size 160x2]
 ```
 
-<!-- cell:18 type:code -->
+<!-- cell:17 type:code -->
 ```python
 y_pred = testoutput.data.numpy().argmax(axis=1)
 y_pred
@@ -390,10 +386,10 @@ array([1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0,
        0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1])
 ```
 
-<!-- cell:19 type:markdown -->
+<!-- cell:18 type:markdown -->
 You can write your own but we import some metrics from sklearn
 
-<!-- cell:20 type:code -->
+<!-- cell:19 type:code -->
 ```python
 from sklearn.metrics import confusion_matrix, accuracy_score
 confusion_matrix(y_test, y_pred)
@@ -404,7 +400,7 @@ array([[66, 16],
        [ 5, 73]])
 ```
 
-<!-- cell:21 type:code -->
+<!-- cell:20 type:code -->
 ```python
 accuracy_score(y_test, y_pred)
 ```
@@ -413,17 +409,17 @@ Output:
 0.86875000000000002
 ```
 
-<!-- cell:22 type:markdown -->
+<!-- cell:21 type:markdown -->
 We can wrap this machinery in a function, and pass this function to `points_plot` to predict on a grid and thus give us a boundary viz
 
-<!-- cell:23 type:code -->
+<!-- cell:22 type:code -->
 ```python
 def make_pred(X_set):
     output = model2.forward(Variable(torch.from_numpy(X_set).float()))
     return output.data.numpy().argmax(axis=1)
 ```
 
-<!-- cell:24 type:code -->
+<!-- cell:23 type:code -->
 ```python
 with sns.plotting_context('poster'):
     ax = plt.gca()
@@ -431,12 +427,12 @@ with sns.plotting_context('poster'):
 ```
 [Figure]
 
-<!-- cell:25 type:markdown -->
+<!-- cell:24 type:markdown -->
 ## Making a `scikit-learn` like interface
 
 Since we want to run many experiments, we'll go ahead and wrap our fitting process in a sklearn style interface. Another example of such an interface is [here](https://github.com/vinhkhuc/PyTorch-Mini-Tutorials/blob/master/3_neural_net.py)
 
-<!-- cell:26 type:code -->
+<!-- cell:25 type:code -->
 ```python
 from tqdm import tnrange, tqdm_notebook
 class MLPClassifier:
@@ -498,16 +494,16 @@ class MLPClassifier:
         
 ```
 
-<!-- cell:27 type:markdown -->
+<!-- cell:26 type:markdown -->
 Some points about this:
 
 - we provide the ability to change the fitting parameters
 - by implementing a `__repr__` we let an instance of this class print something useful. Specifically we created a count of the number of parameters so that we can get a comparison of data size to parameter size.
 
-<!-- cell:28 type:markdown -->
+<!-- cell:27 type:markdown -->
 ## The simplest model, and a more complex model
 
-<!-- cell:29 type:code -->
+<!-- cell:28 type:code -->
 ```python
 logistic = MLPClassifier(input_dim=2, hidden_dim=2, output_dim=2, nonlinearity=lambda x: x, additional_hidden_wide=-1)
 logistic.set_fit_params(epochs=1000)
@@ -525,14 +521,14 @@ MLP(
 Num Params: 6
 ```
 
-<!-- cell:30 type:code -->
+<!-- cell:29 type:code -->
 ```python
 with sns.plotting_context('poster'):
     logistic.plot_loss()
 ```
 [Figure]
 
-<!-- cell:31 type:code -->
+<!-- cell:30 type:code -->
 ```python
 ypred = logistic.predict(X_test)
 #training and test accuracy
@@ -543,14 +539,14 @@ Output:
 (0.84583333333333333, 0.80625000000000002)
 ```
 
-<!-- cell:32 type:code -->
+<!-- cell:31 type:code -->
 ```python
 with sns.plotting_context('poster'):
     logistic.plot_boundary(X_train, X_test, y_train, y_test)
 ```
 [Figure]
 
-<!-- cell:33 type:code -->
+<!-- cell:32 type:code -->
 ```python
 clf = MLPClassifier(input_dim=2, hidden_dim=20, output_dim=2, nonlinearity=fn.tanh, additional_hidden_wide=1)
 clf.set_fit_params(epochs=1000)
@@ -570,14 +566,14 @@ MLP(
 Num Params: 522
 ```
 
-<!-- cell:34 type:code -->
+<!-- cell:33 type:code -->
 ```python
 with sns.plotting_context('poster'):
     clf.plot_loss()
 ```
 [Figure]
 
-<!-- cell:35 type:code -->
+<!-- cell:34 type:code -->
 ```python
 ypred = clf.predict(X_test)
 #training and test accuracy
@@ -588,19 +584,19 @@ Output:
 (0.875, 0.875)
 ```
 
-<!-- cell:36 type:code -->
+<!-- cell:35 type:code -->
 ```python
 with sns.plotting_context('poster'):
     clf.plot_boundary(X_train, X_test, y_train, y_test)
 ```
 [Figure]
 
-<!-- cell:37 type:markdown -->
+<!-- cell:36 type:markdown -->
 ## Experimentation Space
 
 Here is space for you to play. You might want to collect accuracies on the traing and test set and plot on a grid of these parameters or some other visualization. Notice how you might want to adjust number of epochs for convergence.
 
-<!-- cell:38 type:code -->
+<!-- cell:37 type:code -->
 ```python
 for additional in [0, 2, 4]:
     for hdim in [2, 10, 100, 1000]:
@@ -852,7 +848,7 @@ Train acc 0.866666666667
 Test acc 0.80625
 ```
 
-<!-- cell:39 type:code -->
+<!-- cell:38 type:code -->
 ```python
 
 ```

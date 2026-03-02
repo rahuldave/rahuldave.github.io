@@ -79,9 +79,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-5ebd13ccc45e2d8b7e0ce2c5ab43e761.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-8a6f08b2ced7792903d5f10496a7a536.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-5ebd13ccc45e2d8b7e0ce2c5ab43e761.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-5aa3f4b21411a16d8c2b8c4091f84306.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-3772b01e8296b7d46c6f0feecfdb0e85.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-5aa3f4b21411a16d8c2b8c4091f84306.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -374,9 +374,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#utility-or-risk---back-to-optimization" id="toc-utility-or-risk---back-to-optimization" class="nav-link active" data-scroll-target="#utility-or-risk---back-to-optimization">Utility or Risk - Back to optimization</a>
-  <ul class="collapse">
-  <li><a href="#decision-theory" id="toc-decision-theory" class="nav-link" data-scroll-target="#decision-theory">Decision Theory</a>
+  <li><a href="#decision-theory" id="toc-decision-theory" class="nav-link active" data-scroll-target="#decision-theory">Decision Theory</a>
   <ul class="collapse">
   <li><a href="#risk-from-the-posterior-predictive" id="toc-risk-from-the-posterior-predictive" class="nav-link" data-scroll-target="#risk-from-the-posterior-predictive">Risk from the posterior predictive</a></li>
   </ul></li>
@@ -396,7 +394,6 @@ window.Quarto = {
   </ul></li>
   <li><a href="#model-comparison" id="toc-model-comparison" class="nav-link" data-scroll-target="#model-comparison">Model comparison</a></li>
   <li><a href="#risk-from-the-posterior-posterior-points" id="toc-risk-from-the-posterior-posterior-points" class="nav-link" data-scroll-target="#risk-from-the-posterior-posterior-points">Risk from the posterior: posterior points</a></li>
-  </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.out.ipynb" download="index.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
     </div>
@@ -471,9 +468,7 @@ window.Quarto = {
 </header>
 
 
-<section id="utility-or-risk---back-to-optimization" class="level1">
-<h1>Utility or Risk - Back to optimization</h1>
-<div id="cell-2" class="cell" data-execution_count="1" data-cell-type="code">
+<div id="cell-1" class="cell" data-execution_count="1" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
@@ -544,7 +539,7 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="custom-utility-stock-market-returns">Custom utility: Stock Market Returns</h3>
 <p>This is a regression example.</p>
 <p>We generate some data to have returns as a function of stock price or trading signals. We generate it as a line with noise, which is perhaps the most unlikely stock market signal…:-)</p>
-<div id="cell-7" class="cell" data-execution_count="6" data-cell-type="code">
+<div id="cell-6" class="cell" data-execution_count="6" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Code to create artificial data</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">100</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> <span class="fl">0.025</span><span class="op">*</span>np.random.randn(N)</span>
@@ -573,7 +568,7 @@ window.Quarto = {
 <p><span class="math display">\[(0.01−(−0.01))^2=(0.01−0.03)^2=0.004\]</span></p>
 <p>Thus we want to define a loss that is sensitive to the difference between the prediction and the posterior-predictive sample.</p>
 <p>Notice that the loss is quadratic when the sign is different, as this will create an even higher penalty. There is still a penalty for guessing wrong with the same sign, since you will overcommit money that could have been used more usefully elsewhere.</p>
-<div id="cell-9" class="cell" data-execution_count="12" data-cell-type="code">
+<div id="cell-8" class="cell" data-execution_count="12" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> stock_loss(stock_return, pred, alpha <span class="op">=</span> <span class="fl">100.</span>):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> stock_return <span class="op">*</span> pred <span class="op">&lt;</span> <span class="dv">0</span>:</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="co">#opposite signs, not good</span></span>
@@ -582,7 +577,7 @@ window.Quarto = {
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">abs</span>(stock_return <span class="op">-</span> pred)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-10" class="cell" data-execution_count="13" data-cell-type="code">
+<div id="cell-9" class="cell" data-execution_count="13" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>true_value <span class="op">=</span> <span class="fl">.05</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>pred <span class="op">=</span> np.linspace(<span class="op">-</span><span class="fl">.12</span>, <span class="fl">.12</span>, <span class="dv">75</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -610,7 +605,7 @@ window.Quarto = {
 </div>
 <p>Notice how the loss changes after you cross the 0 line.</p>
 <p>Let us fit our returns model</p>
-<div id="cell-12" class="cell" data-execution_count="7" data-cell-type="code">
+<div id="cell-11" class="cell" data-execution_count="7" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymc3 <span class="im">as</span> pm</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pm.Model() <span class="im">as</span> model:</span>
@@ -631,7 +626,7 @@ window.Quarto = {
 100%|██████████| 100000/100000 [00:28&lt;00:00, 3488.01it/s]| 3/100000 [00:00&lt;55:42, 29.92it/s]</code></pre>
 </div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="9" data-cell-type="code">
+<div id="cell-12" class="cell" data-execution_count="9" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pm.plots.traceplot(trace<span class="op">=</span>burned_trace, varnames<span class="op">=</span>[<span class="st">"std"</span>, <span class="st">"beta"</span>, <span class="st">"alpha"</span>])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -642,7 +637,7 @@ window.Quarto = {
 </div>
 </div>
 <p>We seem to have converged. Now, the game is to find a point estimate y from the predictive samples at each point(<code>possible_outcomes</code>) that minimizes the stock loss, instead of the standard least squares line which is just the mean of the posterior predictive.</p>
-<div id="cell-15" class="cell" data-execution_count="11" data-cell-type="code">
+<div id="cell-14" class="cell" data-execution_count="11" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> fmin</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -770,7 +765,6 @@ window.Quarto = {
 <p>This approach can be used to give us point estimates from the posterior such as means and medians.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

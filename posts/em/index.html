@@ -79,9 +79,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-5ebd13ccc45e2d8b7e0ce2c5ab43e761.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-8a6f08b2ced7792903d5f10496a7a536.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../../site_libs/bootstrap/bootstrap-5ebd13ccc45e2d8b7e0ce2c5ab43e761.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-5aa3f4b21411a16d8c2b8c4091f84306.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-3772b01e8296b7d46c6f0feecfdb0e85.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-5aa3f4b21411a16d8c2b8c4091f84306.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -377,10 +377,8 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-em-algorithm" id="toc-the-em-algorithm" class="nav-link active" data-scroll-target="#the-em-algorithm">The EM algorithm</a>
-  <ul class="collapse">
-  <li><a href="#a-toy-problem" id="toc-a-toy-problem" class="nav-link" data-scroll-target="#a-toy-problem">A toy problem</a></li>
-  <li><a href="#the-em-algorithm-1" id="toc-the-em-algorithm-1" class="nav-link" data-scroll-target="#the-em-algorithm-1">The EM algorithm</a></li>
+  <li><a href="#a-toy-problem" id="toc-a-toy-problem" class="nav-link active" data-scroll-target="#a-toy-problem">A toy problem</a></li>
+  <li><a href="#the-em-algorithm" id="toc-the-em-algorithm" class="nav-link" data-scroll-target="#the-em-algorithm">The EM algorithm</a></li>
   <li><a href="#why-does-em-work" id="toc-why-does-em-work" class="nav-link" data-scroll-target="#why-does-em-work">Why does EM work?</a>
   <ul class="collapse">
   <li><a href="#e-step" id="toc-e-step" class="nav-link" data-scroll-target="#e-step">E-step</a></li>
@@ -390,7 +388,6 @@ window.Quarto = {
   <li><a href="#the-em-algorithm-with-indices-laid-out" id="toc-the-em-algorithm-with-indices-laid-out" class="nav-link" data-scroll-target="#the-em-algorithm-with-indices-laid-out">The EM algorithm with indices laid out</a></li>
   <li><a href="#the-gaussian-mixture-model-using-em" id="toc-the-gaussian-mixture-model-using-em" class="nav-link" data-scroll-target="#the-gaussian-mixture-model-using-em">The Gaussian Mixture model using EM</a></li>
   <li><a href="#why-is-em-important" id="toc-why-is-em-important" class="nav-link" data-scroll-target="#why-is-em-important">Why is EM important?</a></li>
-  </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.out.ipynb" download="index.out.ipynb"><i class="bi bi-journal-code"></i>Jupyter</a></li></ul></div></nav>
     </div>
@@ -465,9 +462,7 @@ window.Quarto = {
 </header>
 
 
-<section id="the-em-algorithm" class="level1">
-<h1>The EM algorithm</h1>
-<div id="cell-2" class="cell" data-execution_count="1" data-cell-type="code">
+<div id="cell-1" class="cell" data-execution_count="1" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
@@ -494,7 +489,7 @@ window.Quarto = {
 <figcaption>Bivariate normal model: the joint distribution of (x1, x2) with means, variances, and correlation parameter rho.</figcaption>
 </figure>
 </div>
-<div id="cell-5" class="cell" data-execution_count="2" data-cell-type="code">
+<div id="cell-4" class="cell" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sig1<span class="op">=</span><span class="dv">1</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>sig2<span class="op">=</span><span class="fl">0.75</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>mu1<span class="op">=</span><span class="fl">1.85</span></span>
@@ -512,10 +507,10 @@ window.Quarto = {
 </div>
 </div>
 <p>We plot the samples below as blue circles. Now say we lose the y-values of the last-20 pieces of data. We are left with a missing data or hidden data or latent-variables problem. We plot both datasets below, with the y-values of the lost points set to 0</p>
-<div id="cell-7" class="cell" data-execution_count="3" data-cell-type="code">
+<div id="cell-6" class="cell" data-execution_count="3" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>samples<span class="op">=</span>np.random.multivariate_normal(means, cov, size<span class="op">=</span><span class="dv">40</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="4" data-cell-type="code">
+<div id="cell-7" class="cell" data-execution_count="4" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>samples_censored<span class="op">=</span>np.copy(samples)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>samples_censored[<span class="dv">20</span>:,<span class="dv">1</span>]<span class="op">=</span><span class="dv">0</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>plt.plot(samples[:,<span class="dv">0</span>], samples[:,<span class="dv">1</span>], <span class="st">'o'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
@@ -535,7 +530,7 @@ window.Quarto = {
 <figcaption>Maximum likelihood estimators for the bivariate normal parameters: sample means, standard deviations, and correlation.</figcaption>
 </figure>
 </div>
-<div id="cell-10" class="cell" data-execution_count="5" data-cell-type="code">
+<div id="cell-9" class="cell" data-execution_count="5" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mu1 <span class="op">=</span> <span class="kw">lambda</span> s: np.mean(s[:,<span class="dv">0</span>])</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>mu2 <span class="op">=</span> <span class="kw">lambda</span> s: np.mean(s[:,<span class="dv">1</span>])</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>s1 <span class="op">=</span> <span class="kw">lambda</span> s: np.std(s[:,<span class="dv">0</span>])</span>
@@ -543,7 +538,7 @@ window.Quarto = {
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>rho <span class="op">=</span> <span class="kw">lambda</span> s: np.mean((s[:,<span class="dv">0</span>] <span class="op">-</span> mu1(s))<span class="op">*</span>(s[:,<span class="dv">1</span>] <span class="op">-</span> mu2(s)))<span class="op">/</span>(s1(s)<span class="op">*</span>s2(s))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>But we dont. So we shall follow an iterative process to find them.</p>
-<div id="cell-12" class="cell" data-execution_count="6" data-cell-type="code">
+<div id="cell-11" class="cell" data-execution_count="6" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mu1s<span class="op">=</span>[]</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>mu2s<span class="op">=</span>[]</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>s1s<span class="op">=</span>[]</span>
@@ -551,7 +546,7 @@ window.Quarto = {
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>rhos<span class="op">=</span>[]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Bur remember our data are missing in the y-direction. Assume 0 and go. Since we are using the MLE of the <strong>full-data</strong> likelihood, with this assumption we can use the MLE formulae. This is called M-step or maximization step since we used the MLE formulae.</p>
-<div id="cell-14" class="cell" data-execution_count="7" data-cell-type="code">
+<div id="cell-13" class="cell" data-execution_count="7" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>mu1s.append(mu1(samples_censored))</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>mu2s.append(mu2(samples_censored))</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>s1s.append(s1(samples_censored))</span>
@@ -572,12 +567,12 @@ window.Quarto = {
 <p>where we have used the notation <span class="math inline">\(z\)</span> to refer to the missing values.</p>
 <p>This <strong>posterior</strong> distribution (in the sense of bayes theorem, not bayesian analysis) for the multi-variate gaussian is a gaussian..see <a href="https://en.wikipedia.org/wiki/Multivariate_normal_distribution#Conditional_distributions">wikipedia</a> for the formulae</p>
 <p><span class="math display">\[\bar{y}(t+1) - \hat{\mu_2}(t) = \hat{\rho}(t)\frac{\hat{\sigma_2}(t)}{\hat{\sigma_1}(t)} \left( \bar{x} - \hat{\mu_1}(t) \right)\]</span></p>
-<div id="cell-16" class="cell" data-execution_count="8" data-cell-type="code">
+<div id="cell-15" class="cell" data-execution_count="8" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ynew(x, mu1, mu2, s1, s2, rho):</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mu2 <span class="op">+</span> rho<span class="op">*</span>(s2<span class="op">/</span>s1)<span class="op">*</span>(x <span class="op">-</span> mu1)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-17" class="cell" data-execution_count="9" data-cell-type="code">
+<div id="cell-16" class="cell" data-execution_count="9" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>newys<span class="op">=</span>ynew(samples_censored[<span class="dv">20</span>:,<span class="dv">0</span>], mu1s[<span class="dv">0</span>], mu2s[<span class="dv">0</span>], s1s[<span class="dv">0</span>], s2s[<span class="dv">0</span>], rhos[<span class="dv">0</span>])</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>newys</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
@@ -588,7 +583,7 @@ window.Quarto = {
 </div>
 </div>
 <p>This is called the E-step as it computes an expectation for us. Lets run this iteratively and see if we converge.</p>
-<div id="cell-19" class="cell" data-execution_count="10" data-cell-type="code">
+<div id="cell-18" class="cell" data-execution_count="10" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> step <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">20</span>):</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    samples_censored[<span class="dv">20</span>:,<span class="dv">1</span>] <span class="op">=</span> newys</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">#M-step</span></span>
@@ -786,8 +781,8 @@ window.Quarto = {
 <p>Voila. We converge to stable values of our parameters.</p>
 <p>But they may not be the ones we seeded the samples with. The Em algorithm is only good upto finding local minima, and a finite sample size also means that the minimum found can be slightly different.</p>
 </section>
-<section id="the-em-algorithm-1" class="level2">
-<h2 class="anchored" data-anchor-id="the-em-algorithm-1">The EM algorithm</h2>
+<section id="the-em-algorithm" class="level2">
+<h2 class="anchored" data-anchor-id="the-em-algorithm">The EM algorithm</h2>
 <p>** Expectation-maximization (EM)** method is an iterative method for maximizing difficult likelihood (or posterior) problems. It was first introduced by Dempster, Laird, and Rubin (1977).</p>
 <p>EM recognizes that if the data were fully observed, then ML/ MAP estimates would be easy to compute. It thus alternates between inferring the missing values given the parameters (E step), and then optimizing the parameters given the “filled in” data (M step). The idea is to find a lower-bound on the log-likelihood <span class="math inline">\(\ell\)</span> (E-step) and the optimize the lower-bound (M-step).</p>
 <p><strong>We want to use EM wherever we dont know how to optimize simply the x-data likelihood.</strong></p>
@@ -951,7 +946,7 @@ window.Quarto = {
 <p>To calculate the E-step we basically calculating the posterior of the <span class="math inline">\(z\)</span>’s given the <span class="math inline">\(x\)</span>’s and the current estimate of our parameters. We can use Bayes rule</p>
 <p><span class="math display">\[ w_{i,j}= p(z_i=j \vert  x_i, \lambda, \mu, \Sigma) = \frac{p( x_i \vert  z_i=j,  \mu, \Sigma)\, p(z_i=j \vert \lambda)}{\sum_{l=1}^k p(x_i  \vert  z_i=l,  \mu, \Sigma) \, p(z_i=l \vert \lambda)} \]</span></p>
 <p>Where <span class="math inline">\(p(x_i  \vert  z_i =j,  \mu, \Sigma)\)</span> is the density of the Gaussian with mean <span class="math inline">\(\mu_j\)</span> and covariance <span class="math inline">\(\Sigma_j\)</span> at <span class="math inline">\(x_i\)</span> and <span class="math inline">\(p(z_i=j \vert  \lambda)\)</span> is simply <span class="math inline">\(\lambda_j\)</span>. If we to compare these formulas in the M-step with the ones we found in GDA we can see that are very similar except that instead of using <span class="math inline">\(\delta\)</span> functions we use the <span class="math inline">\(w\)</span>’s. Thus the EM algorithm corresponds here to a weighted maximum likelihood and the weights are interpreted as the ‘probability’ of coming from that Gaussian instead of the deterministic <span class="math inline">\(\delta\)</span> functions. Thus we have achived a <strong>soft clustering</strong> (as opposed to k-means in the unsupervised case and classification in the supervised case).</p>
-<div id="cell-32" class="cell" data-execution_count="11" data-cell-type="code">
+<div id="cell-31" class="cell" data-execution_count="11" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">#In 1-D</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># True parameter values</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>mu_true <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">5</span>]</span>
@@ -972,7 +967,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-33" class="cell" data-execution_count="12" data-cell-type="code">
+<div id="cell-32" class="cell" data-execution_count="12" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#from Bios366 lecture notes</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats.distributions <span class="im">import</span> norm</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -982,7 +977,7 @@ window.Quarto = {
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> b <span class="op">/</span> (a <span class="op">+</span> b)</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-34" class="cell" data-execution_count="13" data-cell-type="code">
+<div id="cell-33" class="cell" data-execution_count="13" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Mstep(x, w):</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    lam <span class="op">=</span> np.mean(<span class="fl">1.</span><span class="op">-</span>w) </span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -993,7 +988,7 @@ window.Quarto = {
 <span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mu, sigma, lam</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-35" class="cell" data-execution_count="52" data-cell-type="code">
+<div id="cell-34" class="cell" data-execution_count="52" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(lambda_true, mu_true, sigma_true)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Initialize values</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>mu <span class="op">=</span> np.random.normal(<span class="dv">4</span>, <span class="dv">10</span>, size<span class="op">=</span><span class="dv">2</span>)</span>
@@ -1056,7 +1051,6 @@ lam: 0.4116</code></pre>
 <p>This structure can also be used in type-2 likelihood or emprical bayes estimation.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

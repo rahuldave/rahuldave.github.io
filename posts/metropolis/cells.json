@@ -10,21 +10,11 @@
     },
     {
       "cell": 1,
-      "type": "markdown",
-      "headings": [
-        {
-          "slug": "from-annealing-to-metropolis",
-          "level": 1
-        }
-      ]
+      "type": "code",
+      "html_id": "cell-1"
     },
     {
       "cell": 2,
-      "type": "code",
-      "html_id": "cell-2"
-    },
-    {
-      "cell": 3,
       "type": "markdown",
       "headings": [
         {
@@ -34,9 +24,14 @@
       ]
     },
     {
-      "cell": 4,
+      "cell": 3,
       "type": "code",
-      "html_id": "cell-4"
+      "html_id": "cell-3"
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": []
     },
     {
       "cell": 5,
@@ -45,16 +40,11 @@
     },
     {
       "cell": 6,
-      "type": "markdown",
-      "headings": []
+      "type": "code",
+      "html_id": "cell-6"
     },
     {
       "cell": 7,
-      "type": "code",
-      "html_id": "cell-7"
-    },
-    {
-      "cell": 8,
       "type": "markdown",
       "headings": [
         {
@@ -64,12 +54,12 @@
       ]
     },
     {
-      "cell": 9,
+      "cell": 8,
       "type": "code",
-      "html_id": "cell-9"
+      "html_id": "cell-8"
     },
     {
-      "cell": 10,
+      "cell": 9,
       "type": "markdown",
       "headings": [
         {
@@ -77,6 +67,11 @@
           "level": 2
         }
       ]
+    },
+    {
+      "cell": 10,
+      "type": "code",
+      "html_id": "cell-10"
     },
     {
       "cell": 11,
@@ -100,11 +95,6 @@
     },
     {
       "cell": 15,
-      "type": "code",
-      "html_id": "cell-15"
-    },
-    {
-      "cell": 16,
       "type": "markdown",
       "headings": [
         {
@@ -114,7 +104,7 @@
       ]
     },
     {
-      "cell": 17,
+      "cell": 16,
       "type": "markdown",
       "headings": [
         {
@@ -124,19 +114,24 @@
       ]
     },
     {
+      "cell": 17,
+      "type": "code",
+      "html_id": "cell-17"
+    },
+    {
       "cell": 18,
       "type": "code",
       "html_id": "cell-18"
     },
     {
       "cell": 19,
-      "type": "code",
-      "html_id": "cell-19"
+      "type": "markdown",
+      "headings": []
     },
     {
       "cell": 20,
-      "type": "markdown",
-      "headings": []
+      "type": "code",
+      "html_id": "cell-20"
     },
     {
       "cell": 21,
@@ -155,11 +150,6 @@
     },
     {
       "cell": 24,
-      "type": "code",
-      "html_id": "cell-24"
-    },
-    {
-      "cell": 25,
       "type": "markdown",
       "headings": []
     }

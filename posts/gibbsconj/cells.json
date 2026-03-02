@@ -10,26 +10,16 @@
     },
     {
       "cell": 1,
-      "type": "markdown",
-      "headings": [
-        {
-          "slug": "gibbs-with-conditional-a-conjugate",
-          "level": 1
-        }
-      ]
+      "type": "code",
+      "html_id": "cell-1"
     },
     {
       "cell": 2,
-      "type": "code",
-      "html_id": "cell-2"
-    },
-    {
-      "cell": 3,
       "type": "markdown",
       "headings": []
     },
     {
-      "cell": 4,
+      "cell": 3,
       "type": "markdown",
       "headings": [
         {
@@ -39,17 +29,17 @@
       ]
     },
     {
+      "cell": 4,
+      "type": "markdown",
+      "headings": []
+    },
+    {
       "cell": 5,
       "type": "markdown",
       "headings": []
     },
     {
       "cell": 6,
-      "type": "markdown",
-      "headings": []
-    },
-    {
-      "cell": 7,
       "type": "markdown",
       "headings": [
         {
@@ -59,12 +49,12 @@
       ]
     },
     {
-      "cell": 8,
+      "cell": 7,
       "type": "markdown",
       "headings": []
     },
     {
-      "cell": 9,
+      "cell": 8,
       "type": "markdown",
       "headings": [
         {
@@ -74,14 +64,14 @@
       ]
     },
     {
+      "cell": 9,
+      "type": "code",
+      "html_id": "cell-9"
+    },
+    {
       "cell": 10,
       "type": "code",
       "html_id": "cell-10"
-    },
-    {
-      "cell": 11,
-      "type": "code",
-      "html_id": "cell-11"
     }
   ]
 }
