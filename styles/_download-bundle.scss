@@ -1,0 +1,62 @@
+// ==============================================
+// Download Bundle Button
+// Uses CSS custom properties for light/dark mode
+// ==============================================
+
+.download-bundle-wrap {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0.5rem 0 0.5rem;
+}
+
+.download-bundle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 100px;
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+
+  &:hover {
+    border-color: var(--cb-blue-300);
+    color: var(--cb-blue-500);
+    text-decoration: none;
+    box-shadow: var(--shadow-xs);
+  }
+}
+
+.download-bundle-icon {
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.download-bundle-label {
+  font-weight: 500;
+}
+
+.download-bundle-size {
+  opacity: 0.6;
+  font-size: 0.65rem;
+
+  &::before {
+    content: "\00b7";
+    margin-right: 0.15rem;
+  }
+}
+
+// ---- Responsive ----
+
+@media (max-width: 768px) {
+  .download-bundle-btn {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.6rem;
+  }
+}

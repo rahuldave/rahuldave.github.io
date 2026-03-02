@@ -10,6 +10,8 @@
 designs/
 
 .DS_Store
-.claude/
-CLAUDE.md
 _site/
+
+# Claude Code — track skills and project docs, ignore local settings
+.claude/settings.local.json
+.claude/projects/

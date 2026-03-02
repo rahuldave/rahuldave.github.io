@@ -35,5 +35,6 @@ format:
       - includes/brand-icon.html
       - includes/discuss-links.html
       - includes/llm-explain.html
+      - includes/download-bundle.html
     include-before-body:
       - includes/theme-toggle.html
