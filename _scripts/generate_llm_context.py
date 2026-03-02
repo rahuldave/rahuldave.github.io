@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Generate LLM context files (content.md + cells.json) for each post.
+"""Generate LLM context files (_content.md + cells.json) for each post.
 
 For each post, generates:
-  - content.md: Clean markdown with cell markers for LLM consumption
+  - _content.md: Clean markdown with cell markers for LLM consumption
   - cells.json: Metadata mapping cells to HTML elements
 
-Also generates llms.txt at site root as an index of all content.md URLs.
+Also generates llms.txt at site root as an index of all _content.md URLs.
 
 Usage:
     python _scripts/generate_llm_context.py [--site-dir _site] [--posts-dir posts]
@@ -29,7 +29,7 @@ def slugify(text):
 
 
 def process_notebook(ipynb_path):
-    """Generate content.md and cells.json for a notebook post."""
+    """Generate _content.md and cells.json for a notebook post."""
     with open(ipynb_path) as f:
         nb = json.load(f)
 
@@ -121,7 +121,7 @@ def process_notebook(ipynb_path):
 
 
 def process_qmd_or_md(file_path):
-    """Generate content.md and cells.json for a .qmd or .md post.
+    """Generate _content.md and cells.json for a .qmd or .md post.
 
     Parses the file into a sequence of cells (markdown sections and code blocks),
     using the same <!-- cell:N type:code|markdown --> marker format as notebooks.
@@ -165,7 +165,7 @@ def process_qmd_or_md(file_path):
             current_lines.append(line)
             # Closing fence: ``` with only optional whitespace
             if re.match(r'^```\s*$', line):
-                # Save the code block (strip the fences for content.md)
+                # Save the code block (strip the fences for _content.md)
                 code_text = "\n".join(current_lines[1:-1])  # exclude opening/closing ```
                 cells.append(("code", code_text, code_lang))
                 current_lines = []
@@ -198,7 +198,7 @@ def process_qmd_or_md(file_path):
     else:
         flush_markdown()
 
-    # Build content.md and cells.json from parsed cells
+    # Build _content.md and cells.json from parsed cells
     content_parts = []
     cells_meta = []
 
@@ -318,7 +318,7 @@ def main():
         out_dir = site_dir / "posts" / post_slug
         out_dir.mkdir(parents=True, exist_ok=True)
 
-        content_path = out_dir / "content.md"
+        content_path = out_dir / "_content.md"
         cells_path = out_dir / "cells.json"
 
         with open(content_path, "w") as f:
@@ -330,7 +330,7 @@ def main():
         processed += 1
 
         # Add to llms.txt
-        url = f"{SITE_URL}/posts/{post_slug}/content.md"
+        url = f"{SITE_URL}/posts/{post_slug}/_content.md"
         entry_title = cells_json.get("title", post_slug) or post_slug
         llms_entries.append(f"{entry_title}: {url}")
 

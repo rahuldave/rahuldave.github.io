@@ -189,7 +189,7 @@
     if (contentMd) {
       executeAction(action, cellIndex);
     } else {
-      fetch(baseUrl + 'content.md')
+      fetch(baseUrl + '_content.md')
         .then(function(r) {
           if (!r.ok) throw new Error('Could not load content');
           return r.text();

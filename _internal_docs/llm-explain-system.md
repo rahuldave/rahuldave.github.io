@@ -26,18 +26,18 @@ No backend required — the Anthropic API supports CORS directly from browsers v
 
 **What it does:** For each post, generates two files in `_site/posts/<slug>/`:
 
-- **`content.md`** — Clean markdown with cell markers
+- **`_content.md`** — Clean markdown with cell markers
 - **`cells.json`** — Metadata (title, source type, cell list with heading info)
 
-Also generates `_site/llms.txt` — index of all `content.md` URLs.
+Also generates `_site/llms.txt` — index of all `_content.md` URLs.
 
 **Runs when:** Post-render step. Invoked via `make llm-context` or as part of `make build`.
 
-### Layer 3: Runtime JavaScript (`includes/llm-explain.html`)
+### Layer 3: Runtime JavaScript (`assets/llm-explain.js`)
 
 **What it does:** IIFE that runs on post pages. Fetches `cells.json`, injects buttons, handles API key management, streams responses from the Anthropic API, renders markdown+LaTeX.
 
-**Included via:** `include-after-body` in `_quarto.yml`.
+**Loaded via:** `includes/llm-explain.html` contains a single `<script src="/assets/llm-explain.js"></script>` tag, registered as `include-after-body` in `_quarto.yml`. Quarto resolves the path to a relative URL per page. The JS is loaded once and cached by the browser across all pages.
 
 ---
 
@@ -46,15 +46,29 @@ Also generates `_site/llms.txt` — index of all `content.md` URLs.
 | File | Purpose |
 |------|---------|
 | `_filters/cell-markers.lua` | Adds `data-cell-type="code"` to notebook cell divs |
-| `_scripts/generate_llm_context.py` | Generates content.md, cells.json, llms.txt |
-| `includes/llm-explain.html` | Runtime JS (buttons, modals, API calls) |
+| `_scripts/generate_llm_context.py` | Generates _content.md, cells.json, llms.txt |
+| `assets/llm-explain.js` | Runtime JS (buttons, modals, API calls) — cacheable external file |
+| `includes/llm-explain.html` | `<script src>` tag that loads `llm-explain.js` |
 | `styles/_llm-explain.scss` | Styles (buttons, modals) using CSS custom properties |
 | `_quarto.yml` | Registers filter + include-after-body |
 | `Makefile` | `llm-context` target + integrated into `build` |
 
+### Why `_content.md` (not `content.md`)
+
+The LLM context file is named with a leading underscore because Quarto skips files and directories prefixed with `_` during rendering. Without the underscore, `content.md` files in `docs/posts/*/` were picked up by Quarto as renderable source files on subsequent builds, causing:
+- Duplicate/broken listing items (163 instead of 57) with no dates or categories
+- Broken links pointing to non-existent `content.html` pages
+- A cascading `docs/docs/` nesting problem from Quarto rendering the `docs/` directory
+
+The `cells.json` file does not need an underscore because `.json` is not a Quarto source type.
+
+### Flat `.md` Posts and LLM Support
+
+Top-level markdown posts (e.g., `posts/boxloop.md`) render to flat URLs like `/posts/boxloop.html`, not to a directory with `index.html`. However, the LLM context files are always written to a directory: `/posts/boxloop/_content.md` and `/posts/boxloop/cells.json`. The JS extracts the slug from the URL (`boxloop`) and constructs `baseUrl = '/posts/' + slug + '/'`, so it correctly fetches `/posts/boxloop/cells.json` — which exists alongside the flat HTML file. Flat `.md` posts are fully supported for LLM interrogation.
+
 ---
 
-## content.md Format
+## _content.md Format
 
 Unified marker format for all post types:
 
@@ -171,7 +185,7 @@ All post types use the same `<!-- cell:N -->` markers.
 
 | Action | Slicing logic |
 |--------|---------------|
-| Summarize | Send all of `content.md` |
+| Summarize | Send all of `_content.md` |
 | Explain up to here (cell N) | Send from start through end of cell N's content |
 | Explain this code (cell N) | Send cell N's code + up to 3000 chars preceding context |
 
@@ -200,7 +214,7 @@ All post types use the same `<!-- cell:N -->` markers.
 |-----------|--------|----------|
 | Empty code cells (notebook) | Handled | Button injected, empty code sent — Claude handles gracefully |
 | No cells.json (404) | Handled | Feature silently disabled for that post |
-| No content.md (404) | Handled | Error shown in chat modal |
+| No _content.md (404) | Handled | Error shown in chat modal |
 | Invalid API key (401) | Handled | Key cleared, re-prompt shown |
 | Stream interrupted | Handled | Partial text rendered |
 | MathJax not loaded | Handled | Raw LaTeX shown (no crash) |
@@ -220,7 +234,7 @@ All post types use the same `<!-- cell:N -->` markers.
 make build
   ├── quarto render           # Renders all posts to _site/
   │   └── cell-markers.lua    # Adds data-cell-type to code cells
-  ├── python3 generate_llm_context.py  # Writes content.md + cells.json to _site/
+  ├── python3 generate_llm_context.py  # Writes _content.md + cells.json to _site/
   └── rsync _site/ docs/      # Copies to GitHub Pages directory
 ```
 
