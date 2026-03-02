@@ -414,7 +414,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Visualizing neural network function approximation through hidden layer activations.</p>
 <section id="how-sigmoids-combine" class="level1">
 <h1>How sigmoids combine</h1>
-<div id="cell-2" class="cell" data-execution_count="1" data-cell-type="code">
+<div id="cell-2" class="cell" data-cell-type="code" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.nn <span class="im">import</span> functional <span class="im">as</span> fn</span>
@@ -440,7 +440,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        out_final <span class="op">=</span> <span class="va">self</span>.fc_final(x)</span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> out_final, x, out_init</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-3" class="cell" data-execution_count="2" data-cell-type="code">
+<div id="cell-3" class="cell" data-cell-type="code" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -457,13 +457,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-4" class="cell" data-execution_count="14" data-cell-type="code">
+<div id="cell-4" class="cell" data-cell-type="code" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>xgrid.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <pre><code>(629,)</code></pre>
 </div>
 </div>
-<div id="cell-5" class="cell" data-execution_count="3" data-cell-type="code">
+<div id="cell-5" class="cell" data-cell-type="code" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>est <span class="op">=</span> LinearRegression().fit(x.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>), y)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)<span class="op">;</span></span>
@@ -476,22 +476,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-6" class="cell" data-execution_count="4" data-cell-type="code">
+<div id="cell-6" class="cell" data-cell-type="code" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>xdata <span class="op">=</span> Variable(torch.Tensor(xgrid))</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ydata <span class="op">=</span> Variable(torch.Tensor(ygrid))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-7" class="cell" data-execution_count="67" data-cell-type="code">
+<div id="cell-7" class="cell" data-cell-type="code" data-execution_count="67">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.utils.data</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> torch.utils.data.TensorDataset(torch.from_numpy(xgrid.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)), torch.from_numpy(ygrid))</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>loader <span class="op">=</span> torch.utils.data.DataLoader(dataset, batch_size<span class="op">=</span><span class="dv">64</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="68" data-cell-type="code">
+<div id="cell-8" class="cell" data-cell-type="code" data-execution_count="68">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dataset.data_tensor.shape, dataset.target_tensor.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <pre><code>(torch.Size([629, 1]), torch.Size([629]))</code></pre>
 </div>
 </div>
-<div id="cell-9" class="cell" data-execution_count="64" data-cell-type="code">
+<div id="cell-9" class="cell" data-cell-type="code" data-execution_count="64">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> run_model(model, epochs):</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    criterion <span class="op">=</span> nn.MSELoss()</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    lr, epochs, batch_size <span class="op">=</span> <span class="fl">1e-1</span> , epochs , <span class="dv">64</span></span>
@@ -513,10 +513,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="input-dim-1-2-hidden-layers-width-2-linear-output" class="level3">
 <h3 class="anchored" data-anchor-id="input-dim-1-2-hidden-layers-width-2-linear-output">input dim 1, 2 hidden layers width 2, linear output</h3>
-<div id="cell-11" class="cell" data-execution_count="92" data-cell-type="code">
+<div id="cell-11" class="cell" data-cell-type="code" data-execution_count="92">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">2</span>, nonlinearity<span class="op">=</span>fn.sigmoid, additional_hidden_wide<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-12" class="cell" data-execution_count="93" data-cell-type="code">
+<div id="cell-12" class="cell" data-cell-type="code" data-execution_count="93">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>MLRegP(
@@ -528,10 +528,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 )</code></pre>
 </div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="94" data-cell-type="code">
+<div id="cell-13" class="cell" data-cell-type="code" data-execution_count="94">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>accum <span class="op">=</span> run_model(model, <span class="dv">2000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-14" class="cell" data-execution_count="95" data-cell-type="code">
+<div id="cell-14" class="cell" data-cell-type="code" data-execution_count="95">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -541,7 +541,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-15" class="cell" data-execution_count="96" data-cell-type="code">
+<div id="cell-15" class="cell" data-cell-type="code" data-execution_count="96">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>]<span class="op">+</span>a[<span class="dv">1</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>]<span class="op">-</span>a[<span class="dv">1</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="dv">0</span>, <span class="dv">1000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -553,7 +553,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-16" class="cell" data-execution_count="97" data-cell-type="code">
+<div id="cell-16" class="cell" data-cell-type="code" data-execution_count="97">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>finaloutput, init_output, mid_output <span class="op">=</span> model.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"r"</span>)</span>
@@ -567,14 +567,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-17" class="cell" data-execution_count="98" data-cell-type="code">
+<div id="cell-17" class="cell" data-cell-type="code" data-execution_count="98">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>io <span class="op">=</span> mid_output.data.numpy()</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>io.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <pre><code>(629, 2)</code></pre>
 </div>
 </div>
-<div id="cell-18" class="cell" data-execution_count="99" data-cell-type="code">
+<div id="cell-18" class="cell" data-cell-type="code" data-execution_count="99">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(io.shape[<span class="dv">1</span>]):</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    plt.plot(xgrid, io[:, j], lw<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -589,11 +589,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="input-dim-1-2-hidden-layers-width-4-linear-output" class="level3">
 <h3 class="anchored" data-anchor-id="input-dim-1-2-hidden-layers-width-4-linear-output">input dim 1, 2 hidden layers width 4, linear output</h3>
-<div id="cell-20" class="cell" data-execution_count="105" data-cell-type="code">
+<div id="cell-20" class="cell" data-cell-type="code" data-execution_count="105">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>model2 <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">4</span>, nonlinearity<span class="op">=</span>fn.sigmoid, additional_hidden_wide<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>accum <span class="op">=</span> run_model(model2, <span class="dv">4000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-21" class="cell" data-execution_count="129" data-cell-type="code">
+<div id="cell-21" class="cell" data-cell-type="code" data-execution_count="129">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>MLRegP(
@@ -605,7 +605,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 )</code></pre>
 </div>
 </div>
-<div id="cell-22" class="cell" data-execution_count="106" data-cell-type="code">
+<div id="cell-22" class="cell" data-cell-type="code" data-execution_count="106">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -615,7 +615,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-23" class="cell" data-execution_count="107" data-cell-type="code">
+<div id="cell-23" class="cell" data-cell-type="code" data-execution_count="107">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>finaloutput, init_output, mid_output <span class="op">=</span> model2.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>)</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"r"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -627,14 +627,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="108" data-cell-type="code">
+<div id="cell-24" class="cell" data-cell-type="code" data-execution_count="108">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>io <span class="op">=</span> mid_output.data.numpy()</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>io.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <pre><code>(629, 4)</code></pre>
 </div>
 </div>
-<div id="cell-25" class="cell" data-execution_count="109" data-cell-type="code">
+<div id="cell-25" class="cell" data-cell-type="code" data-execution_count="109">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(io.shape[<span class="dv">1</span>]):</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    plt.plot(xgrid, io[:, j], lw<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -649,7 +649,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="input-dim-1-2-hidden-layers-width-8-linear-output" class="level3">
 <h3 class="anchored" data-anchor-id="input-dim-1-2-hidden-layers-width-8-linear-output">input dim 1, 2 hidden layers width 8, linear output</h3>
-<div id="cell-27" class="cell" data-execution_count="110" data-cell-type="code">
+<div id="cell-27" class="cell" data-cell-type="code" data-execution_count="110">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>model3 <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">8</span>, nonlinearity<span class="op">=</span>fn.sigmoid, additional_hidden_wide<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>accum <span class="op">=</span> run_model(model3, <span class="dv">4000</span>)</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -661,7 +661,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-28" class="cell" data-execution_count="128" data-cell-type="code">
+<div id="cell-28" class="cell" data-cell-type="code" data-execution_count="128">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>MLRegP(
@@ -673,7 +673,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 )</code></pre>
 </div>
 </div>
-<div id="cell-29" class="cell" data-execution_count="111" data-cell-type="code">
+<div id="cell-29" class="cell" data-cell-type="code" data-execution_count="111">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>finaloutput, init_output, mid_output <span class="op">=</span> model3.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>)</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"r"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -685,7 +685,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-30" class="cell" data-execution_count="112" data-cell-type="code">
+<div id="cell-30" class="cell" data-cell-type="code" data-execution_count="112">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>io <span class="op">=</span> mid_output.data.numpy()</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(io.shape[<span class="dv">1</span>]):</span>
@@ -701,7 +701,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="input-dim-1-3-hidden-layers-width-4-linear-output" class="level3">
 <h3 class="anchored" data-anchor-id="input-dim-1-3-hidden-layers-width-4-linear-output">input dim 1, 3 hidden layers width 4, linear output</h3>
-<div id="cell-32" class="cell" data-execution_count="114" data-cell-type="code">
+<div id="cell-32" class="cell" data-cell-type="code" data-execution_count="114">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>model4 <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">4</span>, nonlinearity<span class="op">=</span>fn.sigmoid, additional_hidden_wide<span class="op">=</span><span class="dv">2</span>)</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>accum <span class="op">=</span> run_model(model4, <span class="dv">4000</span>)</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -713,7 +713,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-33" class="cell" data-execution_count="127" data-cell-type="code">
+<div id="cell-33" class="cell" data-cell-type="code" data-execution_count="127">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model4)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>MLRegP(
@@ -726,7 +726,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 )</code></pre>
 </div>
 </div>
-<div id="cell-34" class="cell" data-execution_count="115" data-cell-type="code">
+<div id="cell-34" class="cell" data-cell-type="code" data-execution_count="115">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>finaloutput, init_output, mid_output <span class="op">=</span> model4.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>)</span>
 <span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"r"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -741,7 +741,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="input-dim-1-3-hidden-layers-width-2-linear-output" class="level3">
 <h3 class="anchored" data-anchor-id="input-dim-1-3-hidden-layers-width-2-linear-output">input dim 1, 3 hidden layers width 2, linear output</h3>
-<div id="cell-36" class="cell" data-execution_count="117" data-cell-type="code">
+<div id="cell-36" class="cell" data-cell-type="code" data-execution_count="117">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>model5 <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">2</span>, nonlinearity<span class="op">=</span>fn.sigmoid, additional_hidden_wide<span class="op">=</span><span class="dv">2</span>)</span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>accum <span class="op">=</span> run_model(model5, <span class="dv">4000</span>)</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -753,7 +753,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-37" class="cell" data-execution_count="130" data-cell-type="code">
+<div id="cell-37" class="cell" data-cell-type="code" data-execution_count="130">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model5)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>MLRegP(
@@ -766,7 +766,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 )</code></pre>
 </div>
 </div>
-<div id="cell-38" class="cell" data-execution_count="118" data-cell-type="code">
+<div id="cell-38" class="cell" data-cell-type="code" data-execution_count="118">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>finaloutput, init_output, mid_output <span class="op">=</span> model5.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>)</span>
 <span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"r"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -778,7 +778,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-39" class="cell" data-execution_count="119" data-cell-type="code">
+<div id="cell-39" class="cell" data-cell-type="code" data-execution_count="119">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>io <span class="op">=</span> mid_output.data.numpy()</span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(io.shape[<span class="dv">1</span>]):</span>
@@ -794,7 +794,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="input-dim-1-1-hidden-layers-width-2-linear-output" class="level3">
 <h3 class="anchored" data-anchor-id="input-dim-1-1-hidden-layers-width-2-linear-output">input dim 1, 1 hidden layers width 2, linear output</h3>
-<div id="cell-41" class="cell" data-execution_count="120" data-cell-type="code">
+<div id="cell-41" class="cell" data-cell-type="code" data-execution_count="120">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>model6 <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">2</span>, nonlinearity<span class="op">=</span>fn.sigmoid, additional_hidden_wide<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>accum <span class="op">=</span> run_model(model6, <span class="dv">4000</span>)</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -806,7 +806,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-42" class="cell" data-execution_count="131" data-cell-type="code">
+<div id="cell-42" class="cell" data-cell-type="code" data-execution_count="131">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model6)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>MLRegP(
@@ -817,7 +817,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 )</code></pre>
 </div>
 </div>
-<div id="cell-43" class="cell" data-execution_count="121" data-cell-type="code">
+<div id="cell-43" class="cell" data-cell-type="code" data-execution_count="121">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>finaloutput, init_output, mid_output <span class="op">=</span> model6.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>)</span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"r"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -829,7 +829,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-44" class="cell" data-execution_count="122" data-cell-type="code">
+<div id="cell-44" class="cell" data-cell-type="code" data-execution_count="122">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>io <span class="op">=</span> mid_output.data.numpy()</span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(io.shape[<span class="dv">1</span>]):</span>
@@ -845,7 +845,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="input-dim-1-1-hidden-layers-width-1-linear-output" class="level3">
 <h3 class="anchored" data-anchor-id="input-dim-1-1-hidden-layers-width-1-linear-output">input dim 1, 1 hidden layers width 1, linear output</h3>
-<div id="cell-46" class="cell" data-execution_count="124" data-cell-type="code">
+<div id="cell-46" class="cell" data-cell-type="code" data-execution_count="124">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>model7 <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">1</span>, nonlinearity<span class="op">=</span>fn.sigmoid, additional_hidden_wide<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>accum <span class="op">=</span> run_model(model7, <span class="dv">4000</span>)</span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -857,7 +857,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-47" class="cell" data-execution_count="132" data-cell-type="code">
+<div id="cell-47" class="cell" data-cell-type="code" data-execution_count="132">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model7)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>MLRegP(
@@ -868,7 +868,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 )</code></pre>
 </div>
 </div>
-<div id="cell-48" class="cell" data-execution_count="125" data-cell-type="code">
+<div id="cell-48" class="cell" data-cell-type="code" data-execution_count="125">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>finaloutput, init_output, mid_output <span class="op">=</span> model7.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>)</span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"r"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -880,7 +880,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-49" class="cell" data-scrolled="true" data-execution_count="126" data-cell-type="code">
+<div id="cell-49" class="cell" data-cell-type="code" data-scrolled="true" data-execution_count="126">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>io <span class="op">=</span> mid_output.data.numpy()</span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
 <span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(io.shape[<span class="dv">1</span>]):</span>
@@ -896,7 +896,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="input-dim-1-1-hidden-layers-width-16-linear-output" class="level3">
 <h3 class="anchored" data-anchor-id="input-dim-1-1-hidden-layers-width-16-linear-output">input dim 1, 1 hidden layers width 16, linear output</h3>
-<div id="cell-51" class="cell" data-execution_count="138" data-cell-type="code">
+<div id="cell-51" class="cell" data-cell-type="code" data-execution_count="138">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>model8 <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">16</span>, nonlinearity<span class="op">=</span>fn.sigmoid, additional_hidden_wide<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>accum <span class="op">=</span> run_model(model8, <span class="dv">4000</span>)</span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -908,7 +908,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-52" class="cell" data-execution_count="139" data-cell-type="code">
+<div id="cell-52" class="cell" data-cell-type="code" data-execution_count="139">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model8)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>MLRegP(
@@ -919,7 +919,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 )</code></pre>
 </div>
 </div>
-<div id="cell-53" class="cell" data-execution_count="143" data-cell-type="code">
+<div id="cell-53" class="cell" data-cell-type="code" data-execution_count="143">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>finaloutput, init_output, mid_output <span class="op">=</span> model8.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
 <span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>)</span>
 <span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"r"</span>)</span>
@@ -932,7 +932,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-54" class="cell" data-execution_count="141" data-cell-type="code">
+<div id="cell-54" class="cell" data-cell-type="code" data-execution_count="141">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>io <span class="op">=</span> mid_output.data.numpy()</span>
 <span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
 <span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(io.shape[<span class="dv">1</span>]):</span>
@@ -996,615 +996,7 @@ document.addEventListener('DOMContentLoaded', function() {
     "https://www.linkedin.com/sharing/share-offsite/?url=" + url;
 })();
 </script>
-<script>
-(function() {
-  // Gate: only activate on individual post pages
-  var p = window.location.pathname;
-  if (!p.startsWith('/posts/')) return;
-  var listingPaths = ['/posts/', '/posts', '/posts/index.html'];
-  if (listingPaths.indexOf(p) >= 0) return;
-
-  // Extract post slug from URL
-  var match = p.match(/\/posts\/([^/.]+)/);
-  if (!match) return;
-  var slug = match[1];
-  var baseUrl = '/posts/' + slug + '/';
-
-  // State
-  var cellsData = null;
-  var contentMd = null;
-  var apiKey = localStorage.getItem('claude-api-key');
-  var MODEL = 'claude-sonnet-4-20250514';
-  var SYSTEM_PROMPT = 'You are a helpful teaching assistant for a data science and machine learning course. ' +
-    'Explain concepts clearly and concisely. Reference specific code examples when relevant. ' +
-    'Use LaTeX notation (with $...$ for inline and $$...$$ for display) for mathematical expressions. ' +
-    'Keep responses focused and educational.';
-
-  // --- Initialization ---
-
-  fetch(baseUrl + 'cells.json')
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(data) {
-      if (!data) return;
-      cellsData = data;
-      injectButtons();
-    })
-    .catch(function() { /* No cells.json — feature disabled for this post */ });
-
-  // --- Button Injection ---
-
-  function injectButtons() {
-    injectSummarizeButton();
-    injectCellButtons();
-  }
-
-  function injectSummarizeButton() {
-    var anchor = document.querySelector('#title-block-header') ||
-                 document.querySelector('.quarto-title-block') ||
-                 document.querySelector('header');
-    if (!anchor) return;
-
-    var wrap = document.createElement('div');
-    wrap.className = 'llm-summarize-wrap';
-
-    var btn = document.createElement('button');
-    btn.className = 'llm-btn llm-btn-summarize';
-    btn.textContent = 'Summarize this page';
-    btn.addEventListener('click', function() { handleAction('summarize', null); });
-
-    wrap.appendChild(btn);
-    anchor.parentNode.insertBefore(wrap, anchor.nextSibling);
-  }
-
-  function injectCellButtons() {
-    var sourceType = cellsData ? cellsData.source_type : 'ipynb';
-
-    // --- Notebook posts (ipynb): buttons after Quarto's div.cell elements ---
-    var notebookCells = document.querySelectorAll('div.cell[id^="cell-"]');
-    for (var i = 0; i < notebookCells.length; i++) {
-      var cell = notebookCells[i];
-      var cellIndex = parseInt(cell.id.replace('cell-', ''), 10);
-      if (isNaN(cellIndex)) continue;
-
-      var container = document.createElement('div');
-      container.className = 'llm-buttons';
-
-      container.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', cellIndex));
-      container.appendChild(makeLlmBtn('Explain this code', 'explain-code', cellIndex));
-
-      cell.parentNode.insertBefore(container, cell.nextSibling);
-    }
-
-    // --- Non-notebook posts (md/qmd): buttons after headings and code blocks ---
-    if (sourceType !== 'ipynb' || notebookCells.length === 0) {
-      // Build a lookup: heading slug -> cell index from cells.json
-      var slugToCellIndex = {};
-      if (cellsData && cellsData.cells) {
-        for (var c = 0; c < cellsData.cells.length; c++) {
-          var meta = cellsData.cells[c];
-          if (meta.headings) {
-            for (var h = 0; h < meta.headings.length; h++) {
-              slugToCellIndex[meta.headings[h].slug] = meta.cell;
-            }
-          }
-        }
-      }
-
-      // "Explain up to here" after h2/h3 headings
-      // Quarto puts the id on the parent <section>, and data-anchor-id on the <h>
-      var headings = document.querySelectorAll('h2[data-anchor-id], h3[data-anchor-id], h2[id], h3[id]');
-      var seen = new Set();
-      for (var i = 0; i < headings.length; i++) {
-        var heading = headings[i];
-        var headingSlug = heading.getAttribute('data-anchor-id') || heading.id;
-        if (!headingSlug || headingSlug === 'toc-title') continue;
-        if (seen.has(headingSlug)) continue; // deduplicate
-        seen.add(headingSlug);
-
-        var cellIdx = slugToCellIndex[headingSlug];
-        if (cellIdx === undefined) cellIdx = i; // fallback to DOM order
-
-        var wrap = document.createElement('div');
-        wrap.className = 'llm-buttons';
-        wrap.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', cellIdx));
-
-        // Insert after the heading's parent section, or after the heading itself
-        var section = heading.closest('section');
-        var target = section || heading;
-        if (target.nextSibling) {
-          target.parentNode.insertBefore(wrap, target.nextSibling);
-        } else {
-          target.parentNode.appendChild(wrap);
-        }
-      }
-
-      // "Explain this code" after standalone code blocks (not inside div.cell)
-      var codeBlocks = document.querySelectorAll('div.sourceCode');
-      for (var i = 0; i < codeBlocks.length; i++) {
-        var block = codeBlocks[i];
-        // Skip code blocks that are inside Quarto notebook cells
-        if (block.closest('div.cell')) continue;
-
-        // Find the matching cell index from cells.json
-        // Use position in DOM relative to headings to estimate cell index
-        var codeIdx = findCodeCellIndex(block, slugToCellIndex);
-
-        var wrap = document.createElement('div');
-        wrap.className = 'llm-buttons';
-        wrap.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', codeIdx));
-        wrap.appendChild(makeLlmBtn('Explain this code', 'explain-code', codeIdx));
-
-        block.parentNode.insertBefore(wrap, block.nextSibling);
-      }
-    }
-  }
-
-  function findCodeCellIndex(codeBlock, slugToCellIndex) {
-    // Walk backwards from the code block to find the nearest heading
-    // then look up its cell index and add 1 (the code cell follows the heading)
-    if (!cellsData || !cellsData.cells) return 0;
-
-    // Find code cells in cells.json
-    var codeCells = [];
-    for (var i = 0; i < cellsData.cells.length; i++) {
-      if (cellsData.cells[i].type === 'code') {
-        codeCells.push(cellsData.cells[i].cell);
-      }
-    }
-
-    // Find which code block this is in DOM order (among standalone code blocks)
-    var allCodeBlocks = document.querySelectorAll('div.sourceCode:not(.cell-code)');
-    for (var i = 0; i < allCodeBlocks.length; i++) {
-      if (allCodeBlocks[i] === codeBlock && i < codeCells.length) {
-        return codeCells[i];
-      }
-    }
-    return codeCells.length > 0 ? codeCells[0] : 0;
-  }
-
-  function makeLlmBtn(text, action, cellIndex) {
-    var btn = document.createElement('button');
-    btn.className = 'llm-btn';
-    btn.textContent = text;
-    btn.setAttribute('data-action', action);
-    btn.setAttribute('data-cell', cellIndex);
-    btn.addEventListener('click', makeHandler(action, cellIndex));
-    return btn;
-  }
-
-  function makeHandler(action, cellIndex) {
-    return function() { handleAction(action, cellIndex); };
-  }
-
-  // --- Action Handler ---
-
-  function handleAction(action, cellIndex) {
-    apiKey = localStorage.getItem('claude-api-key');
-    if (!apiKey) {
-      showApiKeyModal(function() { handleAction(action, cellIndex); });
-      return;
-    }
-
-    if (contentMd) {
-      executeAction(action, cellIndex);
-    } else {
-      fetch(baseUrl + 'content.md')
-        .then(function(r) {
-          if (!r.ok) throw new Error('Could not load content');
-          return r.text();
-        })
-        .then(function(text) {
-          contentMd = text;
-          executeAction(action, cellIndex);
-        })
-        .catch(function(err) {
-          showChatModal();
-          var el = document.querySelector('.llm-chat-response');
-          if (el) {
-            el.classList.remove('llm-loading');
-            el.innerHTML = '<p class="llm-error">Error loading content: ' + escapeHtml(err.message) + '</p>';
-          }
-        });
-    }
-  }
-
-  function executeAction(action, cellIndex) {
-    var context = sliceContent(action, cellIndex);
-    var userPrompt = buildUserPrompt(action, context);
-    showChatModal();
-    streamResponse(userPrompt);
-  }
-
-  // --- Content Slicing ---
-
-  function sliceContent(action, cellIndex) {
-    if (action === 'summarize') {
-      return contentMd;
-    }
-
-    var lines = contentMd.split('\n');
-
-    if (action === 'explain-upto') {
-      // Include everything from start through the target cell
-      var result = [];
-      var foundTarget = false;
-      for (var i = 0; i < lines.length; i++) {
-        var m = lines[i].match(/<!-- cell:(\d+)/);
-        if (m) {
-          var idx = parseInt(m[1], 10);
-          if (idx > cellIndex && foundTarget) break;
-          if (idx === cellIndex) foundTarget = true;
-        }
-        result.push(lines[i]);
-      }
-      return result.join('\n');
-    }
-
-    if (action === 'explain-code') {
-      // Extract the specific code cell + preceding context
-      var cellStart = -1;
-      var cellEnd = lines.length;
-
-      for (var i = 0; i < lines.length; i++) {
-        var m = lines[i].match(/<!-- cell:(\d+)/);
-        if (m) {
-          var idx = parseInt(m[1], 10);
-          if (idx === cellIndex) cellStart = i;
-          else if (idx > cellIndex && cellStart >= 0) {
-            cellEnd = i;
-            break;
-          }
-        }
-      }
-
-      if (cellStart < 0) return contentMd; // fallback
-
-      // Get preceding context (limited to ~3000 chars for focus)
-      var preceding = lines.slice(0, cellStart).join('\n');
-      if (preceding.length > 3000) {
-        preceding = '...\n' + preceding.slice(-3000);
-      }
-
-      var codeSection = lines.slice(cellStart, cellEnd).join('\n');
-      return preceding + '\n\n' + codeSection;
-    }
-
-    return contentMd;
-  }
-
-  // --- Prompt Building ---
-
-  function buildUserPrompt(action, context) {
-    var title = (cellsData && cellsData.title) ? cellsData.title : slug;
-
-    if (action === 'summarize') {
-      return 'Summarize the key concepts from this lecture note titled "' + title +
-        '" in 3-5 bullet points. Be concise but thorough.\n\n' + context;
-    }
-
-    if (action === 'explain-upto') {
-      return 'The student has read up to this point in the lecture note "' + title +
-        '". Explain the key concepts covered so far in clear, accessible language. ' +
-        'Reference specific code examples where relevant.\n\n' + context;
-    }
-
-    if (action === 'explain-code') {
-      return 'Explain what this code does and why, in the context of the surrounding lecture material. ' +
-        'Be specific about what each part does and the reasoning behind it.\n\n' + context;
-    }
-
-    return context;
-  }
-
-  // --- API Key Modal ---
-
-  function showApiKeyModal(callback) {
-    var overlay = document.createElement('div');
-    overlay.className = 'llm-modal-overlay';
-
-    var modal = document.createElement('div');
-    modal.className = 'llm-modal llm-key-modal';
-    modal.innerHTML =
-      '<h3>Enter your Claude API key</h3>' +
-      '<p>Your key stays in your browser (localStorage) and is sent only to api.anthropic.com. ' +
-      'It is never sent to this website\'s server.</p>' +
-      '<input type="password" id="llm-api-key-input" placeholder="sk-ant-..." autocomplete="off">' +
-      '<div class="llm-modal-actions">' +
-        '<button class="llm-btn-cancel">Cancel</button>' +
-        '<button class="llm-btn-save">Save &amp; Continue</button>' +
-      '</div>';
-
-    overlay.appendChild(modal);
-    document.body.appendChild(overlay);
-
-    var input = document.getElementById('llm-api-key-input');
-    setTimeout(function() { input.focus(); }, 50);
-
-    modal.querySelector('.llm-btn-cancel').addEventListener('click', function() {
-      overlay.remove();
-    });
-
-    modal.querySelector('.llm-btn-save').addEventListener('click', function() {
-      var key = input.value.trim();
-      if (key) {
-        localStorage.setItem('claude-api-key', key);
-        apiKey = key;
-        overlay.remove();
-        if (callback) callback();
-      }
-    });
-
-    input.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') modal.querySelector('.llm-btn-save').click();
-    });
-
-    overlay.addEventListener('click', function(e) {
-      if (e.target === overlay) overlay.remove();
-    });
-  }
-
-  // --- Chat Modal ---
-
-  function showChatModal() {
-    var existing = document.querySelector('.llm-chat-overlay');
-    if (existing) existing.remove();
-
-    var overlay = document.createElement('div');
-    overlay.className = 'llm-modal-overlay llm-chat-overlay';
-
-    var modal = document.createElement('div');
-    modal.className = 'llm-modal llm-chat-modal';
-    modal.innerHTML =
-      '<div class="llm-chat-header">' +
-        '<span>Claude Explanation</span>' +
-        '<div class="llm-chat-actions">' +
-          '<button class="llm-btn-icon llm-btn-settings" title="API key settings">\u2699</button>' +
-          '<button class="llm-btn-icon llm-btn-copy" title="Copy response">\u2398</button>' +
-          '<button class="llm-btn-icon llm-btn-close" title="Close">\u2715</button>' +
-        '</div>' +
-      '</div>' +
-      '<div class="llm-chat-body">' +
-        '<div class="llm-chat-response llm-loading">Thinking\u2026</div>' +
-      '</div>';
-
-    overlay.appendChild(modal);
-    document.body.appendChild(overlay);
-
-    modal.querySelector('.llm-btn-close').addEventListener('click', function() {
-      overlay.remove();
-    });
-
-    modal.querySelector('.llm-btn-settings').addEventListener('click', function() {
-      overlay.remove();
-      showApiKeyModal(null);
-    });
-
-    modal.querySelector('.llm-btn-copy').addEventListener('click', function() {
-      var text = modal.querySelector('.llm-chat-response').textContent;
-      navigator.clipboard.writeText(text).then(function() {
-        var toast = document.createElement('div');
-        toast.className = 'llm-copied-toast';
-        toast.textContent = 'Copied!';
-        document.body.appendChild(toast);
-        setTimeout(function() { toast.remove(); }, 1500);
-      });
-    });
-
-    overlay.addEventListener('click', function(e) {
-      if (e.target === overlay) overlay.remove();
-    });
-
-    var escHandler = function(e) {
-      if (e.key === 'Escape') {
-        overlay.remove();
-        document.removeEventListener('keydown', escHandler);
-      }
-    };
-    document.addEventListener('keydown', escHandler);
-  }
-
-  // --- Streaming API Call ---
-
-  function streamResponse(userPrompt) {
-    var responseEl = document.querySelector('.llm-chat-response');
-    if (!responseEl) return;
-
-    responseEl.textContent = '';
-    responseEl.classList.remove('llm-loading');
-    responseEl.classList.add('llm-streaming');
-
-    var fullText = '';
-
-    fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({
-        model: MODEL,
-        max_tokens: 2048,
-        stream: true,
-        system: SYSTEM_PROMPT,
-        messages: [{ role: 'user', content: userPrompt }]
-      })
-    })
-    .then(function(response) {
-      if (response.status === 401) {
-        responseEl.classList.remove('llm-streaming');
-        responseEl.innerHTML = '<p class="llm-error">Invalid API key. Click the gear icon to update it.</p>';
-        localStorage.removeItem('claude-api-key');
-        apiKey = null;
-        return;
-      }
-      if (!response.ok) {
-        return response.text().then(function(body) {
-          throw new Error('API error ' + response.status + ': ' + body.slice(0, 200));
-        });
-      }
-
-      var reader = response.body.getReader();
-      var decoder = new TextDecoder();
-      var buffer = '';
-
-      function processChunk() {
-        reader.read().then(function(result) {
-          if (result.done) {
-            finishResponse(fullText, responseEl);
-            return;
-          }
-
-          buffer += decoder.decode(result.value, { stream: true });
-          var lines = buffer.split('\n');
-          buffer = lines.pop(); // keep incomplete line
-
-          for (var i = 0; i < lines.length; i++) {
-            var line = lines[i];
-            if (line.startsWith('data: ')) {
-              var data = line.slice(6);
-              if (data === '[DONE]') continue;
-              try {
-                var parsed = JSON.parse(data);
-                if (parsed.type === 'content_block_delta' &&
-                    parsed.delta && parsed.delta.text) {
-                  fullText += parsed.delta.text;
-                  responseEl.textContent = fullText;
-                  responseEl.scrollTop = responseEl.scrollHeight;
-                }
-              } catch (e) { /* skip unparseable lines */ }
-            }
-          }
-
-          processChunk();
-        }).catch(function(err) {
-          finishResponse(fullText || 'Stream interrupted: ' + err.message, responseEl);
-        });
-      }
-
-      processChunk();
-    })
-    .catch(function(err) {
-      responseEl.classList.remove('llm-streaming');
-      responseEl.innerHTML = '<p class="llm-error">' + escapeHtml(err.message) + '</p>';
-    });
-  }
-
-  function finishResponse(text, el) {
-    el.classList.remove('llm-streaming');
-    el.innerHTML = renderMarkdown(text);
-
-    // Re-typeset math if MathJax is available
-    if (window.MathJax && window.MathJax.typesetPromise) {
-      window.MathJax.typesetPromise([el]).catch(function() {});
-    } else if (window.MathJax && window.MathJax.typeset) {
-      try { window.MathJax.typeset([el]); } catch (e) {}
-    }
-  }
-
-  // --- Markdown Rendering ---
-
-  function renderMarkdown(text) {
-    if (!text) return '';
-
-    // Protect LaTeX display blocks ($$...$$)
-    var displayLatex = [];
-    text = text.replace(/\$\$([\s\S]+?)\$\$/g, function(m) {
-      displayLatex.push(m);
-      return '\x00DLATEX' + (displayLatex.length - 1) + '\x00';
-    });
-
-    // Protect LaTeX inline ($...$) — avoid matching currency like $5
-    var inlineLatex = [];
-    text = text.replace(/\$([^\$\n]+?)\$/g, function(m) {
-      inlineLatex.push(m);
-      return '\x00ILATEX' + (inlineLatex.length - 1) + '\x00';
-    });
-
-    // Protect fenced code blocks
-    var codeBlocks = [];
-    text = text.replace(/```(\w*)\n([\s\S]*?)```/g, function(m, lang, code) {
-      codeBlocks.push(
-        '<pre><code' + (lang ? ' class="language-' + lang + '"' : '') + '>' +
-        escapeHtml(code) + '</code></pre>'
-      );
-      return '\x00CBLOCK' + (codeBlocks.length - 1) + '\x00';
-    });
-
-    // Protect inline code
-    var inlineCodes = [];
-    text = text.replace(/`([^`\n]+)`/g, function(m, code) {
-      inlineCodes.push('<code>' + escapeHtml(code) + '</code>');
-      return '\x00ICODE' + (inlineCodes.length - 1) + '\x00';
-    });
-
-    // HTML-escape the remaining text
-    text = escapeHtml(text);
-
-    // Bold and italic
-    text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-    text = text.replace(/\*(.+?)\*/g, '<em>$1</em>');
-
-    // Headers
-    text = text.replace(/^#### (.+)$/gm, '<h5>$1</h5>');
-    text = text.replace(/^### (.+)$/gm, '<h4>$1</h4>');
-    text = text.replace(/^## (.+)$/gm, '<h3>$1</h3>');
-    text = text.replace(/^# (.+)$/gm, '<h2>$1</h2>');
-
-    // Unordered list items
-    text = text.replace(/^[-*] (.+)$/gm, '<li>$1</li>');
-
-    // Numbered list items
-    text = text.replace(/^\d+\. (.+)$/gm, '<li>$1</li>');
-
-    // Paragraphs: split on double newlines
-    var blocks = text.split(/\n\n+/);
-    var html = blocks.map(function(block) {
-      block = block.trim();
-      if (!block) return '';
-      // Don't wrap already-wrapped elements
-      if (/^<(h[2-5]|pre|li|ul|ol|\x00)/.test(block)) {
-        // Wrap loose <li> in <ul>
-        if (block.indexOf('<li>') >= 0 && block.indexOf('<ul>') < 0 && block.indexOf('<ol>') < 0) {
-          return '<ul>' + block + '</ul>';
-        }
-        return block;
-      }
-      return '<p>' + block.replace(/\n/g, '<br>') + '</p>';
-    }).join('\n');
-
-    // Restore inline code
-    for (var i = 0; i < inlineCodes.length; i++) {
-      html = html.replace('\x00ICODE' + i + '\x00', inlineCodes[i]);
-    }
-
-    // Restore code blocks
-    for (var i = 0; i < codeBlocks.length; i++) {
-      html = html.replace('\x00CBLOCK' + i + '\x00', codeBlocks[i]);
-    }
-
-    // Restore LaTeX
-    for (var i = 0; i < inlineLatex.length; i++) {
-      html = html.replace('\x00ILATEX' + i + '\x00', inlineLatex[i]);
-    }
-    for (var i = 0; i < displayLatex.length; i++) {
-      html = html.replace('\x00DLATEX' + i + '\x00', displayLatex[i]);
-    }
-
-    return html;
-  }
-
-  function escapeHtml(text) {
-    return text
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
-  }
-
-})();
-</script>
+<script src="../../../assets/llm-explain.js"></script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

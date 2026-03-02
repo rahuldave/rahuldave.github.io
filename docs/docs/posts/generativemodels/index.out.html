@@ -150,14 +150,14 @@ window.Quarto = {
 
 <meta property="og:title" content="Generative vs Discriminative Models – rahuldave">
 <meta property="og:description" content="">
-<meta property="og:image" content="https://rahuldave.github.io/docs/posts/generativemodels/index.out_files/figure-html/7e729df5-90cb-4d18-a757-b6427425e9e6-4-assets/learning.png">
+<meta property="og:image" content="https://rahuldave.github.io/docs/posts/generativemodels/index.out_files/figure-html/4af8a228-6511-45a5-b025-102c1584337f-4-assets/learning.png">
 <meta property="og:site_name" content="rahuldave">
 <meta property="og:image:alt" content="Taxonomy of learning approaches: ERM/discriminant methods versus Bayesian discriminative and generative models.">
 <meta property="og:image:height" content="375">
 <meta property="og:image:width" content="402">
 <meta name="twitter:title" content="Generative vs Discriminative Models – rahuldave">
 <meta name="twitter:description" content="">
-<meta name="twitter:image" content="https://rahuldave.github.io/docs/posts/generativemodels/index.out_files/figure-html/7e729df5-90cb-4d18-a757-b6427425e9e6-4-assets/learning.png">
+<meta name="twitter:image" content="https://rahuldave.github.io/docs/posts/generativemodels/index.out_files/figure-html/4af8a228-6511-45a5-b025-102c1584337f-4-assets/learning.png">
 <meta name="twitter:creator" content="@rahuldave">
 <meta name="twitter:image:alt" content="Taxonomy of learning approaches: ERM/discriminant methods versus Bayesian discriminative and generative models.">
 <meta name="twitter:image-height" content="375">
@@ -448,7 +448,7 @@ window.Quarto = {
 <p>Understanding discriminative boundaries vs.&nbsp;generative class models through logistic regression and LDA.</p>
 <section id="machine-learning--erm-and-bayesian" class="level1">
 <h1>Machine learning- ERM and Bayesian</h1>
-<div id="cell-2" class="cell" data-execution_count="1" data-cell-type="code">
+<div id="cell-2" class="cell" data-cell-type="code" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
@@ -474,7 +474,7 @@ window.Quarto = {
 \renewcommand{\v}[1]{{\mathbf #1}}
 \]</span></p>
 <p>First some often used routines.</p>
-<div id="cell-4" class="cell" data-execution_count="3" data-cell-type="code">
+<div id="cell-4" class="cell" data-cell-type="code" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cv_optimize(clf, parameters, Xtrain, ytrain, n_folds<span class="op">=</span><span class="dv">5</span>):</span>
@@ -500,7 +500,7 @@ window.Quarto = {
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Accuracy on test data:     </span><span class="sc">%0.2f</span><span class="st">"</span> <span class="op">%</span> (test_accuracy))</span>
 <span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> clf, Xtrain, ytrain, Xtest, ytest</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-5" class="cell" data-execution_count="4" data-cell-type="code">
+<div id="cell-5" class="cell" data-cell-type="code" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> ListedColormap</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>cmap_light <span class="op">=</span> ListedColormap([<span class="st">'#FFAAAA'</span>, <span class="st">'#AAFFAA'</span>, <span class="st">'#AAAAFF'</span>])</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>cmap_bold <span class="op">=</span> ListedColormap([<span class="st">'#FF0000'</span>, <span class="st">'#00FF00'</span>, <span class="st">'#0000FF'</span>])</span>
@@ -550,7 +550,7 @@ window.Quarto = {
 <section id="the-different-kinds-of-learning" class="level2">
 <h2 class="anchored" data-anchor-id="the-different-kinds-of-learning">The different kinds of learning</h2>
 <figure class="figure">
-<img src="index.out_files/figure-html/7e729df5-90cb-4d18-a757-b6427425e9e6-4-assets/learning.png" alt="Taxonomy of learning approaches: ERM/discriminant methods versus Bayesian discriminative and generative models." class="figure-img">
+<img src="index.out_files/figure-html/4af8a228-6511-45a5-b025-102c1584337f-4-assets/learning.png" alt="Taxonomy of learning approaches: ERM/discriminant methods versus Bayesian discriminative and generative models." class="figure-img">
 <figcaption aria-hidden="true">
 Taxonomy of learning approaches: ERM/discriminant methods versus Bayesian discriminative and generative models.
 </figcaption>
@@ -561,7 +561,7 @@ Taxonomy of learning approaches: ERM/discriminant methods versus Bayesian discri
 <p><span class="math display">\[ R(g) = \frac{1}{N} \sum_i l(g(x_i), y_i) .\]</span></p>
 <p>(Diagrams like the one below are chopped out from http://web4.cs.ucl.ac.uk/staff/D.Barber/textbook/240415.pdf . Reading Chapter 13 as a survey of machine learning is especially recommended)</p>
 <figure class="figure">
-<img src="index.out_files/figure-html/7e729df5-90cb-4d18-a757-b6427425e9e6-2-assets/erm.png" alt="Empirical risk minimization: the classifier is learned by minimizing penalized empirical risk over the data distribution. From Bishop." class="figure-img">
+<img src="index.out_files/figure-html/4af8a228-6511-45a5-b025-102c1584337f-2-assets/erm.png" alt="Empirical risk minimization: the classifier is learned by minimizing penalized empirical risk over the data distribution. From Bishop." class="figure-img">
 <figcaption aria-hidden="true">
 Empirical risk minimization: the classifier is learned by minimizing penalized empirical risk over the data distribution. From Bishop.
 </figcaption>
@@ -574,7 +574,7 @@ Empirical risk minimization: the classifier is learned by minimizing penalized e
 <section id="bayes" class="level3">
 <h3 class="anchored" data-anchor-id="bayes">Bayes</h3>
 <figure class="figure">
-<img src="index.out_files/figure-html/7e729df5-90cb-4d18-a757-b6427425e9e6-1-assets/bayesrisk.png" alt="Bayesian decision approach: after fitting the model, predictions minimize expected risk under the posterior. From Bishop." class="figure-img">
+<img src="index.out_files/figure-html/4af8a228-6511-45a5-b025-102c1584337f-1-assets/bayesrisk.png" alt="Bayesian decision approach: after fitting the model, predictions minimize expected risk under the posterior. From Bishop." class="figure-img">
 <figcaption aria-hidden="true">
 Bayesian decision approach: after fitting the model, predictions minimize expected risk under the posterior. From Bishop.
 </figcaption>
@@ -587,7 +587,7 @@ Bayesian decision approach: after fitting the model, predictions minimize expect
 <p>and then bayes theorem can be used to obtain p(c|x).</p>
 <p>The generative approach corresponds to picking one of the classes with probability p(c) and then getting the density of the features for that class. The discriminative approach models the domain boundary instead. While the data may be distributed in a complex way, the boundary may be easier to model. On the other hand prior information for assymetric situations, conditional independence and other such strategies can only be done in generative models.</p>
 <figure class="figure">
-<img src="index.out_files/figure-html/7e729df5-90cb-4d18-a757-b6427425e9e6-3-assets/genvsdiscrim.png" alt="Generative vs discriminative classification: (a) generative models learn class-conditional densities, (b) discriminative models learn the decision boundary directly. From Bishop." class="figure-img">
+<img src="index.out_files/figure-html/4af8a228-6511-45a5-b025-102c1584337f-3-assets/genvsdiscrim.png" alt="Generative vs discriminative classification: (a) generative models learn class-conditional densities, (b) discriminative models learn the decision boundary directly. From Bishop." class="figure-img">
 <figcaption aria-hidden="true">
 Generative vs discriminative classification: (a) generative models learn class-conditional densities, (b) discriminative models learn the decision boundary directly. From Bishop.
 </figcaption>
@@ -595,7 +595,7 @@ Generative vs discriminative classification: (a) generative models learn class-c
 <p>In either case we can get the joint distribution. In the discriminative case that leads us to density estimation for <span class="math inline">\(p(x)\)</span>. Often we have no use for it so we wont do it, as in logistic regression. But do remember that if we want our classifier to have good results we should be using it on test sets which reflect the proper sampling <span class="math inline">\(p(x)\)</span>. And if we dont characterize it we might be better of using a generative model as it is easier to adjust for class priors.</p>
 <p>The Bayesian decision approach is a clean one, in which first one models the <strong>environment</strong>, independent of the subsequent decision process. If <span class="math inline">\(p(y,x|\theta)\)</span> is the “true” model of the world, this is optimal. But if this <strong>environment model</strong> is poor, the action <span class="math inline">\(g\)</span> could be higly inaccurate since the environment is divorced from prediction. In practice one often includes regularization terms in the environment model to reduce the complexity of the distribution and bring it more in line with decision based hyperparameters, set by validation on an empirical loss. See the cs109 (2013) Naives bayes homework for a good example.</p>
 <p>By the way, the ERM method is the only <strong>frequentist</strong> method which has a well defined risk. The reason for this is that it dosent depend on both a sample-estimate of the true <span class="math inline">\(\theta\)</span>.</p>
-<div id="cell-9" class="cell" data-execution_count="6" data-cell-type="code">
+<div id="cell-9" class="cell" data-cell-type="code" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df<span class="op">=</span>pd.read_csv(<span class="st">"data/01_heights_weights_genders.csv"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -606,7 +606,7 @@ Generative vs discriminative classification: (a) generative models learn class-c
 
 <section id="discriminative-model" class="level3">
 <h3 data-anchor-id="discriminative-model">Discriminative Model</h3>
-<div id="cell-11" class="cell" data-execution_count="7" data-cell-type="code">
+<div id="cell-11" class="cell" data-cell-type="code" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>clf_l, Xtrain_l, ytrain_l, Xtest_l, ytest_l  <span class="op">=</span> do_classify(LogisticRegression(), {<span class="st">"C"</span>: [<span class="fl">0.01</span>, <span class="fl">0.1</span>, <span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">100</span>]}, df, [<span class="st">'Weight'</span>, <span class="st">'Height'</span>], <span class="st">'Gender'</span>,<span class="st">'Male'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -615,7 +615,7 @@ Accuracy on training data: 0.92
 Accuracy on test data:     0.91</code></pre>
 </div>
 </div>
-<div id="cell-12" class="cell" data-execution_count="8" data-cell-type="code">
+<div id="cell-12" class="cell" data-cell-type="code" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>plt.figure()</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ax<span class="op">=</span>plt.gca()</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>points_plot(ax, Xtrain_l, Xtest_l, ytrain_l, ytest_l, clf_l, alpha<span class="op">=</span><span class="fl">0.2</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -628,7 +628,7 @@ Accuracy on test data:     0.91</code></pre>
 </div>
 </div>
 <p>Let us plot the probabilities obtained from <code>predict_proba</code>, overlayed on the samples with their true labels:</p>
-<div id="cell-14" class="cell" data-execution_count="9" data-cell-type="code">
+<div id="cell-14" class="cell" data-cell-type="code" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>plt.figure()</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>ax<span class="op">=</span>plt.gca()</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>points_plot_prob(ax, Xtrain_l, Xtest_l, ytrain_l, ytest_l, clf_l, psize<span class="op">=</span><span class="dv">20</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -648,7 +648,7 @@ Accuracy on test data:     0.91</code></pre>
 <p>This involves finding <span class="math inline">\(P(\v{x} | y)\)</span>, the class conditional probability. Consider that heights and weights of males and females might be expected to be distributed using a bell curve. You might have heard of the reasons for this: so many things go into these heights/weights that the net effect is for them to be distributed as a bell curve, according to the central limit theorem. So why not use this additional information and model the heights and weights of males and females separately as 2-dimensional bell curves or <strong>Normal Distributions</strong>. In other words:</p>
 <p><span class="math display">\[p(height, weight | male ) = Bell Curve\]</span></p>
 <p>centered at the mean height, weight for males, and a similar equation holds for females. This is exactly what the linear discriminant analysis classifier does. Lets run it, only on tne training set. What we are doing is fitting the male and female sections of the training set separately, getting two 2-D bell curves, and then inverting as above to decide how to classify new samples from the testing set. (We dont cross-validate here as we are currently not fitting any hyperparameters).</p>
-<div id="cell-17" class="cell" data-execution_count="10" data-cell-type="code">
+<div id="cell-17" class="cell" data-cell-type="code" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.lda <span class="im">import</span> LDA</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>clflda <span class="op">=</span> LDA(solver<span class="op">=</span><span class="st">"svd"</span>, store_covariance<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>clflda.fit(Xtrain_l, ytrain_l)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -661,7 +661,7 @@ Accuracy on test data:     0.91</code></pre>
   store_covariance=True, tol=0.0001)</code></pre>
 </div>
 </div>
-<div id="cell-18" class="cell" data-execution_count="11" data-cell-type="code">
+<div id="cell-18" class="cell" data-cell-type="code" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#from REF</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> linalg</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -694,7 +694,7 @@ Accuracy on test data:     0.91</code></pre>
 <span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.bivariate_normal(X, Y, sigmax=1.0, sigmay=1.0, mux=0.0, muy=0.0, sigmaxy=0.0)¶</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We plot ellipses for equal probability contours of the two individual <span class="math inline">\(P(\v{x}|y)\)</span>, the <span class="math inline">\(P(height, weight | male)\)</span> and the <span class="math inline">\(P(height, weight | female)\)</span>. We also plot the discriminant line created by inverting these probabilities using Bayes theorem: we once again classify a sample as male if <span class="math inline">\(P(male | height, weight \gt 0.5\)</span> (which will ensure that <span class="math inline">\(P(female | height, weight) &lt; 0.5\)</span> since both must add to 1).</p>
-<div id="cell-20" class="cell" data-execution_count="12" data-cell-type="code">
+<div id="cell-20" class="cell" data-cell-type="code" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plt.figure()</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>ax<span class="op">=</span>plt.gca()</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>spl,_,_<span class="op">=</span>points_plot(ax,Xtrain_l, Xtest_l, ytrain_l, ytest_l, clflda)</span>
@@ -720,7 +720,7 @@ Accuracy on test data:     0.91</code></pre>
 <p>The third thing is probably obvious and a bit uncomfortable to you: we are being asked to provide much more information: the priors, the individual class models, all of that. It would seem that to get the same kind of classification we are being asked to provide more information.</p>
 <p>This is true, but it is not a bad thing when the assumptions that go into individual models are well founded, such as in the case of our male and female heights and weights here.</p>
 <p>We can also plot the output of <code>predict_proba</code> and we see something interesting: we get back exactly the same probability lines that we got using logistic regression. Indeed, LDA is the generative conterpart of Logistic regression. It is possible to prove this but we shall not do so here.</p>
-<div id="cell-23" class="cell" data-execution_count="13" data-cell-type="code">
+<div id="cell-23" class="cell" data-cell-type="code" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plt.figure()</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>ax<span class="op">=</span>plt.gca()</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>points_plot_prob(ax, Xtrain_l, Xtest_l, ytrain_l, ytest_l, clflda)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -802,615 +802,7 @@ document.addEventListener('DOMContentLoaded', function() {
     "https://www.linkedin.com/sharing/share-offsite/?url=" + url;
 })();
 </script>
-<script>
-(function() {
-  // Gate: only activate on individual post pages
-  var p = window.location.pathname;
-  if (!p.startsWith('/posts/')) return;
-  var listingPaths = ['/posts/', '/posts', '/posts/index.html'];
-  if (listingPaths.indexOf(p) >= 0) return;
-
-  // Extract post slug from URL
-  var match = p.match(/\/posts\/([^/.]+)/);
-  if (!match) return;
-  var slug = match[1];
-  var baseUrl = '/posts/' + slug + '/';
-
-  // State
-  var cellsData = null;
-  var contentMd = null;
-  var apiKey = localStorage.getItem('claude-api-key');
-  var MODEL = 'claude-sonnet-4-20250514';
-  var SYSTEM_PROMPT = 'You are a helpful teaching assistant for a data science and machine learning course. ' +
-    'Explain concepts clearly and concisely. Reference specific code examples when relevant. ' +
-    'Use LaTeX notation (with $...$ for inline and $$...$$ for display) for mathematical expressions. ' +
-    'Keep responses focused and educational.';
-
-  // --- Initialization ---
-
-  fetch(baseUrl + 'cells.json')
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(data) {
-      if (!data) return;
-      cellsData = data;
-      injectButtons();
-    })
-    .catch(function() { /* No cells.json — feature disabled for this post */ });
-
-  // --- Button Injection ---
-
-  function injectButtons() {
-    injectSummarizeButton();
-    injectCellButtons();
-  }
-
-  function injectSummarizeButton() {
-    var anchor = document.querySelector('#title-block-header') ||
-                 document.querySelector('.quarto-title-block') ||
-                 document.querySelector('header');
-    if (!anchor) return;
-
-    var wrap = document.createElement('div');
-    wrap.className = 'llm-summarize-wrap';
-
-    var btn = document.createElement('button');
-    btn.className = 'llm-btn llm-btn-summarize';
-    btn.textContent = 'Summarize this page';
-    btn.addEventListener('click', function() { handleAction('summarize', null); });
-
-    wrap.appendChild(btn);
-    anchor.parentNode.insertBefore(wrap, anchor.nextSibling);
-  }
-
-  function injectCellButtons() {
-    var sourceType = cellsData ? cellsData.source_type : 'ipynb';
-
-    // --- Notebook posts (ipynb): buttons after Quarto's div.cell elements ---
-    var notebookCells = document.querySelectorAll('div.cell[id^="cell-"]');
-    for (var i = 0; i < notebookCells.length; i++) {
-      var cell = notebookCells[i];
-      var cellIndex = parseInt(cell.id.replace('cell-', ''), 10);
-      if (isNaN(cellIndex)) continue;
-
-      var container = document.createElement('div');
-      container.className = 'llm-buttons';
-
-      container.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', cellIndex));
-      container.appendChild(makeLlmBtn('Explain this code', 'explain-code', cellIndex));
-
-      cell.parentNode.insertBefore(container, cell.nextSibling);
-    }
-
-    // --- Non-notebook posts (md/qmd): buttons after headings and code blocks ---
-    if (sourceType !== 'ipynb' || notebookCells.length === 0) {
-      // Build a lookup: heading slug -> cell index from cells.json
-      var slugToCellIndex = {};
-      if (cellsData && cellsData.cells) {
-        for (var c = 0; c < cellsData.cells.length; c++) {
-          var meta = cellsData.cells[c];
-          if (meta.headings) {
-            for (var h = 0; h < meta.headings.length; h++) {
-              slugToCellIndex[meta.headings[h].slug] = meta.cell;
-            }
-          }
-        }
-      }
-
-      // "Explain up to here" after h2/h3 headings
-      // Quarto puts the id on the parent <section>, and data-anchor-id on the <h>
-      var headings = document.querySelectorAll('h2[data-anchor-id], h3[data-anchor-id], h2[id], h3[id]');
-      var seen = new Set();
-      for (var i = 0; i < headings.length; i++) {
-        var heading = headings[i];
-        var headingSlug = heading.getAttribute('data-anchor-id') || heading.id;
-        if (!headingSlug || headingSlug === 'toc-title') continue;
-        if (seen.has(headingSlug)) continue; // deduplicate
-        seen.add(headingSlug);
-
-        var cellIdx = slugToCellIndex[headingSlug];
-        if (cellIdx === undefined) cellIdx = i; // fallback to DOM order
-
-        var wrap = document.createElement('div');
-        wrap.className = 'llm-buttons';
-        wrap.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', cellIdx));
-
-        // Insert after the heading's parent section, or after the heading itself
-        var section = heading.closest('section');
-        var target = section || heading;
-        if (target.nextSibling) {
-          target.parentNode.insertBefore(wrap, target.nextSibling);
-        } else {
-          target.parentNode.appendChild(wrap);
-        }
-      }
-
-      // "Explain this code" after standalone code blocks (not inside div.cell)
-      var codeBlocks = document.querySelectorAll('div.sourceCode');
-      for (var i = 0; i < codeBlocks.length; i++) {
-        var block = codeBlocks[i];
-        // Skip code blocks that are inside Quarto notebook cells
-        if (block.closest('div.cell')) continue;
-
-        // Find the matching cell index from cells.json
-        // Use position in DOM relative to headings to estimate cell index
-        var codeIdx = findCodeCellIndex(block, slugToCellIndex);
-
-        var wrap = document.createElement('div');
-        wrap.className = 'llm-buttons';
-        wrap.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', codeIdx));
-        wrap.appendChild(makeLlmBtn('Explain this code', 'explain-code', codeIdx));
-
-        block.parentNode.insertBefore(wrap, block.nextSibling);
-      }
-    }
-  }
-
-  function findCodeCellIndex(codeBlock, slugToCellIndex) {
-    // Walk backwards from the code block to find the nearest heading
-    // then look up its cell index and add 1 (the code cell follows the heading)
-    if (!cellsData || !cellsData.cells) return 0;
-
-    // Find code cells in cells.json
-    var codeCells = [];
-    for (var i = 0; i < cellsData.cells.length; i++) {
-      if (cellsData.cells[i].type === 'code') {
-        codeCells.push(cellsData.cells[i].cell);
-      }
-    }
-
-    // Find which code block this is in DOM order (among standalone code blocks)
-    var allCodeBlocks = document.querySelectorAll('div.sourceCode:not(.cell-code)');
-    for (var i = 0; i < allCodeBlocks.length; i++) {
-      if (allCodeBlocks[i] === codeBlock && i < codeCells.length) {
-        return codeCells[i];
-      }
-    }
-    return codeCells.length > 0 ? codeCells[0] : 0;
-  }
-
-  function makeLlmBtn(text, action, cellIndex) {
-    var btn = document.createElement('button');
-    btn.className = 'llm-btn';
-    btn.textContent = text;
-    btn.setAttribute('data-action', action);
-    btn.setAttribute('data-cell', cellIndex);
-    btn.addEventListener('click', makeHandler(action, cellIndex));
-    return btn;
-  }
-
-  function makeHandler(action, cellIndex) {
-    return function() { handleAction(action, cellIndex); };
-  }
-
-  // --- Action Handler ---
-
-  function handleAction(action, cellIndex) {
-    apiKey = localStorage.getItem('claude-api-key');
-    if (!apiKey) {
-      showApiKeyModal(function() { handleAction(action, cellIndex); });
-      return;
-    }
-
-    if (contentMd) {
-      executeAction(action, cellIndex);
-    } else {
-      fetch(baseUrl + 'content.md')
-        .then(function(r) {
-          if (!r.ok) throw new Error('Could not load content');
-          return r.text();
-        })
-        .then(function(text) {
-          contentMd = text;
-          executeAction(action, cellIndex);
-        })
-        .catch(function(err) {
-          showChatModal();
-          var el = document.querySelector('.llm-chat-response');
-          if (el) {
-            el.classList.remove('llm-loading');
-            el.innerHTML = '<p class="llm-error">Error loading content: ' + escapeHtml(err.message) + '</p>';
-          }
-        });
-    }
-  }
-
-  function executeAction(action, cellIndex) {
-    var context = sliceContent(action, cellIndex);
-    var userPrompt = buildUserPrompt(action, context);
-    showChatModal();
-    streamResponse(userPrompt);
-  }
-
-  // --- Content Slicing ---
-
-  function sliceContent(action, cellIndex) {
-    if (action === 'summarize') {
-      return contentMd;
-    }
-
-    var lines = contentMd.split('\n');
-
-    if (action === 'explain-upto') {
-      // Include everything from start through the target cell
-      var result = [];
-      var foundTarget = false;
-      for (var i = 0; i < lines.length; i++) {
-        var m = lines[i].match(/<!-- cell:(\d+)/);
-        if (m) {
-          var idx = parseInt(m[1], 10);
-          if (idx > cellIndex && foundTarget) break;
-          if (idx === cellIndex) foundTarget = true;
-        }
-        result.push(lines[i]);
-      }
-      return result.join('\n');
-    }
-
-    if (action === 'explain-code') {
-      // Extract the specific code cell + preceding context
-      var cellStart = -1;
-      var cellEnd = lines.length;
-
-      for (var i = 0; i < lines.length; i++) {
-        var m = lines[i].match(/<!-- cell:(\d+)/);
-        if (m) {
-          var idx = parseInt(m[1], 10);
-          if (idx === cellIndex) cellStart = i;
-          else if (idx > cellIndex && cellStart >= 0) {
-            cellEnd = i;
-            break;
-          }
-        }
-      }
-
-      if (cellStart < 0) return contentMd; // fallback
-
-      // Get preceding context (limited to ~3000 chars for focus)
-      var preceding = lines.slice(0, cellStart).join('\n');
-      if (preceding.length > 3000) {
-        preceding = '...\n' + preceding.slice(-3000);
-      }
-
-      var codeSection = lines.slice(cellStart, cellEnd).join('\n');
-      return preceding + '\n\n' + codeSection;
-    }
-
-    return contentMd;
-  }
-
-  // --- Prompt Building ---
-
-  function buildUserPrompt(action, context) {
-    var title = (cellsData && cellsData.title) ? cellsData.title : slug;
-
-    if (action === 'summarize') {
-      return 'Summarize the key concepts from this lecture note titled "' + title +
-        '" in 3-5 bullet points. Be concise but thorough.\n\n' + context;
-    }
-
-    if (action === 'explain-upto') {
-      return 'The student has read up to this point in the lecture note "' + title +
-        '". Explain the key concepts covered so far in clear, accessible language. ' +
-        'Reference specific code examples where relevant.\n\n' + context;
-    }
-
-    if (action === 'explain-code') {
-      return 'Explain what this code does and why, in the context of the surrounding lecture material. ' +
-        'Be specific about what each part does and the reasoning behind it.\n\n' + context;
-    }
-
-    return context;
-  }
-
-  // --- API Key Modal ---
-
-  function showApiKeyModal(callback) {
-    var overlay = document.createElement('div');
-    overlay.className = 'llm-modal-overlay';
-
-    var modal = document.createElement('div');
-    modal.className = 'llm-modal llm-key-modal';
-    modal.innerHTML =
-      '<h3>Enter your Claude API key</h3>' +
-      '<p>Your key stays in your browser (localStorage) and is sent only to api.anthropic.com. ' +
-      'It is never sent to this website\'s server.</p>' +
-      '<input type="password" id="llm-api-key-input" placeholder="sk-ant-..." autocomplete="off">' +
-      '<div class="llm-modal-actions">' +
-        '<button class="llm-btn-cancel">Cancel</button>' +
-        '<button class="llm-btn-save">Save &amp; Continue</button>' +
-      '</div>';
-
-    overlay.appendChild(modal);
-    document.body.appendChild(overlay);
-
-    var input = document.getElementById('llm-api-key-input');
-    setTimeout(function() { input.focus(); }, 50);
-
-    modal.querySelector('.llm-btn-cancel').addEventListener('click', function() {
-      overlay.remove();
-    });
-
-    modal.querySelector('.llm-btn-save').addEventListener('click', function() {
-      var key = input.value.trim();
-      if (key) {
-        localStorage.setItem('claude-api-key', key);
-        apiKey = key;
-        overlay.remove();
-        if (callback) callback();
-      }
-    });
-
-    input.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') modal.querySelector('.llm-btn-save').click();
-    });
-
-    overlay.addEventListener('click', function(e) {
-      if (e.target === overlay) overlay.remove();
-    });
-  }
-
-  // --- Chat Modal ---
-
-  function showChatModal() {
-    var existing = document.querySelector('.llm-chat-overlay');
-    if (existing) existing.remove();
-
-    var overlay = document.createElement('div');
-    overlay.className = 'llm-modal-overlay llm-chat-overlay';
-
-    var modal = document.createElement('div');
-    modal.className = 'llm-modal llm-chat-modal';
-    modal.innerHTML =
-      '<div class="llm-chat-header">' +
-        '<span>Claude Explanation</span>' +
-        '<div class="llm-chat-actions">' +
-          '<button class="llm-btn-icon llm-btn-settings" title="API key settings">\u2699</button>' +
-          '<button class="llm-btn-icon llm-btn-copy" title="Copy response">\u2398</button>' +
-          '<button class="llm-btn-icon llm-btn-close" title="Close">\u2715</button>' +
-        '</div>' +
-      '</div>' +
-      '<div class="llm-chat-body">' +
-        '<div class="llm-chat-response llm-loading">Thinking\u2026</div>' +
-      '</div>';
-
-    overlay.appendChild(modal);
-    document.body.appendChild(overlay);
-
-    modal.querySelector('.llm-btn-close').addEventListener('click', function() {
-      overlay.remove();
-    });
-
-    modal.querySelector('.llm-btn-settings').addEventListener('click', function() {
-      overlay.remove();
-      showApiKeyModal(null);
-    });
-
-    modal.querySelector('.llm-btn-copy').addEventListener('click', function() {
-      var text = modal.querySelector('.llm-chat-response').textContent;
-      navigator.clipboard.writeText(text).then(function() {
-        var toast = document.createElement('div');
-        toast.className = 'llm-copied-toast';
-        toast.textContent = 'Copied!';
-        document.body.appendChild(toast);
-        setTimeout(function() { toast.remove(); }, 1500);
-      });
-    });
-
-    overlay.addEventListener('click', function(e) {
-      if (e.target === overlay) overlay.remove();
-    });
-
-    var escHandler = function(e) {
-      if (e.key === 'Escape') {
-        overlay.remove();
-        document.removeEventListener('keydown', escHandler);
-      }
-    };
-    document.addEventListener('keydown', escHandler);
-  }
-
-  // --- Streaming API Call ---
-
-  function streamResponse(userPrompt) {
-    var responseEl = document.querySelector('.llm-chat-response');
-    if (!responseEl) return;
-
-    responseEl.textContent = '';
-    responseEl.classList.remove('llm-loading');
-    responseEl.classList.add('llm-streaming');
-
-    var fullText = '';
-
-    fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({
-        model: MODEL,
-        max_tokens: 2048,
-        stream: true,
-        system: SYSTEM_PROMPT,
-        messages: [{ role: 'user', content: userPrompt }]
-      })
-    })
-    .then(function(response) {
-      if (response.status === 401) {
-        responseEl.classList.remove('llm-streaming');
-        responseEl.innerHTML = '<p class="llm-error">Invalid API key. Click the gear icon to update it.</p>';
-        localStorage.removeItem('claude-api-key');
-        apiKey = null;
-        return;
-      }
-      if (!response.ok) {
-        return response.text().then(function(body) {
-          throw new Error('API error ' + response.status + ': ' + body.slice(0, 200));
-        });
-      }
-
-      var reader = response.body.getReader();
-      var decoder = new TextDecoder();
-      var buffer = '';
-
-      function processChunk() {
-        reader.read().then(function(result) {
-          if (result.done) {
-            finishResponse(fullText, responseEl);
-            return;
-          }
-
-          buffer += decoder.decode(result.value, { stream: true });
-          var lines = buffer.split('\n');
-          buffer = lines.pop(); // keep incomplete line
-
-          for (var i = 0; i < lines.length; i++) {
-            var line = lines[i];
-            if (line.startsWith('data: ')) {
-              var data = line.slice(6);
-              if (data === '[DONE]') continue;
-              try {
-                var parsed = JSON.parse(data);
-                if (parsed.type === 'content_block_delta' &&
-                    parsed.delta && parsed.delta.text) {
-                  fullText += parsed.delta.text;
-                  responseEl.textContent = fullText;
-                  responseEl.scrollTop = responseEl.scrollHeight;
-                }
-              } catch (e) { /* skip unparseable lines */ }
-            }
-          }
-
-          processChunk();
-        }).catch(function(err) {
-          finishResponse(fullText || 'Stream interrupted: ' + err.message, responseEl);
-        });
-      }
-
-      processChunk();
-    })
-    .catch(function(err) {
-      responseEl.classList.remove('llm-streaming');
-      responseEl.innerHTML = '<p class="llm-error">' + escapeHtml(err.message) + '</p>';
-    });
-  }
-
-  function finishResponse(text, el) {
-    el.classList.remove('llm-streaming');
-    el.innerHTML = renderMarkdown(text);
-
-    // Re-typeset math if MathJax is available
-    if (window.MathJax && window.MathJax.typesetPromise) {
-      window.MathJax.typesetPromise([el]).catch(function() {});
-    } else if (window.MathJax && window.MathJax.typeset) {
-      try { window.MathJax.typeset([el]); } catch (e) {}
-    }
-  }
-
-  // --- Markdown Rendering ---
-
-  function renderMarkdown(text) {
-    if (!text) return '';
-
-    // Protect LaTeX display blocks ($$...$$)
-    var displayLatex = [];
-    text = text.replace(/\$\$([\s\S]+?)\$\$/g, function(m) {
-      displayLatex.push(m);
-      return '\x00DLATEX' + (displayLatex.length - 1) + '\x00';
-    });
-
-    // Protect LaTeX inline ($...$) — avoid matching currency like $5
-    var inlineLatex = [];
-    text = text.replace(/\$([^\$\n]+?)\$/g, function(m) {
-      inlineLatex.push(m);
-      return '\x00ILATEX' + (inlineLatex.length - 1) + '\x00';
-    });
-
-    // Protect fenced code blocks
-    var codeBlocks = [];
-    text = text.replace(/```(\w*)\n([\s\S]*?)```/g, function(m, lang, code) {
-      codeBlocks.push(
-        '<pre><code' + (lang ? ' class="language-' + lang + '"' : '') + '>' +
-        escapeHtml(code) + '</code></pre>'
-      );
-      return '\x00CBLOCK' + (codeBlocks.length - 1) + '\x00';
-    });
-
-    // Protect inline code
-    var inlineCodes = [];
-    text = text.replace(/`([^`\n]+)`/g, function(m, code) {
-      inlineCodes.push('<code>' + escapeHtml(code) + '</code>');
-      return '\x00ICODE' + (inlineCodes.length - 1) + '\x00';
-    });
-
-    // HTML-escape the remaining text
-    text = escapeHtml(text);
-
-    // Bold and italic
-    text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-    text = text.replace(/\*(.+?)\*/g, '<em>$1</em>');
-
-    // Headers
-    text = text.replace(/^#### (.+)$/gm, '<h5>$1</h5>');
-    text = text.replace(/^### (.+)$/gm, '<h4>$1</h4>');
-    text = text.replace(/^## (.+)$/gm, '<h3>$1</h3>');
-    text = text.replace(/^# (.+)$/gm, '<h2>$1</h2>');
-
-    // Unordered list items
-    text = text.replace(/^[-*] (.+)$/gm, '<li>$1</li>');
-
-    // Numbered list items
-    text = text.replace(/^\d+\. (.+)$/gm, '<li>$1</li>');
-
-    // Paragraphs: split on double newlines
-    var blocks = text.split(/\n\n+/);
-    var html = blocks.map(function(block) {
-      block = block.trim();
-      if (!block) return '';
-      // Don't wrap already-wrapped elements
-      if (/^<(h[2-5]|pre|li|ul|ol|\x00)/.test(block)) {
-        // Wrap loose <li> in <ul>
-        if (block.indexOf('<li>') >= 0 && block.indexOf('<ul>') < 0 && block.indexOf('<ol>') < 0) {
-          return '<ul>' + block + '</ul>';
-        }
-        return block;
-      }
-      return '<p>' + block.replace(/\n/g, '<br>') + '</p>';
-    }).join('\n');
-
-    // Restore inline code
-    for (var i = 0; i < inlineCodes.length; i++) {
-      html = html.replace('\x00ICODE' + i + '\x00', inlineCodes[i]);
-    }
-
-    // Restore code blocks
-    for (var i = 0; i < codeBlocks.length; i++) {
-      html = html.replace('\x00CBLOCK' + i + '\x00', codeBlocks[i]);
-    }
-
-    // Restore LaTeX
-    for (var i = 0; i < inlineLatex.length; i++) {
-      html = html.replace('\x00ILATEX' + i + '\x00', inlineLatex[i]);
-    }
-    for (var i = 0; i < displayLatex.length; i++) {
-      html = html.replace('\x00DLATEX' + i + '\x00', displayLatex[i]);
-    }
-
-    return html;
-  }
-
-  function escapeHtml(text) {
-    return text
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
-  }
-
-})();
-</script>
+<script src="../../../assets/llm-explain.js"></script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

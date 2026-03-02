@@ -450,7 +450,7 @@ window.Quarto = {
 
 
 <p>From coin flips to Bayes’ theorem.</p>
-<div id="cell-1" class="cell" data-hide="true" data-execution_count="1" data-cell-type="code">
+<div id="cell-1" class="cell" data-cell-type="code" data-hide="true" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
@@ -500,7 +500,7 @@ window.Quarto = {
 <section id="simulating-the-results-of-the-model" class="level4">
 <h4 class="anchored" data-anchor-id="simulating-the-results-of-the-model">Simulating the results of the model</h4>
 <p>We dont have a coin right now. So let us <strong>simulate</strong> this process on a computer. To do this we will use a form of the <strong>random number generator</strong> built into <code>numpy</code>. In particular, we will use the function <code>np.random.choice</code>, which will with equal probability for all items pick an item from a list (thus if the list is of size 6, it will pick one of the six list items each time, with a probability 1/6).</p>
-<div id="cell-5" class="cell" data-execution_count="4" data-cell-type="code">
+<div id="cell-5" class="cell" data-cell-type="code" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> throw_a_coin(N):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.random.choice([<span class="st">'H'</span>,<span class="st">'T'</span>], size<span class="op">=</span>N)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>throws<span class="op">=</span>throw_a_coin(<span class="dv">40</span>)</span>
@@ -515,7 +515,7 @@ p1 = Number of Heads/Total Throws: 0.55</code></pre>
 </div>
 <p>Notice that you do not necessarily get 20 heads.</p>
 <p>Now say that we run the entire process again, a second <strong>replication</strong> to obtain a second sample. Then we ask the same question: what is the fraction of heads we get this time? Lets call the odds of heads in sample 2, then, <span class="math inline">\(p_2\)</span>:</p>
-<div id="cell-7" class="cell" data-execution_count="9" data-cell-type="code">
+<div id="cell-7" class="cell" data-cell-type="code" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_throws(N):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    throws<span class="op">=</span>throw_a_coin(N)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> N <span class="op">&lt;=</span> <span class="dv">100</span>:</span>
@@ -532,7 +532,7 @@ p1 = Number of Heads/Total Throws: 0.625</code></pre>
 </div>
 </div>
 <p>Let’s do many more trials</p>
-<div id="cell-9" class="cell" data-execution_count="10" data-cell-type="code">
+<div id="cell-9" class="cell" data-cell-type="code" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>make_throws(<span class="dv">1000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>First 100 Throws: H H H T H H T T T H T H H H H T T T H H H H H H T H T T T H T H T T T H H T H T H H H H T H T H T T H H T T T T T T H T H H T H T H T H T H T T H T H H H T H T T T H H T H T H T H T H H H H T T T T H
@@ -541,7 +541,7 @@ p1 = Number of Heads/Total Throws: 0.521</code></pre>
 </div>
 </div>
 <p>And even more:</p>
-<div id="cell-11" class="cell" data-execution_count="11" data-cell-type="code">
+<div id="cell-11" class="cell" data-cell-type="code" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>make_throws(<span class="dv">10000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>First 100 Throws: H T T T H T T T H T T T T H T T H T H H H H T H T H T T H T H T H H H H T T H H H H T H H H H T H T T T H T H H T T T H T H T H T T T H T T T T H T H H H H H T T H H H T T H H H H H H T H T H T T T H
@@ -550,7 +550,7 @@ p1 = Number of Heads/Total Throws: 0.5047</code></pre>
 </div>
 </div>
 <p>As you can see, the larger number of trials we do, the closer we seem to get to half the tosses showing up heads. Lets see this more systematically:</p>
-<div id="cell-13" class="cell" data-execution_count="12" data-cell-type="code">
+<div id="cell-13" class="cell" data-cell-type="code" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>trials<span class="op">=</span>np.arange(<span class="dv">0</span>, <span class="dv">40000</span>, <span class="dv">1000</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>plt.plot(trials, [np.<span class="bu">sum</span>(throw_a_coin(j)<span class="op">==</span><span class="st">'H'</span>)<span class="op">/</span>np.<span class="bu">float</span>(j) <span class="cf">for</span> j <span class="kw">in</span> trials], <span class="st">'o-'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)<span class="op">;</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>plt.axhline(<span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">1</span>, color<span class="op">=</span><span class="st">'r'</span>)<span class="op">;</span></span>
@@ -579,7 +579,7 @@ p1 = Number of Heads/Total Throws: 0.5047</code></pre>
 <p>E is the event of getting a heads in a first coin toss, and F is the same for a second coin toss. Here <span class="math inline">\(\Omega\)</span>, the set of all possibilities that can happen when you toss two coins is <span class="math inline">\(\{HH, HT, TH, TT\}\)</span>. Since E only specifies that the first toss is heads, <span class="math inline">\(E=\{HT, HH\}\)</span>. Similarly <span class="math inline">\(F= {HH, TH}\)</span> The set of all events that are not E then is <span class="math inline">\(\tilde{E} = {TH, TT}\)</span>.</p>
 <p>These sets, along with some others are captured in the venn diagram below:</p>
 <figure class="figure">
-<img src="index.out_files/figure-html/93306ca8-c5a9-4a18-8aeb-cd9797c6bba0-3-assets/venn.png" alt="Venn diagram for the 2-coin-toss sample space" class="figure-img">
+<img src="index.out_files/figure-html/bad0a177-26fc-4b15-9b3b-c77b912a0fa2-3-assets/venn.png" alt="Venn diagram for the 2-coin-toss sample space" class="figure-img">
 <figcaption aria-hidden="true">
 Venn diagram for the 2-coin-toss sample space
 </figcaption>
@@ -597,7 +597,7 @@ Venn diagram for the 2-coin-toss sample space
 <p>the “plus” formula, where E+F, read as E or F (also <span class="math inline">\(E \cup F\)</span>, reads as E union F) means “E alone, F alone, <strong>or</strong> both together”. This rule is a hard one to understand and has a lot of notation, so lets examine it in some detail.</p>
 <p>There are four ways that these two tosses can arrange themselves, as illustrated by this diagram, adapted from the <a href="http://www.feynmanlectures.caltech.edu/I_06.html">probability chapter</a> in Feynman’s lectures on Physics..you should read it!.</p>
 <figure class="figure">
-<img src="index.out_files/figure-html/93306ca8-c5a9-4a18-8aeb-cd9797c6bba0-1-assets/2flips.png" alt="Tree diagram for 2 coin flips" class="figure-img">
+<img src="index.out_files/figure-html/bad0a177-26fc-4b15-9b3b-c77b912a0fa2-1-assets/2flips.png" alt="Tree diagram for 2 coin flips" class="figure-img">
 <figcaption aria-hidden="true">
 Tree diagram for 2 coin flips
 </figcaption>
@@ -636,7 +636,7 @@ P(E+F) \, &amp; = &amp;\, P(E) + P(F) - P(EF)\\
 <h2 class="anchored" data-anchor-id="marginals-and-conditionals-and-bayes-theorem">Marginals and conditionals, and Bayes Theorem</h2>
 <p>The diagram below taken from Bishop may be used to illustrate the concepts of conditionals and marginals. Consider two random variables, <span class="math inline">\(X\)</span>, which takes the values <span class="math inline">\({x_i}\)</span> where <span class="math inline">\(i = 1,...,M\)</span>, and <span class="math inline">\(Y\)</span>, which takes the values <span class="math inline">\({y_j}\)</span> where <span class="math inline">\(j = 1,...,L\)</span>. The number of instances for which <span class="math inline">\(X = x_i\)</span> and <span class="math inline">\(Y = y_j\)</span> is <span class="math inline">\(n_{ij}\)</span>. The number of points in column i where <span class="math inline">\(X=x_i\)</span> is <span class="math inline">\(c_i\)</span>, and for the row where <span class="math inline">\(Y = y_j\)</span> is <span class="math inline">\(r_j\)</span>.</p>
 <figure class="figure">
-<img src="index.out_files/figure-html/93306ca8-c5a9-4a18-8aeb-cd9797c6bba0-2-assets/bishop-prob.png" alt="Joint probability table notation" class="figure-img">
+<img src="index.out_files/figure-html/bad0a177-26fc-4b15-9b3b-c77b912a0fa2-2-assets/bishop-prob.png" alt="Joint probability table notation" class="figure-img">
 <figcaption aria-hidden="true">
 Joint probability table notation
 </figcaption>
@@ -758,615 +758,7 @@ document.addEventListener('DOMContentLoaded', function() {
     "https://www.linkedin.com/sharing/share-offsite/?url=" + url;
 })();
 </script>
-<script>
-(function() {
-  // Gate: only activate on individual post pages
-  var p = window.location.pathname;
-  if (!p.startsWith('/posts/')) return;
-  var listingPaths = ['/posts/', '/posts', '/posts/index.html'];
-  if (listingPaths.indexOf(p) >= 0) return;
-
-  // Extract post slug from URL
-  var match = p.match(/\/posts\/([^/.]+)/);
-  if (!match) return;
-  var slug = match[1];
-  var baseUrl = '/posts/' + slug + '/';
-
-  // State
-  var cellsData = null;
-  var contentMd = null;
-  var apiKey = localStorage.getItem('claude-api-key');
-  var MODEL = 'claude-sonnet-4-20250514';
-  var SYSTEM_PROMPT = 'You are a helpful teaching assistant for a data science and machine learning course. ' +
-    'Explain concepts clearly and concisely. Reference specific code examples when relevant. ' +
-    'Use LaTeX notation (with $...$ for inline and $$...$$ for display) for mathematical expressions. ' +
-    'Keep responses focused and educational.';
-
-  // --- Initialization ---
-
-  fetch(baseUrl + 'cells.json')
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(data) {
-      if (!data) return;
-      cellsData = data;
-      injectButtons();
-    })
-    .catch(function() { /* No cells.json — feature disabled for this post */ });
-
-  // --- Button Injection ---
-
-  function injectButtons() {
-    injectSummarizeButton();
-    injectCellButtons();
-  }
-
-  function injectSummarizeButton() {
-    var anchor = document.querySelector('#title-block-header') ||
-                 document.querySelector('.quarto-title-block') ||
-                 document.querySelector('header');
-    if (!anchor) return;
-
-    var wrap = document.createElement('div');
-    wrap.className = 'llm-summarize-wrap';
-
-    var btn = document.createElement('button');
-    btn.className = 'llm-btn llm-btn-summarize';
-    btn.textContent = 'Summarize this page';
-    btn.addEventListener('click', function() { handleAction('summarize', null); });
-
-    wrap.appendChild(btn);
-    anchor.parentNode.insertBefore(wrap, anchor.nextSibling);
-  }
-
-  function injectCellButtons() {
-    var sourceType = cellsData ? cellsData.source_type : 'ipynb';
-
-    // --- Notebook posts (ipynb): buttons after Quarto's div.cell elements ---
-    var notebookCells = document.querySelectorAll('div.cell[id^="cell-"]');
-    for (var i = 0; i < notebookCells.length; i++) {
-      var cell = notebookCells[i];
-      var cellIndex = parseInt(cell.id.replace('cell-', ''), 10);
-      if (isNaN(cellIndex)) continue;
-
-      var container = document.createElement('div');
-      container.className = 'llm-buttons';
-
-      container.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', cellIndex));
-      container.appendChild(makeLlmBtn('Explain this code', 'explain-code', cellIndex));
-
-      cell.parentNode.insertBefore(container, cell.nextSibling);
-    }
-
-    // --- Non-notebook posts (md/qmd): buttons after headings and code blocks ---
-    if (sourceType !== 'ipynb' || notebookCells.length === 0) {
-      // Build a lookup: heading slug -> cell index from cells.json
-      var slugToCellIndex = {};
-      if (cellsData && cellsData.cells) {
-        for (var c = 0; c < cellsData.cells.length; c++) {
-          var meta = cellsData.cells[c];
-          if (meta.headings) {
-            for (var h = 0; h < meta.headings.length; h++) {
-              slugToCellIndex[meta.headings[h].slug] = meta.cell;
-            }
-          }
-        }
-      }
-
-      // "Explain up to here" after h2/h3 headings
-      // Quarto puts the id on the parent <section>, and data-anchor-id on the <h>
-      var headings = document.querySelectorAll('h2[data-anchor-id], h3[data-anchor-id], h2[id], h3[id]');
-      var seen = new Set();
-      for (var i = 0; i < headings.length; i++) {
-        var heading = headings[i];
-        var headingSlug = heading.getAttribute('data-anchor-id') || heading.id;
-        if (!headingSlug || headingSlug === 'toc-title') continue;
-        if (seen.has(headingSlug)) continue; // deduplicate
-        seen.add(headingSlug);
-
-        var cellIdx = slugToCellIndex[headingSlug];
-        if (cellIdx === undefined) cellIdx = i; // fallback to DOM order
-
-        var wrap = document.createElement('div');
-        wrap.className = 'llm-buttons';
-        wrap.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', cellIdx));
-
-        // Insert after the heading's parent section, or after the heading itself
-        var section = heading.closest('section');
-        var target = section || heading;
-        if (target.nextSibling) {
-          target.parentNode.insertBefore(wrap, target.nextSibling);
-        } else {
-          target.parentNode.appendChild(wrap);
-        }
-      }
-
-      // "Explain this code" after standalone code blocks (not inside div.cell)
-      var codeBlocks = document.querySelectorAll('div.sourceCode');
-      for (var i = 0; i < codeBlocks.length; i++) {
-        var block = codeBlocks[i];
-        // Skip code blocks that are inside Quarto notebook cells
-        if (block.closest('div.cell')) continue;
-
-        // Find the matching cell index from cells.json
-        // Use position in DOM relative to headings to estimate cell index
-        var codeIdx = findCodeCellIndex(block, slugToCellIndex);
-
-        var wrap = document.createElement('div');
-        wrap.className = 'llm-buttons';
-        wrap.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', codeIdx));
-        wrap.appendChild(makeLlmBtn('Explain this code', 'explain-code', codeIdx));
-
-        block.parentNode.insertBefore(wrap, block.nextSibling);
-      }
-    }
-  }
-
-  function findCodeCellIndex(codeBlock, slugToCellIndex) {
-    // Walk backwards from the code block to find the nearest heading
-    // then look up its cell index and add 1 (the code cell follows the heading)
-    if (!cellsData || !cellsData.cells) return 0;
-
-    // Find code cells in cells.json
-    var codeCells = [];
-    for (var i = 0; i < cellsData.cells.length; i++) {
-      if (cellsData.cells[i].type === 'code') {
-        codeCells.push(cellsData.cells[i].cell);
-      }
-    }
-
-    // Find which code block this is in DOM order (among standalone code blocks)
-    var allCodeBlocks = document.querySelectorAll('div.sourceCode:not(.cell-code)');
-    for (var i = 0; i < allCodeBlocks.length; i++) {
-      if (allCodeBlocks[i] === codeBlock && i < codeCells.length) {
-        return codeCells[i];
-      }
-    }
-    return codeCells.length > 0 ? codeCells[0] : 0;
-  }
-
-  function makeLlmBtn(text, action, cellIndex) {
-    var btn = document.createElement('button');
-    btn.className = 'llm-btn';
-    btn.textContent = text;
-    btn.setAttribute('data-action', action);
-    btn.setAttribute('data-cell', cellIndex);
-    btn.addEventListener('click', makeHandler(action, cellIndex));
-    return btn;
-  }
-
-  function makeHandler(action, cellIndex) {
-    return function() { handleAction(action, cellIndex); };
-  }
-
-  // --- Action Handler ---
-
-  function handleAction(action, cellIndex) {
-    apiKey = localStorage.getItem('claude-api-key');
-    if (!apiKey) {
-      showApiKeyModal(function() { handleAction(action, cellIndex); });
-      return;
-    }
-
-    if (contentMd) {
-      executeAction(action, cellIndex);
-    } else {
-      fetch(baseUrl + 'content.md')
-        .then(function(r) {
-          if (!r.ok) throw new Error('Could not load content');
-          return r.text();
-        })
-        .then(function(text) {
-          contentMd = text;
-          executeAction(action, cellIndex);
-        })
-        .catch(function(err) {
-          showChatModal();
-          var el = document.querySelector('.llm-chat-response');
-          if (el) {
-            el.classList.remove('llm-loading');
-            el.innerHTML = '<p class="llm-error">Error loading content: ' + escapeHtml(err.message) + '</p>';
-          }
-        });
-    }
-  }
-
-  function executeAction(action, cellIndex) {
-    var context = sliceContent(action, cellIndex);
-    var userPrompt = buildUserPrompt(action, context);
-    showChatModal();
-    streamResponse(userPrompt);
-  }
-
-  // --- Content Slicing ---
-
-  function sliceContent(action, cellIndex) {
-    if (action === 'summarize') {
-      return contentMd;
-    }
-
-    var lines = contentMd.split('\n');
-
-    if (action === 'explain-upto') {
-      // Include everything from start through the target cell
-      var result = [];
-      var foundTarget = false;
-      for (var i = 0; i < lines.length; i++) {
-        var m = lines[i].match(/<!-- cell:(\d+)/);
-        if (m) {
-          var idx = parseInt(m[1], 10);
-          if (idx > cellIndex && foundTarget) break;
-          if (idx === cellIndex) foundTarget = true;
-        }
-        result.push(lines[i]);
-      }
-      return result.join('\n');
-    }
-
-    if (action === 'explain-code') {
-      // Extract the specific code cell + preceding context
-      var cellStart = -1;
-      var cellEnd = lines.length;
-
-      for (var i = 0; i < lines.length; i++) {
-        var m = lines[i].match(/<!-- cell:(\d+)/);
-        if (m) {
-          var idx = parseInt(m[1], 10);
-          if (idx === cellIndex) cellStart = i;
-          else if (idx > cellIndex && cellStart >= 0) {
-            cellEnd = i;
-            break;
-          }
-        }
-      }
-
-      if (cellStart < 0) return contentMd; // fallback
-
-      // Get preceding context (limited to ~3000 chars for focus)
-      var preceding = lines.slice(0, cellStart).join('\n');
-      if (preceding.length > 3000) {
-        preceding = '...\n' + preceding.slice(-3000);
-      }
-
-      var codeSection = lines.slice(cellStart, cellEnd).join('\n');
-      return preceding + '\n\n' + codeSection;
-    }
-
-    return contentMd;
-  }
-
-  // --- Prompt Building ---
-
-  function buildUserPrompt(action, context) {
-    var title = (cellsData && cellsData.title) ? cellsData.title : slug;
-
-    if (action === 'summarize') {
-      return 'Summarize the key concepts from this lecture note titled "' + title +
-        '" in 3-5 bullet points. Be concise but thorough.\n\n' + context;
-    }
-
-    if (action === 'explain-upto') {
-      return 'The student has read up to this point in the lecture note "' + title +
-        '". Explain the key concepts covered so far in clear, accessible language. ' +
-        'Reference specific code examples where relevant.\n\n' + context;
-    }
-
-    if (action === 'explain-code') {
-      return 'Explain what this code does and why, in the context of the surrounding lecture material. ' +
-        'Be specific about what each part does and the reasoning behind it.\n\n' + context;
-    }
-
-    return context;
-  }
-
-  // --- API Key Modal ---
-
-  function showApiKeyModal(callback) {
-    var overlay = document.createElement('div');
-    overlay.className = 'llm-modal-overlay';
-
-    var modal = document.createElement('div');
-    modal.className = 'llm-modal llm-key-modal';
-    modal.innerHTML =
-      '<h3>Enter your Claude API key</h3>' +
-      '<p>Your key stays in your browser (localStorage) and is sent only to api.anthropic.com. ' +
-      'It is never sent to this website\'s server.</p>' +
-      '<input type="password" id="llm-api-key-input" placeholder="sk-ant-..." autocomplete="off">' +
-      '<div class="llm-modal-actions">' +
-        '<button class="llm-btn-cancel">Cancel</button>' +
-        '<button class="llm-btn-save">Save &amp; Continue</button>' +
-      '</div>';
-
-    overlay.appendChild(modal);
-    document.body.appendChild(overlay);
-
-    var input = document.getElementById('llm-api-key-input');
-    setTimeout(function() { input.focus(); }, 50);
-
-    modal.querySelector('.llm-btn-cancel').addEventListener('click', function() {
-      overlay.remove();
-    });
-
-    modal.querySelector('.llm-btn-save').addEventListener('click', function() {
-      var key = input.value.trim();
-      if (key) {
-        localStorage.setItem('claude-api-key', key);
-        apiKey = key;
-        overlay.remove();
-        if (callback) callback();
-      }
-    });
-
-    input.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') modal.querySelector('.llm-btn-save').click();
-    });
-
-    overlay.addEventListener('click', function(e) {
-      if (e.target === overlay) overlay.remove();
-    });
-  }
-
-  // --- Chat Modal ---
-
-  function showChatModal() {
-    var existing = document.querySelector('.llm-chat-overlay');
-    if (existing) existing.remove();
-
-    var overlay = document.createElement('div');
-    overlay.className = 'llm-modal-overlay llm-chat-overlay';
-
-    var modal = document.createElement('div');
-    modal.className = 'llm-modal llm-chat-modal';
-    modal.innerHTML =
-      '<div class="llm-chat-header">' +
-        '<span>Claude Explanation</span>' +
-        '<div class="llm-chat-actions">' +
-          '<button class="llm-btn-icon llm-btn-settings" title="API key settings">\u2699</button>' +
-          '<button class="llm-btn-icon llm-btn-copy" title="Copy response">\u2398</button>' +
-          '<button class="llm-btn-icon llm-btn-close" title="Close">\u2715</button>' +
-        '</div>' +
-      '</div>' +
-      '<div class="llm-chat-body">' +
-        '<div class="llm-chat-response llm-loading">Thinking\u2026</div>' +
-      '</div>';
-
-    overlay.appendChild(modal);
-    document.body.appendChild(overlay);
-
-    modal.querySelector('.llm-btn-close').addEventListener('click', function() {
-      overlay.remove();
-    });
-
-    modal.querySelector('.llm-btn-settings').addEventListener('click', function() {
-      overlay.remove();
-      showApiKeyModal(null);
-    });
-
-    modal.querySelector('.llm-btn-copy').addEventListener('click', function() {
-      var text = modal.querySelector('.llm-chat-response').textContent;
-      navigator.clipboard.writeText(text).then(function() {
-        var toast = document.createElement('div');
-        toast.className = 'llm-copied-toast';
-        toast.textContent = 'Copied!';
-        document.body.appendChild(toast);
-        setTimeout(function() { toast.remove(); }, 1500);
-      });
-    });
-
-    overlay.addEventListener('click', function(e) {
-      if (e.target === overlay) overlay.remove();
-    });
-
-    var escHandler = function(e) {
-      if (e.key === 'Escape') {
-        overlay.remove();
-        document.removeEventListener('keydown', escHandler);
-      }
-    };
-    document.addEventListener('keydown', escHandler);
-  }
-
-  // --- Streaming API Call ---
-
-  function streamResponse(userPrompt) {
-    var responseEl = document.querySelector('.llm-chat-response');
-    if (!responseEl) return;
-
-    responseEl.textContent = '';
-    responseEl.classList.remove('llm-loading');
-    responseEl.classList.add('llm-streaming');
-
-    var fullText = '';
-
-    fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({
-        model: MODEL,
-        max_tokens: 2048,
-        stream: true,
-        system: SYSTEM_PROMPT,
-        messages: [{ role: 'user', content: userPrompt }]
-      })
-    })
-    .then(function(response) {
-      if (response.status === 401) {
-        responseEl.classList.remove('llm-streaming');
-        responseEl.innerHTML = '<p class="llm-error">Invalid API key. Click the gear icon to update it.</p>';
-        localStorage.removeItem('claude-api-key');
-        apiKey = null;
-        return;
-      }
-      if (!response.ok) {
-        return response.text().then(function(body) {
-          throw new Error('API error ' + response.status + ': ' + body.slice(0, 200));
-        });
-      }
-
-      var reader = response.body.getReader();
-      var decoder = new TextDecoder();
-      var buffer = '';
-
-      function processChunk() {
-        reader.read().then(function(result) {
-          if (result.done) {
-            finishResponse(fullText, responseEl);
-            return;
-          }
-
-          buffer += decoder.decode(result.value, { stream: true });
-          var lines = buffer.split('\n');
-          buffer = lines.pop(); // keep incomplete line
-
-          for (var i = 0; i < lines.length; i++) {
-            var line = lines[i];
-            if (line.startsWith('data: ')) {
-              var data = line.slice(6);
-              if (data === '[DONE]') continue;
-              try {
-                var parsed = JSON.parse(data);
-                if (parsed.type === 'content_block_delta' &&
-                    parsed.delta && parsed.delta.text) {
-                  fullText += parsed.delta.text;
-                  responseEl.textContent = fullText;
-                  responseEl.scrollTop = responseEl.scrollHeight;
-                }
-              } catch (e) { /* skip unparseable lines */ }
-            }
-          }
-
-          processChunk();
-        }).catch(function(err) {
-          finishResponse(fullText || 'Stream interrupted: ' + err.message, responseEl);
-        });
-      }
-
-      processChunk();
-    })
-    .catch(function(err) {
-      responseEl.classList.remove('llm-streaming');
-      responseEl.innerHTML = '<p class="llm-error">' + escapeHtml(err.message) + '</p>';
-    });
-  }
-
-  function finishResponse(text, el) {
-    el.classList.remove('llm-streaming');
-    el.innerHTML = renderMarkdown(text);
-
-    // Re-typeset math if MathJax is available
-    if (window.MathJax && window.MathJax.typesetPromise) {
-      window.MathJax.typesetPromise([el]).catch(function() {});
-    } else if (window.MathJax && window.MathJax.typeset) {
-      try { window.MathJax.typeset([el]); } catch (e) {}
-    }
-  }
-
-  // --- Markdown Rendering ---
-
-  function renderMarkdown(text) {
-    if (!text) return '';
-
-    // Protect LaTeX display blocks ($$...$$)
-    var displayLatex = [];
-    text = text.replace(/\$\$([\s\S]+?)\$\$/g, function(m) {
-      displayLatex.push(m);
-      return '\x00DLATEX' + (displayLatex.length - 1) + '\x00';
-    });
-
-    // Protect LaTeX inline ($...$) — avoid matching currency like $5
-    var inlineLatex = [];
-    text = text.replace(/\$([^\$\n]+?)\$/g, function(m) {
-      inlineLatex.push(m);
-      return '\x00ILATEX' + (inlineLatex.length - 1) + '\x00';
-    });
-
-    // Protect fenced code blocks
-    var codeBlocks = [];
-    text = text.replace(/```(\w*)\n([\s\S]*?)```/g, function(m, lang, code) {
-      codeBlocks.push(
-        '<pre><code' + (lang ? ' class="language-' + lang + '"' : '') + '>' +
-        escapeHtml(code) + '</code></pre>'
-      );
-      return '\x00CBLOCK' + (codeBlocks.length - 1) + '\x00';
-    });
-
-    // Protect inline code
-    var inlineCodes = [];
-    text = text.replace(/`([^`\n]+)`/g, function(m, code) {
-      inlineCodes.push('<code>' + escapeHtml(code) + '</code>');
-      return '\x00ICODE' + (inlineCodes.length - 1) + '\x00';
-    });
-
-    // HTML-escape the remaining text
-    text = escapeHtml(text);
-
-    // Bold and italic
-    text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-    text = text.replace(/\*(.+?)\*/g, '<em>$1</em>');
-
-    // Headers
-    text = text.replace(/^#### (.+)$/gm, '<h5>$1</h5>');
-    text = text.replace(/^### (.+)$/gm, '<h4>$1</h4>');
-    text = text.replace(/^## (.+)$/gm, '<h3>$1</h3>');
-    text = text.replace(/^# (.+)$/gm, '<h2>$1</h2>');
-
-    // Unordered list items
-    text = text.replace(/^[-*] (.+)$/gm, '<li>$1</li>');
-
-    // Numbered list items
-    text = text.replace(/^\d+\. (.+)$/gm, '<li>$1</li>');
-
-    // Paragraphs: split on double newlines
-    var blocks = text.split(/\n\n+/);
-    var html = blocks.map(function(block) {
-      block = block.trim();
-      if (!block) return '';
-      // Don't wrap already-wrapped elements
-      if (/^<(h[2-5]|pre|li|ul|ol|\x00)/.test(block)) {
-        // Wrap loose <li> in <ul>
-        if (block.indexOf('<li>') >= 0 && block.indexOf('<ul>') < 0 && block.indexOf('<ol>') < 0) {
-          return '<ul>' + block + '</ul>';
-        }
-        return block;
-      }
-      return '<p>' + block.replace(/\n/g, '<br>') + '</p>';
-    }).join('\n');
-
-    // Restore inline code
-    for (var i = 0; i < inlineCodes.length; i++) {
-      html = html.replace('\x00ICODE' + i + '\x00', inlineCodes[i]);
-    }
-
-    // Restore code blocks
-    for (var i = 0; i < codeBlocks.length; i++) {
-      html = html.replace('\x00CBLOCK' + i + '\x00', codeBlocks[i]);
-    }
-
-    // Restore LaTeX
-    for (var i = 0; i < inlineLatex.length; i++) {
-      html = html.replace('\x00ILATEX' + i + '\x00', inlineLatex[i]);
-    }
-    for (var i = 0; i < displayLatex.length; i++) {
-      html = html.replace('\x00DLATEX' + i + '\x00', displayLatex[i]);
-    }
-
-    return html;
-  }
-
-  function escapeHtml(text) {
-    return text
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
-  }
-
-})();
-</script>
+<script src="../../../assets/llm-explain.js"></script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

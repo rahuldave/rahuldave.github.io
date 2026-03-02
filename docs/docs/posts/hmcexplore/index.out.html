@@ -466,7 +466,7 @@ window.Quarto = {
 <p>From typical sets to leapfrog integration: a detailed exploration of HMC and NUTS.</p>
 <section id="exploring-hamiltonian-monte-carlo" class="level1">
 <h1>Exploring Hamiltonian Monte Carlo</h1>
-<div id="cell-2" class="cell" data-execution_count="2" data-cell-type="code">
+<div id="cell-2" class="cell" data-cell-type="code" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
@@ -498,7 +498,7 @@ window.Quarto = {
 <p><span class="math display">\[V(q) = - log\, p(q)\]</span></p>
 <p>such that</p>
 <p><span class="math display">\[p(q) = e^{-V(q)}.\]</span></p>
-<div id="cell-7" class="cell" data-execution_count="31" data-cell-type="code">
+<div id="cell-7" class="cell" data-cell-type="code" data-execution_count="31">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fun <span class="op">=</span> <span class="kw">lambda</span> q: sp.stats.norm.pdf(q) </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>qq <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">100</span>)</span>
@@ -511,7 +511,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="33" data-cell-type="code">
+<div id="cell-8" class="cell" data-cell-type="code" data-execution_count="33">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>V <span class="op">=</span> <span class="kw">lambda</span> q: <span class="op">-</span>np.log(fun(q))</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>plt.plot(qq, V(qq))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -525,7 +525,7 @@ window.Quarto = {
 <p>The basic idea is to add a <strong>momentum</strong> variable <span class="math inline">\(p\)</span> for each <span class="math inline">\(q\)</span> in our probability density, adding a kinetic energy term to the potential energy to create a total energy, and thus creating a joint pdf <span class="math inline">\(p(p,q)\)</span>.</p>
 <p>How would this work? And why momentum? Lets think about a rocket (or a satellite with thrusters it can fire) in orbit around the earth</p>
 <figure class="figure">
-<img src="index.out_files/figure-html/526184bf-7606-4069-895d-41f7c59d4a24-2-assets/rocketorbit.png" alt="A satellite in orbit: with the right momentum, it follows a constant-energy trajectory around the Earth, analogous to HMC traversing level sets. From Betancourt." class="figure-img">
+<img src="index.out_files/figure-html/0e92cb90-cc06-4a83-bcc5-3d31f9b5a436-2-assets/rocketorbit.png" alt="A satellite in orbit: with the right momentum, it follows a constant-energy trajectory around the Earth, analogous to HMC traversing level sets. From Betancourt." class="figure-img">
 <figcaption aria-hidden="true">
 A satellite in orbit: with the right momentum, it follows a constant-energy trajectory around the Earth, analogous to HMC traversing level sets. From Betancourt.
 </figcaption>
@@ -560,7 +560,7 @@ A satellite in orbit: with the right momentum, it follows a constant-energy traj
 <p><strong>Thus it is critical to realize that we are now looking at level curve foliates of <span class="math inline">\(p(p,q)\)</span>, not those of <span class="math inline">\(p(q)\)</span></strong>. Our real aim is to explore the latter. This joint distribution is called the <strong>canonical distribution</strong></p>
 <p>With a quadratic in <span class="math inline">\(p\)</span> and if <span class="math inline">\(V(q) = \frac{1}{2}q^2\)</span> our distribution is gaussian and the level sets are ellipses of constant energy, as illustrated below, in a space called <strong>phase space</strong>, which is constructed by plotting the co-ordinates against the momenta: that is, it is just the space in which our augmented joint-distribution lives.</p>
 <figure class="figure">
-<img src="index.out_files/figure-html/526184bf-7606-4069-895d-41f7c59d4a24-1-assets/levelsets.png" alt="Hamiltonian level sets in phase space: constant-energy elliptical orbits in (p,q) for a Gaussian target. From Betancourt." class="figure-img">
+<img src="index.out_files/figure-html/0e92cb90-cc06-4a83-bcc5-3d31f9b5a436-1-assets/levelsets.png" alt="Hamiltonian level sets in phase space: constant-energy elliptical orbits in (p,q) for a Gaussian target. From Betancourt." class="figure-img">
 <figcaption aria-hidden="true">
 Hamiltonian level sets in phase space: constant-energy elliptical orbits in (p,q) for a Gaussian target. From Betancourt.
 </figcaption>
@@ -581,7 +581,7 @@ Hamiltonian level sets in phase space: constant-energy elliptical orbits in (p,q
 <section id="an-example" class="level3">
 <h3 class="anchored" data-anchor-id="an-example">An example</h3>
 <p>Here is an example of a harmonic oscillator with mass 1 and spring-constant 1</p>
-<div id="cell-14" class="cell" data-execution_count="6" data-cell-type="code">
+<div id="cell-14" class="cell" data-cell-type="code" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>q_t <span class="op">=</span> <span class="kw">lambda</span> t: <span class="fl">4.</span> <span class="op">*</span> np.cos(t)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>p_t <span class="op">=</span> <span class="kw">lambda</span> t: <span class="op">-</span><span class="fl">4.</span> <span class="op">*</span> np.sin(t)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>H_x_r_t <span class="op">=</span> <span class="kw">lambda</span> t: q_t(t)<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="fl">2.</span> <span class="op">+</span> p_t(t)<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="fl">2.</span></span>
@@ -688,14 +688,14 @@ Hamiltonian level sets in phase space: constant-energy elliptical orbits in (p,q
 <p>The idea for this once again comes from our mechanical satellite analog. Think of a rocket in a partivcular orbit firing its thrusters or letting momentum slip. It can achieve a different orbit.</p>
 <p>Thus the solution to exploring the marginal distribution is simple..after exploring a given level set for a while, we resample the momentum, and off to another level-set we go, as illustrated below:</p>
 <figure class="figure">
-<img src="index.out_files/figure-html/5b6a55e4-44ec-4173-a40a-cdf30cca91cb-2-assets/momresample.png" alt="Momentum resampling in HMC: after gliding along one energy level set, resample momentum to jump to a different orbit. From Betancourt." class="figure-img">
+<img src="index.out_files/figure-html/d2d1156b-af8d-45a7-9043-004c1ef2dc4c-2-assets/momresample.png" alt="Momentum resampling in HMC: after gliding along one energy level set, resample momentum to jump to a different orbit. From Betancourt." class="figure-img">
 <figcaption aria-hidden="true">
 Momentum resampling in HMC: after gliding along one energy level set, resample momentum to jump to a different orbit. From Betancourt.
 </figcaption>
 </figure>
 <p>Let <span class="math inline">\(p(E \vert q)\)</span> as the transition distribution of energies induced by a momentum resampling using <span class="math inline">\(p(p \vert q) = - log\, K(p,q)\)</span> at a given position <span class="math inline">\(q\)</span>. Our efficiency of this stochastic exploration over level sets then depends on how narrow this induced distribution is with respect to the marginal energy distribution:</p>
 <figure class="figure">
-<img src="index.out_files/figure-html/5b6a55e4-44ec-4173-a40a-cdf30cca91cb-1-assets/lsetexp.png" alt="Energy distributions: the marginal energy pi(E) versus the microcanonical distribution pi(E|q). Good sampling requires their overlap. From Betancourt." class="figure-img">
+<img src="index.out_files/figure-html/d2d1156b-af8d-45a7-9043-004c1ef2dc4c-1-assets/lsetexp.png" alt="Energy distributions: the marginal energy pi(E) versus the microcanonical distribution pi(E|q). Good sampling requires their overlap. From Betancourt." class="figure-img">
 <figcaption aria-hidden="true">
 Energy distributions: the marginal energy pi(E) versus the microcanonical distribution pi(E|q). Good sampling requires their overlap. From Betancourt.
 </figcaption>
@@ -747,7 +747,7 @@ Energy distributions: the marginal energy pi(E) versus the microcanonical distri
 <li>$q_i(t + ) = q_i(t) + $</li>
 </ul>
 <p>See code and plot below for harmonic oscillator, $ H = U(q) + K(p) = + $. Notice that the volume is not preserved as the trajectory we plot for the harmonic oscillator, which should be an elipse, diverges to infinity and the Hamiltonian is not conserved as we’d expect it to be. Something is wrong with this discretization.</p>
-<div id="cell-22" class="cell" data-execution_count="8" data-cell-type="code">
+<div id="cell-22" class="cell" data-cell-type="code" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> <span class="kw">lambda</span> q: q<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="dv">2</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> <span class="kw">lambda</span> p:  (p<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span><span class="dv">2</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>dUdq<span class="op">=</span> <span class="kw">lambda</span> q: q</span>
@@ -798,7 +798,7 @@ Energy distributions: the marginal energy pi(E) versus the microcanonical distri
 </div>
 <p>Most ODE solvers, like the one we just wrote, suffer from drift:</p>
 <figure class="figure">
-<img src="index.out_files/figure-html/e92f2a3f-70fe-4450-872b-eedc8ace3855-1-assets/nummodeerr.png" alt="Numerical integration error: the exact trajectory (red) versus the leapfrog approximation (green) in a vector field. From Neal." class="figure-img">
+<img src="index.out_files/figure-html/f7a1513a-8e9b-4467-a1d6-ff95ee67d249-1-assets/nummodeerr.png" alt="Numerical integration error: the exact trajectory (red) versus the leapfrog approximation (green) in a vector field. From Neal." class="figure-img">
 <figcaption aria-hidden="true">
 Numerical integration error: the exact trajectory (red) versus the leapfrog approximation (green) in a vector field. From Neal.
 </figcaption>
@@ -817,7 +817,7 @@ Numerical integration error: the exact trajectory (red) versus the leapfrog appr
 </ul>
 <p>If we do this repeatedly, the first and last steps can be combined as you can see in the code below.</p>
 <p>Notice that volume is preserved and the trajectory is very stable. In addition the discretization is reversible. The leapfrog method (named because updating momentum and position leapfrog each other) is a symplectic discretization.</p>
-<div id="cell-25" class="cell" data-execution_count="27" data-cell-type="code">
+<div id="cell-25" class="cell" data-cell-type="code" data-execution_count="27">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> <span class="kw">lambda</span> q: (q)<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="fl">2.</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> <span class="kw">lambda</span> p:  (p<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span><span class="fl">2.</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>dUdq<span class="op">=</span> <span class="kw">lambda</span> q: q</span>
@@ -899,7 +899,7 @@ Numerical integration error: the exact trajectory (red) versus the leapfrog appr
 <p>But the critical thing with HMC is that our <strong>time evolution is on a level set</strong>. So our acceptance probability is always close to 1, and we have a very efficient sampler. (You might have thought you could pick up a sample after each leapfrog update since it is coherent evolution of Hamiltonian equations, but then you would have to do a momentum reversal and acceptance comparision many many times).</p>
 <p>The momentum reversal could be left out if you are not within a more complex sampling scheme like HMC within gibbs since you will be resampling anyways. But if you are updating both a discrete parameter and a continuous parameter, you will want to reverse the sign so that you are using the correct <span class="math inline">\(p\)</span> when sampling from the conditionals.</p>
 <figure class="figure">
-<img src="index.out_files/figure-html/13facdac-1e0b-4a92-ac93-0f18864f0d7a-1-assets/reversemom.png" alt="Reversibility in leapfrog integration: negating momentum at the endpoint and reintegrating returns to the starting point. From Neal." class="figure-img">
+<img src="index.out_files/figure-html/ebcc00eb-9810-40ba-9bf9-5072dd1ec1ca-1-assets/reversemom.png" alt="Reversibility in leapfrog integration: negating momentum at the endpoint and reintegrating returns to the starting point. From Neal." class="figure-img">
 <figcaption aria-hidden="true">
 Reversibility in leapfrog integration: negating momentum at the endpoint and reintegrating returns to the starting point. From Neal.
 </figcaption>
@@ -935,7 +935,7 @@ Reversibility in leapfrog integration: negating momentum at the endpoint and rei
 <section id="a-simple-implementation" class="level3">
 <h3 class="anchored" data-anchor-id="a-simple-implementation">A simple implementation</h3>
 <p>We implement the HMC algorithm below with a gaussian Kinetic energy</p>
-<div id="cell-31" class="cell" data-execution_count="42" data-cell-type="code">
+<div id="cell-31" class="cell" data-cell-type="code" data-execution_count="42">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#constants</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> HMC(U,K,dUdq,N,q_0, p_0, epsilon<span class="op">=</span><span class="fl">0.01</span>, L<span class="op">=</span><span class="dv">100</span>):</span>
@@ -994,7 +994,7 @@ Reversibility in leapfrog integration: negating momentum at the endpoint and rei
 <span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"accept="</span>,accept<span class="op">/</span>np.double(N))</span>
 <span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> H, qall</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-32" class="cell" data-execution_count="43" data-cell-type="code">
+<div id="cell-32" class="cell" data-cell-type="code" data-execution_count="43">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># functions</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> <span class="kw">lambda</span> q: q<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="fl">2.</span></span>
@@ -1002,7 +1002,7 @@ Reversibility in leapfrog integration: negating momentum at the endpoint and rei
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>dUdq<span class="op">=</span> <span class="kw">lambda</span> q: q</span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-33" class="cell" data-execution_count="45" data-cell-type="code">
+<div id="cell-33" class="cell" data-cell-type="code" data-execution_count="45">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>H, qall<span class="op">=</span> HMC(U<span class="op">=</span>U,K<span class="op">=</span>K,dUdq<span class="op">=</span>dUdq,N<span class="op">=</span><span class="dv">10000</span>,q_0<span class="op">=</span><span class="dv">0</span>, p_0<span class="op">=-</span><span class="dv">4</span>, epsilon<span class="op">=</span><span class="fl">0.01</span>, L<span class="op">=</span><span class="dv">200</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>plt.hist(qall, bins<span class="op">=</span><span class="dv">50</span>, normed<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">100</span>)</span>
@@ -1020,7 +1020,7 @@ Reversibility in leapfrog integration: negating momentum at the endpoint and rei
 </div>
 </div>
 <p>We compare it to a MH sampler with the same number of steps</p>
-<div id="cell-35" class="cell" data-execution_count="46" data-cell-type="code">
+<div id="cell-35" class="cell" data-cell-type="code" data-execution_count="46">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> MH_simple(p, n, sig, x0):</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    x_prev <span class="op">=</span> x0</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>[]</span>
@@ -1046,7 +1046,7 @@ Reversibility in leapfrog integration: negating momentum at the endpoint and rei
 <span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"accept="</span>,k<span class="op">/</span>np.double(n))</span>
 <span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-36" class="cell" data-execution_count="47" data-cell-type="code">
+<div id="cell-36" class="cell" data-cell-type="code" data-execution_count="47">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>samples_mh <span class="op">=</span> MH_simple(p<span class="op">=</span>P, n<span class="op">=</span><span class="dv">10000</span>, sig<span class="op">=</span><span class="fl">4.0</span>, x0<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span>
@@ -1071,7 +1071,7 @@ Reversibility in leapfrog integration: negating momentum at the endpoint and rei
 </div>
 </div>
 <p>Here we see that the MH acceptance ration is much lower and the correlation much higher!</p>
-<div id="cell-38" class="cell" data-scrolled="false" data-execution_count="54" data-cell-type="code">
+<div id="cell-38" class="cell" data-cell-type="code" data-scrolled="false" data-execution_count="54">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> corrplot(trace,  maxlags<span class="op">=</span><span class="dv">100</span>):</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    plt.acorr(trace<span class="op">-</span>np.mean(trace),  normed<span class="op">=</span><span class="va">True</span>, maxlags<span class="op">=</span>maxlags)<span class="op">;</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    plt.xlim([<span class="dv">0</span>, maxlags])</span>
@@ -1085,7 +1085,7 @@ Reversibility in leapfrog integration: negating momentum at the endpoint and rei
 </div>
 </div>
 </div>
-<div id="cell-39" class="cell" data-execution_count="55" data-cell-type="code">
+<div id="cell-39" class="cell" data-cell-type="code" data-execution_count="55">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>corrplot(samples_mh)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'mh'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -1148,615 +1148,7 @@ document.addEventListener('DOMContentLoaded', function() {
     "https://www.linkedin.com/sharing/share-offsite/?url=" + url;
 })();
 </script>
-<script>
-(function() {
-  // Gate: only activate on individual post pages
-  var p = window.location.pathname;
-  if (!p.startsWith('/posts/')) return;
-  var listingPaths = ['/posts/', '/posts', '/posts/index.html'];
-  if (listingPaths.indexOf(p) >= 0) return;
-
-  // Extract post slug from URL
-  var match = p.match(/\/posts\/([^/.]+)/);
-  if (!match) return;
-  var slug = match[1];
-  var baseUrl = '/posts/' + slug + '/';
-
-  // State
-  var cellsData = null;
-  var contentMd = null;
-  var apiKey = localStorage.getItem('claude-api-key');
-  var MODEL = 'claude-sonnet-4-20250514';
-  var SYSTEM_PROMPT = 'You are a helpful teaching assistant for a data science and machine learning course. ' +
-    'Explain concepts clearly and concisely. Reference specific code examples when relevant. ' +
-    'Use LaTeX notation (with $...$ for inline and $$...$$ for display) for mathematical expressions. ' +
-    'Keep responses focused and educational.';
-
-  // --- Initialization ---
-
-  fetch(baseUrl + 'cells.json')
-    .then(function(r) { return r.ok ? r.json() : null; })
-    .then(function(data) {
-      if (!data) return;
-      cellsData = data;
-      injectButtons();
-    })
-    .catch(function() { /* No cells.json — feature disabled for this post */ });
-
-  // --- Button Injection ---
-
-  function injectButtons() {
-    injectSummarizeButton();
-    injectCellButtons();
-  }
-
-  function injectSummarizeButton() {
-    var anchor = document.querySelector('#title-block-header') ||
-                 document.querySelector('.quarto-title-block') ||
-                 document.querySelector('header');
-    if (!anchor) return;
-
-    var wrap = document.createElement('div');
-    wrap.className = 'llm-summarize-wrap';
-
-    var btn = document.createElement('button');
-    btn.className = 'llm-btn llm-btn-summarize';
-    btn.textContent = 'Summarize this page';
-    btn.addEventListener('click', function() { handleAction('summarize', null); });
-
-    wrap.appendChild(btn);
-    anchor.parentNode.insertBefore(wrap, anchor.nextSibling);
-  }
-
-  function injectCellButtons() {
-    var sourceType = cellsData ? cellsData.source_type : 'ipynb';
-
-    // --- Notebook posts (ipynb): buttons after Quarto's div.cell elements ---
-    var notebookCells = document.querySelectorAll('div.cell[id^="cell-"]');
-    for (var i = 0; i < notebookCells.length; i++) {
-      var cell = notebookCells[i];
-      var cellIndex = parseInt(cell.id.replace('cell-', ''), 10);
-      if (isNaN(cellIndex)) continue;
-
-      var container = document.createElement('div');
-      container.className = 'llm-buttons';
-
-      container.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', cellIndex));
-      container.appendChild(makeLlmBtn('Explain this code', 'explain-code', cellIndex));
-
-      cell.parentNode.insertBefore(container, cell.nextSibling);
-    }
-
-    // --- Non-notebook posts (md/qmd): buttons after headings and code blocks ---
-    if (sourceType !== 'ipynb' || notebookCells.length === 0) {
-      // Build a lookup: heading slug -> cell index from cells.json
-      var slugToCellIndex = {};
-      if (cellsData && cellsData.cells) {
-        for (var c = 0; c < cellsData.cells.length; c++) {
-          var meta = cellsData.cells[c];
-          if (meta.headings) {
-            for (var h = 0; h < meta.headings.length; h++) {
-              slugToCellIndex[meta.headings[h].slug] = meta.cell;
-            }
-          }
-        }
-      }
-
-      // "Explain up to here" after h2/h3 headings
-      // Quarto puts the id on the parent <section>, and data-anchor-id on the <h>
-      var headings = document.querySelectorAll('h2[data-anchor-id], h3[data-anchor-id], h2[id], h3[id]');
-      var seen = new Set();
-      for (var i = 0; i < headings.length; i++) {
-        var heading = headings[i];
-        var headingSlug = heading.getAttribute('data-anchor-id') || heading.id;
-        if (!headingSlug || headingSlug === 'toc-title') continue;
-        if (seen.has(headingSlug)) continue; // deduplicate
-        seen.add(headingSlug);
-
-        var cellIdx = slugToCellIndex[headingSlug];
-        if (cellIdx === undefined) cellIdx = i; // fallback to DOM order
-
-        var wrap = document.createElement('div');
-        wrap.className = 'llm-buttons';
-        wrap.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', cellIdx));
-
-        // Insert after the heading's parent section, or after the heading itself
-        var section = heading.closest('section');
-        var target = section || heading;
-        if (target.nextSibling) {
-          target.parentNode.insertBefore(wrap, target.nextSibling);
-        } else {
-          target.parentNode.appendChild(wrap);
-        }
-      }
-
-      // "Explain this code" after standalone code blocks (not inside div.cell)
-      var codeBlocks = document.querySelectorAll('div.sourceCode');
-      for (var i = 0; i < codeBlocks.length; i++) {
-        var block = codeBlocks[i];
-        // Skip code blocks that are inside Quarto notebook cells
-        if (block.closest('div.cell')) continue;
-
-        // Find the matching cell index from cells.json
-        // Use position in DOM relative to headings to estimate cell index
-        var codeIdx = findCodeCellIndex(block, slugToCellIndex);
-
-        var wrap = document.createElement('div');
-        wrap.className = 'llm-buttons';
-        wrap.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', codeIdx));
-        wrap.appendChild(makeLlmBtn('Explain this code', 'explain-code', codeIdx));
-
-        block.parentNode.insertBefore(wrap, block.nextSibling);
-      }
-    }
-  }
-
-  function findCodeCellIndex(codeBlock, slugToCellIndex) {
-    // Walk backwards from the code block to find the nearest heading
-    // then look up its cell index and add 1 (the code cell follows the heading)
-    if (!cellsData || !cellsData.cells) return 0;
-
-    // Find code cells in cells.json
-    var codeCells = [];
-    for (var i = 0; i < cellsData.cells.length; i++) {
-      if (cellsData.cells[i].type === 'code') {
-        codeCells.push(cellsData.cells[i].cell);
-      }
-    }
-
-    // Find which code block this is in DOM order (among standalone code blocks)
-    var allCodeBlocks = document.querySelectorAll('div.sourceCode:not(.cell-code)');
-    for (var i = 0; i < allCodeBlocks.length; i++) {
-      if (allCodeBlocks[i] === codeBlock && i < codeCells.length) {
-        return codeCells[i];
-      }
-    }
-    return codeCells.length > 0 ? codeCells[0] : 0;
-  }
-
-  function makeLlmBtn(text, action, cellIndex) {
-    var btn = document.createElement('button');
-    btn.className = 'llm-btn';
-    btn.textContent = text;
-    btn.setAttribute('data-action', action);
-    btn.setAttribute('data-cell', cellIndex);
-    btn.addEventListener('click', makeHandler(action, cellIndex));
-    return btn;
-  }
-
-  function makeHandler(action, cellIndex) {
-    return function() { handleAction(action, cellIndex); };
-  }
-
-  // --- Action Handler ---
-
-  function handleAction(action, cellIndex) {
-    apiKey = localStorage.getItem('claude-api-key');
-    if (!apiKey) {
-      showApiKeyModal(function() { handleAction(action, cellIndex); });
-      return;
-    }
-
-    if (contentMd) {
-      executeAction(action, cellIndex);
-    } else {
-      fetch(baseUrl + 'content.md')
-        .then(function(r) {
-          if (!r.ok) throw new Error('Could not load content');
-          return r.text();
-        })
-        .then(function(text) {
-          contentMd = text;
-          executeAction(action, cellIndex);
-        })
-        .catch(function(err) {
-          showChatModal();
-          var el = document.querySelector('.llm-chat-response');
-          if (el) {
-            el.classList.remove('llm-loading');
-            el.innerHTML = '<p class="llm-error">Error loading content: ' + escapeHtml(err.message) + '</p>';
-          }
-        });
-    }
-  }
-
-  function executeAction(action, cellIndex) {
-    var context = sliceContent(action, cellIndex);
-    var userPrompt = buildUserPrompt(action, context);
-    showChatModal();
-    streamResponse(userPrompt);
-  }
-
-  // --- Content Slicing ---
-
-  function sliceContent(action, cellIndex) {
-    if (action === 'summarize') {
-      return contentMd;
-    }
-
-    var lines = contentMd.split('\n');
-
-    if (action === 'explain-upto') {
-      // Include everything from start through the target cell
-      var result = [];
-      var foundTarget = false;
-      for (var i = 0; i < lines.length; i++) {
-        var m = lines[i].match(/<!-- cell:(\d+)/);
-        if (m) {
-          var idx = parseInt(m[1], 10);
-          if (idx > cellIndex && foundTarget) break;
-          if (idx === cellIndex) foundTarget = true;
-        }
-        result.push(lines[i]);
-      }
-      return result.join('\n');
-    }
-
-    if (action === 'explain-code') {
-      // Extract the specific code cell + preceding context
-      var cellStart = -1;
-      var cellEnd = lines.length;
-
-      for (var i = 0; i < lines.length; i++) {
-        var m = lines[i].match(/<!-- cell:(\d+)/);
-        if (m) {
-          var idx = parseInt(m[1], 10);
-          if (idx === cellIndex) cellStart = i;
-          else if (idx > cellIndex && cellStart >= 0) {
-            cellEnd = i;
-            break;
-          }
-        }
-      }
-
-      if (cellStart < 0) return contentMd; // fallback
-
-      // Get preceding context (limited to ~3000 chars for focus)
-      var preceding = lines.slice(0, cellStart).join('\n');
-      if (preceding.length > 3000) {
-        preceding = '...\n' + preceding.slice(-3000);
-      }
-
-      var codeSection = lines.slice(cellStart, cellEnd).join('\n');
-      return preceding + '\n\n' + codeSection;
-    }
-
-    return contentMd;
-  }
-
-  // --- Prompt Building ---
-
-  function buildUserPrompt(action, context) {
-    var title = (cellsData && cellsData.title) ? cellsData.title : slug;
-
-    if (action === 'summarize') {
-      return 'Summarize the key concepts from this lecture note titled "' + title +
-        '" in 3-5 bullet points. Be concise but thorough.\n\n' + context;
-    }
-
-    if (action === 'explain-upto') {
-      return 'The student has read up to this point in the lecture note "' + title +
-        '". Explain the key concepts covered so far in clear, accessible language. ' +
-        'Reference specific code examples where relevant.\n\n' + context;
-    }
-
-    if (action === 'explain-code') {
-      return 'Explain what this code does and why, in the context of the surrounding lecture material. ' +
-        'Be specific about what each part does and the reasoning behind it.\n\n' + context;
-    }
-
-    return context;
-  }
-
-  // --- API Key Modal ---
-
-  function showApiKeyModal(callback) {
-    var overlay = document.createElement('div');
-    overlay.className = 'llm-modal-overlay';
-
-    var modal = document.createElement('div');
-    modal.className = 'llm-modal llm-key-modal';
-    modal.innerHTML =
-      '<h3>Enter your Claude API key</h3>' +
-      '<p>Your key stays in your browser (localStorage) and is sent only to api.anthropic.com. ' +
-      'It is never sent to this website\'s server.</p>' +
-      '<input type="password" id="llm-api-key-input" placeholder="sk-ant-..." autocomplete="off">' +
-      '<div class="llm-modal-actions">' +
-        '<button class="llm-btn-cancel">Cancel</button>' +
-        '<button class="llm-btn-save">Save &amp; Continue</button>' +
-      '</div>';
-
-    overlay.appendChild(modal);
-    document.body.appendChild(overlay);
-
-    var input = document.getElementById('llm-api-key-input');
-    setTimeout(function() { input.focus(); }, 50);
-
-    modal.querySelector('.llm-btn-cancel').addEventListener('click', function() {
-      overlay.remove();
-    });
-
-    modal.querySelector('.llm-btn-save').addEventListener('click', function() {
-      var key = input.value.trim();
-      if (key) {
-        localStorage.setItem('claude-api-key', key);
-        apiKey = key;
-        overlay.remove();
-        if (callback) callback();
-      }
-    });
-
-    input.addEventListener('keydown', function(e) {
-      if (e.key === 'Enter') modal.querySelector('.llm-btn-save').click();
-    });
-
-    overlay.addEventListener('click', function(e) {
-      if (e.target === overlay) overlay.remove();
-    });
-  }
-
-  // --- Chat Modal ---
-
-  function showChatModal() {
-    var existing = document.querySelector('.llm-chat-overlay');
-    if (existing) existing.remove();
-
-    var overlay = document.createElement('div');
-    overlay.className = 'llm-modal-overlay llm-chat-overlay';
-
-    var modal = document.createElement('div');
-    modal.className = 'llm-modal llm-chat-modal';
-    modal.innerHTML =
-      '<div class="llm-chat-header">' +
-        '<span>Claude Explanation</span>' +
-        '<div class="llm-chat-actions">' +
-          '<button class="llm-btn-icon llm-btn-settings" title="API key settings">\u2699</button>' +
-          '<button class="llm-btn-icon llm-btn-copy" title="Copy response">\u2398</button>' +
-          '<button class="llm-btn-icon llm-btn-close" title="Close">\u2715</button>' +
-        '</div>' +
-      '</div>' +
-      '<div class="llm-chat-body">' +
-        '<div class="llm-chat-response llm-loading">Thinking\u2026</div>' +
-      '</div>';
-
-    overlay.appendChild(modal);
-    document.body.appendChild(overlay);
-
-    modal.querySelector('.llm-btn-close').addEventListener('click', function() {
-      overlay.remove();
-    });
-
-    modal.querySelector('.llm-btn-settings').addEventListener('click', function() {
-      overlay.remove();
-      showApiKeyModal(null);
-    });
-
-    modal.querySelector('.llm-btn-copy').addEventListener('click', function() {
-      var text = modal.querySelector('.llm-chat-response').textContent;
-      navigator.clipboard.writeText(text).then(function() {
-        var toast = document.createElement('div');
-        toast.className = 'llm-copied-toast';
-        toast.textContent = 'Copied!';
-        document.body.appendChild(toast);
-        setTimeout(function() { toast.remove(); }, 1500);
-      });
-    });
-
-    overlay.addEventListener('click', function(e) {
-      if (e.target === overlay) overlay.remove();
-    });
-
-    var escHandler = function(e) {
-      if (e.key === 'Escape') {
-        overlay.remove();
-        document.removeEventListener('keydown', escHandler);
-      }
-    };
-    document.addEventListener('keydown', escHandler);
-  }
-
-  // --- Streaming API Call ---
-
-  function streamResponse(userPrompt) {
-    var responseEl = document.querySelector('.llm-chat-response');
-    if (!responseEl) return;
-
-    responseEl.textContent = '';
-    responseEl.classList.remove('llm-loading');
-    responseEl.classList.add('llm-streaming');
-
-    var fullText = '';
-
-    fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-dangerous-direct-browser-access': 'true'
-      },
-      body: JSON.stringify({
-        model: MODEL,
-        max_tokens: 2048,
-        stream: true,
-        system: SYSTEM_PROMPT,
-        messages: [{ role: 'user', content: userPrompt }]
-      })
-    })
-    .then(function(response) {
-      if (response.status === 401) {
-        responseEl.classList.remove('llm-streaming');
-        responseEl.innerHTML = '<p class="llm-error">Invalid API key. Click the gear icon to update it.</p>';
-        localStorage.removeItem('claude-api-key');
-        apiKey = null;
-        return;
-      }
-      if (!response.ok) {
-        return response.text().then(function(body) {
-          throw new Error('API error ' + response.status + ': ' + body.slice(0, 200));
-        });
-      }
-
-      var reader = response.body.getReader();
-      var decoder = new TextDecoder();
-      var buffer = '';
-
-      function processChunk() {
-        reader.read().then(function(result) {
-          if (result.done) {
-            finishResponse(fullText, responseEl);
-            return;
-          }
-
-          buffer += decoder.decode(result.value, { stream: true });
-          var lines = buffer.split('\n');
-          buffer = lines.pop(); // keep incomplete line
-
-          for (var i = 0; i < lines.length; i++) {
-            var line = lines[i];
-            if (line.startsWith('data: ')) {
-              var data = line.slice(6);
-              if (data === '[DONE]') continue;
-              try {
-                var parsed = JSON.parse(data);
-                if (parsed.type === 'content_block_delta' &&
-                    parsed.delta && parsed.delta.text) {
-                  fullText += parsed.delta.text;
-                  responseEl.textContent = fullText;
-                  responseEl.scrollTop = responseEl.scrollHeight;
-                }
-              } catch (e) { /* skip unparseable lines */ }
-            }
-          }
-
-          processChunk();
-        }).catch(function(err) {
-          finishResponse(fullText || 'Stream interrupted: ' + err.message, responseEl);
-        });
-      }
-
-      processChunk();
-    })
-    .catch(function(err) {
-      responseEl.classList.remove('llm-streaming');
-      responseEl.innerHTML = '<p class="llm-error">' + escapeHtml(err.message) + '</p>';
-    });
-  }
-
-  function finishResponse(text, el) {
-    el.classList.remove('llm-streaming');
-    el.innerHTML = renderMarkdown(text);
-
-    // Re-typeset math if MathJax is available
-    if (window.MathJax && window.MathJax.typesetPromise) {
-      window.MathJax.typesetPromise([el]).catch(function() {});
-    } else if (window.MathJax && window.MathJax.typeset) {
-      try { window.MathJax.typeset([el]); } catch (e) {}
-    }
-  }
-
-  // --- Markdown Rendering ---
-
-  function renderMarkdown(text) {
-    if (!text) return '';
-
-    // Protect LaTeX display blocks ($$...$$)
-    var displayLatex = [];
-    text = text.replace(/\$\$([\s\S]+?)\$\$/g, function(m) {
-      displayLatex.push(m);
-      return '\x00DLATEX' + (displayLatex.length - 1) + '\x00';
-    });
-
-    // Protect LaTeX inline ($...$) — avoid matching currency like $5
-    var inlineLatex = [];
-    text = text.replace(/\$([^\$\n]+?)\$/g, function(m) {
-      inlineLatex.push(m);
-      return '\x00ILATEX' + (inlineLatex.length - 1) + '\x00';
-    });
-
-    // Protect fenced code blocks
-    var codeBlocks = [];
-    text = text.replace(/```(\w*)\n([\s\S]*?)```/g, function(m, lang, code) {
-      codeBlocks.push(
-        '<pre><code' + (lang ? ' class="language-' + lang + '"' : '') + '>' +
-        escapeHtml(code) + '</code></pre>'
-      );
-      return '\x00CBLOCK' + (codeBlocks.length - 1) + '\x00';
-    });
-
-    // Protect inline code
-    var inlineCodes = [];
-    text = text.replace(/`([^`\n]+)`/g, function(m, code) {
-      inlineCodes.push('<code>' + escapeHtml(code) + '</code>');
-      return '\x00ICODE' + (inlineCodes.length - 1) + '\x00';
-    });
-
-    // HTML-escape the remaining text
-    text = escapeHtml(text);
-
-    // Bold and italic
-    text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-    text = text.replace(/\*(.+?)\*/g, '<em>$1</em>');
-
-    // Headers
-    text = text.replace(/^#### (.+)$/gm, '<h5>$1</h5>');
-    text = text.replace(/^### (.+)$/gm, '<h4>$1</h4>');
-    text = text.replace(/^## (.+)$/gm, '<h3>$1</h3>');
-    text = text.replace(/^# (.+)$/gm, '<h2>$1</h2>');
-
-    // Unordered list items
-    text = text.replace(/^[-*] (.+)$/gm, '<li>$1</li>');
-
-    // Numbered list items
-    text = text.replace(/^\d+\. (.+)$/gm, '<li>$1</li>');
-
-    // Paragraphs: split on double newlines
-    var blocks = text.split(/\n\n+/);
-    var html = blocks.map(function(block) {
-      block = block.trim();
-      if (!block) return '';
-      // Don't wrap already-wrapped elements
-      if (/^<(h[2-5]|pre|li|ul|ol|\x00)/.test(block)) {
-        // Wrap loose <li> in <ul>
-        if (block.indexOf('<li>') >= 0 && block.indexOf('<ul>') < 0 && block.indexOf('<ol>') < 0) {
-          return '<ul>' + block + '</ul>';
-        }
-        return block;
-      }
-      return '<p>' + block.replace(/\n/g, '<br>') + '</p>';
-    }).join('\n');
-
-    // Restore inline code
-    for (var i = 0; i < inlineCodes.length; i++) {
-      html = html.replace('\x00ICODE' + i + '\x00', inlineCodes[i]);
-    }
-
-    // Restore code blocks
-    for (var i = 0; i < codeBlocks.length; i++) {
-      html = html.replace('\x00CBLOCK' + i + '\x00', codeBlocks[i]);
-    }
-
-    // Restore LaTeX
-    for (var i = 0; i < inlineLatex.length; i++) {
-      html = html.replace('\x00ILATEX' + i + '\x00', inlineLatex[i]);
-    }
-    for (var i = 0; i < displayLatex.length; i++) {
-      html = html.replace('\x00DLATEX' + i + '\x00', displayLatex[i]);
-    }
-
-    return html;
-  }
-
-  function escapeHtml(text) {
-    return text
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;');
-  }
-
-})();
-</script>
+<script src="../../../assets/llm-explain.js"></script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
