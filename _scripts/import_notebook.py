@@ -37,6 +37,9 @@ def build_frontmatter_cell(title, subtitle, description, categories, date):
     for cat in categories:
         lines.append(f"    - {cat}\n")
     lines.append(f"date: {date}\n")
+    lines.append("format:\n")
+    lines.append("    html: default\n")
+    lines.append("    ipynb: default\n")
     lines.append("---")
     return {
         "cell_type": "raw",
