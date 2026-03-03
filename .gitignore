@@ -10,6 +10,7 @@
 designs/
 
 .DS_Store
+__pycache__/
 _site/
 
 # Claude Code — track skills and project docs, ignore local settings
