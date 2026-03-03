@@ -57,22 +57,20 @@
     // Tooltip with run instructions
     btn.title = "Download zip bundle. Run with: uvx juv run index.ipynb";
 
-    // Create wrapper div matching the summarize layout
-    var wrap = document.createElement("div");
-    wrap.className = "download-bundle-wrap";
-    wrap.appendChild(btn);
-
     if (summarizeWrap) {
-      // Insert before the summarize wrapper so it appears first
-      summarizeWrap.parentNode.insertBefore(wrap, summarizeWrap);
+      // Insert into the same wrapper as the summarize button (same line, flush right)
+      summarizeWrap.insertBefore(btn, summarizeWrap.firstChild);
     } else {
-      // Fallback: insert at top of article content
+      // Fallback: create own wrapper at top of article content
+      var wrap = document.createElement("div");
+      wrap.className = "download-bundle-wrap";
+      wrap.appendChild(btn);
+
       var article =
         document.querySelector("#quarto-document-content") ||
         document.querySelector("main.content") ||
         document.querySelector("main");
       if (article) {
-        // Insert after the title block
         var titleBlock = article.querySelector(".quarto-title-block");
         if (titleBlock) {
           titleBlock.parentNode.insertBefore(wrap, titleBlock.nextSibling);

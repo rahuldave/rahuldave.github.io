@@ -27,8 +27,6 @@
 // Show buttons when hovering the preceding element or the buttons themselves
 .cell:hover + .llm-buttons,
 div.sourceCode:hover + .llm-buttons,
-h2:hover + .llm-buttons,
-h3:hover + .llm-buttons,
 .llm-buttons:hover {
   opacity: 1;
 }
@@ -51,11 +49,39 @@ h3:hover + .llm-buttons,
   }
 }
 
-// Summarize button at top of page
+// Summarize + Download buttons at top of page (same line, flush right)
 .llm-summarize-wrap {
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
   margin: 0.5rem 0 1.5rem;
+}
+
+// "Explain up to here" buttons inline with headings (flush-right)
+h2.llm-heading-with-btn,
+h3.llm-heading-with-btn {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  .llm-btn {
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+    flex-shrink: 0;
+    font-weight: normal;
+    margin-left: auto;
+  }
+
+  &:hover .llm-btn {
+    opacity: 1;
+  }
+}
+
+// End-of-article "Explain up to here"
+.llm-buttons-end {
+  margin-top: 2rem;
+  opacity: 0.5;
 }
 
 // ---- Modal Overlay ----
@@ -317,6 +343,13 @@ h3:hover + .llm-buttons,
 
   .llm-buttons {
     opacity: 0.5;
+  }
+
+  h2.llm-heading-with-btn,
+  h3.llm-heading-with-btn {
+    .llm-btn {
+      opacity: 0.5;
+    }
   }
 
   .llm-chat-body {
