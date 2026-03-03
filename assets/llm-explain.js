@@ -131,11 +131,13 @@
 
     if (sourceType === 'ipynb') {
       // Notebook: buttons after Quarto's div.cell elements
-      var notebookCells = document.querySelectorAll('div.cell[id^="cell-"]');
+      // Match code cells by data-cell-type attribute (works with both cell-N and UUID IDs)
+      var notebookCells = document.querySelectorAll('div.cell[data-cell-type="code"]');
       for (var i = 0; i < notebookCells.length; i++) {
         var cell = notebookCells[i];
+        // Try cell-N format first, fall back to sequential index
         var cellIndex = parseInt(cell.id.replace('cell-', ''), 10);
-        if (isNaN(cellIndex)) continue;
+        if (isNaN(cellIndex)) cellIndex = i;
 
         var container = document.createElement('div');
         container.className = 'llm-buttons';
