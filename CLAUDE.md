@@ -305,18 +305,26 @@ Readers use their own Claude API key (browser localStorage) to get AI explanatio
 **Full internal docs:** `_internal_docs/llm-explain-system.md`
 
 ### Download & Run Bundles (juv + zip)
-Each notebook post gets a downloadable `<slug>.zip` containing the source notebook (with PEP 723 inline dependencies), assets, and data files. Readers unzip and run with `uvx juv run index.ipynb`.
+Each notebook post gets a downloadable `<slug>.zip` containing:
+- `index.ipynb` — source notebook with PEP 723 inline dependencies (`#| include: false` hides the cell in Quarto)
+- `assets/` — images (PNG, JPG, etc.) and per-notebook data files (CSV)
+- `data/` — data files if present (CSV, etc.)
+- `README.md` — title, link to online version, quick-start instructions, dependency list
+
+Readers unzip and run with `uvx juv run index.ipynb`. The PEP 723 cell tells `juv` which packages to install.
 
 **Architecture:**
-1. **PEP 723 injection** (`_scripts/inject_juv_metadata.py`) — scans imports, injects hidden dependency cell at index 1
-2. **Bundle generation** (`_scripts/generate_bundles.py`) — zips notebook + assets/ + data/ into `_site/posts/<slug>/<slug>.zip`, writes `_site/bundles.json` manifest
+1. **PEP 723 injection** (`_scripts/inject_juv_metadata.py`) — scans imports, injects hidden dependency cell at index 1 with `#| include: false`
+2. **Bundle generation** (`_scripts/generate_bundles.py`) — zips notebook + assets/ + data/ + README.md into `_site/posts/<slug>/<slug>.zip`, writes `_site/bundles.json` manifest
 3. **Runtime JS** (`assets/download-bundle.js`) — HEAD-checks for zip, injects "Download & Run" button on post pages
 
 **Key files:** `assets/download-bundle.js`, `styles/_download-bundle.scss`, `includes/download-bundle.html`, `_scripts/inject_juv_metadata.py`, `_scripts/generate_bundles.py`, `_scripts/test_bundles.py`
 
-**Workflow for new notebook posts:** Run `/bundle-post` (called automatically by `/finalize-post`). This injects PEP 723 deps and verifies data files. The zip is generated at build time by `make build`.
+**Workflow for new notebook posts:** Run `/bundle-post` (called automatically by `/finalize-post`). This checks for missing data files, injects PEP 723 deps, and verifies bundle contents. The zip is generated at build time by `make build`.
 
 **No `ipynb: default` in frontmatter.** The old "Other Formats > Jupyter" download is replaced by zip bundles. The `import_notebook.py` script and all skills omit `ipynb: default`.
+
+**Makefile uses stamp files** (`_site/.stamp.*`) so `make deploy` after `make build` skips the render. Run `make clean` to force a full rebuild.
 
 ### Known Gotchas
 - After adding/moving/renaming files, restart `quarto preview` — the live server caches resource IDs and will show "Bad resource ID" for changed files

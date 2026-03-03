@@ -14,7 +14,7 @@ Build the site, commit all changes, and push to GitHub (which triggers GitHub Pa
 
 ### 1. Build
 
-Run `make build` which renders the site to `_site/`, generates LLM context files, and generates zip bundles.
+Run `make build` which renders the site to `_site/`, generates LLM context files (`_content.md`, `cells.json`, `llms.txt`), and generates zip bundles (`<slug>.zip`, `bundles.json`). Uses stamp files so unchanged stages are skipped.
 
 ### 2. Review Changes
 

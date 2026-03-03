@@ -84,6 +84,7 @@ If this post was imported from the AM207 wiki, update the "Content Import Status
 
 - This skill is meant to be invoked after creating any new post, whether from wiki import or from scratch.
 - The `/import-wiki-notes` skill calls this skill at the end for each imported post.
+- `make build` regenerates site-wide files that depend on the full post list: `llms.txt` (LLM context index), `bundles.json` (bundle manifest), and the zip bundles themselves. These are NOT generated per-post — they update automatically on the next `make build` or `make deploy`.
 - For Three.js or JS-heavy interactive content, use `.qmd` format — see `posts/seasons/index.qmd` for the pattern.
 - Three.js / interactive containers should have `padding: 1.5rem` to avoid the canvas being flush against the container edges. Use `min-height: 580px` or more for comfortable viewing.
 - All categories must be lowercase.
