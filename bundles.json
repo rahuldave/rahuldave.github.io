@@ -679,7 +679,7 @@
       "scipy",
       "seaborn"
     ],
-    "pyodide_compatible": true,
+    "pyodide_compatible": false,
     "files": [
       "index.ipynb"
     ]
@@ -767,7 +767,7 @@
       "scipy",
       "seaborn"
     ],
-    "pyodide_compatible": true,
+    "pyodide_compatible": false,
     "files": [
       "index.ipynb"
     ]
@@ -802,7 +802,7 @@
       "pandas",
       "lxml"
     ],
-    "pyodide_compatible": true,
+    "pyodide_compatible": false,
     "files": [
       "index.ipynb",
       "assets/sep7.png"

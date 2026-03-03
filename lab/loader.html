@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loading notebook... — rahuldave</title>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<style>
+  :root {
+    --bg: #f8f9fa; --fg: #2c3e50; --accent: #2171b5;
+    --surface: #fff; --border: #c6dbef; --muted: #6c757d;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1a1a2e; --fg: #e0e0e0; --accent: #6baed6;
+      --surface: #16213e; --border: #3a506b; --muted: #8d99ae;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Source Serif 4", Georgia, serif;
+    background: var(--bg); color: var(--fg);
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; padding: 2rem;
+  }
+  .loader-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 2.5rem; max-width: 480px; width: 100%;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08); text-align: center;
+  }
+  h1 { font-size: 1.25rem; margin-bottom: 1.5rem; font-weight: 600; }
+  .spinner {
+    width: 40px; height: 40px; margin: 0 auto 1.5rem;
+    border: 3px solid var(--border); border-top-color: var(--accent);
+    border-radius: 50%; animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  #status { font-size: 0.9rem; color: var(--muted); line-height: 1.5; }
+  #status.error { color: #c0392b; }
+  .step { margin-top: 0.5rem; font-family: "IBM Plex Mono", monospace; font-size: 0.75rem; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="loader-card">
+  <h1>Preparing Notebook Environment</h1>
+  <div class="spinner" id="spinner"></div>
+  <div id="status">Initializing...</div>
+</div>
+
+<script>
+(function() {
+  "use strict";
+
+  var statusEl = document.getElementById("status");
+  var spinnerEl = document.getElementById("spinner");
+
+  // Packages preloaded by JupyterLite kernel (must match jupyter-lite.json)
+  var PRELOADED = new Set([
+    "numpy", "scipy", "matplotlib", "pandas",
+    "scikit-learn", "statsmodels", "pillow", "Pillow", "seaborn"
+  ]);
+
+  // Normalize package names for comparison
+  function normPkg(name) {
+    return name.toLowerCase().replace(/[-_.]+/g, "-");
+  }
+
+  function setStatus(msg) {
+    statusEl.innerHTML = msg;
+  }
+
+  function setError(msg) {
+    spinnerEl.style.display = "none";
+    statusEl.className = "error";
+    statusEl.innerHTML = msg;
+  }
+
+  // --- Parse query params ---
+  var params = new URLSearchParams(window.location.search);
+  var zipUrl = params.get("zip");
+  if (!zipUrl) {
+    setError('Missing <code>?zip=</code> parameter.<br><a href="/">Back to site</a>');
+    return;
+  }
+
+  // Extract slug from zip path: /posts/<slug>/<slug>.zip
+  var slugMatch = zipUrl.match(/\/posts\/([^/]+)\//);
+  var slug = slugMatch ? slugMatch[1] : "notebook";
+
+  // --- Main flow ---
+  run().catch(function(err) {
+    console.error(err);
+    setError("Error: " + err.message + '<br><a href="/">Back to site</a>');
+  });
+
+  async function run() {
+    // 1. Fetch the zip
+    setStatus('<div class="step">Downloading notebook bundle...</div>');
+    var resp = await fetch(zipUrl);
+    if (!resp.ok) throw new Error("Failed to fetch " + zipUrl + " (" + resp.status + ")");
+    var arrayBuf = await resp.arrayBuffer();
+
+    // 2. Unzip
+    setStatus('<div class="step">Unpacking files...</div>');
+    var zip = await JSZip.loadAsync(arrayBuf);
+
+    // 3. Find and parse the notebook
+    var nbFile = zip.file("index.ipynb");
+    if (!nbFile) throw new Error("No index.ipynb found in bundle");
+    var nbText = await nbFile.async("string");
+    var nb = JSON.parse(nbText);
+
+    // 4. Find PEP 723 cell and compute extra deps
+    setStatus('<div class="step">Configuring dependencies...</div>');
+    var pep723Index = -1;
+    var pep723Deps = [];
+
+    for (var i = 0; i < nb.cells.length; i++) {
+      var cell = nb.cells[i];
+      if (cell.cell_type !== "code") continue;
+      var src = (Array.isArray(cell.source) ? cell.source.join("") : cell.source);
+      if (src.indexOf("# /// script") !== -1) {
+        pep723Index = i;
+        // Parse deps from PEP 723 block
+        var lines = src.split("\n");
+        for (var j = 0; j < lines.length; j++) {
+          var line = lines[j].trim();
+          if (line.startsWith('#   "') && line.endsWith('",')) {
+            pep723Deps.push(line.slice(5, -2));
+          }
+        }
+        break;
+      }
+    }
+
+    // Compute which deps need micropip
+    var normalizedPreloaded = new Set();
+    PRELOADED.forEach(function(p) { normalizedPreloaded.add(normPkg(p)); });
+
+    var extraDeps = pep723Deps.filter(function(d) {
+      return !normalizedPreloaded.has(normPkg(d));
+    });
+
+    // 5. Rewrite PEP 723 cell
+    if (pep723Index >= 0) {
+      if (extraDeps.length > 0) {
+        // Replace with micropip.install cell
+        var micropipSrc = "import micropip\nawait micropip.install(" +
+          JSON.stringify(extraDeps) + ")";
+        nb.cells[pep723Index].source = micropipSrc.split("\n").map(function(line, idx, arr) {
+          return idx < arr.length - 1 ? line + "\n" : line;
+        });
+      } else {
+        // No extra deps needed — make it a no-op comment
+        nb.cells[pep723Index].source = ["# Dependencies are preloaded in the JupyterLite environment"];
+      }
+      // Clear any outputs and remove the include:false metadata
+      nb.cells[pep723Index].outputs = [];
+      if (nb.cells[pep723Index].metadata && nb.cells[pep723Index].metadata.tags) {
+        nb.cells[pep723Index].metadata.tags = [];
+      }
+    }
+
+    // 6. Write files to JupyterLite IndexedDB
+    setStatus('<div class="step">Writing files to virtual filesystem...</div>');
+    await writeToJupyterLiteFS(slug, nb, zip);
+
+    // 7. Redirect to JupyterLite
+    setStatus('<div class="step">Opening JupyterLite...</div>');
+    var labUrl = "/lab/lab/index.html?path=" + encodeURIComponent(slug + "/index.ipynb");
+    window.location.href = labUrl;
+  }
+
+  // --- IndexedDB helpers ---
+
+  function openJupyterLiteDB() {
+    return new Promise(function(resolve, reject) {
+      var req = indexedDB.open("JupyterLite Storage");
+      req.onupgradeneeded = function(event) {
+        var db = event.target.result;
+        if (!db.objectStoreNames.contains("files")) {
+          db.createObjectStore("files");
+        }
+      };
+      req.onsuccess = function(event) { resolve(event.target.result); };
+      req.onerror = function(event) { reject(event.target.error); };
+    });
+  }
+
+  function putFile(db, path, content, format) {
+    return new Promise(function(resolve, reject) {
+      var tx = db.transaction("files", "readwrite");
+      var store = tx.objectStore("files");
+      var now = new Date().toISOString();
+      var entry = {
+        name: path.split("/").pop(),
+        path: path,
+        format: format,      // "text" or "base64"
+        type: "file",
+        content: content,
+        created: now,
+        last_modified: now,
+        writable: true,
+        mimetype: format === "text" ? "text/plain" : "application/octet-stream",
+        size: typeof content === "string" ? content.length : 0
+      };
+      var req = store.put(entry, "/drive/" + path);
+      req.onsuccess = function() { resolve(); };
+      req.onerror = function(event) { reject(event.target.error); };
+    });
+  }
+
+  function putDirectory(db, path) {
+    return new Promise(function(resolve, reject) {
+      var tx = db.transaction("files", "readwrite");
+      var store = tx.objectStore("files");
+      var now = new Date().toISOString();
+      var entry = {
+        name: path.split("/").pop(),
+        path: path,
+        format: "json",
+        type: "directory",
+        content: null,
+        created: now,
+        last_modified: now,
+        writable: true,
+        mimetype: "",
+        size: 0
+      };
+      var req = store.put(entry, "/drive/" + path);
+      req.onsuccess = function() { resolve(); };
+      req.onerror = function(event) { reject(event.target.error); };
+    });
+  }
+
+  async function writeToJupyterLiteFS(slug, nb, zip) {
+    var db = await openJupyterLiteDB();
+
+    // Create slug directory
+    await putDirectory(db, slug);
+
+    // Write the (modified) notebook
+    var nbContent = JSON.stringify(nb, null, 1);
+    await putFile(db, slug + "/index.ipynb", nbContent, "text");
+
+    // Track subdirectories we've created
+    var createdDirs = new Set();
+
+    // Write other files from the zip (assets/, data/)
+    var fileNames = Object.keys(zip.files);
+    for (var i = 0; i < fileNames.length; i++) {
+      var fname = fileNames[i];
+      var zipEntry = zip.files[fname];
+
+      // Skip directories, the notebook itself, and README
+      if (zipEntry.dir) continue;
+      if (fname === "index.ipynb") continue;
+      if (fname === "README.md") continue;
+
+      // Ensure parent directory exists in IndexedDB
+      var parts = fname.split("/");
+      if (parts.length > 1) {
+        var dirPath = slug + "/" + parts.slice(0, -1).join("/");
+        if (!createdDirs.has(dirPath)) {
+          await putDirectory(db, dirPath);
+          createdDirs.add(dirPath);
+        }
+      }
+
+      // Determine if text or binary
+      var ext = fname.split(".").pop().toLowerCase();
+      var textExts = new Set(["csv", "tsv", "txt", "json", "geojson", "md", "py"]);
+
+      if (textExts.has(ext)) {
+        var textContent = await zipEntry.async("string");
+        await putFile(db, slug + "/" + fname, textContent, "text");
+      } else {
+        var base64Content = await zipEntry.async("base64");
+        await putFile(db, slug + "/" + fname, base64Content, "base64");
+      }
+    }
+
+    db.close();
+  }
+})();
+</script>
+</body>
+</html>

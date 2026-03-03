@@ -1,8 +1,9 @@
 /**
  * Download Bundle Button — injects a "Download & Run" button on notebook posts.
+ * Run in Browser Button — injects a "Run in Browser" button for Pyodide-compatible posts.
  *
  * Gates on /posts/<slug>/ URLs, HEAD-checks for <slug>.zip,
- * and injects a download button near the "Summarize this article" button.
+ * and injects download/run buttons near the "Summarize this article" button.
  *
  * Uses the same IIFE pattern as llm-explain.js (runs after DOM is ready
  * since it's loaded via include-after-body).
@@ -11,24 +12,41 @@
   "use strict";
 
   // Only run on post pages: /posts/<slug>/ or /posts/<slug>/index.html
-  const match = window.location.pathname.match(/^\/posts\/([^/]+)\/?/);
+  var match = window.location.pathname.match(/^\/posts\/([^/]+)\/?/);
   if (!match) return;
 
-  const slug = match[1];
-  const zipUrl = `/posts/${slug}/${slug}.zip`;
+  var slug = match[1];
+  var zipUrl = "/posts/" + slug + "/" + slug + ".zip";
 
   // HEAD-check if the zip exists
   fetch(zipUrl, { method: "HEAD" })
     .then(function (res) {
       if (!res.ok) return;
 
-      const sizeBytes = parseInt(res.headers.get("content-length") || "0", 10);
-      const sizeStr = formatSize(sizeBytes);
+      var sizeBytes = parseInt(res.headers.get("content-length") || "0", 10);
+      var sizeStr = formatSize(sizeBytes);
 
-      injectButton(zipUrl, sizeStr);
+      injectDownloadButton(zipUrl, sizeStr);
     })
     .catch(function () {
       // zip doesn't exist, do nothing
+    });
+
+  // Check bundles.json for Pyodide compatibility and inject "Run in Browser" button
+  fetch("/bundles.json")
+    .then(function (res) {
+      if (!res.ok) return;
+      return res.json();
+    })
+    .then(function (manifest) {
+      if (!manifest) return;
+      var info = manifest[slug];
+      if (info && info.pyodide_compatible) {
+        injectRunInBrowserButton(info.zip);
+      }
+    })
+    .catch(function () {
+      // bundles.json doesn't exist or parse error, do nothing
     });
 
   function formatSize(bytes) {
@@ -38,7 +56,7 @@
     return (bytes / 1024 / 1024).toFixed(1) + " MB";
   }
 
-  function injectButton(url, sizeStr) {
+  function injectDownloadButton(url, sizeStr) {
     // Find the summarize button wrapper to place our button next to it
     var summarizeWrap = document.querySelector(".llm-summarize-wrap");
 
@@ -79,5 +97,21 @@
         }
       }
     }
+  }
+
+  function injectRunInBrowserButton(zipPath) {
+    var summarizeWrap = document.querySelector(".llm-summarize-wrap");
+    if (!summarizeWrap) return;
+
+    var btn = document.createElement("a");
+    btn.href = "/lab/loader.html?zip=" + zipPath;
+    btn.className = "download-bundle-btn run-in-browser-btn";
+    btn.innerHTML =
+      '<span class="download-bundle-icon">\u25B6</span>' +
+      '<span class="download-bundle-label">Run in Browser</span>';
+    btn.title = "Open in JupyterLite (runs in your browser, no install needed)";
+
+    // Insert as first child so it appears leftmost
+    summarizeWrap.insertBefore(btn, summarizeWrap.firstChild);
   }
 })();
