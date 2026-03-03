@@ -11,7 +11,7 @@ All build orchestration is in the **Makefile**. Stamp files in `_site/` track wh
 ## Dependency Graph
 
 ```
-_prompts.yml ─────────────────────┐
+_llm-config.yml ─────────────────────┐
 _scripts/compile_prompts.py ──────┤
                                   ▼
                         assets/llm-prompts.json
@@ -72,7 +72,7 @@ assets/*.js ──────────────────┤   │
 
 | Target | Stamp file | Depends on | Script |
 |--------|-----------|------------|--------|
-| `assets/llm-prompts.json` | (none — real file) | `_prompts.yml`, `_scripts/compile_prompts.py` | `compile_prompts.py` |
+| `assets/llm-prompts.json` | (none — real file) | `_llm-config.yml`, `_scripts/compile_prompts.py` | `compile_prompts.py` |
 | Quarto render | `_site/.stamp.render` | All `.ipynb`/`.qmd`/`.md` sources, `_quarto.yml`, SCSS, Lua filters, HTML includes, `assets/*.js`, `assets/llm-prompts.json` | `quarto render` + `rm -f _site/CLAUDE.html` |
 | LLM context | `_site/.stamp.llm-context` | Render stamp, `generate_llm_context.py`, all `index.ipynb` files | `generate_llm_context.py` |
 | Bundles | `_site/.stamp.bundles` | LLM stamp, `generate_bundles.py`, all `index.ipynb` files, all `assets/`+`data/` under posts | `generate_bundles.py` |
@@ -97,7 +97,7 @@ The `deploy` target's rsync excludes `.stamp.*` files so they don't end up on `g
 ### 1. Compile Prompts
 
 ```
-_prompts.yml → python3 _scripts/compile_prompts.py → assets/llm-prompts.json
+_llm-config.yml → python3 _scripts/compile_prompts.py → assets/llm-prompts.json
 ```
 
 - Reads YAML, writes JSON. No external dependencies (parses folded block scalars with regex, no PyYAML).
@@ -211,9 +211,9 @@ make preview             # live reload; LLM/bundle features won't work
 
 To test LLM explain or download bundles locally, stop preview and run `make build`, then serve `_site/` with any static server.
 
-### Edit prompts
+### Edit LLM config (model, prompts)
 ```bash
-# edit _prompts.yml
+# edit _llm-config.yml (model, max_tokens, prompts)
 python3 _scripts/compile_prompts.py   # or just make build
 ```
 

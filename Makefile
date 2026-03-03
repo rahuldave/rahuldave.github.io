@@ -41,8 +41,8 @@ clean:
 
 # ── Stamped targets (skip if sources haven't changed) ───────────────
 
-## Compile _prompts.yml → assets/llm-prompts.json
-assets/llm-prompts.json: _prompts.yml _scripts/compile_prompts.py
+## Compile _llm-config.yml → assets/llm-prompts.json
+assets/llm-prompts.json: _llm-config.yml _scripts/compile_prompts.py
 	python3 _scripts/compile_prompts.py
 
 ## Render the full site to _site/

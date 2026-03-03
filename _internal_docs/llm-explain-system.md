@@ -47,8 +47,8 @@ Also generates `_site/llms.txt` — index of all `_content.md` URLs.
 |------|---------|
 | `_filters/cell-markers.lua` | Adds `data-cell-type="code"` to notebook cell divs |
 | `_scripts/generate_llm_context.py` | Generates _content.md, cells.json, llms.txt |
-| `_prompts.yml` | Human-editable prompt templates (system, summarize, explain_upto, explain_code) |
-| `_scripts/compile_prompts.py` | Compiles `_prompts.yml` → `assets/llm-prompts.json` |
+| `_llm-config.yml` | Human-editable config: model, max_tokens, prompt templates |
+| `_scripts/compile_prompts.py` | Compiles `_llm-config.yml` → `assets/llm-prompts.json` |
 | `assets/llm-prompts.json` | Generated JSON consumed by JS at runtime (committed to repo) |
 | `assets/llm-explain.js` | Runtime JS (buttons, modals, API calls) — cacheable external file |
 | `includes/llm-explain.html` | `<script src>` tag that loads `llm-explain.js` |
@@ -194,19 +194,22 @@ All post types use the same `<!-- cell:N -->` markers.
 
 ---
 
-## Externalized Prompts
+## Externalized Config
 
-All LLM prompts are defined in `_prompts.yml` (project root) and compiled to `assets/llm-prompts.json` for runtime use. This lets you edit prompts without touching JavaScript.
+All LLM settings (model, max tokens, prompts) are defined in `_llm-config.yml` (project root) and compiled to `assets/llm-prompts.json` for runtime use. This lets you change the model or edit prompts without touching JavaScript.
 
 ### Workflow
 
-1. Edit `_prompts.yml`
+1. Edit `_llm-config.yml`
 2. Run `python3 _scripts/compile_prompts.py` (or `make build` — the Makefile rule triggers automatically if the YAML changed)
 3. The generated `assets/llm-prompts.json` is committed to the repo so Quarto copies it to `_site/assets/` during render
 
-### _prompts.yml Format
+### _llm-config.yml Format
 
 ```yaml
+model: claude-sonnet-4-6
+max_tokens: 2048
+
 system: >
   Teaching assistant persona...
 
@@ -220,17 +223,18 @@ explain_code: >
   Line-by-line explanation prompt...
 ```
 
-- Uses YAML folded block scalars (`>`) so multi-line text is collapsed to single strings
+- `model` and `max_tokens` are plain scalars controlling the API call
+- Prompts use YAML folded block scalars (`>`) so multi-line text is collapsed to single strings
 - `{title}` is a placeholder replaced at runtime by the JS with the post title from `cells.json`
-- Only the 4 keys above are used; `system` goes in the API `system` field, the others are user message prefixes
+- `system` goes in the API `system` field; the others are user message prefixes
 
 ### compile_prompts.py
 
-Tiny script (~30 lines) that parses the simple YAML without PyYAML (uses regex for the folded block format) and writes JSON. No external dependencies.
+Small script (~45 lines) that parses the simple YAML without PyYAML (uses regex for both plain scalars and folded block format) and writes JSON. No external dependencies.
 
 ### Runtime Behavior (JS)
 
-On page load, `llm-explain.js` fetches `/assets/llm-prompts.json`. If the fetch succeeds, the external prompts override the hardcoded defaults. If it fails (404, network error), hardcoded fallback prompts are used — so the feature degrades gracefully.
+On page load, `llm-explain.js` fetches `/assets/llm-prompts.json`. If the fetch succeeds, the external config overrides the hardcoded defaults. If it fails (404, network error), hardcoded fallback values are used — so the feature degrades gracefully.
 
 The `buildUserPrompt()` function maps action names to prompt keys (`explain-code` → `explain_code`) and applies `{title}` replacement.
 
@@ -238,10 +242,10 @@ The `buildUserPrompt()` function maps action names to prompt keys (`explain-code
 
 ## API Integration
 
-- **Model:** `claude-sonnet-4-20250514`
-- **Max tokens:** 2048
+- **Model:** Loaded from `config.model` (externalized in `_llm-config.yml`); default `claude-sonnet-4-6`
+- **Max tokens:** Loaded from `config.max_tokens`; default `2048`
 - **Streaming:** SSE via fetch + ReadableStream
-- **System prompt:** Loaded from `prompts.system` (externalized); falls back to hardcoded default
+- **System prompt:** Loaded from `config.system` (externalized); falls back to hardcoded default
 - **API key storage:** `localStorage` key `claude-api-key`
 - **CORS header:** `anthropic-dangerous-direct-browser-access: true`
 

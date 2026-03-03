@@ -15,10 +15,11 @@
   var cellsData = null;
   var contentMd = null;
   var apiKey = localStorage.getItem('claude-api-key');
-  var MODEL = 'claude-sonnet-4-20250514';
 
-  // Prompt defaults (overridden by /assets/llm-prompts.json when available)
-  var prompts = {
+  // Defaults (overridden by /assets/llm-prompts.json when available)
+  var config = {
+    model: 'claude-sonnet-4-6',
+    max_tokens: 2048,
     system: 'You are a helpful teaching assistant for a data science and machine learning course. ' +
       'Explain concepts clearly and concisely. Reference specific code examples when relevant. ' +
       'Use LaTeX notation (with $...$ for inline and $$...$$ for display) for mathematical expressions. ' +
@@ -30,11 +31,11 @@
 
   // --- Initialization ---
 
-  // Fetch external prompts (non-blocking — falls back to defaults above)
+  // Fetch external config (non-blocking — falls back to defaults above)
   fetch('/assets/llm-prompts.json')
     .then(function(r) { return r.ok ? r.json() : null; })
     .then(function(data) {
-      if (data) prompts = data;
+      if (data) config = data;
     })
     .catch(function() { /* use defaults */ });
 
@@ -292,7 +293,7 @@
     var title = (cellsData && cellsData.title) ? cellsData.title : slug;
 
     var templateKey = action.replace('-', '_');  // explain-code → explain_code
-    var template = prompts[templateKey];
+    var template = config[templateKey];
 
     if (template) {
       return template.replace(/\{title\}/g, title) + '\n\n' + context;
@@ -443,10 +444,10 @@
         'anthropic-dangerous-direct-browser-access': 'true'
       },
       body: JSON.stringify({
-        model: MODEL,
-        max_tokens: 2048,
+        model: config.model,
+        max_tokens: config.max_tokens,
         stream: true,
-        system: prompts.system,
+        system: config.system,
         messages: [{ role: 'user', content: userPrompt }]
       })
     })
