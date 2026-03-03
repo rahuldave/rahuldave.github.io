@@ -18,7 +18,7 @@ import re
 import sys
 from pathlib import Path
 
-SITE_URL = "https://rahuldave.github.io"
+SITE_URL = "https://rahuldave.com"
 
 
 def slugify(text):
@@ -81,10 +81,12 @@ def process_notebook(ipynb_path):
                             f"[Figure{': ' + caption.strip() if caption else ''}]"
                         )
 
+            # Use notebook cell ID if present (nbformat 5.1+), else fall back to cell-N
+            html_id = cell.get("id", f"cell-{i}")
             cells_meta.append({
                 "cell": i,
                 "type": "code",
-                "html_id": f"cell-{i}",
+                "html_id": html_id,
             })
             content_parts.append("")  # blank line
 
