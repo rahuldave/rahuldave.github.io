@@ -135,7 +135,7 @@ for i in sequence_lengths:
 plt.plot(sequence_lengths, running_means);
 plt.xscale('log')
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/expectations/index_files/figure-html/cell-6-output-1.png)
 
 <!-- cell:8 type:markdown -->
 

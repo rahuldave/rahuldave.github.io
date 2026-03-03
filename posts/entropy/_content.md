@@ -85,7 +85,7 @@ def h(p):
 plt.plot(p, [h(pr) for pr in p]);
 plt.axvline(0.5, 0, 1, color='r')
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/entropy/index_files/figure-html/cell-4-output-1.png)
 
 <!-- cell:7 type:markdown -->
 Thus you can see there is maximal uncertainty at 0.5.
@@ -156,7 +156,7 @@ The origin story of the gaussian itself is that  many small effects add up to pr
 
 This is a plot from McElreath of a bunch of generalized normal distributions. with same mean and variance. The Gaussuan has the highest entropy, as we shall prove below.
 
-![Generalized normal distributions (left) and their entropy as a function of shape parameter (right). The Gaussian (shape=2) has maximum entropy among distributions with fixed variance.](assets/gen_norm.png)
+![Generalized normal distributions (left) and their entropy as a function of shape parameter (right). The Gaussian (shape=2) has maximum entropy among distributions with fixed variance.](https://rahuldave.com/posts/entropy/assets/gen_norm.png)
 
 If you think about entropy increasing as we make a distribution flatter, you realize that the shape must come about because finite and equal variance puts a limit on how wide the distribution can be.
 
@@ -243,7 +243,7 @@ $$
 
 Each member of the exponential family turns out to be a maximum entropy distribution subject to different constraints. These distributions are then used as likelihoods. 
 
-![Relationships among members of the exponential family: Gamma, Normal, Binomial, and Poisson distributions arise as limiting cases of the Exponential distribution.](assets/expofamily.png)
+![Relationships among members of the exponential family: Gamma, Normal, Binomial, and Poisson distributions arise as limiting cases of the Exponential distribution.](https://rahuldave.com/posts/entropy/assets/expofamily.png)
 
 
 <!-- cell:21 type:markdown -->

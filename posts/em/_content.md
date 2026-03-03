@@ -45,7 +45,7 @@ This example is taken from Efron and Hastie, Computer Age Statistical Inference.
 
 Assume we have data drawn from a bi-variate Normal
 
-![Bivariate normal model: the joint distribution of (x1, x2) with means, variances, and correlation parameter rho.](assets/gform1.png)
+![Bivariate normal model: the joint distribution of (x1, x2) with means, variances, and correlation parameter rho.](https://rahuldave.com/posts/em/assets/gform1.png)
 
 
 <!-- cell:5 type:code -->
@@ -88,13 +88,13 @@ Output:
 ```
 [<matplotlib.lines.Line2D at 0x10d99f620>]
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/em/index_files/figure-html/cell-6-output-1.png)
 
 <!-- cell:9 type:markdown -->
 
 We would use MLE if we had all the data. 
 
-![Maximum likelihood estimators for the bivariate normal parameters: sample means, standard deviations, and correlation.](assets/gform2.png)
+![Maximum likelihood estimators for the bivariate normal parameters: sample means, standard deviations, and correlation.](https://rahuldave.com/posts/em/assets/gform2.png)
 
 <!-- cell:10 type:code -->
 ```python
@@ -302,7 +302,7 @@ $log\,p(x \vert \theta)$ = ELBO + KL-divergence
 a situation made clear in the diagram below where the ELBO goues upto the blue line and the divergence from the blue to the red. Be careful with the p's, the one on the right is for the x-data and the one on the left for the latent-variable posterior.
 
 <!-- cell:24 type:markdown -->
-![Decomposition of the log marginal likelihood into the ELBO and KL divergence between the variational distribution q and the true posterior p. From Bishop.](assets/klsplitup.png)
+![Decomposition of the log marginal likelihood into the ELBO and KL divergence between the variational distribution q and the true posterior p. From Bishop.](https://rahuldave.com/posts/em/assets/klsplitup.png)
 
 <!-- cell:25 type:markdown -->
 Now recall that the Kullback Liebler divergence is 0 only if the distributions as a function of $z$ are the same at every poiny; it is otherwise **ALWAYS** greater than 0. This tells us that the quantity $\mathcal{L}(q, \theta)$, is **ALWAYS** smaller than or equal to the log-likelihood of $p(x  \vert  \theta)$, as illustrated above. In other words, $\mathcal{L}(q, \theta)$ is a lower bound on the log-likelihood. This is why its called the ELBO, with the "evidence" aspect of it coming from Variational calculus (next lecture).
@@ -321,7 +321,7 @@ we then set the Kullback Liebler divergence to 0, and thus $\mathcal{L}(q, \thet
 
 Using this missing data posterior, conditioned on observed data, and $\theta_{old}$, we compute the expectation of the missing data with respect to the posterior and use it later.
 
-![The E-step of EM: setting q equal to the posterior makes KL(q||p)=0, raising the ELBO to match the log likelihood. From Bishop.](assets/klsplitestep.png)
+![The E-step of EM: setting q equal to the posterior makes KL(q||p)=0, raising the ELBO to match the log likelihood. From Bishop.](https://rahuldave.com/posts/em/assets/klsplitestep.png)
 
 <!-- cell:26 type:markdown -->
 ### Now the **M-step**. 
@@ -335,7 +335,7 @@ The distribution $q$, calculated as it is at $\theta_{old}$ will not in general 
 The M in “M-step” and “EM” stands for “maximization”.
 
 <!-- cell:27 type:markdown -->
-![The M-step of EM: holding q fixed and maximizing the ELBO with respect to theta increases the log likelihood by at least as much. From Bishop.](assets/klsplitmstep.png)
+![The M-step of EM: holding q fixed and maximizing the ELBO with respect to theta increases the log likelihood by at least as much. From Bishop.](https://rahuldave.com/posts/em/assets/klsplitmstep.png)
 
 <!-- cell:28 type:markdown -->
 ### The process
@@ -344,7 +344,7 @@ Note that since $\mathcal{L}$ is maximized with respect to $\theta$, one can equ
 
 We now set $\theta_{old} = \theta_{new}$ and repeat the process. This **EM algorithm** is presented and  illustrated below:
 
-![EM convergence: the red curve shows log p(X|theta), the green curve shows the ELBO, and each EM iteration moves from theta_old to theta_new, monotonically increasing the likelihood. From Bishop.](assets/emupdate.png)
+![EM convergence: the red curve shows log p(X|theta), the green curve shows the ELBO, and each EM iteration moves from theta_old to theta_new, monotonically increasing the likelihood. From Bishop.](https://rahuldave.com/posts/em/assets/emupdate.png)
 
 1. We start with the log-likelihood $p(x  \vert  \theta)$(red curve) and the initial guess $\theta_{old}$ of the parameter values
 2. Until convergence (the $\theta$ values dont change too much):
@@ -475,7 +475,7 @@ x = np.array([np.random.normal(mu_true[i], sigma_true[i]) for i in z])
 
 plt.hist(x, bins=20);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/em/index_files/figure-html/cell-13-output-1.png)
 
 <!-- cell:33 type:code -->
 ```python

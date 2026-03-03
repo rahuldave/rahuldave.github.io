@@ -59,7 +59,7 @@ plt.ylabel("Disasters")
 plt.title("UK coal mining disasters, 1851-1962")
 plt.xlim(1851, 1962);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/switchpoint/index_files/figure-html/cell-4-output-1.png)
 
 <!-- cell:5 type:markdown -->
 One can see the swtich roughly in the picture above.
@@ -175,7 +175,7 @@ You can sample from the distributions in `pymc3`.
 with coaldis1:
     plt.hist(pm.draw(coaldis1['switchpoint'], draws=1000));
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/switchpoint/index_files/figure-html/cell-12-output-1.png)
 
 <!-- cell:20 type:code -->
 ```python
@@ -296,7 +296,7 @@ late_mean     0.937  0.118   0.716    1.158      0.001    0.001   26498.0   2626
 idata_burned = idata.sel(draw=slice(4000, None, 5))
 az.plot_trace(idata_burned);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/switchpoint/index_files/figure-html/cell-20-output-1.png)
 
 <!-- cell:30 type:markdown -->
 A forestplot gives us 95% credible intervals...
@@ -305,19 +305,19 @@ A forestplot gives us 95% credible intervals...
 ```python
 az.plot_forest(idata_burned);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/switchpoint/index_files/figure-html/cell-21-output-1.png)
 
 <!-- cell:32 type:code -->
 ```python
 az.plot_autocorr(idata_burned);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/switchpoint/index_files/figure-html/cell-22-output-1.png)
 
 <!-- cell:33 type:code -->
 ```python
 plt.hist(idata.posterior['switchpoint'].values.flatten());
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/switchpoint/index_files/figure-html/cell-23-output-1.png)
 
 <!-- cell:34 type:code -->
 ```python
@@ -507,7 +507,7 @@ Output:
 ```python
 az.plot_trace(idata_m_burned);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/switchpoint/index_files/figure-html/cell-33-output-1.png)
 
 <!-- cell:46 type:markdown -->
 ## Convergence of our model
@@ -535,7 +535,7 @@ axes[1][0].hist(smtrace, bins=50)
 axes[1][0].set_title("switchpoint")
 plt.tight_layout()
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/switchpoint/index_files/figure-html/cell-34-output-1.png)
 
 <!-- cell:48 type:markdown -->
 ### Gewecke test
@@ -665,7 +665,7 @@ Output:
 ```
 array([<Axes: title={'center': '94.0% HDI'}>], dtype=object)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/switchpoint/index_files/figure-html/cell-43-output-2.png)
 
 <!-- cell:62 type:markdown -->
 ### Autocorrelation
@@ -683,13 +683,13 @@ az.ess(idata2_cut)
 ```python
 az.plot_autocorr(idata2_cut);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/switchpoint/index_files/figure-html/cell-45-output-1.png)
 
 <!-- cell:65 type:code -->
 ```python
 az.plot_autocorr(idata2);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/switchpoint/index_files/figure-html/cell-46-output-1.png)
 
 <!-- cell:66 type:markdown -->
 ## Posterior predictive checks
@@ -745,4 +745,4 @@ Output:
 4
 0
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/switchpoint/index_files/figure-html/cell-49-output-2.png)

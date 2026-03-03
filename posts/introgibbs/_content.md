@@ -91,7 +91,7 @@ for i in np.arange(0,numgridpoints):
         
 plt.contourf(xx,yy,zz);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/introgibbs/index_files/figure-html/cell-4-output-1.png)
 
 <!-- cell:7 type:markdown -->
 On first glance the functional form of this distribution looks terrible and difficult to deal with. 
@@ -176,7 +176,7 @@ plt.hist2d(out[10000:,0],out[10000:,1], density=True, bins=100, cmap=cmap)
 plt.contour(xx,yy,zz)
 plt.show()
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/introgibbs/index_files/figure-html/cell-8-output-1.png)
 
 <!-- cell:15 type:markdown -->
 ### Gibbs Moves
@@ -195,7 +195,7 @@ Output:
 ```
 [<matplotlib.lines.Line2D at 0x141cf6f90>]
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/introgibbs/index_files/figure-html/cell-9-output-1.png)
 
 <!-- cell:17 type:markdown -->
 ### Autocorrelation
@@ -209,13 +209,13 @@ def corrplot(trace, maxlags=50):
     plt.xlim([0, maxlags])
 corrplot(out[4000:,0], 100)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/introgibbs/index_files/figure-html/cell-10-output-1.png)
 
 <!-- cell:19 type:code -->
 ```python
 corrplot(out[4000:,1], 100)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/introgibbs/index_files/figure-html/cell-11-output-1.png)
 
 <!-- cell:20 type:markdown -->
 Generally, gibbs samplers can show a lot of autocorrelation, needing quite a bit of thinning. This is especially true when the functions you are sampling from have lots of correlation amongst the components. But as in all MCMC algorithms, the number of samples needed depends on what you are doing. Fully characterizing a posterior needs a lot of samples, but  you might be able to get away with less in computing expectations...

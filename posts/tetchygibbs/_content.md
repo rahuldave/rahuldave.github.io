@@ -80,7 +80,7 @@ z2 = z.reshape(xg.shape)
 z2
 plt.contourf(xg,yg,z2)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/tetchygibbs/index_files/figure-html/cell-5-output-1.png)
 
 <!-- cell:7 type:markdown -->
 ## Gibbs Sampler
@@ -133,7 +133,7 @@ def traceplot(z):
 ```python
 traceplot(x)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/tetchygibbs/index_files/figure-html/cell-9-output-1.png)
 
 <!-- cell:13 type:markdown -->
 You can see from the traceplot the when sampling $x$, the sampler spends long periods of time near zero, and occasionally moves to and hangs out at higher values. These correspond to the two areas of high density in the countour plot.
@@ -146,7 +146,7 @@ We can also draw a histogram of $x$ to get an estimate of its **marginal distrib
 ```python
 plt.hist(x, bins=50);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/tetchygibbs/index_files/figure-html/cell-10-output-1.png)
 
 <!-- cell:15 type:markdown -->
 This is exactly what we would expect if we projected the distribution in the contour plot down to the $x$ axis.
@@ -157,13 +157,13 @@ We can do the same plots for $y$.
 ```python
 traceplot(y)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/tetchygibbs/index_files/figure-html/cell-11-output-1.png)
 
 <!-- cell:17 type:code -->
 ```python
 plt.hist(y, bins=50);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/tetchygibbs/index_files/figure-html/cell-12-output-1.png)
 
 <!-- cell:18 type:markdown -->
 ### How we move
@@ -180,7 +180,7 @@ Output:
 ```
 [<matplotlib.lines.Line2D at 0x10d4cdfd0>]
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/tetchygibbs/index_files/figure-html/cell-13-output-1.png)
 
 <!-- cell:20 type:markdown -->
 ### Autocorrelations
@@ -194,13 +194,13 @@ def corrplot(trace, maxlags=50):
     plt.xlim([0, maxlags])
 corrplot(xall[N//10:])
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/tetchygibbs/index_files/figure-html/cell-14-output-1.png)
 
 <!-- cell:22 type:code -->
 ```python
 corrplot(y)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/tetchygibbs/index_files/figure-html/cell-15-output-1.png)
 
 <!-- cell:23 type:markdown -->
 ### Effective Sample Size

@@ -84,7 +84,7 @@ Output:
 Area of the circle =  3.162
 pi =  3.141592653589793
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/basicmontecarlo/index_files/figure-html/cell-4-output-2.png)
 
 <!-- cell:6 type:markdown -->
 Intuitively, one might expect our estimate of $\pi$ to get better as we draw more and more samples: we are covering the areas with samples much better when we do that.
@@ -122,7 +122,7 @@ once we choose a uniform distribution. Here $V$ is the support, the normalizing 
 
 This simple scenario of inside-or-outside can be used as a general (but poor, as missing increases exponentially with dimension)  way to use the generation of samples to carry out integration
 
-![Bounding box for hit-or-miss Monte Carlo integration](assets/hitormiss.png)
+![Bounding box for hit-or-miss Monte Carlo integration](https://rahuldave.com/posts/basicmontecarlo/assets/hitormiss.png)
 
 You basically generate samples from a uniform distribution with support on the rectangle and see how many fall below $y(x)$ at a specific x.
 

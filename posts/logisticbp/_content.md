@@ -101,7 +101,7 @@ h = lambda z: 1./(1+np.exp(-z))
 zs=np.arange(-5,5,0.1)
 plt.plot(zs, h(zs), alpha=0.5);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/logisticbp/index_files/figure-html/cell-4-output-1.png)
 
 <!-- cell:7 type:markdown -->
 So we then come up with our rule by identifying:
@@ -189,7 +189,7 @@ $$H = \v{X}^T diag(p_i (1 - p_i))\v{X}$$ which is positive definite, making the 
 
 Logistic regression can be represented by the following diagram. This diagram uses the language of "units". A linear unit is followed by a non-linear sigmoidal squashing unit, or more precisely a log-sigmoidal squashing unit which is then used to construct the cross-entropy loss.
 
-![Logistic regression as a computational graph: input passes through a linear layer and sigmoid activation to produce the negative log-likelihood cost.](assets/layershorstd.png)
+![Logistic regression as a computational graph: input passes through a linear layer and sigmoid activation to produce the negative log-likelihood cost.](https://rahuldave.com/posts/logisticbp/assets/layershorstd.png)
 
 <!-- cell:11 type:markdown -->
 ## Softmax formulation
@@ -216,7 +216,7 @@ This then identifies $\v{w} = \v{w_1} - \v{w_2}$. In general, we can see that we
 <!-- cell:13 type:markdown -->
 The softmax formulation of logistic regression can be illustrated using the following diagram, where we now have 2 linear units. These units are now fed into a nonlinear log-softmax unit (which requires outputs of both the linear units) to produce two log-softmax outputs which is then fed to the NLL loss (cross-entropy).
 
-![Multiclass logistic regression: two linear units feed into a softmax layer, producing class probabilities for the negative log-likelihood cost.](assets/layershorsm.png)
+![Multiclass logistic regression: two linear units feed into a softmax layer, producing class probabilities for the negative log-likelihood cost.](https://rahuldave.com/posts/logisticbp/assets/layershorsm.png)
 
 <!-- cell:14 type:markdown -->
 In this formalism, we can write the likelihood and thus NLL more succintly:
@@ -247,7 +247,7 @@ where $SM_1 = \frac{e^{\v{w_1} \cdot \v{x}}}{e^{\v{w_1} \cdot \v{x}} + e^{\v{w_2
 <!-- cell:16 type:markdown -->
 The layer structure suggested is captured in the diagram below. There are 4 layers, which we shall generally label using the notation $\v{z}^l$ where the vector on $z$ indicates multiple values and the $l$ indicates the number of the layer (it is NOT a power).
 
-![The computational graph with intermediate variables z labeled at each layer, preparing for the backpropagation derivation.](assets/layershororig.png)
+![The computational graph with intermediate variables z labeled at each layer, preparing for the backpropagation derivation.](https://rahuldave.com/posts/logisticbp/assets/layershororig.png)
 
 First, the input:
 
@@ -300,7 +300,7 @@ Backpropagation falls easily out of this. We add a "cost layer" to $z^4$. The de
 
 Everything comes together now. Let us illustrate with a diagram:
 
-![Forward and backward passes through a three-layer network, with error signals δ propagating backward.](assets/layercake.png)
+![Forward and backward passes through a three-layer network, with error signals δ propagating backward.](https://rahuldave.com/posts/logisticbp/assets/layercake.png)
 
 We can consider our calculations to now consist of two phases: a forward phase, and a backward phase.
 
@@ -351,7 +351,7 @@ This extreme modularity suggests that we can define our own layers (or recursive
 
 What we must specifically provide is a way to implement the 3 rules for a layer: how to get output $z$ given input $z$, how to get reverse output $\delta$s given input ones, and how to differentiate the cost with respect to any local parameters.
 
-![A generic layer l receives activations z from below and error signals δ from above, producing parameter gradients.](assets/layerl.png)
+![A generic layer l receives activations z from below and error signals δ from above, producing parameter gradients.](https://rahuldave.com/posts/logisticbp/assets/layerl.png)
 
 Such modularity allows for lots of experimentation.
 

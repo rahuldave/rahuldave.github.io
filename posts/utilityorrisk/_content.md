@@ -146,7 +146,7 @@ plt.ylim(Y.min(), Y.max())
 plt.legend(loc="upper left");
 
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/utilityorrisk/index_files/figure-html/cell-4-output-1.png)
 
 <!-- cell:8 type:markdown -->
 
@@ -189,7 +189,7 @@ plt.plot(pred, [stock_loss(true_value, _p) for _p in pred], alpha = 0.6, \
 plt.legend()
 plt.title("Stock returns loss if true value = 0.05, -0.02");
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/utilityorrisk/index_files/figure-html/cell-6-output-1.png)
 
 <!-- cell:11 type:markdown -->
 Notice how the loss changes after you cross the 0 line.
@@ -249,7 +249,7 @@ Sampling 4 chains for 1_000 tune and 100_000 draw iterations (4_000 + 400_000 dr
 import arviz as az
 az.plot_trace(burned_trace, var_names=["std", "beta", "alpha"]);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/utilityorrisk/index_files/figure-html/cell-8-output-1.png)
 
 <!-- cell:14 type:markdown -->
 We seem to have converged. Now, the game is to find a point estimate y from the predictive samples at each point(`possible_outcomes`) that minimizes the stock loss, instead of the standard least squares line which is just the mean of the posterior predictive.
@@ -294,7 +294,7 @@ plt.xlim(X.min(), X.max())
 plt.plot(trading_signals, opt_predictions, label ="Bayes action prediction")
 plt.legend(loc="upper left");
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/utilityorrisk/index_files/figure-html/cell-9-output-1.png)
 
 <!-- cell:16 type:markdown -->
 The plot above takes the posterior-predictive distribution at each trading signal, applies the risk to it by calculating the integral as a mean over posterior-predictive samples. Then we minimize over the action $a$ which here is a prediction at each trading signal. This is plotted as the green line above. Notice that when the signal is close to 0, our prediction is close to 0, we take no position as its very easy for the sign to be different. Far away from 0, we approach the suared risk more...

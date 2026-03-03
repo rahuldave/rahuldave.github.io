@@ -96,7 +96,7 @@ Output:
 ```
 Text(0.5, 0, 'x')
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/dataaug/index_files/figure-html/cell-5-output-2.png)
 
 <!-- cell:9 type:markdown -->
 ## Data Augmentation is a Markov Chain Monte Carlo

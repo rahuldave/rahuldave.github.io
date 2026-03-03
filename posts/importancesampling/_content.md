@@ -78,7 +78,7 @@ Be careful to choose $g(x)$ appropriately, it should have thicker tails than f, 
 
 All of these considerations may be seen in the diagram below:
 
-![Importance sampling: a proposal g(x) concentrates samples where the integrand f(x)·h(x) is large, reweighting by f/g to correct the bias.](assets/importance.png)
+![Importance sampling: a proposal g(x) concentrates samples where the integrand f(x)·h(x) is large, reweighting by f/g to correct the bias.](https://rahuldave.com/posts/importancesampling/assets/importance.png)
 
 Another way of seeing this whole thing is that we will draw the sample from a proposal
 distribution and re-weight the integral appropriately so that the expectation with respect to the correct distribution is used. And since $f/g$ is flatter than $f$, the variance of $h \times f/g$ is smaller that the variance of $h \times f$ and therefore the error will be smaller for all $N$.
@@ -189,7 +189,7 @@ Standard deviation of our estimates:  0.06174834767832666
 Mean importance sampling MC estimate:  3.141806901630496
 Standard deviation of our estimates:  0.01620145069610606
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/importancesampling/index_files/figure-html/cell-4-output-3.png)
 
 <!-- cell:7 type:code -->
 ```python

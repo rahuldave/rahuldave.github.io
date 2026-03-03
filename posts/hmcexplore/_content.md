@@ -74,7 +74,7 @@ Output:
 ```
 [<matplotlib.lines.Line2D at 0x1229bb4d0>]
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/hmcexplore/index_files/figure-html/cell-4-output-1.png)
 
 <!-- cell:8 type:code -->
 ```python
@@ -85,14 +85,14 @@ Output:
 ```
 [<matplotlib.lines.Line2D at 0x122a98ec0>]
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/hmcexplore/index_files/figure-html/cell-5-output-1.png)
 
 <!-- cell:9 type:markdown -->
 The basic idea is to add a **momentum** variable $p$ for each $q$ in our probability density, adding a kinetic energy term to the potential energy to create a total energy, and thus creating a joint pdf $p(p,q)$. 
 
 How would this work? And why momentum? Lets think about a rocket (or a satellite with thrusters it can fire) in orbit around the earth
 
-![A satellite in orbit: with the right momentum, it follows a constant-energy trajectory around the Earth, analogous to HMC traversing level sets. From Betancourt.](assets/rocketorbit.png)
+![A satellite in orbit: with the right momentum, it follows a constant-energy trajectory around the Earth, analogous to HMC traversing level sets. From Betancourt.](https://rahuldave.com/posts/hmcexplore/assets/rocketorbit.png)
 
 If this rocket had no velocity, it would simply fall down to the earth because it would not be able to counterbalance earth's gravitational potential (the equivalent of the energy we formulated above and have used in simulated annealing). On the other hand, if it had too much velocity, it would escape earth's gravity and take off to mars or similar.
 
@@ -147,7 +147,7 @@ with $E_i$ constants (constant energies) for each level-set foliate and where th
 
 With a quadratic in $p$ and if $V(q) = \frac{1}{2}q^2$ our distribution is gaussian and the level sets are ellipses of constant energy, as illustrated below, in a space called **phase space**, which is constructed by plotting the co-ordinates against the momenta: that is, it is just the space in which our augmented joint-distribution lives.
 
-![Hamiltonian level sets in phase space: constant-energy elliptical orbits in (p,q) for a Gaussian target. From Betancourt.](assets/levelsets.png)
+![Hamiltonian level sets in phase space: constant-energy elliptical orbits in (p,q) for a Gaussian target. From Betancourt.](https://rahuldave.com/posts/hmcexplore/assets/levelsets.png)
 
 <!-- cell:13 type:markdown -->
 ##  Hamiltonian Mechanics
@@ -197,7 +197,7 @@ plt.show()
 
 print("min and max of H: ", np.min( H_x_r_t(t)), np.max( H_x_r_t(t)))
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/hmcexplore/index_files/figure-html/cell-6-output-1.png)
 Output:
 ```
 min and max of H:  7.999999999999999 8.000000000000002
@@ -313,11 +313,11 @@ The idea for this once again comes from our mechanical satellite analog. Think o
 
 Thus the solution to exploring the marginal distribution is simple..after exploring a given level set for a while, we resample the momentum, and off to another level-set we go, as illustrated below:
 
-![Momentum resampling in HMC: after gliding along one energy level set, resample momentum to jump to a different orbit. From Betancourt.](assets/momresample.png)
+![Momentum resampling in HMC: after gliding along one energy level set, resample momentum to jump to a different orbit. From Betancourt.](https://rahuldave.com/posts/hmcexplore/assets/momresample.png)
 
 Let $p(E \vert q)$ as the transition distribution of energies induced by a momentum resampling using $p(p \vert q) = - log\, K(p,q)$ at a given position $q$. Our efficiency of this stochastic exploration over level sets then depends on how narrow this induced distribution is with respect to the marginal energy distribution:
 
-![Energy distributions: the marginal energy pi(E) versus the microcanonical distribution pi(E|q). Good sampling requires their overlap. From Betancourt.](assets/lsetexp.png)
+![Energy distributions: the marginal energy pi(E) versus the microcanonical distribution pi(E|q). Good sampling requires their overlap. From Betancourt.](https://rahuldave.com/posts/hmcexplore/assets/lsetexp.png)
 
 If the transition distribution is narrow compared to the marginal energy distribution, then the random walk amongst level sets will proceed slowly. But if it matches the marginal energy distribution, we will generate nearly independent samples from the marginal energy distribution very efficiently.
 
@@ -432,12 +432,12 @@ Output:
 ```
 Text(0, 0.5, 'H')
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/hmcexplore/index_files/figure-html/cell-7-output-2.png)
 
 <!-- cell:23 type:markdown -->
 Most ODE solvers, like the one we just wrote, suffer from drift:
 
-![Numerical integration error: the exact trajectory (red) versus the leapfrog approximation (green) in a vector field. From Neal.](assets/nummodeerr.png)
+![Numerical integration error: the exact trajectory (red) versus the leapfrog approximation (green) in a vector field. From Neal.](https://rahuldave.com/posts/hmcexplore/assets/nummodeerr.png)
 
 As we solve longer, error adds coherently, and our trajectory diverges from the true trajectory. This is because our discrete transformations like the Euler one above, do not preserve volume elements: the determinant of the Jacobian is larger than 1. The critical reason behind this is that we update both $p$ and $q$ simultaneously, accumulating error fast.
 
@@ -514,7 +514,7 @@ Output:
 ```
 min and max of leapfrog H:  7.619047719300697 8.421050605313674
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/hmcexplore/index_files/figure-html/cell-8-output-2.png)
 
 <!-- cell:26 type:markdown -->
 One thing to note, see the diagram and code above, is that even though the discretization is symplectic it (like the Euler modification) doesn't preserve the Hamiltonian perfectly.  That's because of the approximation errors incumbant in discretization.  The error is very stable and the value of the Hamiltonian at each step oscillates around the true value.  
@@ -555,7 +555,7 @@ But the critical thing with HMC is that our **time evolution is on a level set**
 The momentum reversal could be left out if you are not within a more complex sampling scheme like HMC within gibbs since you will be resampling anyways. But if you are updating both a discrete parameter and a continuous parameter, you will want to reverse the sign so that you are using the correct $p$ when sampling from the conditionals.
 
 <!-- cell:28 type:markdown -->
-![Reversibility in leapfrog integration: negating momentum at the endpoint and reintegrating returns to the starting point. From Neal.](assets/reversemom.png)
+![Reversibility in leapfrog integration: negating momentum at the endpoint and reintegrating returns to the starting point. From Neal.](https://rahuldave.com/posts/hmcexplore/assets/reversemom.png)
 
 In general we'll want to sum over all such points in the orbit, since we want time averages to represent a sample from the microcanonical distribution.
 
@@ -671,7 +671,7 @@ Output:
 ```
 accept= 1.0
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/hmcexplore/index_files/figure-html/cell-11-output-2.png)
 
 <!-- cell:34 type:markdown -->
 We compare it to a MH sampler with the same number of steps
@@ -723,7 +723,7 @@ Output:
 ```
 accept= 0.2961
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/hmcexplore/index_files/figure-html/cell-13-output-2.png)
 
 <!-- cell:37 type:markdown -->
 Here we see that the MH acceptance ration is much lower and the correlation much higher!
@@ -736,14 +736,14 @@ def corrplot(trace,  maxlags=100):
 corrplot(qall)
 plt.title('hmc');
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/hmcexplore/index_files/figure-html/cell-14-output-1.png)
 
 <!-- cell:39 type:code -->
 ```python
 corrplot(samples_mh)
 plt.title('mh');
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/hmcexplore/index_files/figure-html/cell-15-output-1.png)
 
 <!-- cell:40 type:code -->
 ```python

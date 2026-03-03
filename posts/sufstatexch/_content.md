@@ -138,7 +138,7 @@ plt.plot(xxx, gamma.pdf(xxx, 1, scale=1), label="1 kid 1 mom");
 plt.plot(xxx, gamma.pdf(xxx, 1, scale=1/3), label="1 kids 3 moms");
 plt.legend();
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/sufstatexch/index_files/figure-html/cell-4-output-1.png)
 
 <!-- cell:10 type:markdown -->
 ### Our Posteriors
@@ -232,7 +232,7 @@ Output:
 /Users/rahul/Library/Caches/uv/archive-v0/wqGmuChAgnYkC6wFhsKJY/lib/python3.14/site-packages/IPython/core/pylabtools.py:170: UserWarning: Glyph 9 (	) missing from font(s) DejaVu Sans.
   fig.canvas.print_figure(bytes_io, **kw)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/sufstatexch/index_files/figure-html/cell-6-output-2.png)
 
 <!-- cell:14 type:markdown -->
 The mean birth-rates can be calculated from the samples, as can the variances, which are also given us by the formulae from above:
@@ -292,7 +292,7 @@ postpred2 = poisson.rvs(theta2)
 plt.hist(postpred1, alpha=0.4, align="left");
 plt.hist(postpred2, alpha=0.4, align="left");
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/sufstatexch/index_files/figure-html/cell-11-output-1.png)
 
 <!-- cell:22 type:markdown -->
 It turns out that the distribution characterizing the posterior predictive is a negative binomial (see wikipedia, this requires some manipulations of gamma functions which we shall not reproduce here). The mean of  the posterior predictive distribution is the same as that of the posterior

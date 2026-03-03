@@ -97,7 +97,7 @@ Output:
 ```
 [<matplotlib.lines.Line2D at 0x118da9828>]
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/noisylearning/index_files/figure-html/cell-6-output-1.png)
 
 <!-- cell:10 type:markdown -->
 Notice that our sampling of $x$ is not quite uniform: there are more points around $x$ of 0.7.
@@ -140,7 +140,7 @@ axes[1].plot(samplex,samplef, 's', alpha=0.6, label="in-sample data $\cal{D}$");
 axes[0].legend(loc=4);
 axes[1].legend(loc=4);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/noisylearning/index_files/figure-html/cell-10-output-1.png)
 
 <!-- cell:15 type:markdown -->
 ### Statement of the learning problem.
@@ -232,7 +232,7 @@ plt.xlabel('$x$');
 plt.ylabel('$p_R$')
 plt.legend(loc=4);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/noisylearning/index_files/figure-html/cell-14-output-1.png)
 
 <!-- cell:26 type:markdown -->
 In the figure above, one can see the scatter of the $y$ population about the curve of $f$. The errors of the 30 observation points ("in-sample") are shown as squares. One can see that observations next to each other can now be fairly different, as we descibed above.
@@ -255,7 +255,7 @@ Another way to think about a noisy $y$ is to imagine that our data is generated 
 
 $$P(x,y) = P(y \mid x) P(x) .$$
 
-![The noisy learning framework: target distribution P(y|x) replaces deterministic f(x)](assets/NoisyModelPxy.png)
+![The noisy learning framework: target distribution P(y|x) replaces deterministic f(x)](https://rahuldave.com/posts/noisylearning/assets/NoisyModelPxy.png)
 
 Now the entire learning problem can be cast as a problem in probability **density estimation**: if we can estimate $P(x,y)$ and take actions based on that estimate thanks to our risk or error functional, we are done. 
 
@@ -297,7 +297,7 @@ axes[1].plot(x,g20noisy(x), 'b:', lw=4, alpha=0.8, label="$g_{10}$ (noisy)");
 axes[0].legend(loc=4);
 axes[1].legend(loc=4);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/noisylearning/index_files/figure-html/cell-17-output-1.png)
 
 <!-- cell:32 type:markdown -->
 The results are (to put it mildly) very interesting. 
@@ -315,7 +315,7 @@ plt.plot(x,g20noisy(x), 'b:', alpha=0.6, label="$g_{10}$ (noisy)");
 plt.ylim([0,1])
 plt.legend(loc=4);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/noisylearning/index_files/figure-html/cell-18-output-1.png)
 
 <!-- cell:34 type:markdown -->
 Whoa. The best-fit 20th order polynomial does a reasonable job fitting the in-sample data, and is even well behaved in the middle where we have a lot of in-sample data points. But at places with less in-sample data points, the polynomial wiggles maniacally.
@@ -338,7 +338,7 @@ plt.yscale("log")
 plt.legend(loc=4);
 plt.title("Noisy Data");
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/noisylearning/index_files/figure-html/cell-19-output-1.png)
 
 <!-- cell:36 type:markdown -->
 $g_1$ now, for the most part, has a lower error! So you'd be better off by having chosen a set of models with much more bias (the straight lines, $\cal{H}_1$) than a more complex model set ($\cal{H}_{20}$) in the case of noisy data. 
@@ -796,7 +796,7 @@ Output:
 //anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:892: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
   warnings.warn(self.msg_depr % (key, alt_key))
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/noisylearning/index_files/figure-html/cell-22-output-2.png)
 
 <!-- cell:42 type:markdown -->
 On the left panel, you see the 200 best fit straight lines, each a fit on a different 30 point training sets from the 200 point population. The best-fit lines bunch together, even if they dont quite capture $f$ (the thick red line) or the data (squares) terribly well.
@@ -841,7 +841,7 @@ Output:
 //anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:892: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
   warnings.warn(self.msg_depr % (key, alt_key))
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/noisylearning/index_files/figure-html/cell-23-output-2.png)
 
 <!-- cell:44 type:markdown -->
 In the right panel we plot the coefficients of the fit in $\cal{H}_{20}$. This is why we use the word "variance": the spread in the values of the middle coefficients about their means (dashed lines) is of the order $10^{10}$ (the vertical height of the bulges), with huge outliers!! The 20th order polynomial fits are a disaster!

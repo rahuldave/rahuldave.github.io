@@ -43,7 +43,7 @@ target = lambda x: x*np.exp(-x)
 xx = np.linspace(0, 20, 1000)
 plt.plot(xx, target(xx));
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/metropolissupport/index_files/figure-html/cell-4-output-1.png)
 
 <!-- cell:6 type:markdown -->
 ## Using Metropolis to sample
@@ -96,7 +96,7 @@ https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
 
   sns.distplot(out)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/metropolissupport/index_files/figure-html/cell-7-output-2.png)
 
 <!-- cell:10 type:markdown -->
 Since we use the functional form directly without checking for $x \gt 0$, we are **not sampling on the correct support**. This does not land up costing us, as the acceptance ratio being negative the first time we sample a negative $x$ will ensure that we *never* sample a negative $x$. We would be better using `scipy.stats` built in gamma support.
@@ -197,7 +197,7 @@ https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
 
   sns.distplot(out3)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/metropolissupport/index_files/figure-html/cell-12-output-2.png)
 
 <!-- cell:19 type:markdown -->
 ## Fix using MH
@@ -271,4 +271,4 @@ https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
 
   sns.distplot(out4)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/metropolissupport/index_files/figure-html/cell-16-output-2.png)

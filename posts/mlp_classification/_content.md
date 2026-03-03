@@ -114,7 +114,7 @@ Output:
 ```
 (-3.23517784804296, 3.0648221519570455)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-7-output-1.png)
 
 <!-- cell:9 type:code -->
 ```python
@@ -219,7 +219,7 @@ Output:
 /Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
   self.reduction: str = _Reduction.legacy_get_string(size_average, reduce)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-11-output-3.png)
 
 <!-- cell:16 type:markdown -->
 The out put from the foward pass is run on the entire test set. Since pytorch tracks layers upto but before the loss, this handily gives us the softmax output, which we can then use `np.argmax` on.
@@ -449,7 +449,7 @@ with sns.plotting_context('poster'):
     ax = plt.gca()
     points_plot(ax, X_train, X_test, y_train, y_test, make_pred);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-17-output-1.png)
 
 <!-- cell:25 type:markdown -->
 ## Making a `scikit-learn` like interface
@@ -614,7 +614,7 @@ Output:
 with sns.plotting_context('poster'):
     logistic.plot_loss()
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-20-output-1.png)
 
 <!-- cell:31 type:code -->
 ```python
@@ -632,7 +632,7 @@ Output:
 with sns.plotting_context('poster'):
     logistic.plot_boundary(X_train, X_test, y_train, y_test)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-22-output-1.png)
 
 <!-- cell:33 type:code -->
 ```python
@@ -748,7 +748,7 @@ Output:
 with sns.plotting_context('poster'):
     clf.plot_loss()
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-24-output-1.png)
 
 <!-- cell:35 type:code -->
 ```python
@@ -766,7 +766,7 @@ Output:
 with sns.plotting_context('poster'):
     clf.plot_boundary(X_train, X_test, y_train, y_test)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-26-output-1.png)
 
 <!-- cell:37 type:markdown -->
 ## Experimentation Space
@@ -846,8 +846,8 @@ Output:
 ```
 100%|██████████| 500/500 [00:00<00:00, 624.44it/s]
 ```
-[Figure]
-[Figure]
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-27-output-4.png)
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-27-output-5.png)
 Output:
 ```
 /Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
@@ -903,8 +903,8 @@ Output:
 ```
 100%|██████████| 500/500 [00:00<00:00, 655.08it/s]
 ```
-[Figure]
-[Figure]
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-27-output-9.png)
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-27-output-10.png)
 Output:
 ```
 /Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
@@ -972,8 +972,8 @@ Output:
 ```
 100%|██████████| 500/500 [00:01<00:00, 452.92it/s]
 ```
-[Figure]
-[Figure]
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-27-output-14.png)
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-27-output-15.png)
 Output:
 ```
 /Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
@@ -1045,8 +1045,8 @@ Output:
 ```
 100%|██████████| 500/500 [00:01<00:00, 413.59it/s]
 ```
-[Figure]
-[Figure]
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-27-output-19.png)
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-27-output-20.png)
 Output:
 ```
 /Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
@@ -1108,8 +1108,8 @@ Output:
 ```
 100%|██████████| 500/500 [00:00<00:00, 537.32it/s]
 ```
-[Figure]
-[Figure]
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-27-output-24.png)
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-27-output-25.png)
 Output:
 ```
 /Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
@@ -1175,8 +1175,8 @@ Output:
 ```
 100%|██████████| 500/500 [00:01<00:00, 495.19it/s]
 ```
-[Figure]
-[Figure]
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-27-output-29.png)
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-27-output-30.png)
 Output:
 ```
 /Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
@@ -1250,8 +1250,8 @@ Output:
 ```
 100%|██████████| 500/500 [00:01<00:00, 439.03it/s]
 ```
-[Figure]
-[Figure]
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-27-output-34.png)
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-27-output-35.png)
 Output:
 ```
 /Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
@@ -1569,8 +1569,8 @@ Output:
 ```
 100%|██████████| 500/500 [00:08<00:00, 61.42it/s]
 ```
-[Figure]
-[Figure]
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-27-output-39.png)
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-27-output-40.png)
 Output:
 ```
 /Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
@@ -1636,8 +1636,8 @@ Output:
 ```
 100%|██████████| 500/500 [00:00<00:00, 532.63it/s]
 ```
-[Figure]
-[Figure]
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-27-output-44.png)
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-27-output-45.png)
 Output:
 ```
 /Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
@@ -1703,8 +1703,8 @@ Output:
 ```
 100%|██████████| 500/500 [00:00<00:00, 505.71it/s]
 ```
-[Figure]
-[Figure]
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-27-output-49.png)
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-27-output-50.png)
 Output:
 ```
 /Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
@@ -1842,8 +1842,8 @@ Output:
 ```
 100%|██████████| 1000/1000 [00:02<00:00, 349.41it/s]
 ```
-[Figure]
-[Figure]
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-27-output-54.png)
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-27-output-55.png)
 Output:
 ```
 /Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
@@ -2873,8 +2873,8 @@ Output:
 ```
 100%|██████████| 1000/1000 [00:29<00:00, 33.84it/s]
 ```
-[Figure]
-[Figure]
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-27-output-59.png)
+![Figure](https://rahuldave.com/posts/mlp_classification/index_files/figure-html/cell-27-output-60.png)
 Output:
 ```
 Train acc 0.9041666666666667

@@ -89,7 +89,7 @@ $$ posterior = \frac{likelihood \times prior}{evidence} $$
 
 This diagram from McElreath's book gives you an idea of what this might look like, and how the prior might affect the posterior in the absence  of copius data...
 
-![Prior times likelihood is proportional to posterior: three rows show how different priors (uniform, step, informative) combine with the same likelihood to produce different posteriors. From McElreath, Statistical Rethinking.](assets/priorxlike.png)
+![Prior times likelihood is proportional to posterior: three rows show how different priors (uniform, step, informative) combine with the same likelihood to produce different posteriors. From McElreath, Statistical Rethinking.](https://rahuldave.com/posts/bayes_withsampling/assets/priorxlike.png)
 
 What if $\theta$ is multidimensional, as it usually is? Then one can calculate the **marginal posterior** of one of the parameters by integrating over the other one:
 
@@ -138,7 +138,7 @@ At the end of the day we want to make predictions, here for the number of coin t
 The entire process is illustrated in this diagram, where the posterior is multiplied by the likelihood, one at each point $y$ (number of samples), and then integrated over the parameters.
 
 
-![The posterior predictive distribution as a mixture: each parameter value implies a sampling distribution, weighted by the posterior probability, producing the marginal prediction. From McElreath, Statistical Rethinking.](assets/postpred.png)
+![The posterior predictive distribution as a mixture: each parameter value implies a sampling distribution, weighted by the posterior probability, producing the marginal prediction. From McElreath, Statistical Rethinking.](https://rahuldave.com/posts/bayes_withsampling/assets/postpred.png)
 
 <!-- cell:6 type:markdown -->
 ## The Normal Model
@@ -295,19 +295,19 @@ While thinning is not strictly needed, appropriately thinned, we lose any correl
 ```python
 corrplot(samps)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/bayes_withsampling/index_files/figure-html/cell-12-output-1.png)
 
 <!-- cell:23 type:code -->
 ```python
 corrplot(samps[20000::]);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/bayes_withsampling/index_files/figure-html/cell-13-output-1.png)
 
 <!-- cell:24 type:code -->
 ```python
 corrplot(samps[20000::4]);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/bayes_withsampling/index_files/figure-html/cell-14-output-1.png)
 
 <!-- cell:25 type:code -->
 ```python
@@ -339,7 +339,7 @@ https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
 
   sns.distplot(samps[20000::], bins=25);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/bayes_withsampling/index_files/figure-html/cell-15-output-2.png)
 
 <!-- cell:26 type:code -->
 ```python
@@ -360,7 +360,7 @@ plt.hist(prior_samples, bins=25, label="prior", alpha=0.1)
 plt.hist(post_samples, bins=25, label="posterior", alpha=0.4)
 plt.legend();
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/bayes_withsampling/index_files/figure-html/cell-17-output-1.png)
 
 <!-- cell:29 type:code -->
 ```python
@@ -378,7 +378,7 @@ plt.hist(post_pred_samples, bins=25, label="posterior predictive", alpha=0.3)
 plt.hist(post_samples, bins=25, label="posterior", alpha=0.4)
 plt.legend();
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/bayes_withsampling/index_files/figure-html/cell-19-output-1.png)
 
 <!-- cell:32 type:code -->
 ```python
@@ -410,4 +410,4 @@ https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
 
   sns.distplot(post_pred_samples);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/bayes_withsampling/index_files/figure-html/cell-20-output-2.png)

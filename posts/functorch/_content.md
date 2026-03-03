@@ -18,7 +18,7 @@
 
 A perceptron is simply a set-of-units with a construction reminiscent of logistic regression. It consists of an input, followed by a linear combination, and then a squeezing through a non-linearity such as a sigmoid, a tanh, or a RELU.
 
-![A single perceptron: inputs pass through a linear combination followed by a non-linearity to produce the output.](assets/perceptron.png)
+![A single perceptron: inputs pass through a linear combination followed by a non-linearity to produce the output.](https://rahuldave.com/posts/functorch/assets/perceptron.png)
 
 A multi-layer perceptron can be used to approximate any function. The **Universal Approximation** theorem states that any continuous function with finite support can be approximated by at-least a one hidden layer based perceptron.
 
@@ -51,7 +51,7 @@ Output:
 ```
 [<matplotlib.lines.Line2D at 0x1113f7230>]
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/functorch/index_files/figure-html/cell-4-output-1.png)
 
 <!-- cell:6 type:markdown -->
 ## Fitting in Torch
@@ -76,7 +76,7 @@ ydata = Variable(torch.Tensor(ygrid))
 
 Here is a general model class to fit an architecture of the style shown below:
 
-![A multi-layer perceptron with input layer, hidden layer, and output layer. Each node applies a linear transformation followed by a non-linearity, with bias terms at each layer.](assets/mlp.png)
+![A multi-layer perceptron with input layer, hidden layer, and output layer. Each node applies a linear transformation followed by a non-linearity, with bias terms at each layer.](https://rahuldave.com/posts/functorch/assets/mlp.png)
 
 The basic structure is this: there is an input into a linear layer, which is then squeezed through a non-linearity. 0 or more hidden layers follow (we want atleast 1 hidden layer for universal approximation). At each of these layers, for each unit, we take all the output from the previous nonlinearity, linear-combine it with all the other non-linear outputs from the previous layer, and squeeze what we get through another non-linearity. Finally, we combine all these non-liner outputs using a linear unit into a y value. (we'd use a linear+sigmoid or linear+softmax for categorical outputs or classification).
 
@@ -160,7 +160,7 @@ Output:
 /Users/rahul/Library/Caches/uv/archive-v0/fsf90YL_ANxDGfy0jne0J/lib/python3.14/site-packages/torch/nn/modules/loss.py:626: UserWarning: Using a target size (torch.Size([64])) that is different to the input size (torch.Size([64, 1])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
   return F.mse_loss(input, target, reduction=self.reduction)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/functorch/index_files/figure-html/cell-11-output-2.png)
 
 <!-- cell:16 type:code -->
 ```python
@@ -177,7 +177,7 @@ Output:
 ```
 [<matplotlib.lines.Line2D at 0x127538d70>]
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/functorch/index_files/figure-html/cell-13-output-1.png)
 
 <!-- cell:18 type:markdown -->
 We see that RELU does a decent job. Because of the nature of RELU, the resulting function has sharp edges. Note that even though the universal approximation theorem says that we can approximate any function, stochastic noise means that the function the network thinks we are approximating need not be the function we want to approximate..
@@ -221,7 +221,7 @@ MLRegP(
   (fc_final): Linear(in_features=40, out_features=1, bias=True)
 )
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/functorch/index_files/figure-html/cell-14-output-2.png)
 
 <!-- cell:21 type:code -->
 ```python
@@ -234,4 +234,4 @@ Output:
 ```
 [<matplotlib.lines.Line2D at 0x1272aaba0>]
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/functorch/index_files/figure-html/cell-15-output-1.png)

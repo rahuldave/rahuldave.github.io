@@ -1,7 +1,7 @@
 <!-- cell:0 type:markdown -->
 In the 1960's, the great statistician Box, along with his collaborators, formulated the notion of a loop to understand the nature of the scientific method. This loop is called Box's loop by Blei et. al., [^1], and illustrated in the diagram (taken from the above linked paper) below:
 
-![Box's loop: Build, Infer, Criticize, Apply](images/boxloop.png)
+![Box's loop: Build, Infer, Criticize, Apply](https://rahuldave.com/posts/boxloop/images/boxloop.png)
 
 Box himself focussed on the scientific method, but the loop is applicable at large to other examples of probabilistic modelling, such as the building of an information retrieval or recommendation system, exploratory data analysis, etc, etc
 

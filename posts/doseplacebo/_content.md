@@ -93,7 +93,7 @@ Name: dosage, dtype: float64
 ```python
 df.groupby('label').dosage.hist(bins=np.arange(30, 80, 1));
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/doseplacebo/index_files/figure-html/cell-6-output-1.png)
 
 <!-- cell:8 type:code -->
 ```python
@@ -156,7 +156,7 @@ for i in range(10000):
 plt.hist(sig_means, bins=50, alpha=0.4);
 plt.axvline(actual_effect, 0, 1, color="red");
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/doseplacebo/index_files/figure-html/cell-12-output-1.png)
 
 <!-- cell:16 type:markdown -->
 As a comparison, consider the case in which placebos had a much wider spread, between 50, and 450. Simply add 13 to each placebo value to get a dosage value. The mean difference would still be 13. But now, 13 would be way inside the histogram, and the effect would not be a significant one, and could have happened by chance.
@@ -242,7 +242,7 @@ plt.axvline(actual_effect, 0, 1, color="red");
 for p in percs:
     plt.axvline(p, 0, 1, color="green");
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/doseplacebo/index_files/figure-html/cell-19-output-1.png)
 
 <!-- cell:28 type:markdown -->
 That is, 90% of the time, the drug is 7.53 to 18.12 more effective than placebo. The average value of placebo in our sample was 50. This makes the drug 13 to 33% more effective, roghly, which seems it might be an important effect.

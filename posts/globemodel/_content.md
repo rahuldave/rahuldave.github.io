@@ -65,7 +65,7 @@ plt.plot(x, beta.pdf(x, 1, 9));
 plt.plot(x, beta.pdf(x, 1.2, 9));
 plt.plot(x, beta.pdf(x, 2, 18));
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/globemodel/index_files/figure-html/cell-4-output-1.png)
 
 <!-- cell:6 type:markdown -->
 We shall choose $\alpha=1$ and $\beta=1$ to be uniform.
@@ -122,7 +122,7 @@ Output:
 ```
 [1 0 1 1 1 0 1 0 1]
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/globemodel/index_files/figure-html/cell-5-output-2.png)
 
 <!-- cell:9 type:markdown -->
 ## Interrogating the posterior
@@ -135,7 +135,7 @@ samples = beta.rvs(*posterior_params, size=10000)
 plt.hist(samples, bins=50, density=True);
 sns.kdeplot(samples);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/globemodel/index_files/figure-html/cell-6-output-1.png)
 
 <!-- cell:11 type:markdown -->
 Now we can calculate all sorts of stuff.
@@ -235,7 +235,7 @@ Output:
 ```
 Mean 0.6373160701823328
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/globemodel/index_files/figure-html/cell-13-output-2.png)
 
 <!-- cell:24 type:markdown -->
 ## Obtaining the posterior predictive
@@ -249,7 +249,7 @@ point7samps = np.random.binomial( len(data), 0.7, size=10000);
 plt.hist(point3samps, lw=3, alpha=0.5, histtype="stepfilled", bins=np.arange(11));
 plt.hist(point7samps, lw=3, alpha=0.3,histtype="stepfilled", bins=np.arange(11));
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/globemodel/index_files/figure-html/cell-14-output-1.png)
 
 <!-- cell:26 type:markdown -->
 The posterior predictive:
@@ -258,7 +258,7 @@ $$p(y^{*} \vert D) = \int d\theta p(y^{*} \vert \theta) p(\theta \vert D)$$
 
 seems to be a complex integral.  But if you parse it, its not so complex. This diagram from McElreath helps:
 
-![The posterior predictive distribution as a mixture: each parameter value implies a sampling distribution, weighted by the posterior probability, producing the marginal prediction. From McElreath, Statistical Rethinking.](assets/postpred.png)
+![The posterior predictive distribution as a mixture: each parameter value implies a sampling distribution, weighted by the posterior probability, producing the marginal prediction. From McElreath, Statistical Rethinking.](https://rahuldave.com/posts/globemodel/assets/postpred.png)
 
 A similar risk-minimization holds for the posterior-predictive  so that
 
@@ -288,7 +288,7 @@ pluginpreds = np.random.binomial( len(data), mapvalue, size = len(samples))
 ```python
 plt.hist(pluginpreds, bins=np.arange(11));
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/globemodel/index_files/figure-html/cell-16-output-1.png)
 
 <!-- cell:29 type:markdown -->
 This approximation is just sampling from the likelihood(sampling distribution), at a posterior-obtained value of $\theta$.  It might be useful if the posterior is an expensive MCMC and the MAP is easier to find by optimization, and can be used in conjunction with quadratic (gaussian) approximations to the posterior, as we will see in variational inference. But for now we have all the samples, and it would be inane not to use them...
@@ -329,7 +329,7 @@ plt.title('Posterior predictive')
 plt.xlabel('k')
 plt.legend()
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/globemodel/index_files/figure-html/cell-20-output-1.png)
 
 <!-- cell:35 type:markdown -->
 You can interrogate the posterior-predictive, or **simulated** samples in other ways, asking about the longest run of water tosses, or the number of times the water/land switched. This is left as an exercise. In particular, you will find that the number of switches is not consistent with what you see in our data. This might lead you to question our model...always a good thing..but note that we have very little data as yet to go on

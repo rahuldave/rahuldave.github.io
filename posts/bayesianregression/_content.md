@@ -114,7 +114,7 @@ def randnms(mu, sigma, n):
 y=a0+a1*x+randnms(0.,noiseSD,N)
 plt.scatter(x,y)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/bayesianregression/index_files/figure-html/cell-5-output-1.png)
 
 <!-- cell:8 type:markdown -->
 ### Likelihood
@@ -170,13 +170,13 @@ Output:
 ```python
 cplot(priorPDF);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/bayesianregression/index_files/figure-html/cell-8-output-1.png)
 
 <!-- cell:13 type:code -->
 ```python
 plotSampleLines(priorMean,priorCovariance,15)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/bayesianregression/index_files/figure-html/cell-9-output-1.png)
 
 <!-- cell:14 type:markdown -->
 ### Posterior
@@ -247,7 +247,7 @@ for i in [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]:
         k=k+1
 
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/bayesianregression/index_files/figure-html/cell-11-output-1.png)
 
 <!-- cell:17 type:markdown -->
 ## Posterior Predictive Distribution
@@ -293,7 +293,7 @@ priorCovariance = prior_covariance(1/priorPrecision )
 priorPDF = lambda w: multivariate_normal.pdf(w,mean=priorMean,cov=priorCovariance)
 cplot(priorPDF)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/bayesianregression/index_files/figure-html/cell-13-output-1.png)
 
 <!-- cell:22 type:code -->
 ```python
@@ -342,7 +342,7 @@ for j,i in enumerate(choices):
 
 
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/bayesianregression/index_files/figure-html/cell-17-output-1.png)
 
 <!-- cell:26 type:markdown -->
 Notice how our prior tries to keep things as flat as possible!

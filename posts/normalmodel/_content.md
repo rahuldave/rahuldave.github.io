@@ -156,7 +156,7 @@ plt.xlabel("wing length (mm)")
 plt.ylabel("Number of samples")
 plt.legend();
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/normalmodel/index_files/figure-html/cell-8-output-1.png)
 
 <!-- cell:12 type:markdown -->
 In the case that we dont know $\sigma^2$ or wont estimate it the way we did above, it turns out that a conjugate prior for the precision (inverse variance) is a gamma distribution. Interested folks can see Murphy's detailed document [here](https://www.cs.ubc.ca/~murphyk/Papers/bayesGauss.pdf). but you can always just use our MH machinery to draw from any vaguely informative prior for the variance ( a gamma for the precision or even for the  variance).

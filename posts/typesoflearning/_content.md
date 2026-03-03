@@ -62,7 +62,7 @@ and the Likelihood of a non-zero $y$ is:
 
 This model can be described by this diagram, taken from Mc-Elreath
 
-![Zero-inflated monks model: a mixture process where monks either drink (observe y=0) or work (observe y>0), with the resulting zero-inflated distribution of manuscripts completed. From McElreath.](assets/zinfmonks.png)
+![Zero-inflated monks model: a mixture process where monks either drink (observe y=0) or work (observe y>0), with the resulting zero-inflated distribution of manuscripts completed. From McElreath.](https://rahuldave.com/posts/typesoflearning/assets/zinfmonks.png)
 
 The way to generate a new observation from such a distribution thus would be the following:
 
@@ -132,7 +132,7 @@ x=np.array([np.random.normal(mu_true[i.astype('bool')][0], sigma_true[i.astype('
 ```python
 sns.distplot(x, bins=100);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/typesoflearning/index_files/figure-html/cell-7-output-1.png)
 
 <!-- cell:11 type:markdown -->
 ## Supervised learning
@@ -220,7 +220,7 @@ z = binom.rvs(1, lambda_true[0], size=n)
 x=np.array([np.random.normal(mu_true[i], sigma_true[i]) for i in z])
 sns.distplot(x, bins=100);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/typesoflearning/index_files/figure-html/cell-8-output-1.png)
 
 <!-- cell:14 type:markdown -->
 Now we split into a training set and a test set.
@@ -246,7 +246,7 @@ Output:
 ```python
 plt.hist(xtrain, bins=20);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/typesoflearning/index_files/figure-html/cell-11-output-1.png)
 
 <!-- cell:18 type:code -->
 ```python

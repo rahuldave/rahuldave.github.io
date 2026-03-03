@@ -73,7 +73,7 @@ Output:
 ```python
 plt.hist(df.height, bins=30);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/normalreg/index_files/figure-html/cell-6-output-1.png)
 
 <!-- cell:8 type:markdown -->
 We get rid of the kids and only look at the heights of the adults.
@@ -83,7 +83,7 @@ We get rid of the kids and only look at the heights of the adults.
 df2 = df[df.age >= 18]
 plt.hist(df2.height, bins=30);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/normalreg/index_files/figure-html/cell-7-output-1.png)
 
 <!-- cell:10 type:markdown -->
 ## Model for heights
@@ -119,7 +119,7 @@ sigma 7.73132668454304 mu 154.5970926136364 n 352
 ```python
 plt.hist(Y, bins=30, alpha=0.5);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/normalreg/index_files/figure-html/cell-9-output-1.png)
 
 <!-- cell:13 type:code -->
 ```python
@@ -157,7 +157,7 @@ plt.hist(theta_prior, bins=30, alpha=0.2, label="prior");
 #plt.xlim([10, 30])
 plt.legend();
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/normalreg/index_files/figure-html/cell-13-output-1.png)
 
 <!-- cell:17 type:code -->
 ```python
@@ -175,7 +175,7 @@ plt.hist(Y_postpred, bins=100, alpha=0.2);
 plt.hist(Y_postpred_sample, bins=100, alpha=0.2);
 plt.hist(np.random.choice(Y, replace=True, size=N), bins=100, alpha=0.5);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/normalreg/index_files/figure-html/cell-16-output-1.png)
 
 <!-- cell:20 type:markdown -->
 ## Regression: adding a predictor
@@ -184,7 +184,7 @@ plt.hist(np.random.choice(Y, replace=True, size=N), bins=100, alpha=0.5);
 ```python
 plt.plot(df2.height, df2.weight, '.');
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/normalreg/index_files/figure-html/cell-17-output-1.png)
 
 <!-- cell:22 type:markdown -->
 So lets write our model out now:
@@ -264,13 +264,13 @@ np.float64(5.1409768989960456e-05)
 ```python
 cplot(priorPDF);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/normalreg/index_files/figure-html/cell-21-output-1.png)
 
 <!-- cell:27 type:code -->
 ```python
 plotSampleLines(priorMean,priorCovariance,50)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/normalreg/index_files/figure-html/cell-22-output-1.png)
 
 <!-- cell:28 type:code -->
 ```python
@@ -345,7 +345,7 @@ plotSampleLines(mu, cov,50, (df2.weight.values,df2.height.values), axes[1])
 
 
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/normalreg/index_files/figure-html/cell-26-output-1.png)
 
 <!-- cell:33 type:markdown -->
 Lets get the posteriors "at each point"
@@ -384,7 +384,7 @@ https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
 
   sns.distplot(w[:,0] + w[:,1] * 55) # the weight=55 posterior
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/normalreg/index_files/figure-html/cell-29-output-2.png)
 
 <!-- cell:37 type:code -->
 ```python
@@ -410,7 +410,7 @@ with sns.plotting_context('poster'):
 
 
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/normalreg/index_files/figure-html/cell-31-output-1.png)
 
 <!-- cell:39 type:markdown -->
 Oops, what happened here? Our correlations in parameters are huge! But the regression lines do make some sense. Lets look at the posterior predictive.
@@ -469,7 +469,7 @@ Output:
         181.69604253, 186.94208895, 192.18813538]),
  <BarContainer object of 10 artists>)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/normalreg/index_files/figure-html/cell-34-output-2.png)
 
 <!-- cell:43 type:code -->
 ```python
@@ -484,7 +484,7 @@ with sns.plotting_context('poster'):
     plt.ylabel('height')
 
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/normalreg/index_files/figure-html/cell-35-output-1.png)
 
 <!-- cell:44 type:markdown -->
 However, by including the $\mu$ as a deterministic in our traces we only get to see the traces at existing data points. If we want the traces on a grid of weights, we'll have to explivitly plug in the intercept and slope traces in the regression formula

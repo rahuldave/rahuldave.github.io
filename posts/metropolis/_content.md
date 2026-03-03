@@ -55,7 +55,7 @@ plt.plot(xs, f(xs));
 plt.xlabel('x')
 plt.ylabel('f');
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/metropolis/index_files/figure-html/cell-4-output-1.png)
 
 <!-- cell:5 type:markdown -->
 Simulated Annealing works by us making a proposal to change the current state, and then calculating the new energy of the state. We mentioned earlier that this works because simulated annealing produces a set of homogeneous markov chains, one at each temperature. We will explore this idea soon, but intuitively speaking, we can see that Simulated Annealing **samples** the boltzmann distribution by using our proposal "distribution".(It is critical that this proposal is symmetric, or supports what we have been calling detailed balance, which in our physical analogy corresponds to  isothermal reversibility.
@@ -108,7 +108,7 @@ Output:
 ```
 Text(0.5, 1.0, 'distribution corresponding to function f')
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/metropolis/index_files/figure-html/cell-5-output-2.png)
 
 <!-- cell:8 type:markdown -->
 ## Motivating Metropolis
@@ -151,7 +151,7 @@ def metropolis(p, qdraw, nsamp, xinit):
 xxx= np.linspace(-10,10,1000)
 plt.plot(xxx, norm.pdf(xxx), 'r'); 
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/metropolis/index_files/figure-html/cell-7-output-1.png)
 
 <!-- cell:12 type:code -->
 ```python
@@ -191,7 +191,7 @@ plt.legend()
 plt.show()
 print("starting point was ", 0.0)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/metropolis/index_files/figure-html/cell-11-output-1.png)
 Output:
 ```
 starting point was  0.0
@@ -210,7 +210,7 @@ $$E_f[g] = \int dV f(x) g(x).$$
 
 In multiple domensions, volume elements get smaller and smaller...the curse of dimensionality. This can be seen in the diagram :
 
-![Curse of dimensionality: the inner volume shrinks exponentially relative to the outer volume as dimensions increase.](assets/cod.png)
+![Curse of dimensionality: the inner volume shrinks exponentially relative to the outer volume as dimensions increase.](https://rahuldave.com/posts/metropolis/assets/cod.png)
 
 (image from Betancourt)
 
@@ -218,7 +218,7 @@ where the centre-partitions combination to an integral goes from 1/3rd to 1/27th
 
 As the centre volume decreases, the outer volume increases, but this is in distribution tails, so we dont get much of a contribution from there either:
 
-![The typical set in increasing dimensions: probability mass concentrates in a thin shell between the center and outer boundary. From Betancourt.](assets/cod2.png)
+![The typical set in increasing dimensions: probability mass concentrates in a thin shell between the center and outer boundary. From Betancourt.](https://rahuldave.com/posts/metropolis/assets/cod2.png)
 
 (image from Betancourt)
 
@@ -244,7 +244,7 @@ plt.axvline(0, 0,1, color="gray")
 plt.axvline(1, 0,1, color="gray")
 plt.axhline(0, 0,1, color="gray");
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/metropolis/index_files/figure-html/cell-13-output-1.png)
 
 <!-- cell:20 type:markdown -->
 We wish to consider the support [0,1]. We could truncate our "distribution" beyond these. But it does not matter, even though we use a normal proposal whichcan propose negative and gretar-than-one $x$ values.
@@ -288,7 +288,7 @@ plt.legend()
 plt.show()
 print("starting point was ", x0)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/metropolis/index_files/figure-html/cell-17-output-1.png)
 Output:
 ```
 starting point was  0.9869675222634532

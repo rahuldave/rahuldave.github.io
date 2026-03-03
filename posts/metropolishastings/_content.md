@@ -147,7 +147,7 @@ f = lambda x: 0.554*x*np.exp(-(x/1.9)**2)
 xxx= np.linspace(0,10,100)
 plt.plot(xxx, f(xxx), 'r');
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/metropolishastings/index_files/figure-html/cell-7-output-1.png)
 
 <!-- cell:15 type:markdown -->
 A rule of thumb for choosing proposal distributions is to parametrize them in terms of their mean and variance or precision since that  provides a notion of "centeredness" which we can use for our proposals $x_{i-1}$. We then fix the variance to understand how widely we are sampling from.
@@ -196,7 +196,7 @@ plt.xlim([0,10])
 plt.show()
 print("starting point was ", x0)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/metropolishastings/index_files/figure-html/cell-11-output-1.png)
 Output:
 ```
 starting point was  0.8183160195576589
@@ -209,7 +209,7 @@ Remember how we said that it takes some time for the Markov chain to reach a sta
 ```python
 plt.plot(samps, alpha=0.3);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/metropolishastings/index_files/figure-html/cell-12-output-1.png)
 
 <!-- cell:22 type:code -->
 ```python
@@ -220,7 +220,7 @@ Output:
 ```
 (0.0, 5000.0)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/metropolishastings/index_files/figure-html/cell-13-output-1.png)
 
 <!-- cell:23 type:markdown -->
 The first many samples will contain  signs of the initial condition, and will also reflect the fact that you have not found the stationary distribution as yet. We will see tests later for this, but as a rule of thumb, you always want to eliminate the first 5-10% of your samples. The appearance of **white noise** is a good sign.
@@ -234,7 +234,7 @@ Output:
 ```
 (20000.0, 25000.0)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/metropolishastings/index_files/figure-html/cell-14-output-1.png)
 
 <!-- cell:25 type:markdown -->
 Notice that strong autocorrelations persist at high sample number too. This is the nature of metropolis and MH samplers..your next move is clearly highly correlated with the previous one.
@@ -245,7 +245,7 @@ This is not a disaster in itself, but many people will thin their samples to hav
 ```python
 plt.plot(samps[20000::10], alpha=0.3);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/metropolishastings/index_files/figure-html/cell-15-output-1.png)
 
 <!-- cell:27 type:markdown -->
 Here is the last 8000 samples for comparison where you can clearly see correlations. We shall talk more about these considerations later.
@@ -254,7 +254,7 @@ Here is the last 8000 samples for comparison where you can clearly see correlati
 ```python
 plt.plot(samps[-8000:], alpha=0.3);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/metropolishastings/index_files/figure-html/cell-16-output-1.png)
 
 <!-- cell:29 type:markdown -->
 ### The same function with Metropolis
@@ -293,7 +293,7 @@ plt.xlim([-5,10])
 plt.show()
 print("starting point was ", x0)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/metropolishastings/index_files/figure-html/cell-19-output-1.png)
 Output:
 ```
 starting point was  0.8183160195576589
@@ -373,7 +373,7 @@ Output:
 ```python
 plt.hist(samps_dis);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/metropolishastings/index_files/figure-html/cell-25-output-1.png)
 
 <!-- cell:44 type:markdown -->
 If I wish to use metropolis hastings I  can choose an asymmetric proposal and I must provide a proposal pdf.
@@ -428,4 +428,4 @@ Output:
 ```python
 plt.hist(samps_dis2);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/metropolishastings/index_files/figure-html/cell-32-output-1.png)

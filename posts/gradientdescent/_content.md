@@ -81,7 +81,7 @@ Output:
 ```
 [<matplotlib.lines.Line2D at 0x128bbaba0>]
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/gradientdescent/index_files/figure-html/cell-7-output-1.png)
 
 <!-- cell:9 type:markdown -->
 ## Batch gradient descent
@@ -195,7 +195,7 @@ One can plot the reduction of cost:
 ```python
 plt.plot(range(len(cost)), cost);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/gradientdescent/index_files/figure-html/cell-13-output-1.png)
 
 <!-- cell:17 type:markdown -->
 The following animation shows how the regression line forms:
@@ -237,7 +237,7 @@ Output:
 /var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48766/3408123445.py:16: UserWarning: color is redundantly defined by the 'color' keyword argument and the fmt string "k-" (-> color='k'). The keyword argument will take precedence.
   plt.plot(xaug[:,1], best_fit(xaug[:,1]), 'k-', color = "r")
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/gradientdescent/index_files/figure-html/cell-15-output-2.png)
 
 <!-- cell:20 type:markdown -->
 Remember that the linear regression cost function is convex, and more precisely quadratic. We can see the path that gradient descent takes in arriving at the optimum:
@@ -282,7 +282,7 @@ Output:
 /var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48766/2428721890.py:17: UserWarning: The following kwargs were not used by contour: 'color'
   ax.contour(M, B, Z, 20, color='b', alpha=0.5, offset=0, stride=30)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/gradientdescent/index_files/figure-html/cell-17-output-2.png)
 
 <!-- cell:23 type:markdown -->
 ## Stochastic gradient descent
@@ -413,7 +413,7 @@ Output:
 ```python
 plt.plot(range(len(cost2[-10000:])), cost2[-10000:], alpha=0.4);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/gradientdescent/index_files/figure-html/cell-21-output-1.png)
 
 <!-- cell:28 type:code -->
 ```python
@@ -424,7 +424,7 @@ Output:
 /var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48766/2428721890.py:17: UserWarning: The following kwargs were not used by contour: 'color'
   ax.contour(M, B, Z, 20, color='b', alpha=0.5, offset=0, stride=30)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/gradientdescent/index_files/figure-html/cell-22-output-2.png)
 
 <!-- cell:29 type:code -->
 ```python
@@ -434,7 +434,7 @@ Output:
 ```
 [<matplotlib.lines.Line2D at 0x129699010>]
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/gradientdescent/index_files/figure-html/cell-23-output-1.png)
 
 <!-- cell:30 type:markdown -->
 #### Animating SGD
@@ -510,7 +510,7 @@ Using Imagemagick we can produce a gif animation:
 
 (I set this animation to repeat just once. (`loop 1`). Reload this cell to see it again. On the web page right clicking the image might allow for an option to loop again)
 
-![](assets/animsgd.gif)
+![](https://rahuldave.com/posts/gradientdescent/assets/animsgd.gif)
 
 <!-- cell:35 type:markdown -->
 ## Mini-batch gradient descent

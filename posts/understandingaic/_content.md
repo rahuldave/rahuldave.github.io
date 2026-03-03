@@ -267,7 +267,7 @@ plt.xlabel("number of parameters")
 plt.ylabel("deviance")
 plt.title("N=20");
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/understandingaic/index_files/figure-html/cell-11-output-1.png)
 
 <!-- cell:18 type:markdown -->
 Notice:
@@ -345,7 +345,7 @@ plt.xlabel("number of parameters")
 plt.ylabel("deviance")
 plt.title("N=100");
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/understandingaic/index_files/figure-html/cell-15-output-1.png)
 
 <!-- cell:25 type:code -->
 ```python
@@ -413,7 +413,7 @@ The fact that the (log-likelihood) and thus the deviance  carries an expectation
 
 (taken from McElreath, but see upstairs as well)
 
-![In-sample vs. out-of-sample deviance as model complexity increases, for N=20 and N=100. From McElreath, Statistical Rethinking.](assets/inoutdeviance.png)
+![In-sample vs. out-of-sample deviance as model complexity increases, for N=20 and N=100. From McElreath, Statistical Rethinking.](https://rahuldave.com/posts/understandingaic/assets/inoutdeviance.png)
 
 <!-- cell:29 type:markdown -->
 Now we are equipped to understand this diagram completely. Lets focus on the training (in) set first: blue points. 

@@ -9,7 +9,7 @@ that while you might get a streak of several heads in a row, in the long run the
 a random variable X with a mean, the average value of X over a sample of size N converges i.e. gets close and closer to this mean as
 N becomes larger and larger.
 
-![](/assets/lawoflargenumbers/2.png)
+![](https://rahuldave.com/posts/lawoflargenumbers//assets/lawoflargenumbers/2.png)
 
 
 
@@ -28,14 +28,14 @@ N becomes larger and larger.
 "Bernoulli" Distribution attaches the probabilities 0.5 to value 1 and 0.5 to value 0. 
 These probabilities must add to 1.
 
-![](/assets/lawoflargenumbers/5.png)
+![](https://rahuldave.com/posts/lawoflargenumbers//assets/lawoflargenumbers/5.png)
 
 
 
 
 6. An unfair coin thats more likely to land on heads might have a distribution where 0 has attached probability 0.4 and 1 has attached probability 0.6. In this case the mean µ of the distribution is 0.4 x 0 + 0.6 x 1 = 0.6.
 
-![](/assets/lawoflargenumbers/6.png)
+![](https://rahuldave.com/posts/lawoflargenumbers//assets/lawoflargenumbers/6.png)
 
 
 
@@ -48,14 +48,14 @@ one of the allowed values of the distribution (here 0 and 1). The mean here simp
 
 8. Now let us simulate the case of the fair coin. We'll toss a sample of N coins, or 1 coin N times, using the magic of numpy. We'll find the average of these N tosses. This is the fraction of heads! We'll plot this sample average against the sample size N.
 
-![](/assets/lawoflargenumbers/8.png)
+![](https://rahuldave.com/posts/lawoflargenumbers//assets/lawoflargenumbers/8.png)
 
 
 
 
 9. We find that these sample averages are quite close to 0.5. And, as we increase the sample size N, these sample averages become super close to 0.5. Indeed, as N becomes infinite, the sample averages approach the mean µ=0.5. This is the Law of Large Numbers.
 
-![](/assets/lawoflargenumbers/9.png)
+![](https://rahuldave.com/posts/lawoflargenumbers//assets/lawoflargenumbers/9.png)
 
 
 
@@ -67,7 +67,7 @@ one of the allowed values of the distribution (here 0 and 1). The mean here simp
 
 11. But we might also treat the mean µ as an intrinsic fraction of heads, a "parameter" of the Bernoulli distribution. Where does it come from in the first place? The value µ can be thought of as an "inferential probability" derived from symmetry and lack of knowledge.
 
-![](/assets/lawoflargenumbers/11.png)
+![](https://rahuldave.com/posts/lawoflargenumbers//assets/lawoflargenumbers/11.png)
 
 
 

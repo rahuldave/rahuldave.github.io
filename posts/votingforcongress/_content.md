@@ -13,7 +13,7 @@
 ```
 
 <!-- cell:2 type:markdown -->
-![PredictWise congressional voting visualization](assets/sep7.png)
+![PredictWise congressional voting visualization](https://rahuldave.com/posts/votingforcongress/assets/sep7.png)
 
 <!-- cell:3 type:code -->
 ```python

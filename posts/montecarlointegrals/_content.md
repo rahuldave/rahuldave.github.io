@@ -156,7 +156,7 @@ plt.ylabel("sqrt((Imc-ExactValue)$^2$)")
 # 
 
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/montecarlointegrals/index_files/figure-html/cell-8-output-1.png)
 
 <!-- cell:12 type:markdown -->
 Obviously this depends on the number of $N$ as $1/\sqrt{N}$. 
@@ -198,7 +198,7 @@ Output:
 ```
 11.8114651823 0.00398497853806
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/montecarlointegrals/index_files/figure-html/cell-9-output-2.png)
 
 <!-- cell:15 type:markdown -->
 This looks like our telltale Normal distribution.

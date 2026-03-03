@@ -92,7 +92,7 @@ array([0.        , 0.05263158, 0.10526316, 0.15789474, 0.21052632,
 ```python
 plt.plot(p_grid, post_pdf(p_grid),'o-');
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/globemodellab/index_files/figure-html/cell-7-output-1.png)
 
 <!-- cell:10 type:code -->
 ```python
@@ -110,7 +110,7 @@ Output:
 ```
 [<matplotlib.lines.Line2D at 0x10b38c590>]
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/globemodellab/index_files/figure-html/cell-9-output-1.png)
 
 <!-- cell:12 type:code -->
 ```python
@@ -130,7 +130,7 @@ https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
 
   sns.distplot(grid_post_samples)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/globemodellab/index_files/figure-html/cell-10-output-2.png)
 
 <!-- cell:13 type:markdown -->
 ## Laplace Approximation
@@ -206,7 +206,7 @@ Output:
 ```
 [<matplotlib.lines.Line2D at 0x10b4aa3c0>]
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/globemodellab/index_files/figure-html/cell-16-output-1.png)
 
 <!-- cell:20 type:code -->
 ```python
@@ -266,7 +266,7 @@ plt.plot(p_grid, post_pdf(p_grid)/zq(post_SIG), label = "normalized posterior");
 plt.plot(p_grid, frozen_laplace.pdf(p_grid), label = "laplace approx")
 plt.legend();
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/globemodellab/index_files/figure-html/cell-22-output-1.png)
 
 <!-- cell:26 type:code -->
 ```python
@@ -298,7 +298,7 @@ https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
 
   sns.distplot(frozen_laplace.rvs(10000))
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/globemodellab/index_files/figure-html/cell-24-output-2.png)
 
 <!-- cell:29 type:markdown -->
 ## Conjugate Priors
@@ -316,7 +316,7 @@ plt.plot(x, beta.pdf(x, 1, 9));
 plt.plot(x, beta.pdf(x, 1.2, 9));
 plt.plot(x, beta.pdf(x, 2, 18));
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/globemodellab/index_files/figure-html/cell-25-output-1.png)
 
 <!-- cell:31 type:markdown -->
 We shall choose $\alpha=1$ and $\beta=1$ to be uniform.
@@ -373,7 +373,7 @@ Output:
 ```
 [1 0 1 1 1 0 1 0 1]
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/globemodellab/index_files/figure-html/cell-26-output-2.png)
 
 <!-- cell:34 type:markdown -->
 ## Interrogating the posterior
@@ -386,7 +386,7 @@ samples = beta.rvs(*posterior_params, size=10000)
 plt.hist(samples, bins=50, density=True);
 sns.kdeplot(samples);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/globemodellab/index_files/figure-html/cell-27-output-1.png)
 
 <!-- cell:36 type:markdown -->
 ### Sampling to summarize
@@ -475,7 +475,7 @@ Output:
 ```
 Mean 0.6378238625593226
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/globemodellab/index_files/figure-html/cell-34-output-2.png)
 
 <!-- cell:49 type:markdown -->
 ## Sampling to simulate prediction: the posterior predictive
@@ -496,7 +496,7 @@ point7samps = np.random.binomial( len(data), 0.7, size=10000);
 plt.hist(point3samps, lw=3, alpha=0.5, histtype="stepfilled", bins=np.arange(11));
 plt.hist(point7samps, lw=3, alpha=0.3,histtype="stepfilled", bins=np.arange(11));
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/globemodellab/index_files/figure-html/cell-35-output-1.png)
 
 <!-- cell:51 type:markdown -->
 The posterior predictive:
@@ -505,7 +505,7 @@ $$p(y^{*} \vert D) = \int d\theta p(y^{*} \vert \theta) p(\theta \vert D)$$
 
 seems to be a complex integral.  But if you parse it, its not so complex. This diagram from McElreath helps:
 
-![The posterior predictive distribution as a mixture: each parameter value implies a sampling distribution, weighted by the posterior probability, producing the marginal prediction. From McElreath, Statistical Rethinking.](assets/postpred.png)
+![The posterior predictive distribution as a mixture: each parameter value implies a sampling distribution, weighted by the posterior probability, producing the marginal prediction. From McElreath, Statistical Rethinking.](https://rahuldave.com/posts/globemodellab/assets/postpred.png)
 
 
 ### Plug-in Approximation
@@ -529,7 +529,7 @@ pluginpreds = np.random.binomial( len(data), mapvalue, size = len(samples))
 ```python
 plt.hist(pluginpreds, bins=np.arange(11));
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/globemodellab/index_files/figure-html/cell-37-output-1.png)
 
 <!-- cell:54 type:markdown -->
 This approximation is just sampling from the likelihood(sampling distribution), at a posterior-obtained value of $\theta$.  It might be useful if the posterior is an expensive MCMC and the MAP is easier to find by optimization, and can be used in conjunction with quadratic (gaussian) approximations to the posterior, as we will see in variational inference. But for now we have all the samples, and it would be inane not to use them...
@@ -570,7 +570,7 @@ plt.title('Posterior predictive')
 plt.xlabel('k')
 plt.legend()
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/globemodellab/index_files/figure-html/cell-41-output-1.png)
 
 <!-- cell:60 type:markdown -->
 ### Replicative predictives
@@ -616,7 +616,7 @@ Output:
 ```python
 plt.scatter(samples, per_theta_avgs, alpha=0.1);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/globemodellab/index_files/figure-html/cell-45-output-1.png)
 
 <!-- cell:65 type:markdown -->
 In particular, you will find that the number of switches is not consistent with what you see in our data. This might lead you to question our model...always a good thing..but note that we have very little data as yet to go on

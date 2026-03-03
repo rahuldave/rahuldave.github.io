@@ -66,14 +66,14 @@ from scipy.stats import poisson
 xxx= np.arange(1,20,1)
 plt.plot(xxx, poisson.pmf(xxx, mu=5), 'o'); 
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/discretemcmc/index_files/figure-html/cell-5-output-1.png)
 
 <!-- cell:7 type:markdown -->
 To sample from this distribution, we must create a proposal matrix which allows us to go from any integer output to any other in a finite number of steps. This matrix must be symmetric, since we wish to use Metropolis.
 
 A simple such matrix, which is although a bit slow, would be one which has immediate off-diagonal elements (from Stats 580 at Iowa state..)
 
-![Symmetric random-walk proposal matrix Q for discrete MCMC: each state proposes to stay or move to an adjacent state with equal probability.](assets/propmatrix.png)
+![Symmetric random-walk proposal matrix Q for discrete MCMC: each state proposes to stay or move to an adjacent state with equal probability.](https://rahuldave.com/posts/discretemcmc/assets/propmatrix.png)
 
 <!-- cell:8 type:code -->
 ```python
@@ -126,4 +126,4 @@ xxx = np.arange(0,samps.max())
 plt.hist(samps, bins=xxx, density=True, align='left');
 plt.plot(xxx, rv.pmf(xxx),'o');
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/discretemcmc/index_files/figure-html/cell-10-output-1.png)

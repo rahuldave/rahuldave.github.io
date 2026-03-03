@@ -45,7 +45,7 @@ semi-definite}.
 
 Consider the case of two random variables $x_1$ and $x_2$, as seen in the diagram below:
 
-![Jensen's inequality: for a convex function, the weighted average of function values always lies above the function of the weighted average.](assets/EM1.png)
+![Jensen's inequality: for a convex function, the weighted average of function values always lies above the function of the weighted average.](https://rahuldave.com/posts/jensens/assets/EM1.png)
 
 
 **Defnition** Let f be a real valued function defined on an interval $I = [a, b]$.

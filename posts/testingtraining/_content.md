@@ -95,7 +95,7 @@ Output:
 ```
 [<matplotlib.lines.Line2D at 0x10f73fe00>]
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/testingtraining/index_files/figure-html/cell-6-output-1.png)
 
 <!-- cell:9 type:markdown -->
 Notice that our sampling of $x$ is not quite uniform: there are more points around $x$ of 0.7.
@@ -138,7 +138,7 @@ Output:
 /var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_49236/2639234267.py:5: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
   axes[1].plot(df.x,df.y, 's', alpha=0.6, label="in-sample noisy data $\cal{D}$");
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/testingtraining/index_files/figure-html/cell-8-output-2.png)
 
 <!-- cell:12 type:markdown -->
 ## Testing and Training Sets
@@ -172,7 +172,7 @@ This split is done by choosing points at random into these two sets. Typically w
 
 The split is shown in the diagram below:
 
-![Splitting dataset D into training and test sets (image after Learning from Data)](assets/train-test.png)
+![Splitting dataset D into training and test sets (image after Learning from Data)](https://rahuldave.com/posts/testingtraining/assets/train-test.png)
 
 We ARE taking a hit on the amount of data we have to train our model. The more data we have, the better we can do for our fits. But, you cannot figure out the generalization ability of a learner by looking at the same data it was trained on: there is nothing to generalize to, and as we know we can fit very complex models to training data which have no hope of generalizing (like an interpolator). Thus, to estimate the **out-of-sample error or risk**, we must leave data over to make this estimation. 
 
@@ -214,7 +214,7 @@ Output:
 /var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_49236/549138771.py:3: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
   axes[0].plot(df.x,df.y, 'o',alpha=0.6, label="$\cal{D}$");
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/testingtraining/index_files/figure-html/cell-10-output-2.png)
 
 <!-- cell:17 type:markdown -->
 ## A digression about scikit-learn
@@ -242,7 +242,7 @@ $$ a_0 + a_1 x + a_2 x^2 + ... + a_d x^d. $$
 
 In other words, we have transformed a function of one feature, into a (rather simple) **linear** function of many features. To do this we first construct the estimator as `PolynomialFeatures(d)`, and then transform these features into a d-dimensional space using the method `fit_transform`.
 
-![Polynomial feature transform: expanding x into a design matrix](assets/sklearntrans.jpg)
+![Polynomial feature transform: expanding x into a design matrix](https://rahuldave.com/posts/testingtraining/assets/sklearntrans.jpg)
 
 Here is an example. The reason for using `[[1],[2],[3]]` as opposed to `[1,2,3]` is that scikit-learn expects data to be stored in a two-dimensional array or matrix with size `[n_samples, n_features]`.
 
@@ -261,7 +261,7 @@ array([[ 1.,  1.,  1.,  1.],
 <!-- cell:20 type:markdown -->
 To transform `[1,2,3]` into [[1],[2],[3]] we need to do a reshape.
 
-![NumPy reshape: converting a 1D array to a column vector](assets/reshape.jpg)
+![NumPy reshape: converting a 1D array to a column vector](https://rahuldave.com/posts/testingtraining/assets/reshape.jpg)
 
 <!-- cell:21 type:code -->
 ```python
@@ -365,7 +365,7 @@ Here `Xtrain` must be in the form of an array of arrays, with the inner array ea
 
 
 <!-- cell:27 type:markdown -->
-![Scikit-learn train/test data layout: X_train, y_train, X_test, y_test](assets/sklearn2.jpg)
+![Scikit-learn train/test data layout: X_train, y_train, X_test, y_test](https://rahuldave.com/posts/testingtraining/assets/sklearn2.jpg)
 
 <!-- cell:28 type:markdown -->
 The test set `Xtest` has the same structure, and is used in the `.predict` interface. Once we have fit the estimator, we predict the results on the test set by:
@@ -554,7 +554,7 @@ plt.xlabel('degree')
 plt.legend(loc='upper left')
 plt.yscale("log")
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/testingtraining/index_files/figure-html/cell-24-output-1.png)
 
 <!-- cell:45 type:markdown -->
 The graph shows a very interesting structure. The training error decreases with increasing degree of the polynomial. This ought to make sense given what you know now: one can construct an arbitrarily complex polynomial to fit all the training data: indeed one could construct an order 24 polynomial which perfectly interpolates the 24 data points in the training set. You also know that this would do very badly on the test set as it would wiggle like mad to capture all the data points. And this is indeed what we see in the test set error. 
@@ -563,7 +563,7 @@ For extremely low degree polynomials like $d=0$ a flat line capturing the mean v
 
 Thus the test set error first decreases as the model get more expressive, and then, once we exceed a certain level of complexity (here indexed by $d$), it increases. This idea can be used to identify just the right amount of complexity in the model by picking as **the best hypothesis as the one that minimizes test set error** or risk. In our case this happens around $d=4$. (This exact number will depend on the random points chosen into the training and test sets) For complexity lower than this critical value, identified by the red vertical line in the diagram, the hypotheses underfit; for complexity higher, they overfit.
 
-![Bias-variance tradeoff: underfitting vs overfitting as complexity increases](assets/complexity-error-plot.png)
+![Bias-variance tradeoff: underfitting vs overfitting as complexity increases](https://rahuldave.com/posts/testingtraining/assets/complexity-error-plot.png)
 
 Keep in mind that as you see in the plot above this minimum can be shallow: in this case any of the low order polynomials would be "good enough".
 

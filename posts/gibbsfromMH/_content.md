@@ -7,7 +7,7 @@ Now consider the following proposal function:
 
 $$q_k(x^* \vert x^i) = \begin{cases} p(x_k^* \vert x_{-k}^i) & for \,\,x_{-k}^* = x_{-k}^i,\\ 0 & otherwise \end{cases}$$
 
-![Graphical representation of the componentwise Gibbs update: proposing from the conditional distribution of one component while holding all others fixed.](assets/gibbsograph.png)
+![Graphical representation of the componentwise Gibbs update: proposing from the conditional distribution of one component while holding all others fixed.](https://rahuldave.com/posts/gibbsfromMH/assets/gibbsograph.png)
 
 In other words, you propose from the conditional distribution of the current component, given a fixed $x_{old}$ value of the other components.  You keep all the other component values the same. If you change any of the old component values, the proposal probability is 0. This should remind you of componentwise updating in MH (and block, as $k$ could represent a block). Now you see where this conditional takes you in the $x_k$ direction.
 

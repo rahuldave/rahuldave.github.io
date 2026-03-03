@@ -167,7 +167,7 @@ Output:
 /var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_49128/3293221259.py:2: RuntimeWarning: invalid value encountered in divide
   plt.plot(trials, [np.sum(throw_a_coin(j)=='H')/float(j) for j in trials], 'o-', alpha=0.2);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/probability/index_files/figure-html/cell-8-output-2.png)
 
 <!-- cell:15 type:markdown -->
 Thus, the true odds **fluctuate** about their long-run value of 0.5, in accordance with the model of a fair coin (which we encoded in our simulation by having `np.random.choice` choose between two possibilities with equal probability), with the fluctuations becoming much smaller (we shall talk a lot more about this later in the book). These **fluctations** are what give rise to probability distributions.
@@ -189,7 +189,7 @@ E is the event of getting a heads in a first coin toss, and F is the same for a 
 
 These sets, along with some others are captured in the venn diagram below:
 
-![Venn diagram for the 2-coin-toss sample space](assets/venn.png) 
+![Venn diagram for the 2-coin-toss sample space](https://rahuldave.com/posts/probability/assets/venn.png) 
 
 
 ### The Multiply/And/Intersection Formula for independent events
@@ -211,7 +211,7 @@ the "plus" formula, where E+F, read as E or F (also $E \cup F$, reads as E union
 
 There are four ways that these two tosses can arrange themselves, as illustrated by this diagram, adapted from the [probability chapter](http://www.feynmanlectures.caltech.edu/I_06.html) in Feynman's lectures on Physics..you should read it!.
 
-![Tree diagram for 2 coin flips](assets/2flips.png) 
+![Tree diagram for 2 coin flips](https://rahuldave.com/posts/probability/assets/2flips.png) 
 
 We can have a HH, HT, TH, or TT. In three out of 4 of these cases, either the first toss was heads, or the second was heads. Thus $P(E+F)=3/4$. 
 
@@ -264,7 +264,7 @@ The diagram  below taken from Bishop may be used to illustrate the concepts of c
 $i = 1,...,M$, and $Y$, which takes the values ${y_j}$ where $j = 1,...,L$. The number of instances for which $X = x_i$ and $Y = y_j$ is $n_{ij}$. The number of points in column i where $X=x_i$ is $c_i$, and for the row where $Y = y_j$ is $r_j$.
 
 
-![Joint probability table notation](assets/bishop-prob.png)
+![Joint probability table notation](https://rahuldave.com/posts/probability/assets/bishop-prob.png)
 
 Then the **joint probability** of having  $p(X = x_i, Y= y_j)$ is in the asymptotic limit of large numbers in the frequency sense of probability $n_{ij}/N$ where is the total number of instances. The $X$ **marginal**,  $p(X=x_i)$ can be obtained by summing instances in all the cells in the  i'th column:
 

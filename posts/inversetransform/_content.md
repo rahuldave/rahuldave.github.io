@@ -33,7 +33,7 @@ The basic idea behind the inverse transform method is to transform uniform sampl
 
 At first glance this seems to be a quixotic quest, but the key observation is this: the CDF of a distribution  is a function that ranges from  0 to 1. Now assume you  use $$Uniform(0,1)$$ to generate a random number, say 0.63. Now map this number on the range (or y-axis) to a x using the CDF curve to generate a sample. This process is illustrated below:
 
-![The inverse transform method: uniform samples (left axis of CDF, right panel) are mapped through the inverse CDF to produce samples from the target distribution (left panel).](assets/invtrans.png)
+![The inverse transform method: uniform samples (left axis of CDF, right panel) are mapped through the inverse CDF to produce samples from the target distribution (left panel).](https://rahuldave.com/posts/inversetransform/assets/invtrans.png)
 
 The right hand side image is the CDF while the left hand side is the pdf we want to sample from.
 
@@ -125,7 +125,7 @@ plt.plot(xvals, hinfo[0][0]*p(xvals), 'r', label=u'p(x)')
 plt.legend()
 
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/inversetransform/index_files/figure-html/cell-4-output-1.png)
 
 <!-- cell:6 type:markdown -->
 ### Box-Muller algorithm

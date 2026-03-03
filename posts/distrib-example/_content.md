@@ -121,7 +121,7 @@ Output:
 ```
 [0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 1 1 1 0]
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/distrib-example/index_files/figure-html/cell-5-output-2.png)
 
 <!-- cell:8 type:markdown -->
 ### Running the simulation using the Uniform distribution
@@ -211,7 +211,7 @@ def plot_simulation(simulation):
 ```python
 plot_simulation(result)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/distrib-example/index_files/figure-html/cell-10-output-1.png)
 
 <!-- cell:17 type:markdown -->
 The model created by combining the probabilities we obtained from Predictwise with the simulation of a biased coin flip corresponding to the win probability in each states leads us to obtain a histogram of election outcomes. We are plotting the probabilities of a prediction, so we call this distribution over outcomes the **predictive distribution**. Simulating from our model and plotting a histogram allows us to visualize this predictive distribution. In general, such a set of probabilities is called a  **probability mass function**. 
@@ -252,7 +252,7 @@ plt.ylim([-0.1,1.1])
 plt.xlabel("votes for Obama")
 plt.ylabel("probability of Obama win");
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/distrib-example/index_files/figure-html/cell-12-output-1.png)
 
 <!-- cell:22 type:markdown -->
 ## Binomial Distribution 
@@ -262,7 +262,7 @@ Let us consider a population of coinflips, n of them to be precise, $x_1,x_2,...
 At this point, you might want to ask the question, what is the probability of obtaining $k$ heads in $n$ flips of the coin. We have seen this before, when we flipped 2 coins. What happens when when we flip 3?
 
 (This diagram is taken from the Feynman Lectures on Physics, volume 1. The chapter on probability is http://www.feynmanlectures.caltech.edu/I_06.html)
-![Tree diagram for 3 coin flips](assets/3flips.png)
+![Tree diagram for 3 coin flips](https://rahuldave.com/posts/distrib-example/assets/3flips.png)
 
 We draw a possibilities diagram like we did with the 2 coin flips, and see that there are different probabilities associated with the events of 0, 1,2, and 3 heads with 1 and 2 heads being the most likely. 
 The probability of each of these events is given by the **Binomial Distribution**, the distribution of the number of successes in a sequence of $n$ independent yes/no experiments, or Bernoulli trials, each of which yields success with probability $p$. The Binomial distribution is an extension of the Bernoulli when $n>1$ or the Bernoulli is the a special case of the Binomial when $n=1$.   
@@ -292,7 +292,7 @@ plt.tight_layout()
 q=plt.ylabel("PDF at $k$")
 q=plt.xlabel("$k$")
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/distrib-example/index_files/figure-html/cell-13-output-1.png)
 
 <!-- cell:24 type:markdown -->
 ### Applying the CLT to elections: Binomial distribution in the large n, large k limit
@@ -397,7 +397,7 @@ model = model.join(predictwise.Votes)
 prediction = simulate_election(model, 10000)
 plot_simulation(prediction)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/distrib-example/index_files/figure-html/cell-18-output-1.png)
 
 <!-- cell:33 type:markdown -->
 ### Multiple Pollsters

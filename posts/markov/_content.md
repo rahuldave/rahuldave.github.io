@@ -66,7 +66,7 @@ There are no deterministic loops. This would be bad in our web example as well a
 
 Indeed pagerank has 2 components: one mirroring the true web which can have periods and reducibility, and the second a nose component which "regularizes" the web by adding some noise to the transition matrix for 0 elements.
 
-![Examples of Markov chain properties: irreducible, reducible, and irreducible but periodic (period 3) chains.](assets/mchain2.png)
+![Examples of Markov chain properties: irreducible, reducible, and irreducible but periodic (period 3) chains.](https://rahuldave.com/posts/markov/assets/mchain2.png)
 
 ### Stationarity
 
@@ -121,7 +121,7 @@ Thus we want to design us samplers which  satisfy detailed balance.
 <!-- cell:7 type:markdown -->
 We look at a very simple Markov Chain, with only two states: Rainy or Sunny. This chain is aperiodic and irreducible, so it has a stationary distribution. We find it by looking at powers of the transition matrix.
 
-![Rainy-Sunny two-state Markov chain with transition probabilities.](assets/mchain.png)
+![Rainy-Sunny two-state Markov chain with transition probabilities.](https://rahuldave.com/posts/markov/assets/mchain.png)
 
 <!-- cell:8 type:code -->
 ```python
@@ -260,13 +260,13 @@ Thus the  Metropolis algorithm  respects $s(x)$ as the stationary distribution.
 
 All this math boils down to the following intuition:
 
-![MCMC intuition: a Markov chain converging toward a target distribution shown in green, with the stationary distribution on the right.](assets/mcapproach.png)
+![MCMC intuition: a Markov chain converging toward a target distribution shown in green, with the stationary distribution on the right.](https://rahuldave.com/posts/markov/assets/mcapproach.png)
 
 
 <!-- cell:22 type:markdown -->
 Instead of sampling $s$ (or $p$) (since we dont know how to do that) we sample $q$ instead.  Sampling from this distribution yields a new state, and a *new proposal distribution* from which to sample.
 
-![Proposal distributions (black curves) overlaid on the true target distribution (red) and the resulting MCMC histogram (blue).](assets/gsample.png)
+![Proposal distributions (black curves) overlaid on the true target distribution (red) and the resulting MCMC histogram (blue).](https://rahuldave.com/posts/markov/assets/gsample.png)
 
 In general such a markov chain would meander around. But the aperiodicity and irreducibility means that it will preserve the (stationary) target distribution and go for the typical set (red), no matter where it is applied. 
 
@@ -330,4 +330,4 @@ plt.axhline(beta.pdf(0.5, 8, 10),0,1)
 plt.plot(xx, f(xx), 'r', label=u'True distribution') 
 plt.legend();
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/markov/index_files/figure-html/cell-10-output-1.png)

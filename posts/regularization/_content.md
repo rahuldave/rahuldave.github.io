@@ -208,7 +208,7 @@ Output:
 ```
 (100, 3)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/regularization/index_files/figure-html/cell-12-output-2.png)
 
 <!-- cell:15 type:markdown -->
 In the left panel we plot unregularized straight line fits. The plot is hairy, since choosing 3 points from 200 between -1 and 1 dosent constrain the lines much at all. On the right panel, we plot the output of **Ridge** regression with $\alpha=1$. This corresponds to adding a term to the empirical risk of $\alpha\, (a_0^2 + a_1^2)$ where $a_0$ and $a_1$ are the intercept and slope of the line respectively. Notice that the lines are much more constrained  in this second plot. The penalty term has regularized the values of the intercept and slope, and forced the intercept to be closer to 0 and the lines to be flatter.
@@ -251,7 +251,7 @@ def plot_coefficients(est, ax, alpha):
 <!-- cell:19 type:markdown -->
 Lets now go back to the Romney voting model and see what regularization does to the fits in that model. The addition of a penalty term to the risk or error causes us to choose a smaller subset of the entire set of complex $\cal{H_{20}}$ polynomials. This is shown in the diagram below where the balance between bias and variance occurs at some subset $S_{\*}$ of the set of 20th order polynomials indexed by $\alpha_{\*}$ (there is an error on the diagram, the 13 there should actually be a 20).
 
-![Bias-variance tradeoff controlled by regularization strength alpha](assets/complexity-error-reg.png)
+![Bias-variance tradeoff controlled by regularization strength alpha](https://rahuldave.com/posts/regularization/assets/complexity-error-reg.png)
 
 Lets see what some of the $\alpha$s do. The diagram below trains on the entire training set, for given values of $\alpha$, minimizing the penalty-term-added training error.
 
@@ -269,7 +269,7 @@ for i, alpha in enumerate(alphas):
     plot_functions(est, l, df, alpha, xtest, Xtest, xtrain, ytrain )
     plot_coefficients(est, r, alpha)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/regularization/index_files/figure-html/cell-14-output-1.png)
 
 <!-- cell:21 type:markdown -->
 As you can see, as we increase $\alpha$ from 0 to 1, we start out overfitting, then doing well, and then, our fits, develop a mind of their own irrespective of data, as the penalty term dominates the risk.
@@ -391,7 +391,7 @@ l,r=rows
 plot_functions_onall(clf, l, df, alphawechoose, xtrain, ytrain, Xtrain, xtest, ytest)
 plot_coefficients(clf, r, alphawechoose)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/regularization/index_files/figure-html/cell-20-output-1.png)
 
 <!-- cell:29 type:markdown -->
 As we can see, the best fit model is now chosen from the entire set of 20th order polynomials, and a non-zero hyperparameter $\alpha$ that we fit for ensures that only smooth models amonst these polynomials are chosen, by setting most of the polynomial coefficients to something close to 0 (Lasso sets them exactly to 0).

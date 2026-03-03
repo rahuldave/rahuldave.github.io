@@ -154,7 +154,7 @@ Output:
 ```python
 plt.hist(tumor_rat);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/hierarch/index_files/figure-html/cell-7-output-1.png)
 
 <!-- cell:9 type:markdown -->
 ## Setting up the model
@@ -202,7 +202,7 @@ $$p(\Theta | \alpha, \beta) = \prod_{i=1}^{70} Beta(\theta_i, \alpha, \beta).$$
 
 This structure is shown in the diagram below.
 
-![Hierarchical model in plate and unrolled form: hyperparameters (A,B) govern unit-level parameters theta_s, which generate observations Y_s.](assets/rat-tumor-hier2.png)
+![Hierarchical model in plate and unrolled form: hyperparameters (A,B) govern unit-level parameters theta_s, which generate observations Y_s.](https://rahuldave.com/posts/hierarch/assets/rat-tumor-hier2.png)
 
 (image from http://seor.vse.gmu.edu/~klaskey/SYST664/Bayes_Unit7.pdf)
 
@@ -224,11 +224,11 @@ The key idea here is that some of our **units** (experiments in our example) are
 
 Another example comes from kidney cancer rates across counties in the US. Here is a  map of counties with the highest kidney cancer rated in blue and the lowest kidney cancer rates in red:
 
-![US county-level kidney cancer mortality rates: red and blue counties show highest and lowest rates respectively, with extreme rates concentrated in low-population counties.](assets/kidneycancerus.png)
+![US county-level kidney cancer mortality rates: red and blue counties show highest and lowest rates respectively, with extreme rates concentrated in low-population counties.](https://rahuldave.com/posts/hierarch/assets/kidneycancerus.png)
 
 If you plot the rates against the population of the counties it gives away the story: 
 
-![Kidney cancer mortality rate vs. county population: small counties show extreme variation (both high and low rates) that shrinks toward the mean as population increases.](assets/kidneycanceruspop.png)
+![Kidney cancer mortality rate vs. county population: small counties show extreme variation (both high and low rates) that shrinks toward the mean as population increases.](https://rahuldave.com/posts/hierarch/assets/kidneycanceruspop.png)
 
 It is hard to estimate rates in counties with low populations. 1 case maybe a rate too low or a rate too high.
 
@@ -252,7 +252,7 @@ In practice, we often match moments of the hyperparameter likelihood with our da
 <!-- cell:14 type:markdown -->
 ### Empirical Bayes rat tumors
 
-![Empirical Bayes approach: point estimates of the hyperparameters alpha and beta yield Beta posterior updates for each unit's theta_s.](assets/ratsempbayes.png)
+![Empirical Bayes approach: point estimates of the hyperparameters alpha and beta yield Beta posterior updates for each unit's theta_s.](https://rahuldave.com/posts/hierarch/assets/ratsempbayes.png)
 
 (image from http://seor.vse.gmu.edu/~klaskey/SYST664/Bayes_Unit7.pdf)
 
@@ -302,7 +302,7 @@ plt.plot([0,0.5],[0,0.5],'k-')
 plt.xlabel("observed rates")
 plt.ylabel("posterior means under EB");
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/hierarch/index_files/figure-html/cell-10-output-1.png)
 
 <!-- cell:20 type:markdown -->
 As you can see, the posterior rates are shrunk towards flatness, which would correspond to complete pooling. The 45 degree line would be for completely unpooled estimate.

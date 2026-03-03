@@ -85,7 +85,7 @@ Lets learn about the MLE in the context of a particular distribution, the expone
 
 The diagram below  illustrates the idea behind the MLE.
 
-![Two Gaussians illustrating maximum likelihood estimation](assets/gaussmle.png)
+![Two Gaussians illustrating maximum likelihood estimation](https://rahuldave.com/posts/MLE/assets/gaussmle.png)
 
 Consider two distributions in the same family, one with a parameter, lets call it $\theta$, of value 1.8 (blue) and another of value 5.8. (green). Let's say we have 3 data points, at $x=1,2,3$.
 
@@ -158,7 +158,7 @@ In the last two decades, **resampling** the ONE dataset we have has become compu
 
 Linear regression is the workhorse algorithm thats used in many sciences, social and natural. The diagram below illustrates the probabilistic interpretation of linear regression, and the idea behind the MLE for linear regression. We illustrate a point $(x_i, y_i)$, and the corresponding prediction  for $x_i$ using the line, that is $yhat_i$ or $\hat{y}_i$.
 
-![Probabilistic interpretation of linear regression](assets/linregmle.png)
+![Probabilistic interpretation of linear regression](https://rahuldave.com/posts/MLE/assets/linregmle.png)
 
 The fundamental assumption for the probabilistic analysis of linear regression is that each $y_i$ is gaussian distributed with mean  $\v{w}\cdot\v{x_i}$ (the y predicted by the regression line so to speak) and variance $\sigma^2$:
 
@@ -228,7 +228,7 @@ h = lambda z: 1./(1+np.exp(-z))
 zs=np.arange(-5,5,0.1)
 plt.plot(zs, h(zs), alpha=0.5);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/MLE/index_files/figure-html/cell-4-output-1.png)
 
 <!-- cell:12 type:markdown -->
 So we then come up with our rule by identifying:

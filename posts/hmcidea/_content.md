@@ -5,11 +5,11 @@ The neighborhoods around the maxima of probability distributions feature a lot o
 
 The **typical set** refers to the portion of space where most of these slivers live. This is typically an interplay of density and volume, and thus is likely to be found as a more-concentrated space not containing the modes in higher dimensions.
 
-![The typical set: in high dimensions, the region of highest probability mass lies away from the mode, in a shell where density and volume balance.](assets/typicalset.png)
+![The typical set: in high dimensions, the region of highest probability mass lies away from the mode, in a shell where density and volume balance.](https://rahuldave.com/posts/hmcidea/assets/typicalset.png)
 
 Thus if we design a sampler which efficiently traverses the typical set, we can tolerate poor sampling elsewhere and not incur large penalties in calculating our expectations. So far, we have used MCMC methods which stumble around like a drunk using proposal distributions. These proposals have issues: too large a step size and you propose to go outside the typical set (especially in large dimensions) and are rejected, too small and you spend a large time in a small part of the typical set, as illustrated below.
 
-![Step size issues in random-walk MCMC: too large leads to rejection, too small leads to slow exploration of the typical set.](assets/stepsizeissues.png)
+![Step size issues in random-walk MCMC: too large leads to rejection, too small leads to slow exploration of the typical set.](https://rahuldave.com/posts/hmcidea/assets/stepsizeissues.png)
 
 Furthermore, we have problems in pinches and areas of large curvature and separated modes as transitioning is hard and oscillatory behavior is more likely
 
@@ -18,7 +18,7 @@ Furthermore, we have problems in pinches and areas of large curvature and separa
 
 Given infinite resources, we will ultimately travel the whole typical set and more of the density. But we dont have these, especially in larger dimensions, and thus we would do better if we found a way to glide around the typical set, rather than making random walk transitions which would keep us on the typical set at times and off at other times.
 
-![The need for gliding: instead of random walks that stumble on and off the typical set, we want smooth traversal along it.](assets/needforglide.png)
+![The need for gliding: instead of random walks that stumble on and off the typical set, we want smooth traversal along it.](https://rahuldave.com/posts/hmcidea/assets/needforglide.png)
 
 In other words, we'd like to explore the typical-set surface smoothly. To do this we must first characterize the surface, something we can do via a gradient. To do this we must identify the equation of the typical set surface so that we can find the gradient which is perpendicular to the surface. And once we do that, we are not done, as the gradient points towards regions of higher density (modes) from the surface of the typical set.
 
@@ -33,7 +33,7 @@ We dont want to do that here, preferring something that will move us smoothly al
 
 How would this work? And why momentum? Lets think about a rocket (or a satellite with thrusters it can fire) in orbit around the earth
 
-![A rocket in orbit: with just the right momentum, it counterbalances gravitational potential and moves along a constant-energy level set.](assets/rocketorbit.png)
+![A rocket in orbit: with just the right momentum, it counterbalances gravitational potential and moves along a constant-energy level set.](https://rahuldave.com/posts/hmcidea/assets/rocketorbit.png)
 
 If this rocket had no velocity, it would simply fall down to the earth because it would not be able to counterbalance earth's gravitational potential (the equivalent of the energy we formulated above and have used in simulated annealing). On the other hand, if it had too much velocity, it would escape earth's gravity and take off to mars or similar.
 
@@ -45,7 +45,7 @@ $$H(p, q) = \frac{p^2}{2m} +  V(q) = E_i,$$
 
 with $E_i$ constants (constant energies) for each level-set foliate and where the **potential energy** $V(q) = -log(p(q))$ replaces the energy term we had earlier in simulated annealing. The first term above is called the kinetic energy $K(p,q)$ and has a mass parameter $m(q)$, as you might be familiar with from introductory physics (where $m$ is a constant. One can consider generalizations of the kinetic energy term, but with a quadratic in $p$ and if $V(q) = \frac{1}{2}q^2$ our distribution is gaussian and the level sets are ellipses of constant energy, as illustrated below.
 
-![Hamiltonian level sets: with quadratic kinetic and potential energy, the constant-energy orbits form ellipses in (p,q) phase space.](assets/levelsets.png)
+![Hamiltonian level sets: with quadratic kinetic and potential energy, the constant-energy orbits form ellipses in (p,q) phase space.](https://rahuldave.com/posts/hmcidea/assets/levelsets.png)
 
 Our distribution over $p$ and $q$ is now:
 
@@ -63,7 +63,7 @@ The game now is to sample from this two-N-dimensional distribution and marginali
 
 But this then leaves us with the problem of having to go from one level-set to another: after all, we wish to explore the entire typical set. The solution to this is simple..after exploring a given level set for a while, we resample the momentum, and off to another level-set we go, as illustrated below:
 
-![Momentum resampling: after gliding along one energy level set, resample the momentum to jump to a different level set and continue exploring.](assets/momresample.png)
+![Momentum resampling: after gliding along one energy level set, resample the momentum to jump to a different level set and continue exploring.](https://rahuldave.com/posts/hmcidea/assets/momresample.png)
 
 This is like a rocket firing its thrusters.
 

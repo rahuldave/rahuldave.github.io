@@ -95,7 +95,7 @@ def kld(p,q):
 qs=np.linspace(0,1,100)
 plt.plot(qs, [kld(0.3,q) for q in qs]);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/divergence/index_files/figure-html/cell-4-output-1.png)
 
 <!-- cell:8 type:markdown -->
 ### Relationship to Entropy
@@ -184,7 +184,7 @@ $$\mu_i = 0.15 x_{1,i} - 0.4 x_{2,i}$$
 
 The deviances in-sample and out-of sample, at 10,000 simulations for each model type, for two sample sizes are shown below.
 
-![In-sample vs. out-of-sample deviance as model complexity increases, for N=20 and N=100. From McElreath, Statistical Rethinking.](assets/inoutdeviance.png)
+![In-sample vs. out-of-sample deviance as model complexity increases, for N=20 and N=100. From McElreath, Statistical Rethinking.](https://rahuldave.com/posts/divergence/assets/inoutdeviance.png)
 
 <!-- cell:17 type:markdown -->
 Notice:
@@ -194,7 +194,7 @@ Notice:
 
 Now when one plots the mean deviances together, we see an interesting phenomenon:
 
-![AIC approximation (dashed) to out-of-sample deviance: the gap between in-sample and out-of-sample deviance grows roughly as twice the number of parameters. From McElreath, Statistical Rethinking.](assets/devianceaic.png)
+![AIC approximation (dashed) to out-of-sample deviance: the gap between in-sample and out-of-sample deviance grows roughly as twice the number of parameters. From McElreath, Statistical Rethinking.](https://rahuldave.com/posts/divergence/assets/devianceaic.png)
 
 The test set deviances are $2*p$ above the training set ones, approximately, where $p$ is the number of parameters in the model.
 

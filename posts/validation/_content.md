@@ -126,16 +126,16 @@ In this case, the test-set error will underestimate the true out-of-sample error
 
 Thus, we must introduce a new **validation set** on which the complexity parameter $d$ is fit, and leave out a test set which we can use to estimate the true out-of-sample performance of our learner. The place of this set in the scheme of things is shown below:
 
-![Splitting dataset D into training, validation, and test sets](assets/train-validate-test.png)
+![Splitting dataset D into training, validation, and test sets](https://rahuldave.com/posts/validation/assets/train-validate-test.png)
 
 We have split the old training set into a training set and a validation set, holding the old test aside for FINAL testing AFTER we have "fit" for complexity $d$. Obviously we have decreased the size of the data available for training further, but this is a price we must pay for obtaining a good estimate of the out-of-sample risk $\cal{E_{out}}$ (also denoted as risk $R_{out}$) through the test risk $\cal{E_{test}}$ ($R_{test}$).
 
-![Validation workflow: train, validate, choose hypothesis, retrain, test](assets/train-validate-test-cont.png)
+![Validation workflow: train, validate, choose hypothesis, retrain, test](https://rahuldave.com/posts/validation/assets/train-validate-test-cont.png)
 
 <!-- cell:11 type:markdown -->
 The validation process is illustrated in these two figures. We first loop over all the hypothesis sets that we wish to consider: in our case this is a loop over the complexity parameter $d$, the degree of the polynomials we will try and fit. Then for each degree $d$, we obtain a best fit model $g^-_d$ where the "minus" superscript indicates that we fit our model on the new training set which is obtained by removing ("minusing") a validation chunk (often the same size as the test chunk) from the old training set. We then "test" this model on the validation chunk, obtaining the validation error for the best-fit polynomial coefficients and for degree $d$. We move on to the next degree $d$ and repeat the process, just like before. We compare all the validation set errors, just like we did with the test errors earlier, and pick the degree $d_*$ which minimizes this validation set error.
 
-![Looping over hypothesis sets with validation to select the best model](assets/train-validate-test3.png)
+![Looping over hypothesis sets with validation to select the best model](https://rahuldave.com/posts/validation/assets/train-validate-test3.png)
 
 Having picked the hyperparameter $d_\*$, we retrain using the hypothesis set $\cal{H_\*}$ on the entire old training-set to find the parameters of the polynomial of order $d_\*$ and the corresponding best fit hypothesis $g_\*$. Note that we left the minus off the $g$ to indicate that it was trained on the entire old traing set. We now compute the test error on the test set as an estimate of the test risk $\cal{E_{test}}$.
 
@@ -232,7 +232,7 @@ Output:
 ```
 2
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/validation/index_files/figure-html/cell-12-output-2.png)
 
 <!-- cell:16 type:markdown -->
 Lets do this again, choosing a new random split between training and validation data: 
@@ -289,7 +289,7 @@ Output:
 ```
 2
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/validation/index_files/figure-html/cell-14-output-2.png)
 
 <!-- cell:19 type:markdown -->
 This time the validation error minimizing polynomial degree might change! What happened?
@@ -316,7 +316,7 @@ In the figure below we create 4-folds from the training set part of our data set
 For each fold, after training the model, we calculate the risk or error on the remaining one validation part. We then add the validation errors together from the different folds, and divide by the number of folds to calculate an average error. Note again that this average error is an average over different models $g^-_{Fi}$. We use this error as the validation error for $d=a$ in the validation process described earlier.
 
 <!-- cell:25 type:markdown -->
-![K-fold cross-validation: rotating the validation fold across the dataset](assets/train-cv2.png)
+![K-fold cross-validation: rotating the validation fold across the dataset](https://rahuldave.com/posts/validation/assets/train-cv2.png)
 
 Note that the number of folds is equal to the number of splits in the data. For example, if we have 5 splits, there will be 5 folds. To illustrate cross-validation consider below fits in $\cal{H}_0$ and $\cal{H}_1$ (means and straight lines) to a sine curve, with only 3 data points.
 
@@ -337,7 +337,7 @@ We put thogether this scheme to calculate the error for a given polynomial degre
 5. and then find the optimal value of d that minimizes risk $d=*$.
 5. We finally use that value to make the final fit in $\cal{H}_*$ on the entire old training set.
 
-![Cross-validation over multiple hypothesis sets, then retrain and test](assets/train-cv3.png)
+![Cross-validation over multiple hypothesis sets, then retrain and test](https://rahuldave.com/posts/validation/assets/train-cv3.png)
 
 <!-- cell:28 type:markdown -->
 Let us now do 4-fold cross-validation on our Romney votes data set. We increase the complexity from degree 0 to degree 20. In each case we take the old training set, split in 4 ways into 4 folds, train on 3 folds, and calculate the validation error on the ramining one. We then average the erros over the four folds to get a cross-validation error for that $d$. Then we did what we did before: find the hypothesis space $\cal{H_*}$ with the lowest cross-validation error, and refit it using the entire training set. We can then use the test set to estimate $E_{out}$.
@@ -385,7 +385,7 @@ plt.xlabel('degree')
 plt.legend(loc='upper right')
 plt.yscale("log")
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/validation/index_files/figure-html/cell-16-output-1.png)
 
 <!-- cell:31 type:markdown -->
 We see that the cross-validation error minimizes at a low degree, and then increases. Because we have so few data points the spread in fold errors increases as well.

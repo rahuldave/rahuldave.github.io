@@ -103,4 +103,4 @@ out=gibbs()
 plt.hist2d(out[:,0],out[:,1], density=True, bins=50)
 plt.show()
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/gibbsconj/index_files/figure-html/cell-5-output-1.png)

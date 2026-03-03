@@ -35,7 +35,7 @@ If you have a function you are trying to sample from, whose functional form is w
 
 This is illustrated in the diagram below:
 
-![Basic rejection sampling: points drawn uniformly in the bounding box are accepted if they fall under the target density curve, rejected otherwise.](assets/Rejection.png)
+![Basic rejection sampling: points drawn uniformly in the bounding box are accepted if they fall under the target density curve, rejected otherwise.](https://rahuldave.com/posts/rejectionsampling/assets/Rejection.png)
 
 
 ### The process
@@ -110,7 +110,7 @@ Output:
 ```
 Count 99359 Accepted 10000
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/rejectionsampling/index_files/figure-html/cell-4-output-2.png)
 
 <!-- cell:5 type:markdown -->
 Notice that $y_{max}$ was just assumed here. In general we might have to do a maximization. This has a cost. We want to keep this cost low, or we might be spending some time there. If the optimization is complex, it might be cheaper to  do something else...
@@ -150,7 +150,7 @@ Once you've picked a proposal distribution g, your modified rejection sampling t
 
 The entire process is illustrated in the diagram below:
 
-![Rejection sampling with an envelope: using a scaled proposal distribution M·g(x) that bounds f(x) improves acceptance rates over a uniform bounding box.](assets/rejsteroid.png)
+![Rejection sampling with an envelope: using a scaled proposal distribution M·g(x) that bounds f(x) improves acceptance rates over a uniform bounding box.](https://rahuldave.com/posts/rejectionsampling/assets/rejsteroid.png)
 
 **Example**
 
@@ -217,4 +217,4 @@ Output:
 ```
 Count 23692 Accepted 10000
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/rejectionsampling/index_files/figure-html/cell-5-output-2.png)

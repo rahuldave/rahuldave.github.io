@@ -1,7 +1,7 @@
 <!-- cell:0 type:markdown -->
 1. There is this pretty famous book by Steve Krug, called "Dont Make Me Think". Its a call to respect conventions for web elements, such as shopping carts (a cart should be on the upper right), so that the web experience is obvious to users.
 
-![](/assets/vizasstory/1.png)
+![](https://rahuldave.com/posts/vizasstory//assets/vizasstory/1.png)
 
 
 
@@ -13,7 +13,7 @@
 
 3. For example, in this great article in the financial times <https://www.ft.com/content/0f11b219-0f1b-420e-8188-6651d1e749ff?hcb=1>, the main point "Vaccines have made Covid-19 far less lethal" is written up-front.
 
-![](/assets/vizasstory/3.png)
+![](https://rahuldave.com/posts/vizasstory//assets/vizasstory/3.png)
 
 
 
@@ -30,14 +30,14 @@
 
 6. This is an example of framing. It grabs the audience and leads it through the insights you want to share.
 
-![](/assets/vizasstory/6.png)
+![](https://rahuldave.com/posts/vizasstory//assets/vizasstory/6.png)
 
 
 
 
 7. There's been a lot of worry about breakthrough vaccination, especially with the news about the Provincetown cluster. Here is another visualization from the same article, telling us why the large number of breakthrough infections are to be expected.
 
-![](/assets/vizasstory/7.png)
+![](https://rahuldave.com/posts/vizasstory//assets/vizasstory/7.png)
 
 
 
@@ -54,4 +54,4 @@
 
 10. Read more on how to make good visualizations using R in this book by @khealy . If you are a pythonista, learn how to make good plots in @matplotlib using <https://end-to-end-machine-learning.teachable.com/p/navigating-matplotlib-tutorial-how-to/> by @_brohrer_ .
 
-![](/assets/vizasstory/10.png)
+![](https://rahuldave.com/posts/vizasstory//assets/vizasstory/10.png)

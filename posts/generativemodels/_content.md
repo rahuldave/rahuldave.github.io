@@ -128,7 +128,7 @@ def points_plot_prob(ax, Xtr, Xte, ytr, yte, clf, colorscale=cmap_light, cdiscre
 
 ## The different kinds of learning
 
-![Taxonomy of learning approaches: ERM/discriminant methods versus Bayesian discriminative and generative models.](assets/learning.png)
+![Taxonomy of learning approaches: ERM/discriminant methods versus Bayesian discriminative and generative models.](https://rahuldave.com/posts/generativemodels/assets/learning.png)
 
 <!-- cell:7 type:markdown -->
 ### ERM 
@@ -139,7 +139,7 @@ $$ R(g) = \frac{1}{N} \sum_i l(g(x_i), y_i) .$$
 
 (Diagrams like the one below are chopped out from http://web4.cs.ucl.ac.uk/staff/D.Barber/textbook/240415.pdf . Reading Chapter 13 as a survey of machine learning is especially recommended)
 
-![Empirical risk minimization: the classifier is learned by minimizing penalized empirical risk over the data distribution. From Bishop.](assets/erm.png)
+![Empirical risk minimization: the classifier is learned by minimizing penalized empirical risk over the data distribution. From Bishop.](https://rahuldave.com/posts/generativemodels/assets/erm.png)
 
 The optimal decision in the training set is obviously the value of $y$ at the training point, but we are left with undefined action $g$ outside the training set. We thus pick some parametric model $g(x;\theta)$. Now we can minimize the empirical risk with respect to $\theta$ to get $\theta_{opt}$ and use this to make predictions/actions using $g$. Because such an approach can lead to overfitting as we have seen before, we typically add a regularization term with co-efficient $\lambda$ whose value is found by validation.
 
@@ -152,7 +152,7 @@ But there are drawbacks. It seems crazy to assume that the empirical distributio
 <!-- cell:8 type:markdown -->
 ### Bayes
 
-![Bayesian decision approach: after fitting the model, predictions minimize expected risk under the posterior. From Bishop.](assets/bayesrisk.png)
+![Bayesian decision approach: after fitting the model, predictions minimize expected risk under the posterior. From Bishop.](https://rahuldave.com/posts/generativemodels/assets/bayesrisk.png)
 
 The alternative is to first do density estimation. We estimate $p(x,y)$ (or $p(x,c)$) from the training data. (Note that this can be thought of as ERM on risk $-log(p)$). (In the "Learning Models" lab we said that another way to think about a noisy $y$ is to imagine that our data $\dat$ was generated from  a joint probability distribution $p(x,y)$ rather than some well given function$y=f(x)$.)
 
@@ -168,7 +168,7 @@ and then bayes theorem can be used to obtain p(c|x).
 
 The generative approach corresponds to picking one of the classes with probability p(c) and then getting the density of the features for that class. The discriminative approach models the domain boundary instead. While the data may be distributed in a complex way, the boundary may be easier to model. On the other hand prior information for assymetric situations, conditional independence and other such strategies can only be done in generative models.
 
-![Generative vs discriminative classification: (a) generative models learn class-conditional densities, (b) discriminative models learn the decision boundary directly. From Bishop.](assets/genvsdiscrim.png)
+![Generative vs discriminative classification: (a) generative models learn class-conditional densities, (b) discriminative models learn the decision boundary directly. From Bishop.](https://rahuldave.com/posts/generativemodels/assets/genvsdiscrim.png)
 
 In either case we can get the joint distribution. In the discriminative case that leads us to density estimation for $p(x)$. Often we have no use for it so we wont do it, as in logistic regression. But do remember that if we want our classifier to have good results we should be using it on test sets which reflect the proper sampling $p(x)$. And if we dont characterize it we might be better of using a generative model as it is easier to adjust for class priors.
 
@@ -212,7 +212,7 @@ plt.figure()
 ax=plt.gca()
 points_plot(ax, Xtrain_l, Xtest_l, ytrain_l, ytest_l, clf_l, alpha=0.2);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/generativemodels/index_files/figure-html/cell-8-output-1.png)
 
 <!-- cell:13 type:markdown -->
  Let us plot the probabilities obtained from `predict_proba`, overlayed on the samples with their true labels:
@@ -223,7 +223,7 @@ plt.figure()
 ax=plt.gca()
 points_plot_prob(ax, Xtrain_l, Xtest_l, ytrain_l, ytest_l, clf_l, psize=20, alpha=0.1);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/generativemodels/index_files/figure-html/cell-9-output-1.png)
 
 <!-- cell:15 type:markdown -->
 Notice that lines of equal probability, as might be expected are stright lines. What the classifier does is very intuitive: if the probability is greater than 0.5, it classifies the sample as type '1' (male), otherwise it classifies the sample to be class '0'. Thus in the diagram above, where we have plotted predicted values rather than actual labels of samples, there is a clear demarcation at the 0.5 probability line.
@@ -294,7 +294,7 @@ ax=plt.gca()
 spl,_,_=points_plot(ax,Xtrain_l, Xtest_l, ytrain_l, ytest_l, clflda)
 plot_lda_cov(clflda, spl)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/generativemodels/index_files/figure-html/cell-12-output-1.png)
 
 <!-- cell:21 type:markdown -->
 
@@ -331,7 +331,7 @@ plt.figure()
 ax=plt.gca()
 points_plot_prob(ax, Xtrain_l, Xtest_l, ytrain_l, ytest_l, clflda);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/generativemodels/index_files/figure-html/cell-13-output-1.png)
 
 <!-- cell:24 type:markdown -->
 The important point here is that many generative models, including those with Poisson Likelihoods and Naive Bayes Models have Logistic Regression as their discriminative counterpart. This means that on inverting the $P(\v{x}|y)$ using Bayes theorem, we get back Logistic Regression. Thus Logistic regression if a relatively robust model, insensitive to many modelling assumptions. This is a big reason to use such Discriminative models.

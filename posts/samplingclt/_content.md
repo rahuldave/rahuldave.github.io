@@ -110,7 +110,7 @@ mean_of_sample_means = [np.mean(means) for means in sample_means]
 plt.plot(sample_sizes, mean_of_sample_means);
 plt.ylim([0.480,0.520]);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/samplingclt/index_files/figure-html/cell-9-output-1.png)
 
 <!-- cell:13 type:markdown -->
 Not surprisingly, the mean of the sample means converges to the distribution mean as the sample size N gets very large.
@@ -156,7 +156,7 @@ plt.hist(sample_means_at_size_10, bins=np.arange(0,1,0.01), alpha=0.5);
 plt.hist(sample_means_at_size_100, bins=np.arange(0,1,0.01), alpha=0.4);
 plt.hist(sample_means_at_size_1000, bins=np.arange(0,1,0.01), alpha=0.3);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/samplingclt/index_files/figure-html/cell-11-output-1.png)
 
 <!-- cell:18 type:markdown -->
 The distribution is much tighter at large sample sizes, and that you can have way low and way large means at small sample sizes. Indeed there are means as small as 0.1 at a sample size of 10, and as small as 0.3 at a sample size of 100. 
@@ -172,7 +172,7 @@ for i in sample_sizes:
 plt.xlim([0,1000])
 plt.ylim([0.25,0.75]);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/samplingclt/index_files/figure-html/cell-12-output-1.png)
 
 <!-- cell:21 type:markdown -->
 ### The variation of the sample mean
@@ -205,7 +205,7 @@ std_of_sample_means = [np.std(means) for means in sample_means]
 ```python
 plt.plot(np.log10(sample_sizes), np.log10(std_of_sample_means));
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/samplingclt/index_files/figure-html/cell-14-output-1.png)
 
 <!-- cell:24 type:markdown -->
 Let us plot again the distribution of sample means at a large sample size, $N=1000$. What distribution is this?
@@ -214,7 +214,7 @@ Let us plot again the distribution of sample means at a large sample size, $N=10
 ```python
 plt.hist(sample_means_at_size_1000, bins=np.arange(0.4,0.6,0.002));
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/samplingclt/index_files/figure-html/cell-15-output-1.png)
 
 <!-- cell:26 type:markdown -->
 Lets step back and try and think about what this all means. As an example, say I have a weight-watchers' study of 1000 people, whose average weight is 150 lbs with standard deviation of 30lbs. If I was to randomly choose many samples of 100 people each, the mean weights of those samples would cluster around 150lbs with a standard error of 30/$\sqrt{100}$ = 3lbs. Now if i gave you a different sample of 100 people with an average weight of 170lbs, this weight would be more than 6 standard errors beyond the population mean, ^[this example is motivated by the crazy bus example in Charles Whelan's excellent Naked Statistics Book] and would thus be very unlikely to be from the weight watchers group.
@@ -249,7 +249,7 @@ plt.legend(loc=0)
 plt.ylabel("PDF at $x$")
 plt.xlabel("$x$");
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/samplingclt/index_files/figure-html/cell-16-output-1.png)
 
 <!-- cell:30 type:markdown -->
 ## The Central Limit Theorem
@@ -313,7 +313,7 @@ mean_of_sample_vars_1000 = [np.mean(vars) for vars in sample_vars_1000_replicate
 plt.plot(sample_sizes, mean_of_sample_vars_1000);
 plt.xscale("log");
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/samplingclt/index_files/figure-html/cell-17-output-1.png)
 
 <!-- cell:35 type:markdown -->
 The "mean sample variance" asymptotes to the true variance of 0.25 by a sample size of 100. 
@@ -343,4 +343,4 @@ That is, defining the sample variance with $n-1$ in the denominator instead of $
 ```python
 plt.hist(sample_vars_1000_replicates[99], bins=np.arange(0.2,0.26,0.001), alpha=0.2, density=True);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/samplingclt/index_files/figure-html/cell-18-output-1.png)

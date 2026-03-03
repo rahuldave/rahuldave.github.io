@@ -126,7 +126,7 @@ Output:
 ```
 [<matplotlib.lines.Line2D at 0x121257e00>]
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/noiseless_learning/index_files/figure-html/cell-6-output-1.png)
 
 <!-- cell:13 type:markdown -->
 Notice that our sampling of $x$ is not quite uniform: there are more points around $x$ of 0.7.
@@ -176,7 +176,7 @@ Output:
 /var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_49105/191699542.py:4: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
   axes[1].plot(samplex,samplef, 's', alpha=0.6, label="in-sample data $\cal{D}$");
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/noiseless_learning/index_files/figure-html/cell-10-output-2.png)
 
 <!-- cell:18 type:markdown -->
 The lightly shaded squares in the right panel plot are the in-sample $\cal{D}$ of 30 points given to us. Let us then pretend that we have forgotten the curve that the Lord gave us. Thus, all we know is the blue points on the plot on the right, and we have no clue about what the original curve was, nor do we remember the original "population".
@@ -226,7 +226,7 @@ plt.plot(x[indexes],f[indexes], 's', alpha=0.6, label="in-sample");
 plt.plot(x,g1(x), 'b--', alpha=0.6, label="$g_1$");
 plt.legend(loc=4);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/noiseless_learning/index_files/figure-html/cell-11-output-1.png)
 
 <!-- cell:23 type:markdown -->
 How did we calculate the best fit? We'll come to that in a bit, but in the meanwhile, lets formalize and generalize the notion of "best fit line amongst lines" a bit.
@@ -246,7 +246,7 @@ The hypothesis space is a concept we can use if we want to capture the **complex
 <!-- cell:25 type:markdown -->
 Notice from the figure above that models in $\cal{H}_1$, i.e., straight lines, and the best-fit straight line $g_1$ in particular, do not do a very good job of capturing the curve of  the data (and thus the underlying function $f$ that we are trying to approximate. Consider the more general case in the figure below, where a curvy $f$ is approximated by a function $g$ which just does not have the wiggling that $f$ has. 
 
-![Approximation bias: the gap between true function f and best-fit hypothesis g](assets/bias.png)
+![Approximation bias: the gap between true function f and best-fit hypothesis g](https://rahuldave.com/posts/noiseless_learning/assets/bias.png)
 
 There is always going to be an error then, in approximating $f$ by $g$. This *approximation error* is shown in the figure by the blue shaded region, and its called **bias**, or **deterministic error**. The former name comes from the fact that $g$ just does not wiggle the way $f$ does (nothing will make a straight line curve). The latter name (which I first saw used in http://www.amlbook.com/ ) comes from the notion that if you did not know the target function $f$, which is the case in most learning situations, you would have a hard time distinguishing this error from any other errors such as measurement and noise...
 
@@ -277,7 +277,7 @@ plt.plot(x[indexes],f[indexes], 's', alpha=0.6, label="in-sample");
 plt.plot(x,g20(x), 'b--', alpha=0.6, label="$g_{10}$");
 plt.legend(loc=4);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/noiseless_learning/index_files/figure-html/cell-13-output-1.png)
 
 <!-- cell:30 type:markdown -->
 Voila! You can see the 20th order polynomial does a much better job of tracking the points, because of the wiggle room it has in making a curve "go near or through" all the points as opposed to a straight line, which well, cant curve. Thus it would seem that $\cal{H}_{20}$ might be a better candidate hypothesis set from which to choose a best fit model. 
@@ -299,7 +299,7 @@ plt.yscale("log")
 plt.legend(loc=4);
 plt.title("Bias");
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/noiseless_learning/index_files/figure-html/cell-14-output-1.png)
 
 <!-- cell:32 type:markdown -->
 As you can see the **bias or approximation error** is much smaller for $g_{20}$.
@@ -316,7 +316,7 @@ Let's understand in an intuitive sense, what it means for a function to be a goo
 
 You might think you want to do this statistically, using ML Estimation or similar, but note that at this point there is no statistical notion of a generating process. We're just trying to approximate a function by another, with the latter being chosen amongst many in a hypothesis space.
 
-![Linear regression fit with residuals shown](assets/linreg.png)
+![Linear regression fit with residuals shown](https://rahuldave.com/posts/noiseless_learning/assets/linreg.png)
 
 The natural way of thinking about a "best fit" would be to minimize the distance from the line to the points, for some notion of distance. In the diagram we depict one such notion of distance: the vertical distance from the points to the line. These distances are represented as thin black lines.
 
@@ -364,7 +364,7 @@ To do this, we use an algorithm, called the **learner**, which chooses functions
 
 Here our learner is called **Polynomial Regression**, and it takes a hypothesis space $\cal{H}_d$ of degree $d$ polynomials, minimizes the "squared-error" risk measure, and spits out a best-fit hypothesis $g_d$.
 
-![The supervised learning framework: from target function to final hypothesis](assets/BasicModel.png)
+![The supervised learning framework: from target function to final hypothesis](https://rahuldave.com/posts/noiseless_learning/assets/BasicModel.png)
 
 <!-- cell:37 type:markdown -->
 ### Out-of-Sample and in-sample
@@ -392,7 +392,7 @@ sns.kdeplot(x)
 plt.plot(x[indexes], [1.0]*len(indexes),'o', alpha=0.8)
 plt.xlim([0,1]);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/noiseless_learning/index_files/figure-html/cell-15-output-1.png)
 
 <!-- cell:41 type:markdown -->
 In our example, if we only want to use $g$, our estimand of $f$ to predict for large $x$, or more religious counties, we would need a good sampling of points $x$ closer to 1. And, similarly, the new $x$ we are using to make predictions would also need to be representative of those counties. We wont do well if we try and predict low-religiousness counties from a sample of high-religiousness ones. Or, if we do want to predict over the entire range of religiousness, our training sample better cover all $x$ well.
@@ -445,4 +445,4 @@ plt.plot(x,g20(x), 'b--', alpha=0.9, lw=2, label="$g_{20}$");
 plt.plot(x,f, 'o', alpha=0.2, label="population");
 plt.legend(loc=4);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/noiseless_learning/index_files/figure-html/cell-16-output-1.png)

@@ -53,7 +53,7 @@ xgrid=x
 ygrid=y
 plt.plot(x,y, '.', alpha=0.2);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/nnreg/index_files/figure-html/cell-4-output-1.png)
 
 <!-- cell:4 type:code -->
 ```python
@@ -71,7 +71,7 @@ est = LinearRegression().fit(x.reshape(-1,1), y)
 plt.plot(x,y, '.', alpha=0.2);
 plt.plot(x,est.predict(x.reshape(-1,1)), 'k-', lw=3, alpha=0.2);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/nnreg/index_files/figure-html/cell-6-output-1.png)
 
 <!-- cell:6 type:code -->
 ```python
@@ -156,7 +156,7 @@ Output:
 ```python
 plt.plot([a[0] for a in accum]);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/nnreg/index_files/figure-html/cell-14-output-1.png)
 
 <!-- cell:15 type:code -->
 ```python
@@ -168,7 +168,7 @@ Output:
 ```
 (0.0, 1000.0)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/nnreg/index_files/figure-html/cell-15-output-1.png)
 
 <!-- cell:16 type:code -->
 ```python
@@ -182,7 +182,7 @@ Output:
 ```
 [<matplotlib.lines.Line2D at 0x135036e40>]
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/nnreg/index_files/figure-html/cell-16-output-1.png)
 
 <!-- cell:17 type:code -->
 ```python
@@ -200,7 +200,7 @@ plt.plot(xgrid, ygrid, '.', alpha=0.2)
 for j in range(io.shape[1]):
     plt.plot(xgrid, io[:, j], lw=2)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/nnreg/index_files/figure-html/cell-18-output-1.png)
 
 <!-- cell:19 type:markdown -->
 ### input dim 1, 2 hidden layers width 4, linear output
@@ -230,7 +230,7 @@ MLRegP(
 ```python
 plt.plot([a[0] for a in accum]);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/nnreg/index_files/figure-html/cell-21-output-1.png)
 
 <!-- cell:23 type:code -->
 ```python
@@ -242,7 +242,7 @@ Output:
 ```
 [<matplotlib.lines.Line2D at 0x134785e80>]
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/nnreg/index_files/figure-html/cell-22-output-1.png)
 
 <!-- cell:24 type:code -->
 ```python
@@ -260,7 +260,7 @@ plt.plot(xgrid, ygrid, '.', alpha=0.2)
 for j in range(io.shape[1]):
     plt.plot(xgrid, io[:, j], lw=2)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/nnreg/index_files/figure-html/cell-24-output-1.png)
 
 <!-- cell:26 type:markdown -->
 ### input dim 1, 2 hidden layers width 8, linear output
@@ -271,7 +271,7 @@ model3 = MLRegP(1, 8, nonlinearity=fn.sigmoid, additional_hidden_wide=1)
 accum = run_model(model3, 4000)
 plt.plot([a[0] for a in accum]);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/nnreg/index_files/figure-html/cell-25-output-1.png)
 
 <!-- cell:28 type:code -->
 ```python
@@ -298,7 +298,7 @@ Output:
 ```
 [<matplotlib.lines.Line2D at 0x135bf4d70>]
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/nnreg/index_files/figure-html/cell-27-output-1.png)
 
 <!-- cell:30 type:code -->
 ```python
@@ -307,7 +307,7 @@ plt.plot(xgrid, ygrid, '.', alpha=0.2)
 for j in range(io.shape[1]):
     plt.plot(xgrid, io[:, j], lw=2)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/nnreg/index_files/figure-html/cell-28-output-1.png)
 
 <!-- cell:31 type:markdown -->
 ### input dim 1, 3 hidden layers width 4, linear output
@@ -318,7 +318,7 @@ model4 = MLRegP(1, 4, nonlinearity=fn.sigmoid, additional_hidden_wide=2)
 accum = run_model(model4, 4000)
 plt.plot([a[0] for a in accum]);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/nnreg/index_files/figure-html/cell-29-output-1.png)
 
 <!-- cell:33 type:code -->
 ```python
@@ -345,7 +345,7 @@ Output:
 ```
 [<matplotlib.lines.Line2D at 0x135d986e0>]
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/nnreg/index_files/figure-html/cell-31-output-1.png)
 
 <!-- cell:35 type:markdown -->
 ### input dim 1, 3 hidden layers width 2, linear output
@@ -356,7 +356,7 @@ model5 = MLRegP(1, 2, nonlinearity=fn.sigmoid, additional_hidden_wide=2)
 accum = run_model(model5, 4000)
 plt.plot([a[0] for a in accum]);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/nnreg/index_files/figure-html/cell-32-output-1.png)
 
 <!-- cell:37 type:code -->
 ```python
@@ -383,7 +383,7 @@ Output:
 ```
 [<matplotlib.lines.Line2D at 0x135e4de80>]
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/nnreg/index_files/figure-html/cell-34-output-1.png)
 
 <!-- cell:39 type:code -->
 ```python
@@ -392,7 +392,7 @@ plt.plot(xgrid, ygrid, '.', alpha=0.2)
 for j in range(io.shape[1]):
     plt.plot(xgrid, io[:, j], lw=2)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/nnreg/index_files/figure-html/cell-35-output-1.png)
 
 <!-- cell:40 type:markdown -->
 ### input dim 1, 1 hidden layers width 2, linear output
@@ -403,7 +403,7 @@ model6 = MLRegP(1, 2, nonlinearity=fn.sigmoid, additional_hidden_wide=0)
 accum = run_model(model6, 4000)
 plt.plot([a[0] for a in accum]);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/nnreg/index_files/figure-html/cell-36-output-1.png)
 
 <!-- cell:42 type:code -->
 ```python
@@ -428,7 +428,7 @@ Output:
 ```
 [<matplotlib.lines.Line2D at 0x136808d70>]
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/nnreg/index_files/figure-html/cell-38-output-1.png)
 
 <!-- cell:44 type:code -->
 ```python
@@ -437,7 +437,7 @@ plt.plot(xgrid, ygrid, '.', alpha=0.2)
 for j in range(io.shape[1]):
     plt.plot(xgrid, io[:, j], lw=2)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/nnreg/index_files/figure-html/cell-39-output-1.png)
 
 <!-- cell:45 type:markdown -->
 ### input dim 1, 1 hidden layers width 1, linear output
@@ -448,7 +448,7 @@ model7 = MLRegP(1, 1, nonlinearity=fn.sigmoid, additional_hidden_wide=0)
 accum = run_model(model7, 4000)
 plt.plot([a[0] for a in accum]);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/nnreg/index_files/figure-html/cell-40-output-1.png)
 
 <!-- cell:47 type:code -->
 ```python
@@ -473,7 +473,7 @@ Output:
 ```
 [<matplotlib.lines.Line2D at 0x135f7b0e0>]
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/nnreg/index_files/figure-html/cell-42-output-1.png)
 
 <!-- cell:49 type:code -->
 ```python
@@ -482,7 +482,7 @@ plt.plot(xgrid, ygrid, '.', alpha=0.2)
 for j in range(io.shape[1]):
     plt.plot(xgrid, io[:, j], lw=2)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/nnreg/index_files/figure-html/cell-43-output-1.png)
 
 <!-- cell:50 type:markdown -->
 ### input dim 1, 1 hidden layers width 16, linear output
@@ -493,7 +493,7 @@ model8 = MLRegP(1, 16, nonlinearity=fn.sigmoid, additional_hidden_wide=0)
 accum = run_model(model8, 4000)
 plt.plot([a[0] for a in accum]);
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/nnreg/index_files/figure-html/cell-44-output-1.png)
 
 <!-- cell:52 type:code -->
 ```python
@@ -515,7 +515,7 @@ plt.plot(xgrid, ygrid, '.')
 plt.plot(xgrid, finaloutput.data.numpy(), lw=3, color="r")
 plt.title("input dim 1, 1 hidden layers width 16, linear output");
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/nnreg/index_files/figure-html/cell-46-output-1.png)
 
 <!-- cell:54 type:code -->
 ```python
@@ -524,4 +524,4 @@ plt.plot(xgrid, ygrid, '.', alpha=0.2)
 for j in range(io.shape[1]):
     plt.plot(xgrid, io[:, j], lw=2)
 ```
-[Figure]
+![Figure](https://rahuldave.com/posts/nnreg/index_files/figure-html/cell-47-output-1.png)
