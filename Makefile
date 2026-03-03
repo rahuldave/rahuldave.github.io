@@ -1,5 +1,6 @@
 # Stamp files live in _site/ so a clean render blows them away naturally
 RENDER_STAMP   := _site/.stamp.render
+JLITE_STAMP    := _site/.stamp.jupyterlite
 LLM_STAMP      := _site/.stamp.llm-context
 BUNDLES_STAMP  := _site/.stamp.bundles
 
@@ -18,7 +19,7 @@ DATA_SOURCES     := $(shell find posts -path '*/data/*' -o -path '*/assets/*' 2>
 preview:
 	quarto preview
 
-## Build: render + llm-context + bundles (only re-runs stale stages)
+## Build: render + jupyterlite + llm-context + bundles (only re-runs stale stages)
 build: $(BUNDLES_STAMP)
 
 ## Deploy whatever is in _site/ to gh-pages
@@ -51,12 +52,18 @@ $(RENDER_STAMP): $(QUARTO_SOURCES) $(QUARTO_CONFIG) assets/llm-prompts.json
 	rm -f _site/CLAUDE.html
 	@touch $@
 
+## Build JupyterLite into _site/lab/ and copy loader.html
+$(JLITE_STAMP): $(RENDER_STAMP) _lab/jupyter-lite.json _lab/loader.html _scripts/build_jupyterlite.sh
+	_scripts/build_jupyterlite.sh
+	cp _lab/loader.html _site/lab/loader.html
+	@touch $@
+
 ## Generate LLM context files (_content.md + cells.json) in _site/
 $(LLM_STAMP): $(RENDER_STAMP) _scripts/generate_llm_context.py $(NOTEBOOK_SOURCES)
 	python3 _scripts/generate_llm_context.py
 	@touch $@
 
 ## Generate downloadable zip bundles in _site/posts/*/
-$(BUNDLES_STAMP): $(LLM_STAMP) _scripts/generate_bundles.py $(NOTEBOOK_SOURCES) $(DATA_SOURCES)
+$(BUNDLES_STAMP): $(LLM_STAMP) $(JLITE_STAMP) _scripts/generate_bundles.py $(NOTEBOOK_SOURCES) $(DATA_SOURCES)
 	python3 _scripts/generate_bundles.py
 	@touch $@

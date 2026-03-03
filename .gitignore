@@ -12,6 +12,7 @@ designs/
 .DS_Store
 __pycache__/
 _site/
+.jupyterlite.doit.db
 
 # Claude Code — track skills and project docs, ignore local settings
 .claude/settings.local.json

@@ -52,6 +52,23 @@
   }
 }
 
+// ---- Run in Browser variant ----
+
+.run-in-browser-btn {
+  border-color: var(--cb-blue-300);
+  color: var(--cb-blue-500);
+
+  .download-bundle-icon {
+    font-size: 0.7rem;
+  }
+
+  &:hover {
+    border-color: var(--cb-blue-400);
+    color: var(--cb-blue-600);
+    background: var(--cb-blue-50, #eff3ff);
+  }
+}
+
 // ---- Responsive ----
 
 @media (max-width: 768px) {

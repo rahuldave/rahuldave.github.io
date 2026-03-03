@@ -176,7 +176,7 @@ def generate_bundle(post_dir: Path, site_dir: Path) -> dict | None:
         for abs_path, arc_name in files:
             zf.write(abs_path, arc_name)
         zf.writestr("README.md", readme)
-    pyodide_incompatible = {"torch", "pymc3", "theano-pymc", "theano"}
+    pyodide_incompatible = {"torch", "pymc3", "theano-pymc", "theano", "pymc", "lxml"}
 
     return {
         "slug": slug,
