@@ -66,9 +66,16 @@
 
     var btn = document.createElement('button');
     btn.className = 'llm-btn llm-btn-summarize';
-    btn.textContent = 'Summarize this article';
+    btn.textContent = 'Summarize';
     btn.addEventListener('click', function() { handleAction('summarize', null); });
 
+    var dl = document.createElement('a');
+    dl.className = 'llm-btn llm-btn-download';
+    dl.href = baseUrl + '_content.md';
+    dl.download = slug + '.md';
+    dl.textContent = 'Download md';
+
+    wrap.appendChild(dl);
     wrap.appendChild(btn);
     anchor.parentNode.insertBefore(wrap, anchor.nextSibling);
   }
@@ -232,7 +239,34 @@
     var context = sliceContent(action, cellIndex);
     var userPrompt = buildUserPrompt(action, context);
     showChatModal();
-    streamResponse(userPrompt);
+
+    // For summarize and explain-upto, send images as content blocks
+    // For explain-code, strip image markdown and send plain text
+    var contentBlocks;
+    if (action === 'explain-code') {
+      contentBlocks = userPrompt.replace(/!\[[^\]]*\]\([^)]+\)/g, '');
+    } else {
+      contentBlocks = buildContentBlocks(userPrompt);
+    }
+    streamResponse(contentBlocks);
+  }
+
+  // --- Content Block Building (for image support) ---
+
+  function buildContentBlocks(text) {
+    var blocks = [];
+    var imgRegex = /!\[([^\]]*)\]\(([^)]+)\)/g;
+    var lastIndex = 0;
+    var match;
+    while ((match = imgRegex.exec(text)) !== null) {
+      var before = text.slice(lastIndex, match.index);
+      if (before.trim()) blocks.push({ type: 'text', text: before });
+      blocks.push({ type: 'image', source: { type: 'url', url: match[2] } });
+      lastIndex = match.index + match[0].length;
+    }
+    var remaining = text.slice(lastIndex);
+    if (remaining.trim()) blocks.push({ type: 'text', text: remaining });
+    return blocks.length > 0 ? blocks : [{ type: 'text', text: text }];
   }
 
   // --- Content Slicing ---
@@ -413,7 +447,7 @@
 
   // --- Streaming API Call ---
 
-  function streamResponse(userPrompt) {
+  function streamResponse(contentBlocks) {
     var responseEl = document.querySelector('.llm-chat-response');
     if (!responseEl) return;
 
@@ -450,7 +484,7 @@
         max_tokens: config.max_tokens,
         stream: true,
         system: config.system,
-        messages: [{ role: 'user', content: userPrompt }]
+        messages: [{ role: 'user', content: contentBlocks }]
       })
     })
     .then(function(response) {

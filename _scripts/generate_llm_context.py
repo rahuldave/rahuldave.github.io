@@ -21,6 +21,14 @@ from pathlib import Path
 SITE_URL = "https://rahuldave.com"
 
 
+def extract_figure_urls(html_path, post_url_base):
+    """Extract code-cell figure image URLs from rendered HTML, in order."""
+    with open(html_path) as f:
+        html = f.read()
+    figures = re.findall(r'<img src="(index_files/figure-html/[^"]+)"', html)
+    return [post_url_base + fig for fig in figures]
+
+
 def slugify(text):
     """Convert heading text to a URL slug."""
     slug = re.sub(r'[^\w\s-]', '', text.lower())
@@ -28,10 +36,14 @@ def slugify(text):
     return slug
 
 
-def process_notebook(ipynb_path):
+def process_notebook(ipynb_path, figure_urls=None, post_url_base=""):
     """Generate _content.md and cells.json for a notebook post."""
     with open(ipynb_path) as f:
         nb = json.load(f)
+
+    if figure_urls is None:
+        figure_urls = []
+    figure_idx = 0
 
     cells_meta = []
     content_parts = []
@@ -77,9 +89,14 @@ def process_notebook(ipynb_path):
                         md = data.get("text/markdown", "")
                         if md:
                             caption = "".join(md) if isinstance(md, list) else md
-                        content_parts.append(
-                            f"[Figure{': ' + caption.strip() if caption else ''}]"
-                        )
+                        alt = caption.strip() if caption else "Figure"
+                        if figure_idx < len(figure_urls):
+                            content_parts.append(
+                                f"![{alt}]({figure_urls[figure_idx]})"
+                            )
+                            figure_idx += 1
+                        else:
+                            content_parts.append(f"[{alt}]")
 
             # Use notebook cell ID if present (nbformat 5.1+), else fall back to cell-N
             html_id = cell.get("id", f"cell-{i}")
@@ -92,6 +109,13 @@ def process_notebook(ipynb_path):
 
         elif cell_type == "markdown":
             content_parts.append(f"<!-- cell:{i} type:markdown -->")
+            # Rewrite relative image paths to full URLs
+            if post_url_base:
+                source = re.sub(
+                    r'!\[([^\]]*)\]\((?!http)([^)]+)\)',
+                    lambda m: f'![{m.group(1)}]({post_url_base}{m.group(2)})',
+                    source,
+                )
             content_parts.append(source)
 
             # Extract headings
@@ -122,7 +146,7 @@ def process_notebook(ipynb_path):
     return content_md, cells_json
 
 
-def process_qmd_or_md(file_path):
+def process_qmd_or_md(file_path, post_url_base=""):
     """Generate _content.md and cells.json for a .qmd or .md post.
 
     Parses the file into a sequence of cells (markdown sections and code blocks),
@@ -217,6 +241,13 @@ def process_qmd_or_md(file_path):
                 "lang": lang,
             })
         else:
+            # Rewrite relative image paths to full URLs
+            if post_url_base:
+                cell_text = re.sub(
+                    r'!\[([^\]]*)\]\((?!http)([^)]+)\)',
+                    lambda m: f'![{m.group(1)}]({post_url_base}{m.group(2)})',
+                    cell_text,
+                )
             content_parts.append(f"<!-- cell:{i} type:markdown -->")
             content_parts.append(cell_text)
             content_parts.append("")
@@ -307,10 +338,21 @@ def main():
         print(f"Processing {post_slug}...", end=" ")
 
         try:
+            post_url_base = f"{SITE_URL}/posts/{post_slug}/"
             if source_file.suffix == ".ipynb":
-                content_md, cells_json = process_notebook(source_file)
+                html_path = site_dir / "posts" / post_slug / "index.html"
+                figure_urls = (
+                    extract_figure_urls(html_path, post_url_base)
+                    if html_path.exists()
+                    else []
+                )
+                content_md, cells_json = process_notebook(
+                    source_file, figure_urls, post_url_base
+                )
             else:
-                content_md, cells_json = process_qmd_or_md(source_file)
+                content_md, cells_json = process_qmd_or_md(
+                    source_file, post_url_base
+                )
         except Exception as e:
             print(f"ERROR: {e}")
             errors += 1

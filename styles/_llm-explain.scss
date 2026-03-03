@@ -49,6 +49,12 @@ div.sourceCode:hover + .llm-buttons,
   }
 }
 
+.llm-btn-download {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
 // Summarize + Download buttons at top of page (same line, flush right)
 .llm-summarize-wrap {
   display: flex;
