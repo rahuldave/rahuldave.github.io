@@ -252,18 +252,18 @@ Use `.qmd` format (not `.ipynb`) for JavaScript-heavy interactive content:
 ### Build & Deploy (Makefile)
 ```bash
 make preview                # Live dev server with hot reload
-make render                 # Build full site to _site/
-make build                  # Render + LLM context + zip bundles
-make bundles                # Generate zip bundles only (after render)
-make test-bundles           # Test bundles via juv exec
+make build                  # Compile prompts + render + LLM context + zip bundles
 make deploy                 # Build + push _site/ to gh-pages branch
+make test-bundles           # Test bundles via juv exec
+make clean                  # Delete stamp files (forces full rebuild)
 quarto render posts/probability/index.ipynb  # Render a single post
 ```
-- `render` produces `_site/`; `build` also runs `generate_llm_context.py` and `generate_bundles.py`
+- `build` runs: `compile_prompts.py` → `quarto render` → `generate_llm_context.py` → `generate_bundles.py` (skips stages whose inputs haven't changed, using stamp files)
 - `deploy` uses `git worktree` to check out `gh-pages` into `/tmp/`, rsync `_site/` there, commit, push
 - GitHub Pages deploys from `gh-pages` branch (root `/`), NOT from `docs/` on `main`
 - `CNAME` and `.nojekyll` live in project root — Quarto copies them to `_site/` automatically
 - Commit and push of `main` are separate from deploy
+- **Full internal docs:** `_internal_docs/build-and-deploy.md`
 
 ### Image/Data Path Conventions
 - Notebook posts: `assets/filename.png` (relative to the notebook's folder)
