@@ -69,14 +69,32 @@ If the post is a notebook (`index.ipynb`), invoke the `/bundle-post` skill to:
 
 Skip this step for markdown (`.md`) and QMD (`.qmd`) posts.
 
-### 6. Verify Card on Listing Page
+### 6. Execute Notebook (Refresh Outputs)
+
+If the post is a notebook (`index.ipynb`), execute it to refresh all cell outputs (plots, tables, text). This ensures the rendered site shows current results, not stale outputs from older Python/library versions.
+
+```bash
+uv run _scripts/execute_notebook.py <post_path>
+```
+
+For slow notebooks (MCMC sampling, neural network training), increase the timeout:
+
+```bash
+uv run _scripts/execute_notebook.py --timeout 1200 <post_path>
+```
+
+This must happen **after** `/bundle-post` (so PEP 723 deps are in place) and **before** the Quarto render step.
+
+Skip this step for markdown (`.md`) and QMD (`.qmd`) posts.
+
+### 7. Verify Card on Listing Page
 
 1. **Re-render** the index page: `quarto render index.qmd`
 2. **Use `agent-browser`** to open `_site/index.html` (or `_site/posts.html`).
 3. **Take a screenshot** and verify the post's card shows the thumbnail correctly in the grid.
 4. **Close the browser**.
 
-### 7. Update CLAUDE.md (if importing from AM207)
+### 8. Update CLAUDE.md (if importing from AM207)
 
 If this post was imported from the AM207 wiki, update the "Content Import Status" section in `CLAUDE.md` to reflect the new import. Otherwise skip this step.
 

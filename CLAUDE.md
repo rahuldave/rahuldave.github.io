@@ -14,6 +14,9 @@ This is a Quarto-based personal website for data science/ML educational content 
   - `inject_juv_metadata.py` — scans notebooks for imports, injects PEP 723 dependency cell for `juv`. Used by `/bundle-post` skill.
   - `generate_bundles.py` — generates `<slug>.zip` bundles in `_site/` at build time. Run via `make bundles` or `make build`.
   - `test_bundles.py` — tests bundles by running `uvx juv exec`. Run via `make test-bundles`.
+  - `execute_notebook.py` — executes a notebook in-place with `nbclient`, capturing outputs. Self-bootstraps PEP 723 deps via `uv run --with`. Usage: `uv run _scripts/execute_notebook.py [--timeout 1200] posts/SLUG/index.ipynb`. Used by `/execute-notebook` skill.
+  - `run_nb.py` — quick-test: runs notebook cells via `exec()`, reports first failure. No output capture. Usage: `uv run --with <deps> python _scripts/run_nb.py posts/SLUG/index.ipynb`.
+  - `pymc3-to-pymc-porting.md` — comprehensive reference for migrating pymc3/theano notebooks to modern pymc/pytensor.
 - After importing, run `/caption-images` to add captions, then `/bundle-post` for notebook posts
 
 ## Content Import Status (from AM207 wiki)
@@ -134,6 +137,14 @@ This is a Quarto-based personal website for data science/ML educational content 
   - `hmcidea` — markdown, imported to `posts/hmcidea/`
   - `hmcexplore` — notebook, imported to `posts/hmcexplore/`
 - **Lectures 18–26**: NOT YET IMPORTED
+
+## PyMC3 → PyMC Migration Status
+- **Notebooks already ported**: `em` (removed unused import), `hmcexplore` (removed unused import), `switchpoint` (full InferenceData port), `utilityorrisk` (full InferenceData port)
+- **Porting reference**: `_scripts/pymc3-to-pymc-porting.md`
+- **Skill**: `/port-pymc3` — step-by-step process for migrating pymc3/theano to modern pymc/pytensor
+- **Critical**: Do NOT list `arviz` explicitly in PEP 723 deps alongside `pymc` — arviz 1.0 breaks pymc; let pymc pull in the compatible version
+- **Known slow notebooks** (use `--timeout 1200`): switchpoint (~90s), utilityorrisk (~70s), mlp_classification (~90s), nnreg (~80s), samplingclt (~230s), gibbsconj (~50s), tetchygibbs (~40s)
+- **All 49 notebook bundles pass** `make test-bundles` (100%)
 
 ## Post Date Scheme
 - Dates increase by **1 week per lecture**, starting from 2025-01-08 (Lecture 1)
@@ -323,6 +334,19 @@ Readers unzip and run with `uvx juv run index.ipynb`. The PEP 723 cell tells `ju
 **Key files:** `assets/download-bundle.js`, `styles/_download-bundle.scss`, `includes/download-bundle.html`, `_scripts/inject_juv_metadata.py`, `_scripts/generate_bundles.py`, `_scripts/test_bundles.py`
 
 **Workflow for new notebook posts:** Run `/bundle-post` (called automatically by `/finalize-post`). This checks for missing data files, injects PEP 723 deps, and verifies bundle contents. The zip is generated at build time by `make build`.
+
+### Notebook Execution (Refresh Outputs)
+Quarto renders stored cell outputs, so notebooks must be executed before deploy for fresh results. The `/finalize-post` skill includes this as step 6.
+
+```bash
+uv run _scripts/execute_notebook.py posts/SLUG/index.ipynb           # default 600s timeout
+uv run _scripts/execute_notebook.py --timeout 1200 posts/SLUG/index.ipynb  # slow notebooks
+uv run _scripts/execute_notebook.py --allow-errors posts/SLUG/index.ipynb  # continue on errors
+```
+
+The script is self-bootstrapping: reads each notebook's PEP 723 deps and re-invokes itself via `uv run --with <deps>`. No pre-built environment needed.
+
+For quick pass/fail testing (no output capture): `uv run --with <deps> python _scripts/run_nb.py posts/SLUG/index.ipynb`
 
 **No `ipynb: default` in frontmatter.** The old "Other Formats > Jupyter" download is replaced by zip bundles. The `import_notebook.py` script and all skills omit `ipynb: default`.
 
