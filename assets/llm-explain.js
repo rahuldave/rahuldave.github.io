@@ -16,12 +16,27 @@
   var contentMd = null;
   var apiKey = localStorage.getItem('claude-api-key');
   var MODEL = 'claude-sonnet-4-20250514';
-  var SYSTEM_PROMPT = 'You are a helpful teaching assistant for a data science and machine learning course. ' +
-    'Explain concepts clearly and concisely. Reference specific code examples when relevant. ' +
-    'Use LaTeX notation (with $...$ for inline and $$...$$ for display) for mathematical expressions. ' +
-    'Keep responses focused and educational.';
+
+  // Prompt defaults (overridden by /assets/llm-prompts.json when available)
+  var prompts = {
+    system: 'You are a helpful teaching assistant for a data science and machine learning course. ' +
+      'Explain concepts clearly and concisely. Reference specific code examples when relevant. ' +
+      'Use LaTeX notation (with $...$ for inline and $$...$$ for display) for mathematical expressions. ' +
+      'Keep responses focused and educational.',
+    summarize: 'Summarize the key concepts from this lecture note titled "{title}" in 3-5 bullet points. Be concise but thorough.',
+    explain_upto: 'The student has read up to this point in the lecture note "{title}". Explain the key concepts covered so far in clear, accessible language. Reference specific code examples where relevant.',
+    explain_code: 'Explain this code line by line in the context of the surrounding lecture material. For each line or logical block, describe what it does and why. Use the preceding markdown context to connect the code to the concepts being taught.'
+  };
 
   // --- Initialization ---
+
+  // Fetch external prompts (non-blocking — falls back to defaults above)
+  fetch('/assets/llm-prompts.json')
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(data) {
+      if (data) prompts = data;
+    })
+    .catch(function() { /* use defaults */ });
 
   fetch(baseUrl + 'cells.json')
     .then(function(r) { return r.ok ? r.json() : null; })
@@ -50,7 +65,7 @@
 
     var btn = document.createElement('button');
     btn.className = 'llm-btn llm-btn-summarize';
-    btn.textContent = 'Summarize this page';
+    btn.textContent = 'Summarize this article';
     btn.addEventListener('click', function() { handleAction('summarize', null); });
 
     wrap.appendChild(btn);
@@ -71,9 +86,11 @@
       }
     }
 
-    // --- "Explain up to here" after h2/h3 headings (all post types) ---
+    // --- "Explain up to here" inline with h2/h3 headings (all post types) ---
     var headings = document.querySelectorAll('h2[data-anchor-id], h3[data-anchor-id], h2[id], h3[id]');
     var seen = new Set();
+    var isFirstHeading = true;
+    var lastCellIdx = 0;
     for (var i = 0; i < headings.length; i++) {
       var heading = headings[i];
       var headingSlug = heading.getAttribute('data-anchor-id') || heading.id;
@@ -83,12 +100,29 @@
 
       var cellIdx = slugToCellIndex[headingSlug];
       if (cellIdx === undefined) cellIdx = i;
+      lastCellIdx = cellIdx;
 
-      var wrap = document.createElement('div');
-      wrap.className = 'llm-buttons';
-      wrap.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', cellIdx));
+      // Skip first h2 — only preamble content precedes it
+      if (isFirstHeading) {
+        isFirstHeading = false;
+        continue;
+      }
 
-      heading.parentNode.insertBefore(wrap, heading.nextSibling);
+      // Insert button inside heading (flush-right, inline with text)
+      heading.classList.add('llm-heading-with-btn');
+      heading.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', cellIdx));
+    }
+
+    // "Explain up to here" at page end (so final section isn't left out)
+    var totalCells = (cellsData && cellsData.cells) ? cellsData.cells.length : lastCellIdx + 1;
+    var articleEl = document.getElementById('quarto-document-content') ||
+                    document.querySelector('main.content') ||
+                    document.querySelector('article');
+    if (articleEl) {
+      var endWrap = document.createElement('div');
+      endWrap.className = 'llm-buttons llm-buttons-end';
+      endWrap.appendChild(makeLlmBtn('Explain up to here', 'explain-upto', totalCells));
+      articleEl.appendChild(endWrap);
     }
 
     // --- "Explain this code" after code cells ---
@@ -257,20 +291,11 @@
   function buildUserPrompt(action, context) {
     var title = (cellsData && cellsData.title) ? cellsData.title : slug;
 
-    if (action === 'summarize') {
-      return 'Summarize the key concepts from this lecture note titled "' + title +
-        '" in 3-5 bullet points. Be concise but thorough.\n\n' + context;
-    }
+    var templateKey = action.replace('-', '_');  // explain-code → explain_code
+    var template = prompts[templateKey];
 
-    if (action === 'explain-upto') {
-      return 'The student has read up to this point in the lecture note "' + title +
-        '". Explain the key concepts covered so far in clear, accessible language. ' +
-        'Reference specific code examples where relevant.\n\n' + context;
-    }
-
-    if (action === 'explain-code') {
-      return 'Explain what this code does and why, in the context of the surrounding lecture material. ' +
-        'Be specific about what each part does and the reasoning behind it.\n\n' + context;
+    if (template) {
+      return template.replace(/\{title\}/g, title) + '\n\n' + context;
     }
 
     return context;
@@ -421,7 +446,7 @@
         model: MODEL,
         max_tokens: 2048,
         stream: true,
-        system: SYSTEM_PROMPT,
+        system: prompts.system,
         messages: [{ role: 'user', content: userPrompt }]
       })
     })

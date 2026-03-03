@@ -47,6 +47,9 @@ Also generates `_site/llms.txt` — index of all `_content.md` URLs.
 |------|---------|
 | `_filters/cell-markers.lua` | Adds `data-cell-type="code"` to notebook cell divs |
 | `_scripts/generate_llm_context.py` | Generates _content.md, cells.json, llms.txt |
+| `_prompts.yml` | Human-editable prompt templates (system, summarize, explain_upto, explain_code) |
+| `_scripts/compile_prompts.py` | Compiles `_prompts.yml` → `assets/llm-prompts.json` |
+| `assets/llm-prompts.json` | Generated JSON consumed by JS at runtime (committed to repo) |
 | `assets/llm-explain.js` | Runtime JS (buttons, modals, API calls) — cacheable external file |
 | `includes/llm-explain.html` | `<script src>` tag that loads `llm-explain.js` |
 | `styles/_llm-explain.scss` | Styles (buttons, modals) using CSS custom properties |
@@ -191,12 +194,54 @@ All post types use the same `<!-- cell:N -->` markers.
 
 ---
 
+## Externalized Prompts
+
+All LLM prompts are defined in `_prompts.yml` (project root) and compiled to `assets/llm-prompts.json` for runtime use. This lets you edit prompts without touching JavaScript.
+
+### Workflow
+
+1. Edit `_prompts.yml`
+2. Run `python3 _scripts/compile_prompts.py` (or `make build` — the Makefile rule triggers automatically if the YAML changed)
+3. The generated `assets/llm-prompts.json` is committed to the repo so Quarto copies it to `_site/assets/` during render
+
+### _prompts.yml Format
+
+```yaml
+system: >
+  Teaching assistant persona...
+
+summarize: >
+  Prompt with {title} placeholder...
+
+explain_upto: >
+  Prompt with {title} placeholder...
+
+explain_code: >
+  Line-by-line explanation prompt...
+```
+
+- Uses YAML folded block scalars (`>`) so multi-line text is collapsed to single strings
+- `{title}` is a placeholder replaced at runtime by the JS with the post title from `cells.json`
+- Only the 4 keys above are used; `system` goes in the API `system` field, the others are user message prefixes
+
+### compile_prompts.py
+
+Tiny script (~30 lines) that parses the simple YAML without PyYAML (uses regex for the folded block format) and writes JSON. No external dependencies.
+
+### Runtime Behavior (JS)
+
+On page load, `llm-explain.js` fetches `/assets/llm-prompts.json`. If the fetch succeeds, the external prompts override the hardcoded defaults. If it fails (404, network error), hardcoded fallback prompts are used — so the feature degrades gracefully.
+
+The `buildUserPrompt()` function maps action names to prompt keys (`explain-code` → `explain_code`) and applies `{title}` replacement.
+
+---
+
 ## API Integration
 
 - **Model:** `claude-sonnet-4-20250514`
 - **Max tokens:** 2048
 - **Streaming:** SSE via fetch + ReadableStream
-- **System prompt:** Teaching assistant persona with LaTeX support
+- **System prompt:** Loaded from `prompts.system` (externalized); falls back to hardcoded default
 - **API key storage:** `localStorage` key `claude-api-key`
 - **CORS header:** `anthropic-dangerous-direct-browser-access: true`
 
@@ -232,13 +277,16 @@ All post types use the same `<!-- cell:N -->` markers.
 
 ```
 make build
-  ├── quarto render           # Renders all posts to _site/
+  ├── compile_prompts.py      # _prompts.yml → assets/llm-prompts.json (if YAML changed)
+  ├── quarto render           # Renders all posts to _site/ (copies llm-prompts.json too)
   │   └── cell-markers.lua    # Adds data-cell-type to code cells
-  ├── python3 generate_llm_context.py  # Writes _content.md + cells.json to _site/
-  └── rsync _site/ docs/      # Copies to GitHub Pages directory
+  ├── generate_llm_context.py # Writes _content.md + cells.json to _site/
+  └── generate_bundles.py     # Writes zip bundles to _site/
 ```
 
-For development: `make preview` for live reload, then `make llm-context` separately when you want to test the LLM feature.
+The Makefile dependency chain: `_prompts.yml` → `assets/llm-prompts.json` → render stamp → LLM context stamp → bundles stamp.
+
+For development: `make preview` for live reload. After editing `_prompts.yml`, run `python3 _scripts/compile_prompts.py` to update the JSON — the preview server will pick it up.
 
 ---
 

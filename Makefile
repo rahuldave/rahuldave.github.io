@@ -41,8 +41,12 @@ clean:
 
 # ── Stamped targets (skip if sources haven't changed) ───────────────
 
+## Compile _prompts.yml → assets/llm-prompts.json
+assets/llm-prompts.json: _prompts.yml _scripts/compile_prompts.py
+	python3 _scripts/compile_prompts.py
+
 ## Render the full site to _site/
-$(RENDER_STAMP): $(QUARTO_SOURCES) $(QUARTO_CONFIG)
+$(RENDER_STAMP): $(QUARTO_SOURCES) $(QUARTO_CONFIG) assets/llm-prompts.json
 	quarto render
 	rm -f _site/CLAUDE.html
 	@touch $@

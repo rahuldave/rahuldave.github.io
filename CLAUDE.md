@@ -298,7 +298,9 @@ Readers use their own Claude API key (browser localStorage) to get AI explanatio
 2. **Python script** (`_scripts/generate_llm_context.py`) — generates `_content.md` + `cells.json` per post in `_site/`
 3. **Runtime JS** (`assets/llm-explain.js`) — button injection, API key modal, streaming chat modal with markdown+MathJax rendering
 
-**Key files:** `assets/llm-explain.js`, `styles/_llm-explain.scss`, `_filters/cell-markers.lua`, `_scripts/generate_llm_context.py`, `includes/llm-explain.html` (just a `<script src>` tag)
+**Prompts are externalized** to `_prompts.yml` (YAML source, human-editable) → compiled by `_scripts/compile_prompts.py` → `assets/llm-prompts.json` (committed, copied to `_site/` by Quarto). The JS fetches the JSON at runtime with hardcoded fallbacks. Edit `_prompts.yml` and run `python3 _scripts/compile_prompts.py` to update prompts (also runs automatically via `make build`).
+
+**Key files:** `assets/llm-explain.js`, `styles/_llm-explain.scss`, `_filters/cell-markers.lua`, `_scripts/generate_llm_context.py`, `_prompts.yml`, `_scripts/compile_prompts.py`, `assets/llm-prompts.json`, `includes/llm-explain.html` (just a `<script src>` tag)
 
 **LLM context files use `_content.md`** (underscore prefix) because Quarto skips `_`-prefixed files. Without the underscore, Quarto would scan them as renderable source and break listings. `cells.json` is fine (`.json` isn't a Quarto source type).
 
