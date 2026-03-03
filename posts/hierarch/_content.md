@@ -115,8 +115,8 @@ tumordata="""0 20
 <!-- cell:5 type:code -->
 ```python
 tumortuples=[e.strip().split() for e in tumordata.split("\n")]
-tumory=np.array([np.int(e[0].strip()) for e in tumortuples if len(e) > 0])
-tumorn=np.array([np.int(e[1].strip()) for e in tumortuples if len(e) > 0])
+tumory=np.array([int(e[0].strip()) for e in tumortuples if len(e) > 0])
+tumorn=np.array([int(e[1].strip()) for e in tumortuples if len(e) > 0])
 tumory, tumorn            
 ```
 Output:
@@ -147,7 +147,7 @@ tmean, tvar
 ```
 Output:
 ```
-(0.13600653889043893, 0.010557640623609196)
+(np.float64(0.13600653889043893), np.float64(0.010557640623609196))
 ```
 
 <!-- cell:8 type:code -->
@@ -276,7 +276,7 @@ a_est, b_est
 ```
 Output:
 ```
-(1.3777748392916778, 8.7524354471531129)
+(np.float64(1.3777748392916778), np.float64(8.752435447153113))
 ```
 
 <!-- cell:17 type:markdown -->
@@ -317,7 +317,7 @@ $$\frac{\alpha + y_{71}}{\alpha + \beta + n_{71}}$$
 ```
 Output:
 ```
-(0.2857142857142857, 0.22286481449822493)
+(0.2857142857142857, np.float64(0.22286481449822493))
 ```
 
 <!-- cell:22 type:markdown -->

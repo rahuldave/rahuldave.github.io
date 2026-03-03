@@ -151,14 +151,14 @@ window.Quarto = {
 <meta property="og:description" content="Demonstrates Gibbs sampling that exploits conjugate prior pairs like Beta-Binomial. Shows how conditional posteriors simplify to known distributions, making each Gibbs step a direct sample from a standard distribution.">
 <meta property="og:image" content="https://rahuldave.github.io/posts/gibbsconj/index_files/figure-html/cell-5-output-1.png">
 <meta property="og:site_name" content="rahuldave">
-<meta property="og:image:height" content="539">
-<meta property="og:image:width" content="757">
+<meta property="og:image:height" content="440">
+<meta property="og:image:width" content="571">
 <meta name="twitter:title" content="Gibbs Sampling with Conjugate Conditionals – rahuldave">
 <meta name="twitter:description" content="Demonstrates Gibbs sampling that exploits conjugate prior pairs like Beta-Binomial. Shows how conditional posteriors simplify to known distributions, making each Gibbs step a direct sample from a standard distribution.">
 <meta name="twitter:image" content="https://rahuldave.github.io/posts/gibbsconj/index_files/figure-html/cell-5-output-1.png">
 <meta name="twitter:creator" content="@rahuldave">
-<meta name="twitter:image-height" content="539">
-<meta name="twitter:image-width" content="757">
+<meta name="twitter:image-height" content="440">
+<meta name="twitter:image-width" content="571">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -453,7 +453,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-2" class="cell" data-execution_count="1" data-cell-type="code">
+<div id="b882da4c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:19.062438Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:19.062112Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:20.235119Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:20.234501Z&quot;}}" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
@@ -464,10 +464,6 @@ window.Quarto = {
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">'whitegrid'</span>)</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>sns.set_context(<span class="st">'poster'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
-</div>
 </div>
 <p>We now going to take a look at a slightly more complicated case that was originally outlined in full generality by Casella and George (1992). Suppose we have a nasty looking joint distribution given as:</p>
 <p><span class="math display">\[p(x,y) = \binom{16}{y} x^{y+1} (1-x)^{19-y}\]</span></p>
@@ -493,32 +489,32 @@ window.Quarto = {
 <section id="the-sampler" class="level2">
 <h2 class="anchored" data-anchor-id="the-sampler">The sampler</h2>
 <p>With our conditionals formulated, we can move directly to our Gibbs sampler.</p>
-<div id="cell-10" class="cell" data-execution_count="2" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> binom, beta</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>n<span class="op">=</span><span class="dv">16</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>alph<span class="op">=</span><span class="fl">2.</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>bet<span class="op">=</span><span class="fl">4.</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gibbs(N<span class="op">=</span><span class="dv">10000</span>,thin<span class="op">=</span><span class="dv">50</span>):</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="dv">1</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="dv">1</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    samples<span class="op">=</span>np.zeros((N,<span class="dv">2</span>))</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(N):</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(thin):</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>            y<span class="op">=</span>binom.rvs(n,x)</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>            newalph<span class="op">=</span>y<span class="op">+</span>alph</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>            newbet<span class="op">=</span>n<span class="op">-</span>y<span class="op">+</span>bet</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>            x<span class="op">=</span>beta.rvs(newalph, newbet)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>          </span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        samples[i,<span class="dv">0</span>]<span class="op">=</span>x</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        samples[i,<span class="dv">1</span>]<span class="op">=</span>y</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> samples</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="51fc8580" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:20.237017Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:20.236833Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:20.240522Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:20.239762Z&quot;}}" data-execution_count="3" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> binom, beta</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>n<span class="op">=</span><span class="dv">16</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>alph<span class="op">=</span><span class="fl">2.</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>bet<span class="op">=</span><span class="fl">4.</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gibbs(N<span class="op">=</span><span class="dv">10000</span>,thin<span class="op">=</span><span class="dv">50</span>):</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    samples<span class="op">=</span>np.zeros((N,<span class="dv">2</span>))</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(N):</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(thin):</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>            y<span class="op">=</span>binom.rvs(n,x)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>            newalph<span class="op">=</span>y<span class="op">+</span>alph</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>            newbet<span class="op">=</span>n<span class="op">-</span>y<span class="op">+</span>bet</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>            x<span class="op">=</span>beta.rvs(newalph, newbet)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        samples[i,<span class="dv">0</span>]<span class="op">=</span>x</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        samples[i,<span class="dv">1</span>]<span class="op">=</span>y</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> samples</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-11" class="cell" data-execution_count="3" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>out<span class="op">=</span>gibbs()</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>plt.hist2d(out[:,<span class="dv">0</span>],out[:,<span class="dv">1</span>], normed<span class="op">=</span><span class="va">True</span>, bins<span class="op">=</span><span class="dv">50</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="684c8383" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:20.241928Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:20.241834Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:34.563585Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:34.562875Z&quot;}}" data-execution_count="4" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>out<span class="op">=</span>gibbs()</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>plt.hist2d(out[:,<span class="dv">0</span>],out[:,<span class="dv">1</span>], density<span class="op">=</span><span class="va">True</span>, bins<span class="op">=</span><span class="dv">50</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">

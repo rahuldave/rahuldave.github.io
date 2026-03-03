@@ -151,14 +151,14 @@ window.Quarto = {
 <meta property="og:description" content="Introduces gradient descent for optimization, starting with linear regression as a worked example. Covers batch gradient descent, stochastic gradient descent, mini-batch SGD, and momentum, with animated visualizations of convergence behavior.">
 <meta property="og:image" content="https://rahuldave.github.io/posts/gradientdescent/index_files/figure-html/cell-7-output-1.png">
 <meta property="og:site_name" content="rahuldave">
-<meta property="og:image:height" content="329">
-<meta property="og:image:width" content="490">
+<meta property="og:image:height" content="413">
+<meta property="og:image:width" content="563">
 <meta name="twitter:title" content="Gradient Descent and SGD – rahuldave">
 <meta name="twitter:description" content="Introduces gradient descent for optimization, starting with linear regression as a worked example. Covers batch gradient descent, stochastic gradient descent, mini-batch SGD, and momentum, with animated visualizations of convergence behavior.">
 <meta name="twitter:image" content="https://rahuldave.github.io/posts/gradientdescent/index_files/figure-html/cell-7-output-1.png">
 <meta name="twitter:creator" content="@rahuldave">
-<meta name="twitter:image-height" content="329">
-<meta name="twitter:image-width" content="490">
+<meta name="twitter:image-height" content="413">
+<meta name="twitter:image-width" content="563">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -456,7 +456,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-2" class="cell" data-execution_count="1" data-cell-type="code">
+<div id="51a50ff6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:43.606119Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:43.605953Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:45.779420Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:45.778822Z&quot;}}" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -464,7 +464,7 @@ window.Quarto = {
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.animation <span class="im">as</span> animation</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats </span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets.samples_generator <span class="im">import</span> make_regression </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_regression </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>A lot of the animations here were adapted from: http://tillbergmann.com/blog/python-gradient-descent.html</p>
 <p>A great discussion (and where momentum image was stolen from) is at http://sebastianruder.com/optimizing-gradient-descent/</p>
@@ -477,7 +477,7 @@ window.Quarto = {
 <p>The cost function for our linear least squares regression will then be</p>
 <p><span class="math display">\[J(\theta) = \frac{1}{2} \sum_{i=1}^m (f_\theta (x^{(i)}-y^{(i)})^2\]</span></p>
 <p>We create a regression problem using sklearn’s <code>make_regression</code> function:</p>
-<div id="cell-5" class="cell" data-execution_count="2" data-cell-type="code">
+<div id="d82ee2c0" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:45.781225Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:45.780993Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:45.785230Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:45.784736Z&quot;}}" data-execution_count="3" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#code adapted from http://tillbergmann.com/blog/python-gradient-descent.html</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x, y <span class="op">=</span> make_regression(n_samples <span class="op">=</span> <span class="dv">100</span>, </span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                       n_features<span class="op">=</span><span class="dv">1</span>, </span>
@@ -485,14 +485,14 @@ window.Quarto = {
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                       noise<span class="op">=</span><span class="dv">20</span>,</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                       random_state<span class="op">=</span><span class="dv">2017</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-6" class="cell" data-execution_count="3" data-cell-type="code">
+<div id="1eb56bb7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:45.786788Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:45.786656Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:45.788684Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:45.788162Z&quot;}}" data-execution_count="4" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> x.flatten()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-7" class="cell" data-execution_count="4" data-cell-type="code">
+<div id="f686481e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:45.789829Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:45.789726Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:45.792609Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:45.792167Z&quot;}}" data-execution_count="5" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>slope, intercept, _,_,_ <span class="op">=</span> stats.linregress(x,y)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>best_fit <span class="op">=</span> np.vectorize(<span class="kw">lambda</span> x: x <span class="op">*</span> slope <span class="op">+</span> intercept)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="5" data-cell-type="code">
+<div id="ab2f2274" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:45.793815Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:45.793718Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:45.852282Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:45.851777Z&quot;}}" data-execution_count="6" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y, <span class="st">'o'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>grid <span class="op">=</span> np.arange(<span class="op">-</span><span class="dv">3</span>,<span class="dv">3</span>,<span class="fl">0.1</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>plt.plot(grid,best_fit(grid), <span class="st">'.'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -520,7 +520,7 @@ window.Quarto = {
 <p>Batch gradient descent is guaranteed to converge to the global minimum for convex error surfaces and to a local minimum for non-convex surfaces.</p>
 <p>In the linear example it’s easy to see that our update step then takes the form:</p>
 <p><span class="math display">\[\theta_j := \theta_j + \alpha \sum_{i=1}^m (y^{(i)}-f_\theta (x^{(i)})) x_j^{(i)}\]</span> for every <span class="math inline">\(j\)</span> (note <span class="math inline">\(\theta_j\)</span> is simply the j-th component of the <span class="math inline">\(\theta\)</span> vector).</p>
-<div id="cell-10" class="cell" data-execution_count="6" data-cell-type="code">
+<div id="4110f301" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:45.853384Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:45.853296Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:45.856319Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:45.855952Z&quot;}}" data-execution_count="7" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gradient_descent(x, y, theta_init, step<span class="op">=</span><span class="fl">0.001</span>, maxsteps<span class="op">=</span><span class="dv">0</span>, precision<span class="op">=</span><span class="fl">0.001</span>, ):</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    costs <span class="op">=</span> []</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> y.size <span class="co"># number of data points</span></span>
@@ -555,34 +555,34 @@ window.Quarto = {
 <span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>        </span>
 <span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> history, costs, preds, counter</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-11" class="cell" data-execution_count="7" data-cell-type="code">
+<div id="b145d00d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:45.857321Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:45.857241Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:45.859436Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:45.859027Z&quot;}}" data-execution_count="8" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>np.random.rand(<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
-<pre><code>array([ 0.75307882,  0.98388838])</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>array([0.83557122, 0.11844991])</code></pre>
 </div>
 </div>
-<div id="cell-12" class="cell" data-execution_count="8" data-cell-type="code">
+<div id="f072579d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:45.860454Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:45.860373Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:45.882544Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:45.882018Z&quot;}}" data-execution_count="9" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>xaug <span class="op">=</span> np.c_[np.ones(x.shape[<span class="dv">0</span>]), x]</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>theta_i <span class="op">=</span> [<span class="op">-</span><span class="dv">15</span>, <span class="dv">40</span>] <span class="op">+</span> np.random.rand(<span class="dv">2</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>history, cost, preds, iters <span class="op">=</span> gradient_descent(xaug, y, theta_i)</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>theta <span class="op">=</span> history[<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="9" data-cell-type="code">
+<div id="64eb463e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:45.883702Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:45.883614Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:45.885627Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:45.885281Z&quot;}}" data-execution_count="10" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Gradient Descent: </span><span class="sc">{:.2f}</span><span class="st">, </span><span class="sc">{:.2f}</span><span class="st"> </span><span class="sc">{:d}</span><span class="st">"</span>.<span class="bu">format</span>(theta[<span class="dv">0</span>], theta[<span class="dv">1</span>], iters))</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Least Squares: </span><span class="sc">{:.2f}</span><span class="st">, </span><span class="sc">{:.2f}</span><span class="st">"</span>.<span class="bu">format</span>(intercept, slope))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Gradient Descent: -3.93, 81.67 4454
+<pre><code>Gradient Descent: -3.93, 81.67 4438
 Least Squares: -3.71, 82.90</code></pre>
 </div>
 </div>
-<div id="cell-14" class="cell" data-execution_count="10" data-cell-type="code">
+<div id="59ff71ee" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:45.886581Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:45.886508Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:45.888528Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:45.888205Z&quot;}}" data-execution_count="11" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>theta</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>array([ -3.92778924,  81.67155225])</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>array([-3.93029182, 81.672577  ])</code></pre>
 </div>
 </div>
 <p>One can plot the reduction of cost:</p>
-<div id="cell-16" class="cell" data-scrolled="true" data-execution_count="11" data-cell-type="code">
+<div id="15f773f4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:45.889482Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:45.889394Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:45.923725Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:45.923370Z&quot;}}" data-scrolled="true" data-execution_count="12" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="bu">len</span>(cost)), cost)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -593,10 +593,10 @@ Least Squares: -3.71, 82.90</code></pre>
 </div>
 </div>
 <p>The following animation shows how the regression line forms:</p>
-<div id="cell-18" class="cell" data-execution_count="12" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> JSAnimation <span class="im">import</span> IPython_display</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="55501075" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:45.924895Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:45.924817Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:45.926490Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:45.926083Z&quot;}}" data-execution_count="13" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># JSAnimation removed (obsolete package)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-19" class="cell" data-execution_count="13" data-cell-type="code">
+<div id="43888b7f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:45.927503Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:45.927432Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:45.974043Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:45.973629Z&quot;}}" data-execution_count="14" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> init():</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    line.set_data([], [])</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> line,</span>
@@ -616,18 +616,25 @@ Least Squares: -3.71, 82.90</code></pre>
 <span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>anim <span class="op">=</span> animation.FuncAnimation(fig, animate, init_func<span class="op">=</span>init,</span>
 <span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>                        frames<span class="op">=</span><span class="bu">len</span>(preds), interval<span class="op">=</span><span class="dv">100</span>)</span>
-<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>anim.save(<span class="st">'images/gdline.mp4'</span>)</span>
-<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>anim</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>    anim.save(<span class="st">'images/gdline.mp4'</span>)</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">Exception</span>:</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span>  <span class="co"># ffmpeg may not be available</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>anim</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>IOPub data rate exceeded.
-The notebook server will temporarily stop sending output
-to the client in order to avoid crashing it.
-To change this limit, set the config variable
-`--NotebookApp.iopub_data_rate_limit`.</code></pre>
+<pre><code>/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48766/3408123445.py:16: UserWarning: color is redundantly defined by the 'color' keyword argument and the fmt string "k-" (-&gt; color='k'). The keyword argument will take precedence.
+  plt.plot(xaug[:,1], best_fit(xaug[:,1]), 'k-', color = "r")</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-15-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Remember that the linear regression cost function is convex, and more precisely quadratic. We can see the path that gradient descent takes in arriving at the optimum:</p>
-<div id="cell-21" class="cell" data-execution_count="14" data-cell-type="code">
+<div id="e0b64557" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:45.975112Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:45.975036Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:45.978716Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:45.978317Z&quot;}}" data-execution_count="15" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> mpl_toolkits.mplot3d <span class="im">import</span> Axes3D</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> error(X, Y, THETA):</span>
@@ -656,12 +663,16 @@ To change this limit, set the config variable
 <span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gd_plot(xaug, y, theta, cost, hist):</span>
 <span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>    make_3d_plot(theta[<span class="dv">0</span>], theta[<span class="dv">1</span>], cost[<span class="op">-</span><span class="dv">1</span>], hist, cost, xaug, y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-22" class="cell" data-execution_count="15" data-cell-type="code">
+<div id="0c2f7d2e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:45.979810Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:45.979733Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:46.125039Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:46.124655Z&quot;}}" data-execution_count="16" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>gd_plot(xaug, y, theta, cost, history)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48766/2428721890.py:17: UserWarning: The following kwargs were not used by contour: 'color'
+  ax.contour(M, B, Z, 20, color='b', alpha=0.5, offset=0, stride=30)</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-17-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -682,99 +693,99 @@ To change this limit, set the config variable
 </ul></li>
 </ul>
 <p>The reshuffling of the data is done to avoid a bias in the optimization algorithm by providing the data examples in a particular order. In code, the algorithm should look something like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(nb_epochs):</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  np.random.shuffle(data)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> example <span class="kw">in</span> data:</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    params_grad <span class="op">=</span> evaluate_gradient(loss_function, example, params)</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> params <span class="op">-</span> learning_rate <span class="op">*</span> params_grad</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(nb_epochs):</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  np.random.shuffle(data)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> example <span class="kw">in</span> data:</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    params_grad <span class="op">=</span> evaluate_gradient(loss_function, example, params)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> params <span class="op">-</span> learning_rate <span class="op">*</span> params_grad</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>For a given epoch, we first reshuffle the data, and then for a single example, we evaluate the gradient of the loss function and then update the params with the chosen learning rate.</p>
 <p>The update for linear regression is:</p>
 <p><span class="math display">\[\theta_j := \theta_j + \alpha (y^{(i)}-f_\theta (x^{(i)})) x_j^{(i)}\]</span></p>
-<div id="cell-24" class="cell" data-execution_count="16" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sgd(x, y, theta_init, step<span class="op">=</span><span class="fl">0.001</span>, maxsteps<span class="op">=</span><span class="dv">0</span>, precision<span class="op">=</span><span class="fl">0.001</span>, ):</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    costs <span class="op">=</span> []</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    currentcosts <span class="op">=</span> []</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> y.size <span class="co"># number of data points</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    oldtheta <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    theta <span class="op">=</span> theta_init</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    history <span class="op">=</span> [] <span class="co"># to store all thetas</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    preds <span class="op">=</span> []</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    grads <span class="op">=</span> []</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> []</span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    ys <span class="op">=</span> []</span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    counter <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    oldcost <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    epoch <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    i <span class="op">=</span> <span class="dv">0</span> <span class="co">#index</span></span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    xs.append(x[i,:])</span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>    ys.append([y[i]])</span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> np.dot(x[i,:], theta)</span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>    error <span class="op">=</span> pred <span class="op">-</span> y[i]</span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>    gradient <span class="op">=</span> x[i,:].T<span class="op">*</span>error</span>
-<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>    grads.append(gradient)</span>
-<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>    currentcost <span class="op">=</span> np.<span class="bu">sum</span>(error <span class="op">**</span> <span class="dv">2</span>) <span class="op">/</span> <span class="dv">2</span></span>
-<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Init"</span>, gradient, x[i,:],y[i])</span>
-<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span> (<span class="st">"Init2"</span>, currentcost, theta)</span>
-<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>    currentcosts.append(currentcost)</span>
-<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>    counter<span class="op">+=</span><span class="dv">1</span></span>
-<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>    preds.append(pred)</span>
-<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>    costsum <span class="op">=</span> currentcost</span>
-<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>    costs.append(costsum<span class="op">/</span>counter)</span>
-<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>    history.append(theta)</span>
-<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"start"</span>,counter, costs, oldcost)</span>
-<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="dv">1</span>:</span>
-<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>        <span class="co">#while abs(costs[counter-1] - oldcost) &gt; precision:</span></span>
-<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>        <span class="co">#while np.linalg.norm(theta - oldtheta) &gt; precision:</span></span>
-<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>        gradient <span class="op">=</span> x[i,:].T<span class="op">*</span>error</span>
-<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>        grads.append(gradient)</span>
-<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>        oldtheta <span class="op">=</span> theta</span>
-<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a>        theta <span class="op">=</span> theta <span class="op">-</span> step <span class="op">*</span> gradient  <span class="co"># update</span></span>
-<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a>        history.append(theta)</span>
-<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a>        i <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i <span class="op">==</span> m:<span class="co">#reached one past the end.</span></span>
-<span id="cb22-42"><a href="#cb22-42" aria-hidden="true" tabindex="-1"></a>            <span class="co">#break</span></span>
-<span id="cb22-43"><a href="#cb22-43" aria-hidden="true" tabindex="-1"></a>            epoch <span class="op">+=</span><span class="dv">1</span></span>
-<span id="cb22-44"><a href="#cb22-44" aria-hidden="true" tabindex="-1"></a>            neworder <span class="op">=</span> np.random.permutation(m)</span>
-<span id="cb22-45"><a href="#cb22-45" aria-hidden="true" tabindex="-1"></a>            x <span class="op">=</span> x[neworder]</span>
-<span id="cb22-46"><a href="#cb22-46" aria-hidden="true" tabindex="-1"></a>            y <span class="op">=</span> y[neworder]</span>
-<span id="cb22-47"><a href="#cb22-47" aria-hidden="true" tabindex="-1"></a>            i <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb22-48"><a href="#cb22-48" aria-hidden="true" tabindex="-1"></a>        xs.append(x[i,:])</span>
-<span id="cb22-49"><a href="#cb22-49" aria-hidden="true" tabindex="-1"></a>        ys.append(y[i])</span>
-<span id="cb22-50"><a href="#cb22-50" aria-hidden="true" tabindex="-1"></a>        pred <span class="op">=</span> np.dot(x[i,:], theta)</span>
-<span id="cb22-51"><a href="#cb22-51" aria-hidden="true" tabindex="-1"></a>        error <span class="op">=</span> pred <span class="op">-</span> y[i]</span>
-<span id="cb22-52"><a href="#cb22-52" aria-hidden="true" tabindex="-1"></a>        currentcost <span class="op">=</span> np.<span class="bu">sum</span>(error <span class="op">**</span> <span class="dv">2</span>) <span class="op">/</span> <span class="dv">2</span></span>
-<span id="cb22-53"><a href="#cb22-53" aria-hidden="true" tabindex="-1"></a>        currentcosts.append(currentcost)</span>
-<span id="cb22-54"><a href="#cb22-54" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb22-55"><a href="#cb22-55" aria-hidden="true" tabindex="-1"></a>        <span class="co">#print("e/cc",error, currentcost)</span></span>
-<span id="cb22-56"><a href="#cb22-56" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> counter <span class="op">%</span> <span class="dv">25</span> <span class="op">==</span> <span class="dv">0</span>: preds.append(pred)</span>
-<span id="cb22-57"><a href="#cb22-57" aria-hidden="true" tabindex="-1"></a>        counter<span class="op">+=</span><span class="dv">1</span></span>
-<span id="cb22-58"><a href="#cb22-58" aria-hidden="true" tabindex="-1"></a>        costsum <span class="op">+=</span> currentcost</span>
-<span id="cb22-59"><a href="#cb22-59" aria-hidden="true" tabindex="-1"></a>        oldcost <span class="op">=</span> costs[counter<span class="op">-</span><span class="dv">2</span>]</span>
-<span id="cb22-60"><a href="#cb22-60" aria-hidden="true" tabindex="-1"></a>        costs.append(costsum<span class="op">/</span>counter)</span>
-<span id="cb22-61"><a href="#cb22-61" aria-hidden="true" tabindex="-1"></a>        <span class="co">#print(counter, costs, oldcost)</span></span>
-<span id="cb22-62"><a href="#cb22-62" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> maxsteps:</span>
-<span id="cb22-63"><a href="#cb22-63" aria-hidden="true" tabindex="-1"></a>            <span class="co">#print("in maxsteps")</span></span>
-<span id="cb22-64"><a href="#cb22-64" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> counter <span class="op">==</span> maxsteps:</span>
-<span id="cb22-65"><a href="#cb22-65" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span></span>
-<span id="cb22-66"><a href="#cb22-66" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb22-67"><a href="#cb22-67" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> history, costs, preds, grads, counter, epoch, xs, ys, currentcosts</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c6a99ae8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:46.126382Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:46.126285Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:46.130470Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:46.130004Z&quot;}}" data-execution_count="17" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sgd(x, y, theta_init, step<span class="op">=</span><span class="fl">0.001</span>, maxsteps<span class="op">=</span><span class="dv">0</span>, precision<span class="op">=</span><span class="fl">0.001</span>, ):</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    costs <span class="op">=</span> []</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    currentcosts <span class="op">=</span> []</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> y.size <span class="co"># number of data points</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    oldtheta <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    theta <span class="op">=</span> theta_init</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    history <span class="op">=</span> [] <span class="co"># to store all thetas</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    preds <span class="op">=</span> []</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    grads <span class="op">=</span> []</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    xs <span class="op">=</span> []</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    ys <span class="op">=</span> []</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    counter <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    oldcost <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    epoch <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    i <span class="op">=</span> <span class="dv">0</span> <span class="co">#index</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>    xs.append(x[i,:])</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>    ys.append([y[i]])</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>    pred <span class="op">=</span> np.dot(x[i,:], theta)</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>    error <span class="op">=</span> pred <span class="op">-</span> y[i]</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>    gradient <span class="op">=</span> x[i,:].T<span class="op">*</span>error</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>    grads.append(gradient)</span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>    currentcost <span class="op">=</span> np.<span class="bu">sum</span>(error <span class="op">**</span> <span class="dv">2</span>) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Init"</span>, gradient, x[i,:],y[i])</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span> (<span class="st">"Init2"</span>, currentcost, theta)</span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>    currentcosts.append(currentcost)</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>    counter<span class="op">+=</span><span class="dv">1</span></span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>    preds.append(pred)</span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>    costsum <span class="op">=</span> currentcost</span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>    costs.append(costsum<span class="op">/</span>counter)</span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>    history.append(theta)</span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"start"</span>,counter, costs, oldcost)</span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="dv">1</span>:</span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a>        <span class="co">#while abs(costs[counter-1] - oldcost) &gt; precision:</span></span>
+<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a>        <span class="co">#while np.linalg.norm(theta - oldtheta) &gt; precision:</span></span>
+<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a>        gradient <span class="op">=</span> x[i,:].T<span class="op">*</span>error</span>
+<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a>        grads.append(gradient)</span>
+<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a>        oldtheta <span class="op">=</span> theta</span>
+<span id="cb23-38"><a href="#cb23-38" aria-hidden="true" tabindex="-1"></a>        theta <span class="op">=</span> theta <span class="op">-</span> step <span class="op">*</span> gradient  <span class="co"># update</span></span>
+<span id="cb23-39"><a href="#cb23-39" aria-hidden="true" tabindex="-1"></a>        history.append(theta)</span>
+<span id="cb23-40"><a href="#cb23-40" aria-hidden="true" tabindex="-1"></a>        i <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb23-41"><a href="#cb23-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i <span class="op">==</span> m:<span class="co">#reached one past the end.</span></span>
+<span id="cb23-42"><a href="#cb23-42" aria-hidden="true" tabindex="-1"></a>            <span class="co">#break</span></span>
+<span id="cb23-43"><a href="#cb23-43" aria-hidden="true" tabindex="-1"></a>            epoch <span class="op">+=</span><span class="dv">1</span></span>
+<span id="cb23-44"><a href="#cb23-44" aria-hidden="true" tabindex="-1"></a>            neworder <span class="op">=</span> np.random.permutation(m)</span>
+<span id="cb23-45"><a href="#cb23-45" aria-hidden="true" tabindex="-1"></a>            x <span class="op">=</span> x[neworder]</span>
+<span id="cb23-46"><a href="#cb23-46" aria-hidden="true" tabindex="-1"></a>            y <span class="op">=</span> y[neworder]</span>
+<span id="cb23-47"><a href="#cb23-47" aria-hidden="true" tabindex="-1"></a>            i <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb23-48"><a href="#cb23-48" aria-hidden="true" tabindex="-1"></a>        xs.append(x[i,:])</span>
+<span id="cb23-49"><a href="#cb23-49" aria-hidden="true" tabindex="-1"></a>        ys.append(y[i])</span>
+<span id="cb23-50"><a href="#cb23-50" aria-hidden="true" tabindex="-1"></a>        pred <span class="op">=</span> np.dot(x[i,:], theta)</span>
+<span id="cb23-51"><a href="#cb23-51" aria-hidden="true" tabindex="-1"></a>        error <span class="op">=</span> pred <span class="op">-</span> y[i]</span>
+<span id="cb23-52"><a href="#cb23-52" aria-hidden="true" tabindex="-1"></a>        currentcost <span class="op">=</span> np.<span class="bu">sum</span>(error <span class="op">**</span> <span class="dv">2</span>) <span class="op">/</span> <span class="dv">2</span></span>
+<span id="cb23-53"><a href="#cb23-53" aria-hidden="true" tabindex="-1"></a>        currentcosts.append(currentcost)</span>
+<span id="cb23-54"><a href="#cb23-54" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb23-55"><a href="#cb23-55" aria-hidden="true" tabindex="-1"></a>        <span class="co">#print("e/cc",error, currentcost)</span></span>
+<span id="cb23-56"><a href="#cb23-56" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> counter <span class="op">%</span> <span class="dv">25</span> <span class="op">==</span> <span class="dv">0</span>: preds.append(pred)</span>
+<span id="cb23-57"><a href="#cb23-57" aria-hidden="true" tabindex="-1"></a>        counter<span class="op">+=</span><span class="dv">1</span></span>
+<span id="cb23-58"><a href="#cb23-58" aria-hidden="true" tabindex="-1"></a>        costsum <span class="op">+=</span> currentcost</span>
+<span id="cb23-59"><a href="#cb23-59" aria-hidden="true" tabindex="-1"></a>        oldcost <span class="op">=</span> costs[counter<span class="op">-</span><span class="dv">2</span>]</span>
+<span id="cb23-60"><a href="#cb23-60" aria-hidden="true" tabindex="-1"></a>        costs.append(costsum<span class="op">/</span>counter)</span>
+<span id="cb23-61"><a href="#cb23-61" aria-hidden="true" tabindex="-1"></a>        <span class="co">#print(counter, costs, oldcost)</span></span>
+<span id="cb23-62"><a href="#cb23-62" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> maxsteps:</span>
+<span id="cb23-63"><a href="#cb23-63" aria-hidden="true" tabindex="-1"></a>            <span class="co">#print("in maxsteps")</span></span>
+<span id="cb23-64"><a href="#cb23-64" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> counter <span class="op">==</span> maxsteps:</span>
+<span id="cb23-65"><a href="#cb23-65" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span></span>
+<span id="cb23-66"><a href="#cb23-66" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb23-67"><a href="#cb23-67" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> history, costs, preds, grads, counter, epoch, xs, ys, currentcosts</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-25" class="cell" data-execution_count="17" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>history2, cost2, preds2, grads2, iters2, epoch2, x2, y2, cc2 <span class="op">=</span> sgd(xaug, y, theta_i, maxsteps<span class="op">=</span><span class="dv">5000</span>, step<span class="op">=</span><span class="fl">0.01</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="5d0c6620" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:46.131507Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:46.131423Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:46.159063Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:46.158659Z&quot;}}" data-execution_count="18" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>history2, cost2, preds2, grads2, iters2, epoch2, x2, y2, cc2 <span class="op">=</span> sgd(xaug, y, theta_i, maxsteps<span class="op">=</span><span class="dv">5000</span>, step<span class="op">=</span><span class="fl">0.01</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Init [-24.81938748  -0.8005103 ] [ 1.          0.03225343] 11.5348518902
-Init2 308.000997364 [-14.58474841  40.31239274]
-start 1 [308.00099736389291] 0</code></pre>
+<pre><code>Init [-24.86442566  -0.80196294] [1.         0.03225343] 11.534851890155354
+Init2 309.11983167186713 [-14.64881609  40.90239211]
+start 1 [np.float64(309.11983167186713)] 0</code></pre>
 </div>
 </div>
-<div id="cell-26" class="cell" data-execution_count="18" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(iters2, history2[<span class="op">-</span><span class="dv">1</span>], epoch2, grads2[<span class="op">-</span><span class="dv">1</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="7dbddea9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:46.160122Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:46.160046Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:46.162104Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:46.161732Z&quot;}}" data-execution_count="19" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(iters2, history2[<span class="op">-</span><span class="dv">1</span>], epoch2, grads2[<span class="op">-</span><span class="dv">1</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>5000 [ -3.18011506  82.93875465] 49 [ 10.47922297  -5.63332413]</code></pre>
+<pre><code>5000 [-3.74444377 83.0989327 ] 49 [-20.2174648  -13.68835996]</code></pre>
 </div>
 </div>
-<div id="cell-27" class="cell" data-execution_count="19" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="bu">len</span>(cost2[<span class="op">-</span><span class="dv">10000</span>:])), cost2[<span class="op">-</span><span class="dv">10000</span>:], alpha<span class="op">=</span><span class="fl">0.4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="d572a5ff" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:46.163129Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:46.163063Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:46.197653Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:46.197193Z&quot;}}" data-execution_count="20" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="bu">len</span>(cost2[<span class="op">-</span><span class="dv">10000</span>:])), cost2[<span class="op">-</span><span class="dv">10000</span>:], alpha<span class="op">=</span><span class="fl">0.4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -783,18 +794,22 @@ start 1 [308.00099736389291] 0</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-28" class="cell" data-execution_count="20" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>gd_plot(xaug, y, theta, cost2, history2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="678378e5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:46.198768Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:46.198682Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:46.358596Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:46.358207Z&quot;}}" data-execution_count="21" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>gd_plot(xaug, y, theta, cost2, history2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48766/2428721890.py:17: UserWarning: The following kwargs were not used by contour: 'color'
+  ax.contour(M, B, Z, 20, color='b', alpha=0.5, offset=0, stride=30)</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-22-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-22-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-29" class="cell" data-scrolled="false" data-execution_count="21" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>plt.plot([t[<span class="dv">0</span>] <span class="cf">for</span> t <span class="kw">in</span> history2], [t[<span class="dv">1</span>] <span class="cf">for</span> t <span class="kw">in</span> history2],<span class="st">'o-'</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="18999931" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:46.360004Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:46.359911Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:46.409553Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:46.409082Z&quot;}}" data-scrolled="false" data-execution_count="22" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>plt.plot([t[<span class="dv">0</span>] <span class="cf">for</span> t <span class="kw">in</span> history2], [t[<span class="dv">1</span>] <span class="cf">for</span> t <span class="kw">in</span> history2],<span class="st">'o-'</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -806,52 +821,59 @@ start 1 [308.00099736389291] 0</code></pre>
 <section id="animating-sgd" class="level4">
 <h4 class="anchored" data-anchor-id="animating-sgd">Animating SGD</h4>
 <p>Here is some code to make an animation of SGD. It shows how the risk surfaces being minimized change, and how the minimum desired is approached.</p>
-<div id="cell-31" class="cell" data-execution_count="22" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> error2(X, Y, THETA):</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print("XYT", THETA, np.sum((X.dot(THETA) - Y)**2))</span></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>((X.dot(THETA) <span class="op">-</span> Y)<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>Y.size)</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_3d_plot2(num, it, xfinal, yfinal, zfinal, hist, cost, xaug, y):</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>    ms <span class="op">=</span> np.linspace(xfinal <span class="op">-</span> <span class="dv">20</span> , xfinal <span class="op">+</span> <span class="dv">20</span>, <span class="dv">20</span>)</span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    bs <span class="op">=</span> np.linspace(yfinal <span class="op">-</span> <span class="dv">50</span> , yfinal <span class="op">+</span> <span class="dv">50</span>, <span class="dv">40</span>)</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>    M, B <span class="op">=</span> np.meshgrid(ms, bs)</span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>    zs <span class="op">=</span> np.array([error2(xaug, y, theta) </span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>                   <span class="cf">for</span> theta <span class="kw">in</span> <span class="bu">zip</span>(np.ravel(M), np.ravel(B))])</span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    Z <span class="op">=</span> zs.reshape(M.shape)</span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> fig.add_subplot(<span class="dv">111</span>, projection<span class="op">=</span><span class="st">'3d'</span>)</span>
-<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>    ax.plot_surface(M, B, Z, rstride<span class="op">=</span><span class="dv">1</span>, cstride<span class="op">=</span><span class="dv">1</span>, color<span class="op">=</span><span class="st">'b'</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>    ax.contour(M, B, Z, <span class="dv">20</span>, color<span class="op">=</span><span class="st">'b'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, offset<span class="op">=</span><span class="dv">0</span>, stride<span class="op">=</span><span class="dv">30</span>)</span>
-<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">'Intercept'</span>)</span>
-<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="st">'Slope'</span>)</span>
-<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a>    ax.set_zlabel(<span class="st">'Cost'</span>)</span>
-<span id="cb30-21"><a href="#cb30-21" aria-hidden="true" tabindex="-1"></a>    ax.view_init(elev<span class="op">=</span><span class="fl">30.</span>, azim<span class="op">=</span><span class="dv">30</span>)</span>
-<span id="cb30-22"><a href="#cb30-22" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print("hist", xaug, y, hist, cost)</span></span>
-<span id="cb30-23"><a href="#cb30-23" aria-hidden="true" tabindex="-1"></a>    ax.plot([xfinal], [yfinal], [zfinal] , markerfacecolor<span class="op">=</span><span class="st">'r'</span>, markeredgecolor<span class="op">=</span><span class="st">'r'</span>, marker<span class="op">=</span><span class="st">'o'</span>, markersize<span class="op">=</span><span class="dv">7</span>)<span class="op">;</span></span>
-<span id="cb30-24"><a href="#cb30-24" aria-hidden="true" tabindex="-1"></a>    <span class="co">#ax.plot([t[0] for t in hist], [t[1] for t in hist], cost , markerfacecolor='b', markeredgecolor='b', marker='.', markersize=5);</span></span>
-<span id="cb30-25"><a href="#cb30-25" aria-hidden="true" tabindex="-1"></a>    ax.plot([t[<span class="dv">0</span>] <span class="cf">for</span> t <span class="kw">in</span> hist], [t[<span class="dv">1</span>] <span class="cf">for</span> t <span class="kw">in</span> hist], <span class="dv">0</span> , alpha<span class="op">=</span><span class="fl">0.5</span>, markerfacecolor<span class="op">=</span><span class="st">'r'</span>, markeredgecolor<span class="op">=</span><span class="st">'r'</span>, marker<span class="op">=</span><span class="st">'.'</span>, markersize<span class="op">=</span><span class="dv">5</span>)</span>
-<span id="cb30-26"><a href="#cb30-26" aria-hidden="true" tabindex="-1"></a>    ax.set_zlim([<span class="dv">0</span>, <span class="dv">3000</span>])</span>
-<span id="cb30-27"><a href="#cb30-27" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">"Iteration </span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(it))</span>
-<span id="cb30-28"><a href="#cb30-28" aria-hidden="true" tabindex="-1"></a>    plt.savefig(<span class="st">"images/3danim</span><span class="sc">{0:03d}</span><span class="st">.png"</span>.<span class="bu">format</span>(num))</span>
-<span id="cb30-29"><a href="#cb30-29" aria-hidden="true" tabindex="-1"></a>    plt.close()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="1c8d17b9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:46.410671Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:46.410591Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:46.415463Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:46.415055Z&quot;}}" data-execution_count="23" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>os.makedirs(<span class="st">"images"</span>, exist_ok<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> error2(X, Y, THETA):</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print("XYT", THETA, np.sum((X.dot(THETA) - Y)**2))</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>((X.dot(THETA) <span class="op">-</span> Y)<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>Y.size)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_3d_plot2(num, it, xfinal, yfinal, zfinal, hist, cost, xaug, y):</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>    ms <span class="op">=</span> np.linspace(xfinal <span class="op">-</span> <span class="dv">20</span> , xfinal <span class="op">+</span> <span class="dv">20</span>, <span class="dv">20</span>)</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    bs <span class="op">=</span> np.linspace(yfinal <span class="op">-</span> <span class="dv">50</span> , yfinal <span class="op">+</span> <span class="dv">50</span>, <span class="dv">40</span>)</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>    M, B <span class="op">=</span> np.meshgrid(ms, bs)</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>    zs <span class="op">=</span> np.array([error2(xaug, y, theta) </span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>                   <span class="cf">for</span> theta <span class="kw">in</span> <span class="bu">zip</span>(np.ravel(M), np.ravel(B))])</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>    Z <span class="op">=</span> zs.reshape(M.shape)</span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>    fig <span class="op">=</span> plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> fig.add_subplot(<span class="dv">111</span>, projection<span class="op">=</span><span class="st">'3d'</span>)</span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>    ax.plot_surface(M, B, Z, rstride<span class="op">=</span><span class="dv">1</span>, cstride<span class="op">=</span><span class="dv">1</span>, color<span class="op">=</span><span class="st">'b'</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>    ax.contour(M, B, Z, <span class="dv">20</span>, color<span class="op">=</span><span class="st">'b'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, offset<span class="op">=</span><span class="dv">0</span>, stride<span class="op">=</span><span class="dv">30</span>)</span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">'Intercept'</span>)</span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="st">'Slope'</span>)</span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a>    ax.set_zlabel(<span class="st">'Cost'</span>)</span>
+<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a>    ax.view_init(elev<span class="op">=</span><span class="fl">30.</span>, azim<span class="op">=</span><span class="dv">30</span>)</span>
+<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print("hist", xaug, y, hist, cost)</span></span>
+<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a>    ax.plot([xfinal], [yfinal], [zfinal] , markerfacecolor<span class="op">=</span><span class="st">'r'</span>, markeredgecolor<span class="op">=</span><span class="st">'r'</span>, marker<span class="op">=</span><span class="st">'o'</span>, markersize<span class="op">=</span><span class="dv">7</span>)<span class="op">;</span></span>
+<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a>    <span class="co">#ax.plot([t[0] for t in hist], [t[1] for t in hist], cost , markerfacecolor='b', markeredgecolor='b', marker='.', markersize=5);</span></span>
+<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a>    ax.plot([t[<span class="dv">0</span>] <span class="cf">for</span> t <span class="kw">in</span> hist], [t[<span class="dv">1</span>] <span class="cf">for</span> t <span class="kw">in</span> hist], <span class="dv">0</span> , alpha<span class="op">=</span><span class="fl">0.5</span>, markerfacecolor<span class="op">=</span><span class="st">'r'</span>, markeredgecolor<span class="op">=</span><span class="st">'r'</span>, marker<span class="op">=</span><span class="st">'.'</span>, markersize<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a>    ax.set_zlim([<span class="dv">0</span>, <span class="dv">3000</span>])</span>
+<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">"Iteration </span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(it))</span>
+<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a>    plt.savefig(<span class="st">"images/3danim</span><span class="sc">{0:03d}</span><span class="st">.png"</span>.<span class="bu">format</span>(num))</span>
+<span id="cb32-32"><a href="#cb32-32" aria-hidden="true" tabindex="-1"></a>    plt.close()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-32" class="cell" data-execution_count="23" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"fthetas"</span>,theta[<span class="dv">0</span>], theta[<span class="dv">1</span>], <span class="st">"len"</span>, <span class="bu">len</span>(history2))</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>ST <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">750</span>, <span class="dv">10</span>)) <span class="op">+</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">750</span>, <span class="dv">5000</span>, <span class="dv">250</span>))</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(ST)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="4d83dd24" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:46.416482Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:46.416410Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:46.418741Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:46.418347Z&quot;}}" data-execution_count="24" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"fthetas"</span>,theta[<span class="dv">0</span>], theta[<span class="dv">1</span>], <span class="st">"len"</span>, <span class="bu">len</span>(history2))</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>ST <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">750</span>, <span class="dv">10</span>)) <span class="op">+</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">750</span>, <span class="dv">5000</span>, <span class="dv">250</span>))</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(ST)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>fthetas -3.92778923799 81.6715522496 len 5000</code></pre>
+<pre><code>fthetas -3.9302918178734 81.67257700026927 len 5000</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="23">
+<div class="cell-output cell-output-display" data-execution_count="24">
 <pre><code>92</code></pre>
 </div>
 </div>
-<div id="cell-33" class="cell" data-scrolled="false" data-execution_count="24" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(ST)):</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(history2[i*ST[i]], cc2[i*ST[i]])</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    make_3d_plot2(i, ST[i], theta[<span class="dv">0</span>], theta[<span class="dv">1</span>], cost2[<span class="op">-</span><span class="dv">1</span>], [history2[ST[i]]], [cc2[ST[i]]], np.array([x2[ST[i]]]), np.array([y2[ST[i]]]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="8013da97" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:46.419825Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:46.419740Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:55.651931Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:55.651437Z&quot;}}" data-scrolled="false" data-execution_count="25" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(ST)):</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(history2[i*ST[i]], cc2[i*ST[i]])</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    make_3d_plot2(i, ST[i], theta[<span class="dv">0</span>], theta[<span class="dv">1</span>], cost2[<span class="op">-</span><span class="dv">1</span>], [history2[ST[i]]], [cc2[ST[i]]], np.array([x2[ST[i]]]), np.array([y2[ST[i]]]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48766/2077105612.py:20: UserWarning: The following kwargs were not used by contour: 'color'
+  ax.contour(M, B, Z, 20, color='b', alpha=0.5, offset=0, stride=30)</code></pre>
+</div>
 </div>
 <p>Using Imagemagick we can produce a gif animation: (<code>convert -delay 20 -loop 1 3danim*.png animsgd.gif</code>)</p>
 <p>(I set this animation to repeat just once. (<code>loop 1</code>). Reload this cell to see it again. On the web page right clicking the image might allow for an option to loop again)</p>
@@ -863,11 +885,11 @@ start 1 [308.00099736389291] 0</code></pre>
 <p>What if instead of single example from the dataset, we use a batch of data examples witha given size every time we calculate the gradient:</p>
 <p><span class="math display">\[\theta = \theta - \eta \nabla_{\theta} J(\theta; x^{(i:i+n)}; y^{(i:i+n)})\]</span></p>
 <p>This is what mini-batch gradient descent is about. Using mini-batches has the advantage that the variance in the loss function is reduced, while the computational burden is still reasonable, since we do not use the full dataset. The size of the mini-batches becomes another hyper-parameter of the problem. In standard implementations it ranges from 50 to 256. In code, mini-batch gradient descent looks like this:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(mb_epochs):</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  np.random.shuffle(data)</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> batch <span class="kw">in</span> get_batches(data, batch_size<span class="op">=</span><span class="dv">50</span>):</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>    params_grad <span class="op">=</span> evaluate_gradient(loss_function, batch, params)</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> params <span class="op">-</span> learning_rate <span class="op">*</span> params_grad</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(mb_epochs):</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  np.random.shuffle(data)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> batch <span class="kw">in</span> get_batches(data, batch_size<span class="op">=</span><span class="dv">50</span>):</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    params_grad <span class="op">=</span> evaluate_gradient(loss_function, batch, params)</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    params <span class="op">=</span> params <span class="op">-</span> learning_rate <span class="op">*</span> params_grad</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The difference with SGD is that for each update we use a batch of 50 examples to estimate the gradient.</p>
 </section>
 <section id="variations-on-a-theme" class="level2">

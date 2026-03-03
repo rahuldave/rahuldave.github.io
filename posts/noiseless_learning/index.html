@@ -154,14 +154,14 @@ window.Quarto = {
 <meta property="og:description" content="Introduces the learning problem through a noiseless example: fitting polynomial models to data, measuring in-sample vs out-of-sample error, and understanding how hypothesis space complexity drives bias. Builds intuition for empirical risk minimization before adding stochastic noise.">
 <meta property="og:image" content="https://rahuldave.github.io/posts/noiseless_learning/index_files/figure-html/cell-6-output-1.png">
 <meta property="og:site_name" content="rahuldave">
-<meta property="og:image:height" content="539">
-<meta property="og:image:width" content="773">
+<meta property="og:image:height" content="440">
+<meta property="og:image:width" content="591">
 <meta name="twitter:title" content="Learning Without Noise – rahuldave">
 <meta name="twitter:description" content="Introduces the learning problem through a noiseless example: fitting polynomial models to data, measuring in-sample vs out-of-sample error, and understanding how hypothesis space complexity drives bias. Builds intuition for empirical risk minimization before adding stochastic noise.">
 <meta name="twitter:image" content="https://rahuldave.github.io/posts/noiseless_learning/index_files/figure-html/cell-6-output-1.png">
 <meta name="twitter:creator" content="@rahuldave">
-<meta name="twitter:image-height" content="539">
-<meta name="twitter:image-width" content="773">
+<meta name="twitter:image-height" content="440">
+<meta name="twitter:image-width" content="591">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -463,7 +463,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-2" class="cell" data-hide="true" data-execution_count="2" data-cell-type="code">
+<div id="64d58d5d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:53.695390Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:53.695273Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:54.679059Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:54.678537Z&quot;}}" data-hide="true" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
@@ -477,34 +477,30 @@ window.Quarto = {
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">"whitegrid"</span>)</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>sns.set_context(<span class="st">"poster"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
 </div>
-</div>
-<div id="cell-3" class="cell" data-hide="true" data-execution_count="3" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_simple_plot():</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    fig, axes<span class="op">=</span>plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">5</span>), nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">2</span>)<span class="op">;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylabel(<span class="st">"$y$"</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_yticklabels([])</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylim([<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>])</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_ylim([<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>])</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()<span class="op">;</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> axes</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_plot():</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    fig, axes<span class="op">=</span>plt.subplots(figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">8</span>), nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">2</span>)<span class="op">;</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylabel(<span class="st">"$p_R$"</span>)</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_yticklabels([])</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_xlim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_xlim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()<span class="op">;</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> axes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="3a57fcff" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:54.680350Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:54.680204Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:54.683145Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:54.682693Z&quot;}}" data-hide="true" data-execution_count="3" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_simple_plot():</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    fig, axes<span class="op">=</span>plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">5</span>), nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylabel(<span class="st">"$y$"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_yticklabels([])</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylim([<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>])</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_ylim([<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>])</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()<span class="op">;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> axes</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_plot():</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    fig, axes<span class="op">=</span>plt.subplots(figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">8</span>), nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylabel(<span class="st">"$p_R$"</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_yticklabels([])</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_xlim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_xlim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()<span class="op">;</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> axes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="the-process-of-learning" class="level2">
 <h2 class="anchored" data-anchor-id="the-process-of-learning">The process of learning</h2>
@@ -528,11 +524,12 @@ window.Quarto = {
 <p>To gently step feet in the modelling world, lets see consider very simple model, where the probability of voting for Romney is a function only of how religious the population in a county is. This is a model I’ve cooked up, and the data is fake.</p>
 <p>Let <span class="math inline">\(x\)</span> be the fraction of religious people in a county and <span class="math inline">\(y\)</span> be the probability of voting for Romney as a function of <span class="math inline">\(x\)</span>. In other words <span class="math inline">\(y_i\)</span> is data that pollsters have taken which tells us their estimate of people voting for Romney and <span class="math inline">\(x_i\)</span> is the fraction of religious people in county <span class="math inline">\(i\)</span>. Because poll samples are finite, there is a margin of error on each data point or county <span class="math inline">\(i\)</span>, but we will ignore that for now.</p>
 <p>Let us assume that we have a “population” of 200 counties <span class="math inline">\(x\)</span>:</p>
-<div id="cell-10" class="cell" data-execution_count="4" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df<span class="op">=</span>pd.read_csv(<span class="st">"data/religion.csv"</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="73e0dfe9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:54.684061Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:54.683990Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:54.691922Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:54.691498Z&quot;}}" data-execution_count="4" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df<span class="op">=</span>pd.read_csv(<span class="st">"data/religion.csv"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <div>
+
 
 <table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
@@ -575,10 +572,10 @@ window.Quarto = {
 </div>
 </div>
 <p>Lets suppose now that the Lord came by and told us that the points in the plot below captures <span class="math inline">\(f(x)\)</span> exactly. In other words, there is no specification error, and God knows the generating process exactly.</p>
-<div id="cell-12" class="cell" data-execution_count="5" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>df.rfrac.values</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>f<span class="op">=</span>df.promney.values</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x,f,<span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="b9272c73" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:54.692888Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:54.692814Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:54.736931Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:54.736423Z&quot;}}" data-execution_count="5" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>df.rfrac.values</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>f<span class="op">=</span>df.promney.values</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x,f,<span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -589,12 +586,13 @@ window.Quarto = {
 </div>
 <p>Notice that our sampling of <span class="math inline">\(x\)</span> is not quite uniform: there are more points around <span class="math inline">\(x\)</span> of 0.7.</p>
 <p>Now, in real life we are only given a sample of points. Lets assume that out of this population of 200 points we are given a sample <span class="math inline">\(\cal{D}\)</span> of 30 data points. Such data is called <strong>in-sample data</strong>. Contrastingly, the entire population of data points is also called <strong>out-of-sample data</strong>.</p>
-<div id="cell-14" class="cell" data-execution_count="6" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#indexes=np.sort(np.random.choice(x.shape[0], size=30, replace=False))</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>dfsample <span class="op">=</span> pd.read_csv(<span class="st">"data/noisysample.csv"</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>dfsample.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="0dfb5312" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:54.737971Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:54.737892Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:54.742256Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:54.741844Z&quot;}}" data-execution_count="6" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#indexes=np.sort(np.random.choice(x.shape[0], size=30, replace=False))</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>dfsample <span class="op">=</span> pd.read_csv(<span class="st">"data/noisysample.csv"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>dfsample.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
+
 
 <table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
@@ -648,24 +646,30 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-15" class="cell" data-execution_count="8" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>indexes <span class="op">=</span> dfsample.i.values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="7c460392" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:54.743186Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:54.743116Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:54.744809Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:54.744386Z&quot;}}" data-execution_count="7" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>indexes <span class="op">=</span> dfsample.i.values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-16" class="cell" data-execution_count="9" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>samplex <span class="op">=</span> x[indexes]</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>samplef <span class="op">=</span> f[indexes]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="b48670af" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:54.745729Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:54.745656Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:54.747244Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:54.746820Z&quot;}}" data-execution_count="8" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>samplex <span class="op">=</span> x[indexes]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>samplef <span class="op">=</span> f[indexes]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-17" class="cell" data-figure_type="w" data-execution_count="11" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>axes<span class="op">=</span>make_plot()</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,f, <span class="st">'k-'</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">"f (from the Lord)"</span>)<span class="op">;</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x,f, <span class="st">'r.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, label<span class="op">=</span><span class="st">"population"</span>)<span class="op">;</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(samplex,samplef, <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"in-sample data $</span><span class="er">\</span><span class="st">cal</span><span class="sc">{D}</span><span class="st">$"</span>)<span class="op">;</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="7eba19c0" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:54.748193Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:54.748107Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:54.888765Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:54.888258Z&quot;}}" data-figure_type="w" data-execution_count="9" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>axes<span class="op">=</span>make_plot()</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,f, <span class="st">'k-'</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">"f (from the Lord)"</span>)<span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x,f, <span class="st">'r.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, label<span class="op">=</span><span class="st">"population"</span>)<span class="op">;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(samplex,samplef, <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"in-sample data $</span><span class="er">\</span><span class="st">cal</span><span class="sc">{D}</span><span class="st">$"</span>)<span class="op">;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>&lt;&gt;:4: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+&lt;&gt;:4: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_49105/191699542.py:4: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+  axes[1].plot(samplex,samplef, 's', alpha=0.6, label="in-sample data $\cal{D}$");</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-10-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -696,7 +700,7 @@ h(x) &amp;=&amp; a_0 + a_1 x^1 + a_2 x^2 + ... + a_n x^n \\
 <p><span class="math display">\[ h_1(x) = a_0 + a_1 x \]</span></p>
 <p>We’ll call the <strong>best fit</strong> straight line the function <span class="math inline">\(g_1(x)\)</span>. The “best fit” idea is this: amongst the set of all lines (i.e., all possible choices of <span class="math inline">\(h_1(x)\)</span>), what is the best line <span class="math inline">\(g_1(x)\)</span> that represents the in-sample data we have? (The subscript <span class="math inline">\(1\)</span> on <span class="math inline">\(g\)</span> is chosen to indicate the best fit polynomial of degree 1, ie the line amongst lines that fits the data best).</p>
 <p>The best fit <span class="math inline">\(g_1(x)\)</span> is calculated and shown in the figure below:</p>
-<div id="cell-22" class="cell" data-figure_type="m" data-execution_count="12" data-cell-type="code">
+<div id="fe0b9f77" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:54.889838Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:54.889759Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:54.931968Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:54.931597Z&quot;}}" data-figure_type="m" data-execution_count="10" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>g1 <span class="op">=</span> np.poly1d(np.polyfit(x[indexes],f[indexes],<span class="dv">1</span>))</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x[indexes],f[indexes], <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"in-sample"</span>)<span class="op">;</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x,g1(x), <span class="st">'b--'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"$g_1$"</span>)<span class="op">;</span></span>
@@ -728,14 +732,14 @@ h(x) &amp;=&amp; a_0 + a_1 x^1 + a_2 x^2 + ... + a_n x^n \\
 <p>Going back to our model at hand, it is clear that the space of straight lines <span class="math inline">\(\cal{H_1}\)</span> does not capture the curving in the data. So let us consider the more complex hypothesis space <span class="math inline">\(\cal{H_{20}}\)</span>, the set of all 20th order polynomials <span class="math inline">\(h_{20}(x)\)</span>:</p>
 <p><span class="math display">\[h_{20}(x) = \sum_{i=0}^{20} a_i x^i\,.\]</span></p>
 <p>To see how a more complex hypothesis space does, lets find the best fit 20th order polynomial <span class="math inline">\(g_{20}(x)\)</span>.</p>
-<div id="cell-28" class="cell" data-execution_count="13" data-cell-type="code">
+<div id="349cd2ab" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:54.933204Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:54.933122Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:54.935231Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:54.934906Z&quot;}}" data-execution_count="11" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>g20 <span class="op">=</span> np.poly1d(np.polyfit(x[indexes],f[indexes],<span class="dv">20</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)</code></pre>
+<pre><code>/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_49105/2684785276.py:1: RankWarning: Polyfit may be poorly conditioned
+  g20 = np.poly1d(np.polyfit(x[indexes],f[indexes],20))</code></pre>
 </div>
 </div>
-<div id="cell-29" class="cell" data-figure_type="m" data-execution_count="14" data-cell-type="code">
+<div id="6352af48" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:54.936384Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:54.936284Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:54.975828Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:54.975445Z&quot;}}" data-figure_type="m" data-execution_count="12" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x[indexes],f[indexes], <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"in-sample"</span>)<span class="op">;</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x,g20(x), <span class="st">'b--'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"$g_</span><span class="sc">{10}</span><span class="st">$"</span>)<span class="op">;</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -751,7 +755,7 @@ h(x) &amp;=&amp; a_0 + a_1 x^1 + a_2 x^2 + ... + a_n x^n \\
 <p>We can quantify this by calculating some notion of the bias for both <span class="math inline">\(g_1\)</span> and <span class="math inline">\(g_{20}\)</span>. To do this we calculate the square of the difference between f and the g’s on the population of 200 points i.e.:</p>
 <p><span class="math display">\[B_1(x) = (g_1(x) - f(x))^2 \,;\,\, B_{20}(x) = (g_{20}(x) - f(x))^2\,.\]</span></p>
 <p>Squaring makes sure that we are calculating a positive quantity.</p>
-<div id="cell-31" class="cell" data-figure_type="m" data-execution_count="15" data-cell-type="code">
+<div id="b8a209f9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:54.977011Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:54.976934Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:55.052774Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:55.052388Z&quot;}}" data-figure_type="m" data-execution_count="13" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x, (g1(x)<span class="op">-</span>f)<span class="op">**</span><span class="dv">2</span>, lw<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="st">"$B_1(x)$"</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x, (g20(x)<span class="op">-</span>f)<span class="op">**</span><span class="dv">2</span>, lw<span class="op">=</span><span class="dv">3</span>,label<span class="op">=</span><span class="st">"$B_</span><span class="sc">{20}</span><span class="st">(x)$"</span>)<span class="op">;</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"$x$"</span>)</span>
@@ -821,19 +825,15 @@ h(x) &amp;=&amp; a_0 + a_1 x^1 + a_2 x^2 + ... + a_n x^n \\
 <p>We are, as is usual in statistics, <strong>drawing conclusions about a population from a sample</strong>.</p>
 <p>Intuitively, to do this, we need to ask ourselves, how representative is our sample? Or more precisely, how representative is our sample of our training points of the population (or for that matter the new x that we want to predict for)?</p>
 <p>We illustrate this below for our population of 200 data points and our sample of 30 data points (in red).</p>
-<div id="cell-40" class="cell" data-figure_type="m" data-execution_count="16" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>plt.hist(x, normed<span class="op">=</span><span class="va">True</span>, bins<span class="op">=</span><span class="dv">30</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<div id="af25e4b1" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:55.054102Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:55.054006Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:55.110033Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:55.109557Z&quot;}}" data-figure_type="m" data-execution_count="14" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>plt.hist(x, density<span class="op">=</span><span class="va">True</span>, bins<span class="op">=</span><span class="dv">30</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>sns.kdeplot(x)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x[indexes], [<span class="fl">1.0</span>]<span class="op">*</span><span class="bu">len</span>(indexes),<span class="st">'o'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>plt.xlim([<span class="dv">0</span>,<span class="dv">1</span>])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/statsmodels/nonparametric/kdetools.py:20: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
-  y = X[:m/2+1] + np.r_[0,X[m/2+1:],0]*1j</code></pre>
-</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-15-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -865,11 +865,11 @@ B &amp;:&amp; R_{out} (g) \approx R_{\cal{D}}(g)
 \]</span></p>
 <p>In other words, we hope the <strong>empirical risk estimates the out of sample risk well, and thus the out of sample risk is also small</strong>.</p>
 <p>Indeed, as we can see below, <span class="math inline">\(g_{20}\)</span> does an excellent job on the population, not just on the sample.</p>
-<div id="cell-46" class="cell" data-figure_type="m" data-execution_count="13" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.plot(x[indexes],f[indexes], 's', alpha=0.6, label="in-sample");</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x,g20(x), <span class="st">'b--'</span>, alpha<span class="op">=</span><span class="fl">0.9</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"$g_</span><span class="sc">{20}</span><span class="st">$"</span>)<span class="op">;</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x,f, <span class="st">'o'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, label<span class="op">=</span><span class="st">"population"</span>)<span class="op">;</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="90ff4fd5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:55.111098Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:55.111023Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:55.149981Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:55.149590Z&quot;}}" data-figure_type="m" data-execution_count="15" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.plot(x[indexes],f[indexes], 's', alpha=0.6, label="in-sample");</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x,g20(x), <span class="st">'b--'</span>, alpha<span class="op">=</span><span class="fl">0.9</span>, lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">"$g_</span><span class="sc">{20}</span><span class="st">$"</span>)<span class="op">;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x,f, <span class="st">'o'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, label<span class="op">=</span><span class="st">"population"</span>)<span class="op">;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">

@@ -30,11 +30,6 @@ pd.set_option('display.notebook_repr_html', False)
 import seaborn as sns
 sns.set_style("white")
 ```
-Output:
-```
-//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))
-```
 
 <!-- cell:3 type:markdown -->
 ## What is probability?
@@ -98,9 +93,9 @@ print("p1 = Number of Heads/Total Throws:", np.sum(throws=='H')/40.)
 ```
 Output:
 ```
-Throws: T H T H T H H H H H T H H H T H T H T H T H H H T H H H H T T T T H T T H T T T
-Number of Heads: 22
-p1 = Number of Heads/Total Throws: 0.55
+Throws: T T T H T H T H T H H H H T T H H T H H H H T T H H H T H T T H H H H H H T H T
+Number of Heads: 24
+p1 = Number of Heads/Total Throws: 0.6
 ```
 
 <!-- cell:7 type:markdown -->
@@ -122,9 +117,9 @@ make_throws(40)
 ```
 Output:
 ```
-Throws: H T H T H H H H T H H H T T T H T H H H H T H H T T H H T H T H T H H H T T H H
-Number of Heads: 25
-p1 = Number of Heads/Total Throws: 0.625
+Throws: T H H T H T H T H T T H H T T H H H H T T H T H T H H H H T H H H T T H H H T H
+Number of Heads: 24
+p1 = Number of Heads/Total Throws: 0.6
 ```
 
 <!-- cell:9 type:markdown -->
@@ -136,9 +131,9 @@ make_throws(1000)
 ```
 Output:
 ```
-First 100 Throws: H H H T H H T T T H T H H H H T T T H H H H H H T H T T T H T H T T T H H T H T H H H H T H T H T T H H T T T T T T H T H H T H T H T H T H T T H T H H H T H T T T H H T H T H T H T H H H H T T T T H
-Number of Heads: 521
-p1 = Number of Heads/Total Throws: 0.521
+First 100 Throws: H T T H T H T H T H H T T T H H T T H H T H H T H T H T H T T T T H H H H T H T H T H H H T H T T H T H T H T T H H T H T H T T H H T H H T H H H T H H T T T H T T T T T H H T T H T H H H T H H T T T
+Number of Heads: 520
+p1 = Number of Heads/Total Throws: 0.52
 ```
 
 <!-- cell:11 type:markdown -->
@@ -150,9 +145,9 @@ make_throws(10000)
 ```
 Output:
 ```
-First 100 Throws: H T T T H T T T H T T T T H T T H T H H H H T H T H T T H T H T H H H H T T H H H H T H H H H T H T T T H T H H T T T H T H T H T T T H T T T T H T H H H H H T T H H H T T H H H H H H T H T H T T T H
-Number of Heads: 5047
-p1 = Number of Heads/Total Throws: 0.5047
+First 100 Throws: T H H H T H T T H H H H T H T T T H T H H T H T T T H H T T H H T H T H T H H H H T T H H H T T T T H H H H T T T H H H T T T H T T T T T H T T H H T T H T T T H T T T T T T T H T H T H H H T T T T T
+Number of Heads: 4929
+p1 = Number of Heads/Total Throws: 0.4929
 ```
 
 <!-- cell:13 type:markdown -->
@@ -161,11 +156,16 @@ As you can see, the larger number of trials we do, the closer we seem to get to 
 <!-- cell:14 type:code -->
 ```python
 trials=np.arange(0, 40000, 1000)
-plt.plot(trials, [np.sum(throw_a_coin(j)=='H')/np.float(j) for j in trials], 'o-', alpha=0.2);
+plt.plot(trials, [np.sum(throw_a_coin(j)=='H')/float(j) for j in trials], 'o-', alpha=0.2);
 plt.axhline(0.5, 0, 1, color='r');
 plt.xlabel('number of trials');
 plt.ylabel('probability of heads from simulation');
 plt.title('frequentist probability of heads');
+```
+Output:
+```
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_49128/3293221259.py:2: RuntimeWarning: invalid value encountered in divide
+  plt.plot(trials, [np.sum(throw_a_coin(j)=='H')/float(j) for j in trials], 'o-', alpha=0.2);
 ```
 [Figure]
 

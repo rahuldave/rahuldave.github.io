@@ -30,7 +30,7 @@ import pandas as pd
 pd.set_option('display.width', 500)
 pd.set_option('display.max_columns', 100)
 pd.set_option('display.notebook_repr_html', True)
-import seaborn.apionly as sns
+import seaborn as sns
 sns.set_style("whitegrid")
 ```
 
@@ -82,6 +82,20 @@ out = metropolis(target, prop, 100000, 1.0)
 sns.distplot(out)
 plt.plot(xx, target(xx));
 ```
+Output:
+```
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_49036/2367533370.py:1: UserWarning: 
+
+`distplot` is a deprecated function and will be removed in seaborn v0.14.0.
+
+Please adapt your code to use either `displot` (a figure-level function with
+similar flexibility) or `histplot` (an axes-level function for histograms).
+
+For a guide to updating your code to use the new functions, please see
+https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
+
+  sns.distplot(out)
+```
 [Figure]
 
 <!-- cell:10 type:markdown -->
@@ -127,7 +141,7 @@ a1/100000, rn/(100000 - a1)
 ```
 Output:
 ```
-(0.7298, 0.3654700222057735)
+(0.72869, 0.37536397478898675)
 ```
 
 <!-- cell:15 type:markdown -->
@@ -168,6 +182,20 @@ def metropolis_broken(p, qdraw, nsamp, xinit):
 out3 = metropolis_broken(target, prop, 100000, 1.0)
 sns.distplot(out3)
 plt.plot(xx, target(xx));
+```
+Output:
+```
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_49036/120779674.py:2: UserWarning: 
+
+`distplot` is a deprecated function and will be removed in seaborn v0.14.0.
+
+Please adapt your code to use either `displot` (a figure-level function with
+similar flexibility) or `histplot` (an axes-level function for histograms).
+
+For a guide to updating your code to use the new functions, please see
+https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
+
+  sns.distplot(out3)
 ```
 [Figure]
 
@@ -228,5 +256,19 @@ Now we get the correct output!
 ```python
 sns.distplot(out4)
 plt.plot(xx, target(xx));
+```
+Output:
+```
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_49036/3721494611.py:1: UserWarning: 
+
+`distplot` is a deprecated function and will be removed in seaborn v0.14.0.
+
+Please adapt your code to use either `displot` (a figure-level function with
+similar flexibility) or `histplot` (an axes-level function for histograms).
+
+For a guide to updating your code to use the new functions, please see
+https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
+
+  sns.distplot(out4)
 ```
 [Figure]

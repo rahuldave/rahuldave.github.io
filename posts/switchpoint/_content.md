@@ -8,7 +8,7 @@
 #   "matplotlib",
 #   "numpy",
 #   "pandas",
-#   "pymc3",
+#   "pymc",
 #   "scipy",
 #   "seaborn",
 # ]
@@ -82,8 +82,9 @@ The rate parameter varies before and after the switchpoint, which itseld has a d
 
 <!-- cell:8 type:code -->
 ```python
-import pymc3 as pm
-from pymc3.math import switch
+import pymc as pm
+import arviz as az
+from pymc.math import switch
 with pm.Model() as coaldis1:
     early_mean = pm.Exponential('early_mean', 1)
     late_mean = pm.Exponential('late_mean', 1)
@@ -95,7 +96,14 @@ with pm.Model() as coaldis1:
 
 <!-- cell:9 type:code -->
 ```python
-pm.model_to_graphviz(coaldis1)
+try:
+    pm.model_to_graphviz(coaldis1)
+except ImportError:
+    print("graphviz not available, skipping model visualization")
+```
+Output:
+```
+graphviz not available, skipping model visualization
 ```
 
 <!-- cell:10 type:markdown -->
@@ -103,20 +111,23 @@ Let us interrogate our model about the various parts of it. Notice that our stoc
 
 <!-- cell:11 type:code -->
 ```python
-coaldis1.vars #stochastics
+coaldis1.free_RVs #stochastics
 ```
 Output:
 ```
-[early_mean_log__, late_mean_log__, switchpoint]
+[early_mean, late_mean, switchpoint]
 ```
 
 <!-- cell:12 type:code -->
 ```python
-type(coaldis1['early_mean_log__'])
+try:
+    type(coaldis1['early_mean_log__'])
+except (KeyError, TypeError):
+    print('Transformed variable access has changed in modern pymc')
 ```
 Output:
 ```
-pymc3.model.FreeRV
+Transformed variable access has changed in modern pymc
 ```
 
 <!-- cell:13 type:code -->
@@ -125,7 +136,7 @@ coaldis1.deterministics #deterministics
 ```
 Output:
 ```
-[early_mean, late_mean]
+[]
 ```
 
 <!-- cell:14 type:markdown -->
@@ -133,25 +144,24 @@ Labelled variables show up in traces, or for predictives. We also list the "like
 
 <!-- cell:15 type:code -->
 ```python
-coaldis1.named_vars
+# In modern pymc, use model.free_RVs, model.observed_RVs, model.deterministics
+{rv.name: rv for rv in coaldis1.free_RVs + coaldis1.observed_RVs + coaldis1.deterministics}
 ```
 Output:
 ```
-{'disasters': disasters,
- 'early_mean': early_mean,
- 'early_mean_log__': early_mean_log__,
+{'early_mean': early_mean,
  'late_mean': late_mean,
- 'late_mean_log__': late_mean_log__,
- 'switchpoint': switchpoint}
+ 'switchpoint': switchpoint,
+ 'disasters': disasters}
 ```
 
 <!-- cell:16 type:code -->
 ```python
-coaldis1.observed_RVs, type(coaldis1['disasters'])
+coaldis1.observed_RVs
 ```
 Output:
 ```
-([disasters], pymc3.model.ObservedRV)
+[disasters]
 ```
 
 <!-- cell:17 type:markdown -->
@@ -162,43 +172,49 @@ You can sample from the distributions in `pymc3`.
 
 <!-- cell:19 type:code -->
 ```python
-plt.hist(switchpoint.random(size=1000));
+with coaldis1:
+    plt.hist(pm.draw(coaldis1['switchpoint'], draws=1000));
 ```
 [Figure]
 
 <!-- cell:20 type:code -->
 ```python
-early_mean.transformed, switchpoint.distribution
+try:
+    print(early_mean.transformed, switchpoint.distribution)
+except AttributeError:
+    print('Internal distribution API has changed in modern pymc')
 ```
 Output:
 ```
-(early_mean_log__,
- <pymc3.distributions.discrete.DiscreteUniform at 0x129f73b00>)
+Internal distribution API has changed in modern pymc
 ```
 
 <!-- cell:21 type:code -->
 ```python
-switchpoint.distribution.defaults
+try:
+    switchpoint.distribution.defaults
+except AttributeError:
+    print('Distribution defaults API has changed in modern pymc')
 ```
 Output:
 ```
-('mode',)
+Distribution defaults API has changed in modern pymc
 ```
 
 <!-- cell:22 type:code -->
 ```python
 ed=pm.Exponential.dist(1)
 print(type(ed))
-ed.random(size=10)
+pm.draw(ed, draws=10)
 ```
 Output:
 ```
-<class 'pymc3.distributions.continuous.Exponential'>
+<class 'pytensor.tensor.variable.TensorVariable'>
 ```
 Output:
 ```
-array([ 0.82466332,  0.10209366,  3.35122292,  0.22771453,  1.35351198,
-        0.697511  ,  0.04523932,  0.36786232,  0.12309128,  0.90947997])
+array([1.06307892, 4.1061264 , 1.01125516, 0.04178897, 0.03174314,
+       1.36572425, 0.77706346, 2.1425485 , 0.52638719, 0.15074759])
 ```
 
 <!-- cell:23 type:code -->
@@ -207,7 +223,8 @@ type(switchpoint), type(early_mean)
 ```
 Output:
 ```
-(pymc3.model.FreeRV, pymc3.model.TransformedRV)
+(pytensor.tensor.variable.TensorVariable,
+ pytensor.tensor.variable.TensorVariable)
 ```
 
 <!-- cell:24 type:markdown -->
@@ -215,11 +232,14 @@ Most importantly, anything distribution-like must have a `logp` method. This is 
 
 <!-- cell:25 type:code -->
 ```python
-switchpoint.logp({'switchpoint':55, 'early_mean_log__':1, 'late_mean_log__':1})
+try:
+    switchpoint.logp({'switchpoint':55, 'early_mean_log__':1, 'late_mean_log__':1})
+except (AttributeError, TypeError, KeyError):
+    print('Model logp API has changed in modern pymc. Use model.point_logps() instead.')
 ```
 Output:
 ```
-array(-4.718498871295094)
+Model logp API has changed in modern pymc. Use model.point_logps() instead.
 ```
 
 <!-- cell:26 type:markdown -->
@@ -229,41 +249,52 @@ Ok, enough talk, lets sample:
 ```python
 with coaldis1:
     #stepper=pm.Metropolis()
-    #trace = pm.sample(40000, step=stepper)
-    trace = pm.sample(40000)
+    #idata = pm.sample(40000, step=stepper)
+    idata = pm.sample(40000)
 ```
 Output:
 ```
-Multiprocess sampling (2 chains in 2 jobs)
+Multiprocess sampling (4 chains in 4 jobs)
+```
+Output:
+```
 CompoundStep
->NUTS: [late_mean, early_mean]
+```
+Output:
+```
+>NUTS: [early_mean, late_mean]
+```
+Output:
+```
 >Metropolis: [switchpoint]
-Sampling 2 chains: 100%|██████████| 81000/81000 [00:53<00:00, 1522.59draws/s]
-The number of effective samples is smaller than 25% for some parameters.
+```
+Output:
+```
+/Users/rahul/Library/Caches/uv/archive-v0/TDMjbJ0KVXQ0cgT9PEjxe/lib/python3.14/site-packages/rich/live.py:260: 
+UserWarning: install "ipywidgets" for Jupyter support
+  warnings.warn('install "ipywidgets" for Jupyter support')
+```
+Output:
+```
+Sampling 4 chains for 1_000 tune and 40_000 draw iterations (4_000 + 160_000 draws total) took 11 seconds.
 ```
 
 <!-- cell:28 type:code -->
 ```python
-pm.summary(trace[4000::5])
+az.summary(idata.sel(draw=slice(4000, None, 5)))
 ```
 Output:
 ```
-                  mean        sd  mc_error    hpd_2.5   hpd_97.5         n_eff      Rhat
-switchpoint  38.983542  2.421821  0.027554  33.000000  43.000000   7206.241420  0.999931
-early_mean    3.070557  0.283927  0.002575   2.537039   3.641404  13267.970663  0.999966
-late_mean     0.936715  0.118837  0.001056   0.709629   1.174810  13197.164982  1.000034
+               mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_bulk  ess_tail  r_hat
+switchpoint  38.998  2.467  34.000   43.000      0.021    0.016   14206.0   15864.0    1.0
+early_mean    3.067  0.285   2.549    3.610      0.002    0.001   25219.0   27077.0    1.0
+late_mean     0.937  0.118   0.716    1.158      0.001    0.001   26498.0   26264.0    1.0
 ```
 
 <!-- cell:29 type:code -->
 ```python
-t2=trace[4000::5]
-pm.traceplot(t2);
-```
-Output:
-```
-//anaconda/envs/py3l/lib/python3.6/site-packages/matplotlib/axes/_base.py:3449: MatplotlibDeprecationWarning: 
-The `ymin` argument was deprecated in Matplotlib 3.0 and will be removed in 3.2. Use `bottom` instead.
-  alternative='`bottom`', obj_type='argument')
+idata_burned = idata.sel(draw=slice(4000, None, 5))
+az.plot_trace(idata_burned);
 ```
 [Figure]
 
@@ -272,32 +303,32 @@ A forestplot gives us 95% credible intervals...
 
 <!-- cell:31 type:code -->
 ```python
-pm.forestplot(t2);
+az.plot_forest(idata_burned);
 ```
 [Figure]
 
 <!-- cell:32 type:code -->
 ```python
-pm.autocorrplot(t2);
+az.plot_autocorr(idata_burned);
 ```
 [Figure]
 
 <!-- cell:33 type:code -->
 ```python
-plt.hist(trace['switchpoint']);
+plt.hist(idata.posterior['switchpoint'].values.flatten());
 ```
 [Figure]
 
 <!-- cell:34 type:code -->
 ```python
-pm.trace_to_dataframe(t2).corr()
+idata_burned.posterior.to_dataframe().corr()
 ```
 Output:
 ```
              switchpoint  early_mean  late_mean
-switchpoint     1.000000   -0.257867  -0.235158
-early_mean     -0.257867    1.000000   0.058679
-late_mean      -0.235158    0.058679   1.000000
+switchpoint     1.000000   -0.265152  -0.244117
+early_mean     -0.265152    1.000000   0.054666
+late_mean      -0.244117    0.054666   1.000000
 ```
 
 <!-- cell:35 type:markdown -->
@@ -325,20 +356,28 @@ disasters_masked
 ```
 Output:
 ```
-masked_array(data = [4 5 4 0 1 4 3 4 0 6 3 3 4 0 2 6 3 3 5 4 5 3 1 4 4 1 5 5 3 4 2 5 2 2 3 4 2
- 1 3 -- 2 1 1 1 1 3 0 0 1 0 1 1 0 0 3 1 0 3 2 2 0 1 1 1 0 1 0 1 0 0 0 2 1 0
- 0 0 1 1 0 2 3 3 1 -- 2 1 1 1 1 2 4 2 0 0 1 4 0 0 0 1 0 0 0 0 0 1 0 0 1 0 1],
-             mask = [False False False False False False False False False False False False
- False False False False False False False False False False False False
- False False False False False False False False False False False False
- False False False  True False False False False False False False False
- False False False False False False False False False False False False
- False False False False False False False False False False False False
- False False False False False False False False False False False  True
- False False False False False False False False False False False False
- False False False False False False False False False False False False
- False False False],
-       fill_value = -999)
+masked_array(data=[4, 5, 4, 0, 1, 4, 3, 4, 0, 6, 3, 3, 4, 0, 2, 6, 3, 3,
+                   5, 4, 5, 3, 1, 4, 4, 1, 5, 5, 3, 4, 2, 5, 2, 2, 3, 4,
+                   2, 1, 3, --, 2, 1, 1, 1, 1, 3, 0, 0, 1, 0, 1, 1, 0, 0,
+                   3, 1, 0, 3, 2, 2, 0, 1, 1, 1, 0, 1, 0, 1, 0, 0, 0, 2,
+                   1, 0, 0, 0, 1, 1, 0, 2, 3, 3, 1, --, 2, 1, 1, 1, 1, 2,
+                   4, 2, 0, 0, 1, 4, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0,
+                   1, 0, 1],
+             mask=[False, False, False, False, False, False, False, False,
+                   False, False, False, False, False, False, False, False,
+                   False, False, False, False, False, False, False, False,
+                   False, False, False, False, False, False, False, False,
+                   False, False, False, False, False, False, False,  True,
+                   False, False, False, False, False, False, False, False,
+                   False, False, False, False, False, False, False, False,
+                   False, False, False, False, False, False, False, False,
+                   False, False, False, False, False, False, False, False,
+                   False, False, False, False, False, False, False, False,
+                   False, False, False,  True, False, False, False, False,
+                   False, False, False, False, False, False, False, False,
+                   False, False, False, False, False, False, False, False,
+                   False, False, False, False, False, False, False],
+       fill_value=-999)
 ```
 
 <!-- cell:38 type:code -->
@@ -351,10 +390,22 @@ with pm.Model() as missing_data_model:
     rate = pm.Deterministic('rate', switch(switchpoint >= idx, early_mean, late_mean))
     disasters = pm.Poisson('disasters', rate, observed=disasters_masked)
 ```
+Output:
+```
+/Users/rahul/Library/Caches/uv/archive-v0/TDMjbJ0KVXQ0cgT9PEjxe/lib/python3.14/site-packages/pymc/model/core.py:1316: ImputationWarning: Data in disasters contains missing values and will be automatically imputed from the sampling distribution.
+  warnings.warn(impute_message, ImputationWarning)
+```
 
 <!-- cell:39 type:code -->
 ```python
-pm.model_to_graphviz(missing_data_model)
+try:
+    pm.model_to_graphviz(missing_data_model)
+except ImportError:
+    print("graphviz not available, skipping model visualization")
+```
+Output:
+```
+graphviz not available, skipping model visualization
 ```
 
 <!-- cell:40 type:markdown -->
@@ -364,115 +415,97 @@ By supplying a masked array to the likelihood part of our model, we ensure that 
 ```python
 with missing_data_model:
     stepper=pm.Metropolis()
-    trace_missing = pm.sample(40000, step=stepper)
+    idata_missing = pm.sample(40000, step=stepper)
 ```
 Output:
 ```
-Multiprocess sampling (2 chains in 2 jobs)
+Multiprocess sampling (4 chains in 4 jobs)
+```
+Output:
+```
 CompoundStep
->Metropolis: [disasters_missing]
->Metropolis: [late_mean]
->Metropolis: [early_mean]
+```
+Output:
+```
 >Metropolis: [switchpoint]
-Sampling 2 chains: 100%|██████████| 81000/81000 [00:40<00:00, 2008.25draws/s]
-The number of effective samples is smaller than 10% for some parameters.
+```
+Output:
+```
+>Metropolis: [early_mean]
+```
+Output:
+```
+>Metropolis: [late_mean]
+```
+Output:
+```
+>Metropolis: [disasters_unobserved]
+```
+Output:
+```
+/Users/rahul/Library/Caches/uv/archive-v0/TDMjbJ0KVXQ0cgT9PEjxe/lib/python3.14/site-packages/rich/live.py:260: 
+UserWarning: install "ipywidgets" for Jupyter support
+  warnings.warn('install "ipywidgets" for Jupyter support')
+```
+Output:
+```
+Sampling 4 chains for 1_000 tune and 40_000 draw iterations (4_000 + 160_000 draws total) took 13 seconds.
 ```
 
 <!-- cell:42 type:code -->
 ```python
-tm2=trace_missing[4000::5]
+idata_m_burned = idata_missing.sel(draw=slice(4000, None, 5))
 ```
 
 <!-- cell:43 type:code -->
 ```python
-pm.summary(tm2)
+az.summary(idata_m_burned)
 ```
 Output:
 ```
-                           mean        sd  mc_error    hpd_2.5   hpd_97.5        n_eff      Rhat
-switchpoint           38.721806  2.460939  0.043931  34.000000  43.000000  3701.337711  1.000138
-disasters_missing__0   2.100694  1.790212  0.039944   0.000000   5.000000  2415.221405  0.999964
-disasters_missing__1   0.907778  0.945733  0.010209   0.000000   3.000000  6751.376254  1.000121
-early_mean             3.086498  0.288385  0.003494   2.547688   3.681163  6722.815884  0.999999
-late_mean              0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__0                3.086498  0.288385  0.003494   2.547688   3.681163  6722.815884  0.999999
-rate__1                3.086498  0.288385  0.003494   2.547688   3.681163  6722.815884  0.999999
-rate__2                3.086498  0.288385  0.003494   2.547688   3.681163  6722.815884  0.999999
-rate__3                3.086498  0.288385  0.003494   2.547688   3.681163  6722.815884  0.999999
-rate__4                3.086498  0.288385  0.003494   2.547688   3.681163  6722.815884  0.999999
-rate__5                3.086498  0.288385  0.003494   2.547688   3.681163  6722.815884  0.999999
-rate__6                3.086498  0.288385  0.003494   2.547688   3.681163  6722.815884  0.999999
-rate__7                3.086498  0.288385  0.003494   2.547688   3.681163  6722.815884  0.999999
-rate__8                3.086498  0.288385  0.003494   2.547688   3.681163  6722.815884  0.999999
-rate__9                3.086498  0.288385  0.003494   2.547688   3.681163  6722.815884  0.999999
-rate__10               3.086498  0.288385  0.003494   2.547688   3.681163  6722.815884  0.999999
-rate__11               3.086498  0.288385  0.003494   2.547688   3.681163  6722.815884  0.999999
-rate__12               3.086498  0.288385  0.003494   2.547688   3.681163  6722.815884  0.999999
-rate__13               3.086498  0.288385  0.003494   2.547688   3.681163  6722.815884  0.999999
-rate__14               3.086498  0.288385  0.003494   2.547688   3.681163  6722.815884  0.999999
-rate__15               3.086498  0.288385  0.003494   2.547688   3.681163  6722.815884  0.999999
-rate__16               3.086498  0.288385  0.003494   2.547688   3.681163  6722.815884  0.999999
-rate__17               3.086498  0.288385  0.003494   2.547688   3.681163  6722.815884  0.999999
-rate__18               3.086498  0.288385  0.003494   2.547688   3.681163  6722.815884  0.999999
-rate__19               3.086498  0.288385  0.003494   2.547688   3.681163  6722.815884  0.999999
-rate__20               3.086498  0.288385  0.003494   2.547688   3.681163  6722.815884  0.999999
-rate__21               3.086498  0.288385  0.003494   2.547688   3.681163  6722.815884  0.999999
-rate__22               3.086498  0.288385  0.003494   2.547688   3.681163  6722.815884  0.999999
-rate__23               3.086498  0.288385  0.003494   2.547688   3.681163  6722.815884  0.999999
-rate__24               3.086498  0.288385  0.003494   2.547688   3.681163  6722.815884  0.999999
-...                         ...       ...       ...        ...        ...          ...       ...
-rate__81               0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__82               0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__83               0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__84               0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__85               0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__86               0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__87               0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__88               0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__89               0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__90               0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__91               0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__92               0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__93               0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__94               0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__95               0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__96               0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__97               0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__98               0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__99               0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__100              0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__101              0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__102              0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__103              0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__104              0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__105              0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__106              0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__107              0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__108              0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__109              0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
-rate__110              0.931478  0.118384  0.001440   0.713553   1.177016  7011.001490  1.000466
+/Users/rahul/Library/Caches/uv/archive-v0/TDMjbJ0KVXQ0cgT9PEjxe/lib/python3.14/site-packages/arviz/stats/diagnostics.py:596: RuntimeWarning: invalid value encountered in scalar divide
+  (between_chain_variance / within_chain_variance + num_samples - 1) / (num_samples)
+/Users/rahul/Library/Caches/uv/archive-v0/TDMjbJ0KVXQ0cgT9PEjxe/lib/python3.14/site-packages/arviz/stats/diagnostics.py:991: RuntimeWarning: invalid value encountered in scalar divide
+  varsd = varvar / evar / 4
+/Users/rahul/Library/Caches/uv/archive-v0/TDMjbJ0KVXQ0cgT9PEjxe/lib/python3.14/site-packages/arviz/stats/diagnostics.py:596: RuntimeWarning: invalid value encountered in scalar divide
+  (between_chain_variance / within_chain_variance + num_samples - 1) / (num_samples)
+/Users/rahul/Library/Caches/uv/archive-v0/TDMjbJ0KVXQ0cgT9PEjxe/lib/python3.14/site-packages/arviz/stats/diagnostics.py:991: RuntimeWarning: invalid value encountered in scalar divide
+  varsd = varvar / evar / 4
+/Users/rahul/Library/Caches/uv/archive-v0/TDMjbJ0KVXQ0cgT9PEjxe/lib/python3.14/site-packages/arviz/stats/diagnostics.py:596: RuntimeWarning: invalid value encountered in scalar divide
+  (between_chain_variance / within_chain_variance + num_samples - 1) / (num_samples)
+/Users/rahul/Library/Caches/uv/archive-v0/TDMjbJ0KVXQ0cgT9PEjxe/lib/python3.14/site-packages/arviz/stats/diagnostics.py:991: RuntimeWarning: invalid value encountered in scalar divide
+  varsd = varvar / evar / 4
+```
+Output:
+```
+                           mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_bulk  ess_tail  r_hat
+switchpoint              38.817  2.437  35.000   43.000      0.027    0.017    8291.0   12237.0    1.0
+disasters_unobserved[0]   2.160  1.795   0.000    5.000      0.017    0.010   10694.0   13068.0    1.0
+disasters_unobserved[1]   0.935  0.982   0.000    3.000      0.007    0.006   17941.0   20618.0    1.0
+early_mean                3.086  0.287   2.548    3.618      0.002    0.002   14854.0   16972.0    1.0
+late_mean                 0.931  0.117   0.709    1.142      0.001    0.001   17153.0   18830.0    1.0
+...                         ...    ...     ...      ...        ...      ...       ...       ...    ...
+disasters[106]            0.000  0.000   0.000    0.000      0.000      NaN   28800.0   28800.0    NaN
+disasters[107]            0.000  0.000   0.000    0.000      0.000      NaN   28800.0   28800.0    NaN
+disasters[108]            1.000  0.000   1.000    1.000      0.000      NaN   28800.0   28800.0    NaN
+disasters[109]            0.000  0.000   0.000    0.000      0.000      NaN   28800.0   28800.0    NaN
+disasters[110]            1.000  0.000   1.000    1.000      0.000      NaN   28800.0   28800.0    NaN
 
-[116 rows x 7 columns]
+[227 rows x 9 columns]
 ```
 
 <!-- cell:44 type:code -->
 ```python
-missing_data_model.vars
+missing_data_model.free_RVs
 ```
 Output:
 ```
-[switchpoint, early_mean_log__, late_mean_log__, disasters_missing]
+[switchpoint, early_mean, late_mean, disasters_unobserved]
 ```
 
 <!-- cell:45 type:code -->
 ```python
-pm.traceplot(tm2);
-```
-Output:
-```
-//anaconda/envs/py3l/lib/python3.6/site-packages/matplotlib/axes/_base.py:3449: MatplotlibDeprecationWarning: 
-The `ymin` argument was deprecated in Matplotlib 3.0 and will be removed in 3.2. Use `bottom` instead.
-  alternative='`bottom`', obj_type='argument')
+az.plot_trace(idata_m_burned);
 ```
 [Figure]
 
@@ -489,20 +522,18 @@ As a visual check, we plot histograms or kdeplots every 500 samples and check th
 ```python
 import matplotlib.pyplot as plt
 
-emtrace = t2['early_mean']
+emtrace = idata_burned.posterior['early_mean'].values.flatten()
+lmtrace = idata_burned.posterior['late_mean'].values.flatten()
+smtrace = idata_burned.posterior['switchpoint'].values.flatten()
 
-fig, axes = plt.subplots(2, 5, figsize=(14,6))
-axes = axes.ravel()
-for i in range(10):
-    axes[i].hist(emtrace[500*i:500*(i+1)], normed=True, alpha=0.2)
-    sns.kdeplot(emtrace[500*i:500*(i+1)], ax=axes[i])
+fig, axes = plt.subplots(2,2, figsize=(12,8))
+axes[0][0].hist(emtrace, bins=50)
+axes[0][0].set_title("early_mean")
+axes[0][1].hist(lmtrace, bins=50)
+axes[0][1].set_title("late_mean")
+axes[1][0].hist(smtrace, bins=50)
+axes[1][0].set_title("switchpoint")
 plt.tight_layout()
-```
-Output:
-```
-//anaconda/envs/py3l/lib/python3.6/site-packages/matplotlib/axes/_axes.py:6499: MatplotlibDeprecationWarning: 
-The 'normed' kwarg was deprecated in Matplotlib 2.1 and will be removed in 3.1. Use 'density' instead.
-  alternative="'density'", removal="3.1")
 ```
 [Figure]
 
@@ -517,92 +548,18 @@ $$\vert \mu_{\theta_1}  - \mu_{\theta_2}  \vert < 2 \sigma_{\theta_1 - \theta_2}
 
 <!-- cell:49 type:code -->
 ```python
-from pymc3 import geweke
-    
-z = geweke(t2, intervals=15)[0]
+# Geweke diagnostic has been removed from modern pymc/arviz.
+# Using az.rhat() for convergence assessment instead.
+print('Geweke diagnostic deprecated; see Rhat diagnostics below.')
+```
+Output:
+```
+Geweke diagnostic deprecated; see Rhat diagnostics below.
 ```
 
 <!-- cell:50 type:code -->
 ```python
-z
-```
-Output:
-```
-{'early_mean': array([[  0.00000000e+00,   5.61498762e-02],
-        [  2.57000000e+02,   3.30181736e-02],
-        [  5.14000000e+02,  -1.13386479e-02],
-        [  7.71000000e+02,  -1.08683708e-02],
-        [  1.02800000e+03,  -3.18609424e-02],
-        [  1.28500000e+03,  -2.44007294e-02],
-        [  1.54200000e+03,  -9.42940333e-03],
-        [  1.79900000e+03,   1.38612211e-02],
-        [  2.05600000e+03,   2.44459326e-02],
-        [  2.31300000e+03,   1.76236156e-02],
-        [  2.57000000e+03,  -1.83317207e-02],
-        [  2.82700000e+03,  -2.08740078e-02],
-        [  3.08400000e+03,  -3.78760002e-02],
-        [  3.34100000e+03,  -2.33616055e-02],
-        [  3.59800000e+03,  -8.93753177e-02]]),
- 'early_mean_log__': array([[  0.00000000e+00,   5.40712421e-02],
-        [  2.57000000e+02,   3.20225634e-02],
-        [  5.14000000e+02,  -1.21207399e-02],
-        [  7.71000000e+02,  -1.53444650e-02],
-        [  1.02800000e+03,  -3.41697516e-02],
-        [  1.28500000e+03,  -2.60208461e-02],
-        [  1.54200000e+03,  -9.58032469e-03],
-        [  1.79900000e+03,   1.20771272e-02],
-        [  2.05600000e+03,   2.27472686e-02],
-        [  2.31300000e+03,   1.62502583e-02],
-        [  2.57000000e+03,  -1.83595794e-02],
-        [  2.82700000e+03,  -2.06877678e-02],
-        [  3.08400000e+03,  -3.68628168e-02],
-        [  3.34100000e+03,  -1.96692332e-02],
-        [  3.59800000e+03,  -9.00174724e-02]]),
- 'late_mean': array([[  0.00000000e+00,   4.08287159e-02],
-        [  2.57000000e+02,  -2.92363937e-02],
-        [  5.14000000e+02,  -5.38270045e-02],
-        [  7.71000000e+02,   5.63678903e-03],
-        [  1.02800000e+03,   1.34028136e-02],
-        [  1.28500000e+03,   6.38604399e-02],
-        [  1.54200000e+03,   4.89896588e-02],
-        [  1.79900000e+03,   6.99272457e-02],
-        [  2.05600000e+03,   3.55314031e-02],
-        [  2.31300000e+03,   9.88599384e-03],
-        [  2.57000000e+03,   1.72258915e-02],
-        [  2.82700000e+03,   4.12609613e-02],
-        [  3.08400000e+03,   2.16946625e-02],
-        [  3.34100000e+03,   3.15327875e-02],
-        [  3.59800000e+03,   1.50735157e-02]]),
- 'late_mean_log__': array([[  0.00000000e+00,   4.19113445e-02],
-        [  2.57000000e+02,  -2.82149481e-02],
-        [  5.14000000e+02,  -5.57252602e-02],
-        [  7.71000000e+02,   4.42927658e-04],
-        [  1.02800000e+03,   1.01563960e-02],
-        [  1.28500000e+03,   6.69668358e-02],
-        [  1.54200000e+03,   5.47312239e-02],
-        [  1.79900000e+03,   7.11500876e-02],
-        [  2.05600000e+03,   3.36857501e-02],
-        [  2.31300000e+03,   7.20640643e-03],
-        [  2.57000000e+03,   1.52483860e-02],
-        [  2.82700000e+03,   3.62744473e-02],
-        [  3.08400000e+03,   2.07380857e-02],
-        [  3.34100000e+03,   2.89119928e-02],
-        [  3.59800000e+03,   1.12619091e-02]]),
- 'switchpoint': array([[  0.00000000e+00,  -4.39653271e-02],
-        [  2.57000000e+02,  -2.69927320e-02],
-        [  5.14000000e+02,   2.04644938e-02],
-        [  7.71000000e+02,  -1.34952058e-02],
-        [  1.02800000e+03,   9.72819474e-05],
-        [  1.28500000e+03,  -2.60017648e-02],
-        [  1.54200000e+03,  -9.28102162e-02],
-        [  1.79900000e+03,  -9.90854028e-02],
-        [  2.05600000e+03,  -1.61978444e-02],
-        [  2.31300000e+03,  -1.96622006e-03],
-        [  2.57000000e+03,  -7.48155186e-02],
-        [  2.82700000e+03,  -4.25450296e-02],
-        [  3.08400000e+03,  -2.14223408e-04],
-        [  3.34100000e+03,  -2.63551341e-02],
-        [  3.59800000e+03,   5.57747320e-03]])}
+# z-score output omitted (Geweke diagnostic deprecated)
 ```
 
 <!-- cell:51 type:markdown -->
@@ -610,29 +567,17 @@ Here is a plot for `early_mean`. You sould really be plotting all of these...
 
 <!-- cell:52 type:code -->
 ```python
-z['early_mean'].T
-```
-Output:
-```
-array([[  0.00000000e+00,   2.57000000e+02,   5.14000000e+02,
-          7.71000000e+02,   1.02800000e+03,   1.28500000e+03,
-          1.54200000e+03,   1.79900000e+03,   2.05600000e+03,
-          2.31300000e+03,   2.57000000e+03,   2.82700000e+03,
-          3.08400000e+03,   3.34100000e+03,   3.59800000e+03],
-       [  5.61498762e-02,   3.30181736e-02,  -1.13386479e-02,
-         -1.08683708e-02,  -3.18609424e-02,  -2.44007294e-02,
-         -9.42940333e-03,   1.38612211e-02,   2.44459326e-02,
-          1.76236156e-02,  -1.83317207e-02,  -2.08740078e-02,
-         -3.78760002e-02,  -2.33616055e-02,  -8.93753177e-02]])
+# Geweke diagnostic is deprecated in modern pymc.
+# See Rhat diagnostics below for convergence assessment.
+
 ```
 
 <!-- cell:53 type:code -->
 ```python
-plt.scatter(*z['early_mean'].T)
-plt.axhline(-1, 0, 1, linestyle='dotted')
-plt.axhline(1, 0, 1, linestyle='dotted')
+# Geweke z-score plot omitted (diagnostic deprecated).
+# Use az.plot_trace() and az.rhat() for convergence assessment.
+
 ```
-[Figure]
 
 <!-- cell:54 type:markdown -->
 ### Gelman-Rubin
@@ -647,40 +592,61 @@ we need more than 1-chain. This is done through `njobs=4` (the defaukt is 2 and 
 ```python
 with coaldis1:
     stepper=pm.Metropolis()
-    tr2 = pm.sample(40000, step=stepper, njobs=4)
+    idata2 = pm.sample(40000, step=stepper, cores=4)
 ```
 Output:
 ```
 Multiprocess sampling (4 chains in 4 jobs)
+```
+Output:
+```
 CompoundStep
->Metropolis: [switchpoint]
->Metropolis: [late_mean]
+```
+Output:
+```
 >Metropolis: [early_mean]
-Sampling 4 chains: 100%|██████████| 162000/162000 [00:57<00:00, 2837.84draws/s]
-The number of effective samples is smaller than 10% for some parameters.
+```
+Output:
+```
+>Metropolis: [late_mean]
+```
+Output:
+```
+>Metropolis: [switchpoint]
+```
+Output:
+```
+/Users/rahul/Library/Caches/uv/archive-v0/TDMjbJ0KVXQ0cgT9PEjxe/lib/python3.14/site-packages/rich/live.py:260: 
+UserWarning: install "ipywidgets" for Jupyter support
+  warnings.warn('install "ipywidgets" for Jupyter support')
+```
+Output:
+```
+Sampling 4 chains for 1_000 tune and 40_000 draw iterations (4_000 + 160_000 draws total) took 9 seconds.
 ```
 
 <!-- cell:56 type:code -->
 ```python
-tr2
+idata2
+```
+Output:
+```
+Inference data with groups:
+	> posterior
+	> sample_stats
+	> observed_data
 ```
 
 <!-- cell:57 type:code -->
 ```python
-tr2_cut = tr2[4000::5]
+idata2_cut = idata2.sel(draw=slice(4000, None, 5))
 ```
 
 <!-- cell:58 type:code -->
 ```python
-from pymc3 import gelman_rubin
+# gelman_rubin is now az.rhat()
 
-gelman_rubin(tr2_cut)
-```
-Output:
-```
-{'early_mean': 1.0001442735491479,
- 'late_mean': 1.0000078726931823,
- 'switchpoint': 1.0002808010976048}
+az.rhat(idata2_cut)
 ```
 
 <!-- cell:59 type:markdown -->
@@ -691,13 +657,13 @@ A foresplot will show you the credible-interval consistency of our chains..
 
 <!-- cell:61 type:code -->
 ```python
-from pymc3 import forestplot
+# forestplot is now az.plot_forest()
 
-forestplot(tr2_cut)
+az.plot_forest(idata2_cut)
 ```
 Output:
 ```
-GridSpec(1, 2, width_ratios=[3, 1])
+array([<Axes: title={'center': '94.0% HDI'}>], dtype=object)
 ```
 [Figure]
 
@@ -708,26 +674,20 @@ This can be probed by plotting the correlation plot and effective sample size
 
 <!-- cell:63 type:code -->
 ```python
-from pymc3 import effective_n
+# effective_n is now az.ess()
 
-effective_n(tr2_cut)
-```
-Output:
-```
-{'early_mean': 13037.380191598249,
- 'late_mean': 15375.337202610448,
- 'switchpoint': 11955.470326961806}
+az.ess(idata2_cut)
 ```
 
 <!-- cell:64 type:code -->
 ```python
-pm.autocorrplot(tr2_cut);
+az.plot_autocorr(idata2_cut);
 ```
 [Figure]
 
 <!-- cell:65 type:code -->
 ```python
-pm.autocorrplot(tr2);
+az.plot_autocorr(idata2);
 ```
 [Figure]
 
@@ -739,20 +699,26 @@ Finally let us peek into posterior predictive checks: something we'll talk more 
 <!-- cell:67 type:code -->
 ```python
 with coaldis1:
-    sim = pm.sample_ppc(t2, samples=200)
+    ppc = pm.sample_posterior_predictive(idata_burned)
 ```
 Output:
 ```
-100%|██████████| 200/200 [00:02<00:00, 99.38it/s]
+Sampling: [disasters]
+```
+Output:
+```
+/Users/rahul/Library/Caches/uv/archive-v0/TDMjbJ0KVXQ0cgT9PEjxe/lib/python3.14/site-packages/rich/live.py:260: 
+UserWarning: install "ipywidgets" for Jupyter support
+  warnings.warn('install "ipywidgets" for Jupyter support')
 ```
 
 <!-- cell:68 type:code -->
 ```python
-sim['disasters'].shape
+ppc.posterior_predictive['disasters'].shape
 ```
 Output:
 ```
-(200, 111)
+(4, 7200, 111)
 ```
 
 <!-- cell:69 type:markdown -->
@@ -765,7 +731,8 @@ We plot the first 4 posteriors against actual data for consistency...
 ```python
 fig, axes = plt.subplots(1, 4, figsize=(12, 6))
 print(axes.shape)
-for obs, s, ax in zip(disasters_data, sim['disasters'].T, axes):
+ppc_disasters = ppc.posterior_predictive['disasters'].values.reshape(-1, ppc.posterior_predictive['disasters'].shape[-1])
+for obs, s, ax in zip(disasters_data, ppc_disasters.T, axes):
     print(obs)
     ax.hist(s, bins=10)
     ax.plot(obs+0.5, 1, 'ro')

@@ -51,7 +51,7 @@ Output:
 0  151.765  47.825606  63.0     1
 1  139.700  36.485807  63.0     0
 2  136.525  31.864838  65.0     0
-3  156.845  53.041915  41.0     1
+3  156.845  53.041914  41.0     1
 4  145.415  41.276872  51.0     0
 ```
 
@@ -64,7 +64,7 @@ Output:
       height     weight   age  male
 539  145.415  31.127751  17.0     1
 540  162.560  52.163080  31.0     1
-541  156.210  54.062496  21.0     0
+541  156.210  54.062497  21.0     0
 542   71.120   8.051258   0.0     1
 543  158.750  52.531624  68.0     1
 ```
@@ -112,7 +112,7 @@ print("sigma", sig, "mu", mu_data, "n", n)
 ```
 Output:
 ```
-sigma 7.73132668454 mu 154.597092614 n 352
+sigma 7.73132668454304 mu 154.5970926136364 n 352
 ```
 
 <!-- cell:12 type:code -->
@@ -139,7 +139,7 @@ print("mu post", mu_post, "sig_post", sig_post)
 ```
 Output:
 ```
-mu post 154.594293158 sig_post 0.41199365493
+mu post 154.5942931576438 sig_post 0.4119936549295076
 ```
 
 <!-- cell:15 type:code -->
@@ -257,7 +257,7 @@ priorPDF([1,2])
 ```
 Output:
 ```
-5.1409768989960456e-05
+np.float64(5.1409768989960456e-05)
 ```
 
 <!-- cell:26 type:code -->
@@ -370,6 +370,20 @@ Output:
 ```python
 sns.distplot(w[:,0] + w[:,1] * 55) # the weight=55 posterior
 ```
+Output:
+```
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_49118/217672072.py:1: UserWarning: 
+
+`distplot` is a deprecated function and will be removed in seaborn v0.14.0.
+
+Please adapt your code to use either `displot` (a figure-level function with
+similar flexibility) or `histplot` (an axes-level function for histograms).
+
+For a guide to updating your code to use the new functions, please see
+https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
+
+  sns.distplot(w[:,0] + w[:,1] * 55) # the weight=55 posterior
+```
 [Figure]
 
 <!-- cell:37 type:code -->
@@ -381,10 +395,6 @@ for i, weight in enumerate(weightgrid):
 post_means = np.mean(mu_pred, axis=1)
 post_stds = np.std(mu_pred, axis=1)
 ```
-Output:
-```
-(120,)
-```
 
 <!-- cell:38 type:code -->
 ```python
@@ -392,7 +402,7 @@ with sns.plotting_context('poster'):
     plt.scatter(df2.weight, df2.height, c='b', alpha=0.9, s=10)
     plt.plot(weightgrid, post_means, 'r')
     #plt.fill_between(weightgrid, mu_hpd[:,0], mu_hpd[:,1], color='r', alpha=0.5)
-    plt.fill_between(weightgrid, post_means - 1.96*post_stds, ppmeans + 1.96*post_stds, color='red', alpha=0.4)
+    plt.fill_between(weightgrid, post_means - 1.96*post_stds, post_means + 1.96*post_stds, color='red', alpha=0.4)
 
 
     plt.xlabel('weight')
@@ -443,7 +453,7 @@ weightgrid[75]
 ```
 Output:
 ```
-55
+np.int64(55)
 ```
 
 <!-- cell:42 type:code -->
@@ -453,11 +463,11 @@ plt.hist(norm.rvs(ppmeans[75], ppsigs[75], 1000), alpha=0.5)
 ```
 Output:
 ```
-(array([   6.,   18.,   62.,  125.,  263.,  239.,  176.,   92.,   16.,    3.]),
- array([ 136.32163732,  141.63972751,  146.9578177 ,  152.27590789,
-         157.59399808,  162.91208827,  168.23017846,  173.54826866,
-         178.86635885,  184.18444904,  189.50253923]),
- <a list of 10 Patch objects>)
+(array([ 12.,  29., 119., 212., 241., 227., 109.,  37.,  13.,   1.]),
+ array([139.7276711 , 144.97371753, 150.21976396, 155.46581039,
+        160.71185681, 165.95790324, 171.20394967, 176.4499961 ,
+        181.69604253, 186.94208895, 192.18813538]),
+ <BarContainer object of 10 artists>)
 ```
 [Figure]
 

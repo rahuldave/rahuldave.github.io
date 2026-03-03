@@ -28,11 +28,6 @@ import seaborn as sns
 sns.set_style('whitegrid')
 sns.set_context('poster')
 ```
-Output:
-```
-//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))
-```
 
 <!-- cell:3 type:markdown -->
 ## A tetchy posterior
@@ -183,7 +178,7 @@ plt.plot(xall[:200],yall[:200], c='r', alpha=0.3, lw=1)
 ```
 Output:
 ```
-[<matplotlib.lines.Line2D at 0x108fee128>]
+[<matplotlib.lines.Line2D at 0x10d4cdfd0>]
 ```
 [Figure]
 
@@ -195,7 +190,7 @@ To see how effective the samples we have drawn will be at approximating summarie
 <!-- cell:21 type:code -->
 ```python
 def corrplot(trace, maxlags=50):
-    plt.acorr(trace-np.mean(trace),  normed=True, maxlags=maxlags);
+    plt.acorr(trace-np.mean(trace),  maxlags=maxlags);
     plt.xlim([0, maxlags])
 corrplot(xall[N//10:])
 ```
@@ -277,8 +272,8 @@ print("Effective Size for y: ", esy, " of ", len(y), " samples, rate of", esy/le
 ```
 Output:
 ```
-Effective Size for x:  10115.8236073  of  36001  samples, rate of 28.0987295001 %.
-Effective Size for y:  10264.5088434  of  36001  samples, rate of 28.5117325726 %.
+Effective Size for x:  9953.100803538862  of  36001  samples, rate of 27.646734267211638 %.
+Effective Size for y:  9975.84115574809  of  36001  samples, rate of 27.709900157629207 %.
 ```
 
 <!-- cell:27 type:markdown -->

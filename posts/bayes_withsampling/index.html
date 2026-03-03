@@ -467,7 +467,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-2" class="cell" data-hide="true" data-execution_count="49" data-cell-type="code">
+<div id="c5a939e8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:31:42.100300Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:31:42.100211Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:31:42.766239Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:31:42.765811Z&quot;}}" data-hide="true" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span>  sp</span>
@@ -478,7 +478,7 @@ window.Quarto = {
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.width'</span>, <span class="dv">500</span>)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_columns'</span>, <span class="dv">100</span>)</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.notebook_repr_html'</span>, <span class="va">True</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn.apionly <span class="im">as</span> sns</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">"whitegrid"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="frequentist-statistics" class="level2">
@@ -588,7 +588,7 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 <p>We have data on the wing length in millimeters of a nine members of a particular species of moth. We wish to make inferences from those measurements on the population mean <span class="math inline">\(\mu\)</span>. Other studies show the wing length to be around 19 mm. We also know that the length must be positive. We can choose a prior that is normal and most of the density is above zero (<span class="math inline">\(\mu=19.5,\tau=10\)</span>). This is only a <strong>marginally informative</strong> prior.</p>
 <p>Many bayesians would prefer you choose relatively uninformative priors.</p>
 <p>The measurements were: 16.4, 17.0, 17.2, 17.4, 18.2, 18.2, 18.2, 19.9, 20.8 giving <span class="math inline">\(\bar{y}=18.14\)</span>.</p>
-<div id="cell-9" class="cell" data-execution_count="50" data-cell-type="code">
+<div id="1291860a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:31:42.767531Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:31:42.767404Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:31:42.769689Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:31:42.769340Z&quot;}}" data-execution_count="3" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> [<span class="fl">16.4</span>, <span class="fl">17.0</span>, <span class="fl">17.2</span>, <span class="fl">17.4</span>, <span class="fl">18.2</span>, <span class="fl">18.2</span>, <span class="fl">18.2</span>, <span class="fl">19.9</span>, <span class="fl">20.8</span>]</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#Data Quantities</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>sig <span class="op">=</span> np.std(Y) <span class="co"># assume that is the value of KNOWN sigma (in the likelihood)</span></span>
@@ -596,10 +596,10 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(Y)</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"sigma"</span>, sig, <span class="st">"mu"</span>, mu_data, <span class="st">"n"</span>, n)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>sigma 1.33092374864 mu 18.1444444444 n 9</code></pre>
+<pre><code>sigma 1.3309237486390264 mu 18.144444444444446 n 9</code></pre>
 </div>
 </div>
-<div id="cell-10" class="cell" data-execution_count="52" data-cell-type="code">
+<div id="d0736c0c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:31:42.770854Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:31:42.770772Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:31:42.772414Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:31:42.772055Z&quot;}}" data-execution_count="4" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Prior mean</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>mu_prior <span class="op">=</span> <span class="fl">19.5</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># prior std</span></span>
@@ -609,7 +609,7 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 <section id="sampling-by-code" class="level2">
 <h2 class="anchored" data-anchor-id="sampling-by-code">Sampling by code</h2>
 <p>We now set up code to do metropolis using logs of distributions:</p>
-<div id="cell-12" class="cell" data-execution_count="53" data-cell-type="code">
+<div id="52cd33b0" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:31:42.773357Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:31:42.773284Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:31:42.775679Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:31:42.775298Z&quot;}}" data-execution_count="5" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> metropolis(logp, qdraw, stepsize, nsamp, xinit):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    samples<span class="op">=</span>np.empty(nsamp)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    x_prev <span class="op">=</span> xinit</span>
@@ -629,37 +629,37 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>            </span>
 <span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> samples, accepted</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="54" data-cell-type="code">
+<div id="29665d81" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:31:42.776626Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:31:42.776556Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:31:42.778215Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:31:42.777797Z&quot;}}" data-execution_count="6" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prop(x, step):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.random.normal(x, step)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Remember, that up to normalization, the posterior is the likelihood times the prior. Thus the log of the posterior is the sum of the logs of the likelihood and the prior.</p>
-<div id="cell-15" class="cell" data-execution_count="56" data-cell-type="code">
+<div id="96c68918" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:31:42.779098Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:31:42.779034Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:31:42.780954Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:31:42.780494Z&quot;}}" data-execution_count="7" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>logprior <span class="op">=</span> <span class="kw">lambda</span> mu: norm.logpdf(mu, loc<span class="op">=</span>mu_prior, scale<span class="op">=</span>std_prior)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>loglike <span class="op">=</span> <span class="kw">lambda</span> mu: np.<span class="bu">sum</span>(norm.logpdf(Y, loc<span class="op">=</span>mu, scale<span class="op">=</span>np.std(Y)))</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>logpost <span class="op">=</span> <span class="kw">lambda</span> mu: loglike(mu) <span class="op">+</span> logprior(mu)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now we sample:</p>
-<div id="cell-17" class="cell" data-execution_count="57" data-cell-type="code">
+<div id="f7fb1929" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:31:42.781907Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:31:42.781838Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:31:47.135614Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:31:47.135163Z&quot;}}" data-execution_count="8" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>x0<span class="op">=</span>np.random.uniform()</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>nsamps<span class="op">=</span><span class="dv">40000</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>samps, acc <span class="op">=</span> metropolis(logpost, prop, <span class="dv">1</span>, nsamps, x0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>The acceptance rate is reasonable. You should shoot for somewhere between 20 and 50%.</p>
-<div id="cell-19" class="cell" data-execution_count="58" data-cell-type="code">
+<div id="422b853d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:31:47.137364Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:31:47.137241Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:31:47.140193Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:31:47.139834Z&quot;}}" data-execution_count="9" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>acc<span class="op">/</span>nsamps</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="58">
-<pre><code>0.459925</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>0.45855</code></pre>
 </div>
 </div>
-<div id="cell-20" class="cell" data-execution_count="59" data-cell-type="code">
+<div id="d40a5fac" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:31:47.141370Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:31:47.141257Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:31:47.143110Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:31:47.142718Z&quot;}}" data-execution_count="10" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> corrplot(trace, maxlags<span class="op">=</span><span class="dv">50</span>):</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    plt.acorr(trace<span class="op">-</span>np.mean(trace),  normed<span class="op">=</span><span class="va">True</span>, maxlags<span class="op">=</span>maxlags)<span class="op">;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    plt.acorr(trace<span class="op">-</span>np.mean(trace),  maxlags<span class="op">=</span>maxlags)<span class="op">;</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    plt.xlim([<span class="dv">0</span>, maxlags])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>While thinning is not strictly needed, appropriately thinned, we lose any correlation faster and store less</p>
-<div id="cell-22" class="cell" data-execution_count="60" data-cell-type="code">
+<div id="ee2a5281" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:31:47.144063Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:31:47.143997Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:31:47.467939Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:31:47.467440Z&quot;}}" data-execution_count="11" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>corrplot(samps)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -669,7 +669,7 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 </div>
 </div>
 </div>
-<div id="cell-23" class="cell" data-execution_count="61" data-cell-type="code">
+<div id="e6987df6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:31:47.469021Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:31:47.468939Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:31:47.567015Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:31:47.566573Z&quot;}}" data-execution_count="12" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>corrplot(samps[<span class="dv">20000</span>::])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -679,7 +679,7 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 </div>
 </div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="62" data-cell-type="code">
+<div id="a05ac178" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:31:47.568076Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:31:47.567994Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:31:47.601696Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:31:47.601352Z&quot;}}" data-execution_count="13" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>corrplot(samps[<span class="dv">20000</span>::<span class="dv">4</span>])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -689,31 +689,55 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 </div>
 </div>
 </div>
-<div id="cell-25" class="cell" data-execution_count="63" data-cell-type="code">
+<div id="a37818e4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:31:47.602905Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:31:47.602823Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:31:47.694699Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:31:47.694305Z&quot;}}" data-execution_count="14" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sns.distplot(samps[<span class="dv">20000</span>::<span class="dv">4</span>], bins<span class="op">=</span><span class="dv">25</span>)<span class="op">;</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>sns.distplot(samps[<span class="dv">20000</span>::], bins<span class="op">=</span><span class="dv">25</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48639/447715325.py:1: UserWarning: 
+
+`distplot` is a deprecated function and will be removed in seaborn v0.14.0.
+
+Please adapt your code to use either `displot` (a figure-level function with
+similar flexibility) or `histplot` (an axes-level function for histograms).
+
+For a guide to updating your code to use the new functions, please see
+https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
+
+  sns.distplot(samps[20000::4], bins=25);
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48639/447715325.py:2: UserWarning: 
+
+`distplot` is a deprecated function and will be removed in seaborn v0.14.0.
+
+Please adapt your code to use either `displot` (a figure-level function with
+similar flexibility) or `histplot` (an axes-level function for histograms).
+
+For a guide to updating your code to use the new functions, please see
+https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
+
+  sns.distplot(samps[20000::], bins=25);</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-15-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-26" class="cell" data-execution_count="64" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>like_samples <span class="op">=</span> norm.rvs(loc <span class="op">=</span> mu_data, scale<span class="op">=</span>sig, size<span class="op">=</span><span class="dv">5000</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>post_samples <span class="op">=</span> samps[<span class="dv">20000</span>::<span class="dv">4</span>]</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>prior_samples <span class="op">=</span> norm.rvs(loc <span class="op">=</span> mu_prior, scale<span class="op">=</span>tau, size<span class="op">=</span><span class="dv">5000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cb7003e7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:31:47.695818Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:31:47.695741Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:31:47.697898Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:31:47.697528Z&quot;}}" data-execution_count="15" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>like_samples <span class="op">=</span> norm.rvs(loc <span class="op">=</span> mu_data, scale<span class="op">=</span>sig, size<span class="op">=</span><span class="dv">5000</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>post_samples <span class="op">=</span> samps[<span class="dv">20000</span>::<span class="dv">4</span>]</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>prior_samples <span class="op">=</span> norm.rvs(loc <span class="op">=</span> mu_prior, scale<span class="op">=</span>std_prior, size<span class="op">=</span><span class="dv">5000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="comparing-distributions" class="level2">
 <h2 class="anchored" data-anchor-id="comparing-distributions">Comparing distributions</h2>
 <p>We plot samples from the prior against those from the sampling distribution (likelihood considered as a distribution in <span class="math inline">\(\theta\)</span> and those from the posterior.</p>
-<div id="cell-28" class="cell" data-execution_count="65" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>plt.hist(like_samples, bins<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"likelihood (sampling dist)"</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.hist(prior_samples, bins<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"prior"</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plt.hist(post_samples, bins<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"posterior"</span>, alpha<span class="op">=</span><span class="fl">0.4</span>)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="72cfdcee" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:31:47.698915Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:31:47.698842Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:31:47.771579Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:31:47.771127Z&quot;}}" data-execution_count="16" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>plt.hist(like_samples, bins<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"likelihood (sampling dist)"</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>plt.hist(prior_samples, bins<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"prior"</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>plt.hist(post_samples, bins<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"posterior"</span>, alpha<span class="op">=</span><span class="fl">0.4</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -722,16 +746,16 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 </div>
 </div>
 </div>
-<div id="cell-29" class="cell" data-execution_count="66" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>post_pred_func <span class="op">=</span> <span class="kw">lambda</span> post: norm.rvs(loc <span class="op">=</span> post, scale <span class="op">=</span> sig)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>post_pred_samples <span class="op">=</span> post_pred_func(post_samples)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="7fba57a0" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:31:47.772613Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:31:47.772539Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:31:47.774405Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:31:47.774076Z&quot;}}" data-execution_count="17" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>post_pred_func <span class="op">=</span> <span class="kw">lambda</span> post: norm.rvs(loc <span class="op">=</span> post, scale <span class="op">=</span> sig)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>post_pred_samples <span class="op">=</span> post_pred_func(post_samples)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We then plot the posterior predictive against the sampling distribution. These are pretty close. Notice that both are wider than the distribution of the posterior, as they are distributions of <span class="math inline">\(y\)</span> rather than <span class="math inline">\(\mu\)</span>. It just so happens that these distributions are on the scale so it makes sense to plot them together here and compare them.</p>
-<div id="cell-31" class="cell" data-execution_count="67" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>plt.hist(like_samples, bins<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"likelihood (sampling dist)"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>plt.hist(post_pred_samples, bins<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"posterior predictive"</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plt.hist(post_samples, bins<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"posterior"</span>, alpha<span class="op">=</span><span class="fl">0.4</span>)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="6a243761" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:31:47.775388Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:31:47.775322Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:31:47.846760Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:31:47.846303Z&quot;}}" data-execution_count="18" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>plt.hist(like_samples, bins<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"likelihood (sampling dist)"</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>plt.hist(post_pred_samples, bins<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"posterior predictive"</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>plt.hist(post_samples, bins<span class="op">=</span><span class="dv">25</span>, label<span class="op">=</span><span class="st">"posterior"</span>, alpha<span class="op">=</span><span class="fl">0.4</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -740,13 +764,37 @@ p(y_1, \ldots, y_n \vert \mu, \sigma^2) =
 </div>
 </div>
 </div>
-<div id="cell-32" class="cell" data-execution_count="70" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>sns.distplot(like_samples)<span class="op">;</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>sns.distplot(post_pred_samples)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="364869f8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:31:47.847849Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:31:47.847772Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:31:47.928168Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:31:47.927798Z&quot;}}" data-execution_count="19" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>sns.distplot(like_samples)<span class="op">;</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>sns.distplot(post_pred_samples)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48639/2813733996.py:1: UserWarning: 
+
+`distplot` is a deprecated function and will be removed in seaborn v0.14.0.
+
+Please adapt your code to use either `displot` (a figure-level function with
+similar flexibility) or `histplot` (an axes-level function for histograms).
+
+For a guide to updating your code to use the new functions, please see
+https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
+
+  sns.distplot(like_samples);
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48639/2813733996.py:2: UserWarning: 
+
+`distplot` is a deprecated function and will be removed in seaborn v0.14.0.
+
+Please adapt your code to use either `displot` (a figure-level function with
+similar flexibility) or `histplot` (an axes-level function for histograms).
+
+For a guide to updating your code to use the new functions, please see
+https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
+
+  sns.distplot(post_pred_samples);</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-20-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-20-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>

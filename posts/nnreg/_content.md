@@ -88,7 +88,7 @@ loader = torch.utils.data.DataLoader(dataset, batch_size=64, shuffle=True)
 
 <!-- cell:8 type:code -->
 ```python
-dataset.data_tensor.shape, dataset.target_tensor.shape
+dataset.tensors[0].shape, dataset.tensors[1].shape
 ```
 Output:
 ```
@@ -112,7 +112,7 @@ def run_model(model, epochs):
             model.zero_grad()
             loss.backward()
             optimizer.step()
-            localaccum.append(loss.data[0])
+            localaccum.append(loss.item())
         accum.append((np.mean(localaccum), np.std(localaccum)))
     return accum
 ```
@@ -132,17 +132,24 @@ print(model)
 Output:
 ```
 MLRegP(
-  (fc_initial): Linear(in_features=1, out_features=2)
+  (fc_initial): Linear(in_features=1, out_features=2, bias=True)
   (fc_mid): ModuleList(
-    (0): Linear(in_features=2, out_features=2)
+    (0): Linear(in_features=2, out_features=2, bias=True)
   )
-  (fc_final): Linear(in_features=2, out_features=1)
+  (fc_final): Linear(in_features=2, out_features=1, bias=True)
 )
 ```
 
 <!-- cell:13 type:code -->
 ```python
 accum = run_model(model, 2000)
+```
+Output:
+```
+/Users/rahul/Library/Caches/uv/archive-v0/vqGY-5rti2C5JP-dmfDIu/lib/python3.14/site-packages/torch/nn/modules/loss.py:626: UserWarning: Using a target size (torch.Size([64])) that is different to the input size (torch.Size([64, 1])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.mse_loss(input, target, reduction=self.reduction)
+/Users/rahul/Library/Caches/uv/archive-v0/vqGY-5rti2C5JP-dmfDIu/lib/python3.14/site-packages/torch/nn/modules/loss.py:626: UserWarning: Using a target size (torch.Size([53])) that is different to the input size (torch.Size([53, 1])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.mse_loss(input, target, reduction=self.reduction)
 ```
 
 <!-- cell:14 type:code -->
@@ -159,7 +166,7 @@ plt.xlim(0, 1000)
 ```
 Output:
 ```
-(0, 1000)
+(0.0, 1000.0)
 ```
 [Figure]
 
@@ -173,7 +180,7 @@ plt.plot(xgrid, finaloutput.data.numpy(), lw=3, color="r")
 ```
 Output:
 ```
-[<matplotlib.lines.Line2D at 0x122320c88>]
+[<matplotlib.lines.Line2D at 0x135036e40>]
 ```
 [Figure]
 
@@ -211,11 +218,11 @@ print(model2)
 Output:
 ```
 MLRegP(
-  (fc_initial): Linear(in_features=1, out_features=4)
+  (fc_initial): Linear(in_features=1, out_features=4, bias=True)
   (fc_mid): ModuleList(
-    (0): Linear(in_features=4, out_features=4)
+    (0): Linear(in_features=4, out_features=4, bias=True)
   )
-  (fc_final): Linear(in_features=4, out_features=1)
+  (fc_final): Linear(in_features=4, out_features=1, bias=True)
 )
 ```
 
@@ -233,7 +240,7 @@ plt.plot(xgrid, finaloutput.data.numpy(), lw=3, color="r")
 ```
 Output:
 ```
-[<matplotlib.lines.Line2D at 0x12304ae80>]
+[<matplotlib.lines.Line2D at 0x134785e80>]
 ```
 [Figure]
 
@@ -273,11 +280,11 @@ print(model3)
 Output:
 ```
 MLRegP(
-  (fc_initial): Linear(in_features=1, out_features=8)
+  (fc_initial): Linear(in_features=1, out_features=8, bias=True)
   (fc_mid): ModuleList(
-    (0): Linear(in_features=8, out_features=8)
+    (0): Linear(in_features=8, out_features=8, bias=True)
   )
-  (fc_final): Linear(in_features=8, out_features=1)
+  (fc_final): Linear(in_features=8, out_features=1, bias=True)
 )
 ```
 
@@ -289,7 +296,7 @@ plt.plot(xgrid, finaloutput.data.numpy(), lw=3, color="r")
 ```
 Output:
 ```
-[<matplotlib.lines.Line2D at 0x1220cc630>]
+[<matplotlib.lines.Line2D at 0x135bf4d70>]
 ```
 [Figure]
 
@@ -320,12 +327,11 @@ print(model4)
 Output:
 ```
 MLRegP(
-  (fc_initial): Linear(in_features=1, out_features=4)
+  (fc_initial): Linear(in_features=1, out_features=4, bias=True)
   (fc_mid): ModuleList(
-    (0): Linear(in_features=4, out_features=4)
-    (1): Linear(in_features=4, out_features=4)
+    (0-1): 2 x Linear(in_features=4, out_features=4, bias=True)
   )
-  (fc_final): Linear(in_features=4, out_features=1)
+  (fc_final): Linear(in_features=4, out_features=1, bias=True)
 )
 ```
 
@@ -337,7 +343,7 @@ plt.plot(xgrid, finaloutput.data.numpy(), lw=3, color="r")
 ```
 Output:
 ```
-[<matplotlib.lines.Line2D at 0x12249c780>]
+[<matplotlib.lines.Line2D at 0x135d986e0>]
 ```
 [Figure]
 
@@ -359,12 +365,11 @@ print(model5)
 Output:
 ```
 MLRegP(
-  (fc_initial): Linear(in_features=1, out_features=2)
+  (fc_initial): Linear(in_features=1, out_features=2, bias=True)
   (fc_mid): ModuleList(
-    (0): Linear(in_features=2, out_features=2)
-    (1): Linear(in_features=2, out_features=2)
+    (0-1): 2 x Linear(in_features=2, out_features=2, bias=True)
   )
-  (fc_final): Linear(in_features=2, out_features=1)
+  (fc_final): Linear(in_features=2, out_features=1, bias=True)
 )
 ```
 
@@ -376,7 +381,7 @@ plt.plot(xgrid, finaloutput.data.numpy(), lw=3, color="r")
 ```
 Output:
 ```
-[<matplotlib.lines.Line2D at 0x12349d7b8>]
+[<matplotlib.lines.Line2D at 0x135e4de80>]
 ```
 [Figure]
 
@@ -407,10 +412,9 @@ print(model6)
 Output:
 ```
 MLRegP(
-  (fc_initial): Linear(in_features=1, out_features=2)
-  (fc_mid): ModuleList(
-  )
-  (fc_final): Linear(in_features=2, out_features=1)
+  (fc_initial): Linear(in_features=1, out_features=2, bias=True)
+  (fc_mid): ModuleList()
+  (fc_final): Linear(in_features=2, out_features=1, bias=True)
 )
 ```
 
@@ -422,7 +426,7 @@ plt.plot(xgrid, finaloutput.data.numpy(), lw=3, color="r")
 ```
 Output:
 ```
-[<matplotlib.lines.Line2D at 0x123365cc0>]
+[<matplotlib.lines.Line2D at 0x136808d70>]
 ```
 [Figure]
 
@@ -453,10 +457,9 @@ print(model7)
 Output:
 ```
 MLRegP(
-  (fc_initial): Linear(in_features=1, out_features=1)
-  (fc_mid): ModuleList(
-  )
-  (fc_final): Linear(in_features=1, out_features=1)
+  (fc_initial): Linear(in_features=1, out_features=1, bias=True)
+  (fc_mid): ModuleList()
+  (fc_final): Linear(in_features=1, out_features=1, bias=True)
 )
 ```
 
@@ -468,7 +471,7 @@ plt.plot(xgrid, finaloutput.data.numpy(), lw=3, color="r")
 ```
 Output:
 ```
-[<matplotlib.lines.Line2D at 0x121f65b70>]
+[<matplotlib.lines.Line2D at 0x135f7b0e0>]
 ```
 [Figure]
 
@@ -499,10 +502,9 @@ print(model8)
 Output:
 ```
 MLRegP(
-  (fc_initial): Linear(in_features=1, out_features=16)
-  (fc_mid): ModuleList(
-  )
-  (fc_final): Linear(in_features=16, out_features=1)
+  (fc_initial): Linear(in_features=1, out_features=16, bias=True)
+  (fc_mid): ModuleList()
+  (fc_final): Linear(in_features=16, out_features=1, bias=True)
 )
 ```
 

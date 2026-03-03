@@ -178,13 +178,13 @@ acc
 ```
 Output:
 ```
-83244
+83118
 ```
 
 <!-- cell:19 type:code -->
 ```python
 # plot our sample histogram
-plt.hist(samps,bins=100, alpha=0.4, label=u'MCMC distribution', normed=True) 
+plt.hist(samps,bins=100, alpha=0.4, label=u'MCMC distribution', density=True) 
 somesamps=samps[0::20000]
 for i,s in enumerate(somesamps):
     xs=np.linspace(s-3, s+3, 100)
@@ -199,7 +199,7 @@ print("starting point was ", x0)
 [Figure]
 Output:
 ```
-starting point was  0.9847232294704866
+starting point was  0.8183160195576589
 ```
 
 <!-- cell:20 type:markdown -->
@@ -218,7 +218,7 @@ plt.xlim([0, 5000])
 ```
 Output:
 ```
-(0, 5000)
+(0.0, 5000.0)
 ```
 [Figure]
 
@@ -232,7 +232,7 @@ plt.xlim([20000, 25000])
 ```
 Output:
 ```
-(20000, 25000)
+(20000.0, 25000.0)
 ```
 [Figure]
 
@@ -276,12 +276,12 @@ acc_m
 ```
 Output:
 ```
-79092
+79003
 ```
 
 <!-- cell:33 type:code -->
 ```python
-plt.hist(samps_m,bins=100, alpha=0.4, label=u'MCMC distribution', normed=True) 
+plt.hist(samps_m,bins=100, alpha=0.4, label=u'MCMC distribution', density=True) 
 somesamps=samps_m[0::20000]
 for i,s in enumerate(somesamps):
     xs=np.linspace(s-3, s+3, 100)
@@ -296,7 +296,7 @@ print("starting point was ", x0)
 [Figure]
 Output:
 ```
-starting point was  0.9847232294704866
+starting point was  0.8183160195576589
 ```
 
 <!-- cell:34 type:markdown -->
@@ -323,11 +323,11 @@ print(np.linalg.matrix_power(transition_matrix,10))
 Output:
 ```
 The transition matrix
-[[ 0.3  0.7]
- [ 0.5  0.5]]
+[[0.3 0.7]
+ [0.5 0.5]]
 Stationary distribution
-[[ 0.41666673  0.58333327]
- [ 0.41666662  0.58333338]]
+[[0.41666673 0.58333327]
+ [0.41666662 0.58333338]]
 ```
 
 <!-- cell:37 type:markdown -->
@@ -366,7 +366,7 @@ acc_dis
 ```
 Output:
 ```
-848
+886
 ```
 
 <!-- cell:43 type:code -->
@@ -391,8 +391,8 @@ t_asym
 ```
 Output:
 ```
-array([[ 0.1,  0.9],
-       [ 0.3,  0.7]])
+array([[0.1, 0.9],
+       [0.3, 0.7]])
 ```
 
 <!-- cell:47 type:code -->
@@ -401,7 +401,7 @@ t_asym[0][1]
 ```
 Output:
 ```
-0.90000000000000002
+np.float64(0.9)
 ```
 
 <!-- cell:48 type:code -->
@@ -421,7 +421,7 @@ acc_dis2
 ```
 Output:
 ```
-797
+820
 ```
 
 <!-- cell:51 type:code -->

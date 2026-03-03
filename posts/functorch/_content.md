@@ -49,7 +49,7 @@ plt.plot(xgrid, ygrid, '.')
 ```
 Output:
 ```
-[<matplotlib.lines.Line2D at 0x11247a588>]
+[<matplotlib.lines.Line2D at 0x1113f7230>]
 ```
 [Figure]
 
@@ -123,10 +123,9 @@ print(model)
 Output:
 ```
 MLRegP(
-  (fc_initial): Linear(in_features=1, out_features=80)
-  (fc_mid): ModuleList(
-  )
-  (fc_final): Linear(in_features=80, out_features=1)
+  (fc_initial): Linear(in_features=1, out_features=80, bias=True)
+  (fc_mid): ModuleList()
+  (fc_final): Linear(in_features=80, out_features=1, bias=True)
 )
 ```
 
@@ -152,9 +151,14 @@ for k in range(epochs):
         model.zero_grad()
         loss.backward()
         optimizer.step()
-        localaccum.append(loss.data[0])
+        localaccum.append(loss.item())
     accum.append(np.mean(localaccum))
 plt.plot(accum);                      
+```
+Output:
+```
+/Users/rahul/Library/Caches/uv/archive-v0/fsf90YL_ANxDGfy0jne0J/lib/python3.14/site-packages/torch/nn/modules/loss.py:626: UserWarning: Using a target size (torch.Size([64])) that is different to the input size (torch.Size([64, 1])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.mse_loss(input, target, reduction=self.reduction)
 ```
 [Figure]
 
@@ -171,7 +175,7 @@ plt.plot(xgrid, finaloutput.data.numpy(), lw=2)
 ```
 Output:
 ```
-[<matplotlib.lines.Line2D at 0x11e5dc470>]
+[<matplotlib.lines.Line2D at 0x127538d70>]
 ```
 [Figure]
 
@@ -203,18 +207,18 @@ for k in range(epochs):
         model2.zero_grad()
         loss.backward()
         optimizer.step()
-        localaccum.append(loss.data[0])
+        localaccum.append(loss.item())
     accum.append(np.mean(localaccum))
 plt.plot(accum);                      
 ```
 Output:
 ```
 MLRegP(
-  (fc_initial): Linear(in_features=1, out_features=40)
+  (fc_initial): Linear(in_features=1, out_features=40, bias=True)
   (fc_mid): ModuleList(
-    (0): Linear(in_features=40, out_features=40)
+    (0): Linear(in_features=40, out_features=40, bias=True)
   )
-  (fc_final): Linear(in_features=40, out_features=1)
+  (fc_final): Linear(in_features=40, out_features=1, bias=True)
 )
 ```
 [Figure]
@@ -228,6 +232,6 @@ plt.plot(xgrid, finaloutput.data.numpy(), lw=2)
 ```
 Output:
 ```
-[<matplotlib.lines.Line2D at 0x11f636b70>]
+[<matplotlib.lines.Line2D at 0x1272aaba0>]
 ```
 [Figure]

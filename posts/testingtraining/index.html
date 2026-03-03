@@ -154,14 +154,14 @@ window.Quarto = {
 <meta property="og:description" content="Formalizes out-of-sample error estimation using Hoeffding’s inequality and the train/test split. Walks through scikit-learn’s data pipeline for polynomial regression, showing how the complexity parameter controls the bias-variance tradeoff.">
 <meta property="og:image" content="https://rahuldave.github.io/posts/testingtraining/index_files/figure-html/cell-6-output-1.png">
 <meta property="og:site_name" content="rahuldave">
-<meta property="og:image:height" content="539">
-<meta property="og:image:width" content="773">
+<meta property="og:image:height" content="440">
+<meta property="og:image:width" content="591">
 <meta name="twitter:title" content="Learning Bounds and the Test Set – rahuldave">
 <meta name="twitter:description" content="Formalizes out-of-sample error estimation using Hoeffding’s inequality and the train/test split. Walks through scikit-learn’s data pipeline for polynomial regression, showing how the complexity parameter controls the bias-variance tradeoff.">
 <meta name="twitter:image" content="https://rahuldave.github.io/posts/testingtraining/index_files/figure-html/cell-6-output-1.png">
 <meta name="twitter:creator" content="@rahuldave">
-<meta name="twitter:image-height" content="539">
-<meta name="twitter:image-width" content="773">
+<meta name="twitter:image-height" content="440">
+<meta name="twitter:image-width" content="591">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -467,7 +467,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-2" class="cell" data-hide="true" data-execution_count="1" data-cell-type="code">
+<div id="04be8df9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:33.755527Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:33.755208Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:34.734969Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:34.734559Z&quot;}}" data-hide="true" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
@@ -481,44 +481,41 @@ window.Quarto = {
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">"whitegrid"</span>)</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>sns.set_context(<span class="st">"poster"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
 </div>
-</div>
-<div id="cell-3" class="cell" data-hide="true" data-execution_count="2" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_simple_plot():</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    fig, axes<span class="op">=</span>plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">5</span>), nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">2</span>)<span class="op">;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylabel(<span class="st">"$y$"</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_yticklabels([])</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylim([<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>])</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_ylim([<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>])</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()<span class="op">;</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> axes</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_plot():</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    fig, axes<span class="op">=</span>plt.subplots(figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">8</span>), nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">2</span>)<span class="op">;</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylabel(<span class="st">"$p_R$"</span>)</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_yticklabels([])</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_xlim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_xlim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()<span class="op">;</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> axes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="f77d2ca3" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:34.736347Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:34.736216Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:34.739090Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:34.738738Z&quot;}}" data-hide="true" data-execution_count="3" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_simple_plot():</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    fig, axes<span class="op">=</span>plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">5</span>), nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylabel(<span class="st">"$y$"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_yticklabels([])</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylim([<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>])</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_ylim([<span class="op">-</span><span class="dv">2</span>,<span class="dv">2</span>])</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()<span class="op">;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> axes</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_plot():</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    fig, axes<span class="op">=</span>plt.subplots(figsize<span class="op">=</span>(<span class="dv">20</span>,<span class="dv">8</span>), nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylabel(<span class="st">"$p_R$"</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_xlabel(<span class="st">"$x$"</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_yticklabels([])</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_xlim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].set_xlim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()<span class="op">;</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> axes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="revisiting-the-model" class="level2">
 <h2 class="anchored" data-anchor-id="revisiting-the-model">Revisiting the model</h2>
 <p>Let <span class="math inline">\(x\)</span> be the fraction of religious people in a county and <span class="math inline">\(y\)</span> be the probability of voting for Romney as a function of <span class="math inline">\(x\)</span>. In other words <span class="math inline">\(y_i\)</span> is data that pollsters have taken which tells us their estimate of people voting for Romney and <span class="math inline">\(x_i\)</span> is the fraction of religious people in county <span class="math inline">\(i\)</span>. Because poll samples are finite, there is a margin of error on each data point or county <span class="math inline">\(i\)</span>, but we will ignore that for now.</p>
 <p>Let us assume that we have a “population” of 200 counties <span class="math inline">\(x\)</span>:</p>
-<div id="cell-6" class="cell" data-execution_count="3" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dffull<span class="op">=</span>pd.read_csv(<span class="st">"data/religion.csv"</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>dffull.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div id="274e0404" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:34.740300Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:34.740217Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:34.747767Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:34.747302Z&quot;}}" data-execution_count="4" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>dffull<span class="op">=</span>pd.read_csv(<span class="st">"data/religion.csv"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>dffull.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
 <div>
+
 
 <table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
@@ -561,10 +558,10 @@ window.Quarto = {
 </div>
 </div>
 <p>Lets suppose now that the Lord came by and told us that the points in the plot below captures <span class="math inline">\(f(x)\)</span> exactly.</p>
-<div id="cell-8" class="cell" data-execution_count="4" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>dffull.rfrac.values</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>f<span class="op">=</span>dffull.promney.values</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x,f,<span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="69ce5fd7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:34.748768Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:34.748699Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:34.791353Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:34.790897Z&quot;}}" data-execution_count="5" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>dffull.rfrac.values</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>f<span class="op">=</span>dffull.promney.values</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x,f,<span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -575,11 +572,12 @@ window.Quarto = {
 </div>
 <p>Notice that our sampling of <span class="math inline">\(x\)</span> is not quite uniform: there are more points around <span class="math inline">\(x\)</span> of 0.7.</p>
 <p>Now, in real life we are only given a sample of points. Lets assume that out of this population of 200 points we are given a sample <span class="math inline">\(\cal{D}\)</span> of 30 data points. Such data is called <strong>in-sample data</strong>. Contrastingly, the entire population of data points is also called <strong>out-of-sample data</strong>.</p>
-<div id="cell-10" class="cell" data-execution_count="5" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/noisysample.csv"</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
+<div id="05d00cf3" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:34.792382Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:34.792299Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:34.796429Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:34.796096Z&quot;}}" data-execution_count="6" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/noisysample.csv"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
 <div>
+
 
 <table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
@@ -633,18 +631,28 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-11" class="cell" data-figure_type="w" data-execution_count="6" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>axes<span class="op">=</span>make_plot()</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,f, <span class="st">'k-'</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">"f (from the Lord)"</span>)<span class="op">;</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,f, <span class="st">'r.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, label<span class="op">=</span><span class="st">"population"</span>)<span class="op">;</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(df.x,df.f, <span class="st">'o'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"in-sample noiseless data $</span><span class="er">\</span><span class="st">cal</span><span class="sc">{D}</span><span class="st">$"</span>)<span class="op">;</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(df.x,df.y, <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"in-sample noisy data $</span><span class="er">\</span><span class="st">cal</span><span class="sc">{D}</span><span class="st">$"</span>)<span class="op">;</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="9c244675" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:34.797417Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:34.797346Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:34.967209Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:34.966618Z&quot;}}" data-figure_type="w" data-execution_count="7" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>axes<span class="op">=</span>make_plot()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,f, <span class="st">'k-'</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">"f (from the Lord)"</span>)<span class="op">;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,f, <span class="st">'r.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, label<span class="op">=</span><span class="st">"population"</span>)<span class="op">;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(df.x,df.f, <span class="st">'o'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"in-sample noiseless data $</span><span class="er">\</span><span class="st">cal</span><span class="sc">{D}</span><span class="st">$"</span>)<span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(df.x,df.y, <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"in-sample noisy data $</span><span class="er">\</span><span class="st">cal</span><span class="sc">{D}</span><span class="st">$"</span>)<span class="op">;</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>&lt;&gt;:4: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+&lt;&gt;:5: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+&lt;&gt;:4: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+&lt;&gt;:5: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_49236/2639234267.py:4: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+  axes[1].plot(df.x,df.f, 'o', alpha=0.6, label="in-sample noiseless data $\cal{D}$");
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_49236/2639234267.py:5: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+  axes[1].plot(df.x,df.y, 's', alpha=0.6, label="in-sample noisy data $\cal{D}$");</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-8-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -671,7 +679,7 @@ B &amp;:&amp; R_{out \,of \,sample} (g) \approx R_{\cal{D}}(g)
 <li>The <strong>training set</strong>, which is the part of the data we use to fit a model</li>
 <li>The <strong>testing set</strong>, a smaller part of the data set which we use to see how good our fit was.</li>
 </ol>
-<p>This split is done by choosing points at random into these two sets. Typically we might take 80% of our data and put it in the training set, with the remaining amount going into the test set. This can be carried out in python using the <code>train_test_split</code> function from <code>sklearn.cross_validation</code>.</p>
+<p>This split is done by choosing points at random into these two sets. Typically we might take 80% of our data and put it in the training set, with the remaining amount going into the test set. This can be carried out in python using the <code>train_test_split</code> function from <code>sklearn.model_selection</code>.</p>
 <p>The split is shown in the diagram below:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -683,8 +691,8 @@ B &amp;:&amp; R_{out \,of \,sample} (g) \approx R_{\cal{D}}(g)
 <p>At this point you are thinking: the test set is just another sample of the population, just like the training set. What guarantee do we have that it approximates the out-of-sample error well? And furthermore, if we pick 6 out of 30 points as a test set, why would you expect the estimate to be any good?</p>
 <p>We will kind-of hand wavingly show later that the test set error is a good estimate of the out of sample error, especially for larger and larger test sets. You are right to worry that 6 points is perhaps too few, but thats what we have for now, and we shall work with them.</p>
 <p>We are <strong>using the training set then, as our in-sample set, and the test set as a proxy for out-of-sample.</strong>.</p>
-<div id="cell-15" class="cell" data-execution_count="7" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.cross_validation <span class="im">import</span> train_test_split</span>
+<div id="3bbbf92d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:34.968469Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:34.968384Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:35.084992Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:35.084497Z&quot;}}" data-execution_count="8" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>datasize<span class="op">=</span>df.shape[<span class="dv">0</span>]</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#split dataset using the index, as we have x,f, and y that we want to split.</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>itrain,itest <span class="op">=</span> train_test_split(<span class="bu">range</span>(<span class="dv">30</span>),train_size<span class="op">=</span><span class="dv">24</span>, test_size<span class="op">=</span><span class="dv">6</span>)</span>
@@ -695,7 +703,7 @@ B &amp;:&amp; R_{out \,of \,sample} (g) \approx R_{\cal{D}}(g)
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>ftest <span class="op">=</span> df.f[itest].values</span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>ytest <span class="op">=</span> df.y[itest].values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-16" class="cell" data-execution_count="8" data-cell-type="code">
+<div id="ded6d12d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:35.086257Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:35.086105Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:35.189498Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:35.189105Z&quot;}}" data-execution_count="9" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>axes<span class="op">=</span>make_plot()</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(df.x,df.f, <span class="st">'k-'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f (from the Lord)"</span>)<span class="op">;</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(df.x,df.y, <span class="st">'o'</span>,alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"$</span><span class="er">\</span><span class="st">cal</span><span class="sc">{D}</span><span class="st">$"</span>)<span class="op">;</span></span>
@@ -704,10 +712,16 @@ B &amp;:&amp; R_{out \,of \,sample} (g) \approx R_{\cal{D}}(g)
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(xtest, ytest, <span class="st">'s'</span>, label<span class="op">=</span><span class="st">"testing"</span>)</span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(loc<span class="op">=</span><span class="st">"lower right"</span>)</span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend(loc<span class="op">=</span><span class="st">"lower right"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>&lt;&gt;:3: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+&lt;&gt;:3: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_49236/549138771.py:3: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+  axes[0].plot(df.x,df.y, 'o',alpha=0.6, label="$\cal{D}$");</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-10-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -738,13 +752,13 @@ B &amp;:&amp; R_{out \,of \,sample} (g) \approx R_{\cal{D}}(g)
 </figure>
 </div>
 <p>Here is an example. The reason for using <code>[[1],[2],[3]]</code> as opposed to <code>[1,2,3]</code> is that scikit-learn expects data to be stored in a two-dimensional array or matrix with size <code>[n_samples, n_features]</code>.</p>
-<div id="cell-19" class="cell" data-execution_count="9" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> PolynomialFeatures</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>PolynomialFeatures(<span class="dv">3</span>).fit_transform([[<span class="dv">1</span>],[<span class="dv">2</span>], [<span class="dv">3</span>]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
-<pre><code>array([[  1.,   1.,   1.,   1.],
-       [  1.,   2.,   4.,   8.],
-       [  1.,   3.,   9.,  27.]])</code></pre>
+<div id="f15b6a92" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:35.190558Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:35.190463Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:35.192933Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:35.192553Z&quot;}}" data-execution_count="10" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> PolynomialFeatures</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>PolynomialFeatures(<span class="dv">3</span>).fit_transform([[<span class="dv">1</span>],[<span class="dv">2</span>], [<span class="dv">3</span>]])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>array([[ 1.,  1.,  1.,  1.],
+       [ 1.,  2.,  4.,  8.],
+       [ 1.,  3.,  9., 27.]])</code></pre>
 </div>
 </div>
 <p>To transform <code>[1,2,3]</code> into [[1],[2],[3]] we need to do a reshape.</p>
@@ -754,81 +768,81 @@ B &amp;:&amp; R_{out \,of \,sample} (g) \approx R_{\cal{D}}(g)
 <figcaption>NumPy reshape: converting a 1D array to a column vector</figcaption>
 </figure>
 </div>
-<div id="cell-21" class="cell" data-execution_count="10" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>np.array([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]).reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div id="b361c9f1" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:35.193990Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:35.193898Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:35.195998Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:35.195651Z&quot;}}" data-execution_count="11" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>np.array([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]).reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>array([[1],
        [2],
        [3]])</code></pre>
 </div>
 </div>
 <p>So now we are in the recatangular, rows=samples, columns=features form expected by <code>scikit-learn</code>. Ok, so lets see the process to transform our 1-D dataset <code>x</code> into a d-dimensional one.</p>
-<div id="cell-23" class="cell" data-execution_count="11" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>xtrain</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
-<pre><code>array([ 0.33      ,  0.75868254,  0.52      ,  0.79      ,  0.63633949,
-        0.70533267,  0.71829603,  0.75841654,  0.63071361,  0.11      ,
-        0.82850909,  0.46      ,  0.64832591,  0.53596824,  0.91      ,
-        0.67      ,  0.76      ,  0.34      ,  0.56      ,  0.94      ,
-        0.6       ,  0.96      ,  0.43754875,  0.54      ])</code></pre>
-</div>
-</div>
-<div id="cell-24" class="cell" data-execution_count="12" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>xtrain.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="6ba62056" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:35.197065Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:35.196983Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:35.198934Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:35.198640Z&quot;}}" data-execution_count="12" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>xtrain</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
-<pre><code>array([[ 0.33      ],
-       [ 0.75868254],
-       [ 0.52      ],
-       [ 0.79      ],
-       [ 0.63633949],
-       [ 0.70533267],
-       [ 0.71829603],
-       [ 0.75841654],
-       [ 0.63071361],
-       [ 0.11      ],
-       [ 0.82850909],
-       [ 0.46      ],
-       [ 0.64832591],
-       [ 0.53596824],
-       [ 0.91      ],
-       [ 0.67      ],
-       [ 0.76      ],
-       [ 0.34      ],
-       [ 0.56      ],
-       [ 0.94      ],
-       [ 0.6       ],
-       [ 0.96      ],
-       [ 0.43754875],
-       [ 0.54      ]])</code></pre>
+<pre><code>array([0.71829603, 0.91      , 0.23      , 0.96      , 0.67      ,
+       0.75841654, 0.56      , 0.82850909, 0.74990267, 0.33      ,
+       0.6       , 0.64832591, 0.70533267, 0.43754875, 0.46      ,
+       0.80965752, 0.07      , 0.09      , 0.34      , 0.54      ,
+       0.63071361, 0.66      , 0.52      , 0.94      ])</code></pre>
 </div>
 </div>
-<div id="cell-25" class="cell" data-execution_count="13" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>PolynomialFeatures(<span class="dv">2</span>).fit_transform(xtrain.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="7864ed29" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:35.199855Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:35.199780Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:35.201913Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:35.201571Z&quot;}}" data-execution_count="13" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>xtrain.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
-<pre><code>array([[ 1.        ,  0.33      ,  0.1089    ],
-       [ 1.        ,  0.75868254,  0.5755992 ],
-       [ 1.        ,  0.52      ,  0.2704    ],
-       [ 1.        ,  0.79      ,  0.6241    ],
-       [ 1.        ,  0.63633949,  0.40492794],
-       [ 1.        ,  0.70533267,  0.49749418],
-       [ 1.        ,  0.71829603,  0.51594919],
-       [ 1.        ,  0.75841654,  0.57519565],
-       [ 1.        ,  0.63071361,  0.39779966],
-       [ 1.        ,  0.11      ,  0.0121    ],
-       [ 1.        ,  0.82850909,  0.68642731],
-       [ 1.        ,  0.46      ,  0.2116    ],
-       [ 1.        ,  0.64832591,  0.42032648],
-       [ 1.        ,  0.53596824,  0.28726196],
-       [ 1.        ,  0.91      ,  0.8281    ],
-       [ 1.        ,  0.67      ,  0.4489    ],
-       [ 1.        ,  0.76      ,  0.5776    ],
-       [ 1.        ,  0.34      ,  0.1156    ],
-       [ 1.        ,  0.56      ,  0.3136    ],
-       [ 1.        ,  0.94      ,  0.8836    ],
-       [ 1.        ,  0.6       ,  0.36      ],
-       [ 1.        ,  0.96      ,  0.9216    ],
-       [ 1.        ,  0.43754875,  0.1914489 ],
-       [ 1.        ,  0.54      ,  0.2916    ]])</code></pre>
+<pre><code>array([[0.71829603],
+       [0.91      ],
+       [0.23      ],
+       [0.96      ],
+       [0.67      ],
+       [0.75841654],
+       [0.56      ],
+       [0.82850909],
+       [0.74990267],
+       [0.33      ],
+       [0.6       ],
+       [0.64832591],
+       [0.70533267],
+       [0.43754875],
+       [0.46      ],
+       [0.80965752],
+       [0.07      ],
+       [0.09      ],
+       [0.34      ],
+       [0.54      ],
+       [0.63071361],
+       [0.66      ],
+       [0.52      ],
+       [0.94      ]])</code></pre>
+</div>
+</div>
+<div id="c4f12224" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:35.202972Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:35.202906Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:35.205443Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:35.205034Z&quot;}}" data-execution_count="14" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>PolynomialFeatures(<span class="dv">2</span>).fit_transform(xtrain.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>array([[1.        , 0.71829603, 0.51594919],
+       [1.        , 0.91      , 0.8281    ],
+       [1.        , 0.23      , 0.0529    ],
+       [1.        , 0.96      , 0.9216    ],
+       [1.        , 0.67      , 0.4489    ],
+       [1.        , 0.75841654, 0.57519565],
+       [1.        , 0.56      , 0.3136    ],
+       [1.        , 0.82850909, 0.68642731],
+       [1.        , 0.74990267, 0.56235401],
+       [1.        , 0.33      , 0.1089    ],
+       [1.        , 0.6       , 0.36      ],
+       [1.        , 0.64832591, 0.42032648],
+       [1.        , 0.70533267, 0.49749418],
+       [1.        , 0.43754875, 0.1914489 ],
+       [1.        , 0.46      , 0.2116    ],
+       [1.        , 0.80965752, 0.65554529],
+       [1.        , 0.07      , 0.0049    ],
+       [1.        , 0.09      , 0.0081    ],
+       [1.        , 0.34      , 0.1156    ],
+       [1.        , 0.54      , 0.2916    ],
+       [1.        , 0.63071361, 0.39779966],
+       [1.        , 0.66      , 0.4356    ],
+       [1.        , 0.52      , 0.2704    ],
+       [1.        , 0.94      , 0.8836    ]])</code></pre>
 </div>
 </div>
 </section>
@@ -849,15 +863,15 @@ B &amp;:&amp; R_{out \,of \,sample} (g) \approx R_{\cal{D}}(g)
 <p>A summary of the scikit-learn interface can be found here:</p>
 <p>http://nbviewer.jupyter.org/github/jakevdp/sklearn_pycon2015/blob/master/notebooks/02.2-Basic-Principles.ipynb#Recap:-Scikit-learn’s-estimator-interface</p>
 <p>Lets put this alltogether. Below we write a function to create multiple datasets, one for each polynomial degree:</p>
-<div id="cell-31" class="cell" data-execution_count="14" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_features(train_set, test_set, degrees):</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    traintestlist<span class="op">=</span>[]</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> d <span class="kw">in</span> degrees:</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        traintestdict<span class="op">=</span>{}</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>        traintestdict[<span class="st">'train'</span>] <span class="op">=</span> PolynomialFeatures(d).fit_transform(train_set.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>        traintestdict[<span class="st">'test'</span>] <span class="op">=</span> PolynomialFeatures(d).fit_transform(test_set.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>        traintestlist.append(traintestdict)</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> traintestlist</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="19ed8743" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:35.206459Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:35.206387Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:35.208301Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:35.208001Z&quot;}}" data-execution_count="15" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_features(train_set, test_set, degrees):</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    traintestlist<span class="op">=</span>[]</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> d <span class="kw">in</span> degrees:</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>        traintestdict<span class="op">=</span>{}</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>        traintestdict[<span class="st">'train'</span>] <span class="op">=</span> PolynomialFeatures(d).fit_transform(train_set.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>        traintestdict[<span class="st">'test'</span>] <span class="op">=</span> PolynomialFeatures(d).fit_transform(test_set.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>        traintestlist.append(traintestdict)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> traintestlist</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 </section>
@@ -870,97 +884,91 @@ B &amp;:&amp; R_{out \,of \,sample} (g) \approx R_{\cal{D}}(g)
 <p>The predictor interface extends the notion of an estimator by adding a predict method that takes an array X_test and produces predictions for X_test, based on the learned parameters of the estimator.</p>
 </blockquote>
 <p>So, for increasing polynomial degree, and thus feature dimension <code>d</code>, we fit a <code>LinearRegression</code> model on the traing set. We then use scikit-learn again to calculate the error or risk. We calculate the <code>mean_squared_error</code> between the model’s predictions and the data, BOTH on the training set and test set. We plot this error as a function of the defree of the polynomial <code>d</code>.</p>
-<div id="cell-34" class="cell" data-execution_count="15" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>degrees<span class="op">=</span><span class="bu">range</span>(<span class="dv">21</span>)</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>error_train<span class="op">=</span>np.empty(<span class="bu">len</span>(degrees))</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>error_test<span class="op">=</span>np.empty(<span class="bu">len</span>(degrees))</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>traintestlists<span class="op">=</span>make_features(xtrain, xtest, degrees)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="949dad2a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:35.209244Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:35.209169Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:35.251064Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:35.250595Z&quot;}}" data-execution_count="16" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>degrees<span class="op">=</span><span class="bu">range</span>(<span class="dv">21</span>)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>error_train<span class="op">=</span>np.empty(<span class="bu">len</span>(degrees))</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>error_test<span class="op">=</span>np.empty(<span class="bu">len</span>(degrees))</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>traintestlists<span class="op">=</span>make_features(xtrain, xtest, degrees)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-35" class="cell" data-execution_count="16" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>traintestlists[<span class="dv">3</span>][<span class="st">'train'</span>], ytrain</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
-<pre><code>(array([[ 1.        ,  0.33      ,  0.1089    ,  0.035937  ],
-        [ 1.        ,  0.75868254,  0.5755992 ,  0.43669706],
-        [ 1.        ,  0.52      ,  0.2704    ,  0.140608  ],
-        [ 1.        ,  0.79      ,  0.6241    ,  0.493039  ],
-        [ 1.        ,  0.63633949,  0.40492794,  0.25767164],
-        [ 1.        ,  0.70533267,  0.49749418,  0.3508989 ],
-        [ 1.        ,  0.71829603,  0.51594919,  0.37060426],
-        [ 1.        ,  0.75841654,  0.57519565,  0.4362379 ],
-        [ 1.        ,  0.63071361,  0.39779966,  0.25089766],
-        [ 1.        ,  0.11      ,  0.0121    ,  0.001331  ],
-        [ 1.        ,  0.82850909,  0.68642731,  0.56871127],
-        [ 1.        ,  0.46      ,  0.2116    ,  0.097336  ],
-        [ 1.        ,  0.64832591,  0.42032648,  0.27250855],
-        [ 1.        ,  0.53596824,  0.28726196,  0.15396329],
-        [ 1.        ,  0.91      ,  0.8281    ,  0.753571  ],
-        [ 1.        ,  0.67      ,  0.4489    ,  0.300763  ],
-        [ 1.        ,  0.76      ,  0.5776    ,  0.438976  ],
-        [ 1.        ,  0.34      ,  0.1156    ,  0.039304  ],
-        [ 1.        ,  0.56      ,  0.3136    ,  0.175616  ],
-        [ 1.        ,  0.94      ,  0.8836    ,  0.830584  ],
-        [ 1.        ,  0.6       ,  0.36      ,  0.216     ],
-        [ 1.        ,  0.96      ,  0.9216    ,  0.884736  ],
-        [ 1.        ,  0.43754875,  0.1914489 ,  0.08376823],
-        [ 1.        ,  0.54      ,  0.2916    ,  0.157464  ]]),
- array([ 0.35817449,  0.64634662,  0.47094573,  0.80195369,  0.71040586,
-         0.64431987,  0.81167767,  0.81232659,  0.65597413,  0.18382092,
-         0.76638914,  0.52531463,  0.72006043,  0.53688748,  0.91261385,
-         0.89700996,  0.7612565 ,  0.23599998,  0.58004131,  0.93613422,
-         0.60188686,  0.87217807,  0.49208494,  0.61984169]))</code></pre>
-</div>
-</div>
-<div id="cell-36" class="cell" data-execution_count="17" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>traintestlists[<span class="dv">3</span>][<span class="st">'test'</span>], ytest</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="13bd62b7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:35.252266Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:35.252181Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:35.254773Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:35.254362Z&quot;}}" data-execution_count="17" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>traintestlists[<span class="dv">3</span>][<span class="st">'train'</span>], ytrain</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
-<pre><code>(array([[  1.00000000e+00,   6.60000000e-01,   4.35600000e-01,
-           2.87496000e-01],
-        [  1.00000000e+00,   2.30000000e-01,   5.29000000e-02,
-           1.21670000e-02],
-        [  1.00000000e+00,   8.09657516e-01,   6.55545293e-01,
-           5.30767174e-01],
-        [  1.00000000e+00,   7.00000000e-02,   4.90000000e-03,
-           3.43000000e-04],
-        [  1.00000000e+00,   9.00000000e-02,   8.10000000e-03,
-           7.29000000e-04],
-        [  1.00000000e+00,   7.49902667e-01,   5.62354010e-01,
-           4.21710772e-01]]),
- array([ 0.60311145,  0.05762073,  0.79714359,  0.13897264,  0.05051023,
-         0.74855785]))</code></pre>
+<pre><code>(array([[1.00000000e+00, 7.18296032e-01, 5.15949190e-01, 3.70604256e-01],
+        [1.00000000e+00, 9.10000000e-01, 8.28100000e-01, 7.53571000e-01],
+        [1.00000000e+00, 2.30000000e-01, 5.29000000e-02, 1.21670000e-02],
+        [1.00000000e+00, 9.60000000e-01, 9.21600000e-01, 8.84736000e-01],
+        [1.00000000e+00, 6.70000000e-01, 4.48900000e-01, 3.00763000e-01],
+        [1.00000000e+00, 7.58416542e-01, 5.75195651e-01, 4.36237897e-01],
+        [1.00000000e+00, 5.60000000e-01, 3.13600000e-01, 1.75616000e-01],
+        [1.00000000e+00, 8.28509091e-01, 6.86427314e-01, 5.68711270e-01],
+        [1.00000000e+00, 7.49902667e-01, 5.62354010e-01, 4.21710772e-01],
+        [1.00000000e+00, 3.30000000e-01, 1.08900000e-01, 3.59370000e-02],
+        [1.00000000e+00, 6.00000000e-01, 3.60000000e-01, 2.16000000e-01],
+        [1.00000000e+00, 6.48325909e-01, 4.20326484e-01, 2.72508550e-01],
+        [1.00000000e+00, 7.05332672e-01, 4.97494178e-01, 3.50898898e-01],
+        [1.00000000e+00, 4.37548746e-01, 1.91448905e-01, 8.37682282e-02],
+        [1.00000000e+00, 4.60000000e-01, 2.11600000e-01, 9.73360000e-02],
+        [1.00000000e+00, 8.09657516e-01, 6.55545293e-01, 5.30767174e-01],
+        [1.00000000e+00, 7.00000000e-02, 4.90000000e-03, 3.43000000e-04],
+        [1.00000000e+00, 9.00000000e-02, 8.10000000e-03, 7.29000000e-04],
+        [1.00000000e+00, 3.40000000e-01, 1.15600000e-01, 3.93040000e-02],
+        [1.00000000e+00, 5.40000000e-01, 2.91600000e-01, 1.57464000e-01],
+        [1.00000000e+00, 6.30713611e-01, 3.97799659e-01, 2.50897660e-01],
+        [1.00000000e+00, 6.60000000e-01, 4.35600000e-01, 2.87496000e-01],
+        [1.00000000e+00, 5.20000000e-01, 2.70400000e-01, 1.40608000e-01],
+        [1.00000000e+00, 9.40000000e-01, 8.83600000e-01, 8.30584000e-01]]),
+ array([0.81167767, 0.91261385, 0.05762073, 0.87217807, 0.89700996,
+        0.81232659, 0.58004131, 0.76638914, 0.74855785, 0.35817449,
+        0.60188686, 0.72006043, 0.64431987, 0.49208494, 0.52531463,
+        0.79714359, 0.13897264, 0.05051023, 0.23599998, 0.61984169,
+        0.65597413, 0.60311145, 0.47094573, 0.93613422]))</code></pre>
+</div>
+</div>
+<div id="22a1c2e1" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:35.255762Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:35.255687Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:35.257835Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:35.257507Z&quot;}}" data-execution_count="18" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>traintestlists[<span class="dv">3</span>][<span class="st">'test'</span>], ytest</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>(array([[1.        , 0.79      , 0.6241    , 0.493039  ],
+        [1.        , 0.11      , 0.0121    , 0.001331  ],
+        [1.        , 0.76      , 0.5776    , 0.438976  ],
+        [1.        , 0.75868254, 0.5755992 , 0.43669706],
+        [1.        , 0.53596824, 0.28726196, 0.15396329],
+        [1.        , 0.63633949, 0.40492794, 0.25767164]]),
+ array([0.80195369, 0.18382092, 0.7612565 , 0.64634662, 0.53688748,
+        0.71040586]))</code></pre>
 </div>
 </div>
 <section id="estimating-the-out-of-sample-error" class="level3">
 <h3 class="anchored" data-anchor-id="estimating-the-out-of-sample-error">Estimating the out-of-sample error</h3>
 <p>We can then use <code>mean_squared_error</code> from <code>sklearn</code> to calculate the error between the predictions and actual <code>ytest</code> values. Below we calculate this error on both the training set (which we already fit on) and the test set (which we hadnt seen before), and plot how these errors change with the degree of the polynomial.</p>
-<div id="cell-38" class="cell" data-execution_count="18" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>est3 <span class="op">=</span> LinearRegression()</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>est3.fit(traintestlists[<span class="dv">3</span>][<span class="st">'train'</span>], ytrain)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>pred_on_train3<span class="op">=</span>est3.predict(traintestlists[<span class="dv">3</span>][<span class="st">'train'</span>])</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>pred_on_test3<span class="op">=</span>est3.predict(traintestlists[<span class="dv">3</span>][<span class="st">'test'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="0a00b79d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:35.258821Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:35.258752Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:35.265291Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:35.264841Z&quot;}}" data-execution_count="19" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>est3 <span class="op">=</span> LinearRegression()</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>est3.fit(traintestlists[<span class="dv">3</span>][<span class="st">'train'</span>], ytrain)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>pred_on_train3<span class="op">=</span>est3.predict(traintestlists[<span class="dv">3</span>][<span class="st">'train'</span>])</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>pred_on_test3<span class="op">=</span>est3.predict(traintestlists[<span class="dv">3</span>][<span class="st">'test'</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-39" class="cell" data-execution_count="19" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"errtrain"</span>,mean_squared_error(ytrain, pred_on_train3))</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"errtest"</span>,mean_squared_error(ytest, pred_on_test3))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="2f6a6e1b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:35.266228Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:35.266155Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:35.268147Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:35.267850Z&quot;}}" data-execution_count="20" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"errtrain"</span>,mean_squared_error(ytrain, pred_on_train3))</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"errtest"</span>,mean_squared_error(ytest, pred_on_test3))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>errtrain 0.00455053325387
-errtest 0.00949690985891</code></pre>
+<pre><code>errtrain 0.005015554362501814
+errtest 0.005856235863081063</code></pre>
 </div>
 </div>
 <p>Let us now do this for a polynomial of degree 19</p>
-<div id="cell-41" class="cell" data-execution_count="20" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>est19 <span class="op">=</span> LinearRegression()</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>est19.fit(traintestlists[<span class="dv">19</span>][<span class="st">'train'</span>], ytrain)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>pred_on_train19<span class="op">=</span>est19.predict(traintestlists[<span class="dv">19</span>][<span class="st">'train'</span>])</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>pred_on_test19<span class="op">=</span>est19.predict(traintestlists[<span class="dv">19</span>][<span class="st">'test'</span>])</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"errtrain"</span>,mean_squared_error(ytrain, pred_on_train19))</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"errtest"</span>,mean_squared_error(ytest, pred_on_test19))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="12ab16f3" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:35.269243Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:35.269173Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:35.271838Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:35.271492Z&quot;}}" data-execution_count="21" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>est19 <span class="op">=</span> LinearRegression()</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>est19.fit(traintestlists[<span class="dv">19</span>][<span class="st">'train'</span>], ytrain)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>pred_on_train19<span class="op">=</span>est19.predict(traintestlists[<span class="dv">19</span>][<span class="st">'train'</span>])</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>pred_on_test19<span class="op">=</span>est19.predict(traintestlists[<span class="dv">19</span>][<span class="st">'test'</span>])</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"errtrain"</span>,mean_squared_error(ytrain, pred_on_train19))</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"errtest"</span>,mean_squared_error(ytest, pred_on_test19))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>errtrain 0.00196640248639
-errtest 14125204461.8</code></pre>
+<pre><code>errtrain 0.0027668856750368014
+errtest 278.13941540060097</code></pre>
 </div>
 </div>
 <p>You can see that the test set error is larger, corresponding to an overfit model thats doing very well on some points and awful on other.</p>
@@ -968,33 +976,33 @@ errtest 14125204461.8</code></pre>
 <section id="finding-the-appropriate-complexity" class="level3">
 <h3 class="anchored" data-anchor-id="finding-the-appropriate-complexity">Finding the appropriate complexity</h3>
 <p>Lets now carry out this minimization systematically for each polynomial degree d.</p>
-<div id="cell-43" class="cell" data-execution_count="21" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> d <span class="kw">in</span> degrees:<span class="co">#for increasing polynomial degrees 0,1,2...</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    Xtrain <span class="op">=</span> traintestlists[d][<span class="st">'train'</span>]</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    Xtest <span class="op">=</span> traintestlists[d][<span class="st">'test'</span>]</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">#set up model</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">#fit</span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">#predict</span></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">#calculate mean squared error</span></span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">#set up model</span></span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    est <span class="op">=</span> LinearRegression()</span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">#fit</span></span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>    est.fit(Xtrain, ytrain)</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">#predict</span></span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    prediction_on_training <span class="op">=</span> est.predict(Xtrain)</span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    prediction_on_test <span class="op">=</span> est.predict(Xtest)</span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">#calculate mean squared error</span></span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>    error_train[d] <span class="op">=</span> mean_squared_error(ytrain, prediction_on_training)</span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>    error_test[d] <span class="op">=</span> mean_squared_error(ytest, prediction_on_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="2d0db747" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:35.272898Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:35.272826Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:35.284059Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:35.283737Z&quot;}}" data-execution_count="22" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> d <span class="kw">in</span> degrees:<span class="co">#for increasing polynomial degrees 0,1,2...</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    Xtrain <span class="op">=</span> traintestlists[d][<span class="st">'train'</span>]</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    Xtest <span class="op">=</span> traintestlists[d][<span class="st">'test'</span>]</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">#set up model</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">#fit</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">#predict</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">#calculate mean squared error</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">#set up model</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>    est <span class="op">=</span> LinearRegression()</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">#fit</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    est.fit(Xtrain, ytrain)</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">#predict</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>    prediction_on_training <span class="op">=</span> est.predict(Xtrain)</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>    prediction_on_test <span class="op">=</span> est.predict(Xtest)</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">#calculate mean squared error</span></span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>    error_train[d] <span class="op">=</span> mean_squared_error(ytrain, prediction_on_training)</span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>    error_test[d] <span class="op">=</span> mean_squared_error(ytest, prediction_on_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-44" class="cell" data-execution_count="22" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>plt.plot(degrees, error_train, marker<span class="op">=</span><span class="st">'o'</span>, label<span class="op">=</span><span class="st">'train (in-sample)'</span>)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>plt.plot(degrees, error_test, marker<span class="op">=</span><span class="st">'o'</span>, label<span class="op">=</span><span class="st">'test'</span>)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>plt.axvline(np.argmin(error_test), <span class="dv">0</span>,<span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'r'</span>, label<span class="op">=</span><span class="st">"min test error at d=</span><span class="sc">%d</span><span class="st">"</span><span class="op">%</span>np.argmin(error_test), alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'mean squared error'</span>)</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'degree'</span>)</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>plt.yscale(<span class="st">"log"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="f7dd7264" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:35.285102Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:35.285031Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:35.357716Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:35.357290Z&quot;}}" data-execution_count="23" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>plt.plot(degrees, error_train, marker<span class="op">=</span><span class="st">'o'</span>, label<span class="op">=</span><span class="st">'train (in-sample)'</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>plt.plot(degrees, error_test, marker<span class="op">=</span><span class="st">'o'</span>, label<span class="op">=</span><span class="st">'test'</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>plt.axvline(np.argmin(error_test), <span class="dv">0</span>,<span class="fl">0.5</span>, color<span class="op">=</span><span class="st">'r'</span>, label<span class="op">=</span><span class="st">"min test error at d=</span><span class="sc">%d</span><span class="st">"</span><span class="op">%</span>np.argmin(error_test), alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'mean squared error'</span>)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'degree'</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>plt.yscale(<span class="st">"log"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">

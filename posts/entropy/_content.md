@@ -29,11 +29,6 @@ import seaborn as sns
 sns.set_style("whitegrid")
 sns.set_context("poster")
 ```
-Output:
-```
-//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))
-```
 
 <!-- cell:3 type:markdown -->
 ##  Information and Entropy
@@ -88,7 +83,7 @@ def h(p):
         ent = - (p*math.log(p) + (1-p)* math.log(1-p))
     return ent
 plt.plot(p, [h(pr) for pr in p]);
-plt.axvline(0.5, 0, 1,'r')
+plt.axvline(0.5, 0, 1, color='r')
 ```
 [Figure]
 

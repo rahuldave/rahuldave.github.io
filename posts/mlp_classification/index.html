@@ -60,7 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -116,24 +116,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <!-- Bootstrap Icons for brand mark and UI elements -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
-
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
-<script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
 
 
 <meta property="og:title" content="Multi-Layer Perceptron for Classification – rahuldave">
 <meta property="og:description" content="Implements multi-layer perceptrons for classification tasks using PyTorch. Generates synthetic datasets and trains networks to learn non-linear decision boundaries, visualizing how MLPs separate classes in feature space.">
 <meta property="og:image" content="https://rahuldave.github.io/posts/mlp_classification/index_files/figure-html/cell-7-output-1.png">
 <meta property="og:site_name" content="rahuldave">
-<meta property="og:image:height" content="265">
-<meta property="og:image:width" content="390">
+<meta property="og:image:height" content="440">
+<meta property="og:image:width" content="582">
 <meta name="twitter:title" content="Multi-Layer Perceptron for Classification – rahuldave">
 <meta name="twitter:description" content="Implements multi-layer perceptrons for classification tasks using PyTorch. Generates synthetic datasets and trains networks to learn non-linear decision boundaries, visualizing how MLPs separate classes in feature space.">
 <meta name="twitter:image" content="https://rahuldave.github.io/posts/mlp_classification/index_files/figure-html/cell-7-output-1.png">
 <meta name="twitter:creator" content="@rahuldave">
-<meta name="twitter:image-height" content="265">
-<meta name="twitter:image-width" content="390">
+<meta name="twitter:image-height" content="440">
+<meta name="twitter:image-width" content="582">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -431,7 +427,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div id="cell-2" class="cell" data-execution_count="1" data-cell-type="code">
+<div id="ba07845e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:57.515868Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:57.515551Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:35:21.103942Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:35:21.103193Z&quot;}}" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
@@ -442,16 +438,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.width'</span>, <span class="dv">500</span>)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_columns'</span>, <span class="dv">100</span>)</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.notebook_repr_html'</span>, <span class="va">True</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn.apionly <span class="im">as</span> sns</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>sns.set_context(<span class="st">"poster"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Two additional imports here, seaborn and tqdm. Install via pip or conda</p>
-<div id="cell-4" class="cell" data-execution_count="2" data-cell-type="code">
+<div id="76689f0e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:35:21.106468Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:35:21.106253Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:35:21.108653Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:35:21.108101Z&quot;}}" data-execution_count="3" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>c0<span class="op">=</span>sns.color_palette()[<span class="dv">0</span>]</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>c1<span class="op">=</span>sns.color_palette()[<span class="dv">1</span>]</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>c2<span class="op">=</span>sns.color_palette()[<span class="dv">2</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-5" class="cell" data-execution_count="3" data-cell-type="code">
+<div id="504f61e9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:35:21.109980Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:35:21.109864Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:35:21.114096Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:35:21.113521Z&quot;}}" data-execution_count="4" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> ListedColormap</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>cmap_light <span class="op">=</span> ListedColormap([<span class="st">'#FFAAAA'</span>, <span class="st">'#AAFFAA'</span>, <span class="st">'#AAAAFF'</span>])</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>cmap_bold <span class="op">=</span> ListedColormap([<span class="st">'#FF0000'</span>, <span class="st">'#00FF00'</span>, <span class="st">'#0000FF'</span>])</span>
@@ -483,7 +479,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="create-some-noisy-moon-shaped-data">Create some noisy moon shaped data</h2>
 <p>In order to illustrate classification by a MLP, we first create some noisy moon shaped data. The <em>noise level</em> here and the <em>amount of data</em> is the first thing you might want to experiment with to understand the interplay of amount of data, noise level, number of parameters in the model we use to fit, and overfitting as illustrated by jagged boundaries.</p>
 <p>We standardize the data so that it is distributed about 0 as well</p>
-<div id="cell-7" class="cell" data-execution_count="31" data-cell-type="code">
+<div id="9feeee69" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:35:21.115186Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:35:21.115090Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:35:25.213719Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:35:25.213055Z&quot;}}" data-execution_count="5" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_moons</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
@@ -491,7 +487,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>dataX <span class="op">=</span> StandardScaler().fit_transform(dataX)</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(dataX, datay, test_size<span class="op">=</span><span class="fl">.4</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="32" data-cell-type="code">
+<div id="981bf537" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:35:25.215320Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:35:25.215100Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:35:25.429466Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:35:25.428910Z&quot;}}" data-execution_count="6" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>h<span class="op">=</span><span class="fl">.02</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>x_min, x_max <span class="op">=</span> dataX[:, <span class="dv">0</span>].<span class="bu">min</span>() <span class="op">-</span> <span class="fl">.5</span>, dataX[:, <span class="dv">0</span>].<span class="bu">max</span>() <span class="op">+</span> <span class="fl">.5</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>y_min, y_max <span class="op">=</span> dataX[:, <span class="dv">1</span>].<span class="bu">min</span>() <span class="op">-</span> <span class="fl">.5</span>, dataX[:, <span class="dv">1</span>].<span class="bu">max</span>() <span class="op">+</span> <span class="fl">.5</span></span>
@@ -516,7 +512,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-9" class="cell" data-execution_count="33" data-cell-type="code">
+<div id="228dacf8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:35:25.430677Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:35:25.430568Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:35:30.612200Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:35:30.611684Z&quot;}}" data-execution_count="7" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.nn <span class="im">import</span> functional <span class="im">as</span> fn</span>
@@ -527,7 +523,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="writing-a-multi-layer-perceptron-class" class="level2">
 <h2 class="anchored" data-anchor-id="writing-a-multi-layer-perceptron-class">Writing a Multi-Layer Perceptron class</h2>
 <p>We wrap the construction of our network</p>
-<div id="cell-11" class="cell" data-execution_count="34" data-cell-type="code">
+<div id="bfc5b726" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:35:30.614981Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:35:30.614862Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:35:30.617807Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:35:30.617335Z&quot;}}" data-execution_count="8" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MLP(nn.Module):</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, input_dim, hidden_dim, output_dim, nonlinearity <span class="op">=</span> fn.tanh, additional_hidden_wide<span class="op">=</span><span class="dv">0</span>):</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(MLP, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
@@ -551,9 +547,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>We use it to train. Notice the double-&gt;float casting. Numpy defautlts to double but torch defaulta to float to enable memory efficient GPU usage.</p>
-<div id="cell-13" class="cell" data-execution_count="35" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>np.dtype(np.<span class="bu">float</span>).itemsize, np.dtype(np.double).itemsize</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="35">
+<div id="45709061" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:35:30.618871Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:35:30.618769Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:35:30.621276Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:35:30.620772Z&quot;}}" data-execution_count="9" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>np.dtype(<span class="bu">float</span>).itemsize, np.dtype(np.double).itemsize</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>(8, 8)</code></pre>
 </div>
 </div>
@@ -567,7 +563,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>model.parameters</code> gives us params, <code>model.named_parameters()</code> gives us assigned names. You can set your own names when you create a layer</li>
 <li>we create an iterator over the data, more precisely over batches by doing <code>iter(loader)</code>. This dispatches to the <code>__iter__</code> method of the dataloader. (see https://github.com/pytorch/pytorch/blob/4157562c37c76902c79e7eca275951f3a4b1ef78/torch/utils/data/dataloader.py#L416) Always explore source code to understand what is going on</li>
 </ul>
-<div id="cell-15" class="cell" data-execution_count="36" data-cell-type="code">
+<div id="c25daf0f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:35:30.623411Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:35:30.623279Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:35:34.964999Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:35:34.964415Z&quot;}}" data-execution_count="10" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model2 <span class="op">=</span> MLP(input_dim<span class="op">=</span><span class="dv">2</span>, hidden_dim<span class="op">=</span><span class="dv">3</span>, output_dim<span class="op">=</span><span class="dv">2</span>, nonlinearity<span class="op">=</span>fn.tanh, additional_hidden_wide<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model2)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>criterion <span class="op">=</span> nn.CrossEntropyLoss(size_average<span class="op">=</span><span class="va">True</span>)</span>
@@ -586,233 +582,236 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>        model2.zero_grad()</span>
 <span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>        loss.backward()</span>
 <span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>        optimizer.step()</span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>        localaccum.append(loss.data[<span class="dv">0</span>])</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>        localaccum.append(loss.item())</span>
 <span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    accum.append(np.mean(localaccum))</span>
 <span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>plt.plot(accum)<span class="op">;</span>                      </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>MLP(
-  (fc_initial): Linear(in_features=2, out_features=3)
+  (fc_initial): Linear(in_features=2, out_features=3, bias=True)
   (fc_mid): ModuleList(
-    (0): Linear(in_features=3, out_features=3)
+    (0): Linear(in_features=3, out_features=3, bias=True)
   )
-  (fc_final): Linear(in_features=3, out_features=2)
+  (fc_final): Linear(in_features=3, out_features=2, bias=True)
 )</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
+  self.reduction: str = _Reduction.legacy_get_string(size_average, reduce)</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-11-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-11-output-3.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>The out put from the foward pass is run on the entire test set. Since pytorch tracks layers upto but before the loss, this handily gives us the softmax output, which we can then use <code>np.argmax</code> on.</p>
-<div id="cell-17" class="cell" data-execution_count="37" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>testoutput <span class="op">=</span> model2.forward(Variable(torch.from_numpy(X_test).<span class="bu">float</span>()))</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>testoutput</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="37">
-<pre><code>Variable containing:
--1.3997  1.1056
- 0.4321 -0.1878
- 0.2325 -0.0586
--1.4748  1.1468
- 3.1649 -2.2684
- 2.9101 -2.0822
- 1.1887 -0.7474
- 1.4796 -1.0149
--3.5469  2.5426
--3.7733  2.6948
--0.2148  0.2858
- 3.9723 -2.8604
--1.9199  1.4439
- 0.3520 -0.1263
- 3.3732 -2.4237
- 2.5095 -1.7848
- 2.8704 -2.0525
--1.8319  1.3913
--0.0806  0.1818
--0.3542  0.3635
--0.7936  0.6824
--0.0041  0.1306
- 2.1060 -1.4357
- 0.2766 -0.1130
- 0.8709 -0.5103
--1.3461  1.0524
- 3.3596 -2.4143
--0.7062  0.6287
- 1.5634 -1.0407
--0.0492  0.1600
- 0.0524  0.0948
- 1.8808 -1.3182
--3.4808  2.4987
--1.9241  1.4596
- 2.3021 -1.5925
--0.7218  0.6272
--3.6070  2.5861
--3.5477  2.5420
--2.4397  1.7995
--1.6359  1.2494
- 0.9166 -0.5441
--2.9952  2.1791
--0.9801  0.8223
--1.1452  0.9344
- 0.1102  0.0475
--3.6323  2.6063
--2.7851  2.0277
--3.1108  2.2546
--0.5392  0.5021
--0.8784  0.7372
--3.9028  2.7874
- 2.6638 -1.8992
--3.0897  2.2326
- 2.7642 -1.9722
--2.2850  1.6921
--1.7232  1.3218
- 4.2042 -3.0399
- 1.5363 -1.0084
- 1.0733 -0.6613
- 4.3506 -3.1474
--0.8530  0.7152
- 4.2824 -3.0974
--0.0404  0.1513
- 0.1457 -0.0290
--0.9239  0.7579
--1.3236  1.0476
--2.5510  1.8800
- 1.2802 -0.8159
--3.4907  2.5036
--0.2133  0.2611
- 1.7668 -1.1816
- 3.1958 -2.2577
--0.7845  0.6720
--2.2681  1.6901
--3.7748  2.6956
- 2.9403 -2.0981
- 1.5907 -1.0496
- 1.3040 -0.8349
- 0.1481  0.0123
- 0.8719 -0.5111
--0.3822  0.4076
--1.1132  0.8936
- 1.1114 -0.6897
- 0.0516  0.0699
--1.0205  0.8473
--0.9822  0.8226
--1.4213  1.1121
- 1.3364 -0.8580
--1.7266  1.3185
- 1.8002 -1.2186
--1.1045  0.8875
- 0.3044 -0.0899
--1.6213  1.2412
--0.3257  0.3136
--0.6594  0.5660
--0.0061  0.1307
--0.0723  0.1303
- 2.2622 -1.5531
- 0.6425 -0.3400
- 3.5527 -2.5243
- 1.4703 -0.9585
- 0.4742 -0.2152
--3.9635  2.8235
--2.0605  1.5491
--3.7193  2.6581
- 1.3573 -0.9252
- 2.8911 -2.0675
--2.6437  1.9390
--0.7654  0.6714
- 1.1626 -0.7502
- 0.3224 -0.1071
--2.2417  1.6723
- 0.5332 -0.3175
- 0.6907 -0.3770
- 0.0929  0.0572
- 2.2506 -1.5903
--2.1372  1.5943
- 2.4597 -1.7284
--0.9419  0.7867
- 1.3708 -0.8835
- 0.4274 -0.1803
--1.8787  1.4144
--2.8720  2.0867
--3.2267  2.3252
- 3.5142 -2.5284
- 0.5442 -0.2674
--1.0442  0.8467
- 0.2991 -0.0894
--0.5332  0.4947
--1.9302  1.4491
--0.3737  0.4014
--0.2904  0.3255
--3.1304  2.2694
- 0.2306 -0.0791
--3.0481  2.2154
- 0.7065 -0.4357
- 0.0990  0.0610
--1.1890  0.9566
- 0.2239 -0.0386
- 3.4539 -2.4829
--0.2503  0.3136
--3.7716  2.6952
--3.8336  2.7356
--0.5169  0.4874
- 3.9846 -2.8736
--2.4657  1.8112
--1.8777  1.4178
--1.7955  1.3672
--0.2697  0.3276
- 2.2395 -1.5380
--2.7763  2.0324
- 0.3578 -0.1327
- 0.0418  0.0952
- 1.6378 -1.0839
- 1.5454 -1.0322
--3.6984  2.6439
- 0.4830 -0.2253
--0.1812  0.2496
- 0.9076 -0.5379
--3.3711  2.4227
-[torch.FloatTensor of size 160x2]</code></pre>
+<div id="e2f10f8b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:35:34.966397Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:35:34.966200Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:35:34.975478Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:35:34.974974Z&quot;}}" data-execution_count="11" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>testoutput <span class="op">=</span> model2.forward(Variable(torch.from_numpy(X_test).<span class="bu">float</span>()))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>testoutput</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>tensor([[ 0.8709, -2.2377],
+        [-1.7042,  1.5297],
+        [ 2.0050, -3.3973],
+        [-1.3879,  0.4932],
+        [-1.0866,  0.6630],
+        [ 0.0442, -1.4037],
+        [-1.6150,  0.7494],
+        [-1.2915,  1.0131],
+        [-1.0097, -0.2000],
+        [-1.5825,  1.4703],
+        [-1.8236,  1.0667],
+        [ 1.9994, -3.5696],
+        [ 0.3444, -1.9289],
+        [ 1.4845, -2.9599],
+        [ 0.9908, -2.6027],
+        [-1.8363,  1.2384],
+        [-0.1085, -1.3755],
+        [ 1.0364, -2.6599],
+        [ 1.4413, -2.7964],
+        [ 2.0812, -3.4342],
+        [ 1.3086, -2.8725],
+        [-0.0888, -1.2649],
+        [ 0.6750, -2.0513],
+        [ 1.4112, -2.8581],
+        [-1.5618,  0.7254],
+        [ 1.0902, -2.4541],
+        [-1.5283,  0.6949],
+        [-0.4754, -0.9340],
+        [ 1.1470, -2.6421],
+        [ 0.9648, -2.3365],
+        [-0.2436, -1.1277],
+        [-1.0140, -0.1683],
+        [ 0.9581, -2.3227],
+        [-1.3805,  0.9009],
+        [ 0.4942, -2.0949],
+        [ 1.3222, -2.9430],
+        [-1.7414,  0.9598],
+        [-1.3347,  0.4234],
+        [-1.5957,  1.4498],
+        [-2.3601,  2.1090],
+        [-1.6290,  1.5536],
+        [-1.3480,  0.5061],
+        [ 2.1985, -3.7190],
+        [-1.4359,  0.4588],
+        [-1.5139,  1.3897],
+        [ 1.5787, -3.1889],
+        [ 1.4894, -2.8399],
+        [-0.4149, -0.6748],
+        [-0.2946, -0.9954],
+        [-1.3980,  0.9844],
+        [ 0.3842, -1.7526],
+        [-0.4721, -0.9150],
+        [ 0.8460, -2.3735],
+        [-2.0151,  1.4536],
+        [ 2.2109, -3.5492],
+        [-1.0963,  0.0858],
+        [-0.8885,  0.2380],
+        [-1.0822,  0.2813],
+        [ 1.3285, -2.6833],
+        [-0.9822, -0.2358],
+        [-1.5839,  1.4839],
+        [-1.4764,  1.3219],
+        [ 1.2204, -2.6303],
+        [ 0.4156, -2.0061],
+        [-1.9099,  1.3980],
+        [-1.3899,  1.1452],
+        [-0.8930, -0.3054],
+        [ 1.4575, -3.0665],
+        [-0.8652, -0.3651],
+        [ 1.1312, -2.6245],
+        [-1.2373,  0.1397],
+        [-0.1622, -1.2656],
+        [-0.9885, -0.2164],
+        [ 0.1202, -1.5261],
+        [-1.8774,  1.1667],
+        [-0.4756, -0.7913],
+        [ 1.9457, -3.4512],
+        [ 1.4783, -2.8622],
+        [-1.3172,  0.4333],
+        [-0.3166, -1.0738],
+        [-0.7397, -0.5774],
+        [-1.1162,  0.5455],
+        [ 1.4427, -2.7952],
+        [-1.5045,  0.5556],
+        [-1.9012,  1.1962],
+        [-0.9749, -0.2034],
+        [-1.6428,  1.0028],
+        [ 0.6063, -2.1743],
+        [-0.7840, -0.1702],
+        [ 0.7128, -2.1206],
+        [-1.8696,  1.5188],
+        [-1.6982,  1.5982],
+        [-1.0184, -0.1739],
+        [-1.6722,  1.5627],
+        [-1.1567,  0.4104],
+        [-1.5837,  1.4957],
+        [-1.6123,  1.5215],
+        [-0.5340, -0.7768],
+        [-1.3127,  0.5834],
+        [-0.6729, -0.0808],
+        [-1.6018,  0.7149],
+        [ 2.0057, -3.3417],
+        [-1.3578,  0.3454],
+        [-1.5318,  0.5987],
+        [-0.7278,  0.1304],
+        [-1.6052,  1.4723],
+        [ 0.3889, -1.8975],
+        [-0.9135,  0.2219],
+        [ 1.2324, -2.5957],
+        [ 1.1081, -2.7125],
+        [ 1.3859, -3.0044],
+        [-1.6053,  1.5257],
+        [-1.6180,  1.5442],
+        [ 0.0303, -1.5226],
+        [ 0.4051, -1.9009],
+        [-0.2090, -1.1201],
+        [-1.4175,  1.0263],
+        [-2.0198,  1.4104],
+        [-1.7859,  1.0046],
+        [-1.6638,  1.5575],
+        [ 1.2750, -2.6326],
+        [-0.1842, -1.2925],
+        [ 1.0513, -2.6607],
+        [ 0.2275, -1.7869],
+        [-1.5248,  1.4073],
+        [-1.3537,  0.3627],
+        [-1.4901,  1.2079],
+        [-0.5130, -0.3161],
+        [ 0.8565, -2.4188],
+        [-1.9252,  1.7346],
+        [-0.7439, -0.4784],
+        [-1.6283,  1.5412],
+        [-1.8134,  1.5969],
+        [ 0.4788, -1.8764],
+        [-0.3556, -0.9382],
+        [ 0.3595, -1.6526],
+        [ 1.5704, -2.9231],
+        [ 0.6244, -2.1174],
+        [-1.2885,  0.2182],
+        [-1.1180,  0.5377],
+        [-0.8549, -0.3997],
+        [-0.7897, -0.2315],
+        [-1.7478,  0.9427],
+        [ 1.0919, -2.7145],
+        [-1.3709,  0.3423],
+        [-0.8860,  0.1285],
+        [-2.2018,  1.7751],
+        [-0.4975, -0.8259],
+        [-0.3006, -0.5519],
+        [-1.5281,  1.3762],
+        [-1.2142,  0.1457],
+        [-1.7979,  1.2782],
+        [ 0.0788, -1.4206],
+        [-1.6480,  1.4835],
+        [-1.7234,  0.9120],
+        [ 1.6459, -3.1941],
+        [-0.7522, -0.0385],
+        [-1.5479,  1.4231],
+        [-0.0564, -1.4503],
+        [ 1.1602, -2.6782]], grad_fn=&lt;AddmmBackward0&gt;)</code></pre>
 </div>
 </div>
-<div id="cell-18" class="cell" data-execution_count="38" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> testoutput.data.numpy().argmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>y_pred</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="38">
-<pre><code>array([1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0,
-       0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1,
-       1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 0, 1,
-       1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0,
-       1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0,
-       0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1,
-       0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1])</code></pre>
+<div id="fc05ce55" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:35:34.976829Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:35:34.976711Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:35:34.979315Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:35:34.978951Z&quot;}}" data-execution_count="12" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> testoutput.data.numpy().argmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>y_pred</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>array([0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+       0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1,
+       1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1,
+       1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 0,
+       1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 0, 0,
+       0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1,
+       1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1,
+       1, 0, 1, 1, 0, 0])</code></pre>
 </div>
 </div>
 <p>You can write your own but we import some metrics from sklearn</p>
-<div id="cell-20" class="cell" data-execution_count="39" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix, accuracy_score</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>confusion_matrix(y_test, y_pred)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="39">
-<pre><code>array([[66, 16],
-       [ 5, 73]])</code></pre>
+<div id="d29a8833" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:35:34.980789Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:35:34.980680Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:35:34.983988Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:35:34.983531Z&quot;}}" data-execution_count="13" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> confusion_matrix, accuracy_score</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>confusion_matrix(y_test, y_pred)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>array([[67, 10],
+       [ 5, 78]])</code></pre>
 </div>
 </div>
-<div id="cell-21" class="cell" data-execution_count="40" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>accuracy_score(y_test, y_pred)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="40">
-<pre><code>0.86875000000000002</code></pre>
+<div id="c85e26c0" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:35:34.985410Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:35:34.985264Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:35:34.989084Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:35:34.988362Z&quot;}}" data-execution_count="14" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>accuracy_score(y_test, y_pred)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>0.90625</code></pre>
 </div>
 </div>
 <p>We can wrap this machinery in a function, and pass this function to <code>points_plot</code> to predict on a grid and thus give us a boundary viz</p>
-<div id="cell-23" class="cell" data-execution_count="41" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_pred(X_set):</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    output <span class="op">=</span> model2.forward(Variable(torch.from_numpy(X_set).<span class="bu">float</span>()))</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> output.data.numpy().argmax(axis<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="80d2872c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:35:34.990783Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:35:34.990655Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:35:34.992892Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:35:34.992359Z&quot;}}" data-execution_count="15" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_pred(X_set):</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    output <span class="op">=</span> model2.forward(Variable(torch.from_numpy(X_set).<span class="bu">float</span>()))</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> output.data.numpy().argmax(axis<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="42" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sns.plotting_context(<span class="st">'poster'</span>):</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> plt.gca()</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    points_plot(ax, X_train, X_test, y_train, y_test, make_pred)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="60854793" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:35:34.993959Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:35:34.993853Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:35:35.051653Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:35:35.051154Z&quot;}}" data-execution_count="16" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sns.plotting_context(<span class="st">'poster'</span>):</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> plt.gca()</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    points_plot(ax, X_train, X_test, y_train, y_test, make_pred)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -826,65 +825,65 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="making-a-scikit-learn-like-interface" class="level2">
 <h2 class="anchored" data-anchor-id="making-a-scikit-learn-like-interface">Making a <code>scikit-learn</code> like interface</h2>
 <p>Since we want to run many experiments, we’ll go ahead and wrap our fitting process in a sklearn style interface. Another example of such an interface is <a href="https://github.com/vinhkhuc/PyTorch-Mini-Tutorials/blob/master/3_neural_net.py">here</a></p>
-<div id="cell-26" class="cell" data-execution_count="43" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tqdm <span class="im">import</span> tnrange, tqdm_notebook</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MLPClassifier:</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, input_dim, hidden_dim, </span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>                 output_dim, nonlinearity <span class="op">=</span> fn.tanh, </span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>                 additional_hidden_wide<span class="op">=</span><span class="dv">0</span>):</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._pytorch_model <span class="op">=</span> MLP(input_dim, hidden_dim, output_dim, nonlinearity, additional_hidden_wide)</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._criterion <span class="op">=</span> nn.CrossEntropyLoss(size_average<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._fit_params <span class="op">=</span> <span class="bu">dict</span>(lr<span class="op">=</span><span class="fl">0.1</span>, epochs<span class="op">=</span><span class="dv">200</span>, batch_size<span class="op">=</span><span class="dv">64</span>)</span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._optim <span class="op">=</span> torch.optim.SGD(<span class="va">self</span>._pytorch_model.parameters(), lr <span class="op">=</span> <span class="va">self</span>._fit_params[<span class="st">'lr'</span>] )</span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__repr__</span>(<span class="va">self</span>):</span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>        num<span class="op">=</span><span class="dv">0</span></span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> k, p <span class="kw">in</span> <span class="va">self</span>._pytorch_model.named_parameters():</span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>            numlist <span class="op">=</span> <span class="bu">list</span>(p.data.numpy().shape)</span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="bu">len</span>(numlist)<span class="op">==</span><span class="dv">2</span>:</span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>                num <span class="op">+=</span> numlist[<span class="dv">0</span>]<span class="op">*</span>numlist[<span class="dv">1</span>]</span>
-<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
-<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>                num<span class="op">+=</span> numlist[<span class="dv">0</span>]</span>
-<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">repr</span>(<span class="va">self</span>._pytorch_model)<span class="op">+</span><span class="st">"</span><span class="ch">\n</span><span class="st">"</span><span class="op">+</span><span class="bu">repr</span>(<span class="va">self</span>._fit_params)<span class="op">+</span><span class="st">"</span><span class="ch">\n</span><span class="st">Num Params: </span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(num)</span>
-<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_fit_params(<span class="va">self</span>, <span class="op">*</span>, lr<span class="op">=</span><span class="fl">0.1</span>, epochs<span class="op">=</span><span class="dv">200</span>, batch_size<span class="op">=</span><span class="dv">64</span>):</span>
-<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._fit_params[<span class="st">'batch_size'</span>] <span class="op">=</span> batch_size</span>
-<span id="cb22-24"><a href="#cb22-24" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._fit_params[<span class="st">'epochs'</span>] <span class="op">=</span> epochs</span>
-<span id="cb22-25"><a href="#cb22-25" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._fit_params[<span class="st">'lr'</span>] <span class="op">=</span> lr</span>
-<span id="cb22-26"><a href="#cb22-26" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._optim <span class="op">=</span> torch.optim.SGD(<span class="va">self</span>._pytorch_model.parameters(), lr <span class="op">=</span> <span class="va">self</span>._fit_params[<span class="st">'lr'</span>] )</span>
-<span id="cb22-27"><a href="#cb22-27" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb22-28"><a href="#cb22-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fit(<span class="va">self</span>, X_train, y_train):</span>
-<span id="cb22-29"><a href="#cb22-29" aria-hidden="true" tabindex="-1"></a>        dataset <span class="op">=</span> torch.utils.data.TensorDataset(torch.from_numpy(X_train), torch.from_numpy(y_train))</span>
-<span id="cb22-30"><a href="#cb22-30" aria-hidden="true" tabindex="-1"></a>        loader <span class="op">=</span> torch.utils.data.DataLoader(dataset, batch_size<span class="op">=</span><span class="va">self</span>._fit_params[<span class="st">'batch_size'</span>], shuffle<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb22-31"><a href="#cb22-31" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._accum<span class="op">=</span>[]</span>
-<span id="cb22-32"><a href="#cb22-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> k <span class="kw">in</span> tnrange(<span class="va">self</span>._fit_params[<span class="st">'epochs'</span>]):</span>
-<span id="cb22-33"><a href="#cb22-33" aria-hidden="true" tabindex="-1"></a>            localaccum <span class="op">=</span> []</span>
-<span id="cb22-34"><a href="#cb22-34" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> localx, localy <span class="kw">in</span> <span class="bu">iter</span>(loader):</span>
-<span id="cb22-35"><a href="#cb22-35" aria-hidden="true" tabindex="-1"></a>                localx <span class="op">=</span> Variable(localx.<span class="bu">float</span>())</span>
-<span id="cb22-36"><a href="#cb22-36" aria-hidden="true" tabindex="-1"></a>                localy <span class="op">=</span> Variable(localy.<span class="bu">long</span>())</span>
-<span id="cb22-37"><a href="#cb22-37" aria-hidden="true" tabindex="-1"></a>                output <span class="op">=</span> <span class="va">self</span>._pytorch_model.forward(localx)</span>
-<span id="cb22-38"><a href="#cb22-38" aria-hidden="true" tabindex="-1"></a>                loss <span class="op">=</span> <span class="va">self</span>._criterion(output, localy)</span>
-<span id="cb22-39"><a href="#cb22-39" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>._pytorch_model.zero_grad()</span>
-<span id="cb22-40"><a href="#cb22-40" aria-hidden="true" tabindex="-1"></a>                loss.backward()</span>
-<span id="cb22-41"><a href="#cb22-41" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>._optim.step()</span>
-<span id="cb22-42"><a href="#cb22-42" aria-hidden="true" tabindex="-1"></a>                localaccum.append(loss.data[<span class="dv">0</span>])</span>
-<span id="cb22-43"><a href="#cb22-43" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>._accum.append(np.mean(localaccum))</span>
-<span id="cb22-44"><a href="#cb22-44" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb22-45"><a href="#cb22-45" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> plot_loss(<span class="va">self</span>):</span>
-<span id="cb22-46"><a href="#cb22-46" aria-hidden="true" tabindex="-1"></a>        plt.plot(<span class="va">self</span>._accum, label<span class="op">=</span><span class="st">"</span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(<span class="va">self</span>))</span>
-<span id="cb22-47"><a href="#cb22-47" aria-hidden="true" tabindex="-1"></a>        plt.legend()</span>
-<span id="cb22-48"><a href="#cb22-48" aria-hidden="true" tabindex="-1"></a>        plt.show()</span>
-<span id="cb22-49"><a href="#cb22-49" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb22-50"><a href="#cb22-50" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> plot_boundary(<span class="va">self</span>, X_train, X_test, y_train, y_test):</span>
-<span id="cb22-51"><a href="#cb22-51" aria-hidden="true" tabindex="-1"></a>        points_plot(plt.gca(), X_train, X_test, y_train, y_test, <span class="va">self</span>.predict)<span class="op">;</span></span>
-<span id="cb22-52"><a href="#cb22-52" aria-hidden="true" tabindex="-1"></a>        plt.text(<span class="dv">1</span>, <span class="dv">1</span>, <span class="st">"</span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(<span class="va">self</span>), fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb22-53"><a href="#cb22-53" aria-hidden="true" tabindex="-1"></a>        plt.show()</span>
-<span id="cb22-54"><a href="#cb22-54" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb22-55"><a href="#cb22-55" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> predict(<span class="va">self</span>, X_test):</span>
-<span id="cb22-56"><a href="#cb22-56" aria-hidden="true" tabindex="-1"></a>        output <span class="op">=</span> <span class="va">self</span>._pytorch_model.forward(Variable(torch.from_numpy(X_test).<span class="bu">float</span>()))</span>
-<span id="cb22-57"><a href="#cb22-57" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> output.data.numpy().argmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb22-58"><a href="#cb22-58" aria-hidden="true" tabindex="-1"></a>        </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="ac78348c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:35:35.053033Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:35:35.052929Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:35:35.058447Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:35:35.058024Z&quot;}}" data-execution_count="17" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tqdm <span class="im">import</span> trange, tqdm</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MLPClassifier:</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, input_dim, hidden_dim, </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>                 output_dim, nonlinearity <span class="op">=</span> fn.tanh, </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>                 additional_hidden_wide<span class="op">=</span><span class="dv">0</span>):</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._pytorch_model <span class="op">=</span> MLP(input_dim, hidden_dim, output_dim, nonlinearity, additional_hidden_wide)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._criterion <span class="op">=</span> nn.CrossEntropyLoss(size_average<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._fit_params <span class="op">=</span> <span class="bu">dict</span>(lr<span class="op">=</span><span class="fl">0.1</span>, epochs<span class="op">=</span><span class="dv">200</span>, batch_size<span class="op">=</span><span class="dv">64</span>)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._optim <span class="op">=</span> torch.optim.SGD(<span class="va">self</span>._pytorch_model.parameters(), lr <span class="op">=</span> <span class="va">self</span>._fit_params[<span class="st">'lr'</span>] )</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__repr__</span>(<span class="va">self</span>):</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>        num<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> k, p <span class="kw">in</span> <span class="va">self</span>._pytorch_model.named_parameters():</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>            numlist <span class="op">=</span> <span class="bu">list</span>(p.data.numpy().shape)</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="bu">len</span>(numlist)<span class="op">==</span><span class="dv">2</span>:</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>                num <span class="op">+=</span> numlist[<span class="dv">0</span>]<span class="op">*</span>numlist[<span class="dv">1</span>]</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>                num<span class="op">+=</span> numlist[<span class="dv">0</span>]</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">repr</span>(<span class="va">self</span>._pytorch_model)<span class="op">+</span><span class="st">"</span><span class="ch">\n</span><span class="st">"</span><span class="op">+</span><span class="bu">repr</span>(<span class="va">self</span>._fit_params)<span class="op">+</span><span class="st">"</span><span class="ch">\n</span><span class="st">Num Params: </span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(num)</span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> set_fit_params(<span class="va">self</span>, <span class="op">*</span>, lr<span class="op">=</span><span class="fl">0.1</span>, epochs<span class="op">=</span><span class="dv">200</span>, batch_size<span class="op">=</span><span class="dv">64</span>):</span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._fit_params[<span class="st">'batch_size'</span>] <span class="op">=</span> batch_size</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._fit_params[<span class="st">'epochs'</span>] <span class="op">=</span> epochs</span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._fit_params[<span class="st">'lr'</span>] <span class="op">=</span> lr</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._optim <span class="op">=</span> torch.optim.SGD(<span class="va">self</span>._pytorch_model.parameters(), lr <span class="op">=</span> <span class="va">self</span>._fit_params[<span class="st">'lr'</span>] )</span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fit(<span class="va">self</span>, X_train, y_train):</span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>        dataset <span class="op">=</span> torch.utils.data.TensorDataset(torch.from_numpy(X_train), torch.from_numpy(y_train))</span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>        loader <span class="op">=</span> torch.utils.data.DataLoader(dataset, batch_size<span class="op">=</span><span class="va">self</span>._fit_params[<span class="st">'batch_size'</span>], shuffle<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>._accum<span class="op">=</span>[]</span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> k <span class="kw">in</span> trange(<span class="va">self</span>._fit_params[<span class="st">'epochs'</span>]):</span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a>            localaccum <span class="op">=</span> []</span>
+<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> localx, localy <span class="kw">in</span> <span class="bu">iter</span>(loader):</span>
+<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a>                localx <span class="op">=</span> Variable(localx.<span class="bu">float</span>())</span>
+<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a>                localy <span class="op">=</span> Variable(localy.<span class="bu">long</span>())</span>
+<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a>                output <span class="op">=</span> <span class="va">self</span>._pytorch_model.forward(localx)</span>
+<span id="cb23-38"><a href="#cb23-38" aria-hidden="true" tabindex="-1"></a>                loss <span class="op">=</span> <span class="va">self</span>._criterion(output, localy)</span>
+<span id="cb23-39"><a href="#cb23-39" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>._pytorch_model.zero_grad()</span>
+<span id="cb23-40"><a href="#cb23-40" aria-hidden="true" tabindex="-1"></a>                loss.backward()</span>
+<span id="cb23-41"><a href="#cb23-41" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>._optim.step()</span>
+<span id="cb23-42"><a href="#cb23-42" aria-hidden="true" tabindex="-1"></a>                localaccum.append(loss.item())</span>
+<span id="cb23-43"><a href="#cb23-43" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>._accum.append(np.mean(localaccum))</span>
+<span id="cb23-44"><a href="#cb23-44" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb23-45"><a href="#cb23-45" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> plot_loss(<span class="va">self</span>):</span>
+<span id="cb23-46"><a href="#cb23-46" aria-hidden="true" tabindex="-1"></a>        plt.plot(<span class="va">self</span>._accum, label<span class="op">=</span><span class="st">"</span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(<span class="va">self</span>))</span>
+<span id="cb23-47"><a href="#cb23-47" aria-hidden="true" tabindex="-1"></a>        plt.legend()</span>
+<span id="cb23-48"><a href="#cb23-48" aria-hidden="true" tabindex="-1"></a>        plt.show()</span>
+<span id="cb23-49"><a href="#cb23-49" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb23-50"><a href="#cb23-50" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> plot_boundary(<span class="va">self</span>, X_train, X_test, y_train, y_test):</span>
+<span id="cb23-51"><a href="#cb23-51" aria-hidden="true" tabindex="-1"></a>        points_plot(plt.gca(), X_train, X_test, y_train, y_test, <span class="va">self</span>.predict)<span class="op">;</span></span>
+<span id="cb23-52"><a href="#cb23-52" aria-hidden="true" tabindex="-1"></a>        plt.text(<span class="dv">1</span>, <span class="dv">1</span>, <span class="st">"</span><span class="sc">{}</span><span class="st">"</span>.<span class="bu">format</span>(<span class="va">self</span>), fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb23-53"><a href="#cb23-53" aria-hidden="true" tabindex="-1"></a>        plt.show()</span>
+<span id="cb23-54"><a href="#cb23-54" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb23-55"><a href="#cb23-55" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> predict(<span class="va">self</span>, X_test):</span>
+<span id="cb23-56"><a href="#cb23-56" aria-hidden="true" tabindex="-1"></a>        output <span class="op">=</span> <span class="va">self</span>._pytorch_model.forward(Variable(torch.from_numpy(X_test).<span class="bu">float</span>()))</span>
+<span id="cb23-57"><a href="#cb23-57" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> output.data.numpy().argmax(axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb23-58"><a href="#cb23-58" aria-hidden="true" tabindex="-1"></a>        </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Some points about this:</p>
 <ul>
@@ -894,32 +893,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="the-simplest-model-and-a-more-complex-model" class="level2">
 <h2 class="anchored" data-anchor-id="the-simplest-model-and-a-more-complex-model">The simplest model, and a more complex model</h2>
-<div id="cell-29" class="cell" data-execution_count="44" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>logistic <span class="op">=</span> MLPClassifier(input_dim<span class="op">=</span><span class="dv">2</span>, hidden_dim<span class="op">=</span><span class="dv">2</span>, output_dim<span class="op">=</span><span class="dv">2</span>, nonlinearity<span class="op">=</span><span class="kw">lambda</span> x: x, additional_hidden_wide<span class="op">=-</span><span class="dv">1</span>)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>logistic.set_fit_params(epochs<span class="op">=</span><span class="dv">1000</span>)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(logistic)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>logistic.fit(X_train,y_train)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="8de18d3a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:35:35.059629Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:35:35.059545Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:35:36.502869Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:35:36.501829Z&quot;}}" data-execution_count="18" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>logistic <span class="op">=</span> MLPClassifier(input_dim<span class="op">=</span><span class="dv">2</span>, hidden_dim<span class="op">=</span><span class="dv">2</span>, output_dim<span class="op">=</span><span class="dv">2</span>, nonlinearity<span class="op">=</span><span class="kw">lambda</span> x: x, additional_hidden_wide<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>logistic.set_fit_params(epochs<span class="op">=</span><span class="dv">1000</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(logistic)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>logistic.fit(X_train,y_train)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
+  self.reduction: str = _Reduction.legacy_get_string(size_average, reduce)</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code>MLP(
-  (fc_initial): Linear(in_features=2, out_features=2)
-  (fc_mid): ModuleList(
-  )
+  (fc_initial): Linear(in_features=2, out_features=2, bias=True)
+  (fc_mid): ModuleList()
 )
 {'lr': 0.1, 'epochs': 1000, 'batch_size': 64}
 Num Params: 6</code></pre>
 </div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"cbba893a02114ef2b8f63cd6ee7a2231","quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code></code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>  0%|          | 0/1000 [00:00&lt;?, ?it/s]  7%|▋         | 69/1000 [00:00&lt;00:01, 686.82it/s] 14%|█▍        | 138/1000 [00:00&lt;00:01, 670.84it/s] 21%|██        | 206/1000 [00:00&lt;00:01, 643.04it/s] 27%|██▋       | 273/1000 [00:00&lt;00:01, 651.77it/s] 35%|███▍      | 348/1000 [00:00&lt;00:00, 685.23it/s] 42%|████▏     | 420/1000 [00:00&lt;00:00, 696.56it/s] 49%|████▉     | 490/1000 [00:00&lt;00:00, 637.89it/s] 56%|█████▌    | 562/1000 [00:00&lt;00:00, 660.94it/s] 64%|██████▍   | 638/1000 [00:00&lt;00:00, 688.54it/s] 72%|███████▏  | 716/1000 [00:01&lt;00:00, 715.57it/s] 80%|███████▉  | 795/1000 [00:01&lt;00:00, 736.12it/s] 87%|████████▋ | 874/1000 [00:01&lt;00:00, 751.27it/s] 95%|█████████▌| 952/1000 [00:01&lt;00:00, 759.04it/s]100%|██████████| 1000/1000 [00:01&lt;00:00, 702.41it/s]</code></pre>
 </div>
 </div>
-<div id="cell-30" class="cell" data-execution_count="45" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sns.plotting_context(<span class="st">'poster'</span>):</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    logistic.plot_loss()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="b4ad07b7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:35:36.504856Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:35:36.504715Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:35:36.562016Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:35:36.561553Z&quot;}}" data-execution_count="19" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sns.plotting_context(<span class="st">'poster'</span>):</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    logistic.plot_loss()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -928,17 +925,17 @@ Num Params: 6</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-31" class="cell" data-execution_count="46" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>ypred <span class="op">=</span> logistic.predict(X_test)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co">#training and test accuracy</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>accuracy_score(y_train, logistic.predict(X_train)), accuracy_score(y_test, ypred)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="46">
-<pre><code>(0.84583333333333333, 0.80625000000000002)</code></pre>
+<div id="ff91152e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:35:36.563161Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:35:36.563061Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:35:36.566202Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:35:36.565749Z&quot;}}" data-execution_count="20" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>ypred <span class="op">=</span> logistic.predict(X_test)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co">#training and test accuracy</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>accuracy_score(y_train, logistic.predict(X_train)), accuracy_score(y_test, ypred)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>(0.825, 0.8625)</code></pre>
 </div>
 </div>
-<div id="cell-32" class="cell" data-execution_count="47" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sns.plotting_context(<span class="st">'poster'</span>):</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    logistic.plot_boundary(X_train, X_test, y_train, y_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="04bb4abd" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:35:36.567239Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:35:36.567170Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:35:36.622732Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:35:36.622046Z&quot;}}" data-execution_count="21" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sns.plotting_context(<span class="st">'poster'</span>):</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    logistic.plot_boundary(X_train, X_test, y_train, y_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -947,34 +944,33 @@ Num Params: 6</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-33" class="cell" data-execution_count="48" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>clf <span class="op">=</span> MLPClassifier(input_dim<span class="op">=</span><span class="dv">2</span>, hidden_dim<span class="op">=</span><span class="dv">20</span>, output_dim<span class="op">=</span><span class="dv">2</span>, nonlinearity<span class="op">=</span>fn.tanh, additional_hidden_wide<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>clf.set_fit_params(epochs<span class="op">=</span><span class="dv">1000</span>)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(clf)</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>clf.fit(X_train,y_train)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="0d68398f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:35:36.625314Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:35:36.625193Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:35:38.621188Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:35:38.620702Z&quot;}}" data-execution_count="22" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>clf <span class="op">=</span> MLPClassifier(input_dim<span class="op">=</span><span class="dv">2</span>, hidden_dim<span class="op">=</span><span class="dv">20</span>, output_dim<span class="op">=</span><span class="dv">2</span>, nonlinearity<span class="op">=</span>fn.tanh, additional_hidden_wide<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>clf.set_fit_params(epochs<span class="op">=</span><span class="dv">1000</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(clf)</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>clf.fit(X_train,y_train)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
+  self.reduction: str = _Reduction.legacy_get_string(size_average, reduce)</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code>MLP(
-  (fc_initial): Linear(in_features=2, out_features=20)
+  (fc_initial): Linear(in_features=2, out_features=20, bias=True)
   (fc_mid): ModuleList(
-    (0): Linear(in_features=20, out_features=20)
+    (0): Linear(in_features=20, out_features=20, bias=True)
   )
-  (fc_final): Linear(in_features=20, out_features=2)
+  (fc_final): Linear(in_features=20, out_features=2, bias=True)
 )
 {'lr': 0.1, 'epochs': 1000, 'batch_size': 64}
 Num Params: 522</code></pre>
 </div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"aa32053adec74159ada34bb279c5d6c1","quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code></code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>  0%|          | 0/1000 [00:00&lt;?, ?it/s]  5%|▌         | 50/1000 [00:00&lt;00:01, 497.52it/s] 10%|█         | 100/1000 [00:00&lt;00:01, 472.57it/s] 15%|█▌        | 150/1000 [00:00&lt;00:01, 477.72it/s] 20%|██        | 201/1000 [00:00&lt;00:01, 486.57it/s] 25%|██▌       | 250/1000 [00:00&lt;00:01, 486.30it/s] 30%|██▉       | 299/1000 [00:00&lt;00:01, 485.23it/s] 35%|███▌      | 351/1000 [00:00&lt;00:01, 495.50it/s] 40%|████      | 401/1000 [00:00&lt;00:01, 494.32it/s] 45%|████▌     | 451/1000 [00:00&lt;00:01, 491.06it/s] 50%|█████     | 501/1000 [00:01&lt;00:01, 478.64it/s] 55%|█████▍    | 549/1000 [00:01&lt;00:00, 455.46it/s] 60%|█████▉    | 595/1000 [00:01&lt;00:00, 454.50it/s] 64%|██████▍   | 641/1000 [00:01&lt;00:00, 454.17it/s] 70%|███████   | 700/1000 [00:01&lt;00:00, 493.40it/s] 76%|███████▌  | 755/1000 [00:01&lt;00:00, 509.67it/s] 81%|████████  | 807/1000 [00:01&lt;00:00, 497.42it/s] 86%|████████▋ | 865/1000 [00:01&lt;00:00, 519.92it/s] 92%|█████████▏| 924/1000 [00:01&lt;00:00, 539.21it/s] 99%|█████████▊| 986/1000 [00:01&lt;00:00, 560.92it/s]100%|██████████| 1000/1000 [00:01&lt;00:00, 502.12it/s]</code></pre>
 </div>
 </div>
-<div id="cell-34" class="cell" data-execution_count="49" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sns.plotting_context(<span class="st">'poster'</span>):</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    clf.plot_loss()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="70b11c3b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:35:38.622308Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:35:38.622231Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:35:38.689805Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:35:38.689298Z&quot;}}" data-execution_count="23" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sns.plotting_context(<span class="st">'poster'</span>):</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    clf.plot_loss()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -983,17 +979,17 @@ Num Params: 522</code></pre>
 </div>
 </div>
 </div>
-<div id="cell-35" class="cell" data-execution_count="50" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>ypred <span class="op">=</span> clf.predict(X_test)</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co">#training and test accuracy</span></span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>accuracy_score(y_train, clf.predict(X_train)), accuracy_score(y_test, ypred)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="50">
-<pre><code>(0.875, 0.875)</code></pre>
+<div id="06e8f125" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:35:38.691257Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:35:38.691140Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:35:38.695623Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:35:38.695000Z&quot;}}" data-execution_count="24" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>ypred <span class="op">=</span> clf.predict(X_test)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co">#training and test accuracy</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>accuracy_score(y_train, clf.predict(X_train)), accuracy_score(y_test, ypred)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<pre><code>(0.8666666666666667, 0.90625)</code></pre>
 </div>
 </div>
-<div id="cell-36" class="cell" data-execution_count="51" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sns.plotting_context(<span class="st">'poster'</span>):</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    clf.plot_boundary(X_train, X_test, y_train, y_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="ed94bdc5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:35:38.697227Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:35:38.697050Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:35:38.757572Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:35:38.756979Z&quot;}}" data-execution_count="25" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sns.plotting_context(<span class="st">'poster'</span>):</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    clf.plot_boundary(X_train, X_test, y_train, y_test)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1006,42 +1002,40 @@ Num Params: 522</code></pre>
 <section id="experimentation-space" class="level2">
 <h2 class="anchored" data-anchor-id="experimentation-space">Experimentation Space</h2>
 <p>Here is space for you to play. You might want to collect accuracies on the traing and test set and plot on a grid of these parameters or some other visualization. Notice how you might want to adjust number of epochs for convergence.</p>
-<div id="cell-38" class="cell" data-scrolled="false" data-execution_count="52" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> additional <span class="kw">in</span> [<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>]:</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> hdim <span class="kw">in</span> [<span class="dv">2</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">1000</span>]:</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'===================='</span>)</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'Additional'</span>, additional, <span class="st">"hidden"</span>, hdim)</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>        clf <span class="op">=</span> MLPClassifier(input_dim<span class="op">=</span><span class="dv">2</span>, hidden_dim<span class="op">=</span>hdim, output_dim<span class="op">=</span><span class="dv">2</span>, nonlinearity<span class="op">=</span>fn.tanh, additional_hidden_wide<span class="op">=</span>additional)</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> additional <span class="op">&gt;</span> <span class="dv">2</span> <span class="kw">and</span> hdim <span class="op">&gt;</span> <span class="dv">50</span>:</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>            clf.set_fit_params(epochs<span class="op">=</span><span class="dv">1000</span>)</span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>            clf.set_fit_params(epochs<span class="op">=</span><span class="dv">500</span>)</span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(clf)</span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>        clf.fit(X_train,y_train)</span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> sns.plotting_context(<span class="st">'poster'</span>):</span>
-<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>            clf.plot_loss()</span>
-<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>            clf.plot_boundary(X_train, X_test, y_train, y_test)</span>
-<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Train acc"</span>, accuracy_score(y_train, clf.predict(X_train)))</span>
-<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Test acc"</span>, accuracy_score(y_test, clf.predict(X_test)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="469c2701" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:35:38.759468Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:35:38.759324Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:36:29.922297Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:36:29.921697Z&quot;}}" data-scrolled="false" data-execution_count="26" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> additional <span class="kw">in</span> [<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>]:</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> hdim <span class="kw">in</span> [<span class="dv">2</span>, <span class="dv">10</span>, <span class="dv">100</span>, <span class="dv">1000</span>]:</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'===================='</span>)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'Additional'</span>, additional, <span class="st">"hidden"</span>, hdim)</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>        clf <span class="op">=</span> MLPClassifier(input_dim<span class="op">=</span><span class="dv">2</span>, hidden_dim<span class="op">=</span>hdim, output_dim<span class="op">=</span><span class="dv">2</span>, nonlinearity<span class="op">=</span>fn.tanh, additional_hidden_wide<span class="op">=</span>additional)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> additional <span class="op">&gt;</span> <span class="dv">2</span> <span class="kw">and</span> hdim <span class="op">&gt;</span> <span class="dv">50</span>:</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>            clf.set_fit_params(epochs<span class="op">=</span><span class="dv">1000</span>)</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>            clf.set_fit_params(epochs<span class="op">=</span><span class="dv">500</span>)</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(clf)</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>        clf.fit(X_train,y_train)</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> sns.plotting_context(<span class="st">'poster'</span>):</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>            clf.plot_loss()</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>            clf.plot_boundary(X_train, X_test, y_train, y_test)</span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Train acc"</span>, accuracy_score(y_train, clf.predict(X_train)))</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Test acc"</span>, accuracy_score(y_test, clf.predict(X_test)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
+  self.reduction: str = _Reduction.legacy_get_string(size_average, reduce)</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code>====================
 Additional 0 hidden 2
 MLP(
-  (fc_initial): Linear(in_features=2, out_features=2)
-  (fc_mid): ModuleList(
-  )
-  (fc_final): Linear(in_features=2, out_features=2)
+  (fc_initial): Linear(in_features=2, out_features=2, bias=True)
+  (fc_mid): ModuleList()
+  (fc_final): Linear(in_features=2, out_features=2, bias=True)
 )
 {'lr': 0.1, 'epochs': 500, 'batch_size': 64}
 Num Params: 12</code></pre>
 </div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"8cf6e2a7c13d437b821fd5e91af73e4d","quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code></code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>  0%|          | 0/500 [00:00&lt;?, ?it/s] 11%|█         | 56/500 [00:00&lt;00:00, 559.73it/s] 23%|██▎       | 116/500 [00:00&lt;00:00, 578.29it/s] 35%|███▌      | 175/500 [00:00&lt;00:00, 582.37it/s] 48%|████▊     | 241/500 [00:00&lt;00:00, 610.46it/s] 61%|██████    | 303/500 [00:00&lt;00:00, 609.72it/s] 73%|███████▎  | 366/500 [00:00&lt;00:00, 614.47it/s] 87%|████████▋ | 434/500 [00:00&lt;00:00, 634.85it/s]100%|██████████| 500/500 [00:00&lt;00:00, 624.44it/s]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1057,27 +1051,25 @@ Num Params: 12</code></pre>
 </figure>
 </div>
 </div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
+  self.reduction: str = _Reduction.legacy_get_string(size_average, reduce)</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Train acc 0.866666666667
-Test acc 0.8375
+<pre><code>Train acc 0.8416666666666667
+Test acc 0.86875
 ====================
 Additional 0 hidden 10
 MLP(
-  (fc_initial): Linear(in_features=2, out_features=10)
-  (fc_mid): ModuleList(
-  )
-  (fc_final): Linear(in_features=10, out_features=2)
+  (fc_initial): Linear(in_features=2, out_features=10, bias=True)
+  (fc_mid): ModuleList()
+  (fc_final): Linear(in_features=10, out_features=2, bias=True)
 )
 {'lr': 0.1, 'epochs': 500, 'batch_size': 64}
 Num Params: 52</code></pre>
 </div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"e58af7751a184fb08fbb60aa9be114b4","quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code></code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>  0%|          | 0/500 [00:00&lt;?, ?it/s] 14%|█▎        | 68/500 [00:00&lt;00:00, 679.66it/s] 28%|██▊       | 139/500 [00:00&lt;00:00, 692.70it/s] 42%|████▏     | 209/500 [00:00&lt;00:00, 659.83it/s] 55%|█████▌    | 276/500 [00:00&lt;00:00, 663.25it/s] 69%|██████▊   | 343/500 [00:00&lt;00:00, 634.00it/s] 82%|████████▏ | 408/500 [00:00&lt;00:00, 636.82it/s] 95%|█████████▌| 477/500 [00:00&lt;00:00, 652.07it/s]100%|██████████| 500/500 [00:00&lt;00:00, 655.08it/s]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1093,27 +1085,25 @@ Num Params: 52</code></pre>
 </figure>
 </div>
 </div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
+  self.reduction: str = _Reduction.legacy_get_string(size_average, reduce)</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Train acc 0.870833333333
-Test acc 0.88125
+<pre><code>Train acc 0.8625
+Test acc 0.9
 ====================
 Additional 0 hidden 100
 MLP(
-  (fc_initial): Linear(in_features=2, out_features=100)
-  (fc_mid): ModuleList(
-  )
-  (fc_final): Linear(in_features=100, out_features=2)
+  (fc_initial): Linear(in_features=2, out_features=100, bias=True)
+  (fc_mid): ModuleList()
+  (fc_final): Linear(in_features=100, out_features=2, bias=True)
 )
 {'lr': 0.1, 'epochs': 500, 'batch_size': 64}
 Num Params: 502</code></pre>
 </div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"e0973530855e4120ab37e89abf08d09b","quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code></code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>  0%|          | 0/500 [00:00&lt;?, ?it/s]  9%|▉         | 47/500 [00:00&lt;00:00, 464.29it/s] 19%|█▉        | 94/500 [00:00&lt;00:00, 456.01it/s] 28%|██▊       | 140/500 [00:00&lt;00:00, 434.16it/s] 37%|███▋      | 184/500 [00:00&lt;00:00, 432.37it/s] 46%|████▌     | 228/500 [00:00&lt;00:00, 395.53it/s] 57%|█████▋    | 285/500 [00:00&lt;00:00, 447.75it/s] 67%|██████▋   | 337/500 [00:00&lt;00:00, 467.29it/s] 77%|███████▋  | 385/500 [00:00&lt;00:00, 454.75it/s] 87%|████████▋ | 434/500 [00:00&lt;00:00, 463.26it/s] 97%|█████████▋| 485/500 [00:01&lt;00:00, 474.61it/s]100%|██████████| 500/500 [00:01&lt;00:00, 452.92it/s]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1129,27 +1119,25 @@ Num Params: 502</code></pre>
 </figure>
 </div>
 </div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
+  self.reduction: str = _Reduction.legacy_get_string(size_average, reduce)</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Train acc 0.870833333333
-Test acc 0.8875
+<pre><code>Train acc 0.8583333333333333
+Test acc 0.9
 ====================
 Additional 0 hidden 1000
 MLP(
-  (fc_initial): Linear(in_features=2, out_features=1000)
-  (fc_mid): ModuleList(
-  )
-  (fc_final): Linear(in_features=1000, out_features=2)
+  (fc_initial): Linear(in_features=2, out_features=1000, bias=True)
+  (fc_mid): ModuleList()
+  (fc_final): Linear(in_features=1000, out_features=2, bias=True)
 )
 {'lr': 0.1, 'epochs': 500, 'batch_size': 64}
 Num Params: 5002</code></pre>
 </div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"b204d2053f4c4cbda5bc23bf8276a1ca","quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code></code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>  0%|          | 0/500 [00:00&lt;?, ?it/s]  8%|▊         | 41/500 [00:00&lt;00:01, 402.07it/s] 17%|█▋        | 83/500 [00:00&lt;00:01, 406.95it/s] 25%|██▌       | 126/500 [00:00&lt;00:00, 416.54it/s] 34%|███▍      | 170/500 [00:00&lt;00:00, 422.57it/s] 43%|████▎     | 213/500 [00:00&lt;00:00, 398.25it/s] 51%|█████     | 254/500 [00:00&lt;00:00, 401.91it/s] 60%|█████▉    | 298/500 [00:00&lt;00:00, 413.64it/s] 69%|██████▊   | 343/500 [00:00&lt;00:00, 423.33it/s] 78%|███████▊  | 389/500 [00:00&lt;00:00, 431.61it/s] 87%|████████▋ | 433/500 [00:01&lt;00:00, 423.96it/s] 95%|█████████▌| 476/500 [00:01&lt;00:00, 416.51it/s]100%|██████████| 500/500 [00:01&lt;00:00, 413.59it/s]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1165,29 +1153,27 @@ Num Params: 5002</code></pre>
 </figure>
 </div>
 </div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
+  self.reduction: str = _Reduction.legacy_get_string(size_average, reduce)</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Train acc 0.833333333333
-Test acc 0.8
+<pre><code>Train acc 0.8333333333333334
+Test acc 0.81875
 ====================
 Additional 2 hidden 2
 MLP(
-  (fc_initial): Linear(in_features=2, out_features=2)
+  (fc_initial): Linear(in_features=2, out_features=2, bias=True)
   (fc_mid): ModuleList(
-    (0): Linear(in_features=2, out_features=2)
-    (1): Linear(in_features=2, out_features=2)
+    (0-1): 2 x Linear(in_features=2, out_features=2, bias=True)
   )
-  (fc_final): Linear(in_features=2, out_features=2)
+  (fc_final): Linear(in_features=2, out_features=2, bias=True)
 )
 {'lr': 0.1, 'epochs': 500, 'batch_size': 64}
 Num Params: 24</code></pre>
 </div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"e04923acd1874a7ea17cccbf393ca858","quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code></code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>  0%|          | 0/500 [00:00&lt;?, ?it/s] 10%|█         | 50/500 [00:00&lt;00:00, 494.77it/s] 21%|██        | 106/500 [00:00&lt;00:00, 529.48it/s] 33%|███▎      | 163/500 [00:00&lt;00:00, 546.94it/s] 44%|████▎     | 218/500 [00:00&lt;00:00, 479.66it/s] 54%|█████▍    | 271/500 [00:00&lt;00:00, 494.73it/s] 66%|██████▌   | 330/500 [00:00&lt;00:00, 522.57it/s] 77%|███████▋  | 387/500 [00:00&lt;00:00, 536.81it/s] 89%|████████▉ | 447/500 [00:00&lt;00:00, 555.59it/s]100%|██████████| 500/500 [00:00&lt;00:00, 537.32it/s]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1203,29 +1189,27 @@ Num Params: 24</code></pre>
 </figure>
 </div>
 </div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
+  self.reduction: str = _Reduction.legacy_get_string(size_average, reduce)</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Train acc 0.875
-Test acc 0.825
+<pre><code>Train acc 0.8333333333333334
+Test acc 0.8625
 ====================
 Additional 2 hidden 10
 MLP(
-  (fc_initial): Linear(in_features=2, out_features=10)
+  (fc_initial): Linear(in_features=2, out_features=10, bias=True)
   (fc_mid): ModuleList(
-    (0): Linear(in_features=10, out_features=10)
-    (1): Linear(in_features=10, out_features=10)
+    (0-1): 2 x Linear(in_features=10, out_features=10, bias=True)
   )
-  (fc_final): Linear(in_features=10, out_features=2)
+  (fc_final): Linear(in_features=10, out_features=2, bias=True)
 )
 {'lr': 0.1, 'epochs': 500, 'batch_size': 64}
 Num Params: 272</code></pre>
 </div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"baf3e1a8b22b48b3922046fa3c70f513","quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code></code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>  0%|          | 0/500 [00:00&lt;?, ?it/s]  8%|▊         | 41/500 [00:00&lt;00:01, 384.45it/s] 16%|█▌        | 80/500 [00:00&lt;00:01, 347.55it/s] 25%|██▌       | 127/500 [00:00&lt;00:00, 398.57it/s] 34%|███▍      | 172/500 [00:00&lt;00:00, 417.40it/s] 45%|████▌     | 227/500 [00:00&lt;00:00, 461.40it/s] 55%|█████▌    | 276/500 [00:00&lt;00:00, 469.29it/s] 67%|██████▋   | 335/500 [00:00&lt;00:00, 507.04it/s] 79%|███████▉  | 395/500 [00:00&lt;00:00, 533.41it/s] 91%|█████████ | 455/500 [00:00&lt;00:00, 552.52it/s]100%|██████████| 500/500 [00:01&lt;00:00, 495.19it/s]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1241,29 +1225,27 @@ Num Params: 272</code></pre>
 </figure>
 </div>
 </div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
+  self.reduction: str = _Reduction.legacy_get_string(size_average, reduce)</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Train acc 0.8625
-Test acc 0.90625
+<pre><code>Train acc 0.8791666666666667
+Test acc 0.8625
 ====================
 Additional 2 hidden 100
 MLP(
-  (fc_initial): Linear(in_features=2, out_features=100)
+  (fc_initial): Linear(in_features=2, out_features=100, bias=True)
   (fc_mid): ModuleList(
-    (0): Linear(in_features=100, out_features=100)
-    (1): Linear(in_features=100, out_features=100)
+    (0-1): 2 x Linear(in_features=100, out_features=100, bias=True)
   )
-  (fc_final): Linear(in_features=100, out_features=2)
+  (fc_final): Linear(in_features=100, out_features=2, bias=True)
 )
 {'lr': 0.1, 'epochs': 500, 'batch_size': 64}
 Num Params: 20702</code></pre>
 </div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"bd9fd8435a624d7eb638daad708667a0","quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code></code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>  0%|          | 0/500 [00:00&lt;?, ?it/s]  9%|▉         | 45/500 [00:00&lt;00:01, 443.63it/s] 18%|█▊        | 90/500 [00:00&lt;00:00, 445.97it/s] 27%|██▋       | 136/500 [00:00&lt;00:00, 447.84it/s] 36%|███▋      | 182/500 [00:00&lt;00:00, 448.98it/s] 46%|████▌     | 228/500 [00:00&lt;00:00, 449.72it/s] 55%|█████▍    | 274/500 [00:00&lt;00:00, 450.21it/s] 64%|██████▍   | 320/500 [00:00&lt;00:00, 450.02it/s] 73%|███████▎  | 366/500 [00:00&lt;00:00, 446.34it/s] 82%|████████▏ | 411/500 [00:00&lt;00:00, 443.80it/s] 91%|█████████ | 456/500 [00:01&lt;00:00, 437.83it/s]100%|██████████| 500/500 [00:01&lt;00:00, 422.66it/s]100%|██████████| 500/500 [00:01&lt;00:00, 439.03it/s]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1279,29 +1261,27 @@ Num Params: 20702</code></pre>
 </figure>
 </div>
 </div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
+  self.reduction: str = _Reduction.legacy_get_string(size_average, reduce)</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Train acc 0.891666666667
-Test acc 0.85
+<pre><code>Train acc 0.8708333333333333
+Test acc 0.89375
 ====================
 Additional 2 hidden 1000
 MLP(
-  (fc_initial): Linear(in_features=2, out_features=1000)
+  (fc_initial): Linear(in_features=2, out_features=1000, bias=True)
   (fc_mid): ModuleList(
-    (0): Linear(in_features=1000, out_features=1000)
-    (1): Linear(in_features=1000, out_features=1000)
+    (0-1): 2 x Linear(in_features=1000, out_features=1000, bias=True)
   )
-  (fc_final): Linear(in_features=1000, out_features=2)
+  (fc_final): Linear(in_features=1000, out_features=2, bias=True)
 )
 {'lr': 0.1, 'epochs': 500, 'batch_size': 64}
 Num Params: 2007002</code></pre>
 </div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"343c50f96b12437487aacbae3c61e8f5","quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code></code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>  0%|          | 0/500 [00:00&lt;?, ?it/s]  1%|▏         | 7/500 [00:00&lt;00:07, 67.29it/s]  3%|▎         | 14/500 [00:00&lt;00:07, 67.71it/s]  4%|▍         | 21/500 [00:00&lt;00:07, 67.80it/s]  6%|▌         | 28/500 [00:00&lt;00:07, 66.11it/s]  7%|▋         | 35/500 [00:00&lt;00:07, 65.78it/s]  8%|▊         | 42/500 [00:00&lt;00:06, 65.45it/s] 10%|▉         | 49/500 [00:00&lt;00:06, 64.99it/s] 11%|█         | 56/500 [00:00&lt;00:08, 54.04it/s] 13%|█▎        | 63/500 [00:01&lt;00:07, 56.84it/s] 14%|█▍        | 69/500 [00:01&lt;00:12, 34.97it/s] 15%|█▍        | 74/500 [00:01&lt;00:11, 37.34it/s] 16%|█▌        | 80/500 [00:01&lt;00:10, 41.85it/s] 17%|█▋        | 87/500 [00:01&lt;00:08, 47.29it/s] 19%|█▉        | 94/500 [00:01&lt;00:07, 51.89it/s] 20%|██        | 100/500 [00:01&lt;00:07, 53.67it/s] 21%|██▏       | 107/500 [00:02&lt;00:07, 55.92it/s] 23%|██▎       | 114/500 [00:02&lt;00:06, 58.56it/s] 24%|██▍       | 121/500 [00:02&lt;00:06, 60.81it/s] 26%|██▌       | 128/500 [00:02&lt;00:05, 62.52it/s] 27%|██▋       | 135/500 [00:02&lt;00:05, 63.89it/s] 28%|██▊       | 142/500 [00:02&lt;00:05, 64.33it/s] 30%|██▉       | 149/500 [00:02&lt;00:05, 61.73it/s] 31%|███       | 156/500 [00:02&lt;00:06, 54.26it/s] 32%|███▏      | 162/500 [00:02&lt;00:06, 54.12it/s] 34%|███▎      | 168/500 [00:03&lt;00:05, 55.59it/s] 35%|███▌      | 175/500 [00:03&lt;00:05, 58.64it/s] 36%|███▋      | 182/500 [00:03&lt;00:05, 60.65it/s] 38%|███▊      | 189/500 [00:03&lt;00:05, 61.68it/s] 39%|███▉      | 196/500 [00:03&lt;00:04, 62.77it/s] 41%|████      | 203/500 [00:03&lt;00:04, 63.96it/s] 42%|████▏     | 210/500 [00:03&lt;00:04, 62.43it/s] 43%|████▎     | 217/500 [00:03&lt;00:04, 60.22it/s] 45%|████▍     | 224/500 [00:03&lt;00:04, 61.73it/s] 46%|████▌     | 231/500 [00:04&lt;00:04, 62.28it/s] 48%|████▊     | 238/500 [00:04&lt;00:04, 63.32it/s] 49%|████▉     | 245/500 [00:04&lt;00:03, 64.13it/s] 50%|█████     | 252/500 [00:04&lt;00:04, 59.66it/s] 52%|█████▏    | 259/500 [00:04&lt;00:03, 61.24it/s] 53%|█████▎    | 266/500 [00:04&lt;00:03, 61.33it/s] 55%|█████▍    | 273/500 [00:04&lt;00:03, 62.49it/s] 56%|█████▌    | 280/500 [00:04&lt;00:03, 63.17it/s] 57%|█████▋    | 287/500 [00:04&lt;00:03, 63.35it/s] 59%|█████▉    | 294/500 [00:05&lt;00:03, 64.39it/s] 60%|██████    | 301/500 [00:05&lt;00:03, 65.00it/s] 62%|██████▏   | 308/500 [00:05&lt;00:02, 65.38it/s] 63%|██████▎   | 315/500 [00:05&lt;00:02, 65.72it/s] 64%|██████▍   | 322/500 [00:05&lt;00:02, 65.87it/s] 66%|██████▌   | 329/500 [00:05&lt;00:02, 66.08it/s] 67%|██████▋   | 336/500 [00:05&lt;00:02, 65.98it/s] 69%|██████▊   | 343/500 [00:05&lt;00:02, 66.08it/s] 70%|███████   | 350/500 [00:05&lt;00:02, 66.52it/s] 71%|███████▏  | 357/500 [00:05&lt;00:02, 66.48it/s] 73%|███████▎  | 364/500 [00:06&lt;00:02, 66.53it/s] 74%|███████▍  | 371/500 [00:06&lt;00:01, 66.68it/s] 76%|███████▌  | 378/500 [00:06&lt;00:01, 66.81it/s] 77%|███████▋  | 385/500 [00:06&lt;00:01, 66.54it/s] 78%|███████▊  | 392/500 [00:06&lt;00:01, 66.66it/s] 80%|███████▉  | 399/500 [00:06&lt;00:01, 66.32it/s] 81%|████████  | 406/500 [00:06&lt;00:01, 66.11it/s] 83%|████████▎ | 413/500 [00:06&lt;00:01, 66.33it/s] 84%|████████▍ | 420/500 [00:06&lt;00:01, 65.64it/s] 85%|████████▌ | 427/500 [00:07&lt;00:01, 65.51it/s] 87%|████████▋ | 434/500 [00:07&lt;00:00, 66.03it/s] 88%|████████▊ | 441/500 [00:07&lt;00:00, 65.58it/s] 90%|████████▉ | 448/500 [00:07&lt;00:00, 66.57it/s] 91%|█████████ | 455/500 [00:07&lt;00:00, 66.94it/s] 92%|█████████▏| 462/500 [00:07&lt;00:00, 67.54it/s] 94%|█████████▍| 469/500 [00:07&lt;00:00, 67.19it/s] 95%|█████████▌| 476/500 [00:07&lt;00:00, 66.82it/s] 97%|█████████▋| 483/500 [00:07&lt;00:00, 65.31it/s] 98%|█████████▊| 490/500 [00:07&lt;00:00, 65.98it/s] 99%|█████████▉| 497/500 [00:08&lt;00:00, 66.46it/s]100%|██████████| 500/500 [00:08&lt;00:00, 61.42it/s]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1317,31 +1297,27 @@ Num Params: 2007002</code></pre>
 </figure>
 </div>
 </div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
+  self.reduction: str = _Reduction.legacy_get_string(size_average, reduce)</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Train acc 0.8375
-Test acc 0.8125
+<pre><code>Train acc 0.875
+Test acc 0.86875
 ====================
 Additional 4 hidden 2
 MLP(
-  (fc_initial): Linear(in_features=2, out_features=2)
+  (fc_initial): Linear(in_features=2, out_features=2, bias=True)
   (fc_mid): ModuleList(
-    (0): Linear(in_features=2, out_features=2)
-    (1): Linear(in_features=2, out_features=2)
-    (2): Linear(in_features=2, out_features=2)
-    (3): Linear(in_features=2, out_features=2)
+    (0-3): 4 x Linear(in_features=2, out_features=2, bias=True)
   )
-  (fc_final): Linear(in_features=2, out_features=2)
+  (fc_final): Linear(in_features=2, out_features=2, bias=True)
 )
 {'lr': 0.1, 'epochs': 500, 'batch_size': 64}
 Num Params: 36</code></pre>
 </div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"12bd684f45104a65868e2a4a6a394e8a","quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code></code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>  0%|          | 0/500 [00:00&lt;?, ?it/s] 11%|█         | 53/500 [00:00&lt;00:00, 524.26it/s] 21%|██▏       | 107/500 [00:00&lt;00:00, 529.30it/s] 32%|███▏      | 161/500 [00:00&lt;00:00, 532.12it/s] 43%|████▎     | 215/500 [00:00&lt;00:00, 529.75it/s] 54%|█████▍    | 269/500 [00:00&lt;00:00, 531.64it/s] 65%|██████▍   | 323/500 [00:00&lt;00:00, 533.10it/s] 75%|███████▌  | 377/500 [00:00&lt;00:00, 534.08it/s] 86%|████████▌ | 431/500 [00:00&lt;00:00, 534.28it/s] 97%|█████████▋| 485/500 [00:00&lt;00:00, 534.52it/s]100%|██████████| 500/500 [00:00&lt;00:00, 532.63it/s]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1357,31 +1333,27 @@ Num Params: 36</code></pre>
 </figure>
 </div>
 </div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
+  self.reduction: str = _Reduction.legacy_get_string(size_average, reduce)</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Train acc 0.508333333333
-Test acc 0.4875
+<pre><code>Train acc 0.8583333333333333
+Test acc 0.88125
 ====================
 Additional 4 hidden 10
 MLP(
-  (fc_initial): Linear(in_features=2, out_features=10)
+  (fc_initial): Linear(in_features=2, out_features=10, bias=True)
   (fc_mid): ModuleList(
-    (0): Linear(in_features=10, out_features=10)
-    (1): Linear(in_features=10, out_features=10)
-    (2): Linear(in_features=10, out_features=10)
-    (3): Linear(in_features=10, out_features=10)
+    (0-3): 4 x Linear(in_features=10, out_features=10, bias=True)
   )
-  (fc_final): Linear(in_features=10, out_features=2)
+  (fc_final): Linear(in_features=10, out_features=2, bias=True)
 )
 {'lr': 0.1, 'epochs': 500, 'batch_size': 64}
 Num Params: 492</code></pre>
 </div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"af57bf7e531b4bfaa9132a60e6783755","quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code></code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>  0%|          | 0/500 [00:00&lt;?, ?it/s] 10%|█         | 51/500 [00:00&lt;00:00, 507.17it/s] 21%|██        | 103/500 [00:00&lt;00:00, 509.08it/s] 31%|███       | 155/500 [00:00&lt;00:00, 510.50it/s] 41%|████▏     | 207/500 [00:00&lt;00:00, 506.64it/s] 52%|█████▏    | 258/500 [00:00&lt;00:00, 495.82it/s] 62%|██████▏   | 310/500 [00:00&lt;00:00, 501.57it/s] 72%|███████▏  | 362/500 [00:00&lt;00:00, 505.48it/s] 83%|████████▎ | 413/500 [00:00&lt;00:00, 504.09it/s] 93%|█████████▎| 465/500 [00:00&lt;00:00, 507.40it/s]100%|██████████| 500/500 [00:00&lt;00:00, 505.71it/s]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1397,31 +1369,27 @@ Num Params: 492</code></pre>
 </figure>
 </div>
 </div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
+  self.reduction: str = _Reduction.legacy_get_string(size_average, reduce)</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Train acc 0.8625
-Test acc 0.85
+<pre><code>Train acc 0.8416666666666667
+Test acc 0.8375
 ====================
 Additional 4 hidden 100
 MLP(
-  (fc_initial): Linear(in_features=2, out_features=100)
+  (fc_initial): Linear(in_features=2, out_features=100, bias=True)
   (fc_mid): ModuleList(
-    (0): Linear(in_features=100, out_features=100)
-    (1): Linear(in_features=100, out_features=100)
-    (2): Linear(in_features=100, out_features=100)
-    (3): Linear(in_features=100, out_features=100)
+    (0-3): 4 x Linear(in_features=100, out_features=100, bias=True)
   )
-  (fc_final): Linear(in_features=100, out_features=2)
+  (fc_final): Linear(in_features=100, out_features=2, bias=True)
 )
 {'lr': 0.1, 'epochs': 1000, 'batch_size': 64}
 Num Params: 40902</code></pre>
 </div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"00b6ad09860b454d9d06d99963d0cbf8","quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code></code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>  0%|          | 0/1000 [00:00&lt;?, ?it/s]  4%|▎         | 35/1000 [00:00&lt;00:02, 346.40it/s]  7%|▋         | 71/1000 [00:00&lt;00:02, 349.39it/s] 11%|█         | 107/1000 [00:00&lt;00:02, 349.86it/s] 14%|█▍        | 142/1000 [00:00&lt;00:02, 349.19it/s] 18%|█▊        | 178/1000 [00:00&lt;00:02, 350.16it/s] 21%|██▏       | 214/1000 [00:00&lt;00:02, 350.81it/s] 25%|██▌       | 250/1000 [00:00&lt;00:02, 351.42it/s] 29%|██▊       | 286/1000 [00:00&lt;00:02, 347.52it/s] 32%|███▏      | 321/1000 [00:00&lt;00:01, 343.64it/s] 36%|███▌      | 357/1000 [00:01&lt;00:01, 346.16it/s] 39%|███▉      | 393/1000 [00:01&lt;00:01, 347.53it/s] 43%|████▎     | 428/1000 [00:01&lt;00:01, 346.10it/s] 46%|████▋     | 464/1000 [00:01&lt;00:01, 348.19it/s] 50%|████▉     | 499/1000 [00:01&lt;00:01, 348.06it/s] 54%|█████▎    | 535/1000 [00:01&lt;00:01, 349.58it/s] 57%|█████▋    | 571/1000 [00:01&lt;00:01, 350.39it/s] 61%|██████    | 607/1000 [00:01&lt;00:01, 350.90it/s] 64%|██████▍   | 643/1000 [00:01&lt;00:01, 350.46it/s] 68%|██████▊   | 679/1000 [00:01&lt;00:00, 350.96it/s] 72%|███████▏  | 715/1000 [00:02&lt;00:00, 351.44it/s] 75%|███████▌  | 751/1000 [00:02&lt;00:00, 351.84it/s] 79%|███████▊  | 787/1000 [00:02&lt;00:00, 352.39it/s] 82%|████████▏ | 823/1000 [00:02&lt;00:00, 352.12it/s] 86%|████████▌ | 859/1000 [00:02&lt;00:00, 351.81it/s] 90%|████████▉ | 895/1000 [00:02&lt;00:00, 352.07it/s] 93%|█████████▎| 931/1000 [00:02&lt;00:00, 352.65it/s] 97%|█████████▋| 967/1000 [00:02&lt;00:00, 352.58it/s]100%|██████████| 1000/1000 [00:02&lt;00:00, 349.41it/s]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1437,31 +1405,27 @@ Num Params: 40902</code></pre>
 </figure>
 </div>
 </div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/rahul/Library/Caches/uv/archive-v0/nvTdsg5itG6f4n0ZtJtSg/lib/python3.14/site-packages/torch/nn/modules/loss.py:44: UserWarning: size_average and reduce args will be deprecated, please use reduction='mean' instead.
+  self.reduction: str = _Reduction.legacy_get_string(size_average, reduce)</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Train acc 0.916666666667
-Test acc 0.84375
+<pre><code>Train acc 0.875
+Test acc 0.88125
 ====================
 Additional 4 hidden 1000
 MLP(
-  (fc_initial): Linear(in_features=2, out_features=1000)
+  (fc_initial): Linear(in_features=2, out_features=1000, bias=True)
   (fc_mid): ModuleList(
-    (0): Linear(in_features=1000, out_features=1000)
-    (1): Linear(in_features=1000, out_features=1000)
-    (2): Linear(in_features=1000, out_features=1000)
-    (3): Linear(in_features=1000, out_features=1000)
+    (0-3): 4 x Linear(in_features=1000, out_features=1000, bias=True)
   )
-  (fc_final): Linear(in_features=1000, out_features=2)
+  (fc_final): Linear(in_features=1000, out_features=2, bias=True)
 )
 {'lr': 0.1, 'epochs': 1000, 'batch_size': 64}
 Num Params: 4009002</code></pre>
 </div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"e288ad9131ef4715bf10fe11e026e328","quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code></code></pre>
+<div class="cell-output cell-output-stderr">
+<pre><code>  0%|          | 0/1000 [00:00&lt;?, ?it/s]  0%|          | 4/1000 [00:00&lt;00:28, 35.10it/s]  1%|          | 8/1000 [00:00&lt;00:28, 35.10it/s]  1%|          | 12/1000 [00:00&lt;00:27, 35.31it/s]  2%|▏         | 16/1000 [00:00&lt;00:28, 34.91it/s]  2%|▏         | 20/1000 [00:00&lt;00:28, 34.86it/s]  2%|▏         | 24/1000 [00:00&lt;00:28, 34.83it/s]  3%|▎         | 28/1000 [00:00&lt;00:28, 34.07it/s]  3%|▎         | 32/1000 [00:00&lt;00:28, 34.37it/s]  4%|▎         | 36/1000 [00:01&lt;00:27, 34.44it/s]  4%|▍         | 40/1000 [00:01&lt;00:28, 34.10it/s]  4%|▍         | 44/1000 [00:01&lt;00:27, 34.43it/s]  5%|▍         | 48/1000 [00:01&lt;00:28, 33.80it/s]  5%|▌         | 52/1000 [00:01&lt;00:29, 31.65it/s]  6%|▌         | 56/1000 [00:01&lt;00:29, 31.92it/s]  6%|▌         | 60/1000 [00:01&lt;00:28, 32.74it/s]  6%|▋         | 64/1000 [00:01&lt;00:28, 33.24it/s]  7%|▋         | 68/1000 [00:02&lt;00:27, 33.72it/s]  7%|▋         | 72/1000 [00:02&lt;00:27, 33.95it/s]  8%|▊         | 76/1000 [00:02&lt;00:26, 34.26it/s]  8%|▊         | 80/1000 [00:02&lt;00:26, 34.36it/s]  8%|▊         | 84/1000 [00:02&lt;00:26, 34.39it/s]  9%|▉         | 88/1000 [00:02&lt;00:26, 34.38it/s]  9%|▉         | 92/1000 [00:02&lt;00:26, 34.03it/s] 10%|▉         | 96/1000 [00:02&lt;00:26, 34.16it/s] 10%|█         | 100/1000 [00:02&lt;00:26, 34.20it/s] 10%|█         | 104/1000 [00:03&lt;00:26, 34.13it/s] 11%|█         | 108/1000 [00:03&lt;00:26, 34.28it/s] 11%|█         | 112/1000 [00:03&lt;00:25, 34.44it/s] 12%|█▏        | 116/1000 [00:03&lt;00:26, 33.83it/s] 12%|█▏        | 120/1000 [00:03&lt;00:25, 33.90it/s] 12%|█▏        | 124/1000 [00:03&lt;00:25, 34.06it/s] 13%|█▎        | 128/1000 [00:03&lt;00:25, 34.30it/s] 13%|█▎        | 132/1000 [00:03&lt;00:25, 34.43it/s] 14%|█▎        | 136/1000 [00:03&lt;00:25, 34.52it/s] 14%|█▍        | 140/1000 [00:04&lt;00:24, 34.66it/s] 14%|█▍        | 144/1000 [00:04&lt;00:24, 34.47it/s] 15%|█▍        | 148/1000 [00:04&lt;00:24, 34.64it/s] 15%|█▌        | 152/1000 [00:04&lt;00:24, 34.81it/s] 16%|█▌        | 156/1000 [00:04&lt;00:24, 34.73it/s] 16%|█▌        | 160/1000 [00:04&lt;00:24, 34.95it/s] 16%|█▋        | 164/1000 [00:04&lt;00:24, 34.02it/s] 17%|█▋        | 168/1000 [00:04&lt;00:24, 34.22it/s] 17%|█▋        | 172/1000 [00:05&lt;00:23, 34.50it/s] 18%|█▊        | 176/1000 [00:05&lt;00:23, 34.42it/s] 18%|█▊        | 180/1000 [00:05&lt;00:23, 34.60it/s] 18%|█▊        | 184/1000 [00:05&lt;00:23, 34.83it/s] 19%|█▉        | 188/1000 [00:05&lt;00:23, 35.02it/s] 19%|█▉        | 192/1000 [00:05&lt;00:23, 34.90it/s] 20%|█▉        | 196/1000 [00:05&lt;00:22, 35.12it/s] 20%|██        | 200/1000 [00:05&lt;00:22, 34.83it/s] 20%|██        | 204/1000 [00:05&lt;00:22, 34.83it/s] 21%|██        | 208/1000 [00:06&lt;00:22, 34.99it/s] 21%|██        | 212/1000 [00:06&lt;00:22, 35.10it/s] 22%|██▏       | 216/1000 [00:06&lt;00:22, 34.47it/s] 22%|██▏       | 220/1000 [00:06&lt;00:23, 33.66it/s] 22%|██▏       | 224/1000 [00:06&lt;00:23, 33.51it/s] 23%|██▎       | 228/1000 [00:06&lt;00:22, 33.72it/s] 23%|██▎       | 232/1000 [00:06&lt;00:22, 33.94it/s] 24%|██▎       | 236/1000 [00:06&lt;00:22, 34.09it/s] 24%|██▍       | 240/1000 [00:07&lt;00:22, 34.01it/s] 24%|██▍       | 244/1000 [00:07&lt;00:24, 31.27it/s] 25%|██▍       | 248/1000 [00:07&lt;00:23, 32.12it/s] 25%|██▌       | 252/1000 [00:07&lt;00:22, 33.02it/s] 26%|██▌       | 256/1000 [00:07&lt;00:22, 33.74it/s] 26%|██▌       | 260/1000 [00:07&lt;00:21, 34.08it/s] 26%|██▋       | 264/1000 [00:07&lt;00:21, 33.80it/s] 27%|██▋       | 268/1000 [00:07&lt;00:21, 34.05it/s] 27%|██▋       | 272/1000 [00:07&lt;00:21, 34.28it/s] 28%|██▊       | 276/1000 [00:08&lt;00:20, 34.69it/s] 28%|██▊       | 280/1000 [00:08&lt;00:20, 34.82it/s] 28%|██▊       | 284/1000 [00:08&lt;00:20, 34.54it/s] 29%|██▉       | 288/1000 [00:08&lt;00:20, 34.82it/s] 29%|██▉       | 292/1000 [00:08&lt;00:20, 34.89it/s] 30%|██▉       | 296/1000 [00:08&lt;00:20, 34.75it/s] 30%|███       | 300/1000 [00:08&lt;00:20, 34.71it/s] 30%|███       | 304/1000 [00:08&lt;00:20, 34.64it/s] 31%|███       | 308/1000 [00:09&lt;00:19, 34.64it/s] 31%|███       | 312/1000 [00:09&lt;00:19, 34.55it/s] 32%|███▏      | 316/1000 [00:09&lt;00:19, 34.64it/s] 32%|███▏      | 320/1000 [00:09&lt;00:19, 34.81it/s] 32%|███▏      | 324/1000 [00:09&lt;00:19, 34.87it/s] 33%|███▎      | 328/1000 [00:09&lt;00:19, 34.66it/s] 33%|███▎      | 332/1000 [00:09&lt;00:19, 34.25it/s] 34%|███▎      | 336/1000 [00:09&lt;00:19, 34.50it/s] 34%|███▍      | 340/1000 [00:09&lt;00:19, 34.38it/s] 34%|███▍      | 344/1000 [00:10&lt;00:19, 34.40it/s] 35%|███▍      | 348/1000 [00:10&lt;00:19, 34.25it/s] 35%|███▌      | 352/1000 [00:10&lt;00:18, 34.45it/s] 36%|███▌      | 356/1000 [00:10&lt;00:18, 34.63it/s] 36%|███▌      | 360/1000 [00:10&lt;00:18, 34.31it/s] 36%|███▋      | 364/1000 [00:10&lt;00:18, 34.48it/s] 37%|███▋      | 368/1000 [00:10&lt;00:18, 34.52it/s] 37%|███▋      | 372/1000 [00:10&lt;00:18, 34.30it/s] 38%|███▊      | 376/1000 [00:10&lt;00:18, 34.42it/s] 38%|███▊      | 380/1000 [00:11&lt;00:18, 34.37it/s] 38%|███▊      | 384/1000 [00:11&lt;00:18, 34.11it/s] 39%|███▉      | 388/1000 [00:11&lt;00:17, 34.21it/s] 39%|███▉      | 392/1000 [00:11&lt;00:17, 34.40it/s] 40%|███▉      | 396/1000 [00:11&lt;00:17, 34.56it/s] 40%|████      | 400/1000 [00:11&lt;00:17, 34.72it/s] 40%|████      | 404/1000 [00:11&lt;00:17, 34.92it/s] 41%|████      | 408/1000 [00:11&lt;00:16, 34.97it/s] 41%|████      | 412/1000 [00:12&lt;00:16, 34.94it/s] 42%|████▏     | 416/1000 [00:12&lt;00:16, 34.63it/s] 42%|████▏     | 420/1000 [00:12&lt;00:16, 34.75it/s] 42%|████▏     | 424/1000 [00:12&lt;00:16, 34.77it/s] 43%|████▎     | 428/1000 [00:12&lt;00:16, 34.89it/s] 43%|████▎     | 432/1000 [00:12&lt;00:16, 34.81it/s] 44%|████▎     | 436/1000 [00:12&lt;00:16, 34.18it/s] 44%|████▍     | 440/1000 [00:12&lt;00:16, 34.06it/s] 44%|████▍     | 444/1000 [00:12&lt;00:16, 34.18it/s] 45%|████▍     | 448/1000 [00:13&lt;00:15, 34.55it/s] 45%|████▌     | 452/1000 [00:13&lt;00:15, 34.66it/s] 46%|████▌     | 456/1000 [00:13&lt;00:15, 34.73it/s] 46%|████▌     | 460/1000 [00:13&lt;00:15, 34.92it/s] 46%|████▋     | 464/1000 [00:13&lt;00:15, 34.92it/s] 47%|████▋     | 468/1000 [00:13&lt;00:15, 35.16it/s] 47%|████▋     | 472/1000 [00:13&lt;00:15, 34.92it/s] 48%|████▊     | 476/1000 [00:13&lt;00:15, 34.63it/s] 48%|████▊     | 480/1000 [00:13&lt;00:15, 34.58it/s] 48%|████▊     | 484/1000 [00:14&lt;00:15, 33.84it/s] 49%|████▉     | 488/1000 [00:14&lt;00:16, 31.54it/s] 49%|████▉     | 492/1000 [00:14&lt;00:16, 31.51it/s] 50%|████▉     | 496/1000 [00:14&lt;00:16, 30.79it/s] 50%|█████     | 500/1000 [00:14&lt;00:15, 31.85it/s] 50%|█████     | 504/1000 [00:14&lt;00:15, 32.89it/s] 51%|█████     | 508/1000 [00:14&lt;00:14, 33.39it/s] 51%|█████     | 512/1000 [00:14&lt;00:15, 32.19it/s] 52%|█████▏    | 516/1000 [00:15&lt;00:14, 32.79it/s] 52%|█████▏    | 520/1000 [00:15&lt;00:14, 33.30it/s] 52%|█████▏    | 524/1000 [00:15&lt;00:14, 32.81it/s] 53%|█████▎    | 528/1000 [00:15&lt;00:14, 33.58it/s] 53%|█████▎    | 532/1000 [00:15&lt;00:13, 33.97it/s] 54%|█████▎    | 536/1000 [00:15&lt;00:13, 34.38it/s] 54%|█████▍    | 540/1000 [00:15&lt;00:13, 34.47it/s] 54%|█████▍    | 544/1000 [00:15&lt;00:13, 34.67it/s] 55%|█████▍    | 548/1000 [00:16&lt;00:12, 34.95it/s] 55%|█████▌    | 552/1000 [00:16&lt;00:12, 34.94it/s] 56%|█████▌    | 556/1000 [00:16&lt;00:12, 34.98it/s] 56%|█████▌    | 560/1000 [00:16&lt;00:12, 34.50it/s] 56%|█████▋    | 564/1000 [00:16&lt;00:12, 34.76it/s] 57%|█████▋    | 568/1000 [00:16&lt;00:14, 30.63it/s] 57%|█████▋    | 572/1000 [00:16&lt;00:14, 30.48it/s] 58%|█████▊    | 576/1000 [00:16&lt;00:13, 31.12it/s] 58%|█████▊    | 580/1000 [00:17&lt;00:13, 31.64it/s] 58%|█████▊    | 584/1000 [00:17&lt;00:12, 32.34it/s] 59%|█████▉    | 588/1000 [00:17&lt;00:12, 32.82it/s] 59%|█████▉    | 592/1000 [00:17&lt;00:12, 33.16it/s] 60%|█████▉    | 596/1000 [00:17&lt;00:12, 33.56it/s] 60%|██████    | 600/1000 [00:17&lt;00:12, 33.27it/s] 60%|██████    | 604/1000 [00:17&lt;00:11, 33.66it/s] 61%|██████    | 608/1000 [00:17&lt;00:11, 33.86it/s] 61%|██████    | 612/1000 [00:17&lt;00:11, 33.98it/s] 62%|██████▏   | 616/1000 [00:18&lt;00:11, 34.01it/s] 62%|██████▏   | 620/1000 [00:18&lt;00:11, 33.84it/s] 62%|██████▏   | 624/1000 [00:18&lt;00:11, 34.08it/s] 63%|██████▎   | 628/1000 [00:18&lt;00:10, 34.27it/s] 63%|██████▎   | 632/1000 [00:18&lt;00:10, 34.08it/s] 64%|██████▎   | 636/1000 [00:18&lt;00:10, 34.29it/s] 64%|██████▍   | 640/1000 [00:18&lt;00:10, 34.49it/s] 64%|██████▍   | 644/1000 [00:18&lt;00:10, 34.29it/s] 65%|██████▍   | 648/1000 [00:19&lt;00:10, 34.21it/s] 65%|██████▌   | 652/1000 [00:19&lt;00:10, 33.54it/s] 66%|██████▌   | 656/1000 [00:19&lt;00:11, 29.79it/s] 66%|██████▌   | 660/1000 [00:19&lt;00:11, 30.48it/s] 66%|██████▋   | 664/1000 [00:19&lt;00:10, 31.06it/s] 67%|██████▋   | 668/1000 [00:19&lt;00:10, 31.90it/s] 67%|██████▋   | 672/1000 [00:19&lt;00:10, 32.33it/s] 68%|██████▊   | 676/1000 [00:19&lt;00:09, 32.74it/s] 68%|██████▊   | 680/1000 [00:20&lt;00:09, 32.16it/s] 68%|██████▊   | 684/1000 [00:20&lt;00:09, 32.12it/s] 69%|██████▉   | 688/1000 [00:20&lt;00:09, 32.56it/s] 69%|██████▉   | 692/1000 [00:20&lt;00:09, 32.74it/s] 70%|██████▉   | 696/1000 [00:20&lt;00:09, 33.12it/s] 70%|███████   | 700/1000 [00:20&lt;00:09, 33.30it/s] 70%|███████   | 704/1000 [00:20&lt;00:08, 33.42it/s] 71%|███████   | 708/1000 [00:20&lt;00:08, 33.50it/s] 71%|███████   | 712/1000 [00:21&lt;00:08, 33.53it/s] 72%|███████▏  | 716/1000 [00:21&lt;00:08, 33.50it/s] 72%|███████▏  | 720/1000 [00:21&lt;00:08, 33.71it/s] 72%|███████▏  | 724/1000 [00:21&lt;00:08, 33.70it/s] 73%|███████▎  | 728/1000 [00:21&lt;00:08, 33.38it/s] 73%|███████▎  | 732/1000 [00:21&lt;00:07, 33.59it/s] 74%|███████▎  | 736/1000 [00:21&lt;00:07, 33.81it/s] 74%|███████▍  | 740/1000 [00:21&lt;00:07, 33.78it/s] 74%|███████▍  | 744/1000 [00:21&lt;00:07, 33.85it/s] 75%|███████▍  | 748/1000 [00:22&lt;00:07, 33.79it/s] 75%|███████▌  | 752/1000 [00:22&lt;00:07, 34.12it/s] 76%|███████▌  | 756/1000 [00:22&lt;00:07, 34.03it/s] 76%|███████▌  | 760/1000 [00:22&lt;00:07, 33.74it/s] 76%|███████▋  | 764/1000 [00:22&lt;00:06, 33.77it/s] 77%|███████▋  | 768/1000 [00:22&lt;00:06, 33.76it/s] 77%|███████▋  | 772/1000 [00:22&lt;00:06, 33.81it/s] 78%|███████▊  | 776/1000 [00:22&lt;00:06, 33.94it/s] 78%|███████▊  | 780/1000 [00:23&lt;00:06, 33.82it/s] 78%|███████▊  | 784/1000 [00:23&lt;00:06, 33.78it/s] 79%|███████▉  | 788/1000 [00:23&lt;00:06, 33.72it/s] 79%|███████▉  | 792/1000 [00:23&lt;00:06, 33.46it/s] 80%|███████▉  | 796/1000 [00:23&lt;00:06, 33.55it/s] 80%|████████  | 800/1000 [00:23&lt;00:05, 33.68it/s] 80%|████████  | 804/1000 [00:23&lt;00:05, 33.81it/s] 81%|████████  | 808/1000 [00:23&lt;00:05, 33.72it/s] 81%|████████  | 812/1000 [00:23&lt;00:05, 33.77it/s] 82%|████████▏ | 816/1000 [00:24&lt;00:05, 33.51it/s] 82%|████████▏ | 820/1000 [00:24&lt;00:05, 33.74it/s] 82%|████████▏ | 824/1000 [00:24&lt;00:05, 33.58it/s] 83%|████████▎ | 828/1000 [00:24&lt;00:05, 33.49it/s] 83%|████████▎ | 832/1000 [00:24&lt;00:05, 33.53it/s] 84%|████████▎ | 836/1000 [00:24&lt;00:04, 33.61it/s] 84%|████████▍ | 840/1000 [00:24&lt;00:04, 33.77it/s] 84%|████████▍ | 844/1000 [00:24&lt;00:04, 34.03it/s] 85%|████████▍ | 848/1000 [00:25&lt;00:04, 33.95it/s] 85%|████████▌ | 852/1000 [00:25&lt;00:04, 33.93it/s] 86%|████████▌ | 856/1000 [00:25&lt;00:04, 33.70it/s] 86%|████████▌ | 860/1000 [00:25&lt;00:04, 33.60it/s] 86%|████████▋ | 864/1000 [00:25&lt;00:04, 33.76it/s] 87%|████████▋ | 868/1000 [00:25&lt;00:03, 33.99it/s] 87%|████████▋ | 872/1000 [00:25&lt;00:03, 32.86it/s] 88%|████████▊ | 876/1000 [00:25&lt;00:03, 32.81it/s] 88%|████████▊ | 880/1000 [00:26&lt;00:03, 33.14it/s] 88%|████████▊ | 884/1000 [00:26&lt;00:03, 32.84it/s] 89%|████████▉ | 888/1000 [00:26&lt;00:03, 32.92it/s] 89%|████████▉ | 892/1000 [00:26&lt;00:03, 33.09it/s] 90%|████████▉ | 896/1000 [00:26&lt;00:03, 33.20it/s] 90%|█████████ | 900/1000 [00:26&lt;00:02, 33.40it/s] 90%|█████████ | 904/1000 [00:26&lt;00:02, 33.58it/s] 91%|█████████ | 908/1000 [00:26&lt;00:02, 33.05it/s] 91%|█████████ | 912/1000 [00:26&lt;00:02, 33.10it/s] 92%|█████████▏| 916/1000 [00:27&lt;00:02, 33.27it/s] 92%|█████████▏| 920/1000 [00:27&lt;00:02, 33.31it/s] 92%|█████████▏| 924/1000 [00:27&lt;00:02, 33.45it/s] 93%|█████████▎| 928/1000 [00:27&lt;00:02, 33.66it/s] 93%|█████████▎| 932/1000 [00:27&lt;00:02, 33.59it/s] 94%|█████████▎| 936/1000 [00:27&lt;00:01, 33.70it/s] 94%|█████████▍| 940/1000 [00:27&lt;00:01, 33.72it/s] 94%|█████████▍| 944/1000 [00:27&lt;00:01, 33.76it/s] 95%|█████████▍| 948/1000 [00:28&lt;00:01, 33.78it/s] 95%|█████████▌| 952/1000 [00:28&lt;00:01, 32.83it/s] 96%|█████████▌| 956/1000 [00:28&lt;00:01, 33.26it/s] 96%|█████████▌| 960/1000 [00:28&lt;00:01, 33.65it/s] 96%|█████████▋| 964/1000 [00:28&lt;00:01, 33.95it/s] 97%|█████████▋| 968/1000 [00:28&lt;00:00, 34.28it/s] 97%|█████████▋| 972/1000 [00:28&lt;00:00, 34.52it/s] 98%|█████████▊| 976/1000 [00:28&lt;00:00, 34.61it/s] 98%|█████████▊| 980/1000 [00:28&lt;00:00, 34.75it/s] 98%|█████████▊| 984/1000 [00:29&lt;00:00, 34.75it/s] 99%|█████████▉| 988/1000 [00:29&lt;00:00, 34.50it/s] 99%|█████████▉| 992/1000 [00:29&lt;00:00, 34.61it/s]100%|█████████▉| 996/1000 [00:29&lt;00:00, 34.47it/s]100%|██████████| 1000/1000 [00:29&lt;00:00, 34.66it/s]100%|██████████| 1000/1000 [00:29&lt;00:00, 33.84it/s]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1478,8 +1442,8 @@ Num Params: 4009002</code></pre>
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Train acc 0.866666666667
-Test acc 0.80625</code></pre>
+<pre><code>Train acc 0.9041666666666667
+Test acc 0.8625</code></pre>
 </div>
 </div>
 

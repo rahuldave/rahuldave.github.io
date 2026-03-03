@@ -37,11 +37,6 @@ import seaborn as sns
 sns.set_style("whitegrid")
 sns.set_context("poster")
 ```
-Output:
-```
-//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))
-```
 
 <!-- cell:3 type:markdown -->
 ## Samples from a population of coin flips
@@ -77,8 +72,8 @@ make_throws(number_of_samples=20, sample_size=10)
 ```
 Output:
 ```
-array([ 0.5,  0.8,  0.5,  1. ,  0.7,  0.7,  0.6,  0.6,  0.7,  1. ,  0.7,
-        0.4,  0.4,  0.4,  0.4,  0.7,  0.7,  0.5,  0.5,  0.5])
+array([0.7, 0.6, 0.4, 0.6, 0.4, 0.6, 0.5, 0.6, 0.7, 0.5, 0.2, 0.6, 0.5,
+       0.6, 0.4, 0.3, 0.7, 0.8, 0.3, 0.7])
 ```
 
 <!-- cell:8 type:markdown -->
@@ -254,11 +249,6 @@ plt.legend(loc=0)
 plt.ylabel("PDF at $x$")
 plt.xlabel("$x$");
 ```
-Output:
-```
-//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:892: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))
-```
 [Figure]
 
 <!-- cell:30 type:markdown -->
@@ -351,6 +341,6 @@ That is, defining the sample variance with $n-1$ in the denominator instead of $
 
 <!-- cell:36 type:code -->
 ```python
-plt.hist(sample_vars_1000_replicates[99], bins=np.arange(0.2,0.26,0.001), alpha=0.2, normed=True);
+plt.hist(sample_vars_1000_replicates[99], bins=np.arange(0.2,0.26,0.001), alpha=0.2, density=True);
 ```
 [Figure]

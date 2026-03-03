@@ -31,11 +31,6 @@ import seaborn as sns
 sns.set_style("whitegrid")
 sns.set_context("poster")
 ```
-Output:
-```
-//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))
-```
 
 <!-- cell:3 type:code -->
 ```python
@@ -129,7 +124,7 @@ plt.plot(x,f,'.', alpha=0.3)
 ```
 Output:
 ```
-[<matplotlib.lines.Line2D at 0x116353cf8>]
+[<matplotlib.lines.Line2D at 0x121257e00>]
 ```
 [Figure]
 
@@ -173,6 +168,13 @@ axes[1].plot(x,f, 'r.', alpha=0.2, label="population");
 axes[1].plot(samplex,samplef, 's', alpha=0.6, label="in-sample data $\cal{D}$");
 axes[0].legend(loc=4);
 axes[1].legend(loc=4);
+```
+Output:
+```
+<>:4: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+<>:4: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_49105/191699542.py:4: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+  axes[1].plot(samplex,samplef, 's', alpha=0.6, label="in-sample data $\cal{D}$");
 ```
 [Figure]
 
@@ -265,8 +267,8 @@ g20 = np.poly1d(np.polyfit(x[indexes],f[indexes],20))
 ```
 Output:
 ```
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_49105/2684785276.py:1: RankWarning: Polyfit may be poorly conditioned
+  g20 = np.poly1d(np.polyfit(x[indexes],f[indexes],20))
 ```
 
 <!-- cell:29 type:code -->
@@ -385,15 +387,10 @@ We illustrate this below for our population of 200 data points and our sample of
 
 <!-- cell:40 type:code -->
 ```python
-plt.hist(x, normed=True, bins=30, alpha=0.7)
+plt.hist(x, density=True, bins=30, alpha=0.7)
 sns.kdeplot(x)
 plt.plot(x[indexes], [1.0]*len(indexes),'o', alpha=0.8)
 plt.xlim([0,1]);
-```
-Output:
-```
-//anaconda/envs/py35/lib/python3.5/site-packages/statsmodels/nonparametric/kdetools.py:20: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
-  y = X[:m/2+1] + np.r_[0,X[m/2+1:],0]*1j
 ```
 [Figure]
 

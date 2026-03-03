@@ -6,6 +6,7 @@
 # requires-python = ">=3.10"
 # dependencies = [
 #   "pandas",
+#   "lxml",
 # ]
 # ///
 
@@ -57,30 +58,30 @@ Output:
 21                        2018                              NaN   
 22                        2022                              NaN   
 
-   (Unnamed: 2_level_0, President) (Unnamed: 3_level_0, President'sParty)  \
-0            Franklin D. Roosevelt                                      D   
-1            Franklin D. Roosevelt                                      D   
-2            Franklin D. Roosevelt                                      D   
-3                  Harry S. Truman                                      D   
-4                  Harry S. Truman                                      D   
-5             Dwight D. Eisenhower                                      R   
-6             Dwight D. Eisenhower                                      R   
-7                  John F. Kennedy                                      D   
-8                Lyndon B. Johnson                                      D   
-9                    Richard Nixon                                      R   
-10          Gerald R. Ford (Nixon)                                      R   
-11                    Jimmy Carter                                      D   
-12                   Ronald Reagan                                      R   
-13                   Ronald Reagan                                      R   
-14                     George Bush                                      R   
-15              William J. Clinton                                      D   
-16              William J. Clinton                                      D   
-17                  George W. Bush                                      R   
-18                  George W. Bush                                      R   
-19                    Barack Obama                                      D   
-20                    Barack Obama                                      D   
-21                 Donald J. Trump                                      R   
-22                 Joseph R. Biden                                      D   
+   (Unnamed: 2_level_0, President) (Unnamed: 3_level_0, President's Party)  \
+0            Franklin D. Roosevelt                                       D   
+1            Franklin D. Roosevelt                                       D   
+2            Franklin D. Roosevelt                                       D   
+3                  Harry S. Truman                                       D   
+4                  Harry S. Truman                                       D   
+5             Dwight D. Eisenhower                                       R   
+6             Dwight D. Eisenhower                                       R   
+7                  John F. Kennedy                                       D   
+8                Lyndon B. Johnson                                       D   
+9                    Richard Nixon                                       R   
+10          Gerald R. Ford (Nixon)                                       R   
+11                    Jimmy Carter                                       D   
+12                   Ronald Reagan                                       R   
+13                   Ronald Reagan                                       R   
+14                     George Bush                                       R   
+15              William J. Clinton                                       D   
+16              William J. Clinton                                       D   
+17                  George W. Bush                                       R   
+18                  George W. Bush                                       R   
+19                    Barack Obama                                       D   
+20                    Barack Obama                                       D   
+21                 Donald J. Trump                                       R   
+22            Joseph R. Biden, Jr.                                       D   
 
    (President's Job Approval Percentage (Gallup) As of:, Early Aug)  \
 0                                                  --                 
@@ -230,107 +231,107 @@ Output:
 19                                                 45                
 20                                                 41                
 21                                                 44                
-22                                                NaN                
+22                                                 40                
 
-    (President's Party, House Seatsto Defend)  \
-0                                         313   
-1                                         334   
-2                                         267   
-3                                         244   
-4                                         263   
-5                                         221   
-6                                         203   
-7                                         264   
-8                                         295   
-9                                         192   
-10                                        192   
-11                                        292   
-12                                        192   
-13                                        181   
-14                                        175   
-15                                        258   
-16                                        207   
-17                                        220   
-18                                        233   
-19                                        257   
-20                                        201   
-21                                        241   
-22                                        222   
+    (President's Party, House Seats to Defend)  \
+0                                          313   
+1                                          334   
+2                                          267   
+3                                          244   
+4                                          263   
+5                                          221   
+6                                          203   
+7                                          264   
+8                                          295   
+9                                          192   
+10                                         192   
+11                                         292   
+12                                         192   
+13                                         181   
+14                                         175   
+15                                         258   
+16                                         207   
+17                                         220   
+18                                         233   
+19                                         257   
+20                                         201   
+21                                         241   
+22                                         222   
 
-    (President's Party, Senate Seatsto Defend)  \
-0                                           14   
-1                                           27   
-2                                           25   
-3                                           21   
-4                                           21   
-5                                           11   
-6                                           20   
-7                                           18   
-8                                           21   
-9                                            7   
-10                                          15   
-11                                          14   
-12                                          12   
-13                                          22   
-14                                          17   
-15                                          17   
-16                                          18   
-17                                          20   
-18                                          15   
-19                                          15   
-20                                          20   
-21                                           9   
-22                                          14   
+    (President's Party, Senate Seats to Defend)  \
+0                                            14   
+1                                            27   
+2                                            25   
+3                                            21   
+4                                            21   
+5                                            11   
+6                                            20   
+7                                            18   
+8                                            21   
+9                                             7   
+10                                           15   
+11                                           14   
+12                                           12   
+13                                           22   
+14                                           17   
+15                                           17   
+16                                           18   
+17                                           20   
+18                                           15   
+19                                           15   
+20                                           20   
+21                                            9   
+22                                           14   
 
-   (Seat Change, President's Party, House Seats)  \
-0                                             +9   
-1                                            -81   
-2                                            -46   
-3                                            -45   
-4                                            -29   
-5                                            -18   
-6                                            -48   
-7                                             -4   
-8                                            -47   
-9                                            -12   
-10                                           -48   
-11                                           -15   
-12                                           -26   
-13                                            -5   
-14                                            -8   
-15                                           -52   
-16                                            +5   
-17                                            +8   
-18                                           -30   
-19                                           -63   
-20                                           -13   
-21                                           -40   
-22                                           TBD   
+    (Seat Change, President's Party, House Seats)  \
+0                                               9   
+1                                             -81   
+2                                             -46   
+3                                             -45   
+4                                             -29   
+5                                             -18   
+6                                             -48   
+7                                              -4   
+8                                             -47   
+9                                             -12   
+10                                            -48   
+11                                            -15   
+12                                            -26   
+13                                             -5   
+14                                             -8   
+15                                            -52   
+16                                              5   
+17                                              8   
+18                                            -30   
+19                                            -63   
+20                                            -13   
+21                                            -40   
+22                                             -9   
 
-   (Seat Change, President's Party, Senate Seats)  
-0                                              +9  
-1                                              -7  
-2                                              -9  
-3                                             -12  
-4                                              -6  
-5                                              -1  
-6                                             -13  
-7                                              +3  
-8                                              -4  
-9                                              +2  
-10                                             -5  
-11                                             -3  
-12                                             +1  
-13                                             -8  
-14                                             -1  
-15                                             -8  
-16                                              0  
-17                                             +2  
-18                                             -6  
-19                                             -6  
-20                                             -9  
-21                                             +2  
-22                                            TBD
+    (Seat Change, President's Party, Senate Seats)  
+0                                                9  
+1                                               -7  
+2                                               -9  
+3                                              -12  
+4                                               -6  
+5                                               -1  
+6                                              -13  
+7                                                3  
+8                                               -4  
+9                                                2  
+10                                              -5  
+11                                              -3  
+12                                               1  
+13                                              -8  
+14                                              -1  
+15                                              -8  
+16                                               0  
+17                                               2  
+18                                              -6  
+19                                              -6  
+20                                              -9  
+21                                               2  
+22                                               1
 ```
 
 <!-- cell:6 type:code -->

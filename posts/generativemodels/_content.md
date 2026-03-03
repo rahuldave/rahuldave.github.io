@@ -100,7 +100,7 @@ def points_plot(ax, Xtr, Xte, ytr, yte, clf, mesh=True, colorscale=cmap_light, c
         Z = clf.predict(np.c_[xx.ravel(), yy.ravel()])
     ZZ = Z.reshape(xx.shape)
     if mesh:
-        plt.pcolormesh(xx, yy, ZZ, cmap=cmap_light, alpha=alpha, axes=ax)
+        plt.pcolormesh(xx, yy, ZZ, cmap=cmap_light, alpha=alpha)
     if predicted:
         showtr = clf.predict(Xtr)
         showte = clf.predict(Xte)
@@ -118,9 +118,9 @@ def points_plot_prob(ax, Xtr, Xte, ytr, yte, clf, colorscale=cmap_light, cdiscre
     ax,xx,yy = points_plot(ax, Xtr, Xte, ytr, yte, clf, mesh=False, colorscale=colorscale, cdiscrete=cdiscrete, psize=psize, alpha=alpha, predicted=True) 
     Z = clf.predict_proba(np.c_[xx.ravel(), yy.ravel()])[:, 1]
     Z = Z.reshape(xx.shape)
-    plt.contourf(xx, yy, Z, cmap=ccolor, alpha=.2, axes=ax)
-    cs2 = plt.contour(xx, yy, Z, cmap=ccolor, alpha=.6, axes=ax)
-    plt.clabel(cs2, fmt = '%2.1f', colors = 'k', fontsize=14, axes=ax)
+    plt.contourf(xx, yy, Z, cmap=ccolor, alpha=.2)
+    cs2 = plt.contour(xx, yy, Z, cmap=ccolor, alpha=.6)
+    plt.clabel(cs2, fmt = '%2.1f', colors = 'k', fontsize=14)
     return ax 
 ```
 
@@ -201,7 +201,7 @@ clf_l, Xtrain_l, ytrain_l, Xtest_l, ytest_l  = do_classify(LogisticRegression(),
 ```
 Output:
 ```
-BEST PARAMS {'C': 0.01}
+BEST PARAMS {'C': 0.1}
 Accuracy on training data: 0.92
 Accuracy on test data:     0.91
 ```
@@ -241,19 +241,13 @@ centered at the mean height, weight for males, and a similar equation holds for 
 
 <!-- cell:17 type:code -->
 ```python
-from sklearn.lda import LDA
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
 clflda = LDA(solver="svd", store_covariance=True)
 clflda.fit(Xtrain_l, ytrain_l)
 ```
 Output:
 ```
-//anaconda/envs/py3l/lib/python3.6/site-packages/sklearn/lda.py:6: DeprecationWarning: lda.LDA has been moved to discriminant_analysis.LinearDiscriminantAnalysis in 0.17 and will be removed in 0.19
-  "in 0.17 and will be removed in 0.19", DeprecationWarning)
-```
-Output:
-```
-LDA(n_components=None, priors=None, shrinkage=None, solver='svd',
-  store_covariance=True, tol=0.0001)
+LinearDiscriminantAnalysis(store_covariance=True)
 ```
 
 <!-- cell:18 type:code -->
@@ -268,13 +262,13 @@ def plot_ellipse(splot, mean, cov, color):
     angle = 180 * angle / np.pi  # convert to degrees
     # filled Gaussian at 2 standard deviation
     ell = mpl.patches.Ellipse(mean, 2 * v[0] ** 0.5, 2 * v[1] ** 0.5,
-                              180 + angle, color=color, lw=3, fill=False)
+                              angle=180 + angle, color=color, lw=3, fill=False)
     ell.set_clip_box(splot.bbox)
     ell1 = mpl.patches.Ellipse(mean, 1 * v[0] ** 0.5, 1 * v[1] ** 0.5,
-                              180 + angle, color=color, lw=3, fill=False)
+                              angle=180 + angle, color=color, lw=3, fill=False)
     ell1.set_clip_box(splot.bbox)
     ell3 = mpl.patches.Ellipse(mean, 3 * v[0] ** 0.5, 3 * v[1] ** 0.5,
-                              180 + angle, color=color, lw=3, fill=False)
+                              angle=180 + angle, color=color, lw=3, fill=False)
     ell3.set_clip_box(splot.bbox)
     #ell.set_alpha(0.2)
     splot.add_artist(ell)

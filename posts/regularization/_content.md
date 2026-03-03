@@ -32,11 +32,6 @@ import seaborn as sns
 sns.set_style("whitegrid")
 sns.set_context("poster")
 ```
-Output:
-```
-//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))
-```
 
 <!-- cell:3 type:code -->
 ```python
@@ -107,7 +102,7 @@ Output:
 
 <!-- cell:8 type:code -->
 ```python
-from sklearn.cross_validation import train_test_split
+from sklearn.model_selection import train_test_split
 datasize=df.shape[0]
 #split dataset using the index, as we have x,f, and y that we want to split.
 itrain,itest = train_test_split(range(30),train_size=24, test_size=6)
@@ -211,11 +206,6 @@ axes[1].set_title("Regularized with $\\alpha=1.0$");
 ```
 Output:
 ```
-//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:892: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))
-```
-Output:
-```
 (100, 3)
 ```
 [Figure]
@@ -300,13 +290,13 @@ The `GridSearchCV` replaces the manual iteration over thefolds using `KFolds` an
 ```python
 from sklearn.metrics import make_scorer
 #, 1e-6, 1e-5, 1e-3, 1.0
-from sklearn.grid_search import GridSearchCV
+from sklearn.model_selection import GridSearchCV
 def cv_optimize_ridge(X, y, n_folds=4):
     clf = Ridge()
     parameters = {"alpha": [1e-8, 1e-6, 1e-5, 5e-5, 1e-4, 5e-4, 1e-3, 1e-2, 1e-1, 1.0]}
     #the scoring parameter below is the default one in ridge, but you can use a different one
     #in the cross-validation phase if you want.
-    gs = GridSearchCV(clf, param_grid=parameters, cv=n_folds, scoring="mean_squared_error")
+    gs = GridSearchCV(clf, param_grid=parameters, cv=n_folds, scoring="neg_mean_squared_error")
     gs.fit(X, y)
     return gs
 ```
@@ -318,24 +308,51 @@ fitmodel = cv_optimize_ridge(Xtrain, ytrain, n_folds=4)
 
 <!-- cell:24 type:code -->
 ```python
-fitmodel.best_estimator_, fitmodel.best_params_, fitmodel.best_score_, fitmodel.grid_scores_
+fitmodel.best_estimator_, fitmodel.best_params_, fitmodel.best_score_, fitmodel.cv_results_
 ```
 Output:
 ```
-(Ridge(alpha=0.0005, copy_X=True, fit_intercept=True, max_iter=None,
-    normalize=False, random_state=None, solver='auto', tol=0.001),
- {'alpha': 0.0005},
- -0.005863476137886476,
- [mean: -0.01156, std: 0.00816, params: {'alpha': 1e-08},
-  mean: -0.00643, std: 0.00350, params: {'alpha': 1e-06},
-  mean: -0.00618, std: 0.00355, params: {'alpha': 1e-05},
-  mean: -0.00596, std: 0.00358, params: {'alpha': 5e-05},
-  mean: -0.00589, std: 0.00369, params: {'alpha': 0.0001},
-  mean: -0.00586, std: 0.00424, params: {'alpha': 0.0005},
-  mean: -0.00592, std: 0.00446, params: {'alpha': 0.001},
-  mean: -0.00587, std: 0.00458, params: {'alpha': 0.01},
-  mean: -0.00606, std: 0.00406, params: {'alpha': 0.1},
-  mean: -0.01280, std: 0.00548, params: {'alpha': 1.0}])
+(Ridge(alpha=0.0001),
+ {'alpha': 0.0001},
+ np.float64(-0.008385817972636609),
+ {'mean_fit_time': array([0.00029892, 0.00024092, 0.00023758, 0.00023878, 0.00023699,
+         0.00023264, 0.00023067, 0.00022876, 0.00023651, 0.0002321 ]),
+  'std_fit_time': array([6.27931750e-05, 3.80163639e-06, 6.50646880e-06, 6.76138445e-06,
+         4.67507161e-06, 4.68835147e-06, 3.66459516e-06, 1.07288361e-06,
+         1.04074557e-05, 6.37630421e-06]),
+  'mean_score_time': array([0.00014454, 0.00012738, 0.00012326, 0.00012249, 0.00012046,
+         0.0001201 , 0.00012028, 0.00012177, 0.00012785, 0.00012451]),
+  'std_score_time': array([1.55131322e-05, 4.18210586e-06, 4.46040319e-07, 1.16037860e-06,
+         6.61047489e-07, 1.03238273e-07, 1.07288361e-06, 2.41601088e-06,
+         6.19745009e-06, 5.19450290e-06]),
+  'param_alpha': masked_array(data=[1e-08, 1e-06, 1e-05, 5e-05, 0.0001, 0.0005, 0.001,
+                     0.01, 0.1, 1.0],
+               mask=[False, False, False, False, False, False, False, False,
+                     False, False],
+         fill_value=1e+20),
+  'params': [{'alpha': 1e-08},
+   {'alpha': 1e-06},
+   {'alpha': 1e-05},
+   {'alpha': 5e-05},
+   {'alpha': 0.0001},
+   {'alpha': 0.0005},
+   {'alpha': 0.001},
+   {'alpha': 0.01},
+   {'alpha': 0.1},
+   {'alpha': 1.0}],
+  'split0_test_score': array([-0.09467923, -0.03512157, -0.03145556, -0.01149417, -0.00946036,
+         -0.01075807, -0.01127715, -0.00622726, -0.00440794, -0.01735872]),
+  'split1_test_score': array([-0.01000696, -0.01103376, -0.01207818, -0.01232367, -0.01249145,
+         -0.01321667, -0.01355174, -0.01264812, -0.01228316, -0.02344009]),
+  'split2_test_score': array([-0.00941982, -0.00428699, -0.00559108, -0.00557857, -0.005883  ,
+         -0.00768927, -0.00858171, -0.00974375, -0.01192887, -0.02761894]),
+  'split3_test_score': array([-0.00577078, -0.00520765, -0.00580077, -0.00582335, -0.00570846,
+         -0.00534085, -0.00545224, -0.00647795, -0.00664962, -0.0013799 ]),
+  'mean_test_score': array([-0.0299692 , -0.01391249, -0.0137314 , -0.00880494, -0.00838582,
+         -0.00925122, -0.00971571, -0.00877427, -0.0088174 , -0.01744941]),
+  'std_test_score': array([0.03739559, 0.01251536, 0.01055981, 0.003119  , 0.00280371,
+         0.00298856, 0.00302557, 0.00263187, 0.00338509, 0.00996926]),
+  'rank_test_score': array([10,  8,  7,  3,  1,  5,  6,  2,  4,  9], dtype=int32)})
 ```
 
 <!-- cell:25 type:markdown -->

@@ -489,19 +489,21 @@ window.Quarto = {
 <section id="example-calculate-_0-x-x-dx" class="level3">
 <h3 class="anchored" data-anchor-id="example-calculate-_0-x-x-dx">Example: Calculate $_{0}^{} (x) , x , dx $</h3>
 <p>The function has a shape that is similar to Gaussian and therefore we choose here a Gaussian as importance sampling distribution.</p>
-<div id="cell-5" class="cell" data-execution_count="4" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>mu <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>sig <span class="op">=</span><span class="fl">.7</span><span class="op">;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: np.sin(x)<span class="op">*</span>x</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>infun <span class="op">=</span> <span class="kw">lambda</span> x: np.sin(x)<span class="op">-</span>x<span class="op">*</span>np.cos(x)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="kw">lambda</span> x: (<span class="dv">1</span><span class="op">/</span>np.sqrt(<span class="dv">2</span><span class="op">*</span>np.pi<span class="op">*</span>sig<span class="op">**</span><span class="dv">2</span>))<span class="op">*</span>np.exp(<span class="op">-</span>(x<span class="op">-</span>mu)<span class="op">**</span><span class="dv">2</span><span class="op">/</span>(<span class="fl">2.0</span><span class="op">*</span>sig<span class="op">**</span><span class="dv">2</span>))</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>normfun <span class="op">=</span> <span class="kw">lambda</span> x:  norm.cdf(x<span class="op">-</span>mu, scale<span class="op">=</span>sig)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="49b0d3ea" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:06.340412Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:06.340083Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:22.945448Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:22.944778Z&quot;}}" data-execution_count="2" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>mu <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>sig <span class="op">=</span><span class="fl">.7</span><span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: np.sin(x)<span class="op">*</span>x</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>infun <span class="op">=</span> <span class="kw">lambda</span> x: np.sin(x)<span class="op">-</span>x<span class="op">*</span>np.cos(x)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="kw">lambda</span> x: (<span class="dv">1</span><span class="op">/</span>np.sqrt(<span class="dv">2</span><span class="op">*</span>np.pi<span class="op">*</span>sig<span class="op">**</span><span class="dv">2</span>))<span class="op">*</span>np.exp(<span class="op">-</span>(x<span class="op">-</span>mu)<span class="op">**</span><span class="dv">2</span><span class="op">/</span>(<span class="fl">2.0</span><span class="op">*</span>sig<span class="op">**</span><span class="dv">2</span>))</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>normfun <span class="op">=</span> <span class="kw">lambda</span> x:  norm.cdf(x<span class="op">-</span>mu, scale<span class="op">=</span>sig)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-6" class="cell" data-execution_count="22" data-cell-type="code">
+<div id="72b33d3c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:22.947166Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:22.946980Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:23.577748Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:23.577168Z&quot;}}" data-execution_count="3" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">18</span>,<span class="dv">8</span>))  <span class="co"># set the figure size</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -569,17 +571,23 @@ window.Quarto = {
 <span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a> </span>
 <span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a> </span>
 <span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>&lt;&gt;:14: SyntaxWarning: "\s" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\s"? A raw string is also an option.
+&lt;&gt;:14: SyntaxWarning: "\s" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\s"? A raw string is also an option.
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48996/3126677621.py:14: SyntaxWarning: "\s" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\s"? A raw string is also an option.
+  plt.plot(x, f(x), 'b', label=u'Original  $x\sin(x)$')</code></pre>
+</div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Exact solution is:  3.14159265359
-Mean basic MC estimate:  3.14068341144
-Standard deviation of our estimates:  0.0617743877206
-Mean importance sampling MC estimate:  3.14197268362
-Standard deviation of our estimates:  0.0161935244302</code></pre>
+<pre><code>Exact solution is:  3.141592653589793
+Mean basic MC estimate:  3.140504845789859
+Standard deviation of our estimates:  0.06174834767832666
+Mean importance sampling MC estimate:  3.141806901630496
+Standard deviation of our estimates:  0.01620145069610606</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-4-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-4-output-3.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>

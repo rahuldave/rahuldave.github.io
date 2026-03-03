@@ -37,11 +37,6 @@ import seaborn as sns
 sns.set_style("whitegrid")
 sns.set_context("poster")
 ```
-Output:
-```
-//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))
-```
 
 <!-- cell:3 type:markdown -->
 In the last section, we made a simple simulation of a coin-toss on the computer from a fair-coin model which associated equal probability with heads and tails. Let us consider another model here, a table of probabilities that [PredictWise](http://www.predictwise.com/results/2012/president) made on October 2, 2012 for the US presidential elections. 
@@ -124,12 +119,7 @@ plt.tight_layout()
 ```
 Output:
 ```
-[1 0 0 0 1 0 0 1 1 0 0 0 0 0 1 1 0 0 1 0]
-```
-Output:
-```
-//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:892: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))
+[0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 1 1 1 0]
 ```
 [Figure]
 
@@ -175,7 +165,7 @@ print((result >= 269).sum())
 ```
 Output:
 ```
-9955
+9957
 ```
 
 <!-- cell:13 type:code -->
@@ -184,7 +174,7 @@ result
 ```
 Output:
 ```
-array([303, 326, 329, ..., 332, 281, 324])
+array([323, 297, 330, ..., 315, 338, 318], shape=(10000,))
 ```
 
 <!-- cell:14 type:markdown -->
@@ -203,7 +193,7 @@ We also display the probability of an Obama victory
 ```python
 def plot_simulation(simulation):    
     plt.hist(simulation, bins=np.arange(200, 538, 1), 
-             label='simulations', align='left', normed=True)
+             label='simulations', align='left', density=True)
     plt.axvline(332, 0, .5, color='r', label='Actual Outcome')
     plt.axvline(269, 0, .5, color='k', label='Victory Threshold')
     p05 = np.percentile(simulation, 5.)
@@ -238,16 +228,16 @@ There is a second, very useful question, we can ask of any such probability mass
 
 <!-- cell:20 type:code -->
 ```python
-CDF = lambda x: np.float(np.sum(result < x))/result.shape[0]
+CDF = lambda x: float(np.sum(result < x))/result.shape[0]
 for votes in [200, 300, 320, 340, 360, 400, 500]:
     print("Obama Win CDF at votes=", votes, " is ", CDF(votes))
 ```
 Output:
 ```
 Obama Win CDF at votes= 200  is  0.0
-Obama Win CDF at votes= 300  is  0.1447
-Obama Win CDF at votes= 320  is  0.4439
-Obama Win CDF at votes= 340  is  0.839
+Obama Win CDF at votes= 300  is  0.1506
+Obama Win CDF at votes= 320  is  0.4544
+Obama Win CDF at votes= 340  is  0.8435
 Obama Win CDF at votes= 360  is  0.9979
 Obama Win CDF at votes= 400  is  1.0
 Obama Win CDF at votes= 500  is  1.0

@@ -172,7 +172,7 @@ def gibbs(xgiveny_sample, ygivenx_sample, N, start = [0,0]):
 ```python
 out=gibbs(xcond, ycond, 100000)
 cmap = sns.cubehelix_palette(light=1, as_cmap=True)
-plt.hist2d(out[10000:,0],out[10000:,1], normed=True, bins=100, cmap=cmap)
+plt.hist2d(out[10000:,0],out[10000:,1], density=True, bins=100, cmap=cmap)
 plt.contour(xx,yy,zz)
 plt.show()
 ```
@@ -193,7 +193,7 @@ plt.plot(out[:nr_t, 0],out[:nr_t, 1], c='r', alpha=0.5, lw=1)
 ```
 Output:
 ```
-[<matplotlib.lines.Line2D at 0x11733a710>]
+[<matplotlib.lines.Line2D at 0x141cf6f90>]
 ```
 [Figure]
 
@@ -205,7 +205,7 @@ Looking at the autocorrelation of our samples we are in pretty good shape and pr
 <!-- cell:18 type:code -->
 ```python
 def corrplot(trace, maxlags=50):
-    plt.acorr(trace-np.mean(trace),  normed=True, maxlags=maxlags);
+    plt.acorr(trace-np.mean(trace),  maxlags=maxlags);
     plt.xlim([0, maxlags])
 corrplot(out[4000:,0], 100)
 ```

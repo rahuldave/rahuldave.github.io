@@ -151,14 +151,14 @@ window.Quarto = {
 <meta property="og:description" content="Introduces hierarchical Bayesian models as a framework for estimating parameters across related units by borrowing statistical strength from collective data. Demonstrates the progression from no-pooling to full-pooling to partial-pooling, covering both Empirical Bayes and fully Bayesian approaches with Gibbs sampling.">
 <meta property="og:image" content="https://rahuldave.github.io/posts/hierarch/index_files/figure-html/cell-7-output-1.png">
 <meta property="og:site_name" content="rahuldave">
-<meta property="og:image:height" content="539">
-<meta property="og:image:width" content="773">
+<meta property="og:image:height" content="440">
+<meta property="og:image:width" content="597">
 <meta name="twitter:title" content="Hierarchical Bayesian Models – rahuldave">
 <meta name="twitter:description" content="Introduces hierarchical Bayesian models as a framework for estimating parameters across related units by borrowing statistical strength from collective data. Demonstrates the progression from no-pooling to full-pooling to partial-pooling, covering both Empirical Bayes and fully Bayesian approaches with Gibbs sampling.">
 <meta name="twitter:image" content="https://rahuldave.github.io/posts/hierarch/index_files/figure-html/cell-7-output-1.png">
 <meta name="twitter:creator" content="@rahuldave">
-<meta name="twitter:image-height" content="539">
-<meta name="twitter:image-width" content="773">
+<meta name="twitter:image-height" content="440">
+<meta name="twitter:image-width" content="597">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -471,7 +471,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-2" class="cell" data-execution_count="2" data-cell-type="code">
+<div id="85a2fe91" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:57.612972Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:57.612667Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:58.609142Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:58.608562Z&quot;}}" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
@@ -488,7 +488,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="an-example-rats-tumors-from-gelman-chapter-5">An Example: Rats tumors (from <a href="http://www.stat.columbia.edu/~gelman/book/">Gelman</a>, chapter 5)</h2>
 <p>The below data is from tumors in female rats of type “F344” that recieve a particular drug, in 70 different experiments.</p>
 <p>The first column is the number that get the tumor; the second is the total number or rats tested</p>
-<div id="cell-4" class="cell" data-execution_count="3" data-cell-type="code">
+<div id="046dc93f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:58.610479Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:58.610358Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:58.612455Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:58.611970Z&quot;}}" data-execution_count="3" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tumordata<span class="op">=</span><span class="st">"""0 20 </span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="st">0 20 </span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="st">0 20 </span></span>
@@ -561,10 +561,10 @@ window.Quarto = {
 <span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="st">9 24 </span></span>
 <span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-5" class="cell" data-execution_count="4" data-cell-type="code">
+<div id="ed1af6dc" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:58.613544Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:58.613465Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:58.617708Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:58.617141Z&quot;}}" data-execution_count="4" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tumortuples<span class="op">=</span>[e.strip().split() <span class="cf">for</span> e <span class="kw">in</span> tumordata.split(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)]</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>tumory<span class="op">=</span>np.array([np.<span class="bu">int</span>(e[<span class="dv">0</span>].strip()) <span class="cf">for</span> e <span class="kw">in</span> tumortuples <span class="cf">if</span> <span class="bu">len</span>(e) <span class="op">&gt;</span> <span class="dv">0</span>])</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>tumorn<span class="op">=</span>np.array([np.<span class="bu">int</span>(e[<span class="dv">1</span>].strip()) <span class="cf">for</span> e <span class="kw">in</span> tumortuples <span class="cf">if</span> <span class="bu">len</span>(e) <span class="op">&gt;</span> <span class="dv">0</span>])</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>tumory<span class="op">=</span>np.array([<span class="bu">int</span>(e[<span class="dv">0</span>].strip()) <span class="cf">for</span> e <span class="kw">in</span> tumortuples <span class="cf">if</span> <span class="bu">len</span>(e) <span class="op">&gt;</span> <span class="dv">0</span>])</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>tumorn<span class="op">=</span>np.array([<span class="bu">int</span>(e[<span class="dv">1</span>].strip()) <span class="cf">for</span> e <span class="kw">in</span> tumortuples <span class="cf">if</span> <span class="bu">len</span>(e) <span class="op">&gt;</span> <span class="dv">0</span>])</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>tumory, tumorn            </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>(array([ 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  1,
@@ -581,16 +581,16 @@ window.Quarto = {
 </div>
 <p>Now, a 71st experiment is done and we are told that 4 out of 14 rats develop tumors. Our problem is to estimate the risk of tumor in the rats in the 71st experiment .</p>
 <p>Thus we are considering the problem of estimating the tumor rate from a small experiment (no 71) and a prior constructed from previous experiments with similar structure. Mathematically, we consider the current and historical experiments as random samples from a common population.</p>
-<div id="cell-7" class="cell" data-execution_count="7" data-cell-type="code">
+<div id="b05ead39" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:58.619284Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:58.619142Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:58.623230Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:58.622697Z&quot;}}" data-execution_count="5" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tumor_rat <span class="op">=</span> [e[<span class="dv">0</span>]<span class="op">/</span>e[<span class="dv">1</span>] <span class="cf">for</span> e <span class="kw">in</span> <span class="bu">zip</span>(tumory, tumorn)]</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>tmean <span class="op">=</span> np.mean(tumor_rat)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>tvar <span class="op">=</span> np.var(tumor_rat)</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>tmean, tvar</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
-<pre><code>(0.13600653889043893, 0.010557640623609196)</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>(np.float64(0.13600653889043893), np.float64(0.010557640623609196))</code></pre>
 </div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="10" data-cell-type="code">
+<div id="fc106eed" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:58.624575Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:58.624475Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:58.678049Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:58.677186Z&quot;}}" data-execution_count="6" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>plt.hist(tumor_rat)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -684,13 +684,13 @@ window.Quarto = {
 <p>and</p>
 <p><span class="math display">\[V  = \frac{\alpha\beta}{(\alpha + \beta)^2 (\alpha + \beta + 1)}\]</span></p>
 <p>Note that there are different ratios for each experiment, and we are taking the average of these.</p>
-<div id="cell-16" class="cell" data-execution_count="11" data-cell-type="code">
+<div id="b74f4715" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:58.679620Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:58.679483Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:58.681881Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:58.681494Z&quot;}}" data-execution_count="7" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>aplusb <span class="op">=</span> tmean<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>tmean)<span class="op">/</span>tvar <span class="op">-</span> <span class="dv">1</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>a_est<span class="op">=</span>aplusb<span class="op">*</span>tmean</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>b_est<span class="op">=</span>aplusb<span class="op">*</span>(<span class="fl">1.0</span> <span class="op">-</span> tmean)</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>a_est, b_est</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
-<pre><code>(1.3777748392916778, 8.7524354471531129)</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>(np.float64(1.3777748392916778), np.float64(8.752435447153113))</code></pre>
 </div>
 </div>
 <p>We can now use these to compute the posterior means for all the experiments.</p>
@@ -698,10 +698,10 @@ window.Quarto = {
 <p><span class="math inline">\(p(\theta_i | y_i, n_i, \alpha, \beta) = Beta(\alpha + y_i, \beta + n_i - y_i)\)</span></p>
 <p>Thus the posterior mean is</p>
 <p><span class="math display">\[\bar{\theta}_{post, i} = \frac{\alpha + y_i}{\alpha + \beta + n_i}\]</span></p>
-<div id="cell-18" class="cell" data-execution_count="12" data-cell-type="code">
+<div id="6bfa0484" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:58.683043Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:58.682944Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:58.684758Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:58.684346Z&quot;}}" data-execution_count="8" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>post_means <span class="op">=</span> (a_est <span class="op">+</span> tumory)<span class="op">/</span>(a_est <span class="op">+</span> b_est <span class="op">+</span> tumorn)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-19" class="cell" data-execution_count="13" data-cell-type="code">
+<div id="8267ea1e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:58.685887Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:58.685810Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:58.733040Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:58.732327Z&quot;}}" data-execution_count="9" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>plt.plot(tumor_rat, post_means,<span class="st">'o'</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="dv">0</span>,<span class="fl">0.5</span>],[<span class="dv">0</span>,<span class="fl">0.5</span>],<span class="st">'k-'</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"observed rates"</span>)</span>
@@ -717,10 +717,10 @@ window.Quarto = {
 <p>As you can see, the posterior rates are shrunk towards flatness, which would correspond to complete pooling. The 45 degree line would be for completely unpooled estimate.</p>
 <p>Now, for the 71st experiment, we have 4 out of 14 rats having tumors. The posterior estimate for this would be</p>
 <p><span class="math display">\[\frac{\alpha + y_{71}}{\alpha + \beta + n_{71}}\]</span></p>
-<div id="cell-21" class="cell" data-execution_count="15" data-cell-type="code">
+<div id="08cfa955" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:33:58.734336Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:33:58.734219Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:33:58.736878Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:33:58.736353Z&quot;}}" data-execution_count="10" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span><span class="op">/</span><span class="dv">14</span>, (<span class="dv">4</span><span class="op">+</span>a_est)<span class="op">/</span>(<span class="dv">14</span><span class="op">+</span>a_est<span class="op">+</span>b_est)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
-<pre><code>(0.2857142857142857, 0.22286481449822493)</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>(0.2857142857142857, np.float64(0.22286481449822493))</code></pre>
 </div>
 </div>
 <p>So we would revise our estimate downwards for this experiment.</p>

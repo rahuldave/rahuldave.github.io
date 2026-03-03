@@ -24,11 +24,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 sns.set_style("whitegrid")
 ```
-Output:
-```
-//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))
-```
 
 <!-- cell:3 type:markdown -->
 In simulated annealing, we carried out combinatorical oprimization by sampling from a state space where each state was a vector of baseball simulation features.
@@ -122,13 +117,13 @@ acc
 ```
 Output:
 ```
-41463
+41228
 ```
 
 <!-- cell:12 type:code -->
 ```python
 xxx = np.arange(0,samps.max())
-plt.hist(samps, bins=xxx, normed=True, align='left');
+plt.hist(samps, bins=xxx, density=True, align='left');
 plt.plot(xxx, rv.pmf(xxx),'o');
 ```
 [Figure]

@@ -421,17 +421,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>PredictWise congressional voting visualization</figcaption>
 </figure>
 </div>
-<div id="90711597" class="cell" data-execution_count="1" data-cell-type="code">
+<div id="90711597" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:46:42.356502Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:46:42.356409Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:46:51.324983Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:46:51.324417Z&quot;}}" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="75ea98fc" class="cell" data-execution_count="2" data-cell-type="code">
+<div id="75ea98fc" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:46:51.326896Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:46:51.326683Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:46:51.864191Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:46:51.863537Z&quot;}}" data-execution_count="3" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tbl <span class="op">=</span> pd.read_html(<span class="st">"https://www.presidency.ucsb.edu/statistics/data/seats-congress-gainedlost-the-presidents-party-mid-term-elections"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="2f383dad" class="cell" data-execution_count="3" data-cell-type="code">
+<div id="2f383dad" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:46:51.865746Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:46:51.865573Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:46:51.883786Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:46:51.883222Z&quot;}}" data-execution_count="4" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> tbl[<span class="dv">0</span>]</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df.columns <span class="op">=</span> df.columns.to_flat_index()</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="4">
 <div>
 
 
@@ -442,15 +442,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <th data-quarto-table-cell-role="th">(Unnamed: 0_level_0, Year)</th>
 <th data-quarto-table-cell-role="th">(Unnamed: 1_level_0, Lame Duck?)</th>
 <th data-quarto-table-cell-role="th">(Unnamed: 2_level_0, President)</th>
-<th data-quarto-table-cell-role="th">(Unnamed: 3_level_0, President'sParty)</th>
+<th data-quarto-table-cell-role="th">(Unnamed: 3_level_0, President's Party)</th>
 <th data-quarto-table-cell-role="th">(President's Job Approval Percentage (Gallup) As of:, Early Aug)</th>
 <th data-quarto-table-cell-role="th">(President's Job Approval Percentage (Gallup) As of:, Late Aug)</th>
 <th data-quarto-table-cell-role="th">(President's Job Approval Percentage (Gallup) As of:, Early Sep)</th>
 <th data-quarto-table-cell-role="th">(President's Job Approval Percentage (Gallup) As of:, Late Sep)</th>
 <th data-quarto-table-cell-role="th">(President's Job Approval Percentage (Gallup) As of:, Early Oct)</th>
 <th data-quarto-table-cell-role="th">(President's Job Approval Percentage (Gallup) As of:, Late Oct)</th>
-<th data-quarto-table-cell-role="th">(President's Party, House Seatsto Defend)</th>
-<th data-quarto-table-cell-role="th">(President's Party, Senate Seatsto Defend)</th>
+<th data-quarto-table-cell-role="th">(President's Party, House Seats to Defend)</th>
+<th data-quarto-table-cell-role="th">(President's Party, Senate Seats to Defend)</th>
 <th data-quarto-table-cell-role="th">(Seat Change, President's Party, House Seats)</th>
 <th data-quarto-table-cell-role="th">(Seat Change, President's Party, Senate Seats)</th>
 </tr>
@@ -470,8 +470,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>--</td>
 <td>313</td>
 <td>14</td>
-<td>+9</td>
-<td>+9</td>
+<td>9</td>
+<td>9</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">1</th>
@@ -590,7 +590,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>264</td>
 <td>18</td>
 <td>-4</td>
-<td>+3</td>
+<td>3</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">8</th>
@@ -624,7 +624,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>192</td>
 <td>7</td>
 <td>-12</td>
-<td>+2</td>
+<td>2</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">10</th>
@@ -675,7 +675,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>192</td>
 <td>12</td>
 <td>-26</td>
-<td>+1</td>
+<td>1</td>
 </tr>
 <tr class="even">
 <th data-quarto-table-cell-role="th">13</th>
@@ -742,7 +742,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>65</td>
 <td>207</td>
 <td>18</td>
-<td>+5</td>
+<td>5</td>
 <td>0</td>
 </tr>
 <tr class="even">
@@ -759,8 +759,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>67</td>
 <td>220</td>
 <td>20</td>
-<td>+8</td>
-<td>+2</td>
+<td>8</td>
+<td>2</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">18</th>
@@ -828,24 +828,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>241</td>
 <td>9</td>
 <td>-40</td>
-<td>+2</td>
+<td>2</td>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">22</th>
 <td>2022</td>
 <td>NaN</td>
-<td>Joseph R. Biden</td>
+<td>Joseph R. Biden, Jr.</td>
 <td>D</td>
 <td>38</td>
 <td>44</td>
 <td>44</td>
 <td>42</td>
 <td>42</td>
-<td>NaN</td>
+<td>40</td>
 <td>222</td>
 <td>14</td>
-<td>TBD</td>
-<td>TBD</td>
+<td>-9</td>
+<td>1</td>
 </tr>
 </tbody>
 </table>

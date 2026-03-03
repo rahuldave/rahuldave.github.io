@@ -25,11 +25,6 @@ import seaborn as sns
 sns.set_style('white')
 sns.set_context('talk')
 ```
-Output:
-```
-//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))
-```
 
 <!-- cell:3 type:markdown -->
 ## Monte Carlo
@@ -56,7 +51,7 @@ $$\frac{\pi \times 1^2}{2^2} = \frac{\pi}{4}.$$
 box_area = 4.0    
 
 #number of samples
-N_total = 10000.0 
+N_total = 10000 
 
 #drawing random points uniform between -1 and 1
 X = np.random.uniform(low=-1, high=1, size=N_total)  
@@ -86,12 +81,7 @@ print("pi = ", np.pi)
 ```
 Output:
 ```
-//anaconda/envs/py35/lib/python3.5/site-packages/ipykernel/__main__.py:8: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
-//anaconda/envs/py35/lib/python3.5/site-packages/ipykernel/__main__.py:9: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
-```
-Output:
-```
-Area of the circle =  3.1344
+Area of the circle =  3.162
 pi =  3.141592653589793
 ```
 [Figure]

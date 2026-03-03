@@ -9,7 +9,6 @@
 #   "matplotlib",
 #   "numpy",
 #   "pandas",
-#   "pymc3",
 #   "scipy",
 #   "seaborn",
 # ]
@@ -30,7 +29,7 @@ import seaborn as sns
 
 from IPython.core.display import Image
 
-import pymc3 as pm
+
 ```
 
 <!-- cell:3 type:markdown -->
@@ -73,7 +72,7 @@ plt.plot(qq, fun(qq))
 ```
 Output:
 ```
-[<matplotlib.lines.Line2D at 0x1188db6a0>]
+[<matplotlib.lines.Line2D at 0x1229bb4d0>]
 ```
 [Figure]
 
@@ -84,7 +83,7 @@ plt.plot(qq, V(qq))
 ```
 Output:
 ```
-[<matplotlib.lines.Line2D at 0x117c36eb8>]
+[<matplotlib.lines.Line2D at 0x122a98ec0>]
 ```
 [Figure]
 
@@ -201,7 +200,7 @@ print("min and max of H: ", np.min( H_x_r_t(t)), np.max( H_x_r_t(t)))
 [Figure]
 Output:
 ```
-min and max of H:  8.0 8.0
+min and max of H:  7.999999999999999 8.000000000000002
 ```
 
 <!-- cell:15 type:markdown -->
@@ -429,6 +428,10 @@ plt.subplot(1,2,2)
 plt.plot(h)
 plt.ylabel('H')
 ```
+Output:
+```
+Text(0, 0.5, 'H')
+```
 [Figure]
 
 <!-- cell:23 type:markdown -->
@@ -497,7 +500,7 @@ print("min and max of leapfrog H: ", np.min(h), np.max(h))
 plt.figure(figsize=[12,4])
 plt.subplot(1,2,1)
 plt.plot(lqs,lps, 'b.')
-plt.plot(x_t(t), r_t(t), 'r.')
+plt.plot(q_t(t), p_t(t), 'r.')
 plt.xlabel('x(t)')
 plt.ylabel('y(t)')
 plt.axis('equal')
@@ -509,7 +512,7 @@ plt.show()
 ```
 Output:
 ```
-min and max of leapfrog H:  7.6190477193 8.42105060531
+min and max of leapfrog H:  7.619047719300697 8.421050605313674
 ```
 [Figure]
 
@@ -659,7 +662,7 @@ dUdq= lambda q: q
 <!-- cell:33 type:code -->
 ```python
 H, qall= HMC(U=U,K=K,dUdq=dUdq,N=10000,q_0=0, p_0=-4, epsilon=0.01, L=200)
-plt.hist(qall, bins=50, normed=True)
+plt.hist(qall, bins=50, density=True)
 x = np.linspace(-4,4,100)
 plt.plot(x, sp.stats.norm.pdf(x),'r')
 plt.show()
@@ -703,22 +706,22 @@ def MH_simple(p, n, sig, x0):
 
 <!-- cell:36 type:code -->
 ```python
-samples_mh = MH_simple(p=P, n=10000, sig=4.0, x0=0)
+samples_mh = MH_simple(p=fun, n=10000, sig=4.0, x0=0)
 
 plt.subplot(1,2,1)
-plt.hist(qall, bins=50, normed=True)
+plt.hist(qall, bins=50, density=True)
 x = np.linspace(-4,4,100)
 plt.plot(x, sp.stats.norm.pdf(x),'r')
 
 plt.subplot(1,2,2)
-plt.hist(samples_mh, bins=50, normed=True)
+plt.hist(samples_mh, bins=50, density=True)
 x = np.linspace(-4,4,100)
 plt.plot(x, sp.stats.norm.pdf(x),'r')
 plt.show()
 ```
 Output:
 ```
-accept= 0.3002
+accept= 0.2961
 ```
 [Figure]
 
@@ -728,7 +731,7 @@ Here we see that the MH acceptance ration is much lower and the correlation much
 <!-- cell:38 type:code -->
 ```python
 def corrplot(trace,  maxlags=100):
-    plt.acorr(trace-np.mean(trace),  normed=True, maxlags=maxlags);
+    plt.acorr(trace-np.mean(trace),  maxlags=maxlags);
     plt.xlim([0, maxlags])
 corrplot(qall)
 plt.title('hmc');

@@ -24,7 +24,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from scipy import stats 
 
-from sklearn.datasets.samples_generator import make_regression 
+from sklearn.datasets import make_regression 
 ```
 
 <!-- cell:3 type:markdown -->
@@ -79,7 +79,7 @@ plt.plot(grid,best_fit(grid), '.')
 ```
 Output:
 ```
-[<matplotlib.lines.Line2D at 0x108279358>]
+[<matplotlib.lines.Line2D at 0x128bbaba0>]
 ```
 [Figure]
 
@@ -157,7 +157,7 @@ np.random.rand(2)
 ```
 Output:
 ```
-array([ 0.75307882,  0.98388838])
+array([0.83557122, 0.11844991])
 ```
 
 <!-- cell:12 type:code -->
@@ -175,7 +175,7 @@ print("Least Squares: {:.2f}, {:.2f}".format(intercept, slope))
 ```
 Output:
 ```
-Gradient Descent: -3.93, 81.67 4454
+Gradient Descent: -3.93, 81.67 4438
 Least Squares: -3.71, 82.90
 ```
 
@@ -185,7 +185,7 @@ theta
 ```
 Output:
 ```
-array([ -3.92778924,  81.67155225])
+array([-3.93029182, 81.672577  ])
 ```
 
 <!-- cell:15 type:markdown -->
@@ -202,7 +202,7 @@ The following animation shows how the regression line forms:
 
 <!-- cell:18 type:code -->
 ```python
-from JSAnimation import IPython_display
+# JSAnimation removed (obsolete package)
 ```
 
 <!-- cell:19 type:code -->
@@ -226,17 +226,18 @@ plt.plot(xaug[:,1], best_fit(xaug[:,1]), 'k-', color = "r")
 
 anim = animation.FuncAnimation(fig, animate, init_func=init,
                         frames=len(preds), interval=100)
-anim.save('images/gdline.mp4')
+try:
+    anim.save('images/gdline.mp4')
+except Exception:
+    pass  # ffmpeg may not be available
 anim
 ```
 Output:
 ```
-IOPub data rate exceeded.
-The notebook server will temporarily stop sending output
-to the client in order to avoid crashing it.
-To change this limit, set the config variable
-`--NotebookApp.iopub_data_rate_limit`.
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48766/3408123445.py:16: UserWarning: color is redundantly defined by the 'color' keyword argument and the fmt string "k-" (-> color='k'). The keyword argument will take precedence.
+  plt.plot(xaug[:,1], best_fit(xaug[:,1]), 'k-', color = "r")
 ```
+[Figure]
 
 <!-- cell:20 type:markdown -->
 Remember that the linear regression cost function is convex, and more precisely quadratic. We can see the path that gradient descent takes in arriving at the optimum:
@@ -275,6 +276,11 @@ def gd_plot(xaug, y, theta, cost, hist):
 <!-- cell:22 type:code -->
 ```python
 gd_plot(xaug, y, theta, cost, history)
+```
+Output:
+```
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48766/2428721890.py:17: UserWarning: The following kwargs were not used by contour: 'color'
+  ax.contour(M, B, Z, 20, color='b', alpha=0.5, offset=0, stride=30)
 ```
 [Figure]
 
@@ -389,9 +395,9 @@ history2, cost2, preds2, grads2, iters2, epoch2, x2, y2, cc2 = sgd(xaug, y, thet
 ```
 Output:
 ```
-Init [-24.81938748  -0.8005103 ] [ 1.          0.03225343] 11.5348518902
-Init2 308.000997364 [-14.58474841  40.31239274]
-start 1 [308.00099736389291] 0
+Init [-24.86442566  -0.80196294] [1.         0.03225343] 11.534851890155354
+Init2 309.11983167186713 [-14.64881609  40.90239211]
+start 1 [np.float64(309.11983167186713)] 0
 ```
 
 <!-- cell:26 type:code -->
@@ -400,7 +406,7 @@ print(iters2, history2[-1], epoch2, grads2[-1])
 ```
 Output:
 ```
-5000 [ -3.18011506  82.93875465] 49 [ 10.47922297  -5.63332413]
+5000 [-3.74444377 83.0989327 ] 49 [-20.2174648  -13.68835996]
 ```
 
 <!-- cell:27 type:code -->
@@ -413,6 +419,11 @@ plt.plot(range(len(cost2[-10000:])), cost2[-10000:], alpha=0.4);
 ```python
 gd_plot(xaug, y, theta, cost2, history2)
 ```
+Output:
+```
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48766/2428721890.py:17: UserWarning: The following kwargs were not used by contour: 'color'
+  ax.contour(M, B, Z, 20, color='b', alpha=0.5, offset=0, stride=30)
+```
 [Figure]
 
 <!-- cell:29 type:code -->
@@ -421,7 +432,7 @@ plt.plot([t[0] for t in history2], [t[1] for t in history2],'o-', alpha=0.1)
 ```
 Output:
 ```
-[<matplotlib.lines.Line2D at 0x1157d6da0>]
+[<matplotlib.lines.Line2D at 0x129699010>]
 ```
 [Figure]
 
@@ -432,6 +443,9 @@ Here is some code to make an animation of SGD. It shows how the risk surfaces be
 
 <!-- cell:31 type:code -->
 ```python
+import os
+os.makedirs("images", exist_ok=True)
+
 def error2(X, Y, THETA):
     #print("XYT", THETA, np.sum((X.dot(THETA) - Y)**2))
     return np.sum((X.dot(THETA) - Y)**2)/(2*Y.size)
@@ -471,7 +485,7 @@ len(ST)
 ```
 Output:
 ```
-fthetas -3.92778923799 81.6715522496 len 5000
+fthetas -3.9302918178734 81.67257700026927 len 5000
 ```
 Output:
 ```
@@ -483,6 +497,11 @@ Output:
 for i in range(len(ST)):
     #print(history2[i*ST[i]], cc2[i*ST[i]])
     make_3d_plot2(i, ST[i], theta[0], theta[1], cost2[-1], [history2[ST[i]]], [cc2[ST[i]]], np.array([x2[ST[i]]]), np.array([y2[ST[i]]]))
+```
+Output:
+```
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48766/2077105612.py:20: UserWarning: The following kwargs were not used by contour: 'color'
+  ax.contour(M, B, Z, 20, color='b', alpha=0.5, offset=0, stride=30)
 ```
 
 <!-- cell:34 type:markdown -->

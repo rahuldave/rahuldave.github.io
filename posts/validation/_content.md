@@ -32,11 +32,6 @@ import seaborn as sns
 sns.set_style("whitegrid")
 sns.set_context("poster")
 ```
-Output:
-```
-//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))
-```
 
 <!-- cell:3 type:code -->
 ```python
@@ -107,7 +102,7 @@ Output:
 
 <!-- cell:8 type:code -->
 ```python
-from sklearn.cross_validation import train_test_split
+from sklearn.model_selection import train_test_split
 datasize=df.shape[0]
 #split dataset using the index, as we have x,f, and y that we want to split.
 itrain,itest = train_test_split(range(30),train_size=24, test_size=6)
@@ -349,13 +344,13 @@ Let us now do 4-fold cross-validation on our Romney votes data set. We increase 
 
 <!-- cell:29 type:code -->
 ```python
-from sklearn.cross_validation import KFold
+from sklearn.model_selection import KFold
 n_folds=4
 degrees=range(21)
 results=[]
 for d in degrees:
     hypothesisresults=[]
-    for train, test in KFold(24, n_folds): # split data into train/test groups, 4 times
+    for train, test in KFold(n_splits=n_folds).split(xtrain): # split data into train/test groups, 4 times
         tvlist=make_features(xtrain[train], xtrain[test], degrees)
         clf = LinearRegression()
         clf.fit(tvlist[d]['train'], ytrain[train]) # fit
@@ -389,11 +384,6 @@ plt.ylabel('mean squared error')
 plt.xlabel('degree')
 plt.legend(loc='upper right')
 plt.yscale("log")
-```
-Output:
-```
-//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:892: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))
 ```
 [Figure]
 

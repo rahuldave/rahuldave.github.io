@@ -32,11 +32,6 @@ import seaborn as sns
 sns.set_style("whitegrid")
 sns.set_context("poster")
 ```
-Output:
-```
-//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))
-```
 
 <!-- cell:3 type:code -->
 ```python
@@ -98,7 +93,7 @@ plt.plot(x,f,'.', alpha=0.3)
 ```
 Output:
 ```
-[<matplotlib.lines.Line2D at 0x116422748>]
+[<matplotlib.lines.Line2D at 0x10f73fe00>]
 ```
 [Figure]
 
@@ -132,6 +127,17 @@ axes[1].plot(df.x,df.y, 's', alpha=0.6, label="in-sample noisy data $\cal{D}$");
 axes[0].legend(loc=4);
 axes[1].legend(loc=4);
 ```
+Output:
+```
+<>:4: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+<>:5: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+<>:4: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+<>:5: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_49236/2639234267.py:4: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+  axes[1].plot(df.x,df.f, 'o', alpha=0.6, label="in-sample noiseless data $\cal{D}$");
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_49236/2639234267.py:5: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+  axes[1].plot(df.x,df.y, 's', alpha=0.6, label="in-sample noisy data $\cal{D}$");
+```
 [Figure]
 
 <!-- cell:12 type:markdown -->
@@ -162,7 +168,7 @@ Let us introduce some new terminology. We take the sample of data $\cal{D}$ that
 1. The **training set**, which is the part of the data we use to fit a model
 2. The **testing set**, a smaller part of the data set which we use to see how good our fit was.
 
-This split is done by choosing points at random into these two sets. Typically we might take 80% of our data and put it in the training set, with the remaining amount going into the test set. This can be carried out in python using the `train_test_split` function from `sklearn.cross_validation`.
+This split is done by choosing points at random into these two sets. Typically we might take 80% of our data and put it in the training set, with the remaining amount going into the test set. This can be carried out in python using the `train_test_split` function from `sklearn.model_selection`.
 
 The split is shown in the diagram below:
 
@@ -178,7 +184,7 @@ We are **using the training set then, as our in-sample set, and the test set as 
 
 <!-- cell:15 type:code -->
 ```python
-from sklearn.cross_validation import train_test_split
+from sklearn.model_selection import train_test_split
 datasize=df.shape[0]
 #split dataset using the index, as we have x,f, and y that we want to split.
 itrain,itest = train_test_split(range(30),train_size=24, test_size=6)
@@ -200,6 +206,13 @@ axes[1].plot(xtrain, ytrain, 's', label="training")
 axes[1].plot(xtest, ytest, 's', label="testing")
 axes[0].legend(loc="lower right")
 axes[1].legend(loc="lower right")
+```
+Output:
+```
+<>:3: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+<>:3: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_49236/549138771.py:3: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+  axes[0].plot(df.x,df.y, 'o',alpha=0.6, label="$\cal{D}$");
 ```
 [Figure]
 
@@ -240,9 +253,9 @@ PolynomialFeatures(3).fit_transform([[1],[2], [3]])
 ```
 Output:
 ```
-array([[  1.,   1.,   1.,   1.],
-       [  1.,   2.,   4.,   8.],
-       [  1.,   3.,   9.,  27.]])
+array([[ 1.,  1.,  1.,  1.],
+       [ 1.,  2.,  4.,  8.],
+       [ 1.,  3.,  9., 27.]])
 ```
 
 <!-- cell:20 type:markdown -->
@@ -270,11 +283,11 @@ xtrain
 ```
 Output:
 ```
-array([ 0.33      ,  0.75868254,  0.52      ,  0.79      ,  0.63633949,
-        0.70533267,  0.71829603,  0.75841654,  0.63071361,  0.11      ,
-        0.82850909,  0.46      ,  0.64832591,  0.53596824,  0.91      ,
-        0.67      ,  0.76      ,  0.34      ,  0.56      ,  0.94      ,
-        0.6       ,  0.96      ,  0.43754875,  0.54      ])
+array([0.71829603, 0.91      , 0.23      , 0.96      , 0.67      ,
+       0.75841654, 0.56      , 0.82850909, 0.74990267, 0.33      ,
+       0.6       , 0.64832591, 0.70533267, 0.43754875, 0.46      ,
+       0.80965752, 0.07      , 0.09      , 0.34      , 0.54      ,
+       0.63071361, 0.66      , 0.52      , 0.94      ])
 ```
 
 <!-- cell:24 type:code -->
@@ -283,30 +296,30 @@ xtrain.reshape(-1,1)
 ```
 Output:
 ```
-array([[ 0.33      ],
-       [ 0.75868254],
-       [ 0.52      ],
-       [ 0.79      ],
-       [ 0.63633949],
-       [ 0.70533267],
-       [ 0.71829603],
-       [ 0.75841654],
-       [ 0.63071361],
-       [ 0.11      ],
-       [ 0.82850909],
-       [ 0.46      ],
-       [ 0.64832591],
-       [ 0.53596824],
-       [ 0.91      ],
-       [ 0.67      ],
-       [ 0.76      ],
-       [ 0.34      ],
-       [ 0.56      ],
-       [ 0.94      ],
-       [ 0.6       ],
-       [ 0.96      ],
-       [ 0.43754875],
-       [ 0.54      ]])
+array([[0.71829603],
+       [0.91      ],
+       [0.23      ],
+       [0.96      ],
+       [0.67      ],
+       [0.75841654],
+       [0.56      ],
+       [0.82850909],
+       [0.74990267],
+       [0.33      ],
+       [0.6       ],
+       [0.64832591],
+       [0.70533267],
+       [0.43754875],
+       [0.46      ],
+       [0.80965752],
+       [0.07      ],
+       [0.09      ],
+       [0.34      ],
+       [0.54      ],
+       [0.63071361],
+       [0.66      ],
+       [0.52      ],
+       [0.94      ]])
 ```
 
 <!-- cell:25 type:code -->
@@ -315,30 +328,30 @@ PolynomialFeatures(2).fit_transform(xtrain.reshape(-1,1))
 ```
 Output:
 ```
-array([[ 1.        ,  0.33      ,  0.1089    ],
-       [ 1.        ,  0.75868254,  0.5755992 ],
-       [ 1.        ,  0.52      ,  0.2704    ],
-       [ 1.        ,  0.79      ,  0.6241    ],
-       [ 1.        ,  0.63633949,  0.40492794],
-       [ 1.        ,  0.70533267,  0.49749418],
-       [ 1.        ,  0.71829603,  0.51594919],
-       [ 1.        ,  0.75841654,  0.57519565],
-       [ 1.        ,  0.63071361,  0.39779966],
-       [ 1.        ,  0.11      ,  0.0121    ],
-       [ 1.        ,  0.82850909,  0.68642731],
-       [ 1.        ,  0.46      ,  0.2116    ],
-       [ 1.        ,  0.64832591,  0.42032648],
-       [ 1.        ,  0.53596824,  0.28726196],
-       [ 1.        ,  0.91      ,  0.8281    ],
-       [ 1.        ,  0.67      ,  0.4489    ],
-       [ 1.        ,  0.76      ,  0.5776    ],
-       [ 1.        ,  0.34      ,  0.1156    ],
-       [ 1.        ,  0.56      ,  0.3136    ],
-       [ 1.        ,  0.94      ,  0.8836    ],
-       [ 1.        ,  0.6       ,  0.36      ],
-       [ 1.        ,  0.96      ,  0.9216    ],
-       [ 1.        ,  0.43754875,  0.1914489 ],
-       [ 1.        ,  0.54      ,  0.2916    ]])
+array([[1.        , 0.71829603, 0.51594919],
+       [1.        , 0.91      , 0.8281    ],
+       [1.        , 0.23      , 0.0529    ],
+       [1.        , 0.96      , 0.9216    ],
+       [1.        , 0.67      , 0.4489    ],
+       [1.        , 0.75841654, 0.57519565],
+       [1.        , 0.56      , 0.3136    ],
+       [1.        , 0.82850909, 0.68642731],
+       [1.        , 0.74990267, 0.56235401],
+       [1.        , 0.33      , 0.1089    ],
+       [1.        , 0.6       , 0.36      ],
+       [1.        , 0.64832591, 0.42032648],
+       [1.        , 0.70533267, 0.49749418],
+       [1.        , 0.43754875, 0.1914489 ],
+       [1.        , 0.46      , 0.2116    ],
+       [1.        , 0.80965752, 0.65554529],
+       [1.        , 0.07      , 0.0049    ],
+       [1.        , 0.09      , 0.0081    ],
+       [1.        , 0.34      , 0.1156    ],
+       [1.        , 0.54      , 0.2916    ],
+       [1.        , 0.63071361, 0.39779966],
+       [1.        , 0.66      , 0.4356    ],
+       [1.        , 0.52      , 0.2704    ],
+       [1.        , 0.94      , 0.8836    ]])
 ```
 
 <!-- cell:26 type:markdown -->
@@ -413,35 +426,35 @@ traintestlists[3]['train'], ytrain
 ```
 Output:
 ```
-(array([[ 1.        ,  0.33      ,  0.1089    ,  0.035937  ],
-        [ 1.        ,  0.75868254,  0.5755992 ,  0.43669706],
-        [ 1.        ,  0.52      ,  0.2704    ,  0.140608  ],
-        [ 1.        ,  0.79      ,  0.6241    ,  0.493039  ],
-        [ 1.        ,  0.63633949,  0.40492794,  0.25767164],
-        [ 1.        ,  0.70533267,  0.49749418,  0.3508989 ],
-        [ 1.        ,  0.71829603,  0.51594919,  0.37060426],
-        [ 1.        ,  0.75841654,  0.57519565,  0.4362379 ],
-        [ 1.        ,  0.63071361,  0.39779966,  0.25089766],
-        [ 1.        ,  0.11      ,  0.0121    ,  0.001331  ],
-        [ 1.        ,  0.82850909,  0.68642731,  0.56871127],
-        [ 1.        ,  0.46      ,  0.2116    ,  0.097336  ],
-        [ 1.        ,  0.64832591,  0.42032648,  0.27250855],
-        [ 1.        ,  0.53596824,  0.28726196,  0.15396329],
-        [ 1.        ,  0.91      ,  0.8281    ,  0.753571  ],
-        [ 1.        ,  0.67      ,  0.4489    ,  0.300763  ],
-        [ 1.        ,  0.76      ,  0.5776    ,  0.438976  ],
-        [ 1.        ,  0.34      ,  0.1156    ,  0.039304  ],
-        [ 1.        ,  0.56      ,  0.3136    ,  0.175616  ],
-        [ 1.        ,  0.94      ,  0.8836    ,  0.830584  ],
-        [ 1.        ,  0.6       ,  0.36      ,  0.216     ],
-        [ 1.        ,  0.96      ,  0.9216    ,  0.884736  ],
-        [ 1.        ,  0.43754875,  0.1914489 ,  0.08376823],
-        [ 1.        ,  0.54      ,  0.2916    ,  0.157464  ]]),
- array([ 0.35817449,  0.64634662,  0.47094573,  0.80195369,  0.71040586,
-         0.64431987,  0.81167767,  0.81232659,  0.65597413,  0.18382092,
-         0.76638914,  0.52531463,  0.72006043,  0.53688748,  0.91261385,
-         0.89700996,  0.7612565 ,  0.23599998,  0.58004131,  0.93613422,
-         0.60188686,  0.87217807,  0.49208494,  0.61984169]))
+(array([[1.00000000e+00, 7.18296032e-01, 5.15949190e-01, 3.70604256e-01],
+        [1.00000000e+00, 9.10000000e-01, 8.28100000e-01, 7.53571000e-01],
+        [1.00000000e+00, 2.30000000e-01, 5.29000000e-02, 1.21670000e-02],
+        [1.00000000e+00, 9.60000000e-01, 9.21600000e-01, 8.84736000e-01],
+        [1.00000000e+00, 6.70000000e-01, 4.48900000e-01, 3.00763000e-01],
+        [1.00000000e+00, 7.58416542e-01, 5.75195651e-01, 4.36237897e-01],
+        [1.00000000e+00, 5.60000000e-01, 3.13600000e-01, 1.75616000e-01],
+        [1.00000000e+00, 8.28509091e-01, 6.86427314e-01, 5.68711270e-01],
+        [1.00000000e+00, 7.49902667e-01, 5.62354010e-01, 4.21710772e-01],
+        [1.00000000e+00, 3.30000000e-01, 1.08900000e-01, 3.59370000e-02],
+        [1.00000000e+00, 6.00000000e-01, 3.60000000e-01, 2.16000000e-01],
+        [1.00000000e+00, 6.48325909e-01, 4.20326484e-01, 2.72508550e-01],
+        [1.00000000e+00, 7.05332672e-01, 4.97494178e-01, 3.50898898e-01],
+        [1.00000000e+00, 4.37548746e-01, 1.91448905e-01, 8.37682282e-02],
+        [1.00000000e+00, 4.60000000e-01, 2.11600000e-01, 9.73360000e-02],
+        [1.00000000e+00, 8.09657516e-01, 6.55545293e-01, 5.30767174e-01],
+        [1.00000000e+00, 7.00000000e-02, 4.90000000e-03, 3.43000000e-04],
+        [1.00000000e+00, 9.00000000e-02, 8.10000000e-03, 7.29000000e-04],
+        [1.00000000e+00, 3.40000000e-01, 1.15600000e-01, 3.93040000e-02],
+        [1.00000000e+00, 5.40000000e-01, 2.91600000e-01, 1.57464000e-01],
+        [1.00000000e+00, 6.30713611e-01, 3.97799659e-01, 2.50897660e-01],
+        [1.00000000e+00, 6.60000000e-01, 4.35600000e-01, 2.87496000e-01],
+        [1.00000000e+00, 5.20000000e-01, 2.70400000e-01, 1.40608000e-01],
+        [1.00000000e+00, 9.40000000e-01, 8.83600000e-01, 8.30584000e-01]]),
+ array([0.81167767, 0.91261385, 0.05762073, 0.87217807, 0.89700996,
+        0.81232659, 0.58004131, 0.76638914, 0.74855785, 0.35817449,
+        0.60188686, 0.72006043, 0.64431987, 0.49208494, 0.52531463,
+        0.79714359, 0.13897264, 0.05051023, 0.23599998, 0.61984169,
+        0.65597413, 0.60311145, 0.47094573, 0.93613422]))
 ```
 
 <!-- cell:36 type:code -->
@@ -450,20 +463,14 @@ traintestlists[3]['test'], ytest
 ```
 Output:
 ```
-(array([[  1.00000000e+00,   6.60000000e-01,   4.35600000e-01,
-           2.87496000e-01],
-        [  1.00000000e+00,   2.30000000e-01,   5.29000000e-02,
-           1.21670000e-02],
-        [  1.00000000e+00,   8.09657516e-01,   6.55545293e-01,
-           5.30767174e-01],
-        [  1.00000000e+00,   7.00000000e-02,   4.90000000e-03,
-           3.43000000e-04],
-        [  1.00000000e+00,   9.00000000e-02,   8.10000000e-03,
-           7.29000000e-04],
-        [  1.00000000e+00,   7.49902667e-01,   5.62354010e-01,
-           4.21710772e-01]]),
- array([ 0.60311145,  0.05762073,  0.79714359,  0.13897264,  0.05051023,
-         0.74855785]))
+(array([[1.        , 0.79      , 0.6241    , 0.493039  ],
+        [1.        , 0.11      , 0.0121    , 0.001331  ],
+        [1.        , 0.76      , 0.5776    , 0.438976  ],
+        [1.        , 0.75868254, 0.5755992 , 0.43669706],
+        [1.        , 0.53596824, 0.28726196, 0.15396329],
+        [1.        , 0.63633949, 0.40492794, 0.25767164]]),
+ array([0.80195369, 0.18382092, 0.7612565 , 0.64634662, 0.53688748,
+        0.71040586]))
 ```
 
 <!-- cell:37 type:markdown -->
@@ -486,8 +493,8 @@ print("errtest",mean_squared_error(ytest, pred_on_test3))
 ```
 Output:
 ```
-errtrain 0.00455053325387
-errtest 0.00949690985891
+errtrain 0.005015554362501814
+errtest 0.005856235863081063
 ```
 
 <!-- cell:40 type:markdown -->
@@ -504,8 +511,8 @@ print("errtest",mean_squared_error(ytest, pred_on_test19))
 ```
 Output:
 ```
-errtrain 0.00196640248639
-errtest 14125204461.8
+errtrain 0.0027668856750368014
+errtest 278.13941540060097
 ```
 
 <!-- cell:42 type:markdown -->

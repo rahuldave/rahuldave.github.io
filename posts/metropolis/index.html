@@ -151,14 +151,14 @@ window.Quarto = {
 <meta property="og:description" content="Explores the Metropolis algorithm as a method for sampling from probability distributions. Connects detailed balance from simulated annealing to the Metropolis-Hastings algorithm and demonstrates why MCMC is necessary to handle the curse of dimensionality.">
 <meta property="og:image" content="https://rahuldave.github.io/posts/metropolis/index_files/figure-html/cell-4-output-1.png">
 <meta property="og:site_name" content="rahuldave">
-<meta property="og:image:height" content="356">
-<meta property="og:image:width" content="505">
+<meta property="og:image:height" content="432">
+<meta property="og:image:width" content="568">
 <meta name="twitter:title" content="From Annealing to Metropolis – rahuldave">
 <meta name="twitter:description" content="Explores the Metropolis algorithm as a method for sampling from probability distributions. Connects detailed balance from simulated annealing to the Metropolis-Hastings algorithm and demonstrates why MCMC is necessary to handle the curse of dimensionality.">
 <meta name="twitter:image" content="https://rahuldave.github.io/posts/metropolis/index_files/figure-html/cell-4-output-1.png">
 <meta name="twitter:creator" content="@rahuldave">
-<meta name="twitter:image-height" content="356">
-<meta name="twitter:image-width" content="505">
+<meta name="twitter:image-height" content="432">
+<meta name="twitter:image-width" content="568">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -452,7 +452,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-2" class="cell" data-hide="true" data-execution_count="2" data-cell-type="code">
+<div id="21586aca" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:29.316958Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:29.316600Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:30.017844Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:30.017340Z&quot;}}" data-hide="true" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
@@ -460,10 +460,6 @@ window.Quarto = {
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">"whitegrid"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
-</div>
 </div>
 <section id="simulated-annealing" class="level2">
 <h2 class="anchored" data-anchor-id="simulated-annealing">Simulated Annealing</h2>
@@ -476,12 +472,12 @@ window.Quarto = {
 <p>where</p>
 <p><span class="math display">\[Z(T) = \sum_j \exp{ \left( \frac{ -E_j}{kT}\right)}\]</span></p>
 <p>is the normalization constant of the distribution, also called the partition function.</p>
-<div id="cell-4" class="cell" data-execution_count="4" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">4</span><span class="op">*</span>np.sin(<span class="dv">2</span><span class="op">*</span>x)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>xs <span class="op">=</span> np.linspace(<span class="op">-</span><span class="fl">10.</span>,<span class="fl">10.</span>,<span class="dv">1000</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xs, f(xs))<span class="op">;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'x'</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'f'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="39aac849" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:30.019513Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:30.019346Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:30.075826Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:30.075394Z&quot;}}" data-execution_count="3" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">4</span><span class="op">*</span>np.sin(<span class="dv">2</span><span class="op">*</span>x)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>xs <span class="op">=</span> np.linspace(<span class="op">-</span><span class="fl">10.</span>,<span class="fl">10.</span>,<span class="dv">1000</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xs, f(xs))<span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'x'</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'f'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -501,30 +497,33 @@ window.Quarto = {
 <p>But even more interesting:</p>
 <p><span class="math display">\[P_{T}(x) = P(x)^{1/T}\]</span></p>
 <p>and so you get a peakier and peakier distribution as <span class="math inline">\(T \to 0\)</span> around the global minimum (the globality and the exponentiation ensures that this peak is favored over the rest in the dfunction <span class="math inline">\(f\)</span>). You can see this in the diagram below. As <span class="math inline">\(T \to 0\)</span>, we get towards a delta function at the optimum and get a global minimum instead of a distribution.</p>
-<div id="cell-7" class="cell" data-execution_count="5" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> functools</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>distx <span class="op">=</span> <span class="kw">lambda</span> g, x: np.e<span class="op">**</span>(<span class="op">-</span>g(x))</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>dxf <span class="op">=</span> functools.partial(distx, f)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>outx <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">10</span>, <span class="dv">10</span>,<span class="dv">1000</span>)</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.integrate <span class="im">as</span> integrate</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>O<span class="op">=</span><span class="dv">20</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>plt.plot(outx, dxf(outx)<span class="op">/</span>integrate.quad(dxf,<span class="op">-</span>O, O)[<span class="dv">0</span>])<span class="op">;</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>A<span class="op">=</span>integrate.quad(<span class="kw">lambda</span> x: dxf(x)<span class="op">**</span><span class="fl">1.2</span>,<span class="op">-</span>O, O)[<span class="dv">0</span>]</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>plt.plot(outx, (dxf(outx)<span class="op">**</span><span class="fl">1.2</span>)<span class="op">/</span>A)<span class="op">;</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>B<span class="op">=</span>integrate.quad(<span class="kw">lambda</span> x: dxf(x)<span class="op">**</span><span class="fl">2.4</span>,<span class="op">-</span>O, O)[<span class="dv">0</span>]</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>plt.plot(outx, (dxf(outx)<span class="op">**</span><span class="fl">2.4</span>)<span class="op">/</span>B)<span class="op">;</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>C<span class="op">=</span>integrate.quad(<span class="kw">lambda</span> x: dxf(x)<span class="op">**</span><span class="dv">10</span>,<span class="op">-</span>O, O)[<span class="dv">0</span>]</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>plt.plot(outx, (dxf(outx)<span class="op">**</span><span class="dv">10</span>)<span class="op">/</span>C)<span class="op">;</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>plt.xlim([<span class="op">-</span><span class="dv">5</span>,<span class="dv">5</span>])</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'x'</span>)</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'p(x)'</span>)</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"distribution corresponding to function f"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="d73b737d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:30.077626Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:30.077519Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:30.130220Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:30.129841Z&quot;}}" data-execution_count="4" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> functools</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>distx <span class="op">=</span> <span class="kw">lambda</span> g, x: np.e<span class="op">**</span>(<span class="op">-</span>g(x))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>dxf <span class="op">=</span> functools.partial(distx, f)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>outx <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">10</span>, <span class="dv">10</span>,<span class="dv">1000</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy.integrate <span class="im">as</span> integrate</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>O<span class="op">=</span><span class="dv">20</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>plt.plot(outx, dxf(outx)<span class="op">/</span>integrate.quad(dxf,<span class="op">-</span>O, O)[<span class="dv">0</span>])<span class="op">;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>A<span class="op">=</span>integrate.quad(<span class="kw">lambda</span> x: dxf(x)<span class="op">**</span><span class="fl">1.2</span>,<span class="op">-</span>O, O)[<span class="dv">0</span>]</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>plt.plot(outx, (dxf(outx)<span class="op">**</span><span class="fl">1.2</span>)<span class="op">/</span>A)<span class="op">;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>B<span class="op">=</span>integrate.quad(<span class="kw">lambda</span> x: dxf(x)<span class="op">**</span><span class="fl">2.4</span>,<span class="op">-</span>O, O)[<span class="dv">0</span>]</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>plt.plot(outx, (dxf(outx)<span class="op">**</span><span class="fl">2.4</span>)<span class="op">/</span>B)<span class="op">;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>C<span class="op">=</span>integrate.quad(<span class="kw">lambda</span> x: dxf(x)<span class="op">**</span><span class="dv">10</span>,<span class="op">-</span>O, O)[<span class="dv">0</span>]</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>plt.plot(outx, (dxf(outx)<span class="op">**</span><span class="dv">10</span>)<span class="op">/</span>C)<span class="op">;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>plt.xlim([<span class="op">-</span><span class="dv">5</span>,<span class="dv">5</span>])</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'x'</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'p(x)'</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"distribution corresponding to function f"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>Text(0.5, 1.0, 'distribution corresponding to function f')</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-5-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -541,7 +540,7 @@ window.Quarto = {
 <li>If the probability increased (energy decreased) we accept. If probability decreased (energy increased) we accept some of the time, based on the ratio of the new probability to the old one.</li>
 <li>We accumulate our samples, as we are now trying to sample a distribution rather than find its “global maximum”.</li>
 </ol>
-<div id="cell-9" class="cell" data-execution_count="88" data-cell-type="code">
+<div id="35d000cb" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:30.131372Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:30.131287Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:30.133588Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:30.133216Z&quot;}}" data-execution_count="5" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> metropolis(p, qdraw, nsamp, xinit):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    samples<span class="op">=</span>np.empty(nsamp)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    x_prev <span class="op">=</span> xinit</span>
@@ -561,7 +560,7 @@ window.Quarto = {
 </section>
 <section id="example-sampling-a-gaussian" class="level2">
 <h2 class="anchored" data-anchor-id="example-sampling-a-gaussian">Example: Sampling a Gaussian</h2>
-<div id="cell-11" class="cell" data-execution_count="101" data-cell-type="code">
+<div id="16e0fe04" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:30.134703Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:30.134633Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:30.175174Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:30.174710Z&quot;}}" data-execution_count="6" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>xxx<span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">1000</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xxx, norm.pdf(xxx), <span class="st">'r'</span>)<span class="op">;</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -572,7 +571,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-12" class="cell" data-execution_count="102" data-cell-type="code">
+<div id="9baab6f2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:30.176300Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:30.176220Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:30.178605Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:30.178245Z&quot;}}" data-execution_count="7" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> uniform</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> propmaker(delta):</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    rv <span class="op">=</span> uniform(<span class="op">-</span>delta, <span class="dv">2</span><span class="op">*</span>delta)</span>
@@ -581,18 +580,18 @@ window.Quarto = {
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> uniprop(xprev):</span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> xprev<span class="op">+</span>uni.rvs()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="103" data-cell-type="code">
+<div id="c048b596" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:30.179614Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:30.179544Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:30.181879Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:30.181469Z&quot;}}" data-execution_count="8" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>norm.pdf(<span class="fl">0.1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="103">
-<pre><code>0.39695254747701181</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>np.float64(0.3969525474770118)</code></pre>
 </div>
 </div>
-<div id="cell-14" class="cell" data-execution_count="105" data-cell-type="code">
+<div id="34b4bc9f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:30.182976Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:30.182888Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:35.505796Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:35.505324Z&quot;}}" data-execution_count="9" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>samps <span class="op">=</span> metropolis(norm.pdf, uniprop, <span class="dv">100000</span>, <span class="fl">0.0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-15" class="cell" data-execution_count="106" data-cell-type="code">
+<div id="53523788" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:35.507012Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:35.506909Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:35.575906Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:35.575538Z&quot;}}" data-execution_count="10" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot our sample histogram</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>plt.hist(samps,bins<span class="op">=</span><span class="dv">80</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">u'MCMC distribution'</span>, normed<span class="op">=</span><span class="va">True</span>) </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>plt.hist(samps,bins<span class="op">=</span><span class="dv">80</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">u'MCMC distribution'</span>, density<span class="op">=</span><span class="va">True</span>) </span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#plot the true function</span></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>xx<span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">100</span>)</span>
@@ -642,10 +641,10 @@ window.Quarto = {
 </section>
 <section id="another-example" class="level2">
 <h2 class="anchored" data-anchor-id="another-example">Another example</h2>
-<div id="cell-18" class="cell" data-execution_count="107" data-cell-type="code">
+<div id="7a160c79" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:35.577033Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:35.576956Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:35.578741Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:35.578305Z&quot;}}" data-execution_count="11" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: <span class="dv">6</span><span class="op">*</span>x<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-19" class="cell" data-execution_count="108" data-cell-type="code">
+<div id="c5ad056b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:35.579636Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:35.579566Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:35.615545Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:35.615185Z&quot;}}" data-execution_count="12" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>xxx<span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">100</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xxx, f(xxx), <span class="st">'r'</span>) </span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.axvline(<span class="dv">0</span>, <span class="dv">0</span>,<span class="dv">1</span>, color<span class="op">=</span><span class="st">"gray"</span>)</span>
@@ -661,23 +660,23 @@ window.Quarto = {
 </div>
 <p>We wish to consider the support [0,1]. We could truncate our “distribution” beyond these. But it does not matter, even though we use a normal proposal whichcan propose negative and gretar-than-one <span class="math inline">\(x\)</span> values.</p>
 <p>What happens if the proposal proposes a number outside of [0,1]? Notice then that our pdf is negative(ie it is not a pdf. (we could have defined it as 0 as well). Then in the metropolis acceptance formula, we are trying to check if a uniform is less than a negative or 0 number and we will not accept. This does however mean that we will need a longer set of samples than otherwise…</p>
-<div id="cell-21" class="cell" data-execution_count="109" data-cell-type="code">
+<div id="7bf3e40d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:35.616596Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:35.616525Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:35.618273Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:35.617874Z&quot;}}" data-execution_count="13" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prop(x):</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.random.normal(x, <span class="fl">0.6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-22" class="cell" data-execution_count="110" data-cell-type="code">
+<div id="f8335f6f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:35.619163Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:35.619101Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:35.620993Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:35.620649Z&quot;}}" data-execution_count="14" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>prop(<span class="fl">0.1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="110">
-<pre><code>-0.38115925548141294</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>1.3495344832547524</code></pre>
 </div>
 </div>
-<div id="cell-23" class="cell" data-execution_count="112" data-cell-type="code">
+<div id="c3057a2d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:35.621954Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:35.621892Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:37.231489Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:37.231039Z&quot;}}" data-execution_count="15" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>x0<span class="op">=</span>np.random.uniform()</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>samps <span class="op">=</span> metropolis(f, prop, <span class="dv">1000000</span>, x0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="124" data-cell-type="code">
+<div id="66e1fb70" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:37.232796Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:37.232718Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:37.313793Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:37.313350Z&quot;}}" data-execution_count="16" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot our sample histogram</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>plt.hist(samps,bins<span class="op">=</span><span class="dv">100</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">u'MCMC distribution'</span>, normed<span class="op">=</span><span class="va">True</span>) </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>plt.hist(samps,bins<span class="op">=</span><span class="dv">100</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">u'MCMC distribution'</span>, density<span class="op">=</span><span class="va">True</span>) </span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>somesamps<span class="op">=</span>samps[<span class="dv">0</span>::<span class="dv">100000</span>]</span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i,s <span class="kw">in</span> <span class="bu">enumerate</span>(somesamps):</span>
 <span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    xs<span class="op">=</span>np.linspace(s<span class="op">-</span><span class="dv">1</span>, s<span class="op">+</span><span class="dv">1</span>, <span class="dv">100</span>)</span>
@@ -697,7 +696,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>starting point was  0.16855486023328337</code></pre>
+<pre><code>starting point was  0.9869675222634532</code></pre>
 </div>
 </div>
 <p>What happens if we just reject samples from the normal proposal outside the range we are interested in? This seems like a legitimate thing to do: we are mixing rejection sampling with our Metropolis. However, you may realize that such a proposal has the problem of asymmetry: by rejecting in one direction we destroythe symmetry needed for “detailed balance” or equilibrium to hold.</p>

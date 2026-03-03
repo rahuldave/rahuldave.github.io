@@ -151,14 +151,14 @@ window.Quarto = {
 <meta property="og:description" content="Extends the basic Metropolis algorithm to handle asymmetric proposal distributions and limited support domains. Demonstrates MH with a Weibull-like distribution using a Gamma proposal, then applies both Metropolis and MH to discrete state sampling.">
 <meta property="og:image" content="https://rahuldave.github.io/posts/metropolishastings/index_files/figure-html/cell-7-output-1.png">
 <meta property="og:site_name" content="rahuldave">
-<meta property="og:image:height" content="274">
-<meta property="og:image:width" content="392">
+<meta property="og:image:height" content="411">
+<meta property="og:image:width" content="544">
 <meta name="twitter:title" content="The Metropolis-Hastings Algorithm – rahuldave">
 <meta name="twitter:description" content="Extends the basic Metropolis algorithm to handle asymmetric proposal distributions and limited support domains. Demonstrates MH with a Weibull-like distribution using a Gamma proposal, then applies both Metropolis and MH to discrete state sampling.">
 <meta name="twitter:image" content="https://rahuldave.github.io/posts/metropolishastings/index_files/figure-html/cell-7-output-1.png">
 <meta name="twitter:creator" content="@rahuldave">
-<meta name="twitter:image-height" content="274">
-<meta name="twitter:image-width" content="392">
+<meta name="twitter:image-height" content="411">
+<meta name="twitter:image-width" content="544">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -456,7 +456,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-2" class="cell" data-hide="true" data-execution_count="7" data-cell-type="code">
+<div id="eefc23e9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:38.609649Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:38.609314Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:39.298016Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:39.297482Z&quot;}}" data-hide="true" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
@@ -474,7 +474,7 @@ window.Quarto = {
 <p>However, we may also want to sample from a asymmetric proposal like a beta function because its guaranteed to be positive. However a beta distribution is not symmetric.</p>
 <p>Thus Metropolis Hastings allows us to sample distributions that are defined on limited support.</p>
 <p>Here is the outline code for metropolis hastings.</p>
-<div id="cell-4" class="cell" data-execution_count="102" data-cell-type="code">
+<div id="971c46f6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:39.299221Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:39.299118Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:39.301630Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:39.301259Z&quot;}}" data-execution_count="3" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> metropolis_hastings(p,q, qdraw, nsamp, xinit):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    samples<span class="op">=</span>np.empty(nsamp)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    x_prev <span class="op">=</span> xinit</span>
@@ -495,7 +495,7 @@ window.Quarto = {
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> samples, accepted</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Compare it with the code for metropolis</p>
-<div id="cell-6" class="cell" data-execution_count="153" data-cell-type="code">
+<div id="4bd0d210" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:39.302753Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:39.302672Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:39.306813Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:39.305312Z&quot;}}" data-execution_count="4" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> metropolis(p, qdraw, nsamp, xinit):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    samples<span class="op">=</span>np.empty(nsamp)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    x_prev <span class="op">=</span> xinit</span>
@@ -539,10 +539,10 @@ window.Quarto = {
 <section id="mh-example" class="level2">
 <h2 class="anchored" data-anchor-id="mh-example">MH example</h2>
 <p>Let us sample from <span class="math inline">\(f(x)=0.554xe^{-(x/1.9)^2}\)</span> which is a weibull distribution used in response time analysis.</p>
-<div id="cell-13" class="cell" data-execution_count="104" data-cell-type="code">
+<div id="432e583f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:39.308544Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:39.308425Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:39.310392Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:39.309959Z&quot;}}" data-execution_count="5" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: <span class="fl">0.554</span><span class="op">*</span>x<span class="op">*</span>np.exp(<span class="op">-</span>(x<span class="op">/</span><span class="fl">1.9</span>)<span class="op">**</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-14" class="cell" data-execution_count="106" data-cell-type="code">
+<div id="c632a01e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:39.311426Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:39.311350Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:39.359173Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:39.358540Z&quot;}}" data-execution_count="6" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>xxx<span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">10</span>,<span class="dv">100</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xxx, f(xxx), <span class="st">'r'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -555,7 +555,7 @@ window.Quarto = {
 </div>
 <p>A rule of thumb for choosing proposal distributions is to parametrize them in terms of their mean and variance or precision since that provides a notion of “centeredness” which we can use for our proposals <span class="math inline">\(x_{i-1}\)</span>. We then fix the variance to understand how widely we are sampling from.</p>
 <p>As a proposal we shall use a Gamma Distribution with parametrization <span class="math display">\[Gamma(x\tau, 1/\tau)\]</span> in the shape-scale parametrization. The mean of this Gamma then is <span class="math inline">\(shape*scale\)</span> so that x is the mean. <span class="math inline">\(\tau\)</span> is a precision parameter</p>
-<div id="cell-16" class="cell" data-execution_count="107" data-cell-type="code">
+<div id="47b484e5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:39.360211Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:39.360107Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:39.362081Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:39.361710Z&quot;}}" data-execution_count="7" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> gamma</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>t<span class="op">=</span><span class="dv">10</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gammapdf(x_new, x_old):</span>
@@ -564,19 +564,19 @@ window.Quarto = {
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> gamma.rvs(x_old<span class="op">*</span>t,scale<span class="op">=</span><span class="dv">1</span><span class="op">/</span>t)</span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-17" class="cell" data-execution_count="108" data-cell-type="code">
+<div id="77dcc9be" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:39.363076Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:39.363001Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:45.066427Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:45.065883Z&quot;}}" data-execution_count="8" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>x0<span class="op">=</span>np.random.uniform()</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>samps,acc <span class="op">=</span> metropolis_hastings(f, gammapdf, gammadraw, <span class="dv">100000</span>, x0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-18" class="cell" data-execution_count="109" data-cell-type="code">
+<div id="a630b728" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:45.067603Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:45.067524Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:45.069632Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:45.069289Z&quot;}}" data-execution_count="9" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>acc</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="109">
-<pre><code>83244</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>83118</code></pre>
 </div>
 </div>
-<div id="cell-19" class="cell" data-execution_count="110" data-cell-type="code">
+<div id="7f394d0d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:45.070693Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:45.070610Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:45.139023Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:45.138610Z&quot;}}" data-execution_count="10" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot our sample histogram</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>plt.hist(samps,bins<span class="op">=</span><span class="dv">100</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">u'MCMC distribution'</span>, normed<span class="op">=</span><span class="va">True</span>) </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>plt.hist(samps,bins<span class="op">=</span><span class="dv">100</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">u'MCMC distribution'</span>, density<span class="op">=</span><span class="va">True</span>) </span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>somesamps<span class="op">=</span>samps[<span class="dv">0</span>::<span class="dv">20000</span>]</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i,s <span class="kw">in</span> <span class="bu">enumerate</span>(somesamps):</span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    xs<span class="op">=</span>np.linspace(s<span class="op">-</span><span class="dv">3</span>, s<span class="op">+</span><span class="dv">3</span>, <span class="dv">100</span>)</span>
@@ -595,11 +595,11 @@ window.Quarto = {
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>starting point was  0.9847232294704866</code></pre>
+<pre><code>starting point was  0.8183160195576589</code></pre>
 </div>
 </div>
 <p>Remember how we said that it takes some time for the Markov chain to reach a stationary state? We should remove the samples until that point. We can see the progress of the samples using a trace-plot</p>
-<div id="cell-21" class="cell" data-execution_count="191" data-cell-type="code">
+<div id="5c74b529" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:45.140081Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:45.139999Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:45.292418Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:45.291890Z&quot;}}" data-execution_count="11" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plt.plot(samps, alpha<span class="op">=</span><span class="fl">0.3</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -609,7 +609,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-22" class="cell" data-execution_count="188" data-cell-type="code">
+<div id="5c1a95f0" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:45.293440Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:45.293365Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:45.340294Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:45.339852Z&quot;}}" data-execution_count="12" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plt.plot(samps, alpha<span class="op">=</span><span class="fl">0.3</span>)<span class="op">;</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>plt.xlim([<span class="dv">0</span>, <span class="dv">5000</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -621,7 +621,7 @@ window.Quarto = {
 </div>
 </div>
 <p>The first many samples will contain signs of the initial condition, and will also reflect the fact that you have not found the stationary distribution as yet. We will see tests later for this, but as a rule of thumb, you always want to eliminate the first 5-10% of your samples. The appearance of <strong>white noise</strong> is a good sign.</p>
-<div id="cell-24" class="cell" data-execution_count="190" data-cell-type="code">
+<div id="70210b0c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:45.341435Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:45.341362Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:45.389116Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:45.388696Z&quot;}}" data-execution_count="13" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plt.plot(samps, alpha<span class="op">=</span><span class="fl">0.3</span>)<span class="op">;</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plt.xlim([<span class="dv">20000</span>, <span class="dv">25000</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -634,7 +634,7 @@ window.Quarto = {
 </div>
 <p>Notice that strong autocorrelations persist at high sample number too. This is the nature of metropolis and MH samplers..your next move is clearly highly correlated with the previous one.</p>
 <p>This is not a disaster in itself, but many people will thin their samples to have samples uncorrelated. Here I am leaving out a burnin of 20000, and am thinning to every 10.</p>
-<div id="cell-26" class="cell" data-execution_count="184" data-cell-type="code">
+<div id="c306b145" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:45.390172Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:45.390093Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:45.474310Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:45.473917Z&quot;}}" data-execution_count="14" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>plt.plot(samps[<span class="dv">20000</span>::<span class="dv">10</span>], alpha<span class="op">=</span><span class="fl">0.3</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -645,7 +645,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Here is the last 8000 samples for comparison where you can clearly see correlations. We shall talk more about these considerations later.</p>
-<div id="cell-28" class="cell" data-execution_count="185" data-cell-type="code">
+<div id="69de6fca" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:45.475394Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:45.475322Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:45.527603Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:45.527234Z&quot;}}" data-execution_count="15" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>plt.plot(samps[<span class="op">-</span><span class="dv">8000</span>:], alpha<span class="op">=</span><span class="fl">0.3</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -658,19 +658,19 @@ window.Quarto = {
 <section id="the-same-function-with-metropolis" class="level3">
 <h3 class="anchored" data-anchor-id="the-same-function-with-metropolis">The same function with Metropolis</h3>
 <p>We could do the same thing with a normal, and using metropolis</p>
-<div id="cell-31" class="cell" data-execution_count="116" data-cell-type="code">
+<div id="df65e103" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:45.528728Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:45.528650Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:45.729281Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:45.728848Z&quot;}}" data-execution_count="16" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> prop(x):</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.random.normal(x, <span class="fl">0.6</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>samps_m, acc_m <span class="op">=</span> metropolis(f, prop, <span class="dv">100000</span>, x0)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-32" class="cell" data-execution_count="117" data-cell-type="code">
+<div id="624f7cca" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:45.730406Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:45.730332Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:45.732341Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:45.732001Z&quot;}}" data-execution_count="17" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>acc_m</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="117">
-<pre><code>79092</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>79003</code></pre>
 </div>
 </div>
-<div id="cell-33" class="cell" data-execution_count="118" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>plt.hist(samps_m,bins<span class="op">=</span><span class="dv">100</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">u'MCMC distribution'</span>, normed<span class="op">=</span><span class="va">True</span>) </span>
+<div id="5e5ba8a8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:45.733277Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:45.733211Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:45.802792Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:45.802391Z&quot;}}" data-execution_count="18" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>plt.hist(samps_m,bins<span class="op">=</span><span class="dv">100</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">u'MCMC distribution'</span>, density<span class="op">=</span><span class="va">True</span>) </span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>somesamps<span class="op">=</span>samps_m[<span class="dv">0</span>::<span class="dv">20000</span>]</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i,s <span class="kw">in</span> <span class="bu">enumerate</span>(somesamps):</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    xs<span class="op">=</span>np.linspace(s<span class="op">-</span><span class="dv">3</span>, s<span class="op">+</span><span class="dv">3</span>, <span class="dv">100</span>)</span>
@@ -689,7 +689,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>starting point was  0.9847232294704866</code></pre>
+<pre><code>starting point was  0.8183160195576589</code></pre>
 </div>
 </div>
 <p>I havent tuned either to get up the acceptance rates. It is a game you ought to play. A good proposal should have the acceptance rate neither too high nor too low. The former means the proposal is likely too narrow, while the latter means the proposal is likely too wide.</p>
@@ -699,7 +699,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="rainy-sunny-reprise">Rainy Sunny Reprise</h2>
 <p>To show how we can use Metropolis Hastings to sample a discrete distribution, let us go back to our rainy sunny example from Markov Chains.</p>
 <p>There, given a transition matrix, we found a corresponding stationary distribution for it. Here we weant to fix the stationary distribution, and somehow let metropolis-hastings find the appropriate transition matrix to get us there.</p>
-<div id="cell-36" class="cell" data-execution_count="123" data-cell-type="code">
+<div id="7be7730c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:45.803839Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:45.803765Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:45.805928Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:45.805594Z&quot;}}" data-execution_count="19" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the transition matrix for our chain</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>transition_matrix <span class="op">=</span> np.array([[<span class="fl">0.3</span>, <span class="fl">0.7</span>],[<span class="fl">0.5</span>, <span class="fl">0.5</span>]])</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -710,15 +710,15 @@ window.Quarto = {
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.linalg.matrix_power(transition_matrix,<span class="dv">10</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>The transition matrix
-[[ 0.3  0.7]
- [ 0.5  0.5]]
+[[0.3 0.7]
+ [0.5 0.5]]
 Stationary distribution
-[[ 0.41666673  0.58333327]
- [ 0.41666662  0.58333338]]</code></pre>
+[[0.41666673 0.58333327]
+ [0.41666662 0.58333338]]</code></pre>
 </div>
 </div>
 <p>To sample from this, we need our final stationary pdf, which is a Bernoulli with p=0.416667. This is thus a kind of fake problem because knowing the pdf for a bernoulli, we can sample from it directly by using a uniform. But thats not our point here..</p>
-<div id="cell-38" class="cell" data-execution_count="146" data-cell-type="code">
+<div id="7150e62d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:45.806904Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:45.806839Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:45.808568Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:45.808259Z&quot;}}" data-execution_count="20" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rainsunpmf(state_int):</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> <span class="fl">0.416667</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> state_int<span class="op">==</span><span class="dv">0</span>:</span>
@@ -728,21 +728,21 @@ Stationary distribution
 </div>
 <p>Now, any move that transitions us from state 0 to state 1 and back would work. In particular, we could use a symmetric transition matrix and then use plain metropolis.</p>
 <p>You might find it strange that we are calling the proposal a transition matrix. This is strictly an abuse of terminology. We just need anything that will get us a set of probablities that sum to 1 and is symettric!</p>
-<div id="cell-40" class="cell" data-execution_count="147" data-cell-type="code">
+<div id="3f28561a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:45.809535Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:45.809471Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:45.811239Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:45.810792Z&quot;}}" data-execution_count="21" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>t_sym <span class="op">=</span> np.array([[<span class="fl">0.1</span>, <span class="fl">0.9</span>],[<span class="fl">0.9</span>, <span class="fl">0.1</span>]])</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rainsunprop(sint_old):</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.random.choice(<span class="dv">2</span>,p<span class="op">=</span>t_sym[sint_old])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-41" class="cell" data-execution_count="154" data-cell-type="code">
+<div id="a1a0bb47" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:45.812157Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:45.812093Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:45.823508Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:45.823185Z&quot;}}" data-execution_count="22" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>samps_dis, acc_dis <span class="op">=</span> metropolis(rainsunpmf, rainsunprop, <span class="dv">1000</span>, <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-42" class="cell" data-execution_count="155" data-cell-type="code">
+<div id="5742bf32" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:45.824459Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:45.824392Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:45.826183Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:45.825840Z&quot;}}" data-execution_count="23" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>acc_dis</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="155">
-<pre><code>848</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<pre><code>886</code></pre>
 </div>
 </div>
-<div id="cell-43" class="cell" data-execution_count="157" data-cell-type="code">
+<div id="11d2f398" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:45.827089Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:45.827019Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:45.858947Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:45.858581Z&quot;}}" data-execution_count="24" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>plt.hist(samps_dis)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -753,38 +753,38 @@ Stationary distribution
 </div>
 </div>
 <p>If I wish to use metropolis hastings I can choose an asymmetric proposal and I must provide a proposal pdf.</p>
-<div id="cell-45" class="cell" data-execution_count="158" data-cell-type="code">
+<div id="3b93ea5b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:45.860350Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:45.860247Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:45.862222Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:45.861866Z&quot;}}" data-execution_count="25" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>t_asym <span class="op">=</span> np.array([[<span class="fl">0.1</span>, <span class="fl">0.9</span>],[<span class="fl">0.3</span>, <span class="fl">0.7</span>]])</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rainsunprop2(sint_old):</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.random.choice(<span class="dv">2</span>,p<span class="op">=</span>t_asym[sint_old])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-46" class="cell" data-execution_count="192" data-cell-type="code">
+<div id="9a3a6f1a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:45.863212Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:45.863143Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:45.865203Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:45.864854Z&quot;}}" data-execution_count="26" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>t_asym</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="192">
-<pre><code>array([[ 0.1,  0.9],
-       [ 0.3,  0.7]])</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<pre><code>array([[0.1, 0.9],
+       [0.3, 0.7]])</code></pre>
 </div>
 </div>
-<div id="cell-47" class="cell" data-execution_count="160" data-cell-type="code">
+<div id="d48a4b67" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:45.866217Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:45.866155Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:45.868070Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:45.867761Z&quot;}}" data-execution_count="27" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>t_asym[<span class="dv">0</span>][<span class="dv">1</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="160">
-<pre><code>0.90000000000000002</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<pre><code>np.float64(0.9)</code></pre>
 </div>
 </div>
-<div id="cell-48" class="cell" data-execution_count="161" data-cell-type="code">
+<div id="1f81286f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:45.869155Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:45.869090Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:45.870702Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:45.870291Z&quot;}}" data-execution_count="28" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rainsunpropfunc(sint_new, sint_old):</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> t_asym[sint_old][sint_new]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-49" class="cell" data-execution_count="162" data-cell-type="code">
+<div id="a78baaa6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:45.871653Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:45.871585Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:45.881671Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:45.881311Z&quot;}}" data-execution_count="29" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>samps_dis2, acc_dis2 <span class="op">=</span> metropolis_hastings(rainsunpmf, rainsunpropfunc, rainsunprop2, <span class="dv">1000</span>, <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-50" class="cell" data-execution_count="163" data-cell-type="code">
+<div id="886f196f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:45.882670Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:45.882604Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:45.884324Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:45.883995Z&quot;}}" data-execution_count="30" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>acc_dis2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="163">
-<pre><code>797</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="30">
+<pre><code>820</code></pre>
 </div>
 </div>
-<div id="cell-51" class="cell" data-execution_count="164" data-cell-type="code">
+<div id="a0636ecc" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:45.885313Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:45.885236Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:45.918066Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:45.917718Z&quot;}}" data-execution_count="31" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>plt.hist(samps_dis2)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>

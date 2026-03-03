@@ -122,14 +122,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta property="og:description" content="Explores how sigmoid activation functions combine in MLPs to create increasingly complex function approximations. Trains neural networks with varying architectures — different numbers of hidden layers and widths — visualizing how hidden layer representations enable the network to learn underlying functions.">
 <meta property="og:image" content="https://rahuldave.github.io/posts/nnreg/index_files/figure-html/cell-4-output-1.png">
 <meta property="og:site_name" content="rahuldave">
-<meta property="og:image:height" content="252">
-<meta property="og:image:width" content="384">
+<meta property="og:image:height" content="413">
+<meta property="og:image:width" content="559">
 <meta name="twitter:title" content="How Sigmoids Combine – rahuldave">
 <meta name="twitter:description" content="Explores how sigmoid activation functions combine in MLPs to create increasingly complex function approximations. Trains neural networks with varying architectures — different numbers of hidden layers and widths — visualizing how hidden layer representations enable the network to learn underlying functions.">
 <meta name="twitter:image" content="https://rahuldave.github.io/posts/nnreg/index_files/figure-html/cell-4-output-1.png">
 <meta name="twitter:creator" content="@rahuldave">
-<meta name="twitter:image-height" content="252">
-<meta name="twitter:image-width" content="384">
+<meta name="twitter:image-height" content="413">
+<meta name="twitter:image-width" content="559">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -427,7 +427,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div id="cell-2" class="cell" data-execution_count="1" data-cell-type="code">
+<div id="495dda27" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:36:37.070871Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:36:37.070766Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:36:42.392481Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:36:42.391977Z&quot;}}" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.nn <span class="im">import</span> functional <span class="im">as</span> fn</span>
@@ -453,7 +453,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        out_final <span class="op">=</span> <span class="va">self</span>.fc_final(x)</span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> out_final, x, out_init</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-3" class="cell" data-execution_count="2" data-cell-type="code">
+<div id="16b177d9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:36:42.393785Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:36:42.393672Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:36:46.346072Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:36:46.345627Z&quot;}}" data-execution_count="3" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -470,13 +470,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-4" class="cell" data-execution_count="14" data-cell-type="code">
+<div id="8f68ae2c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:36:46.347566Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:36:46.347411Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:36:46.350305Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:36:46.349833Z&quot;}}" data-execution_count="4" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>xgrid.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
+<div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>(629,)</code></pre>
 </div>
 </div>
-<div id="cell-5" class="cell" data-execution_count="3" data-cell-type="code">
+<div id="08ed398b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:36:46.351461Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:36:46.351358Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:37:03.553167Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:37:03.552509Z&quot;}}" data-execution_count="5" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>est <span class="op">=</span> LinearRegression().fit(x.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>), y)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)<span class="op">;</span></span>
@@ -489,22 +489,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-6" class="cell" data-execution_count="4" data-cell-type="code">
+<div id="e8015cf1" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:37:03.556719Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:37:03.556498Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:37:03.559761Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:37:03.559221Z&quot;}}" data-execution_count="6" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>xdata <span class="op">=</span> Variable(torch.Tensor(xgrid))</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ydata <span class="op">=</span> Variable(torch.Tensor(ygrid))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-7" class="cell" data-execution_count="67" data-cell-type="code">
+<div id="0ec97773" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:37:03.560807Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:37:03.560726Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:37:03.563090Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:37:03.562639Z&quot;}}" data-execution_count="7" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.utils.data</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> torch.utils.data.TensorDataset(torch.from_numpy(xgrid.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)), torch.from_numpy(ygrid))</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>loader <span class="op">=</span> torch.utils.data.DataLoader(dataset, batch_size<span class="op">=</span><span class="dv">64</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="68" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dataset.data_tensor.shape, dataset.target_tensor.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="68">
+<div id="d0be283e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:37:03.564136Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:37:03.564052Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:37:03.566299Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:37:03.565907Z&quot;}}" data-execution_count="8" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dataset.tensors[<span class="dv">0</span>].shape, dataset.tensors[<span class="dv">1</span>].shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>(torch.Size([629, 1]), torch.Size([629]))</code></pre>
 </div>
 </div>
-<div id="cell-9" class="cell" data-execution_count="64" data-cell-type="code">
+<div id="30ac717a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:37:03.567425Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:37:03.567350Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:37:03.569824Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:37:03.569390Z&quot;}}" data-execution_count="9" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> run_model(model, epochs):</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    criterion <span class="op">=</span> nn.MSELoss()</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    lr, epochs, batch_size <span class="op">=</span> <span class="fl">1e-1</span> , epochs , <span class="dv">64</span></span>
@@ -520,32 +520,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>            model.zero_grad()</span>
 <span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>            loss.backward()</span>
 <span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>            optimizer.step()</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>            localaccum.append(loss.data[<span class="dv">0</span>])</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>            localaccum.append(loss.item())</span>
 <span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>        accum.append((np.mean(localaccum), np.std(localaccum)))</span>
 <span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> accum</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="input-dim-1-2-hidden-layers-width-2-linear-output" class="level3">
 <h3 class="anchored" data-anchor-id="input-dim-1-2-hidden-layers-width-2-linear-output">input dim 1, 2 hidden layers width 2, linear output</h3>
-<div id="cell-11" class="cell" data-execution_count="92" data-cell-type="code">
+<div id="e0be62c9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:37:03.570769Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:37:03.570694Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:37:03.573078Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:37:03.572609Z&quot;}}" data-execution_count="10" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">2</span>, nonlinearity<span class="op">=</span>fn.sigmoid, additional_hidden_wide<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-12" class="cell" data-execution_count="93" data-cell-type="code">
+<div id="e52e1aae" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:37:03.574160Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:37:03.574061Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:37:03.576035Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:37:03.575673Z&quot;}}" data-execution_count="11" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>MLRegP(
-  (fc_initial): Linear(in_features=1, out_features=2)
+  (fc_initial): Linear(in_features=1, out_features=2, bias=True)
   (fc_mid): ModuleList(
-    (0): Linear(in_features=2, out_features=2)
+    (0): Linear(in_features=2, out_features=2, bias=True)
   )
-  (fc_final): Linear(in_features=2, out_features=1)
+  (fc_final): Linear(in_features=2, out_features=1, bias=True)
 )</code></pre>
 </div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="94" data-cell-type="code">
+<div id="d58c1770" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:37:03.577112Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:37:03.577039Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:37:13.908458Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:37:13.907914Z&quot;}}" data-execution_count="12" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>accum <span class="op">=</span> run_model(model, <span class="dv">2000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/rahul/Library/Caches/uv/archive-v0/vqGY-5rti2C5JP-dmfDIu/lib/python3.14/site-packages/torch/nn/modules/loss.py:626: UserWarning: Using a target size (torch.Size([64])) that is different to the input size (torch.Size([64, 1])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.mse_loss(input, target, reduction=self.reduction)
+/Users/rahul/Library/Caches/uv/archive-v0/vqGY-5rti2C5JP-dmfDIu/lib/python3.14/site-packages/torch/nn/modules/loss.py:626: UserWarning: Using a target size (torch.Size([53])) that is different to the input size (torch.Size([53, 1])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.mse_loss(input, target, reduction=self.reduction)</code></pre>
 </div>
-<div id="cell-14" class="cell" data-execution_count="95" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="90193e8a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:37:13.909985Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:37:13.909771Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:37:13.965632Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:37:13.965214Z&quot;}}" data-execution_count="13" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -554,10 +560,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-15" class="cell" data-execution_count="96" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>]<span class="op">+</span>a[<span class="dv">1</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>]<span class="op">-</span>a[<span class="dv">1</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="dv">0</span>, <span class="dv">1000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="1f7f2cb7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:37:13.966893Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:37:13.966801Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:37:14.076924Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:37:14.076441Z&quot;}}" data-execution_count="14" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>]<span class="op">+</span>a[<span class="dv">1</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>]<span class="op">-</span>a[<span class="dv">1</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="dv">0</span>, <span class="dv">1000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -566,12 +572,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-16" class="cell" data-execution_count="97" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>finaloutput, init_output, mid_output <span class="op">=</span> model.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"r"</span>)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.xticks([])</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.yticks([])</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="32c09f99" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:37:14.078069Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:37:14.077969Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:37:14.114796Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:37:14.114401Z&quot;}}" data-execution_count="15" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>finaloutput, init_output, mid_output <span class="op">=</span> model.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"r"</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.xticks([])</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.yticks([])</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -580,17 +586,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-17" class="cell" data-execution_count="98" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>io <span class="op">=</span> mid_output.data.numpy()</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>io.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="98">
+<div id="b828292c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:37:14.115943Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:37:14.115854Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:37:14.118177Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:37:14.117754Z&quot;}}" data-execution_count="16" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>io <span class="op">=</span> mid_output.data.numpy()</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>io.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
 <pre><code>(629, 2)</code></pre>
 </div>
 </div>
-<div id="cell-18" class="cell" data-execution_count="99" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(io.shape[<span class="dv">1</span>]):</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    plt.plot(xgrid, io[:, j], lw<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="8ff655f9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:37:14.119252Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:37:14.119175Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:37:14.157261Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:37:14.156726Z&quot;}}" data-execution_count="17" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(io.shape[<span class="dv">1</span>]):</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    plt.plot(xgrid, io[:, j], lw<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -602,24 +608,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="input-dim-1-2-hidden-layers-width-4-linear-output" class="level3">
 <h3 class="anchored" data-anchor-id="input-dim-1-2-hidden-layers-width-4-linear-output">input dim 1, 2 hidden layers width 4, linear output</h3>
-<div id="cell-20" class="cell" data-execution_count="105" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>model2 <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">4</span>, nonlinearity<span class="op">=</span>fn.sigmoid, additional_hidden_wide<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>accum <span class="op">=</span> run_model(model2, <span class="dv">4000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="910be0e8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:37:14.158572Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:37:14.158448Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:37:28.251939Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:37:28.251505Z&quot;}}" data-execution_count="18" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>model2 <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">4</span>, nonlinearity<span class="op">=</span>fn.sigmoid, additional_hidden_wide<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>accum <span class="op">=</span> run_model(model2, <span class="dv">4000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-21" class="cell" data-execution_count="129" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="71727f96" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:37:28.253279Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:37:28.253193Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:37:28.255330Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:37:28.254850Z&quot;}}" data-execution_count="19" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>MLRegP(
-  (fc_initial): Linear(in_features=1, out_features=4)
+  (fc_initial): Linear(in_features=1, out_features=4, bias=True)
   (fc_mid): ModuleList(
-    (0): Linear(in_features=4, out_features=4)
+    (0): Linear(in_features=4, out_features=4, bias=True)
   )
-  (fc_final): Linear(in_features=4, out_features=1)
+  (fc_final): Linear(in_features=4, out_features=1, bias=True)
 )</code></pre>
 </div>
 </div>
-<div id="cell-22" class="cell" data-execution_count="106" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="045655c9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:37:28.256369Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:37:28.256290Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:37:28.316676Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:37:28.316286Z&quot;}}" data-execution_count="20" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -628,10 +634,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-23" class="cell" data-execution_count="107" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>finaloutput, init_output, mid_output <span class="op">=</span> model2.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"r"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c0ac8876" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:37:28.317871Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:37:28.317791Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:37:28.356166Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:37:28.355711Z&quot;}}" data-execution_count="21" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>finaloutput, init_output, mid_output <span class="op">=</span> model2.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"r"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -640,17 +646,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="108" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>io <span class="op">=</span> mid_output.data.numpy()</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>io.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="108">
+<div id="87646568" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:37:28.357331Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:37:28.357252Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:37:28.359474Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:37:28.359132Z&quot;}}" data-execution_count="22" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>io <span class="op">=</span> mid_output.data.numpy()</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>io.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
 <pre><code>(629, 4)</code></pre>
 </div>
 </div>
-<div id="cell-25" class="cell" data-execution_count="109" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(io.shape[<span class="dv">1</span>]):</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    plt.plot(xgrid, io[:, j], lw<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="29dbf6df" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:37:28.360529Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:37:28.360438Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:37:28.395269Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:37:28.394818Z&quot;}}" data-execution_count="23" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(io.shape[<span class="dv">1</span>]):</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    plt.plot(xgrid, io[:, j], lw<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -662,10 +668,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="input-dim-1-2-hidden-layers-width-8-linear-output" class="level3">
 <h3 class="anchored" data-anchor-id="input-dim-1-2-hidden-layers-width-8-linear-output">input dim 1, 2 hidden layers width 8, linear output</h3>
-<div id="cell-27" class="cell" data-execution_count="110" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>model3 <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">8</span>, nonlinearity<span class="op">=</span>fn.sigmoid, additional_hidden_wide<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>accum <span class="op">=</span> run_model(model3, <span class="dv">4000</span>)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="d6e1182a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:37:28.396535Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:37:28.396448Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:37:42.412962Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:37:42.412598Z&quot;}}" data-execution_count="24" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>model3 <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">8</span>, nonlinearity<span class="op">=</span>fn.sigmoid, additional_hidden_wide<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>accum <span class="op">=</span> run_model(model3, <span class="dv">4000</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -674,22 +680,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-28" class="cell" data-execution_count="128" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c1fe4f82" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:37:42.414364Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:37:42.414270Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:37:42.416103Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:37:42.415777Z&quot;}}" data-execution_count="25" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>MLRegP(
-  (fc_initial): Linear(in_features=1, out_features=8)
+  (fc_initial): Linear(in_features=1, out_features=8, bias=True)
   (fc_mid): ModuleList(
-    (0): Linear(in_features=8, out_features=8)
+    (0): Linear(in_features=8, out_features=8, bias=True)
   )
-  (fc_final): Linear(in_features=8, out_features=1)
+  (fc_final): Linear(in_features=8, out_features=1, bias=True)
 )</code></pre>
 </div>
 </div>
-<div id="cell-29" class="cell" data-execution_count="111" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>finaloutput, init_output, mid_output <span class="op">=</span> model3.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"r"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="f098b31c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:37:42.417194Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:37:42.417127Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:37:42.452685Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:37:42.452282Z&quot;}}" data-execution_count="26" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>finaloutput, init_output, mid_output <span class="op">=</span> model3.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"r"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -698,11 +704,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-30" class="cell" data-execution_count="112" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>io <span class="op">=</span> mid_output.data.numpy()</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(io.shape[<span class="dv">1</span>]):</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    plt.plot(xgrid, io[:, j], lw<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="612479bf" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:37:42.453790Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:37:42.453707Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:37:42.490651Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:37:42.490300Z&quot;}}" data-execution_count="27" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>io <span class="op">=</span> mid_output.data.numpy()</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(io.shape[<span class="dv">1</span>]):</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    plt.plot(xgrid, io[:, j], lw<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -714,10 +720,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="input-dim-1-3-hidden-layers-width-4-linear-output" class="level3">
 <h3 class="anchored" data-anchor-id="input-dim-1-3-hidden-layers-width-4-linear-output">input dim 1, 3 hidden layers width 4, linear output</h3>
-<div id="cell-32" class="cell" data-execution_count="114" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>model4 <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">4</span>, nonlinearity<span class="op">=</span>fn.sigmoid, additional_hidden_wide<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>accum <span class="op">=</span> run_model(model4, <span class="dv">4000</span>)</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="3049acec" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:37:42.491801Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:37:42.491717Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:37:57.620383Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:37:57.619935Z&quot;}}" data-execution_count="28" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>model4 <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">4</span>, nonlinearity<span class="op">=</span>fn.sigmoid, additional_hidden_wide<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>accum <span class="op">=</span> run_model(model4, <span class="dv">4000</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -726,23 +732,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-33" class="cell" data-execution_count="127" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model4)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="dfc837a9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:37:57.621808Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:37:57.621711Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:37:57.623619Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:37:57.623273Z&quot;}}" data-execution_count="29" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model4)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>MLRegP(
-  (fc_initial): Linear(in_features=1, out_features=4)
+  (fc_initial): Linear(in_features=1, out_features=4, bias=True)
   (fc_mid): ModuleList(
-    (0): Linear(in_features=4, out_features=4)
-    (1): Linear(in_features=4, out_features=4)
+    (0-1): 2 x Linear(in_features=4, out_features=4, bias=True)
   )
-  (fc_final): Linear(in_features=4, out_features=1)
+  (fc_final): Linear(in_features=4, out_features=1, bias=True)
 )</code></pre>
 </div>
 </div>
-<div id="cell-34" class="cell" data-execution_count="115" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>finaloutput, init_output, mid_output <span class="op">=</span> model4.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>)</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"r"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="ef3e7c8b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:37:57.624729Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:37:57.624653Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:37:57.659084Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:37:57.658685Z&quot;}}" data-execution_count="30" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>finaloutput, init_output, mid_output <span class="op">=</span> model4.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"r"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -754,10 +759,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="input-dim-1-3-hidden-layers-width-2-linear-output" class="level3">
 <h3 class="anchored" data-anchor-id="input-dim-1-3-hidden-layers-width-2-linear-output">input dim 1, 3 hidden layers width 2, linear output</h3>
-<div id="cell-36" class="cell" data-execution_count="117" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>model5 <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">2</span>, nonlinearity<span class="op">=</span>fn.sigmoid, additional_hidden_wide<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>accum <span class="op">=</span> run_model(model5, <span class="dv">4000</span>)</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="ffb1e401" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:37:57.660272Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:37:57.660185Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:12.758730Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:12.758305Z&quot;}}" data-execution_count="31" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>model5 <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">2</span>, nonlinearity<span class="op">=</span>fn.sigmoid, additional_hidden_wide<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>accum <span class="op">=</span> run_model(model5, <span class="dv">4000</span>)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -766,23 +771,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-37" class="cell" data-execution_count="130" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model5)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="58b3e239" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:12.759835Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:12.759758Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:12.761742Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:12.761300Z&quot;}}" data-execution_count="32" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model5)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>MLRegP(
-  (fc_initial): Linear(in_features=1, out_features=2)
+  (fc_initial): Linear(in_features=1, out_features=2, bias=True)
   (fc_mid): ModuleList(
-    (0): Linear(in_features=2, out_features=2)
-    (1): Linear(in_features=2, out_features=2)
+    (0-1): 2 x Linear(in_features=2, out_features=2, bias=True)
   )
-  (fc_final): Linear(in_features=2, out_features=1)
+  (fc_final): Linear(in_features=2, out_features=1, bias=True)
 )</code></pre>
 </div>
 </div>
-<div id="cell-38" class="cell" data-execution_count="118" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>finaloutput, init_output, mid_output <span class="op">=</span> model5.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>)</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"r"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="996a92fb" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:12.762726Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:12.762656Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:12.797296Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:12.796944Z&quot;}}" data-execution_count="33" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>finaloutput, init_output, mid_output <span class="op">=</span> model5.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"r"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -791,11 +795,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-39" class="cell" data-execution_count="119" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>io <span class="op">=</span> mid_output.data.numpy()</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(io.shape[<span class="dv">1</span>]):</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    plt.plot(xgrid, io[:, j], lw<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="a0d5f613" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:12.798427Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:12.798345Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:12.832329Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:12.831932Z&quot;}}" data-execution_count="34" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>io <span class="op">=</span> mid_output.data.numpy()</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(io.shape[<span class="dv">1</span>]):</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    plt.plot(xgrid, io[:, j], lw<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -807,10 +811,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="input-dim-1-1-hidden-layers-width-2-linear-output" class="level3">
 <h3 class="anchored" data-anchor-id="input-dim-1-1-hidden-layers-width-2-linear-output">input dim 1, 1 hidden layers width 2, linear output</h3>
-<div id="cell-41" class="cell" data-execution_count="120" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>model6 <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">2</span>, nonlinearity<span class="op">=</span>fn.sigmoid, additional_hidden_wide<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>accum <span class="op">=</span> run_model(model6, <span class="dv">4000</span>)</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="a15d3705" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:12.833571Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:12.833492Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:25.469488Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:25.469105Z&quot;}}" data-execution_count="35" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>model6 <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">2</span>, nonlinearity<span class="op">=</span>fn.sigmoid, additional_hidden_wide<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>accum <span class="op">=</span> run_model(model6, <span class="dv">4000</span>)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -819,21 +823,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-42" class="cell" data-execution_count="131" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model6)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="35d24c6d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:25.470721Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:25.470639Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:25.472723Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:25.472245Z&quot;}}" data-execution_count="36" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model6)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>MLRegP(
-  (fc_initial): Linear(in_features=1, out_features=2)
-  (fc_mid): ModuleList(
-  )
-  (fc_final): Linear(in_features=2, out_features=1)
+  (fc_initial): Linear(in_features=1, out_features=2, bias=True)
+  (fc_mid): ModuleList()
+  (fc_final): Linear(in_features=2, out_features=1, bias=True)
 )</code></pre>
 </div>
 </div>
-<div id="cell-43" class="cell" data-execution_count="121" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>finaloutput, init_output, mid_output <span class="op">=</span> model6.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>)</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"r"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="88f3d6be" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:25.473894Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:25.473806Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:25.508295Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:25.507915Z&quot;}}" data-execution_count="37" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>finaloutput, init_output, mid_output <span class="op">=</span> model6.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"r"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -842,11 +845,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-44" class="cell" data-execution_count="122" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>io <span class="op">=</span> mid_output.data.numpy()</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(io.shape[<span class="dv">1</span>]):</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>    plt.plot(xgrid, io[:, j], lw<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="1d76b2e9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:25.509335Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:25.509258Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:25.543771Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:25.543334Z&quot;}}" data-execution_count="38" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>io <span class="op">=</span> mid_output.data.numpy()</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(io.shape[<span class="dv">1</span>]):</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    plt.plot(xgrid, io[:, j], lw<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -858,10 +861,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="input-dim-1-1-hidden-layers-width-1-linear-output" class="level3">
 <h3 class="anchored" data-anchor-id="input-dim-1-1-hidden-layers-width-1-linear-output">input dim 1, 1 hidden layers width 1, linear output</h3>
-<div id="cell-46" class="cell" data-execution_count="124" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>model7 <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">1</span>, nonlinearity<span class="op">=</span>fn.sigmoid, additional_hidden_wide<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>accum <span class="op">=</span> run_model(model7, <span class="dv">4000</span>)</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="0fe47b55" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:25.545026Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:25.544933Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:38.029379Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:38.029019Z&quot;}}" data-execution_count="39" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>model7 <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">1</span>, nonlinearity<span class="op">=</span>fn.sigmoid, additional_hidden_wide<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>accum <span class="op">=</span> run_model(model7, <span class="dv">4000</span>)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -870,21 +873,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-47" class="cell" data-execution_count="132" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model7)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="198f00ba" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:38.030664Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:38.030582Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:38.032452Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:38.032115Z&quot;}}" data-execution_count="40" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model7)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>MLRegP(
-  (fc_initial): Linear(in_features=1, out_features=1)
-  (fc_mid): ModuleList(
-  )
-  (fc_final): Linear(in_features=1, out_features=1)
+  (fc_initial): Linear(in_features=1, out_features=1, bias=True)
+  (fc_mid): ModuleList()
+  (fc_final): Linear(in_features=1, out_features=1, bias=True)
 )</code></pre>
 </div>
 </div>
-<div id="cell-48" class="cell" data-execution_count="125" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>finaloutput, init_output, mid_output <span class="op">=</span> model7.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>)</span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"r"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="a71ea623" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:38.033565Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:38.033495Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:38.067880Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:38.067510Z&quot;}}" data-execution_count="41" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>finaloutput, init_output, mid_output <span class="op">=</span> model7.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>)</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"r"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -893,11 +895,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-49" class="cell" data-scrolled="true" data-execution_count="126" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>io <span class="op">=</span> mid_output.data.numpy()</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(io.shape[<span class="dv">1</span>]):</span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>    plt.plot(xgrid, io[:, j], lw<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="536f48e8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:38.068959Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:38.068885Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:38.103331Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:38.102936Z&quot;}}" data-scrolled="true" data-execution_count="42" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>io <span class="op">=</span> mid_output.data.numpy()</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(io.shape[<span class="dv">1</span>]):</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>    plt.plot(xgrid, io[:, j], lw<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -909,10 +911,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="input-dim-1-1-hidden-layers-width-16-linear-output" class="level3">
 <h3 class="anchored" data-anchor-id="input-dim-1-1-hidden-layers-width-16-linear-output">input dim 1, 1 hidden layers width 16, linear output</h3>
-<div id="cell-51" class="cell" data-execution_count="138" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>model8 <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">16</span>, nonlinearity<span class="op">=</span>fn.sigmoid, additional_hidden_wide<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>accum <span class="op">=</span> run_model(model8, <span class="dv">4000</span>)</span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="b53e3f5a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:38.104513Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:38.104426Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:51.185819Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:51.185409Z&quot;}}" data-execution_count="43" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>model8 <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">16</span>, nonlinearity<span class="op">=</span>fn.sigmoid, additional_hidden_wide<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>accum <span class="op">=</span> run_model(model8, <span class="dv">4000</span>)</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>plt.plot([a[<span class="dv">0</span>] <span class="cf">for</span> a <span class="kw">in</span> accum])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -921,22 +923,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-52" class="cell" data-execution_count="139" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model8)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="8e980f60" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:51.187212Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:51.186958Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:51.189797Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:51.189266Z&quot;}}" data-execution_count="44" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model8)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>MLRegP(
-  (fc_initial): Linear(in_features=1, out_features=16)
-  (fc_mid): ModuleList(
-  )
-  (fc_final): Linear(in_features=16, out_features=1)
+  (fc_initial): Linear(in_features=1, out_features=16, bias=True)
+  (fc_mid): ModuleList()
+  (fc_final): Linear(in_features=16, out_features=1, bias=True)
 )</code></pre>
 </div>
 </div>
-<div id="cell-53" class="cell" data-execution_count="143" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>finaloutput, init_output, mid_output <span class="op">=</span> model8.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>)</span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"r"</span>)</span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"input dim 1, 1 hidden layers width 16, linear output"</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="42d12153" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:51.190929Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:51.190819Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:51.250931Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:51.250471Z&quot;}}" data-execution_count="45" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>finaloutput, init_output, mid_output <span class="op">=</span> model8.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>)</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">3</span>, color<span class="op">=</span><span class="st">"r"</span>)</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"input dim 1, 1 hidden layers width 16, linear output"</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -945,11 +946,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-54" class="cell" data-execution_count="141" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>io <span class="op">=</span> mid_output.data.numpy()</span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(io.shape[<span class="dv">1</span>]):</span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>    plt.plot(xgrid, io[:, j], lw<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="1f776376" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:38:51.252521Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:38:51.252385Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:38:51.317010Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:38:51.316566Z&quot;}}" data-execution_count="46" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>io <span class="op">=</span> mid_output.data.numpy()</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(io.shape[<span class="dv">1</span>]):</span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>    plt.plot(xgrid, io[:, j], lw<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">

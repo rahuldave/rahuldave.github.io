@@ -27,7 +27,7 @@ import pandas as pd
 pd.set_option('display.width', 500)
 pd.set_option('display.max_columns', 100)
 pd.set_option('display.notebook_repr_html', True)
-import seaborn.apionly as sns
+import seaborn as sns
 sns.set_style("whitegrid")
 ```
 
@@ -202,7 +202,7 @@ print("sigma", sig, "mu", mu_data, "n", n)
 ```
 Output:
 ```
-sigma 1.33092374864 mu 18.1444444444 n 9
+sigma 1.3309237486390264 mu 18.144444444444446 n 9
 ```
 
 <!-- cell:10 type:code -->
@@ -278,13 +278,13 @@ acc/nsamps
 ```
 Output:
 ```
-0.459925
+0.45855
 ```
 
 <!-- cell:20 type:code -->
 ```python
 def corrplot(trace, maxlags=50):
-    plt.acorr(trace-np.mean(trace),  normed=True, maxlags=maxlags);
+    plt.acorr(trace-np.mean(trace),  maxlags=maxlags);
     plt.xlim([0, maxlags])
 ```
 
@@ -314,13 +314,38 @@ corrplot(samps[20000::4]);
 sns.distplot(samps[20000::4], bins=25);
 sns.distplot(samps[20000::], bins=25);
 ```
+Output:
+```
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48639/447715325.py:1: UserWarning: 
+
+`distplot` is a deprecated function and will be removed in seaborn v0.14.0.
+
+Please adapt your code to use either `displot` (a figure-level function with
+similar flexibility) or `histplot` (an axes-level function for histograms).
+
+For a guide to updating your code to use the new functions, please see
+https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
+
+  sns.distplot(samps[20000::4], bins=25);
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48639/447715325.py:2: UserWarning: 
+
+`distplot` is a deprecated function and will be removed in seaborn v0.14.0.
+
+Please adapt your code to use either `displot` (a figure-level function with
+similar flexibility) or `histplot` (an axes-level function for histograms).
+
+For a guide to updating your code to use the new functions, please see
+https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
+
+  sns.distplot(samps[20000::], bins=25);
+```
 [Figure]
 
 <!-- cell:26 type:code -->
 ```python
 like_samples = norm.rvs(loc = mu_data, scale=sig, size=5000)
 post_samples = samps[20000::4]
-prior_samples = norm.rvs(loc = mu_prior, scale=tau, size=5000)
+prior_samples = norm.rvs(loc = mu_prior, scale=std_prior, size=5000)
 ```
 
 <!-- cell:27 type:markdown -->
@@ -359,5 +384,30 @@ plt.legend();
 ```python
 sns.distplot(like_samples);
 sns.distplot(post_pred_samples);
+```
+Output:
+```
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48639/2813733996.py:1: UserWarning: 
+
+`distplot` is a deprecated function and will be removed in seaborn v0.14.0.
+
+Please adapt your code to use either `displot` (a figure-level function with
+similar flexibility) or `histplot` (an axes-level function for histograms).
+
+For a guide to updating your code to use the new functions, please see
+https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
+
+  sns.distplot(like_samples);
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48639/2813733996.py:2: UserWarning: 
+
+`distplot` is a deprecated function and will be removed in seaborn v0.14.0.
+
+Please adapt your code to use either `displot` (a figure-level function with
+similar flexibility) or `histplot` (an axes-level function for histograms).
+
+For a guide to updating your code to use the new functions, please see
+https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
+
+  sns.distplot(post_pred_samples);
 ```
 [Figure]

@@ -82,10 +82,10 @@ p_grid
 ```
 Output:
 ```
-array([ 0.        ,  0.05263158,  0.10526316,  0.15789474,  0.21052632,
-        0.26315789,  0.31578947,  0.36842105,  0.42105263,  0.47368421,
-        0.52631579,  0.57894737,  0.63157895,  0.68421053,  0.73684211,
-        0.78947368,  0.84210526,  0.89473684,  0.94736842,  1.        ])
+array([0.        , 0.05263158, 0.10526316, 0.15789474, 0.21052632,
+       0.26315789, 0.31578947, 0.36842105, 0.42105263, 0.47368421,
+       0.52631579, 0.57894737, 0.63157895, 0.68421053, 0.73684211,
+       0.78947368, 0.84210526, 0.89473684, 0.94736842, 1.        ])
 ```
 
 <!-- cell:9 type:code -->
@@ -108,13 +108,27 @@ plt.plot(p_grid, post_vals)
 ```
 Output:
 ```
-[<matplotlib.lines.Line2D at 0x120aad2b0>]
+[<matplotlib.lines.Line2D at 0x10b38c590>]
 ```
 [Figure]
 
 <!-- cell:12 type:code -->
 ```python
 sns.distplot(grid_post_samples)
+```
+Output:
+```
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48755/2467924782.py:1: UserWarning: 
+
+`distplot` is a deprecated function and will be removed in seaborn v0.14.0.
+
+Please adapt your code to use either `displot` (a figure-level function with
+similar flexibility) or `histplot` (an axes-level function for histograms).
+
+For a guide to updating your code to use the new functions, please see
+https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
+
+  sns.distplot(grid_post_samples)
 ```
 [Figure]
 
@@ -142,15 +156,15 @@ res
 ```
 Output:
 ```
- final_simplex: (array([[ 0.66669922],
-       [ 0.66660156]]), array([-0.27312909, -0.27312907]))
-           fun: -0.27312909031345828
-       message: 'Optimization terminated successfully.'
-          nfev: 26
-           nit: 13
-        status: 0
+       message: Optimization terminated successfully.
        success: True
-             x: array([ 0.66669922])
+        status: 0
+           fun: -0.2731290903134584
+             x: [ 6.667e-01]
+           nit: 13
+          nfev: 26
+ final_simplex: (array([[ 6.667e-01],
+                       [ 6.666e-01]]), array([-2.731e-01, -2.731e-01]))
 ```
 
 <!-- cell:16 type:code -->
@@ -160,7 +174,7 @@ post_MAP
 ```
 Output:
 ```
-0.66669921875000038
+np.float64(0.6666992187500004)
 ```
 
 <!-- cell:17 type:code -->
@@ -170,7 +184,7 @@ insertbefore
 ```
 Output:
 ```
-667
+np.int64(667)
 ```
 
 <!-- cell:18 type:code -->
@@ -180,7 +194,7 @@ postmapval
 ```
 Output:
 ```
-0.27312632244812729
+np.float64(0.2731263224481272)
 ```
 
 <!-- cell:19 type:code -->
@@ -190,7 +204,7 @@ plt.plot(p_grid, norm.pdf(p_grid, loc=post_MAP, scale=0.16))
 ```
 Output:
 ```
-[<matplotlib.lines.Line2D at 0x11fbe3c50>]
+[<matplotlib.lines.Line2D at 0x10b4aa3c0>]
 ```
 [Figure]
 
@@ -220,15 +234,15 @@ res2
 ```
 Output:
 ```
- final_simplex: (array([[ 0.14921875],
-       [ 0.14917969]]), array([ 23.9871437 ,  23.98715773]))
-           fun: 23.987143699357638
-       message: 'Optimization terminated successfully.'
-          nfev: 24
-           nit: 12
-        status: 0
+       message: Optimization terminated successfully.
        success: True
-             x: array([ 0.14921875])
+        status: 0
+           fun: 23.98714369935766
+             x: [ 1.492e-01]
+           nit: 12
+          nfev: 24
+ final_simplex: (array([[ 1.492e-01],
+                       [ 1.492e-01]]), array([ 2.399e+01,  2.399e+01]))
 ```
 
 <!-- cell:23 type:code -->
@@ -238,7 +252,7 @@ post_SIG
 ```
 Output:
 ```
-0.14921875000000009
+np.float64(0.1492187500000001)
 ```
 
 <!-- cell:24 type:code -->
@@ -260,7 +274,7 @@ zq(post_SIG)
 ```
 Output:
 ```
-0.10215906016979832
+np.float64(0.10215906016979828)
 ```
 
 <!-- cell:27 type:markdown -->
@@ -269,6 +283,20 @@ Now we can get samples from here:
 <!-- cell:28 type:code -->
 ```python
 sns.distplot(frozen_laplace.rvs(10000))
+```
+Output:
+```
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48755/3205977413.py:1: UserWarning: 
+
+`distplot` is a deprecated function and will be removed in seaborn v0.14.0.
+
+Please adapt your code to use either `displot` (a figure-level function with
+similar flexibility) or `histplot` (an axes-level function for histograms).
+
+For a guide to updating your code to use the new functions, please see
+https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
+
+  sns.distplot(frozen_laplace.rvs(10000))
 ```
 [Figure]
 
@@ -355,7 +383,7 @@ Since we can sample from the posterior now after 9 observations, lets do so!
 <!-- cell:35 type:code -->
 ```python
 samples = beta.rvs(*posterior_params, size=10000)
-plt.hist(samples, bins=50, normed=True);
+plt.hist(samples, bins=50, density=True);
 sns.kdeplot(samples);
 ```
 [Figure]
@@ -373,7 +401,7 @@ np.mean(samples < 0.5)
 ```
 Output:
 ```
-0.17180000000000001
+np.float64(0.1665)
 ```
 
 <!-- cell:38 type:markdown -->
@@ -385,7 +413,7 @@ np.percentile(samples, 80)
 ```
 Output:
 ```
-0.75998662608698764
+np.float64(0.7618129772790891)
 ```
 
 <!-- cell:40 type:markdown -->
@@ -397,7 +425,7 @@ np.percentile(samples, [2.5, 97.5])
 ```
 Output:
 ```
-array([ 0.35115415,  0.8774055 ])
+array([0.35302243, 0.87516021])
 ```
 
 <!-- cell:42 type:markdown -->
@@ -409,7 +437,9 @@ np.mean(samples), np.median(samples), np.percentile(samples, 50) #last 2 are sam
 ```
 Output:
 ```
-(0.63736799839639757, 0.64714663472562717, 0.64714663472562717)
+(np.float64(0.6378238625593226),
+ np.float64(0.646244114557077),
+ np.float64(0.646244114557077))
 ```
 
 <!-- cell:44 type:markdown -->
@@ -428,7 +458,7 @@ print(maxcountindex, mapvalue)
 ```
 Output:
 ```
-33 0.694004782956
+33 0.689305242527913
 ```
 
 <!-- cell:47 type:markdown -->
@@ -443,7 +473,7 @@ print("Mean",np.mean(samples));
 ```
 Output:
 ```
-Mean 0.635370253478
+Mean 0.6378238625593226
 ```
 [Figure]
 
@@ -520,7 +550,7 @@ postpred
 ```
 Output:
 ```
-array([7, 7, 5, ..., 6, 7, 5])
+array([4, 5, 6, ..., 3, 8, 2], shape=(10000,))
 ```
 
 <!-- cell:58 type:code -->
@@ -606,7 +636,7 @@ data[:-1] != data[1:]
 ```
 Output:
 ```
-array([ True,  True, False, False,  True,  True,  True,  True], dtype=bool)
+array([ True,  True, False, False,  True,  True,  True,  True])
 ```
 
 <!-- cell:68 type:code -->
@@ -615,7 +645,7 @@ np.sum(data[:-1] != data[1:])
 ```
 Output:
 ```
-6
+np.int64(6)
 ```
 
 <!-- cell:69 type:markdown -->

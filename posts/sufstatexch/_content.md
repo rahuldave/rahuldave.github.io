@@ -24,11 +24,6 @@ import seaborn as sn
 from scipy.stats import norm
 
 ```
-Output:
-```
-//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))
-```
 
 <!-- cell:3 type:markdown -->
 ## Sufficient Statistics and the Exponential Family
@@ -192,20 +187,20 @@ N=1000
 
 
 theta1=gamma.rvs(a+sy1, scale=1.0/( b+n1), size=N)
-q=plt.hist(theta1, 50,linewidth=1.5,normed=True, histtype='step',   label=u'posterior for theta1')
+q=plt.hist(theta1, 50,linewidth=1.5,density=True, histtype='step',   label=u'posterior for theta1')
 theta2 = gamma.rvs(a+sy2,scale= 1./(b+n2), size=N)
-q=plt.hist(theta2, 50, linewidth=1,histtype='step', alpha=1.0,normed=True,   label=u'posterior for theta2') 
+q=plt.hist(theta2, 50, linewidth=1,histtype='step', alpha=1.0,density=True,   label=u'posterior for theta2') 
 
 
 
 th_prior = gamma.rvs(2.0, 1.0, size=N);
-plt.hist(th_prior, 50,linewidth=1, histtype='step',alpha=1.0, normed=True,   label=u'prior') 
+plt.hist(th_prior, 50,linewidth=1, histtype='step',alpha=1.0, density=True,   label=u'prior') 
 
 #just for theta1, try a wierd pri
 th_priorwierd = gamma.rvs(20.0, 1.0, size=N);
 theta1wierd=gamma.rvs(20+sy1, scale=1.0/( 2+n1), size=N)
-plt.hist(th_priorwierd, 50,linewidth=1, histtype='step',alpha=1.0, normed=True,   label=u'prior 20,2') 
-plt.hist(theta1wierd, 50, linewidth=1,histtype='step', alpha=1.0,normed=True,   label=u'posterior for theta1 with 20,2') 
+plt.hist(th_priorwierd, 50,linewidth=1, histtype='step',alpha=1.0, density=True,   label=u'prior 20,2') 
+plt.hist(theta1wierd, 50, linewidth=1,histtype='step', alpha=1.0,density=True,   label=u'posterior for theta1 with 20,2') 
 
 
 
@@ -230,6 +225,13 @@ plt.legend()
 
 ## Finally we can do inference as we wish
 ```
+Output:
+```
+/Users/rahul/Library/Caches/uv/archive-v0/wqGmuChAgnYkC6wFhsKJY/lib/python3.14/site-packages/IPython/core/events.py:96: UserWarning: Glyph 9 (	) missing from font(s) DejaVu Sans.
+  func(*args, **kwargs)
+/Users/rahul/Library/Caches/uv/archive-v0/wqGmuChAgnYkC6wFhsKJY/lib/python3.14/site-packages/IPython/core/pylabtools.py:170: UserWarning: Glyph 9 (	) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)
+```
 [Figure]
 
 <!-- cell:14 type:markdown -->
@@ -245,7 +247,7 @@ np.mean(theta1), np.var(theta1)
 ```
 Output:
 ```
-(1.9516881521791478, 0.018527204185785785)
+(np.float64(1.9527878272251153), np.float64(0.01724878067840729))
 ```
 
 <!-- cell:16 type:code -->
@@ -254,7 +256,7 @@ np.mean(theta2), np.var(theta2)
 ```
 Output:
 ```
-(1.5037252100213609, 0.034220717257786061)
+(np.float64(1.5241318480105222), np.float64(0.033890374858739))
 ```
 
 <!-- cell:17 type:markdown -->
@@ -266,7 +268,7 @@ np.mean(theta1 - theta2)
 ```
 Output:
 ```
-(0.43687373794997003, -0.43687373794997003)
+np.float64(0.42865597921459303)
 ```
 
 <!-- cell:19 type:markdown -->
@@ -303,7 +305,7 @@ np.mean(postpred1), np.var(postpred1)
 ```
 Output:
 ```
-(1.976, 1.8554239999999997)
+(np.float64(1.937), np.float64(1.969031))
 ```
 
 <!-- cell:24 type:code -->
@@ -312,7 +314,7 @@ np.mean(postpred2), np.var(postpred2)
 ```
 Output:
 ```
-(1.502, 1.5719960000000002)
+(np.float64(1.486), np.float64(1.5218040000000002))
 ```
 
 <!-- cell:25 type:markdown -->
@@ -324,7 +326,7 @@ np.mean(postpred1 - postpred2)
 ```
 Output:
 ```
-0.47399999999999998
+np.float64(0.451)
 ```
 
 <!-- cell:27 type:markdown -->

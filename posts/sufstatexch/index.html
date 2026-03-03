@@ -151,14 +151,14 @@ window.Quarto = {
 <meta property="og:description" content="Connects the exponential family to conjugate priors through sufficient statistics. Introduces exchangeability and de Finetti’s theorem, then develops the Poisson-Gamma conjugate model as a worked example.">
 <meta property="og:image" content="https://rahuldave.github.io/posts/sufstatexch/index_files/figure-html/cell-4-output-1.png">
 <meta property="og:site_name" content="rahuldave">
-<meta property="og:image:height" content="341">
-<meta property="og:image:width" content="487">
+<meta property="og:image:height" content="413">
+<meta property="og:image:width" content="547">
 <meta name="twitter:title" content="Sufficient Statistics and Exchangeability – rahuldave">
 <meta name="twitter:description" content="Connects the exponential family to conjugate priors through sufficient statistics. Introduces exchangeability and de Finetti’s theorem, then develops the Poisson-Gamma conjugate model as a worked example.">
 <meta name="twitter:image" content="https://rahuldave.github.io/posts/sufstatexch/index_files/figure-html/cell-4-output-1.png">
 <meta name="twitter:creator" content="@rahuldave">
-<meta name="twitter:image-height" content="341">
-<meta name="twitter:image-width" content="487">
+<meta name="twitter:image-height" content="413">
+<meta name="twitter:image-width" content="547">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -457,17 +457,13 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-2" class="cell" data-execution_count="1" data-cell-type="code">
+<div id="aa21c01f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:43:02.122576Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:43:02.122358Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:43:03.005050Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:43:03.004532Z&quot;}}" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pylab <span class="im">as</span> plt </span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sn</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
-</div>
 </div>
 <section id="sufficient-statistics-and-the-exponential-family" class="level2">
 <h2 class="anchored" data-anchor-id="sufficient-statistics-and-the-exponential-family">Sufficient Statistics and the Exponential Family</h2>
@@ -520,14 +516,14 @@ window.Quarto = {
 <p>If <span class="math inline">\(p(\theta) =  \rm{Gamma}(\theta, a, b)\)</span> and $ p(Y_1 , Y_n ) \rm{Gamma}(_{1,2}, a=2, b=1) $. The mean and variance of gamma distributions are known</p>
 <p><span class="math display">\[ E[\theta] = a/b, var[\theta] = a/b^2 .\]</span></p>
 <p>So the mean of the gamma is roughly a notion of your belief of prior kids to moms. Here we say 2.</p>
-<div id="cell-9" class="cell" data-execution_count="18" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> gamma</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>xxx<span class="op">=</span>np.linspace(<span class="dv">0</span>,<span class="dv">10</span>,<span class="dv">100</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xxx, gamma.pdf(xxx, <span class="dv">3</span>, scale<span class="op">=</span><span class="dv">1</span>), label<span class="op">=</span><span class="st">"3 kids 1 mom"</span>)<span class="op">;</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>plt.plot(xxx, gamma.pdf(xxx, <span class="dv">2</span>, scale<span class="op">=</span><span class="dv">1</span>), label<span class="op">=</span><span class="st">"2 kids 1 mom"</span>)<span class="op">;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>plt.plot(xxx, gamma.pdf(xxx, <span class="dv">1</span>, scale<span class="op">=</span><span class="dv">1</span>), label<span class="op">=</span><span class="st">"1 kid 1 mom"</span>)<span class="op">;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>plt.plot(xxx, gamma.pdf(xxx, <span class="dv">1</span>, scale<span class="op">=</span><span class="dv">1</span><span class="op">/</span><span class="dv">3</span>), label<span class="op">=</span><span class="st">"1 kids 3 moms"</span>)<span class="op">;</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="0b67c11a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:43:03.006320Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:43:03.006186Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:43:03.062134Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:43:03.061659Z&quot;}}" data-execution_count="3" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> gamma</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>xxx<span class="op">=</span>np.linspace(<span class="dv">0</span>,<span class="dv">10</span>,<span class="dv">100</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xxx, gamma.pdf(xxx, <span class="dv">3</span>, scale<span class="op">=</span><span class="dv">1</span>), label<span class="op">=</span><span class="st">"3 kids 1 mom"</span>)<span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>plt.plot(xxx, gamma.pdf(xxx, <span class="dv">2</span>, scale<span class="op">=</span><span class="dv">1</span>), label<span class="op">=</span><span class="st">"2 kids 1 mom"</span>)<span class="op">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>plt.plot(xxx, gamma.pdf(xxx, <span class="dv">1</span>, scale<span class="op">=</span><span class="dv">1</span>), label<span class="op">=</span><span class="st">"1 kid 1 mom"</span>)<span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>plt.plot(xxx, gamma.pdf(xxx, <span class="dv">1</span>, scale<span class="op">=</span><span class="dv">1</span><span class="op">/</span><span class="dv">3</span>), label<span class="op">=</span><span class="st">"1 kids 3 moms"</span>)<span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>plt.legend()<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -544,98 +540,104 @@ window.Quarto = {
 <p>The mean of our posterior is then a ratio of posterior kids to moms:</p>
 <p><span class="math display">\[ E[\theta] = (a + \sum y_i)/(b + N), var[\theta] = (a + \sum y_i)/(b + N)^2 .\]</span></p>
 <p>In this case 219/112 and 68/45 which is not very sensitive to our prior as you might expect.</p>
-<div id="cell-11" class="cell" data-execution_count="38" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dv">219</span><span class="op">/</span><span class="dv">112</span>, <span class="dv">68</span><span class="op">/</span><span class="dv">45</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="38">
+<div id="4832b8e2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:43:03.063451Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:43:03.063355Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:43:03.065488Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:43:03.065092Z&quot;}}" data-execution_count="4" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dv">219</span><span class="op">/</span><span class="dv">112</span>, <span class="dv">68</span><span class="op">/</span><span class="dv">45</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
 <pre><code>(1.9553571428571428, 1.511111111111111)</code></pre>
 </div>
 </div>
 <p>We can calculate and plot the posterior predictives. We do that here for <span class="math inline">\(\theta_1\)</span> and <span class="math inline">\(\theta_2\)</span>. We also show (lack of) sensitivity to the prior by considering a wierd prior with a=20, b=2.</p>
-<div id="cell-13" class="cell" data-execution_count="53" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> gamma</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">2</span> <span class="co"># Gamma prior, a,b values </span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="dv">1</span> </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>n1 <span class="op">=</span> <span class="dv">111</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>sy1 <span class="op">=</span> <span class="dv">217</span>  <span class="co"># sum of y1</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>n2 <span class="op">=</span> <span class="dv">44</span> </span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>sy2<span class="op">=</span><span class="dv">66</span>     <span class="co">#sum of y2</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>N<span class="op">=</span><span class="dv">1000</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># ACTUAL VALUES </span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co"># posterior mean </span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>(a<span class="op">+</span>sy1)<span class="op">/</span>(b<span class="op">+</span>n1) </span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>(a<span class="op">+</span>sy2)<span class="op">/</span>(b<span class="op">+</span>n2)</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co"># EXACT POSTERIORS</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>theta1<span class="op">=</span>gamma.rvs(a<span class="op">+</span>sy1, scale<span class="op">=</span><span class="fl">1.0</span><span class="op">/</span>( b<span class="op">+</span>n1), size<span class="op">=</span>N)</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>q<span class="op">=</span>plt.hist(theta1, <span class="dv">50</span>,linewidth<span class="op">=</span><span class="fl">1.5</span>,normed<span class="op">=</span><span class="va">True</span>, histtype<span class="op">=</span><span class="st">'step'</span>,   label<span class="op">=</span><span class="st">u'posterior for theta1'</span>)</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>theta2 <span class="op">=</span> gamma.rvs(a<span class="op">+</span>sy2,scale<span class="op">=</span> <span class="fl">1.</span><span class="op">/</span>(b<span class="op">+</span>n2), size<span class="op">=</span>N)</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>q<span class="op">=</span>plt.hist(theta2, <span class="dv">50</span>, linewidth<span class="op">=</span><span class="dv">1</span>,histtype<span class="op">=</span><span class="st">'step'</span>, alpha<span class="op">=</span><span class="fl">1.0</span>,normed<span class="op">=</span><span class="va">True</span>,   label<span class="op">=</span><span class="st">u'posterior for theta2'</span>) </span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>th_prior <span class="op">=</span> gamma.rvs(<span class="fl">2.0</span>, <span class="fl">1.0</span>, size<span class="op">=</span>N)<span class="op">;</span></span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>plt.hist(th_prior, <span class="dv">50</span>,linewidth<span class="op">=</span><span class="dv">1</span>, histtype<span class="op">=</span><span class="st">'step'</span>,alpha<span class="op">=</span><span class="fl">1.0</span>, normed<span class="op">=</span><span class="va">True</span>,   label<span class="op">=</span><span class="st">u'prior'</span>) </span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="co">#just for theta1, try a wierd pri</span></span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>th_priorwierd <span class="op">=</span> gamma.rvs(<span class="fl">20.0</span>, <span class="fl">1.0</span>, size<span class="op">=</span>N)<span class="op">;</span></span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a>theta1wierd<span class="op">=</span>gamma.rvs(<span class="dv">20</span><span class="op">+</span>sy1, scale<span class="op">=</span><span class="fl">1.0</span><span class="op">/</span>( <span class="dv">2</span><span class="op">+</span>n1), size<span class="op">=</span>N)</span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>plt.hist(th_priorwierd, <span class="dv">50</span>,linewidth<span class="op">=</span><span class="dv">1</span>, histtype<span class="op">=</span><span class="st">'step'</span>,alpha<span class="op">=</span><span class="fl">1.0</span>, normed<span class="op">=</span><span class="va">True</span>,   label<span class="op">=</span><span class="st">u'prior 20,2'</span>) </span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>plt.hist(theta1wierd, <span class="dv">50</span>, linewidth<span class="op">=</span><span class="dv">1</span>,histtype<span class="op">=</span><span class="st">'step'</span>, alpha<span class="op">=</span><span class="fl">1.0</span>,normed<span class="op">=</span><span class="va">True</span>,   label<span class="op">=</span><span class="st">u'posterior for theta1 with 20,2'</span>) </span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.xlim( [0,8])</span></span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'</span><span class="ch">\t</span><span class="st">heta'</span>)</span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a><span class="co"># ## MONTE CARLO APPROACH - REJECTION METHOD </span></span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="co"># a =2.0 </span></span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="co"># b = 1.0 </span></span>
-<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="co"># prior = lambda theta:  gamma.pdf(theta, a ,b)</span></span>
-<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a><span class="co"># pdf_s1 = lambda theta: prior(theta)*  poisson.pmf(sy1, n1*theta)</span></span>
-<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a><span class="co"># pdf_s2 = lambda theta:  prior(theta)* poisson.pmf(sy2, n2*theta)</span></span>
-<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>plt.xlim([<span class="dv">0</span>,<span class="dv">8</span>])</span>
-<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a><span class="co">## Finally we can do inference as we wish</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="528cfd93" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:43:03.066515Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:43:03.066426Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:43:03.128967Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:43:03.128441Z&quot;}}" data-execution_count="5" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> gamma</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">2</span> <span class="co"># Gamma prior, a,b values </span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="dv">1</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>n1 <span class="op">=</span> <span class="dv">111</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>sy1 <span class="op">=</span> <span class="dv">217</span>  <span class="co"># sum of y1</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>n2 <span class="op">=</span> <span class="dv">44</span> </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>sy2<span class="op">=</span><span class="dv">66</span>     <span class="co">#sum of y2</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>N<span class="op">=</span><span class="dv">1000</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># ACTUAL VALUES </span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># posterior mean </span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>(a<span class="op">+</span>sy1)<span class="op">/</span>(b<span class="op">+</span>n1) </span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>(a<span class="op">+</span>sy2)<span class="op">/</span>(b<span class="op">+</span>n2)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co"># EXACT POSTERIORS</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>theta1<span class="op">=</span>gamma.rvs(a<span class="op">+</span>sy1, scale<span class="op">=</span><span class="fl">1.0</span><span class="op">/</span>( b<span class="op">+</span>n1), size<span class="op">=</span>N)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>q<span class="op">=</span>plt.hist(theta1, <span class="dv">50</span>,linewidth<span class="op">=</span><span class="fl">1.5</span>,density<span class="op">=</span><span class="va">True</span>, histtype<span class="op">=</span><span class="st">'step'</span>,   label<span class="op">=</span><span class="st">u'posterior for theta1'</span>)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>theta2 <span class="op">=</span> gamma.rvs(a<span class="op">+</span>sy2,scale<span class="op">=</span> <span class="fl">1.</span><span class="op">/</span>(b<span class="op">+</span>n2), size<span class="op">=</span>N)</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>q<span class="op">=</span>plt.hist(theta2, <span class="dv">50</span>, linewidth<span class="op">=</span><span class="dv">1</span>,histtype<span class="op">=</span><span class="st">'step'</span>, alpha<span class="op">=</span><span class="fl">1.0</span>,density<span class="op">=</span><span class="va">True</span>,   label<span class="op">=</span><span class="st">u'posterior for theta2'</span>) </span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>th_prior <span class="op">=</span> gamma.rvs(<span class="fl">2.0</span>, <span class="fl">1.0</span>, size<span class="op">=</span>N)<span class="op">;</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>plt.hist(th_prior, <span class="dv">50</span>,linewidth<span class="op">=</span><span class="dv">1</span>, histtype<span class="op">=</span><span class="st">'step'</span>,alpha<span class="op">=</span><span class="fl">1.0</span>, density<span class="op">=</span><span class="va">True</span>,   label<span class="op">=</span><span class="st">u'prior'</span>) </span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="co">#just for theta1, try a wierd pri</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>th_priorwierd <span class="op">=</span> gamma.rvs(<span class="fl">20.0</span>, <span class="fl">1.0</span>, size<span class="op">=</span>N)<span class="op">;</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>theta1wierd<span class="op">=</span>gamma.rvs(<span class="dv">20</span><span class="op">+</span>sy1, scale<span class="op">=</span><span class="fl">1.0</span><span class="op">/</span>( <span class="dv">2</span><span class="op">+</span>n1), size<span class="op">=</span>N)</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a>plt.hist(th_priorwierd, <span class="dv">50</span>,linewidth<span class="op">=</span><span class="dv">1</span>, histtype<span class="op">=</span><span class="st">'step'</span>,alpha<span class="op">=</span><span class="fl">1.0</span>, density<span class="op">=</span><span class="va">True</span>,   label<span class="op">=</span><span class="st">u'prior 20,2'</span>) </span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>plt.hist(theta1wierd, <span class="dv">50</span>, linewidth<span class="op">=</span><span class="dv">1</span>,histtype<span class="op">=</span><span class="st">'step'</span>, alpha<span class="op">=</span><span class="fl">1.0</span>,density<span class="op">=</span><span class="va">True</span>,   label<span class="op">=</span><span class="st">u'posterior for theta1 with 20,2'</span>) </span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.xlim( [0,8])</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'</span><span class="ch">\t</span><span class="st">heta'</span>)</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="co"># ## MONTE CARLO APPROACH - REJECTION METHOD </span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a><span class="co"># a =2.0 </span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="co"># b = 1.0 </span></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="co"># prior = lambda theta:  gamma.pdf(theta, a ,b)</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="co"># pdf_s1 = lambda theta: prior(theta)*  poisson.pmf(sy1, n1*theta)</span></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="co"># pdf_s2 = lambda theta:  prior(theta)* poisson.pmf(sy2, n2*theta)</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>plt.xlim([<span class="dv">0</span>,<span class="dv">8</span>])</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a><span class="co">## Finally we can do inference as we wish</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/rahul/Library/Caches/uv/archive-v0/wqGmuChAgnYkC6wFhsKJY/lib/python3.14/site-packages/IPython/core/events.py:96: UserWarning: Glyph 9 (  ) missing from font(s) DejaVu Sans.
+  func(*args, **kwargs)
+/Users/rahul/Library/Caches/uv/archive-v0/wqGmuChAgnYkC6wFhsKJY/lib/python3.14/site-packages/IPython/core/pylabtools.py:170: UserWarning: Glyph 9 ( ) missing from font(s) DejaVu Sans.
+  fig.canvas.print_figure(bytes_io, **kw)</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-6-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>The mean birth-rates can be calculated from the samples, as can the variances, which are also given us by the formulae from above:</p>
 <p><span class="math display">\[ E[\theta] = (a + \sum y_i)/(b + N), var[\theta] = (a + \sum y_i)/(b + N)^2 .\]</span></p>
-<div id="cell-15" class="cell" data-execution_count="41" data-cell-type="code">
+<div id="63159e87" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:43:03.130156Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:43:03.130055Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:43:03.132262Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:43:03.131909Z&quot;}}" data-execution_count="6" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>np.mean(theta1), np.var(theta1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="41">
-<pre><code>(1.9516881521791478, 0.018527204185785785)</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>(np.float64(1.9527878272251153), np.float64(0.01724878067840729))</code></pre>
 </div>
 </div>
-<div id="cell-16" class="cell" data-execution_count="42" data-cell-type="code">
+<div id="585aaa1c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:43:03.133289Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:43:03.133194Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:43:03.135227Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:43:03.134855Z&quot;}}" data-execution_count="7" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>np.mean(theta2), np.var(theta2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="42">
-<pre><code>(1.5037252100213609, 0.034220717257786061)</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>(np.float64(1.5241318480105222), np.float64(0.033890374858739))</code></pre>
 </div>
 </div>
 <p>Its easy to get the posterior birth-rate difference from the samples</p>
-<div id="cell-18" class="cell" data-execution_count="21" data-cell-type="code">
+<div id="fc33b12b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:43:03.136154Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:43:03.136083Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:43:03.138134Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:43:03.137804Z&quot;}}" data-execution_count="8" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>np.mean(theta1 <span class="op">-</span> theta2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
-<pre><code>(0.43687373794997003, -0.43687373794997003)</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>np.float64(0.42865597921459303)</code></pre>
 </div>
 </div>
 </section>
@@ -644,12 +646,12 @@ window.Quarto = {
 <p>Remember that the posterior predictive is the following integral</p>
 <p><span class="math display">\[p(y^{*} \vert D) = \int d\theta p(y^{*} \vert \theta) p(\theta \vert D)\]</span></p>
 <p>From the perspective of sampling, all we have to do is to first draw the thetas from the posterior, then draw y’s from the likelihood, and histogram the likelihood. This is the same logic as marginal posteriors, with the addition of the fact that we must draw y from the likelihood once we drew <span class="math inline">\(\theta\)</span>. You might think that we have to draw multiple <span class="math inline">\(y\)</span>s at a theta, but this is already taken care of for us because of the nature of sampling. We already have multiple <span class="math inline">\(\theta\)</span>a in a bin.</p>
-<div id="cell-20" class="cell" data-execution_count="22" data-cell-type="code">
+<div id="2e52599e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:43:03.139118Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:43:03.139044Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:43:03.141410Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:43:03.141025Z&quot;}}" data-execution_count="9" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> poisson</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>postpred1 <span class="op">=</span> poisson.rvs(theta1)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>postpred2 <span class="op">=</span> poisson.rvs(theta2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-21" class="cell" data-execution_count="31" data-cell-type="code">
+<div id="3660f599" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:43:03.142363Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:43:03.142290Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:43:03.185307Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:43:03.184923Z&quot;}}" data-execution_count="10" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plt.hist(postpred1, alpha<span class="op">=</span><span class="fl">0.4</span>, align<span class="op">=</span><span class="st">"left"</span>)<span class="op">;</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plt.hist(postpred2, alpha<span class="op">=</span><span class="fl">0.4</span>, align<span class="op">=</span><span class="st">"left"</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -662,23 +664,23 @@ window.Quarto = {
 </div>
 <p>It turns out that the distribution characterizing the posterior predictive is a negative binomial (see wikipedia, this requires some manipulations of gamma functions which we shall not reproduce here). The mean of the posterior predictive distribution is the same as that of the posterior</p>
 <p><span class="math display">\[ E[y^*] = \frac{(a + \sum y_i)}{(b + N)}, var[y^*] = \frac{(a + \sum y_i)}{(b + N)^2} (N + b + 1) .\]</span></p>
-<div id="cell-23" class="cell" data-execution_count="43" data-cell-type="code">
+<div id="81734b95" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:43:03.186384Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:43:03.186306Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:43:03.188496Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:43:03.188113Z&quot;}}" data-execution_count="11" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>np.mean(postpred1), np.var(postpred1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="43">
-<pre><code>(1.976, 1.8554239999999997)</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>(np.float64(1.937), np.float64(1.969031))</code></pre>
 </div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="44" data-cell-type="code">
+<div id="abcf7297" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:43:03.189479Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:43:03.189406Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:43:03.191524Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:43:03.191157Z&quot;}}" data-execution_count="12" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>np.mean(postpred2), np.var(postpred2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="44">
-<pre><code>(1.502, 1.5719960000000002)</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>(np.float64(1.486), np.float64(1.5218040000000002))</code></pre>
 </div>
 </div>
 <p>Notice that the error on the posterior predictive is much larger, even with the same means. The reason for this is that in the posterior predictive, you are smearing out the posterior error. At each point in the posterior, there is the smearing associated with the sampling distribution for <span class="math inline">\(y^* \sim \theta\)</span>, and thus the posterior predictive is conservative.</p>
-<div id="cell-26" class="cell" data-execution_count="45" data-cell-type="code">
+<div id="dbe75c9f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:43:03.192493Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:43:03.192419Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:43:03.194439Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:43:03.194072Z&quot;}}" data-execution_count="13" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>np.mean(postpred1 <span class="op">-</span> postpred2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="45">
-<pre><code>0.47399999999999998</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>np.float64(0.451)</code></pre>
 </div>
 </div>
 <p>Why bother with the posterior predictive?</p>

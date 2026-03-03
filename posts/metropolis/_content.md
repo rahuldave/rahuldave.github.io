@@ -24,11 +24,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 sns.set_style("whitegrid")
 ```
-Output:
-```
-//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))
-```
 
 <!-- cell:3 type:markdown -->
 ## Simulated Annealing
@@ -109,6 +104,10 @@ plt.xlabel('x')
 plt.xlabel('p(x)')
 plt.title("distribution corresponding to function f")
 ```
+Output:
+```
+Text(0.5, 1.0, 'distribution corresponding to function f')
+```
 [Figure]
 
 <!-- cell:8 type:markdown -->
@@ -171,7 +170,7 @@ norm.pdf(0.1)
 ```
 Output:
 ```
-0.39695254747701181
+np.float64(0.3969525474770118)
 ```
 
 <!-- cell:14 type:code -->
@@ -182,7 +181,7 @@ samps = metropolis(norm.pdf, uniprop, 100000, 0.0)
 <!-- cell:15 type:code -->
 ```python
 # plot our sample histogram
-plt.hist(samps,bins=80, alpha=0.4, label=u'MCMC distribution', normed=True) 
+plt.hist(samps,bins=80, alpha=0.4, label=u'MCMC distribution', density=True) 
 
 #plot the true function
 xx= np.linspace(0,1,100)
@@ -264,7 +263,7 @@ prop(0.1)
 ```
 Output:
 ```
--0.38115925548141294
+1.3495344832547524
 ```
 
 <!-- cell:23 type:code -->
@@ -276,7 +275,7 @@ samps = metropolis(f, prop, 1000000, x0)
 <!-- cell:24 type:code -->
 ```python
 # plot our sample histogram
-plt.hist(samps,bins=100, alpha=0.4, label=u'MCMC distribution', normed=True) 
+plt.hist(samps,bins=100, alpha=0.4, label=u'MCMC distribution', density=True) 
 somesamps=samps[0::100000]
 for i,s in enumerate(somesamps):
     xs=np.linspace(s-1, s+1, 100)
@@ -292,7 +291,7 @@ print("starting point was ", x0)
 [Figure]
 Output:
 ```
-starting point was  0.16855486023328337
+starting point was  0.9869675222634532
 ```
 
 <!-- cell:25 type:markdown -->

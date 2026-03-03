@@ -49,11 +49,6 @@ pd.set_option('display.width', 500)
 pd.set_option('display.max_columns', 100)
 import seaborn as sns
 ```
-Output:
-```
-//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))
-```
 
 <!-- cell:6 type:markdown -->
 ## Example
@@ -93,14 +88,13 @@ for i in np.arange(1,N):
 
 <!-- cell:8 type:code -->
 ```python
-plt.hist(x, bins=30, alpha=0.3, normed=True);
+plt.hist(x, bins=30, alpha=0.3, density=True);
 sns.kdeplot(x)
 plt.xlabel('x')
 ```
 Output:
 ```
-//anaconda/envs/py35/lib/python3.5/site-packages/statsmodels/nonparametric/kdetools.py:20: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
-  y = X[:m/2+1] + np.r_[0,X[m/2+1:],0]*1j
+Text(0.5, 0, 'x')
 ```
 [Figure]
 

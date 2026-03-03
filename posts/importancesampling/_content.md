@@ -6,6 +6,8 @@
 # requires-python = ">=3.10"
 # dependencies = [
 #   "scipy",
+#   "numpy",
+#   "matplotlib",
 # ]
 # ///
 
@@ -88,6 +90,8 @@ The function has a shape that is similar to Gaussian and therefore we choose her
 
 <!-- cell:5 type:code -->
 ```python
+import numpy as np
+import matplotlib.pyplot as plt
 from scipy import stats
 from scipy.stats import norm
 
@@ -172,11 +176,18 @@ plt.legend()
 ```
 Output:
 ```
-Exact solution is:  3.14159265359
-Mean basic MC estimate:  3.14068341144
-Standard deviation of our estimates:  0.0617743877206
-Mean importance sampling MC estimate:  3.14197268362
-Standard deviation of our estimates:  0.0161935244302
+<>:14: SyntaxWarning: "\s" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\s"? A raw string is also an option.
+<>:14: SyntaxWarning: "\s" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\s"? A raw string is also an option.
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48996/3126677621.py:14: SyntaxWarning: "\s" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\s"? A raw string is also an option.
+  plt.plot(x, f(x), 'b', label=u'Original  $x\sin(x)$')
+```
+Output:
+```
+Exact solution is:  3.141592653589793
+Mean basic MC estimate:  3.140504845789859
+Standard deviation of our estimates:  0.06174834767832666
+Mean importance sampling MC estimate:  3.141806901630496
+Standard deviation of our estimates:  0.01620145069610606
 ```
 [Figure]
 

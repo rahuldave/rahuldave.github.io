@@ -24,11 +24,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 sns.set_style("whitegrid")
 ```
-Output:
-```
-//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))
-```
 
 <!-- cell:3 type:markdown -->
 ## Formulation of the problem
@@ -137,13 +132,8 @@ Since we can sample from the posterior now after 9 observations, lets do so!
 <!-- cell:10 type:code -->
 ```python
 samples = beta.rvs(*posterior_params, size=10000)
-plt.hist(samples, bins=50, normed=True);
+plt.hist(samples, bins=50, density=True);
 sns.kdeplot(samples);
-```
-Output:
-```
-//anaconda/envs/py35/lib/python3.5/site-packages/statsmodels/nonparametric/kdetools.py:20: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
-  y = X[:m/2+1] + np.r_[0,X[m/2+1:],0]*1j
 ```
 [Figure]
 
@@ -158,7 +148,7 @@ np.mean(samples < 0.5)
 ```
 Output:
 ```
-0.17299999999999999
+np.float64(0.1705)
 ```
 
 <!-- cell:13 type:markdown -->
@@ -170,7 +160,7 @@ np.percentile(samples, 80)
 ```
 Output:
 ```
-0.76255263476156399
+np.float64(0.7603832562125579)
 ```
 
 <!-- cell:15 type:markdown -->
@@ -182,7 +172,7 @@ np.percentile(samples, [10, 90])
 ```
 Output:
 ```
-array([ 0.44604094,  0.81516349])
+array([0.44882814, 0.81333566])
 ```
 
 <!-- cell:17 type:markdown -->
@@ -194,7 +184,9 @@ np.mean(samples), np.median(samples), np.percentile(samples, 50) #last 2 are sam
 ```
 Output:
 ```
-(0.63787343440335842, 0.6473143052303143, 0.6473143052303143)
+(np.float64(0.6373160701823328),
+ np.float64(0.6457855966822045),
+ np.float64(0.6457855966822045))
 ```
 
 <!-- cell:19 type:markdown -->
@@ -203,24 +195,6 @@ A particularly important and useful point estimate is the **MAP**, or "maximum a
 <!-- cell:20 type:code -->
 ```python
 sampleshisto = np.histogram(samples, bins=50)
-```
-Output:
-```
-(array([  2,   3,   4,   7,  13,   9,  23,  27,  37,  53,  58,  57,  74,
-         94, 124, 152, 170, 216, 215, 224, 224, 269, 310, 308, 341, 335,
-        371, 405, 434, 419, 455, 474, 407, 427, 425, 380, 360, 332, 307,
-        297, 262, 202, 194, 152, 138,  90,  55,  35,  23,   7]),
- array([ 0.1684931 ,  0.18443135,  0.20036959,  0.21630783,  0.23224608,
-         0.24818432,  0.26412256,  0.2800608 ,  0.29599905,  0.31193729,
-         0.32787553,  0.34381378,  0.35975202,  0.37569026,  0.39162851,
-         0.40756675,  0.42350499,  0.43944324,  0.45538148,  0.47131972,
-         0.48725797,  0.50319621,  0.51913445,  0.5350727 ,  0.55101094,
-         0.56694918,  0.58288743,  0.59882567,  0.61476391,  0.63070215,
-         0.6466404 ,  0.66257864,  0.67851688,  0.69445513,  0.71039337,
-         0.72633161,  0.74226986,  0.7582081 ,  0.77414634,  0.79008459,
-         0.80602283,  0.82196107,  0.83789932,  0.85383756,  0.8697758 ,
-         0.88571405,  0.90165229,  0.91759053,  0.93352878,  0.94946702,
-         0.96540526]))
 ```
 
 <!-- cell:21 type:code -->
@@ -231,7 +205,7 @@ print(maxcountindex, mapvalue)
 ```
 Output:
 ```
-31 0.662578641304
+29 0.642838008998395
 ```
 
 <!-- cell:22 type:markdown -->
@@ -259,7 +233,7 @@ print("Mean",np.mean(samples));
 ```
 Output:
 ```
-Mean 0.634941511888
+Mean 0.6373160701823328
 ```
 [Figure]
 
@@ -335,7 +309,7 @@ postpred
 ```
 Output:
 ```
-array([5, 5, 7, ..., 7, 5, 8])
+array([7, 8, 8, ..., 5, 6, 8], shape=(10000,))
 ```
 
 <!-- cell:33 type:code -->

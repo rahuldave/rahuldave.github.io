@@ -151,14 +151,14 @@ window.Quarto = {
 <meta property="og:description" content="Demonstrates Gibbs sampling on a bimodal, highly-correlated posterior distribution. Shows that conditional posteriors are Gaussian despite an ugly joint form, and illustrates the autocorrelation challenges that arise in difficult sampling problems.">
 <meta property="og:image" content="https://rahuldave.github.io/posts/tetchygibbs/index_files/figure-html/cell-5-output-1.png">
 <meta property="og:site_name" content="rahuldave">
-<meta property="og:image:height" content="539">
-<meta property="og:image:width" content="762">
+<meta property="og:image:height" content="451">
+<meta property="og:image:width" content="563">
 <meta name="twitter:title" content="A Tetchy Gibbs Sampler – rahuldave">
 <meta name="twitter:description" content="Demonstrates Gibbs sampling on a bimodal, highly-correlated posterior distribution. Shows that conditional posteriors are Gaussian despite an ugly joint form, and illustrates the autocorrelation challenges that arise in difficult sampling problems.">
 <meta name="twitter:image" content="https://rahuldave.github.io/posts/tetchygibbs/index_files/figure-html/cell-5-output-1.png">
 <meta name="twitter:creator" content="@rahuldave">
-<meta name="twitter:image-height" content="539">
-<meta name="twitter:image-width" content="762">
+<meta name="twitter:image-height" content="451">
+<meta name="twitter:image-width" content="563">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -460,7 +460,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-2" class="cell" data-hide="true" data-execution_count="1" data-cell-type="code">
+<div id="e200d272" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:36.823509Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:36.823267Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:37.761856Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:37.761378Z&quot;}}" data-hide="true" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
@@ -472,10 +472,6 @@ window.Quarto = {
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">'whitegrid'</span>)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>sns.set_context(<span class="st">'poster'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
-</div>
 </div>
 <section id="a-tetchy-posterior" class="level2">
 <h2 class="anchored" data-anchor-id="a-tetchy-posterior">A tetchy posterior</h2>
@@ -494,21 +490,21 @@ window.Quarto = {
 <p>and similarly</p>
 <p><span class="math display">\[ y \mid x, data \sim N\left(\frac{4}{1+x^2}, \sqrt{\frac{1}{1+x^2}}\right) \]</span>.</p>
 <p>We know how to draw from normal distributions, so if we iterate back and forth, we should be able to sample from <span class="math inline">\(f(x, y \mid data)\)</span>!</p>
-<div id="cell-4" class="cell" data-execution_count="2" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>f<span class="op">=</span> <span class="kw">lambda</span> x,y: np.exp(<span class="op">-</span>(x<span class="op">*</span>x<span class="op">*</span>y<span class="op">*</span>y<span class="op">+</span>x<span class="op">*</span>x<span class="op">+</span>y<span class="op">*</span>y<span class="op">-</span><span class="dv">8</span><span class="op">*</span>x<span class="op">-</span><span class="dv">8</span><span class="op">*</span>y)<span class="op">/</span><span class="fl">2.</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="986f96b0" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:37.763131Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:37.763030Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:37.764917Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:37.764556Z&quot;}}" data-execution_count="3" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>f<span class="op">=</span> <span class="kw">lambda</span> x,y: np.exp(<span class="op">-</span>(x<span class="op">*</span>x<span class="op">*</span>y<span class="op">*</span>y<span class="op">+</span>x<span class="op">*</span>x<span class="op">+</span>y<span class="op">*</span>y<span class="op">-</span><span class="dv">8</span><span class="op">*</span>x<span class="op">-</span><span class="dv">8</span><span class="op">*</span>y)<span class="op">/</span><span class="fl">2.</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="contour-plot" class="level3">
 <h3 class="anchored" data-anchor-id="contour-plot">Contour plot</h3>
 <p>First, let’s make a contour plot of the posterior density.</p>
-<div id="cell-6" class="cell" data-execution_count="3" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>xx<span class="op">=</span>np.linspace(<span class="op">-</span><span class="dv">1</span>,<span class="dv">8</span>,<span class="dv">100</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>yy<span class="op">=</span>np.linspace(<span class="op">-</span><span class="dv">1</span>,<span class="dv">8</span>,<span class="dv">100</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>xg,yg <span class="op">=</span> np.meshgrid(xx,yy)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>z<span class="op">=</span>f(xg.ravel(),yg.ravel())</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>z2 <span class="op">=</span> z.reshape(xg.shape)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>z2</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>plt.contourf(xg,yg,z2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="043c3fb4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:37.765897Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:37.765816Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:37.814526Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:37.814006Z&quot;}}" data-execution_count="4" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>xx<span class="op">=</span>np.linspace(<span class="op">-</span><span class="dv">1</span>,<span class="dv">8</span>,<span class="dv">100</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>yy<span class="op">=</span>np.linspace(<span class="op">-</span><span class="dv">1</span>,<span class="dv">8</span>,<span class="dv">100</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>xg,yg <span class="op">=</span> np.meshgrid(xx,yy)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>z<span class="op">=</span>f(xg.ravel(),yg.ravel())</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>z2 <span class="op">=</span> z.reshape(xg.shape)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>z2</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>plt.contourf(xg,yg,z2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -522,41 +518,41 @@ window.Quarto = {
 <section id="gibbs-sampler" class="level2">
 <h2 class="anchored" data-anchor-id="gibbs-sampler">Gibbs Sampler</h2>
 <p>Now let’s run the sampler, by iteratively drawing from the conditional distribution of <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> given the other.</p>
-<div id="cell-8" class="cell" data-execution_count="4" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">400000</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>xall<span class="op">=</span>np.zeros(N<span class="op">+</span><span class="dv">1</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>yall<span class="op">=</span>np.zeros(N<span class="op">+</span><span class="dv">1</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Initialize x and y.</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>xall[<span class="dv">0</span>]<span class="op">=</span><span class="fl">1.</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>yall[<span class="dv">0</span>]<span class="op">=</span><span class="fl">6.</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>sig <span class="op">=</span> <span class="kw">lambda</span> z,i: np.sqrt(<span class="fl">1.</span><span class="op">/</span>(<span class="fl">1.</span><span class="op">+</span>z[i]<span class="op">*</span>z[i]))</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>mu <span class="op">=</span> <span class="kw">lambda</span> z,i: <span class="fl">4.</span><span class="op">/</span>(<span class="fl">1.</span><span class="op">+</span>z[i]<span class="op">*</span>z[i])</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,N,<span class="dv">2</span>):</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    sig_x <span class="op">=</span> sig(yall,i<span class="op">-</span><span class="dv">1</span>)</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    mu_x <span class="op">=</span> mu(yall,i<span class="op">-</span><span class="dv">1</span>)</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    xall[i] <span class="op">=</span> np.random.normal(mu_x, sig_x)</span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    yall[i] <span class="op">=</span> yall[i<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    sig_y <span class="op">=</span> sig(xall, i)</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    mu_y <span class="op">=</span> mu(xall, i)</span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    yall[i<span class="op">+</span><span class="dv">1</span>] <span class="op">=</span> np.random.normal(mu_y, sig_y)</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    xall[i<span class="op">+</span><span class="dv">1</span>] <span class="op">=</span> xall[i]</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="3eed162a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:37.815541Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:37.815462Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:38.296888Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:38.296379Z&quot;}}" data-execution_count="5" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">400000</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>xall<span class="op">=</span>np.zeros(N<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>yall<span class="op">=</span>np.zeros(N<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Initialize x and y.</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>xall[<span class="dv">0</span>]<span class="op">=</span><span class="fl">1.</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>yall[<span class="dv">0</span>]<span class="op">=</span><span class="fl">6.</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>sig <span class="op">=</span> <span class="kw">lambda</span> z,i: np.sqrt(<span class="fl">1.</span><span class="op">/</span>(<span class="fl">1.</span><span class="op">+</span>z[i]<span class="op">*</span>z[i]))</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>mu <span class="op">=</span> <span class="kw">lambda</span> z,i: <span class="fl">4.</span><span class="op">/</span>(<span class="fl">1.</span><span class="op">+</span>z[i]<span class="op">*</span>z[i])</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,N,<span class="dv">2</span>):</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    sig_x <span class="op">=</span> sig(yall,i<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    mu_x <span class="op">=</span> mu(yall,i<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    xall[i] <span class="op">=</span> np.random.normal(mu_x, sig_x)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    yall[i] <span class="op">=</span> yall[i<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    sig_y <span class="op">=</span> sig(xall, i)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    mu_y <span class="op">=</span> mu(xall, i)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    yall[i<span class="op">+</span><span class="dv">1</span>] <span class="op">=</span> np.random.normal(mu_y, sig_y)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>    xall[i<span class="op">+</span><span class="dv">1</span>] <span class="op">=</span> xall[i]</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-9" class="cell" data-execution_count="5" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>xall[N<span class="op">//</span><span class="dv">10</span>::<span class="dv">10</span>]</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>y<span class="op">=</span>yall[N<span class="op">//</span><span class="dv">10</span>::<span class="dv">10</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="e1c45096" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:38.298360Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:38.298212Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:38.300296Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:38.299794Z&quot;}}" data-execution_count="6" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>xall[N<span class="op">//</span><span class="dv">10</span>::<span class="dv">10</span>]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>y<span class="op">=</span>yall[N<span class="op">//</span><span class="dv">10</span>::<span class="dv">10</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="traceplots" class="level3">
 <h3 class="anchored" data-anchor-id="traceplots">Traceplots</h3>
 <p>To assess how the sampler is exploring the space, we can plot a <strong>traceplot</strong> for each dimension. A traceplot plots the value of each sample against the iteration number and gives a sense of how well the sampler is exploring the space.</p>
-<div id="cell-11" class="cell" data-execution_count="10" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> traceplot(z):</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    plt.plot(z, alpha<span class="op">=</span><span class="fl">0.3</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="ad1e3a33" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:38.301589Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:38.301476Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:38.303393Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:38.302979Z&quot;}}" data-execution_count="7" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> traceplot(z):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    plt.plot(z, alpha<span class="op">=</span><span class="fl">0.3</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-12" class="cell" data-execution_count="11" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>traceplot(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="40fd03d2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:38.304448Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:38.304377Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:38.522790Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:38.522214Z&quot;}}" data-execution_count="8" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>traceplot(x)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -570,8 +566,8 @@ window.Quarto = {
 <section id="marginals" class="level3">
 <h3 class="anchored" data-anchor-id="marginals">Marginals</h3>
 <p>We can also draw a histogram of <span class="math inline">\(x\)</span> to get an estimate of its <strong>marginal distribution</strong>.</p>
-<div id="cell-14" class="cell" data-execution_count="12" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>plt.hist(x, bins<span class="op">=</span><span class="dv">50</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="da599c6e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:38.524904Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:38.524707Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:38.575407Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:38.574992Z&quot;}}" data-execution_count="9" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>plt.hist(x, bins<span class="op">=</span><span class="dv">50</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -582,8 +578,8 @@ window.Quarto = {
 </div>
 <p>This is exactly what we would expect if we projected the distribution in the contour plot down to the <span class="math inline">\(x\)</span> axis.</p>
 <p>We can do the same plots for <span class="math inline">\(y\)</span>.</p>
-<div id="cell-16" class="cell" data-execution_count="13" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>traceplot(y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="f67737b1" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:38.576577Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:38.576493Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:38.765595Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:38.765241Z&quot;}}" data-execution_count="10" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>traceplot(y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -592,8 +588,8 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-17" class="cell" data-execution_count="14" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>plt.hist(y, bins<span class="op">=</span><span class="dv">50</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="4cb1143a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:38.766700Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:38.766618Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:38.808756Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:38.808379Z&quot;}}" data-execution_count="11" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>plt.hist(y, bins<span class="op">=</span><span class="dv">50</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -606,10 +602,10 @@ window.Quarto = {
 <section id="how-we-move" class="level3">
 <h3 class="anchored" data-anchor-id="how-we-move">How we move</h3>
 <p>Because we are in two dimensions, we can also plot the path that the sampler took through the <span class="math inline">\(xy\)</span> plane. Note that the path always takes right angles, because we are alternating between moves that only move in the <span class="math inline">\(x\)</span> direction and only move in the <span class="math inline">\(y\)</span> direction.</p>
-<div id="cell-19" class="cell" data-execution_count="17" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plt.contourf(xg,yg,z2, alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>plt.scatter(xall[::<span class="dv">10</span>],yall[::<span class="dv">10</span>], alpha<span class="op">=</span><span class="fl">0.01</span>, c<span class="op">=</span><span class="st">'k'</span>, s<span class="op">=</span><span class="dv">5</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xall[:<span class="dv">200</span>],yall[:<span class="dv">200</span>], c<span class="op">=</span><span class="st">'r'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, lw<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="310c4dfd" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:38.809924Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:38.809840Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:44:38.871541Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:44:38.871059Z&quot;}}" data-execution_count="12" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>plt.contourf(xg,yg,z2, alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>plt.scatter(xall[::<span class="dv">10</span>],yall[::<span class="dv">10</span>], alpha<span class="op">=</span><span class="fl">0.01</span>, c<span class="op">=</span><span class="st">'k'</span>, s<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xall[:<span class="dv">200</span>],yall[:<span class="dv">200</span>], c<span class="op">=</span><span class="st">'r'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>, lw<span class="op">=</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -622,11 +618,11 @@ window.Quarto = {
 <section id="autocorrelations" class="level3">
 <h3 class="anchored" data-anchor-id="autocorrelations">Autocorrelations</h3>
 <p>To see how effective the samples we have drawn will be at approximating summaries of the posterior distribution (for example the posterior mean), we can look at the autocorrelation of the samples. High autocorrelation would mean that the sample average that we take to approximate the posterior mean would be higher than expected if we had taken independent samples from the posterior distribution.</p>
-<div id="cell-21" class="cell" data-execution_count="19" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> corrplot(trace, maxlags<span class="op">=</span><span class="dv">50</span>):</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    plt.acorr(trace<span class="op">-</span>np.mean(trace),  normed<span class="op">=</span><span class="va">True</span>, maxlags<span class="op">=</span>maxlags)<span class="op">;</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    plt.xlim([<span class="dv">0</span>, maxlags])</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>corrplot(xall[N<span class="op">//</span><span class="dv">10</span>:])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="365c1c1f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:44:38.872791Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:44:38.872712Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:45:04.099067Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:45:04.098661Z&quot;}}" data-execution_count="13" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> corrplot(trace, maxlags<span class="op">=</span><span class="dv">50</span>):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    plt.acorr(trace<span class="op">-</span>np.mean(trace),  maxlags<span class="op">=</span>maxlags)<span class="op">;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    plt.xlim([<span class="dv">0</span>, maxlags])</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>corrplot(xall[N<span class="op">//</span><span class="dv">10</span>:])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -635,8 +631,8 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-22" class="cell" data-execution_count="57" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>corrplot(y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="0cff9776" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:45:04.100406Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:45:04.100306Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:45:04.364859Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:45:04.364517Z&quot;}}" data-execution_count="14" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>corrplot(y)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -650,64 +646,64 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="effective-sample-size">Effective Sample Size</h3>
 <p>In both <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, we can see that the autocorrelation is quite high. This is not a big problem though because the sampler is so simple that we can draw millions of samples to make up for the high autocorrelation.</p>
 <p>To figure out exactly how many samples we would have to draw, we can compute <strong>effective sample size</strong>, a measure of how many independent samples our our samples are equivalent to. This usese the same quantities that were used to compute the autocorrelation plot above. The following code is taken from https://code.google.com/p/biopy/source/browse/trunk/biopy/bayesianStats.py?r=67. You don’t need to try to understand the function – it’s just here to run it, and this is a rather slow implementation.</p>
-<div id="cell-24" class="cell" data-execution_count="20" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> effectiveSampleSize(data, stepSize <span class="op">=</span> <span class="dv">1</span>) :</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">""" Effective sample size, as computed by BEAST Tracer."""</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  samples <span class="op">=</span> <span class="bu">len</span>(data)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">assert</span> <span class="bu">len</span>(data) <span class="op">&gt;</span> <span class="dv">1</span>,<span class="st">"no stats for short sequences"</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  maxLag <span class="op">=</span> <span class="bu">min</span>(samples<span class="op">//</span><span class="dv">3</span>, <span class="dv">1000</span>)</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  gammaStat <span class="op">=</span> [<span class="dv">0</span>,]<span class="op">*</span>maxLag</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">#varGammaStat = [0,]*maxLag</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  varStat <span class="op">=</span> <span class="fl">0.0</span><span class="op">;</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="bu">type</span>(data) <span class="op">!=</span> np.ndarray :</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> np.array(data)</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  normalizedData <span class="op">=</span> data <span class="op">-</span> data.mean()</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> lag <span class="kw">in</span> <span class="bu">range</span>(maxLag) :</span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>    v1 <span class="op">=</span> normalizedData[:samples<span class="op">-</span>lag]</span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>    v2 <span class="op">=</span> normalizedData[lag:]</span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>    v <span class="op">=</span> v1 <span class="op">*</span> v2</span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>    gammaStat[lag] <span class="op">=</span> <span class="bu">sum</span>(v) <span class="op">/</span> <span class="bu">len</span>(v)</span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>    <span class="co">#varGammaStat[lag] = sum(v*v) / len(v)</span></span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>    <span class="co">#varGammaStat[lag] -= gammaStat[0] ** 2</span></span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print lag, gammaStat[lag], varGammaStat[lag]</span></span>
-<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> lag <span class="op">==</span> <span class="dv">0</span> :</span>
-<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>      varStat <span class="op">=</span> gammaStat[<span class="dv">0</span>]</span>
-<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> lag <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span> :</span>
-<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>      s <span class="op">=</span> gammaStat[lag<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> gammaStat[lag]</span>
-<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> s <span class="op">&gt;</span> <span class="dv">0</span> :</span>
-<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>         varStat <span class="op">+=</span> <span class="fl">2.0</span><span class="op">*</span>s</span>
-<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>      <span class="cf">else</span> :</span>
-<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
-<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>      </span>
-<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a>  <span class="co"># standard error of mean</span></span>
-<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a>  <span class="co"># stdErrorOfMean = Math.sqrt(varStat/samples);</span></span>
-<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>  <span class="co"># auto correlation time</span></span>
-<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>  act <span class="op">=</span> stepSize <span class="op">*</span> varStat <span class="op">/</span> gammaStat[<span class="dv">0</span>]</span>
-<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a>  <span class="co"># effective sample size</span></span>
-<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a>  ess <span class="op">=</span> (stepSize <span class="op">*</span> samples) <span class="op">/</span> act</span>
-<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> ess</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="2f0588a7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:45:04.366038Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:45:04.365947Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:45:04.368951Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:45:04.368489Z&quot;}}" data-execution_count="15" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> effectiveSampleSize(data, stepSize <span class="op">=</span> <span class="dv">1</span>) :</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">""" Effective sample size, as computed by BEAST Tracer."""</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  samples <span class="op">=</span> <span class="bu">len</span>(data)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">assert</span> <span class="bu">len</span>(data) <span class="op">&gt;</span> <span class="dv">1</span>,<span class="st">"no stats for short sequences"</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  maxLag <span class="op">=</span> <span class="bu">min</span>(samples<span class="op">//</span><span class="dv">3</span>, <span class="dv">1000</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  gammaStat <span class="op">=</span> [<span class="dv">0</span>,]<span class="op">*</span>maxLag</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">#varGammaStat = [0,]*maxLag</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  varStat <span class="op">=</span> <span class="fl">0.0</span><span class="op">;</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="bu">type</span>(data) <span class="op">!=</span> np.ndarray :</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> np.array(data)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  normalizedData <span class="op">=</span> data <span class="op">-</span> data.mean()</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> lag <span class="kw">in</span> <span class="bu">range</span>(maxLag) :</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    v1 <span class="op">=</span> normalizedData[:samples<span class="op">-</span>lag]</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    v2 <span class="op">=</span> normalizedData[lag:]</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    v <span class="op">=</span> v1 <span class="op">*</span> v2</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    gammaStat[lag] <span class="op">=</span> <span class="bu">sum</span>(v) <span class="op">/</span> <span class="bu">len</span>(v)</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    <span class="co">#varGammaStat[lag] = sum(v*v) / len(v)</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    <span class="co">#varGammaStat[lag] -= gammaStat[0] ** 2</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print lag, gammaStat[lag], varGammaStat[lag]</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> lag <span class="op">==</span> <span class="dv">0</span> :</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>      varStat <span class="op">=</span> gammaStat[<span class="dv">0</span>]</span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> lag <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span> :</span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>      s <span class="op">=</span> gammaStat[lag<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> gammaStat[lag]</span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> s <span class="op">&gt;</span> <span class="dv">0</span> :</span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>         varStat <span class="op">+=</span> <span class="fl">2.0</span><span class="op">*</span>s</span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>      <span class="cf">else</span> :</span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>  <span class="co"># standard error of mean</span></span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>  <span class="co"># stdErrorOfMean = Math.sqrt(varStat/samples);</span></span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>  <span class="co"># auto correlation time</span></span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>  act <span class="op">=</span> stepSize <span class="op">*</span> varStat <span class="op">/</span> gammaStat[<span class="dv">0</span>]</span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>  <span class="co"># effective sample size</span></span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>  ess <span class="op">=</span> (stepSize <span class="op">*</span> samples) <span class="op">/</span> act</span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> ess</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Now we can compute effective sample size for x and y.</p>
-<div id="cell-26" class="cell" data-execution_count="21" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>esx <span class="op">=</span> effectiveSampleSize(xall)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>esy <span class="op">=</span> effectiveSampleSize(yall)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Effective Size for x: "</span>, esx, <span class="st">" of "</span>, <span class="bu">len</span>(x), <span class="st">" samples, rate of"</span>, esx<span class="op">/</span><span class="bu">len</span>(x)<span class="op">*</span><span class="dv">100</span>, <span class="st">"%."</span>)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Effective Size for y: "</span>, esy, <span class="st">" of "</span>, <span class="bu">len</span>(y), <span class="st">" samples, rate of"</span>, esy<span class="op">/</span><span class="bu">len</span>(y)<span class="op">*</span><span class="dv">100</span>, <span class="st">"%."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="967413db" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:45:04.369991Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:45:04.369914Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:45:08.385606Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:45:08.385198Z&quot;}}" data-execution_count="16" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>esx <span class="op">=</span> effectiveSampleSize(xall)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>esy <span class="op">=</span> effectiveSampleSize(yall)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Effective Size for x: "</span>, esx, <span class="st">" of "</span>, <span class="bu">len</span>(x), <span class="st">" samples, rate of"</span>, esx<span class="op">/</span><span class="bu">len</span>(x)<span class="op">*</span><span class="dv">100</span>, <span class="st">"%."</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Effective Size for y: "</span>, esy, <span class="st">" of "</span>, <span class="bu">len</span>(y), <span class="st">" samples, rate of"</span>, esy<span class="op">/</span><span class="bu">len</span>(y)<span class="op">*</span><span class="dv">100</span>, <span class="st">"%."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Effective Size for x:  10115.8236073  of  36001  samples, rate of 28.0987295001 %.
-Effective Size for y:  10264.5088434  of  36001  samples, rate of 28.5117325726 %.</code></pre>
+<pre><code>Effective Size for x:  9953.100803538862  of  36001  samples, rate of 27.646734267211638 %.
+Effective Size for y:  9975.84115574809  of  36001  samples, rate of 27.709900157629207 %.</code></pre>
 </div>
 </div>
 <p>Note that while the effective size is only just over 25% of the actual sample size, we can draw samples so quickly from the posterior that this is not a major hindrance.</p>

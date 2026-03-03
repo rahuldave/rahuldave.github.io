@@ -27,11 +27,6 @@ import time
 sns.set_style('whitegrid')
 sns.set_context('poster')
 ```
-Output:
-```
-//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))
-```
 
 <!-- cell:3 type:markdown -->
 We now going to take a look at a slightly more complicated case that was originally outlined in full generality by Casella and George (1992). Suppose we have a nasty looking joint distribution given as: 
@@ -105,7 +100,7 @@ def gibbs(N=10000,thin=50):
 <!-- cell:11 type:code -->
 ```python
 out=gibbs()
-plt.hist2d(out[:,0],out[:,1], normed=True, bins=50)
+plt.hist2d(out[:,0],out[:,1], density=True, bins=50)
 plt.show()
 ```
 [Figure]

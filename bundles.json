@@ -18,7 +18,7 @@
   },
   "basicmontecarlo": {
     "zip": "/posts/basicmontecarlo/basicmontecarlo.zip",
-    "size_bytes": 223977,
+    "size_bytes": 241985,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -33,7 +33,7 @@
   },
   "bayes_withsampling": {
     "zip": "/posts/bayes_withsampling/bayes_withsampling.zip",
-    "size_bytes": 249853,
+    "size_bytes": 310584,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -65,7 +65,7 @@
   },
   "dataaug": {
     "zip": "/posts/dataaug/dataaug.zip",
-    "size_bytes": 20711,
+    "size_bytes": 22791,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -80,7 +80,7 @@
   },
   "discretemcmc": {
     "zip": "/posts/discretemcmc/discretemcmc.zip",
-    "size_bytes": 35832,
+    "size_bytes": 46354,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -95,7 +95,7 @@
   },
   "distrib-example": {
     "zip": "/posts/distrib-example/distrib-example.zip",
-    "size_bytes": 271513,
+    "size_bytes": 347246,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -145,16 +145,15 @@
   },
   "em": {
     "zip": "/posts/em/em.zip",
-    "size_bytes": 210325,
+    "size_bytes": 233254,
     "dependencies": [
       "matplotlib",
       "numpy",
       "pandas",
-      "pymc3",
       "scipy",
       "seaborn"
     ],
-    "pyodide_compatible": false,
+    "pyodide_compatible": true,
     "files": [
       "index.ipynb",
       "assets/emupdate.png",
@@ -167,7 +166,7 @@
   },
   "entropy": {
     "zip": "/posts/entropy/entropy.zip",
-    "size_bytes": 266279,
+    "size_bytes": 260268,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -199,7 +198,7 @@
   },
   "functorch": {
     "zip": "/posts/functorch/functorch.zip",
-    "size_bytes": 146012,
+    "size_bytes": 206788,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -214,7 +213,7 @@
   },
   "generativemodels": {
     "zip": "/posts/generativemodels/generativemodels.zip",
-    "size_bytes": 541170,
+    "size_bytes": 795319,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -235,7 +234,7 @@
   },
   "gibbsconj": {
     "zip": "/posts/gibbsconj/gibbsconj.zip",
-    "size_bytes": 14379,
+    "size_bytes": 13009,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -249,7 +248,7 @@
   },
   "globemodel": {
     "zip": "/posts/globemodel/globemodel.zip",
-    "size_bytes": 374626,
+    "size_bytes": 461793,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -264,7 +263,7 @@
   },
   "globemodellab": {
     "zip": "/posts/globemodellab/globemodellab.zip",
-    "size_bytes": 414067,
+    "size_bytes": 621764,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -279,7 +278,7 @@
   },
   "gradientdescent": {
     "zip": "/posts/gradientdescent/gradientdescent.zip",
-    "size_bytes": 4196364,
+    "size_bytes": 4341313,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -295,7 +294,7 @@
   },
   "hierarch": {
     "zip": "/posts/hierarch/hierarch.zip",
-    "size_bytes": 340546,
+    "size_bytes": 349115,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -313,17 +312,16 @@
   },
   "hmcexplore": {
     "zip": "/posts/hmcexplore/hmcexplore.zip",
-    "size_bytes": 399030,
+    "size_bytes": 471198,
     "dependencies": [
       "ipython",
       "matplotlib",
       "numpy",
       "pandas",
-      "pymc3",
       "scipy",
       "seaborn"
     ],
-    "pyodide_compatible": false,
+    "pyodide_compatible": true,
     "files": [
       "index.ipynb",
       "assets/levelsets.png",
@@ -336,9 +334,11 @@
   },
   "importancesampling": {
     "zip": "/posts/importancesampling/importancesampling.zip",
-    "size_bytes": 95278,
+    "size_bytes": 119579,
     "dependencies": [
-      "scipy"
+      "scipy",
+      "numpy",
+      "matplotlib"
     ],
     "pyodide_compatible": true,
     "files": [
@@ -348,7 +348,7 @@
   },
   "introgibbs": {
     "zip": "/posts/introgibbs/introgibbs.zip",
-    "size_bytes": 139973,
+    "size_bytes": 143632,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -430,7 +430,7 @@
   },
   "metropolis": {
     "zip": "/posts/metropolis/metropolis.zip",
-    "size_bytes": 184201,
+    "size_bytes": 212184,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -446,7 +446,7 @@
   },
   "metropolishastings": {
     "zip": "/posts/metropolishastings/metropolishastings.zip",
-    "size_bytes": 158328,
+    "size_bytes": 235693,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -460,7 +460,7 @@
   },
   "metropolissupport": {
     "zip": "/posts/metropolissupport/metropolissupport.zip",
-    "size_bytes": 53371,
+    "size_bytes": 102665,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -475,7 +475,7 @@
   },
   "mlp_classification": {
     "zip": "/posts/mlp_classification/mlp_classification.zip",
-    "size_bytes": 2150582,
+    "size_bytes": 2445642,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -506,7 +506,7 @@
   },
   "nnreg": {
     "zip": "/posts/nnreg/nnreg.zip",
-    "size_bytes": 478640,
+    "size_bytes": 802967,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -520,7 +520,7 @@
   },
   "noiseless_learning": {
     "zip": "/posts/noiseless_learning/noiseless_learning.zip",
-    "size_bytes": 337069,
+    "size_bytes": 397611,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -573,7 +573,7 @@
   },
   "normalreg": {
     "zip": "/posts/normalreg/normalreg.zip",
-    "size_bytes": 214860,
+    "size_bytes": 353782,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -589,7 +589,7 @@
   },
   "probability": {
     "zip": "/posts/probability/probability.zip",
-    "size_bytes": 113078,
+    "size_bytes": 120669,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -607,7 +607,7 @@
   },
   "regularization": {
     "zip": "/posts/regularization/regularization.zip",
-    "size_bytes": 428187,
+    "size_bytes": 532041,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -641,7 +641,7 @@
   },
   "samplingclt": {
     "zip": "/posts/samplingclt/samplingclt.zip",
-    "size_bytes": 218064,
+    "size_bytes": 254110,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -656,7 +656,7 @@
   },
   "sufstatexch": {
     "zip": "/posts/sufstatexch/sufstatexch.zip",
-    "size_bytes": 51010,
+    "size_bytes": 60318,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -670,23 +670,23 @@
   },
   "switchpoint": {
     "zip": "/posts/switchpoint/switchpoint.zip",
-    "size_bytes": 417420,
+    "size_bytes": 966407,
     "dependencies": [
       "matplotlib",
       "numpy",
       "pandas",
-      "pymc3",
+      "pymc",
       "scipy",
       "seaborn"
     ],
-    "pyodide_compatible": false,
+    "pyodide_compatible": true,
     "files": [
       "index.ipynb"
     ]
   },
   "testingtraining": {
     "zip": "/posts/testingtraining/testingtraining.zip",
-    "size_bytes": 859906,
+    "size_bytes": 937975,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -709,7 +709,7 @@
   },
   "tetchygibbs": {
     "zip": "/posts/tetchygibbs/tetchygibbs.zip",
-    "size_bytes": 204338,
+    "size_bytes": 177751,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -741,7 +741,7 @@
   },
   "understandingaic": {
     "zip": "/posts/understandingaic/understandingaic.zip",
-    "size_bytes": 106152,
+    "size_bytes": 124629,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -758,23 +758,23 @@
   },
   "utilityorrisk": {
     "zip": "/posts/utilityorrisk/utilityorrisk.zip",
-    "size_bytes": 255419,
+    "size_bytes": 328188,
     "dependencies": [
       "matplotlib",
       "numpy",
       "pandas",
-      "pymc3",
+      "pymc",
       "scipy",
       "seaborn"
     ],
-    "pyodide_compatible": false,
+    "pyodide_compatible": true,
     "files": [
       "index.ipynb"
     ]
   },
   "validation": {
     "zip": "/posts/validation/validation.zip",
-    "size_bytes": 291217,
+    "size_bytes": 298323,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -797,9 +797,10 @@
   },
   "votingforcongress": {
     "zip": "/posts/votingforcongress/votingforcongress.zip",
-    "size_bytes": 3275293,
+    "size_bytes": 3275466,
     "dependencies": [
-      "pandas"
+      "pandas",
+      "lxml"
     ],
     "pyodide_compatible": true,
     "files": [

@@ -151,14 +151,14 @@ window.Quarto = {
 <meta property="og:description" content="Detailed exploration of Hamiltonian Monte Carlo following Neal and Betancourt. Covers typical set geometry, gradient-based smooth exploration, leapfrog integration, and the No-U-Turn Sampler (NUTS) algorithm.">
 <meta property="og:image" content="https://rahuldave.github.io/posts/hmcexplore/index_files/figure-html/cell-4-output-1.png">
 <meta property="og:site_name" content="rahuldave">
-<meta property="og:image:height" content="258">
-<meta property="og:image:width" content="378">
+<meta property="og:image:height" content="413">
+<meta property="og:image:width" content="556">
 <meta name="twitter:title" content="Exploring Hamiltonian Monte Carlo – rahuldave">
 <meta name="twitter:description" content="Detailed exploration of Hamiltonian Monte Carlo following Neal and Betancourt. Covers typical set geometry, gradient-based smooth exploration, leapfrog integration, and the No-U-Turn Sampler (NUTS) algorithm.">
 <meta name="twitter:image" content="https://rahuldave.github.io/posts/hmcexplore/index_files/figure-html/cell-4-output-1.png">
 <meta name="twitter:creator" content="@rahuldave">
-<meta name="twitter:image-height" content="258">
-<meta name="twitter:image-width" content="378">
+<meta name="twitter:image-height" content="413">
+<meta name="twitter:image-width" content="556">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -479,7 +479,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-2" class="cell" data-execution_count="2" data-cell-type="code">
+<div id="264b967d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:00.362556Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:00.362244Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:01.023986Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:01.023571Z&quot;}}" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
@@ -490,8 +490,7 @@ window.Quarto = {
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.core.display <span class="im">import</span> Image</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymc3 <span class="im">as</span> pm</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
@@ -511,7 +510,7 @@ window.Quarto = {
 <p><span class="math display">\[V(q) = - log\, p(q)\]</span></p>
 <p>such that</p>
 <p><span class="math display">\[p(q) = e^{-V(q)}.\]</span></p>
-<div id="cell-7" class="cell" data-execution_count="31" data-cell-type="code">
+<div id="50db9b9a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:01.025339Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:01.025210Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:01.073103Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:01.072752Z&quot;}}" data-execution_count="3" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fun <span class="op">=</span> <span class="kw">lambda</span> q: sp.stats.norm.pdf(q) </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>qq <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">100</span>)</span>
@@ -524,7 +523,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="33" data-cell-type="code">
+<div id="9c5db553" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:01.074320Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:01.074241Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:01.107084Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:01.106661Z&quot;}}" data-execution_count="4" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>V <span class="op">=</span> <span class="kw">lambda</span> q: <span class="op">-</span>np.log(fun(q))</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>plt.plot(qq, V(qq))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -594,7 +593,7 @@ window.Quarto = {
 <section id="an-example" class="level3">
 <h3 class="anchored" data-anchor-id="an-example">An example</h3>
 <p>Here is an example of a harmonic oscillator with mass 1 and spring-constant 1</p>
-<div id="cell-14" class="cell" data-execution_count="6" data-cell-type="code">
+<div id="31524990" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:01.108090Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:01.108012Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:01.170031Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:01.169655Z&quot;}}" data-execution_count="5" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>q_t <span class="op">=</span> <span class="kw">lambda</span> t: <span class="fl">4.</span> <span class="op">*</span> np.cos(t)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>p_t <span class="op">=</span> <span class="kw">lambda</span> t: <span class="op">-</span><span class="fl">4.</span> <span class="op">*</span> np.sin(t)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>H_x_r_t <span class="op">=</span> <span class="kw">lambda</span> t: q_t(t)<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="fl">2.</span> <span class="op">+</span> p_t(t)<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="fl">2.</span></span>
@@ -626,7 +625,7 @@ window.Quarto = {
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>min and max of H:  8.0 8.0</code></pre>
+<pre><code>min and max of H:  7.999999999999999 8.000000000000002</code></pre>
 </div>
 </div>
 </section>
@@ -760,7 +759,7 @@ window.Quarto = {
 <li>$q_i(t + ) = q_i(t) + $</li>
 </ul>
 <p>See code and plot below for harmonic oscillator, $ H = U(q) + K(p) = + $. Notice that the volume is not preserved as the trajectory we plot for the harmonic oscillator, which should be an elipse, diverges to infinity and the Hamiltonian is not conserved as we’d expect it to be. Something is wrong with this discretization.</p>
-<div id="cell-22" class="cell" data-execution_count="8" data-cell-type="code">
+<div id="230131d0" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:01.171138Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:01.171045Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:01.241810Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:01.241327Z&quot;}}" data-execution_count="6" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> <span class="kw">lambda</span> q: q<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="dv">2</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> <span class="kw">lambda</span> p:  (p<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span><span class="dv">2</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>dUdq<span class="op">=</span> <span class="kw">lambda</span> q: q</span>
@@ -801,10 +800,13 @@ window.Quarto = {
 <span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>)</span>
 <span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>plt.plot(h)</span>
 <span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'H'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>Text(0, 0.5, 'H')</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-7-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -830,58 +832,58 @@ window.Quarto = {
 </ul>
 <p>If we do this repeatedly, the first and last steps can be combined as you can see in the code below.</p>
 <p>Notice that volume is preserved and the trajectory is very stable. In addition the discretization is reversible. The leapfrog method (named because updating momentum and position leapfrog each other) is a symplectic discretization.</p>
-<div id="cell-25" class="cell" data-execution_count="27" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> <span class="kw">lambda</span> q: (q)<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="fl">2.</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> <span class="kw">lambda</span> p:  (p<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span><span class="fl">2.</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>dUdq<span class="op">=</span> <span class="kw">lambda</span> q: q</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> leapfrog(p0, q0, L, epsilon):</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># keep all the epsilon steps</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    ps <span class="op">=</span> [p0]</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    qs <span class="op">=</span> [q0]</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># starting position</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> p0</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    q <span class="op">=</span> q0</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Make a half step for momentum at the beginning</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> p <span class="op">-</span> epsilon<span class="op">*</span>dUdq(q)<span class="op">/</span><span class="fl">2.0</span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># alternate full steps for position and momentum</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(L):</span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        q <span class="op">=</span> q <span class="op">+</span> epsilon<span class="op">*</span>p</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>        qs.append(q)</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (i <span class="op">!=</span> L<span class="op">-</span><span class="dv">1</span>):</span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>            p <span class="op">=</span> p <span class="op">-</span> epsilon<span class="op">*</span>dUdq(q)</span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>            ps.append(p)</span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    <span class="co">#make a half step at the end</span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> p <span class="op">-</span> epsilon<span class="op">*</span>dUdq(q)<span class="op">/</span><span class="fl">2.</span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    ps.append(p)</span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (ps, qs)</span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>lps,lqs <span class="op">=</span> leapfrog(<span class="fl">4.</span>,<span class="fl">0.</span>, <span class="dv">1000</span>, <span class="fl">.1</span> )</span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> [U(q) <span class="op">+</span> K(p) <span class="cf">for</span> q, p <span class="kw">in</span> <span class="bu">zip</span>(lqs, lps)]</span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"min and max of leapfrog H: "</span>, np.<span class="bu">min</span>(h), np.<span class="bu">max</span>(h))</span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>[<span class="dv">12</span>,<span class="dv">4</span>])</span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>plt.plot(lqs,lps, <span class="st">'b.'</span>)</span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>plt.plot(x_t(t), r_t(t), <span class="st">'r.'</span>)</span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'x(t)'</span>)</span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'y(t)'</span>)</span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">'equal'</span>)</span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>)</span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>plt.plot(h)</span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="19347306" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:01.242935Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:01.242854Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:01.307863Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:01.307405Z&quot;}}" data-execution_count="7" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> <span class="kw">lambda</span> q: (q)<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="fl">2.</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> <span class="kw">lambda</span> p:  (p<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span><span class="fl">2.</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>dUdq<span class="op">=</span> <span class="kw">lambda</span> q: q</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> leapfrog(p0, q0, L, epsilon):</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># keep all the epsilon steps</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    ps <span class="op">=</span> [p0]</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    qs <span class="op">=</span> [q0]</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># starting position</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> p0</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    q <span class="op">=</span> q0</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Make a half step for momentum at the beginning</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> p <span class="op">-</span> epsilon<span class="op">*</span>dUdq(q)<span class="op">/</span><span class="fl">2.0</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># alternate full steps for position and momentum</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(L):</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>        q <span class="op">=</span> q <span class="op">+</span> epsilon<span class="op">*</span>p</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        qs.append(q)</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (i <span class="op">!=</span> L<span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>            p <span class="op">=</span> p <span class="op">-</span> epsilon<span class="op">*</span>dUdq(q)</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>            ps.append(p)</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    <span class="co">#make a half step at the end</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    p <span class="op">=</span> p <span class="op">-</span> epsilon<span class="op">*</span>dUdq(q)<span class="op">/</span><span class="fl">2.</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    ps.append(p)</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (ps, qs)</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>lps,lqs <span class="op">=</span> leapfrog(<span class="fl">4.</span>,<span class="fl">0.</span>, <span class="dv">1000</span>, <span class="fl">.1</span> )</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> [U(q) <span class="op">+</span> K(p) <span class="cf">for</span> q, p <span class="kw">in</span> <span class="bu">zip</span>(lqs, lps)]</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"min and max of leapfrog H: "</span>, np.<span class="bu">min</span>(h), np.<span class="bu">max</span>(h))</span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>[<span class="dv">12</span>,<span class="dv">4</span>])</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>plt.plot(lqs,lps, <span class="st">'b.'</span>)</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>plt.plot(q_t(t), p_t(t), <span class="st">'r.'</span>)</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'x(t)'</span>)</span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'y(t)'</span>)</span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">'equal'</span>)</span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>plt.plot(h)</span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>min and max of leapfrog H:  7.6190477193 8.42105060531</code></pre>
+<pre><code>min and max of leapfrog H:  7.619047719300697 8.421050605313674</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -948,79 +950,79 @@ window.Quarto = {
 <section id="a-simple-implementation" class="level3">
 <h3 class="anchored" data-anchor-id="a-simple-implementation">A simple implementation</h3>
 <p>We implement the HMC algorithm below with a gaussian Kinetic energy</p>
-<div id="cell-31" class="cell" data-execution_count="42" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#constants</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> HMC(U,K,dUdq,N,q_0, p_0, epsilon<span class="op">=</span><span class="fl">0.01</span>, L<span class="op">=</span><span class="dv">100</span>):</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    p_mu<span class="op">=</span><span class="fl">0.</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    p_sig<span class="op">=</span><span class="fl">1.</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    current_q <span class="op">=</span> q_0</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    current_p <span class="op">=</span> p_0</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    H <span class="op">=</span> np.zeros(N)</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    qall <span class="op">=</span> np.zeros(N)</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    accept<span class="op">=</span><span class="dv">0</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(N):</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>        q <span class="op">=</span> current_q</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> current_p</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>        <span class="co">#draw a new p</span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> np.random.normal(p_mu, p_sig)</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>        current_p<span class="op">=</span>p</span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># leap frog</span></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Make a half step for momentum at the beginning</span></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> p <span class="op">-</span> epsilon<span class="op">*</span>dUdq(q)<span class="op">/</span><span class="fl">2.0</span></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>        <span class="co"># alternate full steps for position and momentum</span></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(L):</span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>            q <span class="op">=</span> q <span class="op">+</span> epsilon<span class="op">*</span>p</span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> (i <span class="op">!=</span> L<span class="op">-</span><span class="dv">1</span>):</span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>                p <span class="op">=</span> p <span class="op">-</span> epsilon<span class="op">*</span>dUdq(q)</span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>        <span class="co">#make a half step at the end</span></span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> p <span class="op">-</span> epsilon<span class="op">*</span>dUdq(q)<span class="op">/</span><span class="fl">2.</span></span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>        <span class="co"># negate the momentum</span></span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>        p<span class="op">=</span> <span class="op">-</span>p<span class="op">;</span></span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>        current_U <span class="op">=</span> U(current_q)</span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>        current_K <span class="op">=</span> K(current_p)</span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>        proposed_U <span class="op">=</span> U(q)</span>
-<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>        proposed_K <span class="op">=</span> K(p)</span>
-<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>        A<span class="op">=</span>np.exp( current_U<span class="op">-</span>proposed_U<span class="op">+</span>current_K<span class="op">-</span>proposed_K)</span>
-<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>        <span class="co"># accept/reject</span></span>
-<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> np.random.rand() <span class="op">&lt;</span> A:</span>
-<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>            current_q <span class="op">=</span> q</span>
-<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>            qall[j]<span class="op">=</span>q</span>
-<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>            accept<span class="op">+=</span><span class="dv">1</span></span>
-<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>            qall[j] <span class="op">=</span> current_q</span>
-<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a>        H[j] <span class="op">=</span> U(current_q)<span class="op">+</span>K(current_p)</span>
-<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"accept="</span>,accept<span class="op">/</span>np.double(N))</span>
-<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> H, qall</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="4fa1ae6e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:01.308968Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:01.308888Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:01.311929Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:01.311577Z&quot;}}" data-execution_count="8" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#constants</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> HMC(U,K,dUdq,N,q_0, p_0, epsilon<span class="op">=</span><span class="fl">0.01</span>, L<span class="op">=</span><span class="dv">100</span>):</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    p_mu<span class="op">=</span><span class="fl">0.</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    p_sig<span class="op">=</span><span class="fl">1.</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    current_q <span class="op">=</span> q_0</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    current_p <span class="op">=</span> p_0</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    H <span class="op">=</span> np.zeros(N)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    qall <span class="op">=</span> np.zeros(N)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    accept<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(N):</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>        q <span class="op">=</span> current_q</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> current_p</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>        <span class="co">#draw a new p</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> np.random.normal(p_mu, p_sig)</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>        current_p<span class="op">=</span>p</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># leap frog</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Make a half step for momentum at the beginning</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> p <span class="op">-</span> epsilon<span class="op">*</span>dUdq(q)<span class="op">/</span><span class="fl">2.0</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>        <span class="co"># alternate full steps for position and momentum</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(L):</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>            q <span class="op">=</span> q <span class="op">+</span> epsilon<span class="op">*</span>p</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> (i <span class="op">!=</span> L<span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>                p <span class="op">=</span> p <span class="op">-</span> epsilon<span class="op">*</span>dUdq(q)</span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a>        <span class="co">#make a half step at the end</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> p <span class="op">-</span> epsilon<span class="op">*</span>dUdq(q)<span class="op">/</span><span class="fl">2.</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>        <span class="co"># negate the momentum</span></span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>        p<span class="op">=</span> <span class="op">-</span>p<span class="op">;</span></span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>        current_U <span class="op">=</span> U(current_q)</span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>        current_K <span class="op">=</span> K(current_p)</span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>        proposed_U <span class="op">=</span> U(q)</span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>        proposed_K <span class="op">=</span> K(p)</span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>        A<span class="op">=</span>np.exp( current_U<span class="op">-</span>proposed_U<span class="op">+</span>current_K<span class="op">-</span>proposed_K)</span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>        <span class="co"># accept/reject</span></span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> np.random.rand() <span class="op">&lt;</span> A:</span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>            current_q <span class="op">=</span> q</span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>            qall[j]<span class="op">=</span>q</span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>            accept<span class="op">+=</span><span class="dv">1</span></span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb10-53"><a href="#cb10-53" aria-hidden="true" tabindex="-1"></a>            qall[j] <span class="op">=</span> current_q</span>
+<span id="cb10-54"><a href="#cb10-54" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb10-55"><a href="#cb10-55" aria-hidden="true" tabindex="-1"></a>        H[j] <span class="op">=</span> U(current_q)<span class="op">+</span>K(current_p)</span>
+<span id="cb10-56"><a href="#cb10-56" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"accept="</span>,accept<span class="op">/</span>np.double(N))</span>
+<span id="cb10-57"><a href="#cb10-57" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> H, qall</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-32" class="cell" data-execution_count="43" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># functions</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> <span class="kw">lambda</span> q: q<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="fl">2.</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> <span class="kw">lambda</span> p:  (p<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span><span class="fl">2.</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>dUdq<span class="op">=</span> <span class="kw">lambda</span> q: q</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="ff4ed9f6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:01.313064Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:01.312988Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:01.314761Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:01.314325Z&quot;}}" data-execution_count="9" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># functions</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>U <span class="op">=</span> <span class="kw">lambda</span> q: q<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="fl">2.</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> <span class="kw">lambda</span> p:  (p<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span><span class="fl">2.</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>dUdq<span class="op">=</span> <span class="kw">lambda</span> q: q</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-33" class="cell" data-execution_count="45" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>H, qall<span class="op">=</span> HMC(U<span class="op">=</span>U,K<span class="op">=</span>K,dUdq<span class="op">=</span>dUdq,N<span class="op">=</span><span class="dv">10000</span>,q_0<span class="op">=</span><span class="dv">0</span>, p_0<span class="op">=-</span><span class="dv">4</span>, epsilon<span class="op">=</span><span class="fl">0.01</span>, L<span class="op">=</span><span class="dv">200</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>plt.hist(qall, bins<span class="op">=</span><span class="dv">50</span>, normed<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">100</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>plt.plot(x, sp.stats.norm.pdf(x),<span class="st">'r'</span>)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="5f1b557b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:01.315750Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:01.315680Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:01.488752Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:01.488378Z&quot;}}" data-execution_count="10" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>H, qall<span class="op">=</span> HMC(U<span class="op">=</span>U,K<span class="op">=</span>K,dUdq<span class="op">=</span>dUdq,N<span class="op">=</span><span class="dv">10000</span>,q_0<span class="op">=</span><span class="dv">0</span>, p_0<span class="op">=-</span><span class="dv">4</span>, epsilon<span class="op">=</span><span class="fl">0.01</span>, L<span class="op">=</span><span class="dv">200</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>plt.hist(qall, bins<span class="op">=</span><span class="dv">50</span>, density<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">100</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>plt.plot(x, sp.stats.norm.pdf(x),<span class="st">'r'</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>accept= 1.0</code></pre>
 </div>
@@ -1033,47 +1035,47 @@ window.Quarto = {
 </div>
 </div>
 <p>We compare it to a MH sampler with the same number of steps</p>
-<div id="cell-35" class="cell" data-execution_count="46" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> MH_simple(p, n, sig, x0):</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    x_prev <span class="op">=</span> x0</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>[]</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    k<span class="op">=</span><span class="dv">1</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    i<span class="op">=</span><span class="dv">0</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> i<span class="op">&lt;</span>n:</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        x_star <span class="op">=</span> np.random.normal(x_prev, sig)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        P_star <span class="op">=</span> p(x_star)</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        P_prev <span class="op">=</span> p(x_prev)</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        U <span class="op">=</span>  np.random.uniform()</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>        A <span class="op">=</span>  P_star<span class="op">/</span>P_prev</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> U <span class="op">&lt;</span> A:</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>            x.append(x_star)</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>            i <span class="op">=</span> i <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>            x_prev <span class="op">=</span> x_star</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>            k <span class="op">+=</span><span class="dv">1</span></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> :</span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>            x.append(x_prev)</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>            x_prev <span class="op">=</span> x[i]  </span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>            i <span class="op">=</span> i <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"accept="</span>,k<span class="op">/</span>np.double(n))</span>
-<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="e77d249b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:01.490106Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:01.490007Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:01.492590Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:01.492134Z&quot;}}" data-execution_count="11" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> MH_simple(p, n, sig, x0):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    x_prev <span class="op">=</span> x0</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>[]</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    k<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    i<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> i<span class="op">&lt;</span>n:</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        x_star <span class="op">=</span> np.random.normal(x_prev, sig)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        P_star <span class="op">=</span> p(x_star)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        P_prev <span class="op">=</span> p(x_prev)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        U <span class="op">=</span>  np.random.uniform()</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>        A <span class="op">=</span>  P_star<span class="op">/</span>P_prev</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> U <span class="op">&lt;</span> A:</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>            x.append(x_star)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>            i <span class="op">=</span> i <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>            x_prev <span class="op">=</span> x_star</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>            k <span class="op">+=</span><span class="dv">1</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span> :</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>            x.append(x_prev)</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>            x_prev <span class="op">=</span> x[i]  </span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>            i <span class="op">=</span> i <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"accept="</span>,k<span class="op">/</span>np.double(n))</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-36" class="cell" data-execution_count="47" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>samples_mh <span class="op">=</span> MH_simple(p<span class="op">=</span>P, n<span class="op">=</span><span class="dv">10000</span>, sig<span class="op">=</span><span class="fl">4.0</span>, x0<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>plt.hist(qall, bins<span class="op">=</span><span class="dv">50</span>, normed<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">100</span>)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>plt.plot(x, sp.stats.norm.pdf(x),<span class="st">'r'</span>)</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>)</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>plt.hist(samples_mh, bins<span class="op">=</span><span class="dv">50</span>, normed<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">100</span>)</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>plt.plot(x, sp.stats.norm.pdf(x),<span class="st">'r'</span>)</span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c45d68a1" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:01.493683Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:01.493593Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:02.128846Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:02.128473Z&quot;}}" data-execution_count="12" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>samples_mh <span class="op">=</span> MH_simple(p<span class="op">=</span>fun, n<span class="op">=</span><span class="dv">10000</span>, sig<span class="op">=</span><span class="fl">4.0</span>, x0<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>plt.hist(qall, bins<span class="op">=</span><span class="dv">50</span>, density<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">100</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>plt.plot(x, sp.stats.norm.pdf(x),<span class="st">'r'</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>plt.subplot(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>plt.hist(samples_mh, bins<span class="op">=</span><span class="dv">50</span>, density<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">100</span>)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>plt.plot(x, sp.stats.norm.pdf(x),<span class="st">'r'</span>)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>accept= 0.3002</code></pre>
+<pre><code>accept= 0.2961</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -1084,12 +1086,12 @@ window.Quarto = {
 </div>
 </div>
 <p>Here we see that the MH acceptance ration is much lower and the correlation much higher!</p>
-<div id="cell-38" class="cell" data-scrolled="false" data-execution_count="54" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> corrplot(trace,  maxlags<span class="op">=</span><span class="dv">100</span>):</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    plt.acorr(trace<span class="op">-</span>np.mean(trace),  normed<span class="op">=</span><span class="va">True</span>, maxlags<span class="op">=</span>maxlags)<span class="op">;</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    plt.xlim([<span class="dv">0</span>, maxlags])</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>corrplot(qall)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'hmc'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="507b6823" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:02.130033Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:02.129941Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:02.195106Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:02.194464Z&quot;}}" data-scrolled="false" data-execution_count="13" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> corrplot(trace,  maxlags<span class="op">=</span><span class="dv">100</span>):</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    plt.acorr(trace<span class="op">-</span>np.mean(trace),  maxlags<span class="op">=</span>maxlags)<span class="op">;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    plt.xlim([<span class="dv">0</span>, maxlags])</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>corrplot(qall)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'hmc'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -1098,9 +1100,9 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-39" class="cell" data-execution_count="55" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>corrplot(samples_mh)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'mh'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="b56782bb" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:02.196468Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:02.196338Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:02.266252Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:02.265403Z&quot;}}" data-execution_count="14" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>corrplot(samples_mh)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'mh'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">

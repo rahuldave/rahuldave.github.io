@@ -440,7 +440,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="generate-data" class="level2">
 <h2 class="anchored" data-anchor-id="generate-data">Generate data</h2>
 <p>We generate noisy data from a fairly complex function (in 1-D) to demonstrate:</p>
-<div id="cell-4" class="cell" data-execution_count="1" data-cell-type="code">
+<div id="dc9fd61c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:32:07.750606Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:32:07.750490Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:32:09.292908Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:32:09.291837Z&quot;}}" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#np.random.seed(99)</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: <span class="fl">0.2</span> <span class="op">+</span> <span class="fl">0.4</span><span class="op">*</span>x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="fl">0.3</span><span class="op">*</span>x<span class="op">*</span>np.sin(<span class="dv">15</span><span class="op">*</span>x) <span class="op">+</span> <span class="fl">0.05</span><span class="op">*</span>np.cos(<span class="dv">20</span><span class="op">*</span>x)</span>
@@ -448,7 +448,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>fgrid <span class="op">=</span> f(xgrid)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>ygrid <span class="op">=</span> fgrid <span class="op">+</span> <span class="fl">0.1</span><span class="op">*</span>np.random.normal(size<span class="op">=</span><span class="dv">640</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-5" class="cell" data-execution_count="2" data-cell-type="code">
+<div id="a52f5a6c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:32:09.295504Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:32:09.295185Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:32:12.042502Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:32:12.042014Z&quot;}}" data-execution_count="3" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, fgrid, lw<span class="op">=</span><span class="dv">2</span>)</span>
@@ -464,12 +464,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="fitting-in-torch" class="level2">
 <h2 class="anchored" data-anchor-id="fitting-in-torch">Fitting in Torch</h2>
-<div id="cell-7" class="cell" data-execution_count="3" data-cell-type="code">
+<div id="f16479e1" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:32:12.043846Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:32:12.043696Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:32:17.455307Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:32:17.454787Z&quot;}}" data-execution_count="4" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.nn <span class="im">import</span> functional <span class="im">as</span> fn</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="4" data-cell-type="code">
+<div id="3c33c0c7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:32:17.457190Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:32:17.457090Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:32:17.459656Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:32:17.459228Z&quot;}}" data-execution_count="5" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.autograd <span class="im">import</span> Variable</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>xdata <span class="op">=</span> Variable(torch.Tensor(xgrid))</span>
@@ -487,7 +487,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>The basic structure is this: there is an input into a linear layer, which is then squeezed through a non-linearity. 0 or more hidden layers follow (we want atleast 1 hidden layer for universal approximation). At each of these layers, for each unit, we take all the output from the previous nonlinearity, linear-combine it with all the other non-linear outputs from the previous layer, and squeeze what we get through another non-linearity. Finally, we combine all these non-liner outputs using a linear unit into a y value. (we’d use a linear+sigmoid or linear+softmax for categorical outputs or classification).</p>
 <p>The class below makes the structure explicit. Notice the use of <code>nn.ModuleList</code>. This is a <code>pytorch</code> peculiarity.</p>
-<div id="cell-10" class="cell" data-execution_count="5" data-cell-type="code">
+<div id="b766efd0" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:32:17.460774Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:32:17.460679Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:32:17.463245Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:32:17.462842Z&quot;}}" data-execution_count="6" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MLRegP(nn.Module):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, input_dim, hidden_dim, nonlinearity <span class="op">=</span> fn.tanh, additional_hidden_wide<span class="op">=</span><span class="dv">0</span>):</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(MLRegP, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
@@ -512,27 +512,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="relu-example" class="level2">
 <h2 class="anchored" data-anchor-id="relu-example">RELU example</h2>
 <p>We choose 1 hidden layer with 40 units. We print out the model to see what we get. The graph is built up by <code>pytorch</code> when <code>forward</code> is hit for the first time (thats how we can get away putting the nonlinearities there). Then when we backprop the gradients are transferred properly.</p>
-<div id="cell-12" class="cell" data-execution_count="12" data-cell-type="code">
+<div id="21ccdb70" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:32:17.464170Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:32:17.464074Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:32:17.466360Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:32:17.465904Z&quot;}}" data-execution_count="7" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">80</span>, nonlinearity<span class="op">=</span>fn.relu, additional_hidden_wide<span class="op">=</span><span class="dv">0</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>criterion <span class="op">=</span> nn.MSELoss()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="13" data-cell-type="code">
+<div id="7a7ef328" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:32:17.467270Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:32:17.467184Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:32:17.468985Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:32:17.468543Z&quot;}}" data-execution_count="8" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>MLRegP(
-  (fc_initial): Linear(in_features=1, out_features=80)
-  (fc_mid): ModuleList(
-  )
-  (fc_final): Linear(in_features=80, out_features=1)
+  (fc_initial): Linear(in_features=1, out_features=80, bias=True)
+  (fc_mid): ModuleList()
+  (fc_final): Linear(in_features=80, out_features=1, bias=True)
 )</code></pre>
 </div>
 </div>
-<div id="cell-14" class="cell" data-execution_count="14" data-cell-type="code">
+<div id="03e71e17" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:32:17.469840Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:32:17.469775Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:32:17.471769Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:32:17.471399Z&quot;}}" data-execution_count="9" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.utils.data</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> torch.utils.data.TensorDataset(torch.from_numpy(xgrid.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)), torch.from_numpy(ygrid))</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>loader <span class="op">=</span> torch.utils.data.DataLoader(dataset, batch_size<span class="op">=</span><span class="dv">64</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-15" class="cell" data-execution_count="15" data-cell-type="code">
+<div id="73c3aac5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:32:17.473039Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:32:17.472944Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:32:26.445296Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:32:26.444860Z&quot;}}" data-execution_count="10" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>lr, epochs, batch_size <span class="op">=</span> <span class="fl">1e-1</span> , <span class="dv">2000</span> , <span class="dv">64</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>optimizer <span class="op">=</span> torch.optim.SGD(model.parameters(), lr <span class="op">=</span> lr )</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>accum<span class="op">=</span>[]</span>
@@ -546,24 +545,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        model.zero_grad()</span>
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        loss.backward()</span>
 <span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>        optimizer.step()</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>        localaccum.append(loss.data[<span class="dv">0</span>])</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>        localaccum.append(loss.item())</span>
 <span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>    accum.append(np.mean(localaccum))</span>
 <span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>plt.plot(accum)<span class="op">;</span>                      </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/rahul/Library/Caches/uv/archive-v0/fsf90YL_ANxDGfy0jne0J/lib/python3.14/site-packages/torch/nn/modules/loss.py:626: UserWarning: Using a target size (torch.Size([64])) that is different to the input size (torch.Size([64, 1])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  return F.mse_loss(input, target, reduction=self.reduction)</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-11-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="cell-16" class="cell" data-execution_count="16" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>finaloutput <span class="op">=</span> model.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="763b606b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:32:26.446766Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:32:26.446625Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:32:26.448736Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:32:26.448403Z&quot;}}" data-execution_count="11" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>finaloutput <span class="op">=</span> model.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-17" class="cell" data-execution_count="17" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, fgrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="d77073e5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:32:26.450020Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:32:26.449897Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:32:26.487317Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:32:26.486933Z&quot;}}" data-execution_count="12" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, fgrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -577,35 +580,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="tanh-nonlinearity" class="level2">
 <h2 class="anchored" data-anchor-id="tanh-nonlinearity">tanh nonlinearity</h2>
 <p>We get somewhat better results with the tanh nonlinearity, if we go with 2 layers. Play with the number of hidden layers and number of units per layer to see if you can do better!</p>
-<div id="cell-20" class="cell" data-execution_count="32" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>model2 <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">40</span>, nonlinearity<span class="op">=</span>fn.tanh, additional_hidden_wide<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model2)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>criterion <span class="op">=</span> nn.MSELoss()</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> torch.utils.data.TensorDataset(torch.from_numpy(xgrid.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)), torch.from_numpy(ygrid))</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>loader <span class="op">=</span> torch.utils.data.DataLoader(dataset, batch_size<span class="op">=</span><span class="dv">64</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>lr, epochs, batch_size <span class="op">=</span> <span class="fl">0.1</span> , <span class="dv">4000</span> , <span class="dv">64</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>optimizer <span class="op">=</span> torch.optim.SGD(model2.parameters(), lr <span class="op">=</span> lr )</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>accum<span class="op">=</span>[]</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(epochs):</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    localaccum <span class="op">=</span> []</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> localx, localy <span class="kw">in</span> <span class="bu">iter</span>(loader):</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>        localx <span class="op">=</span> Variable(localx.<span class="bu">float</span>())</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>        localy <span class="op">=</span> Variable(localy.<span class="bu">float</span>())</span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>        output <span class="op">=</span> model2.forward(localx)</span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> criterion(output, localy)</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>        model2.zero_grad()</span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>        loss.backward()</span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>        optimizer.step()</span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>        localaccum.append(loss.data[<span class="dv">0</span>])</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    accum.append(np.mean(localaccum))</span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>plt.plot(accum)<span class="op">;</span>                      </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="e001fcb8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:32:26.488540Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:32:26.488456Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:32:43.230816Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:32:43.230364Z&quot;}}" data-execution_count="13" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>model2 <span class="op">=</span> MLRegP(<span class="dv">1</span>, <span class="dv">40</span>, nonlinearity<span class="op">=</span>fn.tanh, additional_hidden_wide<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model2)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>criterion <span class="op">=</span> nn.MSELoss()</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> torch.utils.data.TensorDataset(torch.from_numpy(xgrid.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)), torch.from_numpy(ygrid))</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>loader <span class="op">=</span> torch.utils.data.DataLoader(dataset, batch_size<span class="op">=</span><span class="dv">64</span>, shuffle<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>lr, epochs, batch_size <span class="op">=</span> <span class="fl">0.1</span> , <span class="dv">4000</span> , <span class="dv">64</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>optimizer <span class="op">=</span> torch.optim.SGD(model2.parameters(), lr <span class="op">=</span> lr )</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>accum<span class="op">=</span>[]</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(epochs):</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    localaccum <span class="op">=</span> []</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> localx, localy <span class="kw">in</span> <span class="bu">iter</span>(loader):</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>        localx <span class="op">=</span> Variable(localx.<span class="bu">float</span>())</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>        localy <span class="op">=</span> Variable(localy.<span class="bu">float</span>())</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>        output <span class="op">=</span> model2.forward(localx)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>        loss <span class="op">=</span> criterion(output, localy)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>        model2.zero_grad()</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>        loss.backward()</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>        optimizer.step()</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>        localaccum.append(loss.item())</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    accum.append(np.mean(localaccum))</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>plt.plot(accum)<span class="op">;</span>                      </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>MLRegP(
-  (fc_initial): Linear(in_features=1, out_features=40)
+  (fc_initial): Linear(in_features=1, out_features=40, bias=True)
   (fc_mid): ModuleList(
-    (0): Linear(in_features=40, out_features=40)
+    (0): Linear(in_features=40, out_features=40, bias=True)
   )
-  (fc_final): Linear(in_features=40, out_features=1)
+  (fc_final): Linear(in_features=40, out_features=1, bias=True)
 )</code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -616,11 +619,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-21" class="cell" data-execution_count="33" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>finaloutput <span class="op">=</span> model2.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, fgrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="ceb72ee4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:32:43.232056Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:32:43.231976Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:32:43.267053Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:32:43.266702Z&quot;}}" data-execution_count="14" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>finaloutput <span class="op">=</span> model2.forward(xdata.view(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, fgrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, ygrid, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>plt.plot(xgrid, finaloutput.data.numpy(), lw<span class="op">=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">

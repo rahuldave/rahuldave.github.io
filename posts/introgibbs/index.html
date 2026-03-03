@@ -151,14 +151,14 @@ window.Quarto = {
 <meta property="og:description" content="Gibbs sampling enables sampling from complex joint distributions by alternately sampling from univariate conditionals. Demonstrates the method through a 2D example, deriving analytically tractable conditional distributions and generating samples matching the target.">
 <meta property="og:image" content="https://rahuldave.github.io/posts/introgibbs/index_files/figure-html/cell-4-output-1.png">
 <meta property="og:site_name" content="rahuldave">
-<meta property="og:image:height" content="539">
-<meta property="og:image:width" content="782">
+<meta property="og:image:height" content="440">
+<meta property="og:image:width" content="593">
 <meta name="twitter:title" content="Introduction to Gibbs Sampling – rahuldave">
 <meta name="twitter:description" content="Gibbs sampling enables sampling from complex joint distributions by alternately sampling from univariate conditionals. Demonstrates the method through a 2D example, deriving analytically tractable conditional distributions and generating samples matching the target.">
 <meta name="twitter:image" content="https://rahuldave.github.io/posts/introgibbs/index_files/figure-html/cell-4-output-1.png">
 <meta name="twitter:creator" content="@rahuldave">
-<meta name="twitter:image-height" content="539">
-<meta name="twitter:image-width" content="782">
+<meta name="twitter:image-height" content="440">
+<meta name="twitter:image-width" content="593">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -455,7 +455,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-2" class="cell" data-execution_count="42" data-cell-type="code">
+<div id="56e7e90d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:25.033989Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:25.033651Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:26.111095Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:26.110523Z&quot;}}" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
@@ -492,7 +492,7 @@ window.Quarto = {
 <p>Let us consider a 2-D distribution which we wish to sample from.</p>
 <p><span class="math display">\[f(x,y) = x^2 {\rm exp}[-xy^2 - y^2 + 2y - 4x]\]</span></p>
 <p>Here’s what the distribution really looks like.</p>
-<div id="cell-6" class="cell" data-execution_count="43" data-cell-type="code">
+<div id="b27c0b22" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:26.112602Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:26.112481Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:26.500658Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:26.500261Z&quot;}}" data-execution_count="3" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>func <span class="op">=</span> <span class="kw">lambda</span> x,y: x<span class="op">**</span><span class="dv">2</span><span class="op">*</span>np.exp( <span class="op">-</span>x<span class="op">*</span>y<span class="op">**</span><span class="dv">2</span> <span class="op">-</span> y<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>y <span class="op">-</span> <span class="dv">4</span><span class="op">*</span>x )</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -524,7 +524,7 @@ window.Quarto = {
 <p><span class="math display">\[f(x|y) = x^2 {\rm exp}[-x (y^2 +4)] g(y)\]</span></p>
 <p>where <span class="math inline">\(g(y) = {\rm exp}[- y^2 + 2y]\)</span>. Thus:</p>
 <p><span class="math display">\[f(x|y) = g(y){\rm Gamma}(3,y^2+4)\]</span></p>
-<div id="cell-9" class="cell" data-execution_count="49" data-cell-type="code">
+<div id="5672cf5d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:26.501859Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:26.501782Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:26.503621Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:26.503294Z&quot;}}" data-execution_count="4" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> xcond(y):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> gamma.rvs(<span class="dv">3</span>, scale<span class="op">=</span><span class="dv">1</span><span class="op">/</span>(y<span class="op">*</span>y <span class="op">+</span> <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -534,7 +534,7 @@ window.Quarto = {
 <p><span class="math display">\[f(y|x) = x^2 {\rm exp}[-(1+x)(y^2 - 2y\frac{1}{1+x} + \frac{1}{(1+x)^2})]{\rm exp}[-4x]\]</span></p>
 <p>Writing <span class="math inline">\(h(x) = x^2 {\rm exp}[-4x]\)</span> we have</p>
 <p><span class="math display">\[f(y|x) = N(\frac{1}{1+x},\frac{1}{\sqrt{(2(1+x))}}) h(x)\]</span></p>
-<div id="cell-11" class="cell" data-execution_count="50" data-cell-type="code">
+<div id="d1a6a4ca" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:26.504642Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:26.504564Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:26.506302Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:26.505894Z&quot;}}" data-execution_count="5" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ycond(x):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> norm.rvs(<span class="dv">1</span><span class="op">/</span>(<span class="dv">1</span><span class="op">+</span>x), scale<span class="op">=</span><span class="fl">1.0</span><span class="op">/</span>np.sqrt(<span class="dv">2</span><span class="op">*</span>(x<span class="op">+</span><span class="dv">1</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -543,7 +543,7 @@ window.Quarto = {
 </section>
 <section id="the-sampler" class="level2">
 <h2 class="anchored" data-anchor-id="the-sampler">The sampler</h2>
-<div id="cell-13" class="cell" data-execution_count="51" data-cell-type="code">
+<div id="84d0c478" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:26.507242Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:26.507172Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:26.509320Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:26.508903Z&quot;}}" data-execution_count="6" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gibbs(xgiveny_sample, ygivenx_sample, N, start <span class="op">=</span> [<span class="dv">0</span>,<span class="dv">0</span>]):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    x<span class="op">=</span>start[<span class="dv">0</span>]</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    y<span class="op">=</span>start[<span class="dv">1</span>]</span>
@@ -562,10 +562,10 @@ window.Quarto = {
 <span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        </span>
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> samples</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-14" class="cell" data-execution_count="52" data-cell-type="code">
+<div id="e981d5de" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:26.510316Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:26.510244Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:27.646118Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:27.645712Z&quot;}}" data-execution_count="7" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>out<span class="op">=</span>gibbs(xcond, ycond, <span class="dv">100000</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>cmap <span class="op">=</span> sns.cubehelix_palette(light<span class="op">=</span><span class="dv">1</span>, as_cmap<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>plt.hist2d(out[<span class="dv">10000</span>:,<span class="dv">0</span>],out[<span class="dv">10000</span>:,<span class="dv">1</span>], normed<span class="op">=</span><span class="va">True</span>, bins<span class="op">=</span><span class="dv">100</span>, cmap<span class="op">=</span>cmap)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>plt.hist2d(out[<span class="dv">10000</span>:,<span class="dv">0</span>],out[<span class="dv">10000</span>:,<span class="dv">1</span>], density<span class="op">=</span><span class="va">True</span>, bins<span class="op">=</span><span class="dv">100</span>, cmap<span class="op">=</span>cmap)</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>plt.contour(xx,yy,zz)</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -579,7 +579,7 @@ window.Quarto = {
 <section id="gibbs-moves" class="level3">
 <h3 class="anchored" data-anchor-id="gibbs-moves">Gibbs Moves</h3>
 <p>Let’s look at the single steps the Gibbs sampler is taking:</p>
-<div id="cell-16" class="cell" data-execution_count="53" data-cell-type="code">
+<div id="0ff3ddf5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:27.647181Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:27.647106Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:27.830105Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:27.829499Z&quot;}}" data-execution_count="8" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>out<span class="op">=</span>gibbs(xcond, ycond, <span class="dv">10000</span>, start <span class="op">=</span> [<span class="dv">2</span>,<span class="dv">2</span>])</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>nr_t <span class="op">=</span> <span class="dv">50</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>plt.contour(xx,yy,zz)</span>
@@ -597,9 +597,9 @@ window.Quarto = {
 <section id="autocorrelation" class="level3">
 <h3 class="anchored" data-anchor-id="autocorrelation">Autocorrelation</h3>
 <p>Looking at the autocorrelation of our samples we are in pretty good shape and probably don’t have to worry much about thinning here. Note that this is not always the case for Gibbs sampling. The other notebook has an example where we need to have a lot of thinning to account for the autocorrelation of the samples. It all depends on the shape of our target distribution.</p>
-<div id="cell-18" class="cell" data-execution_count="40" data-cell-type="code">
+<div id="08263c94" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:27.831765Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:27.831648Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:27.874081Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:27.873676Z&quot;}}" data-execution_count="9" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> corrplot(trace, maxlags<span class="op">=</span><span class="dv">50</span>):</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    plt.acorr(trace<span class="op">-</span>np.mean(trace),  normed<span class="op">=</span><span class="va">True</span>, maxlags<span class="op">=</span>maxlags)<span class="op">;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    plt.acorr(trace<span class="op">-</span>np.mean(trace),  maxlags<span class="op">=</span>maxlags)<span class="op">;</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    plt.xlim([<span class="dv">0</span>, maxlags])</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>corrplot(out[<span class="dv">4000</span>:,<span class="dv">0</span>], <span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -610,7 +610,7 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-19" class="cell" data-execution_count="41" data-cell-type="code">
+<div id="ac882170" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:34:27.875343Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:34:27.875247Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:34:27.915317Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:34:27.914936Z&quot;}}" data-execution_count="10" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>corrplot(out[<span class="dv">4000</span>:,<span class="dv">1</span>], <span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>

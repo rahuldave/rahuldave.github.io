@@ -149,16 +149,16 @@ window.Quarto = {
 
 <meta property="og:title" content="Basic Monte Carlo – rahuldave">
 <meta property="og:description" content="Introduces Monte Carlo methods by estimating the area of a unit circle with random points. Covers the hit-or-miss method and rejection sampling as building blocks for Monte Carlo integration.">
-<meta property="og:image" content="https://rahuldave.github.io/posts/basicmontecarlo/index_files/figure-html/cell-4-output-3.png">
+<meta property="og:image" content="https://rahuldave.github.io/posts/basicmontecarlo/index_files/figure-html/cell-4-output-2.png">
 <meta property="og:site_name" content="rahuldave">
-<meta property="og:image:height" content="459">
-<meta property="og:image:width" content="648">
+<meta property="og:image:height" content="455">
+<meta property="og:image:width" content="607">
 <meta name="twitter:title" content="Basic Monte Carlo – rahuldave">
 <meta name="twitter:description" content="Introduces Monte Carlo methods by estimating the area of a unit circle with random points. Covers the hit-or-miss method and rejection sampling as building blocks for Monte Carlo integration.">
-<meta name="twitter:image" content="https://rahuldave.github.io/posts/basicmontecarlo/index_files/figure-html/cell-4-output-3.png">
+<meta name="twitter:image" content="https://rahuldave.github.io/posts/basicmontecarlo/index_files/figure-html/cell-4-output-2.png">
 <meta name="twitter:creator" content="@rahuldave">
-<meta name="twitter:image-height" content="459">
-<meta name="twitter:image-width" content="648">
+<meta name="twitter:image-height" content="455">
+<meta name="twitter:image-width" content="607">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -451,7 +451,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-2" class="cell" data-hide="true" data-quarto-private-1="{&quot;key&quot;:&quot;slideshow&quot;,&quot;value&quot;:{&quot;slide_type&quot;:&quot;slide&quot;}}" data-execution_count="1" data-cell-type="code">
+<div id="cell-2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;slideshow&quot;,&quot;value&quot;:{&quot;slide_type&quot;:&quot;slide&quot;}}" data-hide="true" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
@@ -460,10 +460,6 @@ window.Quarto = {
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">'white'</span>)</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>sns.set_context(<span class="st">'talk'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
-</div>
 </div>
 <section id="monte-carlo" class="level2">
 <h2 class="anchored" data-anchor-id="monte-carlo">Monte Carlo</h2>
@@ -480,50 +476,46 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="estimate-the-area-of-a-unit-circle">Estimate the area of a unit circle</h2>
 <p>To understand how randomness can be brought to bear upon solving deterministic problems, consider a very simple example: the value of <span class="math inline">\(\pi\)</span>. If you could uniformly generate random numbers on a square, you could ask, how many of these numbers would fall inside a unit circle embedded in and touching the midpoints of the sides of the square. This ratio would be</p>
 <p><span class="math display">\[\frac{\pi \times 1^2}{2^2} = \frac{\pi}{4}.\]</span></p>
-<div id="cell-5" class="cell" data-execution_count="3" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#area of the bounding box</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>box_area <span class="op">=</span> <span class="fl">4.0</span>    </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#number of samples</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>N_total <span class="op">=</span> <span class="fl">10000.0</span> </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#drawing random points uniform between -1 and 1</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.uniform(low<span class="op">=-</span><span class="dv">1</span>, high<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span>N_total)  </span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> np.random.uniform(low<span class="op">=-</span><span class="dv">1</span>, high<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span>N_total)   </span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the distance of the points from the center </span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>distance <span class="op">=</span> np.sqrt(X<span class="op">**</span><span class="dv">2</span><span class="op">+</span>Y<span class="op">**</span><span class="dv">2</span>)<span class="op">;</span>  </span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># check if point is inside the circle    </span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>is_point_inside <span class="op">=</span> distance<span class="op">&lt;</span><span class="fl">1.0</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># sum up the hits inside the circle</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>N_inside<span class="op">=</span>np.<span class="bu">sum</span>(is_point_inside)</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate the circle area</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>circle_area <span class="op">=</span> box_area <span class="op">*</span> N_inside<span class="op">/</span>N_total</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># some nice visualization</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>plt.scatter(X,Y, c<span class="op">=</span>is_point_inside, s<span class="op">=</span><span class="fl">5.0</span>, edgecolors<span class="op">=</span><span class="st">'none'</span>, cmap<span class="op">=</span>plt.cm.Paired)  </span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">'equal'</span>)</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'x'</span>)</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'y'</span>)</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co"># text output</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Area of the circle = "</span>, circle_area)</span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"pi = "</span>, np.pi)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/ipykernel/__main__.py:8: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future
-//anaconda/envs/py35/lib/python3.5/site-packages/ipykernel/__main__.py:9: VisibleDeprecationWarning: using a non-integer number instead of an integer will result in an error in the future</code></pre>
-</div>
+<div id="cell-5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-03T06:31:40.598657Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-03T06:31:40.598553Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-03T06:31:40.711704Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-03T06:31:40.711213Z&quot;}}" data-execution_count="3" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">#area of the bounding box</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>box_area <span class="op">=</span> <span class="fl">4.0</span>    </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#number of samples</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>N_total <span class="op">=</span> <span class="dv">10000</span> </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#drawing random points uniform between -1 and 1</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.uniform(low<span class="op">=-</span><span class="dv">1</span>, high<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span>N_total)  </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> np.random.uniform(low<span class="op">=-</span><span class="dv">1</span>, high<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span>N_total)   </span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the distance of the points from the center </span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>distance <span class="op">=</span> np.sqrt(X<span class="op">**</span><span class="dv">2</span><span class="op">+</span>Y<span class="op">**</span><span class="dv">2</span>)<span class="op">;</span>  </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># check if point is inside the circle    </span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>is_point_inside <span class="op">=</span> distance<span class="op">&lt;</span><span class="fl">1.0</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># sum up the hits inside the circle</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>N_inside<span class="op">=</span>np.<span class="bu">sum</span>(is_point_inside)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate the circle area</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>circle_area <span class="op">=</span> box_area <span class="op">*</span> N_inside<span class="op">/</span>N_total</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co"># some nice visualization</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>plt.scatter(X,Y, c<span class="op">=</span>is_point_inside, s<span class="op">=</span><span class="fl">5.0</span>, edgecolors<span class="op">=</span><span class="st">'none'</span>, cmap<span class="op">=</span>plt.cm.Paired)  </span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">'equal'</span>)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'x'</span>)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'y'</span>)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co"># text output</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Area of the circle = "</span>, circle_area)</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"pi = "</span>, np.pi)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Area of the circle =  3.1344
+<pre><code>Area of the circle =  3.162
 pi =  3.141592653589793</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-4-output-3.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-4-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>

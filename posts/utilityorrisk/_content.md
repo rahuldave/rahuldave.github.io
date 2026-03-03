@@ -8,7 +8,7 @@
 #   "matplotlib",
 #   "numpy",
 #   "pandas",
-#   "pymc3",
+#   "pymc",
 #   "scipy",
 #   "seaborn",
 # ]
@@ -31,7 +31,7 @@ pd.set_option('display.notebook_repr_html', True)
 import seaborn as sns
 sns.set_style("whitegrid")
 sns.set_context("poster")
-import pymc3 as pm
+import pymc as pm
 ```
 
 <!-- cell:3 type:markdown -->
@@ -198,31 +198,56 @@ Let us fit our returns model
 
 <!-- cell:12 type:code -->
 ```python
-import pymc3 as pm
+import pymc as pm
 
 with pm.Model() as model:
     std = pm.Uniform("std", 0, 100)
     
-    beta = pm.Normal("beta", mu=0, sd=100)
-    alpha = pm.Normal("alpha", mu=0, sd=100)
+    beta = pm.Normal("beta", mu=0, sigma=100)
+    alpha = pm.Normal("alpha", mu=0, sigma=100)
     
     mean = pm.Deterministic("mean", alpha + beta*X)
     
-    obs = pm.Normal("obs", mu=mean, sd=std, observed=Y)
+    obs = pm.Normal("obs", mu=mean, sigma=std, observed=Y)
     
-    trace = pm.sample(100000, step=pm.Metropolis())
-    burned_trace = trace[20000:]  
+    idata = pm.sample(100000, step=pm.Metropolis())
+    burned_trace = idata.sel(draw=slice(20000, None))
 ```
 Output:
 ```
-//anaconda/envs/py35/lib/python3.5/site-packages/pymc3/sampling.py:163: UserWarning: Instantiated step methods cannot be automatically initialized. init argument ignored.
-  warnings.warn('Instantiated step methods cannot be automatically initialized. init argument ignored.')
-100%|██████████| 100000/100000 [00:28<00:00, 3488.01it/s]| 3/100000 [00:00<55:42, 29.92it/s]
+Multiprocess sampling (4 chains in 4 jobs)
+```
+Output:
+```
+CompoundStep
+```
+Output:
+```
+>Metropolis: [std]
+```
+Output:
+```
+>Metropolis: [beta]
+```
+Output:
+```
+>Metropolis: [alpha]
+```
+Output:
+```
+/Users/rahul/Library/Caches/uv/archive-v0/TDMjbJ0KVXQ0cgT9PEjxe/lib/python3.14/site-packages/rich/live.py:260: 
+UserWarning: install "ipywidgets" for Jupyter support
+  warnings.warn('install "ipywidgets" for Jupyter support')
+```
+Output:
+```
+Sampling 4 chains for 1_000 tune and 100_000 draw iterations (4_000 + 400_000 draws total) took 22 seconds.
 ```
 
 <!-- cell:13 type:code -->
 ```python
-pm.plots.traceplot(trace=burned_trace, varnames=["std", "beta", "alpha"]);
+import arviz as az
+az.plot_trace(burned_trace, var_names=["std", "beta", "alpha"]);
 ```
 [Figure]
 
@@ -242,9 +267,9 @@ def stock_loss(price, pred, coef = 500):
     sol[~ix] = abs(price[~ix] - pred)
     return sol
 
-std_samples = burned_trace["std"]
-alpha_samples = burned_trace["alpha"]
-beta_samples = burned_trace["beta"]
+std_samples = burned_trace.posterior["std"].values.flatten()
+alpha_samples = burned_trace.posterior["alpha"].values.flatten()
+beta_samples = burned_trace.posterior["beta"].values.flatten()
 
 N = std_samples.shape[0]
 
@@ -258,7 +283,7 @@ trading_signals =  np.linspace(X.min(), X.max(), 50)
 for i, _signal in enumerate(trading_signals):
         _possible_outcomes = possible_outcomes(_signal)
         tomin = lambda pred: stock_loss(_possible_outcomes, pred).mean()
-        opt_predictions[i] = fmin(tomin, 0, disp = False)
+        opt_predictions[i] = fmin(tomin, 0, disp = False).item()
         
         
 plt.xlabel("trading signal")
