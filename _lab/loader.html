@@ -172,11 +172,14 @@
     window.location.href = labUrl;
   }
 
-  // --- IndexedDB helpers ---
+  // --- IndexedDB helpers (matches localforage schema used by JupyterLite) ---
+  // JupyterLite uses localforage with:
+  //   DB name: "JupyterLite Storage", version: 1, object store: "files"
+  //   Keys are plain paths (e.g. "slug/index.ipynb"), values are content model objects
 
   function openJupyterLiteDB() {
     return new Promise(function(resolve, reject) {
-      var req = indexedDB.open("JupyterLite Storage");
+      var req = indexedDB.open("JupyterLite Storage", 1);
       req.onupgradeneeded = function(event) {
         var db = event.target.result;
         if (!db.objectStoreNames.contains("files")) {
@@ -188,67 +191,51 @@
     });
   }
 
-  function putFile(db, path, content, format) {
+  function putItem(db, key, value) {
     return new Promise(function(resolve, reject) {
       var tx = db.transaction("files", "readwrite");
       var store = tx.objectStore("files");
-      var now = new Date().toISOString();
-      var entry = {
-        name: path.split("/").pop(),
-        path: path,
-        format: format,      // "text" or "base64"
-        type: "file",
-        content: content,
-        created: now,
-        last_modified: now,
-        writable: true,
-        mimetype: format === "text" ? "text/plain" : "application/octet-stream",
-        size: typeof content === "string" ? content.length : 0
-      };
-      var req = store.put(entry, "/drive/" + path);
+      var req = store.put(value, key);
       req.onsuccess = function() { resolve(); };
       req.onerror = function(event) { reject(event.target.error); };
     });
   }
 
-  function putDirectory(db, path) {
-    return new Promise(function(resolve, reject) {
-      var tx = db.transaction("files", "readwrite");
-      var store = tx.objectStore("files");
-      var now = new Date().toISOString();
-      var entry = {
-        name: path.split("/").pop(),
-        path: path,
-        format: "json",
-        type: "directory",
-        content: null,
-        created: now,
-        last_modified: now,
-        writable: true,
-        mimetype: "",
-        size: 0
-      };
-      var req = store.put(entry, "/drive/" + path);
-      req.onsuccess = function() { resolve(); };
-      req.onerror = function(event) { reject(event.target.error); };
-    });
+  var MIME_MAP = {
+    "ipynb": "application/x-ipynb+json",
+    "csv": "text/csv", "tsv": "text/tab-separated-values",
+    "json": "application/json", "geojson": "application/geo+json",
+    "txt": "text/plain", "md": "text/markdown", "py": "text/x-python",
+    "png": "image/png", "jpg": "image/jpeg", "jpeg": "image/jpeg",
+    "gif": "image/gif", "svg": "image/svg+xml", "webp": "image/webp"
+  };
+
+  function getMime(ext) {
+    return MIME_MAP[ext] || "application/octet-stream";
   }
 
   async function writeToJupyterLiteFS(slug, nb, zip) {
     var db = await openJupyterLiteDB();
+    var now = new Date().toISOString();
 
-    // Create slug directory
-    await putDirectory(db, slug);
-
-    // Write the (modified) notebook
-    var nbContent = JSON.stringify(nb, null, 1);
-    await putFile(db, slug + "/index.ipynb", nbContent, "text");
-
-    // Track subdirectories we've created
-    var createdDirs = new Set();
+    // Write the (modified) notebook — format "json", content is parsed object
+    await putItem(db, slug + "/index.ipynb", {
+      name: "index.ipynb",
+      path: slug + "/index.ipynb",
+      format: "json",
+      type: "file",
+      content: nb,
+      created: now,
+      last_modified: now,
+      writable: true,
+      mimetype: "application/x-ipynb+json",
+      size: JSON.stringify(nb).length
+    });
 
     // Write other files from the zip (assets/, data/)
     var fileNames = Object.keys(zip.files);
+    var textExts = new Set(["csv", "tsv", "txt", "json", "geojson", "md", "py"]);
+
     for (var i = 0; i < fileNames.length; i++) {
       var fname = fileNames[i];
       var zipEntry = zip.files[fname];
@@ -258,26 +245,38 @@
       if (fname === "index.ipynb") continue;
       if (fname === "README.md") continue;
 
-      // Ensure parent directory exists in IndexedDB
-      var parts = fname.split("/");
-      if (parts.length > 1) {
-        var dirPath = slug + "/" + parts.slice(0, -1).join("/");
-        if (!createdDirs.has(dirPath)) {
-          await putDirectory(db, dirPath);
-          createdDirs.add(dirPath);
-        }
-      }
-
-      // Determine if text or binary
       var ext = fname.split(".").pop().toLowerCase();
-      var textExts = new Set(["csv", "tsv", "txt", "json", "geojson", "md", "py"]);
+      var filePath = slug + "/" + fname;
+      var fileName = fname.split("/").pop();
 
       if (textExts.has(ext)) {
         var textContent = await zipEntry.async("string");
-        await putFile(db, slug + "/" + fname, textContent, "text");
+        await putItem(db, filePath, {
+          name: fileName,
+          path: filePath,
+          format: "text",
+          type: "file",
+          content: textContent,
+          created: now,
+          last_modified: now,
+          writable: true,
+          mimetype: getMime(ext),
+          size: textContent.length
+        });
       } else {
         var base64Content = await zipEntry.async("base64");
-        await putFile(db, slug + "/" + fname, base64Content, "base64");
+        await putItem(db, filePath, {
+          name: fileName,
+          path: filePath,
+          format: "base64",
+          type: "file",
+          content: base64Content,
+          created: now,
+          last_modified: now,
+          writable: true,
+          mimetype: getMime(ext),
+          size: base64Content.length
+        });
       }
     }
 
