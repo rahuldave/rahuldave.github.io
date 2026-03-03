@@ -173,14 +173,18 @@
   }
 
   // --- IndexedDB helpers (matches localforage schema used by JupyterLite) ---
-  // JupyterLite uses localforage with:
-  //   DB name: "JupyterLite Storage", version: 1, object store: "files"
+  // JupyterLite scopes its DB name with the base URL path:
+  //   DB name: "JupyterLite Storage - /lab/", object store: "files"
   //   Keys are plain paths (e.g. "slug/index.ipynb"), values are content model objects
+
+  var JLITE_DB_NAME = "JupyterLite Storage - /lab/";
 
   function openJupyterLiteDB() {
     return new Promise(function(resolve, reject) {
-      var req = indexedDB.open("JupyterLite Storage", 1);
+      // First try opening without specifying version (to match existing DB)
+      var req = indexedDB.open(JLITE_DB_NAME);
       req.onupgradeneeded = function(event) {
+        // DB doesn't exist yet — create the "files" store
         var db = event.target.result;
         if (!db.objectStoreNames.contains("files")) {
           db.createObjectStore("files");
