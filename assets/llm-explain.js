@@ -16,12 +16,27 @@
   var contentMd = null;
   var apiKey = localStorage.getItem('claude-api-key');
   var MODEL = 'claude-sonnet-4-20250514';
-  var SYSTEM_PROMPT = 'You are a helpful teaching assistant for a data science and machine learning course. ' +
-    'Explain concepts clearly and concisely. Reference specific code examples when relevant. ' +
-    'Use LaTeX notation (with $...$ for inline and $$...$$ for display) for mathematical expressions. ' +
-    'Keep responses focused and educational.';
+
+  // Prompt defaults (overridden by /assets/llm-prompts.json when available)
+  var prompts = {
+    system: 'You are a helpful teaching assistant for a data science and machine learning course. ' +
+      'Explain concepts clearly and concisely. Reference specific code examples when relevant. ' +
+      'Use LaTeX notation (with $...$ for inline and $$...$$ for display) for mathematical expressions. ' +
+      'Keep responses focused and educational.',
+    summarize: 'Summarize the key concepts from this lecture note titled "{title}" in 3-5 bullet points. Be concise but thorough.',
+    explain_upto: 'The student has read up to this point in the lecture note "{title}". Explain the key concepts covered so far in clear, accessible language. Reference specific code examples where relevant.',
+    explain_code: 'Explain this code line by line in the context of the surrounding lecture material. For each line or logical block, describe what it does and why. Use the preceding markdown context to connect the code to the concepts being taught.'
+  };
 
   // --- Initialization ---
+
+  // Fetch external prompts (non-blocking — falls back to defaults above)
+  fetch('/assets/llm-prompts.json')
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(data) {
+      if (data) prompts = data;
+    })
+    .catch(function() { /* use defaults */ });
 
   fetch(baseUrl + 'cells.json')
     .then(function(r) { return r.ok ? r.json() : null; })
@@ -276,20 +291,11 @@
   function buildUserPrompt(action, context) {
     var title = (cellsData && cellsData.title) ? cellsData.title : slug;
 
-    if (action === 'summarize') {
-      return 'Summarize the key concepts from this lecture note titled "' + title +
-        '" in 3-5 bullet points. Be concise but thorough.\n\n' + context;
-    }
+    var templateKey = action.replace('-', '_');  // explain-code → explain_code
+    var template = prompts[templateKey];
 
-    if (action === 'explain-upto') {
-      return 'The student has read up to this point in the lecture note "' + title +
-        '". Explain the key concepts covered so far in clear, accessible language. ' +
-        'Reference specific code examples where relevant.\n\n' + context;
-    }
-
-    if (action === 'explain-code') {
-      return 'Explain what this code does and why, in the context of the surrounding lecture material. ' +
-        'Be specific about what each part does and the reasoning behind it.\n\n' + context;
+    if (template) {
+      return template.replace(/\{title\}/g, title) + '\n\n' + context;
     }
 
     return context;
@@ -440,7 +446,7 @@
         model: MODEL,
         max_tokens: 2048,
         stream: true,
-        system: SYSTEM_PROMPT,
+        system: prompts.system,
         messages: [{ role: 'user', content: userPrompt }]
       })
     })
