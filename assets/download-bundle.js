@@ -49,7 +49,7 @@
     btn.className = "download-bundle-btn";
     btn.innerHTML =
       '<span class="download-bundle-icon">\u2913</span>' +
-      '<span class="download-bundle-label">Download &amp; Run</span>' +
+      '<span class="download-bundle-label">Download and Run</span>' +
       (sizeStr
         ? '<span class="download-bundle-size">' + sizeStr + "</span>"
         : "");

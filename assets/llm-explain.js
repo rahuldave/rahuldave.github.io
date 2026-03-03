@@ -66,14 +66,14 @@
 
     var btn = document.createElement('button');
     btn.className = 'llm-btn llm-btn-summarize';
-    btn.textContent = 'Summarize this article';
+    btn.textContent = 'Summarize';
     btn.addEventListener('click', function() { handleAction('summarize', null); });
 
     var dl = document.createElement('a');
     dl.className = 'llm-btn llm-btn-download';
     dl.href = baseUrl + '_content.md';
     dl.download = slug + '.md';
-    dl.textContent = 'Download Markdown';
+    dl.textContent = 'Download md';
 
     wrap.appendChild(dl);
     wrap.appendChild(btn);
