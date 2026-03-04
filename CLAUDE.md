@@ -289,6 +289,7 @@ quarto render posts/probability/index.ipynb  # Render a single post
 - `CNAME` and `.nojekyll` live in project root — Quarto copies them to `_site/` automatically
 - Commit and push of `main` are separate from deploy
 - **Full internal docs:** `_internal_docs/build-and-deploy.md`
+- **IMPORTANT: ALWAYS use Makefile targets** (`make build`, `make deploy`, `make clean`, etc.) instead of running scripts or `quarto render` directly. The Makefile orchestrates the correct build order (render → JupyterLite → LLM context → bundles) with stamp-based incremental builds. Running `quarto render` alone blows away `_site/` and loses JupyterLite, bundles, and LLM context artifacts. The only exception is rendering a single post for quick iteration: `quarto render posts/SLUG/index.ipynb`.
 
 ### Image/Data Path Conventions
 - Notebook posts: `assets/filename.png` (relative to the notebook's folder)
@@ -365,6 +366,13 @@ For quick pass/fail testing (no output capture): `uv run --with <deps> python _s
 **No `ipynb: default` in frontmatter.** The old "Other Formats > Jupyter" download is replaced by zip bundles. The `import_notebook.py` script and all skills omit `ipynb: default`.
 
 **Makefile uses stamp files** (`_site/.stamp.*`) so `make deploy` after `make build` skips the render. Run `make clean` to force a full rebuild.
+
+### Visual Testing with Browser Agent
+- **ALWAYS use `npx agent-browser`** to visually verify changes to the site — don't just assume CSS/JS/layout changes look right. Spin up a local server (`python3 -m http.server 8765 --directory _site`) and use the browser agent to take screenshots, check responsiveness at different viewports (`agent-browser set viewport 375 812` for mobile), click interactive elements, and inspect console errors.
+- Use the browser agent to test JupyterLite integration: navigate to the loader page, verify notebooks open, check IndexedDB contents, run cells, and confirm plots render.
+- Use `agent-browser eval "..."` to inspect DOM state, IndexedDB, console output, and other runtime details that can't be checked by reading source code alone.
+- For deployed site testing, navigate to `https://rahuldave.com/...`. For local testing, use `http://localhost:8765/...` with a local server serving `_site/`.
+- Check both desktop (1280x800) and mobile (375x812) viewports when making layout/CSS changes.
 
 ### Known Gotchas
 - After adding/moving/renaming files, restart `quarto preview` — the live server caches resource IDs and will show "Bad resource ID" for changed files
