@@ -43,9 +43,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-7cfd5bd775a3ce2feb5ace5ad578780a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-1b098ccf0f66a41bd05a9b1a69692cd1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-7cfd5bd775a3ce2feb5ace5ad578780a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dae8b3c023f6ff0367a08ac9ed642af6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-2e19cb3c9094d6a0093b057d30bf5165.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-dae8b3c023f6ff0367a08ac9ed642af6.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -84,11 +84,17 @@ ul.task-list li input[type="checkbox"] {
 
 <meta property="og:title" content="Introduction to Sampling – rahuldave">
 <meta property="og:description" content="From probability fundamentals through the central limit theorem to Monte Carlo methods and sampling techniques.">
+<meta property="og:image" content="https://rahuldave.github.io/learning-paths/intro-to-sampling-card.png">
 <meta property="og:site_name" content="rahuldave">
+<meta property="og:image:height" content="400">
+<meta property="og:image:width" content="1280">
 <meta name="twitter:title" content="Introduction to Sampling – rahuldave">
 <meta name="twitter:description" content="From probability fundamentals through the central limit theorem to Monte Carlo methods and sampling techniques.">
+<meta name="twitter:image" content="https://rahuldave.github.io/learning-paths/intro-to-sampling-card.png">
 <meta name="twitter:creator" content="@rahuldave">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:image-height" content="400">
+<meta name="twitter:image-width" content="1280">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -283,12 +289,12 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Collections</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html"> 
-<span class="menu-text">About</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="../learning-paths.html"> 
 <span class="menu-text">Learning Paths</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -393,102 +399,59 @@ ul.task-list li input[type="checkbox"] {
 <section id="prerequisites" class="level3">
 <h3 class="anchored" data-anchor-id="prerequisites">Prerequisites</h3>
 <p>Comfort with calculus (integration, change of variables) and basic Python (NumPy, Matplotlib). No prior probability or statistics background is assumed — the path builds it from scratch.</p>
+<p><a href="../posts/distributions?path=intro-to-sampling&amp;step=1" class="btn btn-primary">Start this path</a></p>
 </section>
 <section id="part-1-the-language-of-randomness" class="level2">
 <h2 class="anchored" data-anchor-id="part-1-the-language-of-randomness">Part 1: The Language of Randomness</h2>
 <p>Probability, distributions, and random variables — the vocabulary you need before anything else.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>#</th>
-<th>Post</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td><a href="../posts/distributions?path=intro-to-sampling&amp;step=1">Distributions</a></td>
-<td>Defines cumulative distribution functions, probability mass functions, and probability density functions with coin-toss examples. Covers the Uniform and Bernoulli distributions, and conditional and marginal distributions.</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td><a href="../posts/distrib-example/?path=intro-to-sampling&amp;step=2">Distributions Example: Elections</a></td>
-<td>Simulates the 2012 US presidential election using Bernoulli coin flips for each state based on PredictWise probabilities. Introduces the Binomial distribution, the CLT’s Gaussian approximation, and polling uncertainty via Gallup data.</td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td><a href="../posts/probability/?path=intro-to-sampling&amp;step=3">Probability</a></td>
-<td>Three ways to think about probability: symmetry, models, and long-run frequency, illustrated with coin-flip simulations. Covers the rules of probability, random variables, marginals, conditionals, and Bayes’ theorem with the Sally Clark case.</td>
-</tr>
-</tbody>
-</table>
+<div class="lp-step-card">
+<p><strong>1.</strong> <a href="../posts/distributions?path=intro-to-sampling&amp;step=1">Distributions</a></p>
+<p>Defines cumulative distribution functions, probability mass functions, and probability density functions with coin-toss examples. Covers the Uniform and Bernoulli distributions, and conditional and marginal distributions.</p>
+</div>
+<div class="lp-step-card">
+<p><strong>2.</strong> <a href="../posts/distrib-example/?path=intro-to-sampling&amp;step=2">Distributions Example: Elections</a></p>
+<p>Simulates the 2012 US presidential election using Bernoulli coin flips for each state based on PredictWise probabilities. Introduces the Binomial distribution, the CLT’s Gaussian approximation, and polling uncertainty via Gallup data.</p>
+</div>
+<div class="lp-step-card">
+<p><strong>3.</strong> <a href="../posts/probability/?path=intro-to-sampling&amp;step=3">Probability</a></p>
+<p>Three ways to think about probability: symmetry, models, and long-run frequency, illustrated with coin-flip simulations. Covers the rules of probability, random variables, marginals, conditionals, and Bayes’ theorem with the Sally Clark case.</p>
+</div>
 </section>
 <section id="part-2-from-samples-to-guarantees" class="level2">
 <h2 class="anchored" data-anchor-id="part-2-from-samples-to-guarantees">Part 2: From Samples to Guarantees</h2>
 <p>What happens when you draw samples from a distribution, and why averages converge — the Law of Large Numbers, the Central Limit Theorem, and Monte Carlo integration.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>#</th>
-<th>Post</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>4</td>
-<td><a href="../posts/expectations/?path=intro-to-sampling&amp;step=4">Expectations and the Law of Large Numbers</a></td>
-<td>Defines expected values, the Law of the Unconscious Statistician (LOTUS), and variance for discrete and continuous distributions. Demonstrates the Law of Large Numbers and its connection to the frequentist interpretation of probability.</td>
-</tr>
-<tr class="even">
-<td>5</td>
-<td><a href="../posts/basicmontecarlo/?path=intro-to-sampling&amp;step=5">Basic Monte Carlo</a></td>
-<td>Introduces Monte Carlo methods by estimating the area of a unit circle with random points. Covers the hit-or-miss method and rejection sampling as building blocks for Monte Carlo integration.</td>
-</tr>
-<tr class="odd">
-<td>6</td>
-<td><a href="../posts/montecarlointegrals/?path=intro-to-sampling&amp;step=6">Monte Carlo Integration</a></td>
-<td>Formalizes Monte Carlo integration using uniform random samples and LOTUS, then extends to multidimensional integrals. Uses the Central Limit Theorem to estimate integration error and compares convergence rates with classical quadrature.</td>
-</tr>
-<tr class="even">
-<td>7</td>
-<td><a href="../posts/samplingclt/?path=intro-to-sampling&amp;step=7">Sampling and the Central Limit Theorem</a></td>
-<td>Builds sampling distributions from repeated coin-flip experiments, showing how the sample mean and its variance behave as sample size grows. Derives the Central Limit Theorem and the sampling distribution of the variance.</td>
-</tr>
-</tbody>
-</table>
+<div class="lp-step-card">
+<p><strong>4.</strong> <a href="../posts/expectations/?path=intro-to-sampling&amp;step=4">Expectations and the Law of Large Numbers</a></p>
+<p>Defines expected values, the Law of the Unconscious Statistician (LOTUS), and variance for discrete and continuous distributions. Demonstrates the Law of Large Numbers and its connection to the frequentist interpretation of probability.</p>
+</div>
+<div class="lp-step-card">
+<p><strong>5.</strong> <a href="../posts/basicmontecarlo/?path=intro-to-sampling&amp;step=5">Basic Monte Carlo</a></p>
+<p>Introduces Monte Carlo methods by estimating the area of a unit circle with random points. Covers the hit-or-miss method and rejection sampling as building blocks for Monte Carlo integration.</p>
+</div>
+<div class="lp-step-card">
+<p><strong>6.</strong> <a href="../posts/montecarlointegrals/?path=intro-to-sampling&amp;step=6">Monte Carlo Integration</a></p>
+<p>Formalizes Monte Carlo integration using uniform random samples and LOTUS, then extends to multidimensional integrals. Uses the Central Limit Theorem to estimate integration error and compares convergence rates with classical quadrature.</p>
+</div>
+<div class="lp-step-card">
+<p><strong>7.</strong> <a href="../posts/samplingclt/?path=intro-to-sampling&amp;step=7">Sampling and the Central Limit Theorem</a></p>
+<p>Builds sampling distributions from repeated coin-flip experiments, showing how the sample mean and its variance behave as sample size grows. Derives the Central Limit Theorem and the sampling distribution of the variance.</p>
+</div>
 </section>
 <section id="part-3-sampling-algorithms" class="level2">
 <h2 class="anchored" data-anchor-id="part-3-sampling-algorithms">Part 3: Sampling Algorithms</h2>
 <p>Three techniques for drawing samples from a target distribution: inverse transform, rejection sampling, and importance sampling.</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>#</th>
-<th>Post</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>8</td>
-<td><a href="../posts/inversetransform/?path=intro-to-sampling&amp;step=8">The Inverse Transform</a></td>
-<td>Introduces the inverse transform method for generating samples from arbitrary distributions using uniform random variables and the inverse CDF. Includes the Box-Muller transform for generating normal samples as a special case.</td>
-</tr>
-<tr class="even">
-<td>9</td>
-<td><a href="../posts/rejectionsampling/?path=intro-to-sampling&amp;step=9">Rejection Sampling</a></td>
-<td>Presents von Neumann’s rejection sampling algorithm for drawing samples from distributions with known functional form. Covers the basic method and an enhanced version that uses an envelope distribution for better acceptance rates.</td>
-</tr>
-<tr class="odd">
-<td>10</td>
-<td><a href="../posts/importancesampling/?path=intro-to-sampling&amp;step=10">Importance Sampling</a></td>
-<td>Introduces importance sampling as a method for computing expectations and integrals by reweighting samples from a proposal distribution. Shows how choosing a good proposal concentrates computation in regions that contribute most to the integral.</td>
-</tr>
-</tbody>
-</table>
-<p><a href="../posts/distributions?path=intro-to-sampling&amp;step=1" class="btn btn-primary">Start this path</a></p>
+<div class="lp-step-card">
+<p><strong>8.</strong> <a href="../posts/inversetransform/?path=intro-to-sampling&amp;step=8">The Inverse Transform</a></p>
+<p>Introduces the inverse transform method for generating samples from arbitrary distributions using uniform random variables and the inverse CDF. Includes the Box-Muller transform for generating normal samples as a special case.</p>
+</div>
+<div class="lp-step-card">
+<p><strong>9.</strong> <a href="../posts/rejectionsampling/?path=intro-to-sampling&amp;step=9">Rejection Sampling</a></p>
+<p>Presents von Neumann’s rejection sampling algorithm for drawing samples from distributions with known functional form. Covers the basic method and an enhanced version that uses an envelope distribution for better acceptance rates.</p>
+</div>
+<div class="lp-step-card">
+<p><strong>10.</strong> <a href="../posts/importancesampling/?path=intro-to-sampling&amp;step=10">Importance Sampling</a></p>
+<p>Introduces importance sampling as a method for computing expectations and integrals by reweighting samples from a proposal distribution. Shows how choosing a good proposal concentrates computation in regions that contribute most to the integral.</p>
+</div>
 
 
 </section>
