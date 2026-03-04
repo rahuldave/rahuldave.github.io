@@ -222,6 +222,41 @@
     var db = await openJupyterLiteDB();
     var now = new Date().toISOString();
 
+    // Collect all unique directory paths we need to create
+    var dirs = new Set();
+    dirs.add(slug);  // Always need the slug directory
+
+    var fileNames = Object.keys(zip.files);
+    for (var d = 0; d < fileNames.length; d++) {
+      var fn = fileNames[d];
+      if (zip.files[fn].dir) continue;
+      if (fn === "index.ipynb" || fn === "README.md") continue;
+      // If file is in a subdirectory (e.g. assets/foo.png), add slug/assets
+      var parts = fn.split("/");
+      if (parts.length > 1) {
+        for (var k = 1; k < parts.length; k++) {
+          dirs.add(slug + "/" + parts.slice(0, k).join("/"));
+        }
+      }
+    }
+
+    // Write directory entries (required for JupyterLite file browser)
+    for (var dir of dirs) {
+      var dirName = dir.split("/").pop();
+      await putItem(db, dir, {
+        name: dirName,
+        path: dir,
+        format: "json",
+        type: "directory",
+        content: null,
+        created: now,
+        last_modified: now,
+        writable: true,
+        mimetype: "",
+        size: 0
+      });
+    }
+
     // Write the (modified) notebook — format "json", content is parsed object
     await putItem(db, slug + "/index.ipynb", {
       name: "index.ipynb",
@@ -237,7 +272,6 @@
     });
 
     // Write other files from the zip (assets/, data/)
-    var fileNames = Object.keys(zip.files);
     var textExts = new Set(["csv", "tsv", "txt", "json", "geojson", "md", "py"]);
 
     for (var i = 0; i < fileNames.length; i++) {
