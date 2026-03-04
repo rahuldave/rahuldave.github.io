@@ -349,7 +349,10 @@ h3.llm-heading-with-btn {
   }
 
   .llm-summarize-wrap {
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+    justify-items: stretch;
   }
 
   .llm-buttons {
