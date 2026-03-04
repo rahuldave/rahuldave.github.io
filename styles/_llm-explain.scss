@@ -58,6 +58,7 @@ div.sourceCode:hover + .llm-buttons,
 // Summarize + Download buttons at top of page (same line, flush right)
 .llm-summarize-wrap {
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
   align-items: center;
   gap: 0.5rem;
@@ -345,6 +346,10 @@ h3.llm-heading-with-btn {
     width: 95%;
     max-height: 90vh;
     border-radius: 12px;
+  }
+
+  .llm-summarize-wrap {
+    justify-content: center;
   }
 
   .llm-buttons {
