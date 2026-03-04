@@ -6,7 +6,7 @@
         "loadPyodideOptions": {
           "packages": [
             "numpy", "scipy", "matplotlib", "pandas",
-            "scikit-learn", "statsmodels", "Pillow", "seaborn"
+            "scikit-learn", "statsmodels", "Pillow"
           ]
         }
       }
