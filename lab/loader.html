@@ -56,9 +56,11 @@
   var spinnerEl = document.getElementById("spinner");
 
   // Packages preloaded by JupyterLite kernel (must match jupyter-lite.json)
+  // Only Pyodide built-ins can be preloaded. Pure-Python packages like
+  // seaborn must be installed at runtime via micropip.
   var PRELOADED = new Set([
     "numpy", "scipy", "matplotlib", "pandas",
-    "scikit-learn", "statsmodels", "pillow", "Pillow", "seaborn"
+    "scikit-learn", "statsmodels", "pillow", "Pillow"
   ]);
 
   // Normalize package names for comparison

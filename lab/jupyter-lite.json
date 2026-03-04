@@ -391,6 +391,17 @@
     "licensesUrl": "./lab/api/licenses",
     "litePluginSettings": {
       "@jupyterlite/pyodide-kernel-extension:kernel": {
+        "loadPyodideOptions": {
+          "packages": [
+            "numpy",
+            "scipy",
+            "matplotlib",
+            "pandas",
+            "scikit-learn",
+            "statsmodels",
+            "Pillow"
+          ]
+        },
         "pipliteUrls": [
           "./extensions/@jupyterlite/pyodide-kernel-extension/static/pypi/all.json?sha256=6ba01855ede9932d7c34a81c163e01d7e3d0186e0f133876f83126bc734f4162"
         ]
