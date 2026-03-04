@@ -1,0 +1,34 @@
+title: "Introduction to Sampling"
+description: "From probability fundamentals through the central limit theorem to Monte Carlo methods and sampling techniques."
+level: beginner
+
+parts:
+  - title: "The Language of Randomness"
+    description: "Probability, distributions, and random variables — the vocabulary you need before anything else."
+    nodes:
+      - slug: probability
+      - slug: distributions
+      - slug: distrib-example
+        requires: [distributions]
+
+  - title: "From Samples to Guarantees"
+    description: "What happens when you draw samples from a distribution, and why averages converge — the Law of Large Numbers, the Central Limit Theorem, and Monte Carlo integration."
+    nodes:
+      - slug: expectations
+        requires: [probability, distributions]
+      - slug: samplingclt
+        requires: [expectations]
+      - slug: basicmontecarlo
+        requires: [expectations]
+      - slug: montecarlointegrals
+        requires: [basicmontecarlo]
+
+  - title: "Sampling Algorithms"
+    description: "Three techniques for drawing samples from a target distribution: inverse transform, rejection sampling, and importance sampling."
+    nodes:
+      - slug: inversetransform
+        requires: [samplingclt]
+      - slug: rejectionsampling
+        requires: [inversetransform]
+      - slug: importancesampling
+        requires: [rejectionsampling]

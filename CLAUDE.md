@@ -16,6 +16,7 @@ This is a Quarto-based personal website for data science/ML educational content 
   - `test_bundles.py` — tests bundles by running `uvx juv exec`. Run via `make test-bundles`.
   - `execute_notebook.py` — executes a notebook in-place with `nbclient`, capturing outputs. Self-bootstraps PEP 723 deps via `uv run --with`. Usage: `uv run _scripts/execute_notebook.py [--timeout 1200] posts/SLUG/index.ipynb`. Used by `/execute-notebook` skill.
   - `run_nb.py` — quick-test: runs notebook cells via `exec()`, reports first failure. No output capture. Usage: `uv run --with <deps> python _scripts/run_nb.py posts/SLUG/index.ipynb`.
+  - `generate_learning_paths.py` — generates per-path `.qmd` pages + `assets/learning-paths.json` manifest from YAML DAGs in `_learning-paths/`. Run via `make build`.
   - `build_jupyterlite.sh` — builds JupyterLite static site into `_site/lab/`. Auto-discovers labextension path. Run via `make build`.
   - `pymc3-to-pymc-porting.md` — comprehensive reference for migrating pymc3/theano notebooks to modern pymc/pytensor.
 - After importing, run `/caption-images` to add captions, then `/bundle-post` for notebook posts
@@ -189,6 +190,7 @@ This is a Quarto-based personal website for data science/ML educational content 
 
 ## Listing Sort Order
 - All listing pages sort by `date desc`: `index.qmd`, `posts.qmd`, `til.qmd`, `collections.qmd`
+- `learning-paths.qmd` sorts by `order` (beginner=1, intermediate=2, advanced=3)
 
 ## Design
 - `designs/design1-depth/` — **CHOSEN BASE DESIGN** (Blues sequential palette, clean, scholarly)
@@ -211,7 +213,7 @@ This is a Quarto-based personal website for data science/ML educational content 
 ### Config
 - `_quarto.yml` — project config: website type, navbar, SCSS theme (light/dark), TOC, margin references, Open Graph, Twitter Cards
 - Themes: `styles/modern-light.scss`, `styles/modern-dark.scss`
-- Includes: `includes/fonts.html`, `includes/brand-icon.html`, `includes/theme-toggle.html`, `includes/discuss-links.html`
+- Includes: `includes/fonts.html`, `includes/brand-icon.html`, `includes/theme-toggle.html`, `includes/discuss-links.html`, `includes/learning-paths.html`
 
 ### Posts Directory Layout
 
@@ -284,7 +286,7 @@ make test-bundles           # Test bundles via juv exec
 make clean                  # Delete stamp files (forces full rebuild)
 quarto render posts/probability/index.ipynb  # Render a single post
 ```
-- `build` runs: `compile_prompts.py` → `quarto render` → `build_jupyterlite.sh` + `generate_llm_context.py` → `generate_bundles.py` (skips stages whose inputs haven't changed, using stamp files)
+- `build` runs: `compile_prompts.py` + `generate_learning_paths.py` → `quarto render` → `build_jupyterlite.sh` + `generate_llm_context.py` → `generate_bundles.py` (skips stages whose inputs haven't changed, using stamp files)
 - `deploy` uses `git worktree` to check out `gh-pages` into `/tmp/`, rsync `_site/` there, commit, push
 - GitHub Pages deploys from `gh-pages` branch (root `/`), NOT from `docs/` on `main`
 - `CNAME` and `.nojekyll` live in project root — Quarto copies them to `_site/` automatically
@@ -316,6 +318,8 @@ quarto render posts/probability/index.ipynb  # Render a single post
 - `til/` — Today I Learned (shown only on TIL page, NOT on index)
 - `collections/software/` — software tools (shown only on Collections page, NOT on index)
 - `_lab/` — JupyterLite source config (underscore prefix = Quarto ignores it; built to `_site/lab/`)
+- `_learning-paths/` — YAML DAG definitions + optional content/images for learning paths (underscore prefix = Quarto ignores)
+- `learning-paths/` — generated `.qmd` pages (gitignored, rebuilt by `make build`)
 - `index.qmd` listing contents should only include `posts/` and `posts/**/`
 
 ### LLM Explain Feature (BYOK)
@@ -362,6 +366,22 @@ Pyodide-compatible notebooks (43 of 49) can run entirely in the reader's browser
 **Preloaded Pyodide built-ins (7):** numpy, scipy, matplotlib, pandas, scikit-learn, statsmodels, Pillow. Pure Python packages (e.g. seaborn) are installed at runtime via `micropip.install()`.
 
 **Full internal docs:** `_internal_docs/run-in-browser.md`
+
+### Learning Paths (Guided Sequences)
+Structured sequences of posts organized into named parts, defined as YAML DAGs. Each path gets a listing-page card, a detail page with step cards, and JavaScript-powered prev/next navigation on post pages when a reader follows a path.
+
+**Architecture (3 layers):**
+1. **Build-time Python** (`_scripts/generate_learning_paths.py`) — reads `_learning-paths/*.yml`, topologically sorts nodes (Kahn's algorithm), generates per-path `.qmd` pages + `assets/learning-paths.json` manifest
+2. **Runtime JS** (`assets/learning-paths.js`) — IIFE on every post page; checks for `?path=<id>&step=<n>` query param; injects top banner ("Part N: Title — Step X of Y") and bottom prev/next nav cards
+3. **SCSS styling** (`styles/_learning-paths.scss`) — banner, nav cards, step cards on path pages
+
+**To add a new learning path:** Create `_learning-paths/<id>.yml` (YAML DAG with parts/nodes), optionally add `<id>-content.md` (intro prose) and `<id>-card.png` (listing thumbnail from a post diagram), then `make build`.
+
+**Key files:** `_learning-paths/*.yml`, `_scripts/generate_learning_paths.py`, `assets/learning-paths.js`, `styles/_learning-paths.scss`, `includes/learning-paths.html`, `learning-paths.qmd`
+
+**Generated (gitignored):** `learning-paths/*.qmd`, `assets/learning-paths.json`
+
+**Full internal docs:** `_internal_docs/learning-paths.md`
 
 ### Notebook Execution (Refresh Outputs)
 Quarto renders stored cell outputs, so notebooks must be executed before deploy for fresh results. The `/finalize-post` skill includes this as step 6.

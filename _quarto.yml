@@ -2,6 +2,7 @@ project:
   type: website
   resources:
     - assets/llm-prompts.json
+    - assets/learning-paths.json
 
 website:
   title: rahuldave
@@ -17,6 +18,8 @@ website:
         text: TIL
       - href: collections.qmd
         text: Collections
+      - href: learning-paths.qmd
+        text: Learning Paths
       - href: about.qmd
         text: About
 
@@ -38,5 +41,6 @@ format:
       - includes/discuss-links.html
       - includes/llm-explain.html
       - includes/download-bundle.html
+      - includes/learning-paths.html
     include-before-body:
       - includes/theme-toggle.html

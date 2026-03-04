@@ -14,6 +14,11 @@ __pycache__/
 _site/
 .jupyterlite.doit.db
 
+# Generated learning path files (rebuilt by generate_learning_paths.py)
+learning-paths/*.qmd
+learning-paths/*.png
+assets/learning-paths.json
+
 # Claude Code — track skills and project docs, ignore local settings
 .claude/settings.local.json
 .claude/projects/

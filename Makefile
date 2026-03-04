@@ -7,6 +7,7 @@ BUNDLES_STAMP  := _site/.stamp.bundles
 # ── Source file globs ────────────────────────────────────────────────
 QUARTO_SOURCES := $(shell find posts til collections -name '*.ipynb' -o -name '*.qmd' -o -name '*.md' 2>/dev/null)
 QUARTO_SOURCES += $(wildcard *.qmd *.md)
+QUARTO_SOURCES += $(wildcard learning-paths/*.qmd)
 QUARTO_CONFIG  := _quarto.yml $(wildcard styles/*.scss _filters/*.lua includes/*.html assets/*.js)
 
 NOTEBOOK_SOURCES := $(shell find posts -name 'index.ipynb' 2>/dev/null)
@@ -46,8 +47,13 @@ clean:
 assets/llm-prompts.json: _llm-config.yml _scripts/compile_prompts.py
 	python3 _scripts/compile_prompts.py
 
+## Generate learning path pages and JSON manifest
+LP_SOURCES := $(wildcard _learning-paths/*.yml _learning-paths/*.md)
+assets/learning-paths.json: $(LP_SOURCES) _scripts/generate_learning_paths.py
+	python3 _scripts/generate_learning_paths.py
+
 ## Render the full site to _site/
-$(RENDER_STAMP): $(QUARTO_SOURCES) $(QUARTO_CONFIG) assets/llm-prompts.json
+$(RENDER_STAMP): $(QUARTO_SOURCES) $(QUARTO_CONFIG) assets/llm-prompts.json assets/learning-paths.json
 	quarto render
 	rm -f _site/CLAUDE.html
 	@touch $@

@@ -1,0 +1,138 @@
+// ============================================
+// LEARNING PATHS — Banner + Prev/Next Navigation
+// ============================================
+
+.lp-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.625rem 1rem;
+  margin-bottom: 1.5rem;
+  background: var(--cb-blue-50);
+  border: 1px solid var(--cb-blue-200);
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+
+  a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.lp-banner-label {
+  white-space: normal;
+  line-height: 1.5;
+}
+
+.lp-banner-nav {
+  display: flex;
+  gap: 0.75rem;
+  white-space: nowrap;
+}
+
+// Bottom prev/next navigation
+.lp-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.lp-nav-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+
+  &:hover {
+    border-color: var(--cb-blue-300);
+    box-shadow: var(--shadow-sm);
+    text-decoration: none;
+  }
+
+  &.lp-nav-next {
+    text-align: right;
+    grid-column: 2;
+  }
+}
+
+.lp-nav-direction {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.lp-nav-part {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0.125rem;
+}
+
+.lp-nav-title {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--color-primary);
+  line-height: 1.4;
+}
+
+// Step cards on learning path pages
+.lp-step-card {
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-surface);
+  transition: border-color var(--transition-fast);
+
+  &:hover {
+    border-color: var(--cb-blue-300);
+  }
+
+  p:first-child {
+    margin-bottom: 0.25rem;
+    font-size: 1.05rem;
+  }
+
+  p:last-child {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+  }
+}
+
+// Mobile: stack vertically
+@media (max-width: 768px) {
+  .lp-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .lp-nav {
+    grid-template-columns: 1fr;
+  }
+
+  .lp-nav-card.lp-nav-next {
+    text-align: left;
+    grid-column: 1;
+  }
+}

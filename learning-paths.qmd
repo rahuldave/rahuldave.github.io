@@ -1,0 +1,15 @@
+---
+title: "Learning Paths"
+listing:
+  id: paths
+  contents: "learning-paths/"
+  type: default
+  sort: "order"
+  image-align: left
+  fields: [image, title, subtitle, description]
+---
+
+Structured sequences of posts to guide you through key topics.
+
+:::{#paths}
+:::
