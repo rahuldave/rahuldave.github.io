@@ -168,9 +168,10 @@
     setStatus('<div class="step">Writing files to virtual filesystem...</div>');
     await writeToJupyterLiteFS(slug, nb, zip);
 
-    // 7. Redirect to JupyterLite
+    // 7. Redirect to JupyterLite (Notebook interface on mobile, Lab on desktop)
     setStatus('<div class="step">Opening JupyterLite...</div>');
-    var labUrl = "/lab/lab/index.html?path=" + encodeURIComponent(slug + "/index.ipynb");
+    var app = isMobile ? "notebooks" : "lab";
+    var labUrl = "/lab/" + app + "/index.html?path=" + encodeURIComponent(slug + "/index.ipynb");
     window.location.href = labUrl;
   }
 
@@ -179,7 +180,11 @@
   //   DB name: "JupyterLite Storage - /lab/", object store: "files"
   //   Keys are plain paths (e.g. "slug/index.ipynb"), values are content model objects
 
-  var JLITE_DB_NAME = "JupyterLite Storage - /lab/";
+  // Each JupyterLite app scopes its DB by base URL path
+  var isMobile = window.innerWidth < 768;
+  var JLITE_DB_NAME = isMobile
+    ? "JupyterLite Storage - /lab/notebooks/"
+    : "JupyterLite Storage - /lab/";
 
   function openJupyterLiteDB() {
     return new Promise(function(resolve, reject) {
