@@ -48,6 +48,7 @@
         '<span class="download-bundle-icon">\u25B6</span>' +
         '<span class="download-bundle-label">Run in Browser</span>';
       runBtn.title = "Open in JupyterLite (runs in your browser, no install needed)";
+      runBtn.target = "_blank";
       summarizeWrap.insertBefore(runBtn, summarizeWrap.firstChild);
     }
 
