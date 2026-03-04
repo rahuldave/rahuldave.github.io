@@ -4,7 +4,7 @@
 
 Pyodide-compatible notebooks can be executed entirely in the reader's browser via JupyterLite — no server, no local install. The system reuses the same zip bundles built for "Download and Run" but bridges them into JupyterLite through a loader page that rewrites dependencies for the Pyodide environment.
 
-**User-facing flow:** Click "Run in Browser" → loader page fetches zip, unpacks it, writes to IndexedDB → JupyterLite opens with notebook ready to execute.
+**User-facing flow:** Click "Run in Browser" (opens in new tab) → loader page fetches zip, unpacks it, writes to IndexedDB → JupyterLite opens with notebook ready to execute. Mobile users get the single-document Notebook interface; desktop users get the full JupyterLab IDE.
 
 **Build-time flow:** Build JupyterLite static site → copy loader.html → generate bundles with `pyodide_compatible` flags.
 
@@ -25,9 +25,10 @@ User clicks "Run in Browser" on /posts/markov/
     │  5. Subtract preloaded packages (numpy, scipy, etc.)
     │  6. Rewrite PEP 723 cell → micropip.install([extras]) or no-op
     │  7. Write all files to IndexedDB
-    │  8. Redirect
+    │  8. Redirect (mobile → Notebook, desktop → Lab)
     ▼
-/lab/lab/index.html?path=markov/index.ipynb
+/lab/notebooks/index.html?path=markov/index.ipynb  (mobile, < 768px)
+/lab/lab/index.html?path=markov/index.ipynb        (desktop)
     │
     │  JupyterLite loads notebook from IndexedDB
     │  Pyodide kernel starts with preloaded packages
@@ -65,16 +66,20 @@ jupyter lite build --lite-dir _lab --output-dir _site/lab \
 ```
 _site/lab/
 ├── lab/
-│   └── index.html          ← The JupyterLite Lab interface
-├── retro/
-│   └── index.html          ← RetroLab interface (not used)
+│   └── index.html          ← JupyterLab IDE (desktop)
+├── notebooks/
+│   └── index.html          ← Notebook interface (mobile) — single-document, minimal toolbar
+├── tree/
+│   └── index.html          ← File browser (not directly used)
+├── repl/
+│   └── index.html          ← REPL console (not used — can't open .ipynb)
 ├── build/                   ← JS/CSS bundles (~62MB)
 ├── loader.html              ← Our custom loader (copied after build)
 ├── jupyter-lite.json        ← Compiled config
 └── ...
 ```
 
-Note the double `lab/` — JupyterLite outputs a `lab/` subdirectory inside our `_site/lab/` output directory. The Lab interface is at `/lab/lab/index.html`.
+Note the double `lab/` — JupyterLite outputs a `lab/` subdirectory inside our `_site/lab/` output directory. The Lab interface is at `/lab/lab/index.html`, the Notebook interface at `/lab/notebooks/index.html`.
 
 ### 2. JupyterLite Config (`_lab/jupyter-lite.json`)
 
@@ -160,15 +165,28 @@ Invoked via: `/lab/loader.html?zip=/posts/<slug>/<slug>.zip`
    - If no extras: → `# Dependencies are preloaded in the JupyterLite environment`
    - Clears cell outputs and metadata tags
 
-7. **Write to IndexedDB** — populates JupyterLite's virtual filesystem
+7. **Write to IndexedDB** — populates JupyterLite's virtual filesystem (using the DB for the target app)
 
-8. **Redirect** — `window.location.href = "/lab/lab/index.html?path=" + encodeURIComponent(slug + "/index.ipynb")`
+8. **Detect viewport** — `window.innerWidth < 768` → mobile (Notebook) or desktop (Lab)
+
+9. **Redirect** — mobile: `/lab/notebooks/index.html?path=...`, desktop: `/lab/lab/index.html?path=...`
+
+### Mobile-Adaptive Interface
+
+The loader detects viewport width at the start and uses it for two decisions:
+
+1. **Which IndexedDB to write to** — each JupyterLite app scopes its DB by base URL:
+   - Desktop (Lab): `"JupyterLite Storage - /lab/"`
+   - Mobile (Notebook): `"JupyterLite Storage - /lab/notebooks/"`
+2. **Which interface to redirect to** — `/lab/lab/` (multi-pane IDE) vs `/lab/notebooks/` (single-document, one column of cells)
+
+The Notebook interface is much better on mobile: no sidebar, no tab system, cells stack vertically.
 
 ### IndexedDB Schema
 
 JupyterLite uses localforage to store files in IndexedDB.
 
-**Database name:** `"JupyterLite Storage - /lab/"` (scoped to the site's base path — if the path changes, this must be updated)
+**Database name:** `"JupyterLite Storage - /lab/"` for Lab, `"JupyterLite Storage - /lab/notebooks/"` for Notebook (scoped to each app's base path)
 
 **Object store:** `"files"`
 
@@ -248,13 +266,15 @@ The loader creates directory entries for the slug directory and all subdirectori
 
 ### Button Injection (`assets/download-bundle.js`)
 
-On each post page, the script fetches `bundles.json` and checks `pyodide_compatible`. If true, injects a "Run in Browser" button linking to `/lab/loader.html?zip=<zipPath>`.
+On each post page, the script fetches `bundles.json` and checks `pyodide_compatible`. If true, injects a "Run in Browser" button linking to `/lab/loader.html?zip=<zipPath>` with `target="_blank"` (opens in new tab).
 
 Button is inserted as the leftmost item in the `.llm-summarize-wrap` bar:
 
 `[▶ Run in Browser]` `[⤓ Download and Run · 164 KB]` `[Download md]` `[Summarize]`
 
 Styled via `.run-in-browser-btn` in `styles/_download-bundle.scss` — blue accent variant of the base button style.
+
+**Mobile layout:** On screens ≤ 768px, the `.llm-summarize-wrap` switches from flex-wrap to a 2×2 CSS grid layout (`grid-template-columns: 1fr 1fr`) so buttons align evenly instead of wrapping unevenly.
 
 ---
 
@@ -296,7 +316,7 @@ RENDER_STAMP → LLM_STAMP ───┘
 ## Gotchas & Lessons Learned
 
 ### 1. DB name is path-scoped
-JupyterLite names its IndexedDB `"JupyterLite Storage - /lab/"` — scoped to the base URL path. If the deployment path changes, update line ~180 of `loader.html`.
+JupyterLite names its IndexedDB `"JupyterLite Storage - <baseUrl>"` — scoped to each app's base URL path. The Lab app uses `/lab/`, the Notebook app uses `/lab/notebooks/`. The loader must write to the correct DB for the target app. If the deployment path changes, update the DB name logic in `loader.html`.
 
 ### 2. Directory entries are required
 Without explicit directory entries in IndexedDB, the file browser sidebar is empty. Files are still accessible by direct path, but the UI can't navigate to them. The `go-to-path` command fails.

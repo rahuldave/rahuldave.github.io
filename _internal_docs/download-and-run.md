@@ -127,8 +127,9 @@ Runs in the reader's browser on every post page.
 1. Matches URL `/posts/<slug>/`
 2. Fetches `HEAD /posts/<slug>/<slug>.zip` (checks existence + gets size) and `GET /bundles.json` in parallel via `Promise.all`
 3. If zip exists: injects "Download and Run" button with file size
-4. If `bundles.json` says `pyodide_compatible: true`: also injects "Run in Browser" button (see run-in-browser.md)
+4. If `bundles.json` says `pyodide_compatible: true`: also injects "Run in Browser" button with `target="_blank"` (opens in new tab; see run-in-browser.md)
 5. Buttons are inserted into `.llm-summarize-wrap` (the shared button bar)
+6. On mobile (≤ 768px), the button bar uses a 2×2 CSS grid layout (styled in `_llm-explain.scss`)
 
 ### Button order (left to right)
 

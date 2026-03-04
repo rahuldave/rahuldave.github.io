@@ -359,11 +359,15 @@ Readers unzip and run with `uvx juv run index.ipynb`. The PEP 723 cell tells `ju
 **Full internal docs:** `_internal_docs/download-and-run.md`
 
 ### Run in Browser (JupyterLite)
-Pyodide-compatible notebooks (43 of 49) can run entirely in the reader's browser via JupyterLite. A "Run in Browser" button on each compatible post links to `/lab/loader.html?zip=...` which fetches the zip bundle, rewrites PEP 723 deps for micropip, writes files to JupyterLite's IndexedDB, and redirects to the JupyterLite Lab interface.
+Pyodide-compatible notebooks (43 of 49) can run entirely in the reader's browser via JupyterLite. A "Run in Browser" button (opens in new tab) on each compatible post links to `/lab/loader.html?zip=...` which fetches the zip bundle, rewrites PEP 723 deps for micropip, writes files to JupyterLite's IndexedDB, and redirects to the appropriate interface.
 
-**Key files:** `_lab/jupyter-lite.json` (preloaded packages config), `_lab/loader.html` (zip→IndexedDB bridge), `_scripts/build_jupyterlite.sh` (builds JupyterLite static site), `assets/download-bundle.js` (injects both buttons), `styles/_download-bundle.scss`
+**Mobile-adaptive interface:** The loader detects viewport width — mobile (< 768px) gets the **Notebook interface** (`/lab/notebooks/`) which is single-document and one-column; desktop gets the full **JupyterLab IDE** (`/lab/lab/`). Each app has its own IndexedDB (scoped by base URL), so the loader writes to the correct one.
+
+**Key files:** `_lab/jupyter-lite.json` (preloaded packages config), `_lab/loader.html` (zip→IndexedDB bridge with mobile detection), `_scripts/build_jupyterlite.sh` (builds JupyterLite static site), `assets/download-bundle.js` (injects both buttons), `styles/_download-bundle.scss`
 
 **Preloaded Pyodide built-ins (7):** numpy, scipy, matplotlib, pandas, scikit-learn, statsmodels, Pillow. Pure Python packages (e.g. seaborn) are installed at runtime via `micropip.install()`.
+
+**Mobile button bar:** On screens ≤ 768px, the button bar (Run in Browser, Download and Run, Download md, Summarize) uses a 2×2 CSS grid layout instead of flex-wrap.
 
 **Full internal docs:** `_internal_docs/run-in-browser.md`
 
