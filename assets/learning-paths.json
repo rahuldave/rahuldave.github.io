@@ -1,0 +1,149 @@
+{
+  "intro-to-sampling": {
+    "title": "Introduction to Sampling",
+    "description": "From probability fundamentals through the central limit theorem to Monte Carlo methods and sampling techniques.",
+    "level": "beginner",
+    "parts": [
+      {
+        "title": "The Language of Randomness",
+        "description": "Probability, distributions, and random variables \u2014 the vocabulary you need before anything else.",
+        "steps": [
+          {
+            "slug": "distributions",
+            "title": "Distributions",
+            "description": "Defines cumulative distribution functions, probability mass functions, and probability density functions with coin-toss examples. Covers the Uniform and Bernoulli distributions, and conditional and marginal distributions.",
+            "url": "/posts/distributions"
+          },
+          {
+            "slug": "distrib-example",
+            "title": "Distributions Example: Elections",
+            "description": "Simulates the 2012 US presidential election using Bernoulli coin flips for each state based on PredictWise probabilities. Introduces the Binomial distribution, the CLT's Gaussian approximation, and polling uncertainty via Gallup data.",
+            "url": "/posts/distrib-example/"
+          },
+          {
+            "slug": "probability",
+            "title": "Probability",
+            "description": "Three ways to think about probability: symmetry, models, and long-run frequency, illustrated with coin-flip simulations. Covers the rules of probability, random variables, marginals, conditionals, and Bayes' theorem with the Sally Clark case.",
+            "url": "/posts/probability/"
+          }
+        ]
+      },
+      {
+        "title": "From Samples to Guarantees",
+        "description": "What happens when you draw samples from a distribution, and why averages converge \u2014 the Law of Large Numbers, the Central Limit Theorem, and Monte Carlo integration.",
+        "steps": [
+          {
+            "slug": "expectations",
+            "title": "Expectations and the Law of Large Numbers",
+            "description": "Defines expected values, the Law of the Unconscious Statistician (LOTUS), and variance for discrete and continuous distributions. Demonstrates the Law of Large Numbers and its connection to the frequentist interpretation of probability.",
+            "url": "/posts/expectations/"
+          },
+          {
+            "slug": "basicmontecarlo",
+            "title": "Basic Monte Carlo",
+            "description": "Introduces Monte Carlo methods by estimating the area of a unit circle with random points. Covers the hit-or-miss method and rejection sampling as building blocks for Monte Carlo integration.",
+            "url": "/posts/basicmontecarlo/"
+          },
+          {
+            "slug": "montecarlointegrals",
+            "title": "Monte Carlo Integration",
+            "description": "Formalizes Monte Carlo integration using uniform random samples and LOTUS, then extends to multidimensional integrals. Uses the Central Limit Theorem to estimate integration error and compares convergence rates with classical quadrature.",
+            "url": "/posts/montecarlointegrals/"
+          },
+          {
+            "slug": "samplingclt",
+            "title": "Sampling and the Central Limit Theorem",
+            "description": "Builds sampling distributions from repeated coin-flip experiments, showing how the sample mean and its variance behave as sample size grows. Derives the Central Limit Theorem and the sampling distribution of the variance.",
+            "url": "/posts/samplingclt/"
+          }
+        ]
+      },
+      {
+        "title": "Sampling Algorithms",
+        "description": "Three techniques for drawing samples from a target distribution: inverse transform, rejection sampling, and importance sampling.",
+        "steps": [
+          {
+            "slug": "inversetransform",
+            "title": "The Inverse Transform",
+            "description": "Introduces the inverse transform method for generating samples from arbitrary distributions using uniform random variables and the inverse CDF. Includes the Box-Muller transform for generating normal samples as a special case.",
+            "url": "/posts/inversetransform/"
+          },
+          {
+            "slug": "rejectionsampling",
+            "title": "Rejection Sampling",
+            "description": "Presents von Neumann's rejection sampling algorithm for drawing samples from distributions with known functional form. Covers the basic method and an enhanced version that uses an envelope distribution for better acceptance rates.",
+            "url": "/posts/rejectionsampling/"
+          },
+          {
+            "slug": "importancesampling",
+            "title": "Importance Sampling",
+            "description": "Introduces importance sampling as a method for computing expectations and integrals by reweighting samples from a proposal distribution. Shows how choosing a good proposal concentrates computation in regions that contribute most to the integral.",
+            "url": "/posts/importancesampling/"
+          }
+        ]
+      }
+    ],
+    "steps": [
+      {
+        "slug": "distributions",
+        "title": "Distributions",
+        "description": "Defines cumulative distribution functions, probability mass functions, and probability density functions with coin-toss examples. Covers the Uniform and Bernoulli distributions, and conditional and marginal distributions.",
+        "url": "/posts/distributions"
+      },
+      {
+        "slug": "distrib-example",
+        "title": "Distributions Example: Elections",
+        "description": "Simulates the 2012 US presidential election using Bernoulli coin flips for each state based on PredictWise probabilities. Introduces the Binomial distribution, the CLT's Gaussian approximation, and polling uncertainty via Gallup data.",
+        "url": "/posts/distrib-example/"
+      },
+      {
+        "slug": "probability",
+        "title": "Probability",
+        "description": "Three ways to think about probability: symmetry, models, and long-run frequency, illustrated with coin-flip simulations. Covers the rules of probability, random variables, marginals, conditionals, and Bayes' theorem with the Sally Clark case.",
+        "url": "/posts/probability/"
+      },
+      {
+        "slug": "expectations",
+        "title": "Expectations and the Law of Large Numbers",
+        "description": "Defines expected values, the Law of the Unconscious Statistician (LOTUS), and variance for discrete and continuous distributions. Demonstrates the Law of Large Numbers and its connection to the frequentist interpretation of probability.",
+        "url": "/posts/expectations/"
+      },
+      {
+        "slug": "basicmontecarlo",
+        "title": "Basic Monte Carlo",
+        "description": "Introduces Monte Carlo methods by estimating the area of a unit circle with random points. Covers the hit-or-miss method and rejection sampling as building blocks for Monte Carlo integration.",
+        "url": "/posts/basicmontecarlo/"
+      },
+      {
+        "slug": "montecarlointegrals",
+        "title": "Monte Carlo Integration",
+        "description": "Formalizes Monte Carlo integration using uniform random samples and LOTUS, then extends to multidimensional integrals. Uses the Central Limit Theorem to estimate integration error and compares convergence rates with classical quadrature.",
+        "url": "/posts/montecarlointegrals/"
+      },
+      {
+        "slug": "samplingclt",
+        "title": "Sampling and the Central Limit Theorem",
+        "description": "Builds sampling distributions from repeated coin-flip experiments, showing how the sample mean and its variance behave as sample size grows. Derives the Central Limit Theorem and the sampling distribution of the variance.",
+        "url": "/posts/samplingclt/"
+      },
+      {
+        "slug": "inversetransform",
+        "title": "The Inverse Transform",
+        "description": "Introduces the inverse transform method for generating samples from arbitrary distributions using uniform random variables and the inverse CDF. Includes the Box-Muller transform for generating normal samples as a special case.",
+        "url": "/posts/inversetransform/"
+      },
+      {
+        "slug": "rejectionsampling",
+        "title": "Rejection Sampling",
+        "description": "Presents von Neumann's rejection sampling algorithm for drawing samples from distributions with known functional form. Covers the basic method and an enhanced version that uses an envelope distribution for better acceptance rates.",
+        "url": "/posts/rejectionsampling/"
+      },
+      {
+        "slug": "importancesampling",
+        "title": "Importance Sampling",
+        "description": "Introduces importance sampling as a method for computing expectations and integrals by reweighting samples from a proposal distribution. Shows how choosing a good proposal concentrates computation in regions that contribute most to the integral.",
+        "url": "/posts/importancesampling/"
+      }
+    ]
+  }
+}
