@@ -16,6 +16,7 @@ This is a Quarto-based personal website for data science/ML educational content 
   - `test_bundles.py` — tests bundles by running `uvx juv exec`. Run via `make test-bundles`.
   - `execute_notebook.py` — executes a notebook in-place with `nbclient`, capturing outputs. Self-bootstraps PEP 723 deps via `uv run --with`. Usage: `uv run _scripts/execute_notebook.py [--timeout 1200] posts/SLUG/index.ipynb`. Used by `/execute-notebook` skill.
   - `run_nb.py` — quick-test: runs notebook cells via `exec()`, reports first failure. No output capture. Usage: `uv run --with <deps> python _scripts/run_nb.py posts/SLUG/index.ipynb`.
+  - `build_jupyterlite.sh` — builds JupyterLite static site into `_site/lab/`. Auto-discovers labextension path. Run via `make build`.
   - `pymc3-to-pymc-porting.md` — comprehensive reference for migrating pymc3/theano notebooks to modern pymc/pytensor.
 - After importing, run `/caption-images` to add captions, then `/bundle-post` for notebook posts
 
@@ -277,13 +278,13 @@ Use `.qmd` format (not `.ipynb`) for JavaScript-heavy interactive content:
 ### Build & Deploy (Makefile)
 ```bash
 make preview                # Live dev server with hot reload
-make build                  # Compile prompts + render + LLM context + zip bundles
+make build                  # Compile prompts + render + JupyterLite + LLM context + zip bundles
 make deploy                 # Build + push _site/ to gh-pages branch
 make test-bundles           # Test bundles via juv exec
 make clean                  # Delete stamp files (forces full rebuild)
 quarto render posts/probability/index.ipynb  # Render a single post
 ```
-- `build` runs: `compile_prompts.py` → `quarto render` → `generate_llm_context.py` → `generate_bundles.py` (skips stages whose inputs haven't changed, using stamp files)
+- `build` runs: `compile_prompts.py` → `quarto render` → `build_jupyterlite.sh` + `generate_llm_context.py` → `generate_bundles.py` (skips stages whose inputs haven't changed, using stamp files)
 - `deploy` uses `git worktree` to check out `gh-pages` into `/tmp/`, rsync `_site/` there, commit, push
 - GitHub Pages deploys from `gh-pages` branch (root `/`), NOT from `docs/` on `main`
 - `CNAME` and `.nojekyll` live in project root — Quarto copies them to `_site/` automatically
@@ -314,6 +315,7 @@ quarto render posts/probability/index.ipynb  # Render a single post
 - `posts/` — main blog posts (shown on index page)
 - `til/` — Today I Learned (shown only on TIL page, NOT on index)
 - `collections/software/` — software tools (shown only on Collections page, NOT on index)
+- `_lab/` — JupyterLite source config (underscore prefix = Quarto ignores it; built to `_site/lab/`)
 - `index.qmd` listing contents should only include `posts/` and `posts/**/`
 
 ### LLM Explain Feature (BYOK)
