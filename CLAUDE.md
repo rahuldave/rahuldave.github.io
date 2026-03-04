@@ -350,6 +350,17 @@ Readers unzip and run with `uvx juv run index.ipynb`. The PEP 723 cell tells `ju
 
 **Workflow for new notebook posts:** Run `/bundle-post` (called automatically by `/finalize-post`). This checks for missing data files, injects PEP 723 deps, and verifies bundle contents. The zip is generated at build time by `make build`.
 
+**Full internal docs:** `_internal_docs/download-and-run.md`
+
+### Run in Browser (JupyterLite)
+Pyodide-compatible notebooks (43 of 49) can run entirely in the reader's browser via JupyterLite. A "Run in Browser" button on each compatible post links to `/lab/loader.html?zip=...` which fetches the zip bundle, rewrites PEP 723 deps for micropip, writes files to JupyterLite's IndexedDB, and redirects to the JupyterLite Lab interface.
+
+**Key files:** `_lab/jupyter-lite.json` (preloaded packages config), `_lab/loader.html` (zip→IndexedDB bridge), `_scripts/build_jupyterlite.sh` (builds JupyterLite static site), `assets/download-bundle.js` (injects both buttons), `styles/_download-bundle.scss`
+
+**Preloaded Pyodide built-ins (7):** numpy, scipy, matplotlib, pandas, scikit-learn, statsmodels, Pillow. Pure Python packages (e.g. seaborn) are installed at runtime via `micropip.install()`.
+
+**Full internal docs:** `_internal_docs/run-in-browser.md`
+
 ### Notebook Execution (Refresh Outputs)
 Quarto renders stored cell outputs, so notebooks must be executed before deploy for fresh results. The `/finalize-post` skill includes this as step 6.
 
