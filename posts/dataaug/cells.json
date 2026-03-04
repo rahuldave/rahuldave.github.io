@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Data Augmentation",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "814330c8"
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 3,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 5,
+      "type": "code",
+      "html_id": "4adcf166"
+    },
+    {
+      "cell": 6,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "example",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 7,
+      "type": "code",
+      "html_id": "055dd031"
+    },
+    {
+      "cell": 8,
+      "type": "code",
+      "html_id": "79bbcc86"
+    },
+    {
+      "cell": 9,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "data-augmentation-is-a-markov-chain-monte-carlo",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 10,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 11,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 12,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "sequential-simulation",
+          "level": 2
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,216 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Validation and Cross-Validation",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "13461caf"
+    },
+    {
+      "cell": 2,
+      "type": "code",
+      "html_id": "c8d679a7"
+    },
+    {
+      "cell": 3,
+      "type": "code",
+      "html_id": "d1eb534f"
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "revisiting-the-model",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 5,
+      "type": "code",
+      "html_id": "36267e26"
+    },
+    {
+      "cell": 6,
+      "type": "code",
+      "html_id": "5c4240c5"
+    },
+    {
+      "cell": 7,
+      "type": "code",
+      "html_id": "466e1f1e"
+    },
+    {
+      "cell": 8,
+      "type": "code",
+      "html_id": "5fa131bf"
+    },
+    {
+      "cell": 9,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "validation",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 10,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 11,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "properties-of-the-validation-set",
+          "level": 3
+        },
+        {
+          "slug": "working-it-out",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 12,
+      "type": "code",
+      "html_id": "55711363"
+    },
+    {
+      "cell": 13,
+      "type": "code",
+      "html_id": "56cd10a9"
+    },
+    {
+      "cell": 14,
+      "type": "code",
+      "html_id": "2291fc50"
+    },
+    {
+      "cell": 15,
+      "type": "code",
+      "html_id": "f16f9712"
+    },
+    {
+      "cell": 16,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 17,
+      "type": "code",
+      "html_id": "2af06695"
+    },
+    {
+      "cell": 18,
+      "type": "code",
+      "html_id": "0463ac77"
+    },
+    {
+      "cell": 19,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 20,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "cross-validation",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 21,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-problem",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 22,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 23,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-idea",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 24,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 25,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 26,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-entire-description-of-k-fold-cross-validation",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 27,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 28,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 29,
+      "type": "code",
+      "html_id": "af91c34e"
+    },
+    {
+      "cell": 30,
+      "type": "code",
+      "html_id": "7513ebcf"
+    },
+    {
+      "cell": 31,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 32,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "what-does-cross-validation-do",
+          "level": 3
+        }
+      ]
+    }
+  ]
+}

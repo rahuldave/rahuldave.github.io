@@ -1,0 +1,417 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Lab: The Beta-Binomial Globe Model",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "fe8f9419"
+    },
+    {
+      "cell": 2,
+      "type": "code",
+      "html_id": "d0f13c73"
+    },
+    {
+      "cell": 3,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "formulation-of-the-problem",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "how-to-do-the-bayesian-process",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 5,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "grid-approximation",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 6,
+      "type": "code",
+      "html_id": "7e893abc"
+    },
+    {
+      "cell": 7,
+      "type": "code",
+      "html_id": "d0516741"
+    },
+    {
+      "cell": 8,
+      "type": "code",
+      "html_id": "e22cea07"
+    },
+    {
+      "cell": 9,
+      "type": "code",
+      "html_id": "b4b5fc07"
+    },
+    {
+      "cell": 10,
+      "type": "code",
+      "html_id": "d0fb8629"
+    },
+    {
+      "cell": 11,
+      "type": "code",
+      "html_id": "fa54129c"
+    },
+    {
+      "cell": 12,
+      "type": "code",
+      "html_id": "fed36055"
+    },
+    {
+      "cell": 13,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "laplace-approximation",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 14,
+      "type": "code",
+      "html_id": "f932da6d"
+    },
+    {
+      "cell": 15,
+      "type": "code",
+      "html_id": "b22e9062"
+    },
+    {
+      "cell": 16,
+      "type": "code",
+      "html_id": "d20292c3"
+    },
+    {
+      "cell": 17,
+      "type": "code",
+      "html_id": "c0da29eb"
+    },
+    {
+      "cell": 18,
+      "type": "code",
+      "html_id": "e8072484"
+    },
+    {
+      "cell": 19,
+      "type": "code",
+      "html_id": "e3a8d04a"
+    },
+    {
+      "cell": 20,
+      "type": "code",
+      "html_id": "d34db113"
+    },
+    {
+      "cell": 21,
+      "type": "code",
+      "html_id": "a198ea3d"
+    },
+    {
+      "cell": 22,
+      "type": "code",
+      "html_id": "670901e4"
+    },
+    {
+      "cell": 23,
+      "type": "code",
+      "html_id": "e7492a72"
+    },
+    {
+      "cell": 24,
+      "type": "code",
+      "html_id": "cf5c43bd"
+    },
+    {
+      "cell": 25,
+      "type": "code",
+      "html_id": "11300659"
+    },
+    {
+      "cell": 26,
+      "type": "code",
+      "html_id": "b7f66ca0"
+    },
+    {
+      "cell": 27,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 28,
+      "type": "code",
+      "html_id": "f72588dd"
+    },
+    {
+      "cell": 29,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "conjugate-priors",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 30,
+      "type": "code",
+      "html_id": "75fa999f"
+    },
+    {
+      "cell": 31,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 32,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 33,
+      "type": "code",
+      "html_id": "2cad51d1"
+    },
+    {
+      "cell": 34,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "interrogating-the-posterior",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 35,
+      "type": "code",
+      "html_id": "2d308250"
+    },
+    {
+      "cell": 36,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "sampling-to-summarize",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 37,
+      "type": "code",
+      "html_id": "28dff258"
+    },
+    {
+      "cell": 38,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 39,
+      "type": "code",
+      "html_id": "c54972e7"
+    },
+    {
+      "cell": 40,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 41,
+      "type": "code",
+      "html_id": "9a1879e0"
+    },
+    {
+      "cell": 42,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 43,
+      "type": "code",
+      "html_id": "e19984a9"
+    },
+    {
+      "cell": 44,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 45,
+      "type": "code",
+      "html_id": "b3e2aac4"
+    },
+    {
+      "cell": 46,
+      "type": "code",
+      "html_id": "e49173c2"
+    },
+    {
+      "cell": 47,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 48,
+      "type": "code",
+      "html_id": "0ad20817"
+    },
+    {
+      "cell": 49,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "sampling-to-simulate-prediction-the-posterior-predictive",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 50,
+      "type": "code",
+      "html_id": "3ebb9855"
+    },
+    {
+      "cell": 51,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "plug-in-approximation",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 52,
+      "type": "code",
+      "html_id": "7ed6966e"
+    },
+    {
+      "cell": 53,
+      "type": "code",
+      "html_id": "1fae54fb"
+    },
+    {
+      "cell": 54,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 55,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-posterior-predictive-from-sampling",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 56,
+      "type": "code",
+      "html_id": "2d8139dc"
+    },
+    {
+      "cell": 57,
+      "type": "code",
+      "html_id": "28da1c49"
+    },
+    {
+      "cell": 58,
+      "type": "code",
+      "html_id": "1fbd322a"
+    },
+    {
+      "cell": 59,
+      "type": "code",
+      "html_id": "dc2e56fc"
+    },
+    {
+      "cell": 60,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "replicative-predictives",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 61,
+      "type": "code",
+      "html_id": "c4f2a01d"
+    },
+    {
+      "cell": 62,
+      "type": "code",
+      "html_id": "9b47acc9"
+    },
+    {
+      "cell": 63,
+      "type": "code",
+      "html_id": "00f3b5d8"
+    },
+    {
+      "cell": 64,
+      "type": "code",
+      "html_id": "1aa4e037"
+    },
+    {
+      "cell": 65,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 66,
+      "type": "code",
+      "html_id": "84285663"
+    },
+    {
+      "cell": 67,
+      "type": "code",
+      "html_id": "3cc88066"
+    },
+    {
+      "cell": 68,
+      "type": "code",
+      "html_id": "7a0f0ed5"
+    },
+    {
+      "cell": 69,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "exercise",
+          "level": 2
+        }
+      ]
+    }
+  ]
+}

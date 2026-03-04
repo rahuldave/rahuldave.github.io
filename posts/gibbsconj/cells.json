@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Gibbs Sampling with Conjugate Conditionals",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "40b2f841"
+    },
+    {
+      "cell": 2,
+      "type": "code",
+      "html_id": "b882da4c"
+    },
+    {
+      "cell": 3,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "looks-like-a-binomial",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 5,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 6,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 7,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-xvert-y-conditional",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 8,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 9,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-sampler",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 10,
+      "type": "code",
+      "html_id": "51fc8580"
+    },
+    {
+      "cell": 11,
+      "type": "code",
+      "html_id": "684c8383"
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Divergence and Deviance",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "cell-1"
+    },
+    {
+      "cell": 2,
+      "type": "code",
+      "html_id": "cell-2"
+    },
+    {
+      "cell": 3,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-problem-of-learning",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "information-theory-kl-divergence",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 5,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 6,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "a-simple-example",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 7,
+      "type": "code",
+      "html_id": "cell-7"
+    },
+    {
+      "cell": 8,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "relationship-to-entropy",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 9,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 10,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "likelihoods-and-model-comparison",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 11,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 12,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "maximum-likelihood-justification",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 13,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "comparing-models",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 14,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "from-divergence-to-deviance",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 15,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 16,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "but-we-are-still-in-sample",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 17,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 18,
+      "type": "code",
+      "html_id": "cell-18"
+    }
+  ]
+}

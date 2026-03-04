@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "source_type": "md",
+  "title": "Distributions",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 1,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "cumulative-distribution-function",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "probability-mass-and-distribution-function",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 3,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "a-continuous-example-the-uniform-distribution",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "a-discrete-example-the-bernoulli-distribution",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 5,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "conditional-and-marginal-distributions",
+          "level": 2
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,292 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "The Metropolis-Hastings Algorithm",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "224e5ac7"
+    },
+    {
+      "cell": 2,
+      "type": "code",
+      "html_id": "eefc23e9"
+    },
+    {
+      "cell": 3,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "metropolis-hastings",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 4,
+      "type": "code",
+      "html_id": "971c46f6"
+    },
+    {
+      "cell": 5,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 6,
+      "type": "code",
+      "html_id": "4bd0d210"
+    },
+    {
+      "cell": 7,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "proof-of-detailed-balance",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 8,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 9,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 10,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 11,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 12,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "mh-example",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 13,
+      "type": "code",
+      "html_id": "432e583f"
+    },
+    {
+      "cell": 14,
+      "type": "code",
+      "html_id": "c632a01e"
+    },
+    {
+      "cell": 15,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 16,
+      "type": "code",
+      "html_id": "47b484e5"
+    },
+    {
+      "cell": 17,
+      "type": "code",
+      "html_id": "77dcc9be"
+    },
+    {
+      "cell": 18,
+      "type": "code",
+      "html_id": "a630b728"
+    },
+    {
+      "cell": 19,
+      "type": "code",
+      "html_id": "7f394d0d"
+    },
+    {
+      "cell": 20,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 21,
+      "type": "code",
+      "html_id": "5c74b529"
+    },
+    {
+      "cell": 22,
+      "type": "code",
+      "html_id": "5c1a95f0"
+    },
+    {
+      "cell": 23,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 24,
+      "type": "code",
+      "html_id": "70210b0c"
+    },
+    {
+      "cell": 25,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 26,
+      "type": "code",
+      "html_id": "c306b145"
+    },
+    {
+      "cell": 27,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 28,
+      "type": "code",
+      "html_id": "69de6fca"
+    },
+    {
+      "cell": 29,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-same-function-with-metropolis",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 30,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 31,
+      "type": "code",
+      "html_id": "df65e103"
+    },
+    {
+      "cell": 32,
+      "type": "code",
+      "html_id": "624f7cca"
+    },
+    {
+      "cell": 33,
+      "type": "code",
+      "html_id": "5e5ba8a8"
+    },
+    {
+      "cell": 34,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 35,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "rainy-sunny-reprise",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 36,
+      "type": "code",
+      "html_id": "7be7730c"
+    },
+    {
+      "cell": 37,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 38,
+      "type": "code",
+      "html_id": "7150e62d"
+    },
+    {
+      "cell": 39,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 40,
+      "type": "code",
+      "html_id": "3f28561a"
+    },
+    {
+      "cell": 41,
+      "type": "code",
+      "html_id": "a1a0bb47"
+    },
+    {
+      "cell": 42,
+      "type": "code",
+      "html_id": "5742bf32"
+    },
+    {
+      "cell": 43,
+      "type": "code",
+      "html_id": "11d2f398"
+    },
+    {
+      "cell": 44,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 45,
+      "type": "code",
+      "html_id": "3b93ea5b"
+    },
+    {
+      "cell": 46,
+      "type": "code",
+      "html_id": "9a3a6f1a"
+    },
+    {
+      "cell": 47,
+      "type": "code",
+      "html_id": "d48a4b67"
+    },
+    {
+      "cell": 48,
+      "type": "code",
+      "html_id": "1f81286f"
+    },
+    {
+      "cell": 49,
+      "type": "code",
+      "html_id": "a78baaa6"
+    },
+    {
+      "cell": 50,
+      "type": "code",
+      "html_id": "886f196f"
+    },
+    {
+      "cell": 51,
+      "type": "code",
+      "html_id": "a0636ecc"
+    }
+  ]
+}

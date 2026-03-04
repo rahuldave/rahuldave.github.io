@@ -1,0 +1,215 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Hierarchical Bayesian Models",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "9f5492a0"
+    },
+    {
+      "cell": 2,
+      "type": "code",
+      "html_id": "85a2fe91"
+    },
+    {
+      "cell": 3,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "an-example-rats-tumors-from-gelmanhttpwwwstatcolumbiaedugelmanbook-chapter-5",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 4,
+      "type": "code",
+      "html_id": "046dc93f"
+    },
+    {
+      "cell": 5,
+      "type": "code",
+      "html_id": "ed1af6dc"
+    },
+    {
+      "cell": 6,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 7,
+      "type": "code",
+      "html_id": "b05ead39"
+    },
+    {
+      "cell": 8,
+      "type": "code",
+      "html_id": "fc106eed"
+    },
+    {
+      "cell": 9,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "setting-up-the-model",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 10,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "no-pooling",
+          "level": 3
+        },
+        {
+          "slug": "full-pooling",
+          "level": 3
+        },
+        {
+          "slug": "partial-pooling-and-the-hierarchical-model",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 11,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "priors-from-data",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 12,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "another-example-kidney-cancer",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 13,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "empirical-bayes",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 14,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "empirical-bayes-rat-tumors",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 15,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 16,
+      "type": "code",
+      "html_id": "b74f4715"
+    },
+    {
+      "cell": 17,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 18,
+      "type": "code",
+      "html_id": "6bfa0484"
+    },
+    {
+      "cell": 19,
+      "type": "code",
+      "html_id": "8267ea1e"
+    },
+    {
+      "cell": 20,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 21,
+      "type": "code",
+      "html_id": "08cfa955"
+    },
+    {
+      "cell": 22,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 23,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "a-fully-bayesian-treatment",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 24,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "fully-bayesian-rat-tumors",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 25,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 26,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "why-are-hierarchical-models-useful",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 27,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "exchangeability",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 28,
+      "type": "markdown",
+      "headings": []
+    }
+  ]
+}

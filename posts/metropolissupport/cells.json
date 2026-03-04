@@ -1,0 +1,147 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Metropolis and Support Mismatch",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "6d70c70a"
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 3,
+      "type": "code",
+      "html_id": "3ccf2c0c"
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 5,
+      "type": "code",
+      "html_id": "76e3593e"
+    },
+    {
+      "cell": 6,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "using-metropolis-to-sample",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 7,
+      "type": "code",
+      "html_id": "f8da230d"
+    },
+    {
+      "cell": 8,
+      "type": "code",
+      "html_id": "34f80e9f"
+    },
+    {
+      "cell": 9,
+      "type": "code",
+      "html_id": "59e6d4bf"
+    },
+    {
+      "cell": 10,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 11,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 12,
+      "type": "code",
+      "html_id": "80272bae"
+    },
+    {
+      "cell": 13,
+      "type": "code",
+      "html_id": "2ebd9032"
+    },
+    {
+      "cell": 14,
+      "type": "code",
+      "html_id": "11b6e70f"
+    },
+    {
+      "cell": 15,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 16,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "a-wrong-built-in-regection-sampler",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 17,
+      "type": "code",
+      "html_id": "6a9a3ff4"
+    },
+    {
+      "cell": 18,
+      "type": "code",
+      "html_id": "9f9a2615"
+    },
+    {
+      "cell": 19,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "fix-using-mh",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 20,
+      "type": "code",
+      "html_id": "7f20e4ef"
+    },
+    {
+      "cell": 21,
+      "type": "code",
+      "html_id": "3adf7ac5"
+    },
+    {
+      "cell": 22,
+      "type": "code",
+      "html_id": "41df908f"
+    },
+    {
+      "cell": 23,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 24,
+      "type": "code",
+      "html_id": "7789d407"
+    }
+  ]
+}

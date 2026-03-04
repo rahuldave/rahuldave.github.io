@@ -1,0 +1,257 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "From the Normal Model to Regression",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "b9bae64a"
+    },
+    {
+      "cell": 2,
+      "type": "code",
+      "html_id": "5092a1e5"
+    },
+    {
+      "cell": 3,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "howells-data",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 5,
+      "type": "code",
+      "html_id": "fb02868e"
+    },
+    {
+      "cell": 6,
+      "type": "code",
+      "html_id": "941d90ce"
+    },
+    {
+      "cell": 7,
+      "type": "code",
+      "html_id": "cedf8975"
+    },
+    {
+      "cell": 8,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 9,
+      "type": "code",
+      "html_id": "d302e184"
+    },
+    {
+      "cell": 10,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "model-for-heights",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 11,
+      "type": "code",
+      "html_id": "7b176a90"
+    },
+    {
+      "cell": 12,
+      "type": "code",
+      "html_id": "8613c763"
+    },
+    {
+      "cell": 13,
+      "type": "code",
+      "html_id": "648a15dc"
+    },
+    {
+      "cell": 14,
+      "type": "code",
+      "html_id": "df1e310d"
+    },
+    {
+      "cell": 15,
+      "type": "code",
+      "html_id": "b9500052"
+    },
+    {
+      "cell": 16,
+      "type": "code",
+      "html_id": "86b97617"
+    },
+    {
+      "cell": 17,
+      "type": "code",
+      "html_id": "f453b11a"
+    },
+    {
+      "cell": 18,
+      "type": "code",
+      "html_id": "874ade1c"
+    },
+    {
+      "cell": 19,
+      "type": "code",
+      "html_id": "20190f7f"
+    },
+    {
+      "cell": 20,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "regression-adding-a-predictor",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 21,
+      "type": "code",
+      "html_id": "deda78d1"
+    },
+    {
+      "cell": 22,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 23,
+      "type": "code",
+      "html_id": "0c655aeb"
+    },
+    {
+      "cell": 24,
+      "type": "code",
+      "html_id": "dcafd851"
+    },
+    {
+      "cell": 25,
+      "type": "code",
+      "html_id": "e1bc128d"
+    },
+    {
+      "cell": 26,
+      "type": "code",
+      "html_id": "babe92c5"
+    },
+    {
+      "cell": 27,
+      "type": "code",
+      "html_id": "8f5e1ecc"
+    },
+    {
+      "cell": 28,
+      "type": "code",
+      "html_id": "e4aa3244"
+    },
+    {
+      "cell": 29,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "posterior",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 30,
+      "type": "code",
+      "html_id": "4f79bbea"
+    },
+    {
+      "cell": 31,
+      "type": "code",
+      "html_id": "6ece5e8e"
+    },
+    {
+      "cell": 32,
+      "type": "code",
+      "html_id": "597cab3b"
+    },
+    {
+      "cell": 33,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 34,
+      "type": "code",
+      "html_id": "30273f0e"
+    },
+    {
+      "cell": 35,
+      "type": "code",
+      "html_id": "3f56e5a2"
+    },
+    {
+      "cell": 36,
+      "type": "code",
+      "html_id": "6a376873"
+    },
+    {
+      "cell": 37,
+      "type": "code",
+      "html_id": "f8925b63"
+    },
+    {
+      "cell": 38,
+      "type": "code",
+      "html_id": "14514bfb"
+    },
+    {
+      "cell": 39,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "posterior-predictive-distribution",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 40,
+      "type": "code",
+      "html_id": "8c16b679"
+    },
+    {
+      "cell": 41,
+      "type": "code",
+      "html_id": "cf93369e"
+    },
+    {
+      "cell": 42,
+      "type": "code",
+      "html_id": "762fd329"
+    },
+    {
+      "cell": 43,
+      "type": "code",
+      "html_id": "8aa392d7"
+    },
+    {
+      "cell": 44,
+      "type": "markdown",
+      "headings": []
+    }
+  ]
+}

@@ -1,0 +1,228 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Bayesian Statistics",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "eb617aff"
+    },
+    {
+      "cell": 2,
+      "type": "code",
+      "html_id": "c5a939e8"
+    },
+    {
+      "cell": 3,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "frequentist-statistics",
+          "level": 2
+        },
+        {
+          "slug": "maximum-likelihood",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-bayesian-approach",
+          "level": 2
+        },
+        {
+          "slug": "posterior-distribution",
+          "level": 3
+        },
+        {
+          "slug": "posterior-predictive",
+          "level": 3
+        },
+        {
+          "slug": "maximum-a-posteriori",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 5,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-posterior-predictive",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 6,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-normal-model",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 7,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "normal-model-for-fixed-sigma",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 8,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "example-of-the-normal-model-for-fixed-sigma",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 9,
+      "type": "code",
+      "html_id": "1291860a"
+    },
+    {
+      "cell": 10,
+      "type": "code",
+      "html_id": "d0736c0c"
+    },
+    {
+      "cell": 11,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "sampling-by-code",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 12,
+      "type": "code",
+      "html_id": "52cd33b0"
+    },
+    {
+      "cell": 13,
+      "type": "code",
+      "html_id": "29665d81"
+    },
+    {
+      "cell": 14,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 15,
+      "type": "code",
+      "html_id": "96c68918"
+    },
+    {
+      "cell": 16,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 17,
+      "type": "code",
+      "html_id": "f7fb1929"
+    },
+    {
+      "cell": 18,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 19,
+      "type": "code",
+      "html_id": "422b853d"
+    },
+    {
+      "cell": 20,
+      "type": "code",
+      "html_id": "d40a5fac"
+    },
+    {
+      "cell": 21,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 22,
+      "type": "code",
+      "html_id": "ee2a5281"
+    },
+    {
+      "cell": 23,
+      "type": "code",
+      "html_id": "e6987df6"
+    },
+    {
+      "cell": 24,
+      "type": "code",
+      "html_id": "a05ac178"
+    },
+    {
+      "cell": 25,
+      "type": "code",
+      "html_id": "a37818e4"
+    },
+    {
+      "cell": 26,
+      "type": "code",
+      "html_id": "cb7003e7"
+    },
+    {
+      "cell": 27,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "comparing-distributions",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 28,
+      "type": "code",
+      "html_id": "72cfdcee"
+    },
+    {
+      "cell": 29,
+      "type": "code",
+      "html_id": "7fba57a0"
+    },
+    {
+      "cell": 30,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 31,
+      "type": "code",
+      "html_id": "6a243761"
+    },
+    {
+      "cell": 32,
+      "type": "code",
+      "html_id": "364869f8"
+    }
+  ]
+}

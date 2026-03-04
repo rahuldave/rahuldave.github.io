@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Some Data Analysis about Congress",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "9adc6f8d"
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 3,
+      "type": "code",
+      "html_id": "90711597"
+    },
+    {
+      "cell": 4,
+      "type": "code",
+      "html_id": "75ea98fc"
+    },
+    {
+      "cell": 5,
+      "type": "code",
+      "html_id": "2f383dad"
+    },
+    {
+      "cell": 6,
+      "type": "code",
+      "html_id": "4ffd9fa4"
+    }
+  ]
+}

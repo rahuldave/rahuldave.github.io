@@ -1,0 +1,181 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Sufficient Statistics and Exchangeability",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "7e73726f"
+    },
+    {
+      "cell": 2,
+      "type": "code",
+      "html_id": "aa21c01f"
+    },
+    {
+      "cell": 3,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "sufficient-statistics-and-the-exponential-family",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 5,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "an-example-with-poissons-and-gammas",
+          "level": 2
+        },
+        {
+          "slug": "exchangeability",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 6,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "obtaining-the-posterior",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 7,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "congugate-priors",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 8,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 9,
+      "type": "code",
+      "html_id": "0b67c11a"
+    },
+    {
+      "cell": 10,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "our-posteriors",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 11,
+      "type": "code",
+      "html_id": "4832b8e2"
+    },
+    {
+      "cell": 12,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 13,
+      "type": "code",
+      "html_id": "528cfd93"
+    },
+    {
+      "cell": 14,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 15,
+      "type": "code",
+      "html_id": "63159e87"
+    },
+    {
+      "cell": 16,
+      "type": "code",
+      "html_id": "585aaa1c"
+    },
+    {
+      "cell": 17,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 18,
+      "type": "code",
+      "html_id": "fc33b12b"
+    },
+    {
+      "cell": 19,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "posterior-predictives",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 20,
+      "type": "code",
+      "html_id": "2e52599e"
+    },
+    {
+      "cell": 21,
+      "type": "code",
+      "html_id": "3660f599"
+    },
+    {
+      "cell": 22,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 23,
+      "type": "code",
+      "html_id": "81734b95"
+    },
+    {
+      "cell": 24,
+      "type": "code",
+      "html_id": "abcf7297"
+    },
+    {
+      "cell": 25,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 26,
+      "type": "code",
+      "html_id": "dbe75c9f"
+    },
+    {
+      "cell": 27,
+      "type": "markdown",
+      "headings": []
+    }
+  ]
+}
