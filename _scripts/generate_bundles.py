@@ -62,22 +62,31 @@ def get_pep723_deps(nb_path: Path) -> list[str]:
     return []
 
 
-def get_notebook_title(nb_path: Path) -> str:
-    """Extract title from notebook frontmatter raw cell."""
+def get_frontmatter(nb_path: Path) -> dict:
+    """Extract frontmatter fields from notebook raw cell as a dict."""
     with open(nb_path) as f:
         nb = json.load(f)
     if not nb.get("cells"):
-        return nb_path.parent.name
+        return {}
     cell = nb["cells"][0]
     if cell.get("cell_type") != "raw":
-        return nb_path.parent.name
+        return {}
     source = "".join(cell.get("source", []))
+    result = {}
     for line in source.splitlines():
-        line = line.strip()
-        if line.startswith("title:"):
-            title = line[6:].strip().strip('"').strip("'")
-            return title
-    return nb_path.parent.name
+        stripped = line.strip()
+        if stripped.startswith("title:"):
+            result["title"] = stripped[6:].strip().strip('"').strip("'")
+        elif stripped.startswith("browser-runnable:"):
+            val = stripped[len("browser-runnable:"):].strip()
+            result["browser-runnable"] = val.lower() == "true"
+    return result
+
+
+def get_notebook_title(nb_path: Path) -> str:
+    """Extract title from notebook frontmatter raw cell."""
+    fm = get_frontmatter(nb_path)
+    return fm.get("title", nb_path.parent.name)
 
 
 SITE_URL = "https://rahuldave.github.io"
@@ -176,14 +185,22 @@ def generate_bundle(post_dir: Path, site_dir: Path) -> dict | None:
         for abs_path, arc_name in files:
             zf.write(abs_path, arc_name)
         zf.writestr("README.md", readme)
-    pyodide_incompatible = {"torch", "pymc3", "theano-pymc", "theano", "pymc", "lxml"}
+    # Determine Pyodide compatibility:
+    # 1. Explicit frontmatter field takes priority
+    # 2. Fall back to auto-detection from dependencies
+    fm = get_frontmatter(nb_path)
+    if "browser-runnable" in fm:
+        pyodide_ok = fm["browser-runnable"]
+    else:
+        pyodide_incompatible = {"torch", "pymc3", "theano-pymc", "theano", "pymc", "lxml"}
+        pyodide_ok = not any(d in pyodide_incompatible for d in deps)
 
     return {
         "slug": slug,
         "zip": f"/posts/{slug}/{slug}.zip",
         "size_bytes": zip_path.stat().st_size,
         "dependencies": deps,
-        "pyodide_compatible": not any(d in pyodide_incompatible for d in deps),
+        "pyodide_compatible": pyodide_ok,
         "files": [arc_name for _, arc_name in files],
     }
 
