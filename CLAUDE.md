@@ -151,15 +151,21 @@ This is a Quarto-based personal website for data science/ML educational content 
   - `gelmanschools` — already imported (Lecture 18), skipped
   - `gewecke` — markdown, imported to `posts/gewecke.md`
   - `identifiability` — notebook, imported to `posts/identifiability/`
-- **Lectures 20–26**: NOT YET IMPORTED
+- **Lecture 20 (Regression, GLMs, and model specification)**: DONE
+  - `normalreg` — already imported (Lecture 9), skipped
+  - `gelmanschools` — already imported (Lecture 18), skipped
+  - `pymcnormalreg` — notebook, imported to `posts/pymcnormalreg/` (includes Howell1.csv)
+  - `Islands1` — notebook, imported to `posts/islands1/` (includes islands.csv, islands.png)
+  - `priors` — notebook, imported to `posts/priors/`
+- **Lectures 21–26**: NOT YET IMPORTED
 
 ## PyMC3 → PyMC Migration Status
-- **Notebooks already ported**: `em` (removed unused import), `hmcexplore` (removed unused import), `switchpoint` (full InferenceData port), `utilityorrisk` (full InferenceData port), `gelmanschoolstheory` (full port), `gelmanschools` (full port), `hmctweaking` (full port), `identifiability` (full port)
+- **Notebooks already ported**: `em` (removed unused import), `hmcexplore` (removed unused import), `switchpoint` (full InferenceData port), `utilityorrisk` (full InferenceData port), `gelmanschoolstheory` (full port), `gelmanschools` (full port), `hmctweaking` (full port), `identifiability` (full port), `pymcnormalreg` (full port), `islands1` (full port)
 - **Porting reference**: `_scripts/pymc3-to-pymc-porting.md`
 - **Skill**: `/port-pymc3` — step-by-step process for migrating pymc3/theano to modern pymc/pytensor
 - **Critical**: Do NOT list `arviz` explicitly in PEP 723 deps alongside `pymc` — arviz 1.0 breaks pymc; let pymc pull in the compatible version
 - **Known slow notebooks** (use `--timeout 1200`): switchpoint (~90s), utilityorrisk (~70s), mlp_classification (~90s), nnreg (~80s), samplingclt (~230s), gibbsconj (~50s), tetchygibbs (~40s)
-- **All 53 notebook bundles pass** `make test-bundles` (100%)
+- **All 56 notebook bundles pass** `make test-bundles` (100%)
 
 ## Modernization Debt (deprecated patterns still in notebooks)
 
@@ -179,8 +185,8 @@ This is a Quarto-based personal website for data science/ML educational content 
 - Dates increase by **1 week per lecture**, starting from 2025-01-08 (Lecture 1)
 - All notes within a lecture share the same date (the lecture's date)
 - If a note was first imported in an earlier lecture, it keeps that earlier date
-- **Last date used**: 2025-05-14 (Lecture 19)
-- **Next lecture (20) should use**: 2025-05-21
+- **Last date used**: 2025-05-21 (Lecture 20)
+- **Next lecture (21) should use**: 2025-05-28
 
 ## Category System
 - Canonical categories are in `_categories.txt` (root of project), one per line, sorted alphabetically
