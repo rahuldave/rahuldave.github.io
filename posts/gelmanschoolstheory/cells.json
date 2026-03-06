@@ -1,0 +1,156 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Hierarchical Bayesian Modeling: The 8 Schools Example",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "74da5b17"
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "gelman-schools-theory-for-topics-about-restaurants",
+          "level": 1
+        },
+        {
+          "slug": "keywords-normal-normal-model-hierarchical-normal-normal-model-hierarchical-divergences-non-centered-hierarchical-model-sampling-distribution",
+          "level": 5
+        }
+      ]
+    },
+    {
+      "cell": 3,
+      "type": "code",
+      "html_id": "f370726c"
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "statement-of-the-model",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 5,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 6,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 7,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-model-for-the-homework",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 8,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "setting-up-the-hierarchical-model-for-gelman-schools",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 9,
+      "type": "code",
+      "html_id": "83c1b60c"
+    },
+    {
+      "cell": 10,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 11,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 12,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "an-equivalent-model-in-a-non-centered-parametrization",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 13,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "sampling",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 14,
+      "type": "code",
+      "html_id": "a1241532"
+    },
+    {
+      "cell": 15,
+      "type": "code",
+      "html_id": "e96f828b"
+    },
+    {
+      "cell": 16,
+      "type": "code",
+      "html_id": "2698d150"
+    },
+    {
+      "cell": 17,
+      "type": "code",
+      "html_id": "67de20ec"
+    },
+    {
+      "cell": 18,
+      "type": "code",
+      "html_id": "acfb578b"
+    },
+    {
+      "cell": 19,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 20,
+      "type": "code",
+      "html_id": "a1f740bc"
+    },
+    {
+      "cell": 21,
+      "type": "code",
+      "html_id": "86755368"
+    },
+    {
+      "cell": 22,
+      "type": "markdown",
+      "headings": []
+    }
+  ]
+}

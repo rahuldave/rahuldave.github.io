@@ -1,0 +1,294 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Gelman Schools and Hierarchical Pathology",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "9941098b"
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "gelman-schools-and-hierarchical-pathology",
+          "level": 1
+        },
+        {
+          "slug": "keywords-normal-normal-model-hierarchical-normal-normal-model-hierarchical-divergences-non-centered-hierarchical-model-sampling-distribution",
+          "level": 5
+        }
+      ]
+    },
+    {
+      "cell": 3,
+      "type": "code",
+      "html_id": "a39eb9a1"
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "statement-of-the-model",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 5,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 6,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 7,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 8,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "setting-up-the-hierarchical-model",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 9,
+      "type": "code",
+      "html_id": "bb59c35b"
+    },
+    {
+      "cell": 10,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 11,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 12,
+      "type": "code",
+      "html_id": "54a3e9ed"
+    },
+    {
+      "cell": 13,
+      "type": "code",
+      "html_id": "9f554b47"
+    },
+    {
+      "cell": 14,
+      "type": "code",
+      "html_id": "409693e0"
+    },
+    {
+      "cell": 15,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 16,
+      "type": "code",
+      "html_id": "9f8f5c23"
+    },
+    {
+      "cell": 17,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 18,
+      "type": "code",
+      "html_id": "9dde5b37"
+    },
+    {
+      "cell": 19,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 20,
+      "type": "code",
+      "html_id": "488c4352"
+    },
+    {
+      "cell": 21,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 22,
+      "type": "code",
+      "html_id": "57276c62"
+    },
+    {
+      "cell": 23,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-problem-with-curvature",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 24,
+      "type": "code",
+      "html_id": "e2057cf7"
+    },
+    {
+      "cell": 25,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 26,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 27,
+      "type": "code",
+      "html_id": "69fa9243"
+    },
+    {
+      "cell": 28,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 29,
+      "type": "code",
+      "html_id": "5d43b1f8"
+    },
+    {
+      "cell": 30,
+      "type": "code",
+      "html_id": "61746516"
+    },
+    {
+      "cell": 31,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "funnels-in-hierarchical-models",
+          "level": 2
+        },
+        {
+          "slug": "divergences-are-good-things",
+          "level": 3
+        },
+        {
+          "slug": "non-centered-model",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 32,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 33,
+      "type": "code",
+      "html_id": "0fd1697e"
+    },
+    {
+      "cell": 34,
+      "type": "code",
+      "html_id": "cb5a631a"
+    },
+    {
+      "cell": 35,
+      "type": "code",
+      "html_id": "881a39a2"
+    },
+    {
+      "cell": 36,
+      "type": "code",
+      "html_id": "3e42114a"
+    },
+    {
+      "cell": 37,
+      "type": "code",
+      "html_id": "1f25bf85"
+    },
+    {
+      "cell": 38,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 39,
+      "type": "code",
+      "html_id": "178370dc"
+    },
+    {
+      "cell": 40,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 41,
+      "type": "code",
+      "html_id": "e471de3e"
+    },
+    {
+      "cell": 42,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 43,
+      "type": "code",
+      "html_id": "d85cf7e4"
+    },
+    {
+      "cell": 44,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 45,
+      "type": "code",
+      "html_id": "3bec68eb"
+    },
+    {
+      "cell": 46,
+      "type": "code",
+      "html_id": "c660e83a"
+    },
+    {
+      "cell": 47,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 48,
+      "type": "code",
+      "html_id": "f8ccbebc"
+    },
+    {
+      "cell": 49,
+      "type": "markdown",
+      "headings": []
+    }
+  ]
+}

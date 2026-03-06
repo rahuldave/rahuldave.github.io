@@ -1,0 +1,396 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "HMC/NUTS Tuning and Diagnostics",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "60c74183"
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "l-epsilon-and-other-tweaking",
+          "level": 1
+        },
+        {
+          "slug": "keywords-energy-hamiltonian-monte-carlo-nuts-leapfrog-canonical-distribution-microcanonical-distribution-transition-distribution-marginal-energy-distribution-data-augmentation-classical-mechanics-detailed-balance-statistical-mechanics-divergences-step-size-non-centered-hierarchical-model-hierarchical",
+          "level": 5
+        }
+      ]
+    },
+    {
+      "cell": 3,
+      "type": "code",
+      "html_id": "3e0ecbd8"
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "centered-parametrization",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 5,
+      "type": "code",
+      "html_id": "e139a238"
+    },
+    {
+      "cell": 6,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 7,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 8,
+      "type": "code",
+      "html_id": "c08d80e9"
+    },
+    {
+      "cell": 9,
+      "type": "code",
+      "html_id": "0806f1de"
+    },
+    {
+      "cell": 10,
+      "type": "code",
+      "html_id": "8c264f9b"
+    },
+    {
+      "cell": 11,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 12,
+      "type": "code",
+      "html_id": "4ae9c1c3"
+    },
+    {
+      "cell": 13,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 14,
+      "type": "code",
+      "html_id": "83ea8b94"
+    },
+    {
+      "cell": 15,
+      "type": "code",
+      "html_id": "3c60ce3b"
+    },
+    {
+      "cell": 16,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 17,
+      "type": "code",
+      "html_id": "e92e140b"
+    },
+    {
+      "cell": 18,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "tracking-divergences",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 19,
+      "type": "code",
+      "html_id": "007025d6"
+    },
+    {
+      "cell": 20,
+      "type": "code",
+      "html_id": "9c268220"
+    },
+    {
+      "cell": 21,
+      "type": "code",
+      "html_id": "919ceed7"
+    },
+    {
+      "cell": 22,
+      "type": "code",
+      "html_id": "a7fe8a5b"
+    },
+    {
+      "cell": 23,
+      "type": "code",
+      "html_id": "fb4717d9"
+    },
+    {
+      "cell": 24,
+      "type": "code",
+      "html_id": "41d72316"
+    },
+    {
+      "cell": 25,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 26,
+      "type": "code",
+      "html_id": "32135542"
+    },
+    {
+      "cell": 27,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "where-are-the-divergences-coming-from",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 28,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-effect-of-step-size",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 29,
+      "type": "code",
+      "html_id": "274cf5cd"
+    },
+    {
+      "cell": 30,
+      "type": "code",
+      "html_id": "1ebf7176"
+    },
+    {
+      "cell": 31,
+      "type": "code",
+      "html_id": "f12e798a"
+    },
+    {
+      "cell": 32,
+      "type": "code",
+      "html_id": "110d242c"
+    },
+    {
+      "cell": 33,
+      "type": "code",
+      "html_id": "8fd0e848"
+    },
+    {
+      "cell": 34,
+      "type": "code",
+      "html_id": "226b7da3"
+    },
+    {
+      "cell": 35,
+      "type": "code",
+      "html_id": "613f1e8d"
+    },
+    {
+      "cell": 36,
+      "type": "code",
+      "html_id": "e6abbcea"
+    },
+    {
+      "cell": 37,
+      "type": "code",
+      "html_id": "606403be"
+    },
+    {
+      "cell": 38,
+      "type": "code",
+      "html_id": "4e129ec7"
+    },
+    {
+      "cell": 39,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 40,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "non-centered-paramerization",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 41,
+      "type": "code",
+      "html_id": "30bc0ccb"
+    },
+    {
+      "cell": 42,
+      "type": "code",
+      "html_id": "715131b2"
+    },
+    {
+      "cell": 43,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 44,
+      "type": "code",
+      "html_id": "3297ed7a"
+    },
+    {
+      "cell": 45,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 46,
+      "type": "code",
+      "html_id": "63e1f4c0"
+    },
+    {
+      "cell": 47,
+      "type": "code",
+      "html_id": "94abbae1"
+    },
+    {
+      "cell": 48,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 49,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "a-smaller-step-size",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 50,
+      "type": "code",
+      "html_id": "f0040436"
+    },
+    {
+      "cell": 51,
+      "type": "code",
+      "html_id": "1f9ebfe5"
+    },
+    {
+      "cell": 52,
+      "type": "code",
+      "html_id": "753bdf55"
+    },
+    {
+      "cell": 53,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 54,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "path-length-l",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 55,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "tuning-hmcnuts",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 56,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "efficiency-of-momentum-resampling",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 57,
+      "type": "code",
+      "html_id": "d872f252"
+    },
+    {
+      "cell": 58,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 59,
+      "type": "code",
+      "html_id": "6948e856"
+    },
+    {
+      "cell": 60,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 61,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 62,
+      "type": "code",
+      "html_id": "d5010bb3"
+    },
+    {
+      "cell": 63,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 64,
+      "type": "code",
+      "html_id": "ee2223b8"
+    },
+    {
+      "cell": 65,
+      "type": "code",
+      "html_id": "4325fadb"
+    },
+    {
+      "cell": 66,
+      "type": "code",
+      "html_id": "c0cffef1"
+    }
+  ]
+}

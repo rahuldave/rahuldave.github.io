@@ -19,10 +19,13 @@ Exploring Hamiltonian Monte Carlo: https://rahuldave.com/posts/hmcexplore/_conte
 Frequentist Statistics: https://rahuldave.com/posts/frequentist/_content.md
 From Annealing to Metropolis: https://rahuldave.com/posts/metropolis/_content.md
 From the Normal Model to Regression: https://rahuldave.com/posts/normalreg/_content.md
+Gelman Schools and Hierarchical Pathology: https://rahuldave.com/posts/gelmanschools/_content.md
 Generative vs Discriminative Models: https://rahuldave.com/posts/generativemodels/_content.md
 Gibbs Sampling with Conjugate Conditionals: https://rahuldave.com/posts/gibbsconj/_content.md
 Gibbs from Metropolis-Hastings: https://rahuldave.com/posts/gibbsfromMH/_content.md
 Gradient Descent and SGD: https://rahuldave.com/posts/gradientdescent/_content.md
+HMC/NUTS Tuning and Diagnostics: https://rahuldave.com/posts/hmctweaking/_content.md
+Hierarchical Bayesian Modeling: The 8 Schools Example: https://rahuldave.com/posts/gelmanschoolstheory/_content.md
 Hierarchical Bayesian Models: https://rahuldave.com/posts/hierarch/_content.md
 How Sigmoids Combine: https://rahuldave.com/posts/nnreg/_content.md
 Importance Sampling: https://rahuldave.com/posts/importancesampling/_content.md

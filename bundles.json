@@ -198,7 +198,7 @@
   },
   "functorch": {
     "zip": "/posts/functorch/functorch.zip",
-    "size_bytes": 206788,
+    "size_bytes": 206801,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -209,6 +209,47 @@
       "index.ipynb",
       "assets/mlp.png",
       "assets/perceptron.png"
+    ]
+  },
+  "gelmanschools": {
+    "zip": "/posts/gelmanschools/gelmanschools.zip",
+    "size_bytes": 1248875,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "pymc",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": false,
+    "files": [
+      "index.ipynb",
+      "assets/8schools.png",
+      "assets/girolam1.png",
+      "assets/girolam2.png",
+      "assets/girolam3.png",
+      "assets/sympldiv.png",
+      "assets/sympldiv2.png"
+    ]
+  },
+  "gelmanschoolstheory": {
+    "zip": "/posts/gelmanschoolstheory/gelmanschoolstheory.zip",
+    "size_bytes": 470177,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "pymc",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": false,
+    "files": [
+      "index.ipynb",
+      "assets/8schools.png",
+      "assets/restuarant_model.png",
+      "assets/school_model.png"
     ]
   },
   "generativemodels": {
@@ -330,6 +371,22 @@
       "assets/nummodeerr.png",
       "assets/reversemom.png",
       "assets/rocketorbit.png"
+    ]
+  },
+  "hmctweaking": {
+    "zip": "/posts/hmctweaking/hmctweaking.zip",
+    "size_bytes": 1252527,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "pymc",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": false,
+    "files": [
+      "index.ipynb"
     ]
   },
   "importancesampling": {
@@ -475,7 +532,7 @@
   },
   "mlp_classification": {
     "zip": "/posts/mlp_classification/mlp_classification.zip",
-    "size_bytes": 2445642,
+    "size_bytes": 2445654,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -506,7 +563,7 @@
   },
   "nnreg": {
     "zip": "/posts/nnreg/nnreg.zip",
-    "size_bytes": 802967,
+    "size_bytes": 802973,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -670,7 +727,7 @@
   },
   "switchpoint": {
     "zip": "/posts/switchpoint/switchpoint.zip",
-    "size_bytes": 966407,
+    "size_bytes": 966412,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -758,7 +815,7 @@
   },
   "utilityorrisk": {
     "zip": "/posts/utilityorrisk/utilityorrisk.zip",
-    "size_bytes": 328188,
+    "size_bytes": 328195,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -797,7 +854,7 @@
   },
   "votingforcongress": {
     "zip": "/posts/votingforcongress/votingforcongress.zip",
-    "size_bytes": 3275466,
+    "size_bytes": 3275478,
     "dependencies": [
       "pandas",
       "lxml"

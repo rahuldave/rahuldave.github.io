@@ -19,6 +19,9 @@
     "listing": "/index.html",
     "items": [
       "/posts/seasons/index.html",
+      "/posts/gelmanschoolstheory/index.html",
+      "/posts/hmctweaking/index.html",
+      "/posts/gelmanschools/index.html",
       "/posts/hmcexplore/index.html",
       "/posts/tetchygibbs/index.html",
       "/posts/dataaug/index.html",
@@ -87,6 +90,9 @@
     "listing": "/posts.html",
     "items": [
       "/posts/seasons/index.html",
+      "/posts/gelmanschoolstheory/index.html",
+      "/posts/hmctweaking/index.html",
+      "/posts/gelmanschools/index.html",
       "/posts/hmcexplore/index.html",
       "/posts/tetchygibbs/index.html",
       "/posts/dataaug/index.html",
