@@ -501,7 +501,12 @@ window.Quarto = {
 <blockquote class="blockquote">
 <p>the estimated coaching effects are <span class="math inline">\(\bar{y}_j\)</span>, and their sampling variances, <span class="math inline">\(\sigma_j^2\)</span>… The estimates <span class="math inline">\(\bar{y}_j\)</span> are obtained by independent experiments and have approximately normal sampling distributions with sampling variances that are known, for all practical purposes, because the sample sizes in all of the eight experiments were relatively large, over thirty students in each school</p>
 </blockquote>
-<p><img src="assets/8schools.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/8schools.png" class="img-fluid figure-img"></p>
+<figcaption>Estimated treatment effects and standard errors for the 8 schools [Source: Gelman et al., Bayesian Data Analysis]</figcaption>
+</figure>
+</div>
 <p>Notice the bar on the y’s and the mention of standard errors (rather than standard deviations) in the third column in the table above. Why is this?</p>
 <p>The answer is that these are means taken over many (&gt; 30) students in each of the schools. The general structure of this model can be written thus:</p>
 <blockquote class="blockquote">
@@ -806,9 +811,19 @@ Percentage of Divergent 0.02850</code></pre>
 </div>
 </div>
 <p>What does divergent mean? These are situations in which our symplectic integrator has gone Kaput, as illustrated in this diagram below from Betancourt’s review:</p>
-<p><img src="assets/sympldiv.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/sympldiv.png" class="img-fluid figure-img"></p>
+<figcaption>Symplectic integrator trajectory diverging from the true orbit due to excessive step size [Source: Betancourt 2017]</figcaption>
+</figure>
+</div>
 <p>When a MCMC sampler (this problem is worse in non HMC models) encounters a region of high curvature it gets stuck, and goes off elsewhere, after a while. In the HMC scenario, the symplectic integrator diverges. What happens is that in encounters a region of high curvature which our timestep size <span class="math inline">\(\epsilon\)</span> is not able to resolve. Things become numerically unstable and the integrator veers off towards infinite energies, clearly not conserving energy any more.</p>
-<p><img src="assets/sympldiv2.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/sympldiv2.png" class="img-fluid figure-img"></p>
+<figcaption>Leapfrog steps (green) diverge from the true trajectory (red) in a region of high curvature [Source: Betancourt 2017]</figcaption>
+</figure>
+</div>
 <p>Where is this curvature coming from? Things become a bit easier to understand if we plot the joint distribution of one of the thetas against a hyper-parameter. And we see that there is a triangular funnel structure with the hyperparameter spanning orders of magnitude in value. Using pymc we can plot where the divergences occur, and while they can occur anywhere they seem to be clustered in the neck of the distribution.</p>
 <div id="69fa9243" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-06T17:10:19.045874Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-06T17:10:19.045780Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-06T17:10:19.104841Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-06T17:10:19.104465Z&quot;}}" data-execution_count="12" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>theta_trace <span class="op">=</span> idata1.posterior[<span class="st">"theta"</span>].values  <span class="co"># (chains, draws, J)</span></span>
@@ -858,9 +873,19 @@ Number of divergences: 285</code></pre>
 <section id="funnels-in-hierarchical-models" class="level2">
 <h2 class="anchored" data-anchor-id="funnels-in-hierarchical-models">Funnels in hierarchical models</h2>
 <p>As is discussed in Betancourt and Girolami (2015) from where the following diagrams are taken, a funnel structure is common in Hierarchical models, and reflects strong correlations between down-tree parameters such as thetas, and uptree parameters such as <span class="math inline">\(\phi = \mu, \tau\)</span> here.</p>
-<p><img src="assets/girolam1.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/girolam1.png" class="img-fluid figure-img"></p>
+<figcaption>Graphical model for a hierarchical Bayesian model: data nodes D, group parameters θ, and shared hyperparameter φ [Source: Betancourt &amp; Girolami 2013]</figcaption>
+</figure>
+</div>
 <p>The funnel between <span class="math inline">\(v = log(\tau)\)</span> and <span class="math inline">\(\theta_i\)</span> in the hierarchical Normal-Normal model looks like this:</p>
-<p><img src="assets/girolam2.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/girolam2.png" class="img-fluid figure-img"></p>
+<figcaption>Neal’s funnel: the (100+1)-dimensional posterior concentrates into a narrow neck at small τ, making sampling difficult [Source: Betancourt &amp; Girolami 2013]</figcaption>
+</figure>
+</div>
 <p>The problem is that a sampler must sample both the light and dark regions as both have enough probability mass.</p>
 <section id="divergences-are-good-things" class="level3">
 <h3 class="anchored" data-anchor-id="divergences-are-good-things">Divergences are good things</h3>
@@ -871,7 +896,12 @@ Number of divergences: 285</code></pre>
 <section id="non-centered-model" class="level2">
 <h2 class="anchored" data-anchor-id="non-centered-model">Non-centered Model</h2>
 <p>So what is to be done? We could change the kinetic energy using methods such as Riemannian Monte-Carlo HMC, but thats beyond our scope. But, just as in the case with the regression example earlier, a re-parametrization comes to our rescue. We want to reduce the levels in the hierarchy, as shown here:</p>
-<p><img src="assets/girolam3.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/girolam3.png" class="img-fluid figure-img"></p>
+<figcaption>Centered (left) vs non-centered (right) parametrization: decoupling θ and φ removes the funnel geometry [Source: Betancourt &amp; Girolami 2013]</figcaption>
+</figure>
+</div>
 <p>We change our model to:</p>
 <p><span class="math display">\[
 \mu \sim \mathcal{N}(0, 5)\\

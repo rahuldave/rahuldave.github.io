@@ -53,7 +53,7 @@ The particular example we will deal with is called the 8-schools example, and is
 
 >the estimated coaching effects are $\bar{y}_j$, and their sampling variances, $\sigma_j^2$... The estimates $\bar{y}_j$ are obtained by independent experiments and have approximately normal sampling distributions with sampling variances that are known, for all practical purposes, because the sample sizes in all of the eight experiments were relatively large, over thirty students in each school 
 
-![](https://rahuldave.com/posts/gelmanschools/assets/8schools.png)
+![Estimated treatment effects and standard errors for the 8 schools [Source: Gelman et al., Bayesian Data Analysis]](assets/8schools.png)
 
 <!-- cell:5 type:markdown -->
 Notice the bar on the y's and the mention of standard errors (rather than standard deviations) in the third column in the table above. Why is this?
@@ -266,11 +266,11 @@ Percentage of Divergent 0.02850
 <!-- cell:25 type:markdown -->
 What does divergent mean? These are situations in which our symplectic integrator has gone Kaput, as illustrated in this diagram below from Betancourt's review:
 
-![](https://rahuldave.com/posts/gelmanschools/assets/sympldiv.png)
+![Symplectic integrator trajectory diverging from the true orbit due to excessive step size [Source: Betancourt 2017]](assets/sympldiv.png)
 
 When a MCMC sampler (this problem is worse in non HMC models) encounters a region of high curvature it gets stuck, and goes off elsewhere, after a while. In the HMC scenario, the symplectic integrator diverges. What happens is that in encounters a region of high curvature which our timestep size $\epsilon$ is not able to resolve. Things become numerically unstable and the integrator veers off towards infinite energies, clearly not conserving energy any more.
 
-![](https://rahuldave.com/posts/gelmanschools/assets/sympldiv2.png)
+![Leapfrog steps (green) diverge from the true trajectory (red) in a region of high curvature [Source: Betancourt 2017]](assets/sympldiv2.png)
 
 <!-- cell:26 type:markdown -->
 Where is this curvature coming from? Things become a bit easier to understand if we plot the joint distribution of one of the thetas against a hyper-parameter. And we see that there is a triangular funnel structure with the hyperparameter spanning orders of magnitude in value. Using pymc we can plot where the divergences occur, and while they can occur anywhere they seem to be clustered in the neck of the distribution.
@@ -329,11 +329,11 @@ Divergences per chain:
 
 As is discussed in Betancourt and Girolami (2015) from where the following diagrams are taken, a funnel structure is common in Hierarchical models, and reflects strong correlations between down-tree parameters such as thetas, and uptree parameters such as $\phi = \mu, \tau$ here.
 
-![](https://rahuldave.com/posts/gelmanschools/assets/girolam1.png)
+![Graphical model for a hierarchical Bayesian model: data nodes D, group parameters θ, and shared hyperparameter φ [Source: Betancourt & Girolami 2013]](assets/girolam1.png)
 
 The funnel between $v = log(\tau)$ and $\theta_i$ in the hierarchical Normal-Normal model looks like this:
 
-![](https://rahuldave.com/posts/gelmanschools/assets/girolam2.png)
+![Neal's funnel: the (100+1)-dimensional posterior concentrates into a narrow neck at small τ, making sampling difficult [Source: Betancourt & Girolami 2013]](assets/girolam2.png)
 
 The problem is that a sampler must sample both the light and dark regions as both have enough probability mass.
 
@@ -347,7 +347,7 @@ There is a second reason besides curvature and symplectic integration which affe
 
 So what is to be done? We could change the kinetic energy using methods such as Riemannian Monte-Carlo HMC, but thats beyond our scope. But, just as in the case with the regression example earlier, a re-parametrization comes to our rescue. We want to reduce the levels in the hierarchy, as shown here:
 
-![](https://rahuldave.com/posts/gelmanschools/assets/girolam3.png)
+![Centered (left) vs non-centered (right) parametrization: decoupling θ and φ removes the funnel geometry [Source: Betancourt & Girolami 2013]](assets/girolam3.png)
 
 <!-- cell:32 type:markdown -->
 We change our model to:

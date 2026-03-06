@@ -508,14 +508,24 @@ For details and migration guidance, visit: https://python.arviz.org/en/latest/us
 <blockquote class="blockquote">
 <p>the estimated coaching effects are <span class="math inline">\(\bar{y}_j\)</span>, and their sampling variances, <span class="math inline">\(\sigma_j^2\)</span>… The estimates <span class="math inline">\(\bar{y}_j\)</span> are obtained by independent experiments and have approximately normal sampling distributions with sampling variances that are known, for all practical purposes, because the sample sizes in all of the eight experiments were relatively large, over thirty students in each school</p>
 </blockquote>
-<p><img src="assets/8schools.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/8schools.png" class="img-fluid figure-img"></p>
+<figcaption>Estimated treatment effects and standard errors for the 8 schools [Source: Gelman et al., Bayesian Data Analysis]</figcaption>
+</figure>
+</div>
 <p>Notice the bar on the y’s and the mention of standard errors (rather than standard deviations) in the third column in the table above. Why is this?</p>
 <p>The answer is that these are means taken over many (&gt; 30) students in each of the schools. The general structure of this model can be written thus:</p>
 <blockquote class="blockquote">
 <p>Consider <span class="math inline">\(J\)</span> independent experiments, with experiment <span class="math inline">\(j\)</span> estimating the parameter <span class="math inline">\(\theta_j\)</span> from <span class="math inline">\(n_j\)</span> independent normally distributed data points, <span class="math inline">\(y_{ij}\)</span>, each with known error variance <span class="math inline">\(\sigma^2\)</span>; that is,</p>
 </blockquote>
 <p><span class="math display">\[y_{ij} \vert \theta_j \sim N(\theta_j, \sigma^2), \, i = 1,...,n_j; j = 1,...,J.\]</span></p>
-<p><img src="assets/school_model.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/school_model.png" class="img-fluid figure-img"></p>
+<figcaption>Hierarchical structure: schools contain varying numbers of pupils, each with individual observations</figcaption>
+</figure>
+</div>
 <p>Thus there are <span class="math inline">\(J=8\)</span> schools, and in the <span class="math inline">\(jth\)</span> school, there are <span class="math inline">\(n_j\)</span> students. We are not given the scores of individual students, just the average score in the school: the so-called “sample-mean” (after all this is a sample of students from the school).</p>
 <p>We label the sample mean of each group <span class="math inline">\(j\)</span> as</p>
 <p><span class="math display">\[\bar{y_j} = \frac{1}{n_j} \sum_{i=1}^{n_j} y_{ij}\]</span></p>
@@ -538,7 +548,12 @@ For details and migration guidance, visit: https://python.arviz.org/en/latest/us
 </section>
 <section id="the-model-for-the-homework" class="level2">
 <h2 class="anchored" data-anchor-id="the-model-for-the-homework">The model for the homework</h2>
-<p><img src="assets/restuarant_model.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/restuarant_model.png" class="img-fluid figure-img"></p>
+<figcaption>Analogous hierarchical structure: restaurant reviews contain food and service sentences with per-sentence sentiment probabilities</figcaption>
+</figure>
+</div>
 <p>We want to set up a Bayesian model for a reviewer <span class="math inline">\(j\)</span>’s opinion of restaurant <span class="math inline">\(k\)</span>’s food and service, separately. That is, you will have a model for each restaurant and each aspect (food and serivce). For restaurant <span class="math inline">\(k\)</span>, you will have a model for <span class="math inline">\(\{\theta_{jk}^{\text{food}}\}\)</span> and one for <span class="math inline">\(\{\theta_{jk}^{\text{service}}\}\)</span>, where <span class="math inline">\(\theta_{jk}\)</span> is the positivity of the opinion of the <span class="math inline">\(j\)</span>-th reviewer regarding the <span class="math inline">\(k\)</span>-th restaurant.</p>
 <p>To think about this, first just fix a restaurant, say <span class="math inline">\(k=1\)</span>..and also fix an aspect, say food. Then the <span class="math inline">\(\theta\)</span>s are just like in the schools problem. We have a bunch of reviews for that restaurant. And each review, given an aspect, has a sample of sentences for the review. For each of these reviews (schools) we have a mean and a variance over the sentiment of the sentences</p>
 <p>So now, consider the analogs: each review corresponds to a school, and we have a sample of sentences for the review. The multiple reviews (say 8) for a restarant are an analog to the 8 schools. So the overall “treatment” effect we are looking at is really the overall sentiment corresponding to an aspect (say service) of A GIVEN restaurant.</p>

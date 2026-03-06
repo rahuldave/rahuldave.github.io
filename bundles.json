@@ -213,7 +213,7 @@
   },
   "gelmanschools": {
     "zip": "/posts/gelmanschools/gelmanschools.zip",
-    "size_bytes": 1248875,
+    "size_bytes": 1249185,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -235,7 +235,7 @@
   },
   "gelmanschoolstheory": {
     "zip": "/posts/gelmanschoolstheory/gelmanschoolstheory.zip",
-    "size_bytes": 470177,
+    "size_bytes": 470251,
     "dependencies": [
       "matplotlib",
       "numpy",
