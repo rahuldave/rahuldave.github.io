@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "source_type": "md",
+  "title": "Formal Convergence Tests for MCMC Chains",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 1,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "gewecke-test-testing-for-difference-in-means",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "gelman-rubin-test",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 3,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "autocorrelation-and-mixing-effective-sample-size",
+          "level": 2
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,186 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Identifiability in Bayesian Models",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "0d109cf4"
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "identifiability",
+          "level": 1
+        },
+        {
+          "slug": "keywords-identifiability-mcmc-bayesian",
+          "level": 5
+        }
+      ]
+    },
+    {
+      "cell": 3,
+      "type": "code",
+      "html_id": "a77c9f19"
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 5,
+      "type": "code",
+      "html_id": "e7245a55"
+    },
+    {
+      "cell": 6,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 7,
+      "type": "code",
+      "html_id": "e3308c2d"
+    },
+    {
+      "cell": 8,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 9,
+      "type": "code",
+      "html_id": "14c7f73e"
+    },
+    {
+      "cell": 10,
+      "type": "code",
+      "html_id": "d2408de0"
+    },
+    {
+      "cell": 11,
+      "type": "code",
+      "html_id": "6da0a6fd"
+    },
+    {
+      "cell": 12,
+      "type": "code",
+      "html_id": "08e599c2"
+    },
+    {
+      "cell": 13,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 14,
+      "type": "code",
+      "html_id": "b850bc3a"
+    },
+    {
+      "cell": 15,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 16,
+      "type": "code",
+      "html_id": "eb47be9d"
+    },
+    {
+      "cell": 17,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 18,
+      "type": "code",
+      "html_id": "f3249950"
+    },
+    {
+      "cell": 19,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 20,
+      "type": "code",
+      "html_id": "88c80f84"
+    },
+    {
+      "cell": 21,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 22,
+      "type": "code",
+      "html_id": "eb347a42"
+    },
+    {
+      "cell": 23,
+      "type": "code",
+      "html_id": "cf0b5095"
+    },
+    {
+      "cell": 24,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 25,
+      "type": "code",
+      "html_id": "4ea12327"
+    },
+    {
+      "cell": 26,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 27,
+      "type": "code",
+      "html_id": "8f77e995"
+    },
+    {
+      "cell": 28,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 29,
+      "type": "code",
+      "html_id": "5e922812"
+    },
+    {
+      "cell": 30,
+      "type": "code",
+      "html_id": "1f031a62"
+    },
+    {
+      "cell": 31,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 32,
+      "type": "code",
+      "html_id": "60ef2e4e"
+    },
+    {
+      "cell": 33,
+      "type": "markdown",
+      "headings": []
+    }
+  ]
+}

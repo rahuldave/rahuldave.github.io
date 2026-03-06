@@ -389,6 +389,23 @@
       "index.ipynb"
     ]
   },
+  "identifiability": {
+    "zip": "/posts/identifiability/identifiability.zip",
+    "size_bytes": 363529,
+    "dependencies": [
+      "graphviz",
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "pymc",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": false,
+    "files": [
+      "index.ipynb"
+    ]
+  },
   "importancesampling": {
     "zip": "/posts/importancesampling/importancesampling.zip",
     "size_bytes": 119579,

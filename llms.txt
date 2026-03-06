@@ -16,6 +16,7 @@ Divergence and Deviance: https://rahuldave.com/posts/divergence/_content.md
 Entropy and Maximum Entropy: https://rahuldave.com/posts/entropy/_content.md
 Expectations and the Law of Large Numbers: https://rahuldave.com/posts/expectations/_content.md
 Exploring Hamiltonian Monte Carlo: https://rahuldave.com/posts/hmcexplore/_content.md
+Formal Convergence Tests for MCMC Chains: https://rahuldave.com/posts/gewecke/_content.md
 Frequentist Statistics: https://rahuldave.com/posts/frequentist/_content.md
 From Annealing to Metropolis: https://rahuldave.com/posts/metropolis/_content.md
 From the Normal Model to Regression: https://rahuldave.com/posts/normalreg/_content.md
@@ -28,6 +29,7 @@ HMC/NUTS Tuning and Diagnostics: https://rahuldave.com/posts/hmctweaking/_conten
 Hierarchical Bayesian Modeling: The 8 Schools Example: https://rahuldave.com/posts/gelmanschoolstheory/_content.md
 Hierarchical Bayesian Models: https://rahuldave.com/posts/hierarch/_content.md
 How Sigmoids Combine: https://rahuldave.com/posts/nnreg/_content.md
+Identifiability in Bayesian Models: https://rahuldave.com/posts/identifiability/_content.md
 Importance Sampling: https://rahuldave.com/posts/importancesampling/_content.md
 Imputation and Convergence: https://rahuldave.com/posts/switchpoint/_content.md
 Introduction to Gibbs Sampling: https://rahuldave.com/posts/introgibbs/_content.md

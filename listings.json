@@ -19,6 +19,8 @@
     "listing": "/index.html",
     "items": [
       "/posts/seasons/index.html",
+      "/posts/gewecke.html",
+      "/posts/identifiability/index.html",
       "/posts/gelmanschoolstheory/index.html",
       "/posts/hmctweaking/index.html",
       "/posts/gelmanschools/index.html",
@@ -90,6 +92,8 @@
     "listing": "/posts.html",
     "items": [
       "/posts/seasons/index.html",
+      "/posts/gewecke.html",
+      "/posts/identifiability/index.html",
       "/posts/gelmanschoolstheory/index.html",
       "/posts/hmctweaking/index.html",
       "/posts/gelmanschools/index.html",
