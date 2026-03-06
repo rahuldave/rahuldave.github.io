@@ -381,9 +381,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#l-epsilon-and-other-tweaking" id="toc-l-epsilon-and-other-tweaking" class="nav-link active" data-scroll-target="#l-epsilon-and-other-tweaking">L, epsilon, and other tweaking</a>
-  <ul class="collapse">
-  <li><a href="#centered-parametrization" id="toc-centered-parametrization" class="nav-link" data-scroll-target="#centered-parametrization">Centered parametrization</a>
+  <li><a href="#centered-parametrization" id="toc-centered-parametrization" class="nav-link active" data-scroll-target="#centered-parametrization">Centered parametrization</a>
   <ul class="collapse">
   <li><a href="#tracking-divergences" id="toc-tracking-divergences" class="nav-link" data-scroll-target="#tracking-divergences">Tracking divergences</a></li>
   <li><a href="#where-are-the-divergences-coming-from" id="toc-where-are-the-divergences-coming-from" class="nav-link" data-scroll-target="#where-are-the-divergences-coming-from">Where are the divergences coming from?</a></li>
@@ -396,7 +394,6 @@ window.Quarto = {
   <li><a href="#path-length-l" id="toc-path-length-l" class="nav-link" data-scroll-target="#path-length-l">Path length L</a></li>
   <li><a href="#tuning-hmcnuts" id="toc-tuning-hmcnuts" class="nav-link" data-scroll-target="#tuning-hmcnuts">Tuning HMC(NUTS)</a></li>
   <li><a href="#efficiency-of-momentum-resampling" id="toc-efficiency-of-momentum-resampling" class="nav-link" data-scroll-target="#efficiency-of-momentum-resampling">Efficiency of momentum resampling</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -472,10 +469,6 @@ window.Quarto = {
 </header>
 
 
-<section id="l-epsilon-and-other-tweaking" class="level1">
-<h1>L, epsilon, and other tweaking</h1>
-<section id="keywords-energy-hamiltonian-monte-carlo-nuts-leapfrog-canonical-distribution-microcanonical-distribution-transition-distribution-marginal-energy-distribution-data-augmentation-classical-mechanics-detailed-balance-statistical-mechanics-divergences-step-size-non-centered-hierarchical-model-hierarchical" class="level5">
-<h5 class="anchored" data-anchor-id="keywords-energy-hamiltonian-monte-carlo-nuts-leapfrog-canonical-distribution-microcanonical-distribution-transition-distribution-marginal-energy-distribution-data-augmentation-classical-mechanics-detailed-balance-statistical-mechanics-divergences-step-size-non-centered-hierarchical-model-hierarchical">Keywords: energy, hamiltonian monte carlo, NUTS, leapfrog, canonical distribution, microcanonical distribution, transition distribution, marginal energy distribution, data augmentation, classical mechanics, detailed balance, statistical mechanics, divergences, step-size, non-centered hierarchical model, hierarchical</h5>
 <div id="3e0ecbd8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-06T17:10:44.368632Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-06T17:10:44.368533Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-06T17:10:45.833126Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-06T17:10:45.832563Z&quot;}}" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -493,7 +486,6 @@ window.Quarto = {
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymc <span class="im">as</span> pm</span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arviz <span class="im">as</span> az</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</section>
 <section id="centered-parametrization" class="level2">
 <h2 class="anchored" data-anchor-id="centered-parametrization">Centered parametrization</h2>
 <p>We’ll set up the modelled in what is called a “Centered” parametrization which tells us how <span class="math inline">\(\theta_i\)</span> is modelled: it is written to be directly dependent as a normal distribution from the hyper-parameters.</p>
@@ -1467,7 +1459,6 @@ We recommend running at least 4 chains for robust computation of convergence dia
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

@@ -17,9 +17,7 @@
 ```
 
 <!-- cell:2 type:markdown -->
-# Poisson Regression -  tools on islands, part 1
 
-##### Keywords: poisson distribution, poisson regression, glm, centering, counterfactual plot, regression, interaction-term, oceanic tools, parameter correlation
 
 <!-- cell:3 type:code -->
 ```python

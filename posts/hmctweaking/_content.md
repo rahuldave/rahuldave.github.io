@@ -17,9 +17,7 @@
 ```
 
 <!-- cell:2 type:markdown -->
-# L, epsilon, and other tweaking
 
-##### Keywords: energy, hamiltonian monte carlo, NUTS, leapfrog, canonical distribution, microcanonical distribution, transition distribution, marginal energy distribution, data augmentation, classical mechanics, detailed balance, statistical mechanics, divergences, step-size, non-centered hierarchical model, hierarchical
 
 <!-- cell:3 type:code -->
 ```python

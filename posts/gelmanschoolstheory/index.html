@@ -381,16 +381,13 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#gelman-schools-theory-for-topics-about-restaurants" id="toc-gelman-schools-theory-for-topics-about-restaurants" class="nav-link active" data-scroll-target="#gelman-schools-theory-for-topics-about-restaurants">Gelman Schools Theory for Topics about Restaurants</a>
-  <ul class="collapse">
-  <li><a href="#statement-of-the-model" id="toc-statement-of-the-model" class="nav-link" data-scroll-target="#statement-of-the-model">Statement of the model</a></li>
+  <li><a href="#statement-of-the-model" id="toc-statement-of-the-model" class="nav-link active" data-scroll-target="#statement-of-the-model">Statement of the model</a></li>
   <li><a href="#the-model-for-the-homework" id="toc-the-model-for-the-homework" class="nav-link" data-scroll-target="#the-model-for-the-homework">The model for the homework</a></li>
   <li><a href="#setting-up-the-hierarchical-model-for-gelman-schools" id="toc-setting-up-the-hierarchical-model-for-gelman-schools" class="nav-link" data-scroll-target="#setting-up-the-hierarchical-model-for-gelman-schools">Setting up the hierarchical model for Gelman Schools</a>
   <ul class="collapse">
   <li><a href="#an-equivalent-model-in-a-non-centered-parametrization" id="toc-an-equivalent-model-in-a-non-centered-parametrization" class="nav-link" data-scroll-target="#an-equivalent-model-in-a-non-centered-parametrization">An equivalent model in a non-centered parametrization</a></li>
   </ul></li>
   <li><a href="#sampling" id="toc-sampling" class="nav-link" data-scroll-target="#sampling">Sampling</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -466,10 +463,6 @@ window.Quarto = {
 </header>
 
 
-<section id="gelman-schools-theory-for-topics-about-restaurants" class="level1">
-<h1>Gelman Schools Theory for Topics about Restaurants</h1>
-<section id="keywords-normal-normal-model-hierarchical-normal-normal-model-hierarchical-divergences-non-centered-hierarchical-model-sampling-distribution" class="level5">
-<h5 class="anchored" data-anchor-id="keywords-normal-normal-model-hierarchical-normal-normal-model-hierarchical-divergences-non-centered-hierarchical-model-sampling-distribution">Keywords: normal-normal model, hierarchical normal-normal model, hierarchical, divergences, non-centered hierarchical model, sampling distribution</h5>
 <div id="f370726c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-06T17:08:21.537551Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-06T17:08:21.537445Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-06T17:08:51.135869Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-06T17:08:51.135341Z&quot;}}" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -498,7 +491,6 @@ For details and migration guidance, visit: https://python.arviz.org/en/latest/us
 <blockquote class="blockquote">
 <p>a simple hierarchical model based on the normal distribu- tion, in which observed data are normally distributed with a different mean for each ‘group’ or ‘experiment,’ with known observation variance, and a normal population distribution for the group means. This model is sometimes termed the one-way normal random-effects model with known data variance and is widely applicable, being an important special case of the hierarchical normal linear model,…</p>
 </blockquote>
-</section>
 <section id="statement-of-the-model" class="level2">
 <h2 class="anchored" data-anchor-id="statement-of-the-model">Statement of the model</h2>
 <p>The particular example we will deal with is called the 8-schools example, and is described thus:</p>
@@ -727,7 +719,6 @@ Percentage of Divergent 0.00100</code></pre>
 <p>Look how much longer the funnel actually is. And we have explored this much better. We can now reduce the step size to check that the divergences go away. The reduced step size is not needed for the sampler once we did this, but it is a check that is worth doing to make sure your sampler is ok.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

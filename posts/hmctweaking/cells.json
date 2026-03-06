@@ -16,16 +16,7 @@
     {
       "cell": 2,
       "type": "markdown",
-      "headings": [
-        {
-          "slug": "l-epsilon-and-other-tweaking",
-          "level": 1
-        },
-        {
-          "slug": "keywords-energy-hamiltonian-monte-carlo-nuts-leapfrog-canonical-distribution-microcanonical-distribution-transition-distribution-marginal-energy-distribution-data-augmentation-classical-mechanics-detailed-balance-statistical-mechanics-divergences-step-size-non-centered-hierarchical-model-hierarchical",
-          "level": 5
-        }
-      ]
+      "headings": []
     },
     {
       "cell": 3,

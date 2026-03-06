@@ -17,9 +17,7 @@
 ```
 
 <!-- cell:2 type:markdown -->
-# Gelman Schools Theory for Topics about Restaurants
 
-##### Keywords: normal-normal model, hierarchical normal-normal model, hierarchical, divergences, non-centered hierarchical model, sampling distribution
 
 <!-- cell:3 type:code -->
 ```python

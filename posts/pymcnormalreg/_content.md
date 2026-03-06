@@ -17,9 +17,7 @@
 ```
 
 <!-- cell:2 type:markdown -->
-# From the normal model to regression
 
-##### Keywords: bayesian, normal-normal model, conjugate prior, MCMC engineering, pymc, regression
 
 <!-- cell:3 type:code -->
 ```python

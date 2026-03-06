@@ -15,9 +15,7 @@
 ```
 
 <!-- cell:2 type:markdown -->
-# Priors
 
-##### Keywords: conjugate prior, noninformative prior, weakly informative prior,  jeffreys prior, normal-normal model, sampling and priors, bayesian, MCMC, metropolis
 
 <!-- cell:3 type:code -->
 ```python

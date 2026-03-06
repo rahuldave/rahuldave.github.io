@@ -16,16 +16,7 @@
     {
       "cell": 2,
       "type": "markdown",
-      "headings": [
-        {
-          "slug": "priors",
-          "level": 1
-        },
-        {
-          "slug": "keywords-conjugate-prior-noninformative-prior-weakly-informative-prior-jeffreys-prior-normal-normal-model-sampling-and-priors-bayesian-mcmc-metropolis",
-          "level": 5
-        }
-      ]
+      "headings": []
     },
     {
       "cell": 3,

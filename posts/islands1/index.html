@@ -381,9 +381,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#poisson-regression---tools-on-islands-part-1" id="toc-poisson-regression---tools-on-islands-part-1" class="nav-link active" data-scroll-target="#poisson-regression---tools-on-islands-part-1">Poisson Regression - tools on islands, part 1</a>
-  <ul class="collapse">
-  <li><a href="#setting-up-the-model-and-data" id="toc-setting-up-the-model-and-data" class="nav-link" data-scroll-target="#setting-up-the-model-and-data">Setting up the model and data</a>
+  <li><a href="#setting-up-the-model-and-data" id="toc-setting-up-the-model-and-data" class="nav-link active" data-scroll-target="#setting-up-the-model-and-data">Setting up the model and data</a>
   <ul class="collapse">
   <li><a href="#m1" id="toc-m1" class="nav-link" data-scroll-target="#m1">M1</a></li>
   </ul></li>
@@ -394,7 +392,6 @@ window.Quarto = {
   <li><a href="#posterior-scatter-plots" id="toc-posterior-scatter-plots" class="nav-link" data-scroll-target="#posterior-scatter-plots">Posterior scatter plots</a></li>
   </ul></li>
   <li><a href="#fixing-by-centering" id="toc-fixing-by-centering" class="nav-link" data-scroll-target="#fixing-by-centering">Fixing by centering</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -470,10 +467,6 @@ window.Quarto = {
 </header>
 
 
-<section id="poisson-regression---tools-on-islands-part-1" class="level1">
-<h1>Poisson Regression - tools on islands, part 1</h1>
-<section id="keywords-poisson-distribution-poisson-regression-glm-centering-counterfactual-plot-regression-interaction-term-oceanic-tools-parameter-correlation" class="level5">
-<h5 class="anchored" data-anchor-id="keywords-poisson-distribution-poisson-regression-glm-centering-counterfactual-plot-regression-interaction-term-oceanic-tools-parameter-correlation">Keywords: poisson distribution, poisson regression, glm, centering, counterfactual plot, regression, interaction-term, oceanic tools, parameter correlation</h5>
 <div id="c500a584" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-06T19:11:05.855213Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-06T19:11:05.855096Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-06T19:11:08.379040Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-06T19:11:08.378617Z&quot;}}" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -501,7 +494,6 @@ window.Quarto = {
 <figcaption>Map of the 10 Oceanic island societies in the Kline dataset [Source: McElreath, Statistical Rethinking]</figcaption>
 </figure>
 </div>
-</section>
 <section id="setting-up-the-model-and-data" class="level2">
 <h2 class="anchored" data-anchor-id="setting-up-the-model-and-data">Setting up the model and data</h2>
 <p>Some points to take into account:</p>
@@ -2214,7 +2206,6 @@ Attributes:
 <p>How do we decide whether the interaction is significant or not? We’ll use model comparison to achieve this!</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

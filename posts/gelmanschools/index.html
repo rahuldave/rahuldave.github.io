@@ -381,9 +381,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#gelman-schools-and-hierarchical-pathology" id="toc-gelman-schools-and-hierarchical-pathology" class="nav-link active" data-scroll-target="#gelman-schools-and-hierarchical-pathology">Gelman Schools and Hierarchical Pathology</a>
-  <ul class="collapse">
-  <li><a href="#statement-of-the-model" id="toc-statement-of-the-model" class="nav-link" data-scroll-target="#statement-of-the-model">Statement of the model</a></li>
+  <li><a href="#statement-of-the-model" id="toc-statement-of-the-model" class="nav-link active" data-scroll-target="#statement-of-the-model">Statement of the model</a></li>
   <li><a href="#setting-up-the-hierarchical-model" id="toc-setting-up-the-hierarchical-model" class="nav-link" data-scroll-target="#setting-up-the-hierarchical-model">Setting up the hierarchical model</a></li>
   <li><a href="#the-problem-with-curvature" id="toc-the-problem-with-curvature" class="nav-link" data-scroll-target="#the-problem-with-curvature">The problem with curvature</a></li>
   <li><a href="#funnels-in-hierarchical-models" id="toc-funnels-in-hierarchical-models" class="nav-link" data-scroll-target="#funnels-in-hierarchical-models">Funnels in hierarchical models</a>
@@ -391,7 +389,6 @@ window.Quarto = {
   <li><a href="#divergences-are-good-things" id="toc-divergences-are-good-things" class="nav-link" data-scroll-target="#divergences-are-good-things">Divergences are good things</a></li>
   </ul></li>
   <li><a href="#non-centered-model" id="toc-non-centered-model" class="nav-link" data-scroll-target="#non-centered-model">Non-centered Model</a></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
@@ -466,10 +463,6 @@ window.Quarto = {
 </header>
 
 
-<section id="gelman-schools-and-hierarchical-pathology" class="level1">
-<h1>Gelman Schools and Hierarchical Pathology</h1>
-<section id="keywords-normal-normal-model-hierarchical-normal-normal-model-hierarchical-divergences-non-centered-hierarchical-model-sampling-distribution" class="level5">
-<h5 class="anchored" data-anchor-id="keywords-normal-normal-model-hierarchical-normal-normal-model-hierarchical-divergences-non-centered-hierarchical-model-sampling-distribution">Keywords: normal-normal model, hierarchical normal-normal model, hierarchical, divergences, non-centered hierarchical model, sampling distribution</h5>
 <div id="a39eb9a1" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-06T17:10:10.278158Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-06T17:10:10.278013Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-06T17:10:12.271216Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-06T17:10:12.270691Z&quot;}}" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -491,7 +484,6 @@ window.Quarto = {
 <blockquote class="blockquote">
 <p>a simple hierarchical model based on the normal distribu- tion, in which observed data are normally distributed with a different mean for each ‘group’ or ‘experiment,’ with known observation variance, and a normal population distribution for the group means. This model is sometimes termed the one-way normal random-effects model with known data variance and is widely applicable, being an important special case of the hierarchical normal linear model,…</p>
 </blockquote>
-</section>
 <section id="statement-of-the-model" class="level2">
 <h2 class="anchored" data-anchor-id="statement-of-the-model">Statement of the model</h2>
 <p>The particular example we will deal with is called the 8-schools example, and is described thus:</p>
@@ -1351,7 +1343,6 @@ Percentage of Divergent 0.00080</code></pre>
 <p>It may not be possible in all models to achieve this sort of decoupling. In that case, Riemannian HMC, where we generalize the mass matrix to depend upon position, explicitly tackling high-curvature, can help.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

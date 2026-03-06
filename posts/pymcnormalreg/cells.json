@@ -16,16 +16,7 @@
     {
       "cell": 2,
       "type": "markdown",
-      "headings": [
-        {
-          "slug": "from-the-normal-model-to-regression",
-          "level": 1
-        },
-        {
-          "slug": "keywords-bayesian-normal-normal-model-conjugate-prior-mcmc-engineering-pymc-regression",
-          "level": 5
-        }
-      ]
+      "headings": []
     },
     {
       "cell": 3,

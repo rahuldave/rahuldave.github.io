@@ -18,9 +18,7 @@
 ```
 
 <!-- cell:2 type:markdown -->
-# Identifiability
 
-##### Keywords:  identifiability, MCMC, bayesian
 
 <!-- cell:3 type:code -->
 ```python
