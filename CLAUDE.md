@@ -138,15 +138,22 @@ This is a Quarto-based personal website for data science/ML educational content 
   - `tetchygibbs` — notebook, imported to `posts/tetchygibbs/`
   - `hmcidea` — markdown, imported to `posts/hmcidea/`
   - `hmcexplore` — notebook, imported to `posts/hmcexplore/`
-- **Lectures 18–26**: NOT YET IMPORTED
+- **Lecture 18 (HMC, and Formal tests)**: DONE
+  - `hmcidea` — already imported (Lecture 17), skipped
+  - `hmcexplore` — already imported (Lecture 17), skipped
+  - `switchpoint` — already imported (Lecture 16), skipped
+  - `hmctweaking` — notebook, imported to `posts/hmctweaking/`
+  - `gelmanschools` — notebook, imported to `posts/gelmanschools/`
+  - `gelmanschoolstheory` — notebook, imported to `posts/gelmanschoolstheory/`
+- **Lectures 19–26**: NOT YET IMPORTED
 
 ## PyMC3 → PyMC Migration Status
-- **Notebooks already ported**: `em` (removed unused import), `hmcexplore` (removed unused import), `switchpoint` (full InferenceData port), `utilityorrisk` (full InferenceData port)
+- **Notebooks already ported**: `em` (removed unused import), `hmcexplore` (removed unused import), `switchpoint` (full InferenceData port), `utilityorrisk` (full InferenceData port), `gelmanschoolstheory` (full port), `gelmanschools` (full port), `hmctweaking` (full port)
 - **Porting reference**: `_scripts/pymc3-to-pymc-porting.md`
 - **Skill**: `/port-pymc3` — step-by-step process for migrating pymc3/theano to modern pymc/pytensor
 - **Critical**: Do NOT list `arviz` explicitly in PEP 723 deps alongside `pymc` — arviz 1.0 breaks pymc; let pymc pull in the compatible version
 - **Known slow notebooks** (use `--timeout 1200`): switchpoint (~90s), utilityorrisk (~70s), mlp_classification (~90s), nnreg (~80s), samplingclt (~230s), gibbsconj (~50s), tetchygibbs (~40s)
-- **All 49 notebook bundles pass** `make test-bundles` (100%)
+- **All 52 notebook bundles pass** `make test-bundles` (100%)
 
 ## Modernization Debt (deprecated patterns still in notebooks)
 
@@ -166,8 +173,8 @@ This is a Quarto-based personal website for data science/ML educational content 
 - Dates increase by **1 week per lecture**, starting from 2025-01-08 (Lecture 1)
 - All notes within a lecture share the same date (the lecture's date)
 - If a note was first imported in an earlier lecture, it keeps that earlier date
-- **Last date used**: 2025-04-30 (Lecture 17)
-- **Next lecture (18) should use**: 2025-05-07
+- **Last date used**: 2025-05-07 (Lecture 18)
+- **Next lecture (19) should use**: 2025-05-14
 
 ## Category System
 - Canonical categories are in `_categories.txt` (root of project), one per line, sorted alphabetically
