@@ -1,0 +1,426 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Bayesian Regression with Normal Models",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "f14b606a"
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "from-the-normal-model-to-regression",
+          "level": 1
+        },
+        {
+          "slug": "keywords-bayesian-normal-normal-model-conjugate-prior-mcmc-engineering-pymc-regression",
+          "level": 5
+        }
+      ]
+    },
+    {
+      "cell": 3,
+      "type": "code",
+      "html_id": "9d51b974"
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 5,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "howells-data",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 6,
+      "type": "code",
+      "html_id": "5ad493f3"
+    },
+    {
+      "cell": 7,
+      "type": "code",
+      "html_id": "e8d7e30b"
+    },
+    {
+      "cell": 8,
+      "type": "code",
+      "html_id": "d5633bc1"
+    },
+    {
+      "cell": 9,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 10,
+      "type": "code",
+      "html_id": "1c38fbf8"
+    },
+    {
+      "cell": 11,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "model-for-heights",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 12,
+      "type": "code",
+      "html_id": "2b0cfbc7"
+    },
+    {
+      "cell": 13,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "a-pymc-model",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 14,
+      "type": "code",
+      "html_id": "4758276a"
+    },
+    {
+      "cell": 15,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 16,
+      "type": "code",
+      "html_id": "6f09d73e"
+    },
+    {
+      "cell": 17,
+      "type": "code",
+      "html_id": "17f66528"
+    },
+    {
+      "cell": 18,
+      "type": "code",
+      "html_id": "645be4d9"
+    },
+    {
+      "cell": 19,
+      "type": "code",
+      "html_id": "2ea92fbb"
+    },
+    {
+      "cell": 20,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 21,
+      "type": "code",
+      "html_id": "51fc229c"
+    },
+    {
+      "cell": 22,
+      "type": "code",
+      "html_id": "b51de144"
+    },
+    {
+      "cell": 23,
+      "type": "code",
+      "html_id": "31056f47"
+    },
+    {
+      "cell": 24,
+      "type": "code",
+      "html_id": "f5575c10"
+    },
+    {
+      "cell": 25,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "how-strong-is-the-prior",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 26,
+      "type": "code",
+      "html_id": "564ece18"
+    },
+    {
+      "cell": 27,
+      "type": "code",
+      "html_id": "55f85210"
+    },
+    {
+      "cell": 28,
+      "type": "code",
+      "html_id": "9d186aea"
+    },
+    {
+      "cell": 29,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 30,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "regression-adding-a-predictor",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 31,
+      "type": "code",
+      "html_id": "360e1d02"
+    },
+    {
+      "cell": 32,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 33,
+      "type": "code",
+      "html_id": "0979632e"
+    },
+    {
+      "cell": 34,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 35,
+      "type": "code",
+      "html_id": "79ec3612"
+    },
+    {
+      "cell": 36,
+      "type": "code",
+      "html_id": "6d4f87b3"
+    },
+    {
+      "cell": 37,
+      "type": "code",
+      "html_id": "995f57e9"
+    },
+    {
+      "cell": 38,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 39,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "centering-to-remove-correlation-identifying-information-in-our-parameters",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 40,
+      "type": "code",
+      "html_id": "ddc0ba8f"
+    },
+    {
+      "cell": 41,
+      "type": "code",
+      "html_id": "42ae0f5a"
+    },
+    {
+      "cell": 42,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 43,
+      "type": "code",
+      "html_id": "9367a10d"
+    },
+    {
+      "cell": 44,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 45,
+      "type": "code",
+      "html_id": "58a46391"
+    },
+    {
+      "cell": 46,
+      "type": "code",
+      "html_id": "581d4b16"
+    },
+    {
+      "cell": 47,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 48,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "posteriors-and-predictives",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 49,
+      "type": "code",
+      "html_id": "9e5f9c7b"
+    },
+    {
+      "cell": 50,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 51,
+      "type": "code",
+      "html_id": "ffbddcdf"
+    },
+    {
+      "cell": 52,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 53,
+      "type": "code",
+      "html_id": "d9329e25"
+    },
+    {
+      "cell": 54,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 55,
+      "type": "code",
+      "html_id": "4df77ce1"
+    },
+    {
+      "cell": 56,
+      "type": "code",
+      "html_id": "5ca5dc85"
+    },
+    {
+      "cell": 57,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 58,
+      "type": "code",
+      "html_id": "54984ee5"
+    },
+    {
+      "cell": 59,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-posterior-predictive",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 60,
+      "type": "code",
+      "html_id": "95ee7770"
+    },
+    {
+      "cell": 61,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 62,
+      "type": "code",
+      "html_id": "0edf0010"
+    },
+    {
+      "cell": 63,
+      "type": "code",
+      "html_id": "783fc39d"
+    },
+    {
+      "cell": 64,
+      "type": "code",
+      "html_id": "22250eb6"
+    },
+    {
+      "cell": 65,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 66,
+      "type": "code",
+      "html_id": "f0a6acbc"
+    },
+    {
+      "cell": 67,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 68,
+      "type": "code",
+      "html_id": "ea8ad0fd"
+    },
+    {
+      "cell": 69,
+      "type": "code",
+      "html_id": "0779fbed"
+    },
+    {
+      "cell": 70,
+      "type": "code",
+      "html_id": "362b05c1"
+    },
+    {
+      "cell": 71,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 72,
+      "type": "code",
+      "html_id": "25392b1f"
+    },
+    {
+      "cell": 73,
+      "type": "code",
+      "html_id": "97a75214"
+    }
+  ]
+}

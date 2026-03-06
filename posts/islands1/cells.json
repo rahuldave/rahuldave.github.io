@@ -1,0 +1,236 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Poisson Regression: Modeling Tool Diversity Across Islands",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "dc5016d7"
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "poisson-regression---tools-on-islands-part-1",
+          "level": 1
+        },
+        {
+          "slug": "keywords-poisson-distribution-poisson-regression-glm-centering-counterfactual-plot-regression-interaction-term-oceanic-tools-parameter-correlation",
+          "level": 5
+        }
+      ]
+    },
+    {
+      "cell": 3,
+      "type": "code",
+      "html_id": "c500a584"
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 5,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 6,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "setting-up-the-model-and-data",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 7,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 8,
+      "type": "code",
+      "html_id": "88089269"
+    },
+    {
+      "cell": 9,
+      "type": "code",
+      "html_id": "9a535247"
+    },
+    {
+      "cell": 10,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "m1",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 11,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "implementation-in-pymc",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 12,
+      "type": "code",
+      "html_id": "1d9ff04f"
+    },
+    {
+      "cell": 13,
+      "type": "code",
+      "html_id": "e6bf9112"
+    },
+    {
+      "cell": 14,
+      "type": "code",
+      "html_id": "998244f3"
+    },
+    {
+      "cell": 15,
+      "type": "code",
+      "html_id": "5f9058f0"
+    },
+    {
+      "cell": 16,
+      "type": "code",
+      "html_id": "403d09ff"
+    },
+    {
+      "cell": 17,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "posteriors",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 18,
+      "type": "code",
+      "html_id": "0d629281"
+    },
+    {
+      "cell": 19,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "posterior-check-with-counterfactual-predictions",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 20,
+      "type": "code",
+      "html_id": "7c7ed692"
+    },
+    {
+      "cell": 21,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 22,
+      "type": "code",
+      "html_id": "8c02ee5f"
+    },
+    {
+      "cell": 23,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "posterior-scatter-plots",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 24,
+      "type": "code",
+      "html_id": "dfac215f"
+    },
+    {
+      "cell": 25,
+      "type": "code",
+      "html_id": "c5784bbe"
+    },
+    {
+      "cell": 26,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 27,
+      "type": "code",
+      "html_id": "b19d25a5"
+    },
+    {
+      "cell": 28,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "fixing-by-centering",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 29,
+      "type": "code",
+      "html_id": "4da08d34"
+    },
+    {
+      "cell": 30,
+      "type": "code",
+      "html_id": "c5ec497c"
+    },
+    {
+      "cell": 31,
+      "type": "code",
+      "html_id": "761bf624"
+    },
+    {
+      "cell": 32,
+      "type": "code",
+      "html_id": "08b30cd7"
+    },
+    {
+      "cell": 33,
+      "type": "code",
+      "html_id": "e90a01e2"
+    },
+    {
+      "cell": 34,
+      "type": "code",
+      "html_id": "5e5f746f"
+    },
+    {
+      "cell": 35,
+      "type": "code",
+      "html_id": "286a7e34"
+    },
+    {
+      "cell": 36,
+      "type": "markdown",
+      "headings": []
+    }
+  ]
+}

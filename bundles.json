@@ -448,6 +448,24 @@
       "assets/invtrans.png"
     ]
   },
+  "islands1": {
+    "zip": "/posts/islands1/islands1.zip",
+    "size_bytes": 1326663,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "pymc",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": false,
+    "files": [
+      "index.ipynb",
+      "assets/islands.png",
+      "data/islands.csv"
+    ]
+  },
   "jensens": {
     "zip": "/posts/jensens/jensens.zip",
     "size_bytes": 149579,
@@ -661,6 +679,20 @@
       "assets/Howell1.csv"
     ]
   },
+  "priors": {
+    "zip": "/posts/priors/priors.zip",
+    "size_bytes": 292898,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb"
+    ]
+  },
   "probability": {
     "zip": "/posts/probability/probability.zip",
     "size_bytes": 120669,
@@ -677,6 +709,23 @@
       "assets/2flips.png",
       "assets/bishop-prob.png",
       "assets/venn.png"
+    ]
+  },
+  "pymcnormalreg": {
+    "zip": "/posts/pymcnormalreg/pymcnormalreg.zip",
+    "size_bytes": 1168220,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "pymc",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": false,
+    "files": [
+      "index.ipynb",
+      "data/Howell1.csv"
     ]
   },
   "regularization": {

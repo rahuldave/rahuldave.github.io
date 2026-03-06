@@ -19,6 +19,9 @@
     "listing": "/index.html",
     "items": [
       "/posts/seasons/index.html",
+      "/posts/priors/index.html",
+      "/posts/pymcnormalreg/index.html",
+      "/posts/islands1/index.html",
       "/posts/gewecke.html",
       "/posts/identifiability/index.html",
       "/posts/gelmanschoolstheory/index.html",
@@ -92,6 +95,9 @@
     "listing": "/posts.html",
     "items": [
       "/posts/seasons/index.html",
+      "/posts/priors/index.html",
+      "/posts/pymcnormalreg/index.html",
+      "/posts/islands1/index.html",
       "/posts/gewecke.html",
       "/posts/identifiability/index.html",
       "/posts/gelmanschoolstheory/index.html",

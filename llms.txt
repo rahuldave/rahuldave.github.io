@@ -4,9 +4,11 @@
 
 A Tetchy Gibbs Sampler: https://rahuldave.com/posts/tetchygibbs/_content.md
 Basic Monte Carlo: https://rahuldave.com/posts/basicmontecarlo/_content.md
+Bayesian Regression with Normal Models: https://rahuldave.com/posts/pymcnormalreg/_content.md
 Bayesian Regression: https://rahuldave.com/posts/bayesianregression/_content.md
 Bayesian Statistics: https://rahuldave.com/posts/bayes_withsampling/_content.md
 Box's Loop: https://rahuldave.com/posts/boxloop/_content.md
+Choosing Priors: From Flat to Weakly Informative: https://rahuldave.com/posts/priors/_content.md
 Convexity and Jensen's Inequality: https://rahuldave.com/posts/jensens/_content.md
 Data Augmentation: https://rahuldave.com/posts/dataaug/_content.md
 Discrete MCMC: https://rahuldave.com/posts/discretemcmc/_content.md
@@ -44,6 +46,7 @@ Metropolis and Support Mismatch: https://rahuldave.com/posts/metropolissupport/_
 Mixture Models and Types of Learning: https://rahuldave.com/posts/typesoflearning/_content.md
 Monte Carlo Integration: https://rahuldave.com/posts/montecarlointegrals/_content.md
 Multi-Layer Perceptron for Classification: https://rahuldave.com/posts/mlp_classification/_content.md
+Poisson Regression: Modeling Tool Diversity Across Islands: https://rahuldave.com/posts/islands1/_content.md
 Probability: https://rahuldave.com/posts/probability/_content.md
 Regression in PyTorch: https://rahuldave.com/posts/functorch/_content.md
 Regularization: https://rahuldave.com/posts/regularization/_content.md

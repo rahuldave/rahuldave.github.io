@@ -1,0 +1,256 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Choosing Priors: From Flat to Weakly Informative",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "cbed41cf"
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "priors",
+          "level": 1
+        },
+        {
+          "slug": "keywords-conjugate-prior-noninformative-prior-weakly-informative-prior-jeffreys-prior-normal-normal-model-sampling-and-priors-bayesian-mcmc-metropolis",
+          "level": 5
+        }
+      ]
+    },
+    {
+      "cell": 3,
+      "type": "code",
+      "html_id": "3959991d"
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "contents",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 5,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "flat-priors-and-transformations",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 6,
+      "type": "code",
+      "html_id": "039f7b72"
+    },
+    {
+      "cell": 7,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 8,
+      "type": "code",
+      "html_id": "130760db"
+    },
+    {
+      "cell": 9,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 10,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "uninformative-priors",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 11,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "jeffreys-prior",
+          "level": 3
+        },
+        {
+          "slug": "jeffreys-priors-for-the-gaussian-gaussian-model",
+          "level": 3
+        },
+        {
+          "slug": "kl-maximization-priors",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 12,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "weakly-informative-or-regularizing-prior",
+          "level": 2
+        },
+        {
+          "slug": "normal-normal-example",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 13,
+      "type": "code",
+      "html_id": "c6e25c21"
+    },
+    {
+      "cell": 14,
+      "type": "code",
+      "html_id": "85fd663f"
+    },
+    {
+      "cell": 15,
+      "type": "code",
+      "html_id": "fd6d34b1"
+    },
+    {
+      "cell": 16,
+      "type": "code",
+      "html_id": "5da067b1"
+    },
+    {
+      "cell": 17,
+      "type": "code",
+      "html_id": "5864080b"
+    },
+    {
+      "cell": 18,
+      "type": "code",
+      "html_id": "12038017"
+    },
+    {
+      "cell": 19,
+      "type": "code",
+      "html_id": "cfb3edf4"
+    },
+    {
+      "cell": 20,
+      "type": "code",
+      "html_id": "61ce37e5"
+    },
+    {
+      "cell": 21,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 22,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "weakly-regularizing-priors-on-mu-and-sigma",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 23,
+      "type": "code",
+      "html_id": "1352cfc3"
+    },
+    {
+      "cell": 24,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 25,
+      "type": "code",
+      "html_id": "7f2c1ec1"
+    },
+    {
+      "cell": 26,
+      "type": "code",
+      "html_id": "b16a7574"
+    },
+    {
+      "cell": 27,
+      "type": "code",
+      "html_id": "6e83ba31"
+    },
+    {
+      "cell": 28,
+      "type": "code",
+      "html_id": "00566e72"
+    },
+    {
+      "cell": 29,
+      "type": "code",
+      "html_id": "788ad9db"
+    },
+    {
+      "cell": 30,
+      "type": "code",
+      "html_id": "b8169eba"
+    },
+    {
+      "cell": 31,
+      "type": "code",
+      "html_id": "ce26339c"
+    },
+    {
+      "cell": 32,
+      "type": "code",
+      "html_id": "0c2641f0"
+    },
+    {
+      "cell": 33,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "other-choices",
+          "level": 2
+        },
+        {
+          "slug": "maximum-entropy-priors",
+          "level": 3
+        },
+        {
+          "slug": "empirical-bayes-priors",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 34,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "priors-lose-their-powers-as-n-increases",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 35,
+      "type": "code",
+      "html_id": "9f4c0c46"
+    }
+  ]
+}
