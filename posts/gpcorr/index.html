@@ -1,0 +1,2346 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2025-05-28">
+<meta name="description" content="We extend the oceanic tools Poisson regression with a custom GP covariance matrix that models geographic correlation between societies. The inverse-square distance kernel reveals how nearby islands share tool-making knowledge.">
+
+<title>Geographic Correlation and Oceanic Tools – rahuldave</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-e0d64750a3675fa668af59a9862b8111.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-4c7334514f7ce0e443f685a607965962.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-f11c5d1991550b20d5f2935d8592729b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-4c7334514f7ce0e443f685a607965962.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<!-- Google Fonts: Bitter (headings) + Source Serif 4 (body) + IBM Plex Mono (code) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+
+<!-- Bootstrap Icons for brand mark and UI elements -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Geographic Correlation and Oceanic Tools – rahuldave">
+<meta property="og:description" content="We extend the oceanic tools Poisson regression with a custom GP covariance matrix that models geographic correlation between societies. The inverse-square distance kernel reveals how nearby islands share tool-making knowledge.">
+<meta property="og:image" content="https://rahuldave.github.io/posts/gpcorr/assets/covgp.png">
+<meta property="og:site_name" content="rahuldave">
+<meta property="og:image:height" content="42">
+<meta property="og:image:width" content="264">
+<meta name="twitter:title" content="Geographic Correlation and Oceanic Tools – rahuldave">
+<meta name="twitter:description" content="We extend the oceanic tools Poisson regression with a custom GP covariance matrix that models geographic correlation between societies. The inverse-square distance kernel reveals how nearby islands share tool-making knowledge.">
+<meta name="twitter:image" content="https://rahuldave.github.io/posts/gpcorr/assets/covgp.png">
+<meta name="twitter:creator" content="@rahuldave">
+<meta name="twitter:image-height" content="42">
+<meta name="twitter:image-width" content="264">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">rahuldave</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../posts.html"> 
+<span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../til.html"> 
+<span class="menu-text">TIL</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../collections.html"> 
+<span class="menu-text">Collections</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../learning-paths.html"> 
+<span class="menu-text">Learning Paths</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#reading-in-our-data" id="toc-reading-in-our-data" class="nav-link active" data-scroll-target="#reading-in-our-data">Reading in our data</a></li>
+  <li><a href="#implementing-the-simple-toolslogpop-model-and-varying-intercepts-models" id="toc-implementing-the-simple-toolslogpop-model-and-varying-intercepts-models" class="nav-link" data-scroll-target="#implementing-the-simple-toolslogpop-model-and-varying-intercepts-models">Implementing the simple tools:logpop model and varying intercepts models</a></li>
+  <li><a href="#a-model-with-a-custom-covariance-matrix" id="toc-a-model-with-a-custom-covariance-matrix" class="nav-link" data-scroll-target="#a-model-with-a-custom-covariance-matrix">A model with a custom covariance matrix</a></li>
+  <li><a href="#plotting-posteriors-and-predictives" id="toc-plotting-posteriors-and-predictives" class="nav-link" data-scroll-target="#plotting-posteriors-and-predictives">Plotting posteriors and predictives</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<!-- Theme toggle persistence script -->
+<script>
+(function() {
+  // Check for saved theme preference, otherwise use system preference
+  const savedTheme = localStorage.getItem('quarto-color-scheme');
+  if (savedTheme) {
+    document.documentElement.setAttribute('data-bs-theme', savedTheme);
+  }
+
+  // Listen for theme changes (Quarto's built-in toggle) and persist
+  const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.attributeName === 'data-bs-theme') {
+        const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+        if (currentTheme) {
+          localStorage.setItem('quarto-color-scheme', currentTheme);
+        }
+      }
+    });
+  });
+
+  // Start observing once DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      observer.observe(document.documentElement, { attributes: true });
+    });
+  } else {
+    observer.observe(document.documentElement, { attributes: true });
+  }
+})();
+</script>
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Geographic Correlation and Oceanic Tools</h1>
+<p class="subtitle lead">Gaussian process covariance captures spatial correlation between island societies.</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">bayesian</div>
+    <div class="quarto-category">regression</div>
+    <div class="quarto-category">gaussian-processes</div>
+    <div class="quarto-category">models</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    We extend the oceanic tools Poisson regression with a custom GP covariance matrix that models geographic correlation between societies. The inverse-square distance kernel reveals how nearby islands share tool-making knowledge.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 28, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>We read back the Oceanic tools data with geographic coordinates and a distance matrix to model spatial correlation between island societies using a Gaussian Process covariance structure.</p>
+<div id="ea15bfb9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:40:59.963417Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:40:59.963295Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:02.270810Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:02.270082Z&quot;}}" data-execution_count="2" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib <span class="im">as</span> mpl</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.cm <span class="im">as</span> cm</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.width'</span>, <span class="dv">500</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_columns'</span>, <span class="dv">100</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.notebook_repr_html'</span>, <span class="va">True</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">"whitegrid"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>sns.set_context(<span class="st">"poster"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pymc <span class="im">as</span> pm</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> arviz <span class="im">as</span> az</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="reading-in-our-data" class="level2">
+<h2 class="anchored" data-anchor-id="reading-in-our-data">Reading in our data</h2>
+<p>We read back the Oceanic tools data</p>
+<div id="c9101152" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:41:02.273006Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:41:02.272762Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:02.283706Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:02.283230Z&quot;}}" data-execution_count="3" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"data/Kline2.csv"</span>, sep<span class="op">=</span><span class="st">';'</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">culture</th>
+<th data-quarto-table-cell-role="th">population</th>
+<th data-quarto-table-cell-role="th">contact</th>
+<th data-quarto-table-cell-role="th">total_tools</th>
+<th data-quarto-table-cell-role="th">mean_TU</th>
+<th data-quarto-table-cell-role="th">lat</th>
+<th data-quarto-table-cell-role="th">lon</th>
+<th data-quarto-table-cell-role="th">lon2</th>
+<th data-quarto-table-cell-role="th">logpop</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>Malekula</td>
+<td>1100</td>
+<td>low</td>
+<td>13</td>
+<td>3.2</td>
+<td>-16.3</td>
+<td>167.5</td>
+<td>-12.5</td>
+<td>7.003065</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>Tikopia</td>
+<td>1500</td>
+<td>low</td>
+<td>22</td>
+<td>4.7</td>
+<td>-12.3</td>
+<td>168.8</td>
+<td>-11.2</td>
+<td>7.313220</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>Santa Cruz</td>
+<td>3600</td>
+<td>low</td>
+<td>24</td>
+<td>4.0</td>
+<td>-10.7</td>
+<td>166.0</td>
+<td>-14.0</td>
+<td>8.188689</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>Yap</td>
+<td>4791</td>
+<td>high</td>
+<td>43</td>
+<td>5.0</td>
+<td>9.5</td>
+<td>138.1</td>
+<td>-41.9</td>
+<td>8.474494</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>Lau Fiji</td>
+<td>7400</td>
+<td>high</td>
+<td>33</td>
+<td>5.0</td>
+<td>-17.7</td>
+<td>178.1</td>
+<td>-1.9</td>
+<td>8.909235</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>And center it</p>
+<div id="a773c822" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:41:02.284978Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:41:02.284851Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:02.287697Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:02.287034Z&quot;}}" data-execution_count="4" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'logpop_c'</span>] <span class="op">=</span> df.logpop <span class="op">-</span> df.logpop.mean()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="213b5a45" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:41:02.289215Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:41:02.289088Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:02.294985Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:02.294588Z&quot;}}" data-execution_count="5" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">culture</th>
+<th data-quarto-table-cell-role="th">population</th>
+<th data-quarto-table-cell-role="th">contact</th>
+<th data-quarto-table-cell-role="th">total_tools</th>
+<th data-quarto-table-cell-role="th">mean_TU</th>
+<th data-quarto-table-cell-role="th">lat</th>
+<th data-quarto-table-cell-role="th">lon</th>
+<th data-quarto-table-cell-role="th">lon2</th>
+<th data-quarto-table-cell-role="th">logpop</th>
+<th data-quarto-table-cell-role="th">logpop_c</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>Malekula</td>
+<td>1100</td>
+<td>low</td>
+<td>13</td>
+<td>3.2</td>
+<td>-16.3</td>
+<td>167.5</td>
+<td>-12.5</td>
+<td>7.003065</td>
+<td>-1.973939</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>Tikopia</td>
+<td>1500</td>
+<td>low</td>
+<td>22</td>
+<td>4.7</td>
+<td>-12.3</td>
+<td>168.8</td>
+<td>-11.2</td>
+<td>7.313220</td>
+<td>-1.663784</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>Santa Cruz</td>
+<td>3600</td>
+<td>low</td>
+<td>24</td>
+<td>4.0</td>
+<td>-10.7</td>
+<td>166.0</td>
+<td>-14.0</td>
+<td>8.188689</td>
+<td>-0.788316</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>Yap</td>
+<td>4791</td>
+<td>high</td>
+<td>43</td>
+<td>5.0</td>
+<td>9.5</td>
+<td>138.1</td>
+<td>-41.9</td>
+<td>8.474494</td>
+<td>-0.502510</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>Lau Fiji</td>
+<td>7400</td>
+<td>high</td>
+<td>33</td>
+<td>5.0</td>
+<td>-17.7</td>
+<td>178.1</td>
+<td>-1.9</td>
+<td>8.909235</td>
+<td>-0.067769</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>And read in the distance matrix</p>
+<div id="95f3804e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:41:02.296209Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:41:02.296116Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:02.300166Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:02.299660Z&quot;}}" data-execution_count="6" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dfd <span class="op">=</span> pd.read_csv(<span class="st">"data/distmatrix.csv"</span>, header<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>dij<span class="op">=</span>dfd.values</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>dij</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>array([[0.   , 0.475, 0.631, 4.363, 1.234, 2.036, 3.178, 2.794, 1.86 ,
+        5.678],
+       [0.475, 0.   , 0.315, 4.173, 1.236, 2.007, 2.877, 2.67 , 1.965,
+        5.283],
+       [0.631, 0.315, 0.   , 3.859, 1.55 , 1.708, 2.588, 2.356, 2.279,
+        5.401],
+       [4.363, 4.173, 3.859, 0.   , 5.391, 2.462, 1.555, 1.616, 6.136,
+        7.178],
+       [1.234, 1.236, 1.55 , 5.391, 0.   , 3.219, 4.027, 3.906, 0.763,
+        4.884],
+       [2.036, 2.007, 1.708, 2.462, 3.219, 0.   , 1.801, 0.85 , 3.893,
+        6.653],
+       [3.178, 2.877, 2.588, 1.555, 4.027, 1.801, 0.   , 1.213, 4.789,
+        5.787],
+       [2.794, 2.67 , 2.356, 1.616, 3.906, 0.85 , 1.213, 0.   , 4.622,
+        6.722],
+       [1.86 , 1.965, 2.279, 6.136, 0.763, 3.893, 4.789, 4.622, 0.   ,
+        5.037],
+       [5.678, 5.283, 5.401, 7.178, 4.884, 6.653, 5.787, 6.722, 5.037,
+        0.   ]])</code></pre>
+</div>
+</div>
+</section>
+<section id="implementing-the-simple-toolslogpop-model-and-varying-intercepts-models" class="level2">
+<h2 class="anchored" data-anchor-id="implementing-the-simple-toolslogpop-model-and-varying-intercepts-models">Implementing the simple tools:logpop model and varying intercepts models</h2>
+<div id="876a13bf" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:41:02.301431Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:41:02.301315Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:02.303273Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:02.302694Z&quot;}}" data-execution_count="7" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pytensor.tensor <span class="im">as</span> pt</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="8e32e335" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:41:02.304735Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:41:02.304618Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:05.016701Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:05.015980Z&quot;}}" data-execution_count="8" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pm.Model() <span class="im">as</span> m2c_onlyp:</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    betap <span class="op">=</span> pm.Normal(<span class="st">"betap"</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    alpha <span class="op">=</span> pm.Normal(<span class="st">"alpha"</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    loglam <span class="op">=</span> alpha <span class="op">+</span> betap<span class="op">*</span>df.logpop_c</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> pm.Poisson(<span class="st">"ntools"</span>, mu<span class="op">=</span>pt.exp(loglam), observed<span class="op">=</span>df.total_tools)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    trace2c_onlyp <span class="op">=</span> pm.sample(<span class="dv">6000</span>, tune<span class="op">=</span><span class="dv">1000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Initializing NUTS using jitter+adapt_diag...
+Multiprocess sampling (4 chains in 4 jobs)
+NUTS: [betap, alpha]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">/Users/rahul/Library/Caches/uv/archive-v0/aTiHGxSE8gD8G3bEQyxJO/lib/python3.14/site-packages/rich/live.py:260: 
+UserWarning: install "ipywidgets" for Jupyter support
+  warnings.warn('install "ipywidgets" for Jupyter support')
+</pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Sampling 4 chains for 1_000 tune and 6_000 draw iterations (4_000 + 24_000 draws total) took 2 seconds.</code></pre>
+</div>
+</div>
+<div id="048728d2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:41:05.018223Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:41:05.018075Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:05.050057Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:05.049512Z&quot;}}" data-execution_count="9" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>az.summary(trace2c_onlyp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">sd</th>
+<th data-quarto-table-cell-role="th">hdi_3%</th>
+<th data-quarto-table-cell-role="th">hdi_97%</th>
+<th data-quarto-table-cell-role="th">mcse_mean</th>
+<th data-quarto-table-cell-role="th">mcse_sd</th>
+<th data-quarto-table-cell-role="th">ess_bulk</th>
+<th data-quarto-table-cell-role="th">ess_tail</th>
+<th data-quarto-table-cell-role="th">r_hat</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">betap</th>
+<td>0.239</td>
+<td>0.031</td>
+<td>0.179</td>
+<td>0.297</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>20521.0</td>
+<td>16397.0</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">alpha</th>
+<td>3.478</td>
+<td>0.058</td>
+<td>3.372</td>
+<td>3.588</td>
+<td>0.0</td>
+<td>0.0</td>
+<td>20922.0</td>
+<td>16520.0</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Notice that <span class="math inline">\(\beta_P\)</span> has a value around 0.24</p>
+<p>We also implement the varying intercepts per society model from before</p>
+<div id="1058274e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:41:05.051404Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:41:05.051283Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:11.215818Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:11.215302Z&quot;}}" data-execution_count="10" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pm.Model() <span class="im">as</span> m3c:</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    betap <span class="op">=</span> pm.Normal(<span class="st">"betap"</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    alpha <span class="op">=</span> pm.Normal(<span class="st">"alpha"</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    sigmasoc <span class="op">=</span> pm.HalfCauchy(<span class="st">"sigmasoc"</span>, <span class="dv">1</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    alphasoc <span class="op">=</span> pm.Normal(<span class="st">"alphasoc"</span>, <span class="dv">0</span>, sigmasoc, shape<span class="op">=</span>df.shape[<span class="dv">0</span>])</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    loglam <span class="op">=</span> alpha <span class="op">+</span> alphasoc <span class="op">+</span> betap<span class="op">*</span>df.logpop_c </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> pm.Poisson(<span class="st">"ntools"</span>, mu<span class="op">=</span>pt.exp(loglam), observed<span class="op">=</span>df.total_tools)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> m3c:</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    trace3 <span class="op">=</span> pm.sample(<span class="dv">6000</span>, tune<span class="op">=</span><span class="dv">1000</span>, target_accept<span class="op">=</span><span class="fl">0.95</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Initializing NUTS using jitter+adapt_diag...
+Multiprocess sampling (4 chains in 4 jobs)
+NUTS: [betap, alpha, sigmasoc, alphasoc]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">/Users/rahul/Library/Caches/uv/archive-v0/aTiHGxSE8gD8G3bEQyxJO/lib/python3.14/site-packages/rich/live.py:260: 
+UserWarning: install "ipywidgets" for Jupyter support
+  warnings.warn('install "ipywidgets" for Jupyter support')
+</pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Sampling 4 chains for 1_000 tune and 6_000 draw iterations (4_000 + 24_000 draws total) took 5 seconds.
+There were 10 divergences after tuning. Increase `target_accept` or reparameterize.</code></pre>
+</div>
+</div>
+<div id="00a8bd9c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:41:11.217007Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:41:11.216918Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:11.373307Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:11.372645Z&quot;}}" data-execution_count="11" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>az.summary(trace3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">sd</th>
+<th data-quarto-table-cell-role="th">hdi_3%</th>
+<th data-quarto-table-cell-role="th">hdi_97%</th>
+<th data-quarto-table-cell-role="th">mcse_mean</th>
+<th data-quarto-table-cell-role="th">mcse_sd</th>
+<th data-quarto-table-cell-role="th">ess_bulk</th>
+<th data-quarto-table-cell-role="th">ess_tail</th>
+<th data-quarto-table-cell-role="th">r_hat</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">betap</th>
+<td>0.261</td>
+<td>0.081</td>
+<td>0.107</td>
+<td>0.416</td>
+<td>0.001</td>
+<td>0.001</td>
+<td>9947.0</td>
+<td>9891.0</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">alpha</th>
+<td>3.443</td>
+<td>0.120</td>
+<td>3.211</td>
+<td>3.667</td>
+<td>0.001</td>
+<td>0.001</td>
+<td>7646.0</td>
+<td>8098.0</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">alphasoc[0]</th>
+<td>-0.201</td>
+<td>0.241</td>
+<td>-0.665</td>
+<td>0.243</td>
+<td>0.002</td>
+<td>0.002</td>
+<td>12562.0</td>
+<td>11942.0</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">alphasoc[1]</th>
+<td>0.042</td>
+<td>0.221</td>
+<td>-0.367</td>
+<td>0.478</td>
+<td>0.002</td>
+<td>0.002</td>
+<td>11734.0</td>
+<td>10870.0</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">alphasoc[2]</th>
+<td>-0.048</td>
+<td>0.195</td>
+<td>-0.418</td>
+<td>0.331</td>
+<td>0.002</td>
+<td>0.002</td>
+<td>12818.0</td>
+<td>12931.0</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">alphasoc[3]</th>
+<td>0.325</td>
+<td>0.189</td>
+<td>-0.025</td>
+<td>0.678</td>
+<td>0.002</td>
+<td>0.002</td>
+<td>7467.0</td>
+<td>9482.0</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">alphasoc[4]</th>
+<td>0.044</td>
+<td>0.176</td>
+<td>-0.281</td>
+<td>0.391</td>
+<td>0.002</td>
+<td>0.001</td>
+<td>12480.0</td>
+<td>11816.0</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">alphasoc[5]</th>
+<td>-0.317</td>
+<td>0.208</td>
+<td>-0.713</td>
+<td>0.049</td>
+<td>0.002</td>
+<td>0.002</td>
+<td>11430.0</td>
+<td>12974.0</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">alphasoc[6]</th>
+<td>0.145</td>
+<td>0.171</td>
+<td>-0.169</td>
+<td>0.478</td>
+<td>0.002</td>
+<td>0.001</td>
+<td>11496.0</td>
+<td>11783.0</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">alphasoc[7]</th>
+<td>-0.171</td>
+<td>0.182</td>
+<td>-0.533</td>
+<td>0.151</td>
+<td>0.002</td>
+<td>0.001</td>
+<td>12357.0</td>
+<td>13019.0</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">alphasoc[8]</th>
+<td>0.274</td>
+<td>0.175</td>
+<td>-0.042</td>
+<td>0.613</td>
+<td>0.002</td>
+<td>0.001</td>
+<td>9749.0</td>
+<td>10910.0</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">alphasoc[9]</th>
+<td>-0.093</td>
+<td>0.288</td>
+<td>-0.651</td>
+<td>0.458</td>
+<td>0.003</td>
+<td>0.003</td>
+<td>10202.0</td>
+<td>9662.0</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">sigmasoc</th>
+<td>0.308</td>
+<td>0.127</td>
+<td>0.087</td>
+<td>0.545</td>
+<td>0.002</td>
+<td>0.001</td>
+<td>4838.0</td>
+<td>3874.0</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="a-model-with-a-custom-covariance-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="a-model-with-a-custom-covariance-matrix">A model with a custom covariance matrix</h2>
+<p>The assumption here now is that the intercepts for these various societies are correlated…</p>
+<p>We use a custom covariance matrix which inverse-square weights distance</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/covgp.png" class="img-fluid figure-img"></p>
+<figcaption>GP covariance matrix: squared-exponential kernel weighted by geographic distance, plus a noise term</figcaption>
+</figure>
+</div>
+<p>You have seen this before! This is an example of a Gaussian Process Covariance Matrix.</p>
+<p>Here is the complete model:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/modelgp.png" class="img-fluid figure-img"></p>
+<figcaption>Full model specification: Poisson regression with GP-correlated society intercepts and distance-based covariance</figcaption>
+</figure>
+</div>
+<div id="4bffff5c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:41:11.374901Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:41:11.374773Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:11.400287Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:11.399815Z&quot;}}" data-execution_count="12" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> pm.Model() <span class="im">as</span> mgc:</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    betap <span class="op">=</span> pm.Normal(<span class="st">"betap"</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    alpha <span class="op">=</span> pm.Normal(<span class="st">"alpha"</span>, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    etasq <span class="op">=</span> pm.HalfCauchy(<span class="st">"etasq"</span>, <span class="dv">1</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    rhosq <span class="op">=</span> pm.HalfCauchy(<span class="st">"rhosq"</span>, <span class="dv">1</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    means <span class="op">=</span> pt.stack([<span class="fl">0.0</span>]<span class="op">*</span><span class="dv">10</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    sigma_matrix <span class="op">=</span> pt.diag(pt.as_tensor_variable([<span class="fl">0.01</span>]<span class="op">*</span><span class="dv">10</span>))</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    cov <span class="op">=</span> pt.exp(<span class="op">-</span>rhosq<span class="op">*</span>dij<span class="op">*</span>dij)<span class="op">*</span>etasq <span class="op">+</span> sigma_matrix</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    gammasoc <span class="op">=</span> pm.MvNormal(<span class="st">"gammasoc"</span>, means, cov<span class="op">=</span>cov, shape<span class="op">=</span>df.shape[<span class="dv">0</span>])</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    loglam <span class="op">=</span> alpha <span class="op">+</span> gammasoc <span class="op">+</span> betap<span class="op">*</span>df.logpop_c </span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> pm.Poisson(<span class="st">"ntools"</span>, mu<span class="op">=</span>pt.exp(loglam), observed<span class="op">=</span>df.total_tools)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="d6d85e2b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:41:11.402055Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:41:11.401908Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:55.493013Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:55.492291Z&quot;}}" data-execution_count="13" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> mgc:</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    mgctrace <span class="op">=</span> pm.sample(<span class="dv">10000</span>, tune<span class="op">=</span><span class="dv">2000</span>, target_accept<span class="op">=</span><span class="fl">0.95</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Initializing NUTS using jitter+adapt_diag...
+Multiprocess sampling (4 chains in 4 jobs)
+NUTS: [betap, alpha, etasq, rhosq, gammasoc]</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace">/Users/rahul/Library/Caches/uv/archive-v0/aTiHGxSE8gD8G3bEQyxJO/lib/python3.14/site-packages/rich/live.py:260: 
+UserWarning: install "ipywidgets" for Jupyter support
+  warnings.warn('install "ipywidgets" for Jupyter support')
+</pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre style="white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace"></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Sampling 4 chains for 2_000 tune and 10_000 draw iterations (8_000 + 40_000 draws total) took 42 seconds.</code></pre>
+</div>
+</div>
+<div id="6356d2e0" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:41:55.494710Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:41:55.494567Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:55.773207Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:55.772528Z&quot;}}" data-execution_count="14" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>az.summary(mgctrace)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">mean</th>
+<th data-quarto-table-cell-role="th">sd</th>
+<th data-quarto-table-cell-role="th">hdi_3%</th>
+<th data-quarto-table-cell-role="th">hdi_97%</th>
+<th data-quarto-table-cell-role="th">mcse_mean</th>
+<th data-quarto-table-cell-role="th">mcse_sd</th>
+<th data-quarto-table-cell-role="th">ess_bulk</th>
+<th data-quarto-table-cell-role="th">ess_tail</th>
+<th data-quarto-table-cell-role="th">r_hat</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">betap</th>
+<td>0.246</td>
+<td>0.115</td>
+<td>0.028</td>
+<td>0.469</td>
+<td>0.001</td>
+<td>0.001</td>
+<td>10228.0</td>
+<td>11850.0</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">alpha</th>
+<td>3.509</td>
+<td>0.354</td>
+<td>2.861</td>
+<td>4.149</td>
+<td>0.006</td>
+<td>0.013</td>
+<td>4779.0</td>
+<td>3911.0</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">gammasoc[0]</th>
+<td>-0.268</td>
+<td>0.455</td>
+<td>-1.121</td>
+<td>0.549</td>
+<td>0.007</td>
+<td>0.012</td>
+<td>5484.0</td>
+<td>4869.0</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">gammasoc[1]</th>
+<td>-0.120</td>
+<td>0.443</td>
+<td>-0.968</td>
+<td>0.670</td>
+<td>0.007</td>
+<td>0.012</td>
+<td>5099.0</td>
+<td>4180.0</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">gammasoc[2]</th>
+<td>-0.164</td>
+<td>0.428</td>
+<td>-0.982</td>
+<td>0.587</td>
+<td>0.007</td>
+<td>0.012</td>
+<td>5138.0</td>
+<td>4151.0</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">gammasoc[3]</th>
+<td>0.300</td>
+<td>0.385</td>
+<td>-0.414</td>
+<td>0.991</td>
+<td>0.006</td>
+<td>0.012</td>
+<td>5388.0</td>
+<td>4369.0</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">gammasoc[4]</th>
+<td>0.032</td>
+<td>0.379</td>
+<td>-0.660</td>
+<td>0.720</td>
+<td>0.006</td>
+<td>0.013</td>
+<td>5340.0</td>
+<td>4222.0</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">gammasoc[5]</th>
+<td>-0.454</td>
+<td>0.388</td>
+<td>-1.163</td>
+<td>0.214</td>
+<td>0.006</td>
+<td>0.012</td>
+<td>5582.0</td>
+<td>4762.0</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">gammasoc[6]</th>
+<td>0.102</td>
+<td>0.374</td>
+<td>-0.585</td>
+<td>0.773</td>
+<td>0.006</td>
+<td>0.013</td>
+<td>5442.0</td>
+<td>4361.0</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">gammasoc[7]</th>
+<td>-0.258</td>
+<td>0.376</td>
+<td>-0.952</td>
+<td>0.402</td>
+<td>0.006</td>
+<td>0.013</td>
+<td>5448.0</td>
+<td>4625.0</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">gammasoc[8]</th>
+<td>0.239</td>
+<td>0.357</td>
+<td>-0.391</td>
+<td>0.908</td>
+<td>0.005</td>
+<td>0.013</td>
+<td>5642.0</td>
+<td>4511.0</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">gammasoc[9]</th>
+<td>-0.115</td>
+<td>0.460</td>
+<td>-0.978</td>
+<td>0.770</td>
+<td>0.005</td>
+<td>0.009</td>
+<td>8816.0</td>
+<td>8235.0</td>
+<td>1.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">etasq</th>
+<td>0.352</td>
+<td>0.590</td>
+<td>0.000</td>
+<td>1.007</td>
+<td>0.007</td>
+<td>0.058</td>
+<td>6572.0</td>
+<td>9485.0</td>
+<td>1.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">rhosq</th>
+<td>2.028</td>
+<td>61.589</td>
+<td>0.002</td>
+<td>3.745</td>
+<td>0.361</td>
+<td>28.788</td>
+<td>7949.0</td>
+<td>11599.0</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="5c3d0d3b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:41:55.774831Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:41:55.774707Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:56.978494Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:56.977997Z&quot;}}" data-execution_count="15" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>az.plot_trace(mgctrace)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="c1c7e226" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:41:56.980071Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:41:56.979969Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:58.974894Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:58.974291Z&quot;}}" data-execution_count="16" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>az.plot_autocorr(mgctrace)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/rahul/Library/Caches/uv/archive-v0/aTiHGxSE8gD8G3bEQyxJO/lib/python3.14/site-packages/arviz/plots/plot_utils.py:270: UserWarning: rcParams['plot.max_subplots'] (40) is smaller than the number of variables to plot (56) in plot_autocorr, generating only 40 plots
+  warnings.warn(</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-17-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="9ce11c5b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:41:58.977078Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:41:58.976825Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:58.983621Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:58.983236Z&quot;}}" data-execution_count="17" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>d<span class="op">=</span>{}</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>gammasoc_samples <span class="op">=</span> mgctrace.posterior[<span class="st">'gammasoc'</span>].values.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">10</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, v <span class="kw">in</span> <span class="bu">enumerate</span>(df.culture.values):</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    d[v] <span class="op">=</span> gammasoc_samples[:,i]</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>dfsamps<span class="op">=</span>pd.DataFrame.from_dict(d)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>dfsamps.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Malekula</th>
+<th data-quarto-table-cell-role="th">Tikopia</th>
+<th data-quarto-table-cell-role="th">Santa Cruz</th>
+<th data-quarto-table-cell-role="th">Yap</th>
+<th data-quarto-table-cell-role="th">Lau Fiji</th>
+<th data-quarto-table-cell-role="th">Trobriand</th>
+<th data-quarto-table-cell-role="th">Chuuk</th>
+<th data-quarto-table-cell-role="th">Manus</th>
+<th data-quarto-table-cell-role="th">Tonga</th>
+<th data-quarto-table-cell-role="th">Hawaii</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>-0.130590</td>
+<td>0.089298</td>
+<td>-0.181058</td>
+<td>0.615596</td>
+<td>0.044638</td>
+<td>0.310527</td>
+<td>0.318529</td>
+<td>0.011540</td>
+<td>0.522527</td>
+<td>0.314769</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>-0.086934</td>
+<td>0.260856</td>
+<td>-0.154601</td>
+<td>0.322845</td>
+<td>0.349256</td>
+<td>-0.795153</td>
+<td>0.188721</td>
+<td>-0.294910</td>
+<td>0.368426</td>
+<td>-0.112205</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>-0.032733</td>
+<td>-0.008312</td>
+<td>0.203633</td>
+<td>0.255771</td>
+<td>0.592531</td>
+<td>-0.736068</td>
+<td>0.244687</td>
+<td>-0.314360</td>
+<td>0.449234</td>
+<td>-0.123681</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>-0.103811</td>
+<td>-0.273942</td>
+<td>0.047349</td>
+<td>0.704714</td>
+<td>0.157025</td>
+<td>-0.358446</td>
+<td>0.295830</td>
+<td>0.189327</td>
+<td>0.385959</td>
+<td>0.165699</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>-0.138728</td>
+<td>0.030216</td>
+<td>-0.301498</td>
+<td>0.259886</td>
+<td>0.256591</td>
+<td>-0.179903</td>
+<td>0.237708</td>
+<td>-0.223339</td>
+<td>0.380631</td>
+<td>0.238701</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="6daf8683" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:41:58.984757Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:41:58.984674Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:59.005899Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:59.005423Z&quot;}}" data-execution_count="18" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>dfsamps.describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Malekula</th>
+<th data-quarto-table-cell-role="th">Tikopia</th>
+<th data-quarto-table-cell-role="th">Santa Cruz</th>
+<th data-quarto-table-cell-role="th">Yap</th>
+<th data-quarto-table-cell-role="th">Lau Fiji</th>
+<th data-quarto-table-cell-role="th">Trobriand</th>
+<th data-quarto-table-cell-role="th">Chuuk</th>
+<th data-quarto-table-cell-role="th">Manus</th>
+<th data-quarto-table-cell-role="th">Tonga</th>
+<th data-quarto-table-cell-role="th">Hawaii</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">count</th>
+<td>40000.000000</td>
+<td>40000.000000</td>
+<td>40000.000000</td>
+<td>40000.000000</td>
+<td>40000.000000</td>
+<td>40000.000000</td>
+<td>40000.000000</td>
+<td>40000.000000</td>
+<td>40000.000000</td>
+<td>40000.000000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">mean</th>
+<td>-0.267976</td>
+<td>-0.119667</td>
+<td>-0.164049</td>
+<td>0.300261</td>
+<td>0.031830</td>
+<td>-0.453667</td>
+<td>0.102345</td>
+<td>-0.257916</td>
+<td>0.238663</td>
+<td>-0.115166</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">std</th>
+<td>0.455163</td>
+<td>0.443377</td>
+<td>0.427740</td>
+<td>0.384622</td>
+<td>0.378590</td>
+<td>0.388457</td>
+<td>0.373908</td>
+<td>0.376287</td>
+<td>0.356762</td>
+<td>0.459638</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">min</th>
+<td>-5.289634</td>
+<td>-4.423674</td>
+<td>-4.465862</td>
+<td>-3.658895</td>
+<td>-3.881839</td>
+<td>-4.573565</td>
+<td>-3.968056</td>
+<td>-4.391581</td>
+<td>-3.535199</td>
+<td>-4.035076</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">25%</th>
+<td>-0.494601</td>
+<td>-0.337898</td>
+<td>-0.363096</td>
+<td>0.115944</td>
+<td>-0.143074</td>
+<td>-0.637728</td>
+<td>-0.066815</td>
+<td>-0.431598</td>
+<td>0.076133</td>
+<td>-0.363911</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">50%</th>
+<td>-0.236810</td>
+<td>-0.093558</td>
+<td>-0.132354</td>
+<td>0.309491</td>
+<td>0.046415</td>
+<td>-0.418354</td>
+<td>0.116564</td>
+<td>-0.231101</td>
+<td>0.248910</td>
+<td>-0.108310</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">75%</th>
+<td>-0.008959</td>
+<td>0.128550</td>
+<td>0.076217</td>
+<td>0.503830</td>
+<td>0.229287</td>
+<td>-0.231597</td>
+<td>0.297074</td>
+<td>-0.055373</td>
+<td>0.422726</td>
+<td>0.138756</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">max</th>
+<td>3.642086</td>
+<td>3.495336</td>
+<td>3.480449</td>
+<td>3.841792</td>
+<td>3.590994</td>
+<td>2.914655</td>
+<td>3.495762</td>
+<td>3.064075</td>
+<td>3.666528</td>
+<td>3.068279</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="plotting-posteriors-and-predictives" class="level2">
+<h2 class="anchored" data-anchor-id="plotting-posteriors-and-predictives">Plotting posteriors and predictives</h2>
+<p>Lets plot the covariance posteriors for the 100 random samples in the trace.</p>
+<div id="4ae4997b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:41:59.007275Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:41:59.007152Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:59.010113Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:59.009644Z&quot;}}" data-execution_count="19" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>smalleta<span class="op">=</span>np.random.choice(mgctrace.posterior[<span class="st">'etasq'</span>].values.flatten(), replace<span class="op">=</span><span class="va">False</span>, size<span class="op">=</span><span class="dv">100</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>smallrho<span class="op">=</span>np.random.choice(mgctrace.posterior[<span class="st">'rhosq'</span>].values.flatten(), replace<span class="op">=</span><span class="va">False</span>, size<span class="op">=</span><span class="dv">100</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="9c696f9d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:41:59.011483Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:41:59.011289Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:59.079464Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:59.079014Z&quot;}}" data-execution_count="20" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sns.plotting_context(<span class="st">'poster'</span>):</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    d<span class="op">=</span>np.linspace(<span class="dv">0</span>,<span class="dv">10</span>,<span class="dv">100</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">100</span>):</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>        covarod <span class="op">=</span> <span class="kw">lambda</span> d: smalleta[i]<span class="op">*</span>np.exp(<span class="op">-</span>smallrho[i]<span class="op">*</span>d<span class="op">*</span>d)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>        plt.plot(d, covarod(d),alpha<span class="op">=</span><span class="fl">0.1</span>, color<span class="op">=</span><span class="st">'k'</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    medetasq<span class="op">=</span>np.median(mgctrace.posterior[<span class="st">'etasq'</span>].values.flatten())</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    medrhosq<span class="op">=</span>np.median(mgctrace.posterior[<span class="st">'rhosq'</span>].values.flatten())</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    covarodmed <span class="op">=</span> <span class="kw">lambda</span> d: medetasq<span class="op">*</span>np.exp(<span class="op">-</span>medrhosq<span class="op">*</span>d<span class="op">*</span>d)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    plt.plot(d, covarodmed(d),alpha<span class="op">=</span><span class="fl">1.0</span>, color<span class="op">=</span><span class="st">'k'</span>, lw<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    plt.ylim([<span class="dv">0</span>,<span class="dv">1</span>])<span class="op">;</span> </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-21-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The x-axis is thousands of kilometers. Notice how almost everything damps out by 4000 kms. Lets calculate the median correlation matrix:</p>
+<div id="9032decd" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:41:59.081165Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:41:59.081016Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:59.083274Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:59.082708Z&quot;}}" data-execution_count="21" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>medkij <span class="op">=</span> np.diag([<span class="fl">0.01</span>]<span class="op">*</span><span class="dv">10</span>)<span class="op">+</span>medetasq<span class="op">*</span>(np.exp(<span class="op">-</span>medrhosq<span class="op">*</span>dij<span class="op">*</span>dij))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="2f12341c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:41:59.084463Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:41:59.084350Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:59.086802Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:59.086361Z&quot;}}" data-execution_count="22" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co">#from statsmodels</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cov2corr(cov, return_std<span class="op">=</span><span class="va">False</span>):</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''convert covariance matrix to correlation matrix</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co">    ----------</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="co">    cov : array_like, 2d</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="co">        covariance matrix, see Notes</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="co">    -------</span></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="co">    corr : ndarray (subclass)</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="co">        correlation matrix</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="co">    return_std : bool</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="co">        If this is true then the standard deviation is also returned.</span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a><span class="co">        By default only the correlation matrix is returned.</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a><span class="co">    Notes</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a><span class="co">    -----</span></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a><span class="co">    This function does not convert subclasses of ndarrays. This requires</span></span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a><span class="co">    that division is defined elementwise. np.ma.array and np.matrix are allowed.</span></span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>    cov <span class="op">=</span> np.asanyarray(cov)</span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>    std_ <span class="op">=</span> np.sqrt(np.diag(cov))</span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>    corr <span class="op">=</span> cov <span class="op">/</span> np.outer(std_, std_)</span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> return_std:</span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> corr, std_</span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> corr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="ca476284" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:41:59.087969Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:41:59.087879Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:59.090688Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:59.090275Z&quot;}}" data-execution_count="23" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>medcorrij<span class="op">=</span>cov2corr(medkij)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>medcorrij</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<pre><code>array([[1.00000000e+00, 8.69835262e-01, 8.11247323e-01, 4.34367364e-04,
+        5.14947515e-01, 1.78423268e-01, 1.60816245e-02, 4.06297035e-02,
+        2.35399591e-01, 2.09068998e-06],
+       [8.69835262e-01, 1.00000000e+00, 9.15425265e-01, 8.36612901e-04,
+        5.13920440e-01, 1.87081494e-01, 3.35913172e-02, 5.34275935e-02,
+        2.00129903e-01, 1.20288892e-05],
+       [8.11247323e-01, 9.15425265e-01, 1.00000000e+00, 2.31844903e-03,
+        3.60868694e-01, 2.93087429e-01, 6.35978815e-02, 1.01103669e-01,
+        1.16791052e-01, 7.22676264e-06],
+       [4.34367364e-04, 8.36612901e-04, 2.31844903e-03, 1.00000000e+00,
+        7.54894121e-06, 8.22482782e-02, 3.58611523e-01, 3.31644646e-01,
+        2.34734649e-07, 8.62061048e-10],
+       [5.14947515e-01, 5.13920440e-01, 3.60868694e-01, 7.54894121e-06,
+        1.00000000e+00, 1.44642105e-02, 1.35724605e-03, 2.00050756e-03,
+        7.53105751e-01, 6.19798877e-05],
+       [1.78423268e-01, 1.87081494e-01, 2.93087429e-01, 8.22482782e-02,
+        1.44642105e-02, 1.00000000e+00, 2.56872798e-01, 7.11581900e-01,
+        2.08418262e-03, 1.62198197e-08],
+       [1.60816245e-02, 3.35913172e-02, 6.35978815e-02, 3.58611523e-01,
+        1.35724605e-03, 2.56872798e-01, 1.00000000e+00, 5.25753868e-01,
+        8.98552376e-05, 1.26166302e-06],
+       [4.06297035e-02, 5.34275935e-02, 1.01103669e-01, 3.31644646e-01,
+        2.00050756e-03, 7.11581900e-01, 5.25753868e-01, 1.00000000e+00,
+        1.69589545e-04, 1.11702234e-08],
+       [2.35399591e-01, 2.00129903e-01, 1.16791052e-01, 2.34734649e-07,
+        7.53105751e-01, 2.08418262e-03, 8.98552376e-05, 1.69589545e-04,
+        1.00000000e+00, 3.35602210e-05],
+       [2.09068998e-06, 1.20288892e-05, 7.22676264e-06, 8.62061048e-10,
+        6.19798877e-05, 1.62198197e-08, 1.26166302e-06, 1.11702234e-08,
+        3.35602210e-05, 1.00000000e+00]])</code></pre>
+</div>
+</div>
+<p>We’ll data frame it to see clearly</p>
+<div id="87de7932" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:41:59.091848Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:41:59.091750Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:59.097914Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:59.097514Z&quot;}}" data-execution_count="24" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>dfcorr <span class="op">=</span> pd.DataFrame(medcorrij<span class="op">*</span><span class="dv">100</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>dfcorr.index <span class="op">=</span> df.culture.tolist()</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>dfcorr.columns <span class="op">=</span> df.culture.tolist()</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>dfcorr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Malekula</th>
+<th data-quarto-table-cell-role="th">Tikopia</th>
+<th data-quarto-table-cell-role="th">Santa Cruz</th>
+<th data-quarto-table-cell-role="th">Yap</th>
+<th data-quarto-table-cell-role="th">Lau Fiji</th>
+<th data-quarto-table-cell-role="th">Trobriand</th>
+<th data-quarto-table-cell-role="th">Chuuk</th>
+<th data-quarto-table-cell-role="th">Manus</th>
+<th data-quarto-table-cell-role="th">Tonga</th>
+<th data-quarto-table-cell-role="th">Hawaii</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Malekula</th>
+<td>100.000000</td>
+<td>86.983526</td>
+<td>81.124732</td>
+<td>4.343674e-02</td>
+<td>51.494751</td>
+<td>17.842327</td>
+<td>1.608162</td>
+<td>4.062970</td>
+<td>23.539959</td>
+<td>2.090690e-04</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Tikopia</th>
+<td>86.983526</td>
+<td>100.000000</td>
+<td>91.542526</td>
+<td>8.366129e-02</td>
+<td>51.392044</td>
+<td>18.708149</td>
+<td>3.359132</td>
+<td>5.342759</td>
+<td>20.012990</td>
+<td>1.202889e-03</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Santa Cruz</th>
+<td>81.124732</td>
+<td>91.542526</td>
+<td>100.000000</td>
+<td>2.318449e-01</td>
+<td>36.086869</td>
+<td>29.308743</td>
+<td>6.359788</td>
+<td>10.110367</td>
+<td>11.679105</td>
+<td>7.226763e-04</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Yap</th>
+<td>0.043437</td>
+<td>0.083661</td>
+<td>0.231845</td>
+<td>1.000000e+02</td>
+<td>0.000755</td>
+<td>8.224828</td>
+<td>35.861152</td>
+<td>33.164465</td>
+<td>0.000023</td>
+<td>8.620610e-08</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Lau Fiji</th>
+<td>51.494751</td>
+<td>51.392044</td>
+<td>36.086869</td>
+<td>7.548941e-04</td>
+<td>100.000000</td>
+<td>1.446421</td>
+<td>0.135725</td>
+<td>0.200051</td>
+<td>75.310575</td>
+<td>6.197989e-03</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Trobriand</th>
+<td>17.842327</td>
+<td>18.708149</td>
+<td>29.308743</td>
+<td>8.224828e+00</td>
+<td>1.446421</td>
+<td>100.000000</td>
+<td>25.687280</td>
+<td>71.158190</td>
+<td>0.208418</td>
+<td>1.621982e-06</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Chuuk</th>
+<td>1.608162</td>
+<td>3.359132</td>
+<td>6.359788</td>
+<td>3.586115e+01</td>
+<td>0.135725</td>
+<td>25.687280</td>
+<td>100.000000</td>
+<td>52.575387</td>
+<td>0.008986</td>
+<td>1.261663e-04</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Manus</th>
+<td>4.062970</td>
+<td>5.342759</td>
+<td>10.110367</td>
+<td>3.316446e+01</td>
+<td>0.200051</td>
+<td>71.158190</td>
+<td>52.575387</td>
+<td>100.000000</td>
+<td>0.016959</td>
+<td>1.117022e-06</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Tonga</th>
+<td>23.539959</td>
+<td>20.012990</td>
+<td>11.679105</td>
+<td>2.347346e-05</td>
+<td>75.310575</td>
+<td>0.208418</td>
+<td>0.008986</td>
+<td>0.016959</td>
+<td>100.000000</td>
+<td>3.356022e-03</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Hawaii</th>
+<td>0.000209</td>
+<td>0.001203</td>
+<td>0.000723</td>
+<td>8.620610e-08</td>
+<td>0.006198</td>
+<td>0.000002</td>
+<td>0.000126</td>
+<td>0.000001</td>
+<td>0.003356</td>
+<td>1.000000e+02</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Notice how there is correlation in the upper left and with Manus and Trobriand. Mcelreath has a distance plot i reproduce below:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/pacisl.png" class="img-fluid figure-img"></p>
+<figcaption>Pacific island societies: geographic locations (left) and total tools vs log population with regression fits (right)</figcaption>
+</figure>
+</div>
+<p>To produce a plot like the one on the right, we calculate the posterior predictives with the correlation free part of the model and then overlay the correlations</p>
+<div id="ec315db7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:41:59.099200Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:41:59.099067Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:59.101680Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:59.101117Z&quot;}}" data-execution_count="25" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> poisson</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_pp_no_corr(lpgrid, idata, contact<span class="op">=</span><span class="dv">0</span>):</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    alphatrace <span class="op">=</span> idata.posterior[<span class="st">'alpha'</span>].values.flatten()</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    betaptrace <span class="op">=</span> idata.posterior[<span class="st">'betap'</span>].values.flatten()</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    tl<span class="op">=</span><span class="bu">len</span>(alphatrace)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    gl<span class="op">=</span>lpgrid.shape[<span class="dv">0</span>]</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    lam <span class="op">=</span> np.empty((gl, tl))</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    lpgrid <span class="op">=</span> lpgrid <span class="op">-</span> lpgrid.mean()</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, v <span class="kw">in</span> <span class="bu">enumerate</span>(lpgrid):</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>        temp <span class="op">=</span> alphatrace <span class="op">+</span> betaptrace<span class="op">*</span>lpgrid[i]</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>        lam[i,:] <span class="op">=</span> poisson.rvs(np.exp(temp))</span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> lam</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="0a320ba1" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:41:59.103246Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:41:59.103091Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:59.212266Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:59.211764Z&quot;}}" data-execution_count="26" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>lpgrid <span class="op">=</span> np.linspace(<span class="dv">6</span>,<span class="dv">13</span>,<span class="dv">30</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>pp <span class="op">=</span> compute_pp_no_corr(lpgrid, mgctrace)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>ppmed <span class="op">=</span> np.median(pp, axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>pphpd <span class="op">=</span> az.hdi(pp.T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_99733/1140317622.py:4: FutureWarning: hdi currently interprets 2d data as (draw, shape) but this will change in a future release to (chain, draw) for coherence with other functions
+  pphpd = az.hdi(pp.T)</code></pre>
+</div>
+</div>
+<div id="98c9cada" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:41:59.213678Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:41:59.213586Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:59.216579Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:59.216236Z&quot;}}" data-execution_count="27" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> itertools</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>corrs<span class="op">=</span>{}</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, j <span class="kw">in</span> itertools.product(<span class="bu">range</span>(<span class="dv">10</span>), <span class="bu">range</span>(<span class="dv">10</span>)):</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">&lt;</span>j:</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>        corrs[(i,j)]<span class="op">=</span>medcorrij[i,j]</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>corrs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<pre><code>{(0, 1): np.float64(0.8698352620543791),
+ (0, 2): np.float64(0.8112473227705732),
+ (0, 3): np.float64(0.00043436736396140004),
+ (0, 4): np.float64(0.5149475145540022),
+ (0, 5): np.float64(0.1784232683108405),
+ (0, 6): np.float64(0.016081624526447357),
+ (0, 7): np.float64(0.04062970353128279),
+ (0, 8): np.float64(0.23539959071681077),
+ (0, 9): np.float64(2.0906899790788574e-06),
+ (1, 2): np.float64(0.9154252648017558),
+ (1, 3): np.float64(0.0008366129005128546),
+ (1, 4): np.float64(0.5139204403538437),
+ (1, 5): np.float64(0.18708149396439477),
+ (1, 6): np.float64(0.03359131718569693),
+ (1, 7): np.float64(0.053427593503310396),
+ (1, 8): np.float64(0.20012990301592104),
+ (1, 9): np.float64(1.202888923895069e-05),
+ (2, 3): np.float64(0.0023184490292404336),
+ (2, 4): np.float64(0.3608686936824079),
+ (2, 5): np.float64(0.29308742903236046),
+ (2, 6): np.float64(0.06359788152183848),
+ (2, 7): np.float64(0.10110366922210785),
+ (2, 8): np.float64(0.11679105204171875),
+ (2, 9): np.float64(7.2267626429193134e-06),
+ (3, 4): np.float64(7.5489412116086325e-06),
+ (3, 5): np.float64(0.08224827819593294),
+ (3, 6): np.float64(0.35861152292486287),
+ (3, 7): np.float64(0.33164464636786223),
+ (3, 8): np.float64(2.347346485820119e-07),
+ (3, 9): np.float64(8.620610481644896e-10),
+ (4, 5): np.float64(0.014464210496029285),
+ (4, 6): np.float64(0.0013572460520712762),
+ (4, 7): np.float64(0.002000507564221195),
+ (4, 8): np.float64(0.7531057509569615),
+ (4, 9): np.float64(6.197988773284955e-05),
+ (5, 6): np.float64(0.25687279780700056),
+ (5, 7): np.float64(0.7115819000189696),
+ (5, 8): np.float64(0.0020841826197110433),
+ (5, 9): np.float64(1.621981972350849e-08),
+ (6, 7): np.float64(0.5257538678112668),
+ (6, 8): np.float64(8.985523762623615e-05),
+ (6, 9): np.float64(1.2616630242151445e-06),
+ (7, 8): np.float64(0.00016958954461546093),
+ (7, 9): np.float64(1.1170223361457242e-08),
+ (8, 9): np.float64(3.3560220950963584e-05)}</code></pre>
+</div>
+</div>
+<div id="3a0aeb37" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:41:59.217999Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:41:59.217883Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:41:59.280854Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:41:59.280316Z&quot;}}" data-execution_count="28" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> sns.plotting_context(<span class="st">'poster'</span>):</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>    plt.plot(df.logpop, df.total_tools,<span class="st">'o'</span>, color<span class="op">=</span><span class="st">"g"</span>)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>    lpv <span class="op">=</span> df.logpop.values</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    ttv <span class="op">=</span> df.total_tools.values</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> a,x,y <span class="kw">in</span> <span class="bu">zip</span>(df.culture.values, lpv, ttv):</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>        plt.annotate(a, xy<span class="op">=</span>(x,y))</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> i <span class="op">&lt;</span> j:</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>                plt.plot([lpv[i],lpv[j]],[ttv[i], ttv[j]],<span class="st">'k'</span>, alpha<span class="op">=</span>corrs[(i,j)]<span class="op">/</span><span class="fl">1.</span>)</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>    plt.plot(lpgrid, ppmed, color<span class="op">=</span><span class="st">"g"</span>)</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>    plt.fill_between(lpgrid, pphpd[:,<span class="dv">0</span>], pphpd[:,<span class="dv">1</span>], color<span class="op">=</span><span class="st">"g"</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>    plt.ylim([<span class="dv">10</span>, <span class="dv">75</span>])</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>    plt.xlim([<span class="fl">6.5</span>, <span class="dv">13</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-29-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Notice how distance probably pulls Fiji up from the median, and how Manus and Trobriand are below the median but highly correlated. A smaller effect can be seen with the triangle on the left. Of-course, causality is uncertain</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<!-- Inject yin-yang brand icon into navbar -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Find the navbar brand
+  const navbarBrand = document.querySelector('.navbar-brand');
+  if (navbarBrand) {
+    // Create the brand mark element
+    const brandMark = document.createElement('span');
+    brandMark.className = 'brand-mark';
+    brandMark.innerHTML = '<i class="bi bi-yin-yang"></i>';
+
+    // Insert at the beginning of navbar brand
+    navbarBrand.insertBefore(brandMark, navbarBrand.firstChild);
+  }
+});
+</script>
+<div id="discuss-links" style="margin-top: 2.5rem; padding-top: 1.5rem; margin-bottom: 4rem; border-top: 1px solid var(--color-border, #ddd);">
+  <p style="font-family: var(--font-mono, monospace); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted, #666); margin-bottom: 0.75rem;">Discuss this post</p>
+  <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+    <a id="discuss-twitter" href="#" target="_blank" rel="noopener" style="font-size: 0.9rem;">X / Twitter</a>
+    <a id="discuss-bluesky" href="#" target="_blank" rel="noopener" style="font-size: 0.9rem;">Bluesky</a>
+    <a id="discuss-linkedin" href="#" target="_blank" rel="noopener" style="font-size: 0.9rem;">LinkedIn</a>
+  </div>
+</div>
+<script>
+(function() {
+  var p = window.location.pathname;
+  var isContent = p.startsWith("/posts/") || p.startsWith("/til/") || p.startsWith("/collections/");
+  var isListing = (p === "/posts/" || p === "/posts" || p === "/til/" || p === "/til" || p === "/collections/" || p === "/collections");
+  if (!isContent || isListing) {
+    document.getElementById("discuss-links").style.display = "none";
+    return;
+  }
+
+  var url = encodeURIComponent(window.location.href);
+  var title = encodeURIComponent(document.title);
+
+  document.getElementById("discuss-twitter").href =
+    "https://twitter.com/intent/tweet?text=" + title + "&url=" + url + "&via=rahuldave";
+  document.getElementById("discuss-bluesky").href =
+    "https://bsky.app/intent/compose?text=" + title + " " + encodeURIComponent(window.location.href);
+  document.getElementById("discuss-linkedin").href =
+    "https://www.linkedin.com/sharing/share-offsite/?url=" + url;
+})();
+</script>
+<script src="../../assets/llm-explain.js"></script>
+<script src="../../assets/download-bundle.js"></script>
+<script src="../../assets/learning-paths.js"></script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/rahuldave\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

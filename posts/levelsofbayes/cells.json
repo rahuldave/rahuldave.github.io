@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "source_type": "md",
+  "title": "Levels of Bayesian Analysis",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 1,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "maximum-likelihood",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "map",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 3,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "empirical-bayes-ml-2",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "map-2",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 5,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "full-bayes",
+          "level": 3
+        }
+      ]
+    }
+  ]
+}

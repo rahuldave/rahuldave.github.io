@@ -1,0 +1,172 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "The Idea Behind the Gaussian Process",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "e8cb4049"
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "a-quick-primer-on-multivariate-gaussians",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 3,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 4,
+      "type": "code",
+      "html_id": "3d6850f6"
+    },
+    {
+      "cell": 5,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "modeling-correlation",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 6,
+      "type": "code",
+      "html_id": "a006fd46"
+    },
+    {
+      "cell": 7,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 8,
+      "type": "code",
+      "html_id": "93c4a7b9"
+    },
+    {
+      "cell": 9,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 10,
+      "type": "code",
+      "html_id": "df51b158"
+    },
+    {
+      "cell": 11,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 12,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 13,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 14,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 15,
+      "type": "code",
+      "html_id": "973bb443"
+    },
+    {
+      "cell": 16,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 17,
+      "type": "code",
+      "html_id": "5a70c127"
+    },
+    {
+      "cell": 18,
+      "type": "code",
+      "html_id": "665ef098"
+    },
+    {
+      "cell": 19,
+      "type": "code",
+      "html_id": "9919fcba"
+    },
+    {
+      "cell": 20,
+      "type": "code",
+      "html_id": "352cf62f"
+    },
+    {
+      "cell": 21,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 22,
+      "type": "code",
+      "html_id": "113c10d0"
+    },
+    {
+      "cell": 23,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 24,
+      "type": "code",
+      "html_id": "f07b4719"
+    },
+    {
+      "cell": 25,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 26,
+      "type": "code",
+      "html_id": "8b493c8d"
+    },
+    {
+      "cell": 27,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 28,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 29,
+      "type": "code",
+      "html_id": "47ffe464"
+    },
+    {
+      "cell": 30,
+      "type": "markdown",
+      "headings": []
+    }
+  ]
+}

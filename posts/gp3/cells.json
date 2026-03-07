@@ -1,0 +1,187 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Inference for Gaussian Processes",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "2433a9eb"
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "recall-definition-of-gaussian-process",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 3,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 4,
+      "type": "code",
+      "html_id": "5329f1a8"
+    },
+    {
+      "cell": 5,
+      "type": "code",
+      "html_id": "4eb8dff2"
+    },
+    {
+      "cell": 6,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 7,
+      "type": "code",
+      "html_id": "dfc5c71c"
+    },
+    {
+      "cell": 8,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 9,
+      "type": "code",
+      "html_id": "a4abd54e"
+    },
+    {
+      "cell": 10,
+      "type": "code",
+      "html_id": "76964bb7"
+    },
+    {
+      "cell": 11,
+      "type": "code",
+      "html_id": "a7b4883e"
+    },
+    {
+      "cell": 12,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "hyperparameter-learning-empirical-bayes-or-mcmc",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 13,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 14,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 15,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "fitting-a-model-using-pymc",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 16,
+      "type": "code",
+      "html_id": "e2395a68"
+    },
+    {
+      "cell": 17,
+      "type": "code",
+      "html_id": "4c850afb"
+    },
+    {
+      "cell": 18,
+      "type": "code",
+      "html_id": "5457052f"
+    },
+    {
+      "cell": 19,
+      "type": "code",
+      "html_id": "c3cf57ac"
+    },
+    {
+      "cell": 20,
+      "type": "code",
+      "html_id": "0bc5a80b"
+    },
+    {
+      "cell": 21,
+      "type": "code",
+      "html_id": "c6fcc9bd"
+    },
+    {
+      "cell": 22,
+      "type": "code",
+      "html_id": "120f6347"
+    },
+    {
+      "cell": 23,
+      "type": "code",
+      "html_id": "2a705c27"
+    },
+    {
+      "cell": 24,
+      "type": "code",
+      "html_id": "f5813e62"
+    },
+    {
+      "cell": 25,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 26,
+      "type": "code",
+      "html_id": "8d21923d"
+    },
+    {
+      "cell": 27,
+      "type": "code",
+      "html_id": "df34d756"
+    },
+    {
+      "cell": 28,
+      "type": "code",
+      "html_id": "5eb8d4b6"
+    },
+    {
+      "cell": 29,
+      "type": "code",
+      "html_id": "918d70a2"
+    },
+    {
+      "cell": 30,
+      "type": "code",
+      "html_id": "785672a2"
+    },
+    {
+      "cell": 31,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "where-are-gps-used",
+          "level": 2
+        }
+      ]
+    }
+  ]
+}

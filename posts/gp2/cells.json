@@ -1,0 +1,372 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Gaussian Processes and Non-parametric Bayes",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "90459b13"
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "a-quick-primer-on-multivariate-gaussians",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 3,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 4,
+      "type": "code",
+      "html_id": "793782c0"
+    },
+    {
+      "cell": 5,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "a-problem-with-parametrics",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 6,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 7,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 8,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "linear-regression-and-the-dual-representation",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 9,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 10,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "linear-regression-with-basis-function-models-and-the-kernel-view",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 11,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 12,
+      "type": "code",
+      "html_id": "51f2f5b7"
+    },
+    {
+      "cell": 13,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 14,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "from-parametrics-to-non-parametrics",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 15,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "gaussian-processes",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 16,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 17,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "definition-of-gaussian-process",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 18,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 19,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 20,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 21,
+      "type": "code",
+      "html_id": "26cf2171"
+    },
+    {
+      "cell": 22,
+      "type": "code",
+      "html_id": "e1df2c5e"
+    },
+    {
+      "cell": 23,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 24,
+      "type": "code",
+      "html_id": "646fef91"
+    },
+    {
+      "cell": 25,
+      "type": "code",
+      "html_id": "9903b789"
+    },
+    {
+      "cell": 26,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "regression-using-gaussian-processes",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 27,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 28,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-correspondence-with-kernelized-regression",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 29,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "noiseless-regression",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 30,
+      "type": "code",
+      "html_id": "46b37e8b"
+    },
+    {
+      "cell": 31,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 32,
+      "type": "code",
+      "html_id": "ed1a0846"
+    },
+    {
+      "cell": 33,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 34,
+      "type": "code",
+      "html_id": "032b938a"
+    },
+    {
+      "cell": 35,
+      "type": "code",
+      "html_id": "79095363"
+    },
+    {
+      "cell": 36,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 37,
+      "type": "code",
+      "html_id": "0726b504"
+    },
+    {
+      "cell": 38,
+      "type": "code",
+      "html_id": "2b6ca910"
+    },
+    {
+      "cell": 39,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "noisy-regression",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 40,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 41,
+      "type": "code",
+      "html_id": "1c4f7aab"
+    },
+    {
+      "cell": 42,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 43,
+      "type": "code",
+      "html_id": "7bb3b6e5"
+    },
+    {
+      "cell": 44,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 45,
+      "type": "code",
+      "html_id": "78a66e39"
+    },
+    {
+      "cell": 46,
+      "type": "code",
+      "html_id": "b4e49242"
+    },
+    {
+      "cell": 47,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 48,
+      "type": "code",
+      "html_id": "55d9ae27"
+    },
+    {
+      "cell": 49,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 50,
+      "type": "code",
+      "html_id": "181e78d0"
+    },
+    {
+      "cell": 51,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "covariance-functions-and-the-memory-based-nature-of-gps",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 52,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "mat232rn-kernel",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 53,
+      "type": "code",
+      "html_id": "43354cfe"
+    },
+    {
+      "cell": 54,
+      "type": "code",
+      "html_id": "7ca635a7"
+    },
+    {
+      "cell": 55,
+      "type": "code",
+      "html_id": "88abc8e6"
+    },
+    {
+      "cell": 56,
+      "type": "code",
+      "html_id": "f943b313"
+    },
+    {
+      "cell": 57,
+      "type": "code",
+      "html_id": "6187742e"
+    },
+    {
+      "cell": 58,
+      "type": "code",
+      "html_id": "1072d4a4"
+    },
+    {
+      "cell": 59,
+      "type": "code",
+      "html_id": "d2fa124e"
+    }
+  ]
+}

@@ -1,0 +1,242 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Geographic Correlation and Oceanic Tools",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "1a582985"
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 3,
+      "type": "code",
+      "html_id": "ea15bfb9"
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "reading-in-our-data",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 5,
+      "type": "code",
+      "html_id": "c9101152"
+    },
+    {
+      "cell": 6,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 7,
+      "type": "code",
+      "html_id": "a773c822"
+    },
+    {
+      "cell": 8,
+      "type": "code",
+      "html_id": "213b5a45"
+    },
+    {
+      "cell": 9,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 10,
+      "type": "code",
+      "html_id": "95f3804e"
+    },
+    {
+      "cell": 11,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "implementing-the-simple-toolslogpop-model-and-varying-intercepts-models",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 12,
+      "type": "code",
+      "html_id": "876a13bf"
+    },
+    {
+      "cell": 13,
+      "type": "code",
+      "html_id": "8e32e335"
+    },
+    {
+      "cell": 14,
+      "type": "code",
+      "html_id": "048728d2"
+    },
+    {
+      "cell": 15,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 16,
+      "type": "code",
+      "html_id": "1058274e"
+    },
+    {
+      "cell": 17,
+      "type": "code",
+      "html_id": "00a8bd9c"
+    },
+    {
+      "cell": 18,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "a-model-with-a-custom-covariance-matrix",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 19,
+      "type": "code",
+      "html_id": "4bffff5c"
+    },
+    {
+      "cell": 20,
+      "type": "code",
+      "html_id": "d6d85e2b"
+    },
+    {
+      "cell": 21,
+      "type": "code",
+      "html_id": "6356d2e0"
+    },
+    {
+      "cell": 22,
+      "type": "code",
+      "html_id": "5c3d0d3b"
+    },
+    {
+      "cell": 23,
+      "type": "code",
+      "html_id": "c1c7e226"
+    },
+    {
+      "cell": 24,
+      "type": "code",
+      "html_id": "9ce11c5b"
+    },
+    {
+      "cell": 25,
+      "type": "code",
+      "html_id": "6daf8683"
+    },
+    {
+      "cell": 26,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "plotting-posteriors-and-predictives",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 27,
+      "type": "code",
+      "html_id": "4ae4997b"
+    },
+    {
+      "cell": 28,
+      "type": "code",
+      "html_id": "9c696f9d"
+    },
+    {
+      "cell": 29,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 30,
+      "type": "code",
+      "html_id": "9032decd"
+    },
+    {
+      "cell": 31,
+      "type": "code",
+      "html_id": "2f12341c"
+    },
+    {
+      "cell": 32,
+      "type": "code",
+      "html_id": "ca476284"
+    },
+    {
+      "cell": 33,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 34,
+      "type": "code",
+      "html_id": "87de7932"
+    },
+    {
+      "cell": 35,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 36,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 37,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 38,
+      "type": "code",
+      "html_id": "ec315db7"
+    },
+    {
+      "cell": 39,
+      "type": "code",
+      "html_id": "0a320ba1"
+    },
+    {
+      "cell": 40,
+      "type": "code",
+      "html_id": "98c9cada"
+    },
+    {
+      "cell": 41,
+      "type": "code",
+      "html_id": "3a0aeb37"
+    },
+    {
+      "cell": 42,
+      "type": "markdown",
+      "headings": []
+    }
+  ]
+}

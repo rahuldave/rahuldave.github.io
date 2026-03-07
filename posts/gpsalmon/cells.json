@@ -1,0 +1,277 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "GP Recap and Salmon Example",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "40b4583b"
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "mvn-primer",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 3,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 4,
+      "type": "code",
+      "html_id": "96c6c46b"
+    },
+    {
+      "cell": 5,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "modeling-correlation",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 6,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 7,
+      "type": "code",
+      "html_id": "1bca9576"
+    },
+    {
+      "cell": 8,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 9,
+      "type": "code",
+      "html_id": "7187bb19"
+    },
+    {
+      "cell": 10,
+      "type": "code",
+      "html_id": "890fc0ec"
+    },
+    {
+      "cell": 11,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 12,
+      "type": "code",
+      "html_id": "fcfc24ad"
+    },
+    {
+      "cell": 13,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 14,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "data",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 15,
+      "type": "code",
+      "html_id": "2b8a50d0"
+    },
+    {
+      "cell": 16,
+      "type": "code",
+      "html_id": "7fd590bf"
+    },
+    {
+      "cell": 17,
+      "type": "code",
+      "html_id": "25664cba"
+    },
+    {
+      "cell": 18,
+      "type": "code",
+      "html_id": "2a099ec4"
+    },
+    {
+      "cell": 19,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-game",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 20,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 21,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "game-part-2",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 22,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 23,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "definition-of-gaussian-process",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 24,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "gp-regression",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 25,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 26,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "why-does-it-work",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 27,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 28,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "levels-of-bayes",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 29,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "sockeye-salmon-example",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 30,
+      "type": "code",
+      "html_id": "05a19ee9"
+    },
+    {
+      "cell": 31,
+      "type": "code",
+      "html_id": "ace78b08"
+    },
+    {
+      "cell": 32,
+      "type": "code",
+      "html_id": "de3a0fc8"
+    },
+    {
+      "cell": 33,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "inference",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 34,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 35,
+      "type": "code",
+      "html_id": "1b898b2f"
+    },
+    {
+      "cell": 36,
+      "type": "code",
+      "html_id": "808bfe69"
+    },
+    {
+      "cell": 37,
+      "type": "code",
+      "html_id": "4186286f"
+    },
+    {
+      "cell": 38,
+      "type": "code",
+      "html_id": "9b7d0357"
+    },
+    {
+      "cell": 39,
+      "type": "code",
+      "html_id": "fffb41da"
+    },
+    {
+      "cell": 40,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "exercise",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 41,
+      "type": "code",
+      "html_id": "a414b7b6"
+    }
+  ]
+}

@@ -1,0 +1,497 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Poisson Regression \u2014 Model Comparison and Hierarchical Overdispersion",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "6fb9b1f7"
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 3,
+      "type": "code",
+      "html_id": "53fd4be4"
+    },
+    {
+      "cell": 4,
+      "type": "code",
+      "html_id": "1e1d6620"
+    },
+    {
+      "cell": 5,
+      "type": "code",
+      "html_id": "95c75dce"
+    },
+    {
+      "cell": 6,
+      "type": "code",
+      "html_id": "662e979f"
+    },
+    {
+      "cell": 7,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "centered-model",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 8,
+      "type": "code",
+      "html_id": "d4a1352c"
+    },
+    {
+      "cell": 9,
+      "type": "code",
+      "html_id": "a7cdbe8b"
+    },
+    {
+      "cell": 10,
+      "type": "code",
+      "html_id": "5c39768c"
+    },
+    {
+      "cell": 11,
+      "type": "code",
+      "html_id": "7057e1fe"
+    },
+    {
+      "cell": 12,
+      "type": "code",
+      "html_id": "2d09edfd"
+    },
+    {
+      "cell": 13,
+      "type": "code",
+      "html_id": "7ed1ba53"
+    },
+    {
+      "cell": 14,
+      "type": "code",
+      "html_id": "a00a07ef"
+    },
+    {
+      "cell": 15,
+      "type": "code",
+      "html_id": "9700b7bf"
+    },
+    {
+      "cell": 16,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "model-comparison-for-interaction-significance",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 17,
+      "type": "code",
+      "html_id": "3faa008f"
+    },
+    {
+      "cell": 18,
+      "type": "code",
+      "html_id": "5e32b1a3"
+    },
+    {
+      "cell": 19,
+      "type": "code",
+      "html_id": "e9e6e317"
+    },
+    {
+      "cell": 20,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "sampling-from-multiple-different-centered-models",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 21,
+      "type": "code",
+      "html_id": "9d7de10d"
+    },
+    {
+      "cell": 22,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 23,
+      "type": "code",
+      "html_id": "4cf6c544"
+    },
+    {
+      "cell": 24,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 25,
+      "type": "code",
+      "html_id": "3bee06f5"
+    },
+    {
+      "cell": 26,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 27,
+      "type": "code",
+      "html_id": "c2037dcd"
+    },
+    {
+      "cell": 28,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 29,
+      "type": "code",
+      "html_id": "468d8c9e"
+    },
+    {
+      "cell": 30,
+      "type": "code",
+      "html_id": "90984067"
+    },
+    {
+      "cell": 31,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "comparing-the-models-using-waic",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 32,
+      "type": "code",
+      "html_id": "1acf8ded"
+    },
+    {
+      "cell": 33,
+      "type": "code",
+      "html_id": "64e0fd0d"
+    },
+    {
+      "cell": 34,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 35,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 36,
+      "type": "code",
+      "html_id": "9627367e"
+    },
+    {
+      "cell": 37,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "comparing-for-non-centered-models",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 38,
+      "type": "code",
+      "html_id": "13e4f307"
+    },
+    {
+      "cell": 39,
+      "type": "code",
+      "html_id": "9d4245d8"
+    },
+    {
+      "cell": 40,
+      "type": "code",
+      "html_id": "8d88f8b3"
+    },
+    {
+      "cell": 41,
+      "type": "code",
+      "html_id": "0386acc5"
+    },
+    {
+      "cell": 42,
+      "type": "code",
+      "html_id": "a1325499"
+    },
+    {
+      "cell": 43,
+      "type": "code",
+      "html_id": "32d99b03"
+    },
+    {
+      "cell": 44,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 45,
+      "type": "code",
+      "html_id": "b9340762"
+    },
+    {
+      "cell": 46,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 47,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "computing-the-counterfactual-posterior-predictive-for-checking",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 48,
+      "type": "code",
+      "html_id": "e7720e8f"
+    },
+    {
+      "cell": 49,
+      "type": "code",
+      "html_id": "40188b24"
+    },
+    {
+      "cell": 50,
+      "type": "code",
+      "html_id": "a3f6ed02"
+    },
+    {
+      "cell": 51,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 52,
+      "type": "code",
+      "html_id": "4cf043e1"
+    },
+    {
+      "cell": 53,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 54,
+      "type": "code",
+      "html_id": "dffb1252"
+    },
+    {
+      "cell": 55,
+      "type": "code",
+      "html_id": "12777cf7"
+    },
+    {
+      "cell": 56,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 57,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "ensembling",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 58,
+      "type": "code",
+      "html_id": "6567bbff"
+    },
+    {
+      "cell": 59,
+      "type": "code",
+      "html_id": "03773a5d"
+    },
+    {
+      "cell": 60,
+      "type": "code",
+      "html_id": "790fce17"
+    },
+    {
+      "cell": 61,
+      "type": "code",
+      "html_id": "986778c0"
+    },
+    {
+      "cell": 62,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 63,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "hierarchical-modelling",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 64,
+      "type": "code",
+      "html_id": "c6eaa715"
+    },
+    {
+      "cell": 65,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 66,
+      "type": "code",
+      "html_id": "a0ce52b4"
+    },
+    {
+      "cell": 67,
+      "type": "code",
+      "html_id": "5c55c09b"
+    },
+    {
+      "cell": 68,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "varying-intercepts-hierarchical-model",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 69,
+      "type": "code",
+      "html_id": "4dfeb5d5"
+    },
+    {
+      "cell": 70,
+      "type": "code",
+      "html_id": "9cd6e922"
+    },
+    {
+      "cell": 71,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 72,
+      "type": "code",
+      "html_id": "0adc6377"
+    },
+    {
+      "cell": 73,
+      "type": "code",
+      "html_id": "0c1a9e80"
+    },
+    {
+      "cell": 74,
+      "type": "code",
+      "html_id": "6fca5e15"
+    },
+    {
+      "cell": 75,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 76,
+      "type": "code",
+      "html_id": "55078572"
+    },
+    {
+      "cell": 77,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 78,
+      "type": "code",
+      "html_id": "e35fa475"
+    },
+    {
+      "cell": 79,
+      "type": "code",
+      "html_id": "2dea989f"
+    },
+    {
+      "cell": 80,
+      "type": "code",
+      "html_id": "5e518ddf"
+    },
+    {
+      "cell": 81,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 82,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "cross-validation-and-stacking-bma-in-pymc",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 83,
+      "type": "code",
+      "html_id": "9e707313"
+    },
+    {
+      "cell": 84,
+      "type": "code",
+      "html_id": "dfee721e"
+    },
+    {
+      "cell": 85,
+      "type": "code",
+      "html_id": "f6a590df"
+    },
+    {
+      "cell": 86,
+      "type": "code",
+      "html_id": "682cd35d"
+    },
+    {
+      "cell": 87,
+      "type": "code",
+      "html_id": "6efac534"
+    }
+  ]
+}

@@ -213,7 +213,7 @@
   },
   "gelmanschools": {
     "zip": "/posts/gelmanschools/gelmanschools.zip",
-    "size_bytes": 1249185,
+    "size_bytes": 1249146,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -235,7 +235,7 @@
   },
   "gelmanschoolstheory": {
     "zip": "/posts/gelmanschoolstheory/gelmanschoolstheory.zip",
-    "size_bytes": 470251,
+    "size_bytes": 470200,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -317,6 +317,100 @@
       "assets/postpred.png"
     ]
   },
+  "gp1": {
+    "zip": "/posts/gp1/gp1.zip",
+    "size_bytes": 398766,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/gcondmarg.png",
+      "assets/gproc.png"
+    ]
+  },
+  "gp2": {
+    "zip": "/posts/gp2/gp2.zip",
+    "size_bytes": 638578,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scikit-learn",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/gcondmarg.png",
+      "assets/gpco21.png",
+      "assets/gproc.png"
+    ]
+  },
+  "gp3": {
+    "zip": "/posts/gp3/gp3.zip",
+    "size_bytes": 328156,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "pymc",
+      "scikit-learn",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": false,
+    "files": [
+      "index.ipynb",
+      "data/salmon.txt"
+    ]
+  },
+  "gpcorr": {
+    "zip": "/posts/gpcorr/gpcorr.zip",
+    "size_bytes": 744193,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "pymc",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": false,
+    "files": [
+      "index.ipynb",
+      "assets/covgp.png",
+      "assets/modelgp.png",
+      "assets/pacisl.png",
+      "data/Kline2.csv",
+      "data/distmatrix.csv"
+    ]
+  },
+  "gpsalmon": {
+    "zip": "/posts/gpsalmon/gpsalmon.zip",
+    "size_bytes": 473003,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "pymc",
+      "scikit-learn",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": false,
+    "files": [
+      "index.ipynb",
+      "assets/bayeslevels2.png",
+      "data/salmon.txt"
+    ]
+  },
   "gradientdescent": {
     "zip": "/posts/gradientdescent/gradientdescent.zip",
     "size_bytes": 4341313,
@@ -375,7 +469,7 @@
   },
   "hmctweaking": {
     "zip": "/posts/hmctweaking/hmctweaking.zip",
-    "size_bytes": 1252527,
+    "size_bytes": 1252373,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -391,7 +485,7 @@
   },
   "identifiability": {
     "zip": "/posts/identifiability/identifiability.zip",
-    "size_bytes": 363529,
+    "size_bytes": 363500,
     "dependencies": [
       "graphviz",
       "matplotlib",
@@ -450,7 +544,7 @@
   },
   "islands1": {
     "zip": "/posts/islands1/islands1.zip",
-    "size_bytes": 1326663,
+    "size_bytes": 1326582,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -463,6 +557,23 @@
     "files": [
       "index.ipynb",
       "assets/islands.png",
+      "data/islands.csv"
+    ]
+  },
+  "islands2": {
+    "zip": "/posts/islands2/islands2.zip",
+    "size_bytes": 1113605,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "pymc",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": false,
+    "files": [
+      "index.ipynb",
       "data/islands.csv"
     ]
   },
@@ -681,7 +792,7 @@
   },
   "priors": {
     "zip": "/posts/priors/priors.zip",
-    "size_bytes": 292898,
+    "size_bytes": 292828,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -713,7 +824,7 @@
   },
   "pymcnormalreg": {
     "zip": "/posts/pymcnormalreg/pymcnormalreg.zip",
-    "size_bytes": 1168220,
+    "size_bytes": 1168160,
     "dependencies": [
       "matplotlib",
       "numpy",

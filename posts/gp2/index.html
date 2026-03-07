@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2025-05-28">
+<meta name="description" content="We develop the theoretical foundations of Gaussian Processes: the dual representation of Bayesian linear regression, kernel tricks, Mercer’s theorem, infinite basis function expansions, and both noiseless and noisy GP regression with the Matérn kernel.">
+
+<title>Gaussian Processes and Non-parametric Bayes – rahuldave</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-e0d64750a3675fa668af59a9862b8111.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c67a7d068a8370113d9027fc4e8bf30e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-4c7334514f7ce0e443f685a607965962.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-f11c5d1991550b20d5f2935d8592729b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-4c7334514f7ce0e443f685a607965962.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<!-- Google Fonts: Bitter (headings) + Source Serif 4 (body) + IBM Plex Mono (code) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+
+<!-- Bootstrap Icons for brand mark and UI elements -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Gaussian Processes and Non-parametric Bayes – rahuldave">
+<meta property="og:description" content="We develop the theoretical foundations of Gaussian Processes: the dual representation of Bayesian linear regression, kernel tricks, Mercer’s theorem, infinite basis function expansions, and both noiseless and noisy GP regression with the Matérn kernel.">
+<meta property="og:image" content="https://rahuldave.github.io/posts/gp2/assets/gcondmarg.png">
+<meta property="og:site_name" content="rahuldave">
+<meta property="og:image:height" content="392">
+<meta property="og:image:width" content="686">
+<meta name="twitter:title" content="Gaussian Processes and Non-parametric Bayes – rahuldave">
+<meta name="twitter:description" content="We develop the theoretical foundations of Gaussian Processes: the dual representation of Bayesian linear regression, kernel tricks, Mercer’s theorem, infinite basis function expansions, and both noiseless and noisy GP regression with the Matérn kernel.">
+<meta name="twitter:image" content="https://rahuldave.github.io/posts/gp2/assets/gcondmarg.png">
+<meta name="twitter:creator" content="@rahuldave">
+<meta name="twitter:image-height" content="392">
+<meta name="twitter:image-width" content="686">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">rahuldave</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../posts.html"> 
+<span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../til.html"> 
+<span class="menu-text">TIL</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../collections.html"> 
+<span class="menu-text">Collections</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../learning-paths.html"> 
+<span class="menu-text">Learning Paths</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#a-quick-primer-on-multivariate-gaussians" id="toc-a-quick-primer-on-multivariate-gaussians" class="nav-link active" data-scroll-target="#a-quick-primer-on-multivariate-gaussians">A quick primer on multivariate gaussians</a></li>
+  <li><a href="#a-problem-with-parametrics" id="toc-a-problem-with-parametrics" class="nav-link" data-scroll-target="#a-problem-with-parametrics">A problem with parametrics</a></li>
+  <li><a href="#linear-regression-and-the-dual-representation" id="toc-linear-regression-and-the-dual-representation" class="nav-link" data-scroll-target="#linear-regression-and-the-dual-representation">Linear regression and the Dual representation</a></li>
+  <li><a href="#linear-regression-with-basis-function-models-and-the-kernel-view" id="toc-linear-regression-with-basis-function-models-and-the-kernel-view" class="nav-link" data-scroll-target="#linear-regression-with-basis-function-models-and-the-kernel-view">Linear regression with basis function models and the Kernel view</a></li>
+  <li><a href="#from-parametrics-to-non-parametrics" id="toc-from-parametrics-to-non-parametrics" class="nav-link" data-scroll-target="#from-parametrics-to-non-parametrics">From parametrics to non-parametrics</a></li>
+  <li><a href="#gaussian-processes" id="toc-gaussian-processes" class="nav-link" data-scroll-target="#gaussian-processes">Gaussian Processes</a></li>
+  <li><a href="#definition-of-gaussian-process" id="toc-definition-of-gaussian-process" class="nav-link" data-scroll-target="#definition-of-gaussian-process">Definition of Gaussian Process</a></li>
+  <li><a href="#regression-using-gaussian-processes" id="toc-regression-using-gaussian-processes" class="nav-link" data-scroll-target="#regression-using-gaussian-processes">Regression using Gaussian Processes</a>
+  <ul class="collapse">
+  <li><a href="#the-correspondence-with-kernelized-regression" id="toc-the-correspondence-with-kernelized-regression" class="nav-link" data-scroll-target="#the-correspondence-with-kernelized-regression">The correspondence with kernelized regression</a></li>
+  <li><a href="#noiseless-regression" id="toc-noiseless-regression" class="nav-link" data-scroll-target="#noiseless-regression">Noiseless Regression</a></li>
+  <li><a href="#noisy-regression" id="toc-noisy-regression" class="nav-link" data-scroll-target="#noisy-regression">Noisy Regression</a></li>
+  </ul></li>
+  <li><a href="#covariance-functions-and-the-memory-based-nature-of-gps" id="toc-covariance-functions-and-the-memory-based-nature-of-gps" class="nav-link" data-scroll-target="#covariance-functions-and-the-memory-based-nature-of-gps">Covariance Functions and the memory based nature of GPs</a>
+  <ul class="collapse">
+  <li><a href="#matèrn-kernel" id="toc-matèrn-kernel" class="nav-link" data-scroll-target="#matèrn-kernel">Matèrn Kernel</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<!-- Theme toggle persistence script -->
+<script>
+(function() {
+  // Check for saved theme preference, otherwise use system preference
+  const savedTheme = localStorage.getItem('quarto-color-scheme');
+  if (savedTheme) {
+    document.documentElement.setAttribute('data-bs-theme', savedTheme);
+  }
+
+  // Listen for theme changes (Quarto's built-in toggle) and persist
+  const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.attributeName === 'data-bs-theme') {
+        const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+        if (currentTheme) {
+          localStorage.setItem('quarto-color-scheme', currentTheme);
+        }
+      }
+    });
+  });
+
+  // Start observing once DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      observer.observe(document.documentElement, { attributes: true });
+    });
+  } else {
+    observer.observe(document.documentElement, { attributes: true });
+  }
+})();
+</script>
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Gaussian Processes and Non-parametric Bayes</h1>
+<p class="subtitle lead">From kernel trick to infinite basis functions — the theory behind GP regression.</p>
+  <div class="quarto-categories">
+    <div class="quarto-category">gaussian-processes</div>
+    <div class="quarto-category">regression</div>
+    <div class="quarto-category">bayesian</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    We develop the theoretical foundations of Gaussian Processes: the dual representation of Bayesian linear regression, kernel tricks, Mercer’s theorem, infinite basis function expansions, and both noiseless and noisy GP regression with the Matérn kernel.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 28, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="a-quick-primer-on-multivariate-gaussians" class="level2">
+<h2 class="anchored" data-anchor-id="a-quick-primer-on-multivariate-gaussians">A quick primer on multivariate gaussians</h2>
+<ul>
+<li>EQUATION A: For a multivariate gaussian the distribution is:</li>
+</ul>
+<p><span class="math display">\[p(x \mid \mu, \Sigma) = (2\pi)^{-n/2}|\Sigma|^{-1/2} \exp\left\{ -\frac{1}{2} (x-\mu)^{\prime}\Sigma^{-1}(x-\mu) \right\}\]</span></p>
+<ul>
+<li>EQUATION B: marginals of multivariate normal distributions are normal</li>
+</ul>
+<p><span class="math display">\[p(x,y) = \mathcal{N}\left(\left[{
+\begin{array}{c}
+  {\mu_x}  \\
+  {\mu_y}  \\
+\end{array}
+}\right], \left[{
+\begin{array}{c}
+  {\Sigma_x} &amp; {\Sigma_{xy}}  \\
+  {\Sigma_{xy}^T} &amp; {\Sigma_y}  \\
+\end{array}
+}\right]\right)\]</span></p>
+<p><span class="math display">\[p(x) = \int p(x,y) dy = \mathcal{N}(\mu_x, \Sigma_x)\]</span></p>
+<ul>
+<li>EQUATION C: conditionals of multivariate normals are normal</li>
+</ul>
+<p><span class="math display">\[p(x \mid y) = \mathcal{N}(\mu_x + \Sigma_{xy}\Sigma_y^{-1}(y-\mu_y),
+\Sigma_x-\Sigma_{xy}\Sigma_y^{-1}\Sigma_{xy}^T)\]</span></p>
+<p>Another way of looking at these is provided in Murphy Chapter 4:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/gcondmarg.png" class="img-fluid figure-img"></p>
+<figcaption>Marginals and conditionals of a multivariate normal distribution (Murphy, Theorem 4.3.1)</figcaption>
+</figure>
+</div>
+<div id="793782c0" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:28:21.733555Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:28:21.733291Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:28:26.398050Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:28:26.396534Z&quot;}}" data-execution_count="2" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib <span class="im">as</span> mpl</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.cm <span class="im">as</span> cm</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.width'</span>, <span class="dv">500</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_columns'</span>, <span class="dv">100</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.notebook_repr_html'</span>, <span class="va">True</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">"whitegrid"</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>sns.set_context(<span class="st">"poster"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="a-problem-with-parametrics" class="level2">
+<h2 class="anchored" data-anchor-id="a-problem-with-parametrics">A problem with parametrics</h2>
+<p>In general, parametrization restricts the class of functions we use: for example, linear regression might use linear coefficients and just <span class="math inline">\(x_i\)</span> or a polynomial basis <span class="math inline">\(x_i, x_i^2, ..\)</span>. If our data is not well modeled by our choices, we might underfit. Increasing flexibility (such as by making higher order polynomials in the regression) might lead to overfitting.</p>
+<p>This is not the only place where parametrics may not be expressive enough. Consider for example a somewhat periodic time series with a more complex behavior and correlation structure than we find, for example, in a time series model, for example, in the not so fake global warming CO2 time series below:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/gpco21.png" class="img-fluid figure-img"></p>
+<figcaption>Mauna Loa CO2 concentration (ppm) from 1960 to 2020, showing seasonal oscillations and a rising trend</figcaption>
+</figure>
+</div>
+<p>A second approach might be to consider every possible function rather than making such a model restriction, and associate a prior probability with this function. For example, we might assign smoother functions higher prior probability. But how are we possibly going to calculate over an uncountably infinite set of functions in finite time?</p>
+<p>Lets keep that thought in the back of our minds and consider linear regression.</p>
+</section>
+<section id="linear-regression-and-the-dual-representation" class="level2">
+<h2 class="anchored" data-anchor-id="linear-regression-and-the-dual-representation">Linear regression and the Dual representation</h2>
+<p>Let us consider Bayesian Linear regression of N points in D dimensions:</p>
+<p><span class="math display">\[y = f(X) + \epsilon, \\
+\epsilon \sim N(0,\sigma^2), \\
+f(X) = X^{T}w, w \sim N(0,\Sigma)\]</span></p>
+<p>where the noise variance <span class="math inline">\(\sigma^2\)</span> is known.</p>
+<p>In this case the posterior is given as:</p>
+<p><span class="math display">\[ p(w | X,y) \sim N(\frac{1}{\sigma^2} A^{-1}Xy, A^{-1})\]</span></p>
+<p>where</p>
+<p><span class="math display">\[ A = \frac{1}{\sigma^2}XX^T + \Sigma^{-1} \]</span></p>
+<p>and the posterior predictive distribution (the conditional of <span class="math inline">\(f(x_*)\)</span> given <span class="math inline">\(y\)</span> is given by:</p>
+<p><span class="math display">\[p(f(x_*) | x_* , X, y) = N(\frac{1}{\sigma^2}x_*^TA^{-1}Xy, x_*^T A^{-1}x_*).\]</span></p>
+<p>ie the predictive distribution is a gaussian with a mean given by the posterior mean of the weights multiplied by the test input, and variance given by a quadratic form of the test input and the posterior predictive covariance matrix.</p>
+<p>If you want the posterior predictive of <span class="math inline">\(y_*\)</span>, just add <span class="math inline">\(\sigma^2\)</span> to the variance above.</p>
+<p>We can show that we can rewrite the above posterior predictive as:</p>
+<p><span class="math display">\[p(f(x_*) | x_* , X, y) = N(x_*^T\Sigma X^T(K + \sigma^2 I)^{-1}y, x_*^T\Sigma x_* - x_*^T\Sigma X^T(K + \sigma^2I)^{-1}X\Sigma x_*)\]</span></p>
+<p>where</p>
+<p><span class="math display">\[ K = X \Sigma X^T \]</span></p>
+<p>which is of size N x N.</p>
+<p>Notice now that the features only appear in the combination</p>
+<p><span class="math display">\[\kappa(x,x') = x^T \Sigma x',\]</span></p>
+<p>thus leading to writing the posterior predictive as</p>
+<p><span class="math display">\[ p(f(x_*) | x_* , X, y) = N\left(\kappa(x_*,X) \left(\kappa(X^T,X) + \sigma^2 I\right)^{-1}y,\,\,\, \kappa(x_*,x_*) - \kappa(x_*,X^T)\left(\kappa(X^T,X) + \sigma^2 I\right)^{-1} \kappa(X^T,x_*) \right)\]</span></p>
+<p>The function <span class="math inline">\(\kappa\)</span> is called the kernel, and this formulation is known as the dual representation of bayesian ordinary linear regression (one could define this formalism for frequentist OLS as well, there is nothing bayesian about kernels).</p>
+<p>Notice though that this kernel is degenerate, as it can have at most D non-zero eigenvalues. This reflects the fact that ordinary linear squares represents only a limited number of functions on which we can place priors. In other words, our model may not be expressive enough, and thus might underfit.</p>
+<p>Does this formula look familiar from the gaussian formulae for a MVN used with a kernel in regression? Its identical actually. The plot thickens.</p>
+</section>
+<section id="linear-regression-with-basis-function-models-and-the-kernel-view" class="level2">
+<h2 class="anchored" data-anchor-id="linear-regression-with-basis-function-models-and-the-kernel-view">Linear regression with basis function models and the Kernel view</h2>
+<p>The bayesian OLS model has limited expressiveness. One idea to deal with this is to project into a higher dimensional space, and apply the linear model to that space. For example, a scalar x could be projected into a polynomial space: <span class="math inline">\(\phi(x) = (1, x, x^2, x^3, ...)\)</span>.</p>
+<p>This model is still linear in the parameters, and therefore analytically tractable.</p>
+<p>So let us now have</p>
+<p><span class="math display">\[f(x) = \phi(x)^T w\]</span></p>
+<div id="51f2f5b7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:28:26.403011Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:28:26.402500Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:28:26.478828Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:28:26.477615Z&quot;}}" data-execution_count="3" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="dv">5</span>  <span class="co"># Number of inputs</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> np.linspace(<span class="op">-</span>np.pi, np.pi, <span class="dv">100</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Preallocate a matrix (make it a matrix of ones to account for beta_0):</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>XS <span class="op">=</span> np.ones((<span class="dv">100</span>, p)) </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ii <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, p):</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    XS[:, ii] <span class="op">=</span> np.sin((ii<span class="op">+</span><span class="dv">1</span>)<span class="op">*</span>t)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>beta <span class="op">=</span> np.random.randn(p)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>ff <span class="op">=</span> np.dot(XS, beta)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>plt.plot(t,ff,<span class="st">'o'</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>plt.plot(t,XS)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>plt.xlim([<span class="op">-</span>np.pi, np.pi])</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'t'</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'xs'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>Text(0, 0.5, 'xs')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-4-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Let <span class="math inline">\(\Phi(X)\)</span> be the aggregation of columns <span class="math inline">\(\phi(x)\)</span> for all training set cases <span class="math inline">\(x \in X\)</span>.</p>
+<p>Then the posterior predictive, <span class="math display">\[p(f(x_*) | x_* , X, y) = N(\frac{1}{\sigma^2}\phi_*^TA^{-1}\Phi y, \phi_*^T A^{-1}\phi_*).\]</span></p>
+<p>where <span class="math inline">\(\phi_* = \phi(x_*)\)</span> and</p>
+<p><span class="math display">\[ A = \frac{1}{\sigma^2}\Phi \Phi^T + \Sigma^{-1} \]</span></p>
+<p>which can as before be written as</p>
+<p><span class="math display">\[ N(\kappa(x_*,X) \left(\kappa(X^T,X) + \sigma^2 I\right)^{-1}y,\,\,\, \kappa(x_*,x_*) - \kappa(x_*,X^T)\left(\kappa(X^T,X) + \sigma^2 I\right)^{-1} \kappa(X^T,x_*) \]</span></p>
+<p>where the kernel is now</p>
+<p><span class="math display">\[\kappa(x,x') = \phi(x)^T \Sigma \phi(x')\]</span></p>
+<p>As <span class="math inline">\(\Sigma\)</span> is positive definite we can define <span class="math inline">\(\Sigma^{(1/2)}\)</span> so that <span class="math inline">\((\Sigma^{(1/2)})^2 = \Sigma\)</span>. Then defining <span class="math inline">\(\psi(x)  = \Sigma^{(1/2)} \phi(x)\)</span> we can write</p>
+<p><span class="math display">\[\kappa(x,x') = \psi(x)^T \psi(x')\]</span></p>
+<p>If an algorithm is defined just in terms of inner products in input space then we can make the algorithm work in higher-dimensional feature space by replacing occurrences of those inner products by <span class="math inline">\(\kappa(x,x')\)</span>. Indeed, this idea is used in classification, where we project into a higher dimensional space to make samples linearly separable under algorithms which use inner products, such as the SVM. This is known as the “kernel trick”</p>
+<p>Notice now that carrying out the regression in feature space involves inverting the kernel, which is a N x N matrix, rather than the parameter matrix, which is likely to be smaller. Thus the kernelization comes at a price.</p>
+</section>
+<section id="from-parametrics-to-non-parametrics" class="level2">
+<h2 class="anchored" data-anchor-id="from-parametrics-to-non-parametrics">From parametrics to non-parametrics</h2>
+<p>A parametric model has some finite set of parameters <span class="math inline">\(w\)</span>. Conditional on these parameters, future observations are imdependent of past observations. Thus models may be thought of as information channels from the past observations to the future ones, with the parameters a bottleneck in this information channel.</p>
+<p>If you have had any background in maths or physics, it will not have escaped your attention that one can extend a finite basis function expansion to an infinite one to express ANY function. For example, in calculating the electric field inside a cylindrical geometry, one expands the potential function in an infinite series of bessel functions.</p>
+<p>Thus one can consider feature space expansions as basis function expansions and ask the question: what happens when we allow an infinite number of basis functions, and thus an concomittant infinite set of parameters. This is the inverse problem of the electric field expansion: they key insight is that one could represent any function by such a basis set expansion (although some basis sets may more more appropriate to particular problems than others).</p>
+<p>A non parametric model assumes that data cannot be represented in terms of a finite set of <span class="math inline">\(w\)</span>. However, the above argument should convince you that one can think of the non-parametric approach to setting priors on functions as being defined in terms of an infinite dimensional <span class="math inline">\(w\)</span>, with an infinite dimensional prior with 0 mean and an infinite sized covariance matrix.</p>
+<p>From a information channel perspective, the amount of information that an infinite set of <span class="math inline">\(w\)</span> captures about the data grows as the amount of data grows. We have removed the bottleneck and this makes non-parametric models more flexible (and you might worry, in danger of overfitting).</p>
+</section>
+<section id="gaussian-processes" class="level2">
+<h2 class="anchored" data-anchor-id="gaussian-processes">Gaussian Processes</h2>
+<p>Still, we havent dealt with the issue that there are infinitely many functions that we can use: how are we going to specify a prior on them as we did on the OLS, and how are we going to compute on them in finite time?</p>
+<p>This is where we need the concept of a Gaussian Process, which is simply an infinite dimensional generalization of the Gaussian distribution. A probability distribution describes random scalars or vectors, while a stochastic process describes functions.</p>
+<p>Think of a function as a very long vector, one component at every point in an input x. Just like we thought of a model with an infinite number of parameters, you can now think of the function as an infinite vector.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="assets/gproc.png" class="img-fluid figure-img"></p>
+<figcaption>A Gaussian process viewed as a draw from a multivariate normal, with Gaussian noise at each input point</figcaption>
+</figure>
+</div>
+<p>So, let us assume an infinite dimensional index space with the index the postions <span class="math inline">\(x_i\)</span>. Just like in the infinite basis set example before where we draw a vector <span class="math inline">\(\overline{w}\)</span> as a point in an infinite index space of integers, here we draw <span class="math inline">\(\overline{f}\)</span> from some ‘infinite’ gaussian distribution with some mean and some covariance function or kernel, which measures the similarity of any two points in this space, each of which map to a separate curve (thus the similarity of two curves). This then is the Gaussian Process, which we use to set a prior on the space of functions.</p>
+<p>Now the key insight is this: notice <strong>in equation B for the marginal of a gaussian, only the covariance of the block of the matrix involving the unmarginalized dimensions matters! Thus “if you ask only for the properties of the function (you are fitting to the data) at a finite number of points, then inference in the Gaussian process will give you the same answer if you ignore the infinitely many other points, as if you would have taken them all into account!”(Rasmunnsen)</strong>.</p>
+</section>
+<section id="definition-of-gaussian-process" class="level2">
+<h2 class="anchored" data-anchor-id="definition-of-gaussian-process">Definition of Gaussian Process</h2>
+<p>So lets assume we have this function vector $ f=(f(x_1),…f(x_n))$. If, for ANY choice of input points, <span class="math inline">\((x_1,...,x_n)\)</span>, the marginal distribution over f:</p>
+<p><span class="math display">\[P(F) = \int_{f \not\in F} P(f) df\]</span></p>
+<p>is multi-variate Gaussian, then the distribution <span class="math inline">\(P(f)\)</span> over the function f is said to be a Gaussian Process.</p>
+<p>We write a Gaussian Process thus:</p>
+<p><span class="math display">\[f(x) \sim \mathcal{GP}(m(x), k(x,x\prime))\]</span></p>
+<p>where the mean and covariance functions can be thought of as the infinite dimensional mean vector and covariance matrix respectively.</p>
+<p>By this we mean that the function <span class="math inline">\(f(x)\)</span> is drawn from a gaussian process with some probability.</p>
+<p>Now the whole idea is that <strong>a Gaussian Process defines a prior distribution over functions!</strong></p>
+<p>Once we have seen some data, this prior can be converted to a posterior over functions, thus restricting the set of functions that we can use based on the data.</p>
+<p>And based on the notion that the size of the “other” block of the matrix does not matter, we can do inference from a finite set of points rather than from an infinite one. This is what we did earlier.</p>
+<p>The consequence of the finite point marginal distribution over functions being multi-variate gaussian is that any <span class="math inline">\(m\)</span> observations in an arbitrary data set, <span class="math inline">\(y = {y_1,...,y_n=m}\)</span> can always be represented as a single point sampled from some <span class="math inline">\(m\)</span>-variate Gaussian distribution. Thus, we can work backwards to ‘partner’ a GP with a data set, by marginalizing over the infinitely-many variables that we are not interested in, or have not observed.</p>
+<p>It is often assumed for simplicity that the mean of this ‘partnered’ GP is zero in every dimension. Then, the only thing that relates one observation to another is the covariance function <span class="math inline">\(k(x_i, x_j)\)</span>.</p>
+<p>There are many choices of covariance functions but a popular choice is the ‘squared exponential’,</p>
+<p><span class="math display">\[ k(x_i, x_j) = \sigma_f^2 exp( \frac{-(x_i-x_j)^2}{2l^2}) \]</span></p>
+<p>where <span class="math inline">\(\sigma_f^2\)</span> is the maximum allowable covariance (or amplitude) and <span class="math inline">\(l\)</span> is the distance in the independent variable between <span class="math inline">\(x_i\)</span> and <span class="math inline">\(x_j\)</span>. Note that this is a function solely of the independent variable, rather than the dependent one i.e.&nbsp;the only thing that impacts the corvariance function is the distances between each set of points.</p>
+<p>Thus, it is the covariance function that dictates if small length scales will be more likely, and large ones will be less, for example, and thus that wiffly functions are more probable, or that more rather than less samples drawn from the GP will be wiggly.</p>
+<p><code>Good portions of the following code are adapted from scikit-learn docs and Bios366 notebooks</code></p>
+<p>Define the kernel</p>
+<div id="26cf2171" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:28:26.481387Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:28:26.481039Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:28:26.485529Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:28:26.483987Z&quot;}}" data-execution_count="4" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Basic squared exponential kernel, xi, xj are two points(vectors)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#the params are the sqrt(amplitude) and the length scale</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> exponential_kernel(xi, xj, params): </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    amp<span class="op">=</span>params[<span class="dv">0</span>]</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    scale<span class="op">=</span>params[<span class="dv">1</span>]</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> amp<span class="op">*</span>amp <span class="op">*</span> np.exp( <span class="op">-</span>np.<span class="bu">sum</span>((xi <span class="op">-</span> xj)<span class="op">**</span><span class="dv">2</span>)<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>scale<span class="op">*</span>scale) )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="e1df2c5e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:28:26.488141Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:28:26.487889Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:28:26.491266Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:28:26.490118Z&quot;}}" data-execution_count="5" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x_pred <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">1000</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Calculate covariance based on the kernel</p>
+<div id="646fef91" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:28:26.494041Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:28:26.493683Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:28:26.497116Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:28:26.496220Z&quot;}}" data-execution_count="6" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Covariance matrix for MV normal</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>covariance <span class="op">=</span> <span class="kw">lambda</span> kernel, X1, X2, params: <span class="op">\</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    np.array([[kernel(xi, x2i, params) <span class="cf">for</span> x2i <span class="kw">in</span> X2] <span class="cf">for</span> xi <span class="kw">in</span> X1])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="9903b789" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:28:26.499875Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:28:26.499570Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:28:26.507452Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:28:26.504694Z&quot;}}" data-execution_count="7" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>xold<span class="op">=</span>np.arange(<span class="dv">0</span>,<span class="dv">10</span>,<span class="fl">0.5</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>xtrain, xtest <span class="op">=</span> train_test_split(xold)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>xtrain <span class="op">=</span> np.sort(xtrain)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>xtest <span class="op">=</span> np.sort(xtest)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#trainmask=np.array([True if i in xtrain else False for i in xold])</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(xtrain, xtest)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[0.  0.5 1.  1.5 2.5 3.  3.5 5.  5.5 6.  6.5 7.  7.5 8.  9.5] [2.  4.  4.5 8.5 9. ]</code></pre>
+</div>
+</div>
+</section>
+<section id="regression-using-gaussian-processes" class="level2">
+<h2 class="anchored" data-anchor-id="regression-using-gaussian-processes">Regression using Gaussian Processes</h2>
+<p>(adapted from Bios366)</p>
+<p>We saw the not-so-expressive OLS, and the more expressive finite basis function regressions earlier. Now lets see how we can regress with arbitrary functions. A Gaussian Process can be used to generate a regression given some noisy observations and thus provide a probabalistic estimate of the dependent variable at an unobserved value, <span class="math inline">\(x^*\)</span>.</p>
+<p>Using a Gaussian process as a prior for our model, and a Gaussian as our data likelihood, then we can construct a Gaussian process posterior.</p>
+<p>The likelihood takes the form:</p>
+<p><span class="math display">\[y|f(x),x \sim \mathcal{N}(f(x), \sigma^2I) \]</span></p>
+<p>where the infinite <span class="math inline">\(f(x)\)</span> takes the place of the parameters(while the GP likelihood conditions on a function, we are only interested in the function at locations where we have data), and <span class="math inline">\(\sigma^2\)</span> represents observation noise.</p>
+<p>Our prior is: <span class="math display">\[f(x) \sim \mathcal{GP}(m(x)=0, k(x,x\prime))\]</span></p>
+<p>Multiplying an infinite normal prior with an infinite normal likelihood, we get an infinite normal posterior process:</p>
+<p><span class="math display">\[f(x)|y \sim \mathcal{GP}(m_{post}, \kappa_{post}(x,x\prime)).\]</span></p>
+<p>To calculate the posterior, and the posterior predictive, we can use the formula in equation C for the conditional of gaussians. The posterior distribution for f is:</p>
+<p><span class="math display">\[\begin{aligned}
+m_{post} &amp;= k(x\prime,x)[k(x,x) + \sigma^2I]^{-1}y \\
+k_{post}(x,x\prime) &amp;= k(x\prime,x\prime) - k(x\prime, x)[k(x,x) + \sigma^2I]^{-1}k(x,x\prime)
+\end{aligned}\]</span></p>
+<p>and the posterior predictive distribution for <span class="math inline">\(f(x_*)\)</span> for a test vector input <span class="math inline">\(x_*\)</span>, given a training set X with values y for the GP is once again a gaussian given by equation C with a mean vector <span class="math inline">\(m_*\)</span> and covariance matrix <span class="math inline">\(k_*\)</span>:</p>
+<p><span class="math display">\[\begin{aligned}
+m_* &amp;= k(x_*,X)[k(X^T,X) + \sigma^2I]^{-1}y \\
+k_* &amp;= k(x_*,x_*) - k(x_*,X^T)[k(X^T,X) + \sigma^2I]^{-1}k(X^T,x_*)
+\end{aligned}\]</span></p>
+<p>The variance is a subtraction of two terms: the first being the prior covariance of the test set, and the second, the information that the data set gives us about the functions. It also does not depend on the observations, but rather the covariate inputs: this is a property of gaussians. We can now, as before, very simply compute the predictive distribution of test targets y∗ by adding <span class="math inline">\(\sigma^2 I\)</span> to <span class="math inline">\(k_*\)</span>.</p>
+<p>Notice that the calculation once again involves inverting a NxN matrix as in the kernel space representation of regression. Thus there is “no free lunch”, calculating Gaussian processes without any approximations is only feasible for about a 1000 observations.</p>
+<section id="the-correspondence-with-kernelized-regression" class="level3">
+<h3 class="anchored" data-anchor-id="the-correspondence-with-kernelized-regression">The correspondence with kernelized regression</h3>
+<p>If you see the formulae above, there is an exact correspondence between the gaussian process (which is based on direct usage of gaussians in space) to the basis function regression (which is in feature space with the usage of gaussians for prior parameters) in the kernelized representation, as long as we identify the GP covariance function <span class="math inline">\(k\)</span> with the kernel function <span class="math inline">\(\kappa(x,x') = \phi(x)^T \Sigma \phi(x')\)</span>.</p>
+<p>Thus, for any set of basis functions, we can compute a covariance function! And conversely, for any positive definite covariance function, we can associate a (possibly infinite) basis function expansion! This is known as Mercer’s theorem.</p>
+<p>Secondly, note that the posterior predictive mean is a linear combination of the observations y. Thus the Gaussian process (and basis function regression as well as OLS) can be thought of as a linear smoother of the training points. More on this later.</p>
+<p>This mean may also be written as a linear combination of the kernel evaluated at the test points ( <span class="math inline">\(k(x_*,X)\)</span> ). Both of these are FINITE linear combinations. Thus Gaussian process can be represented as a finite linear expansion even though it comes from a possibly infinite basis function expansion (this is an example of the representer theorem). This makes intuitive sense because even though the GP defines a joint Gaussian distribution over all <span class="math inline">\(f(X)\)</span> variables corresponding to some infinite index set <span class="math inline">\(X\)</span>, for making predictions at <span class="math inline">\(x_∗\)</span> we only care about the marginal at the test and training points, which is written purely in terms of quantities defined at those points.</p>
+<p>Compared to OLS, in a GP we have assumed some spatial coherence (correlation) between the samples dictated by the covariance function, and conversely, OLS assumes a dirac delta correlation model. Spatial coherence could also meen temporal covariance of our covariate or index set is time, so the same mechanism can be used to model time correlations.</p>
+<p>So now we have come full circle and can see how the (possibly infinite) basis function regression and even plain simple bayesian OLS regression are, with the choice of the covariance function as the kernel function, special cases of a gaussian process.</p>
+<p>Indeed, we can now employ GP terminology in understanding things like the bias-variance tradeoff and the expressivity of models vs overfitting, as well as and local vs global regression.</p>
+<p>From now on we’ll use the words covariance function or kernel interchangeably.</p>
+</section>
+<section id="noiseless-regression" class="level3">
+<h3 class="anchored" data-anchor-id="noiseless-regression">Noiseless Regression</h3>
+<p>Lets start with the case in which there is no observational noise. In this case you can think of the regression process as generating functions from the prior, and then only choosing those which pass through the points at which the function is specified. In other words, the process of going from the prior to the posterior is the process of interpolattion of the training data. This might seem useless in the context of regression, but it is not: one application of noise-free GP regression is as a computationally cheap interpolator for a complex simulation, e.g.&nbsp;weather forecasting program.</p>
+<p>Let’s first implement the formula for a gaussian conditional:</p>
+<div id="46b37e8b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:28:26.509881Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:28:26.509740Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:28:26.513441Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:28:26.512160Z&quot;}}" data-execution_count="8" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get conditional distribution for a gaussian</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#use this to get the posterior  predictive mean and covariance on the</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#x_new block</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> conditional(x_new, x, f, cov_func, params):</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    B <span class="op">=</span> covariance(cov_func, x_new, x, params)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    C <span class="op">=</span> covariance(cov_func, x, x, params)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> covariance(cov_func, x_new, x_new, params)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    Cinv<span class="op">=</span>np.linalg.inv(C)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    mu <span class="op">=</span> np.dot(np.dot(B, Cinv),f)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    sigma <span class="op">=</span> A <span class="op">-</span> np.dot(np.dot(B, Cinv), B.T)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mu.squeeze(), sigma.squeeze()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>At this point lets choose a regression function</p>
+<div id="ed1a0846" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:28:26.518575Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:28:26.517286Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:28:26.572782Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:28:26.571733Z&quot;}}" data-execution_count="9" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">"""The function to predict."""</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="fl">.5</span><span class="op">*</span>np.sin(x)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>plt.plot(xold, f(xold), <span class="st">'o'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We use the conditional formula to calculate the posterior mean and covariance on a grid, given the results at some training points…</p>
+<div id="032b938a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:28:26.576820Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:28:26.576647Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:28:28.998268Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:28:28.997793Z&quot;}}" data-execution_count="10" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>gp_params<span class="op">=</span>[<span class="dv">1</span>,<span class="fl">0.6</span>]</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>munew, snew <span class="op">=</span> conditional(x_pred, xtrain, f(xtrain), exponential_kernel, gp_params)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(munew.shape, snew.shape)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>signews <span class="op">=</span> np.diagonal(snew)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(1000,) (1000, 1000)</code></pre>
+</div>
+</div>
+<div id="79095363" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:28:28.999622Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:28:28.999513Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:28:29.065303Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:28:29.064902Z&quot;}}" data-execution_count="11" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">9</span>,<span class="dv">6</span>))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>ax <span class="op">=</span> plt.gca()</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xtrain, f(xtrain), <span class="st">'o'</span>)<span class="op">;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>plt.plot(xold, f(xold), <span class="st">'^'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)<span class="op">;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>plt.plot(x_pred, munew)<span class="op">;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>col<span class="op">=</span>ax.lines[<span class="op">-</span><span class="dv">1</span>].get_color()</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>plt.errorbar(x_pred, munew, yerr<span class="op">=</span><span class="fl">1.96</span><span class="op">*</span>np.sqrt(signews), capsize<span class="op">=</span><span class="dv">0</span>, alpha<span class="op">=</span><span class="fl">0.1</span>, color<span class="op">=</span>col)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We draw four arbitrary functions from the posterior:</p>
+<div id="0726b504" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:28:29.066595Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:28:29.066492Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:28:29.932989Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:28:29.932014Z&quot;}}" data-execution_count="12" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>f_more1 <span class="op">=</span> np.random.multivariate_normal(munew, snew)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>f_more2 <span class="op">=</span> np.random.multivariate_normal(munew, snew)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>f_more3 <span class="op">=</span> np.random.multivariate_normal(munew, snew)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>f_more4 <span class="op">=</span> np.random.multivariate_normal(munew, snew)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="2b6ca910" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:28:29.935325Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:28:29.935188Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:28:30.000848Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:28:30.000417Z&quot;}}" data-execution_count="13" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">9</span>,<span class="dv">6</span>))</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>ax<span class="op">=</span>plt.gca()</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xtrain, f(xtrain), <span class="st">'o'</span>)<span class="op">;</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>plt.plot(xold, f(xold), <span class="st">'^'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)<span class="op">;</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>plt.plot(x_pred, munew)<span class="op">;</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>col<span class="op">=</span>ax.lines[<span class="op">-</span><span class="dv">1</span>].get_color()</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>plt.errorbar(x_pred, munew, yerr<span class="op">=</span><span class="fl">1.96</span><span class="op">*</span>np.sqrt(signews), capsize<span class="op">=</span><span class="dv">0</span>, alpha<span class="op">=</span><span class="fl">0.1</span>, color<span class="op">=</span>col)<span class="op">;</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>plt.plot(x_pred, f_more1)<span class="op">;</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>plt.plot(x_pred, f_more2)<span class="op">;</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>plt.plot(x_pred, f_more3)<span class="op">;</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>plt.plot(x_pred, f_more4)<span class="op">;</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>mutestnn, stestnn <span class="op">=</span> conditional(xtest, xtrain, f(xtrain), exponential_kernel, gp_params)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>sigtestsnn <span class="op">=</span> np.diagonal(stestnn)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>plt.errorbar(xtest, mutestnn, yerr<span class="op">=</span><span class="fl">1.96</span><span class="op">*</span>np.sqrt(sigtestsnn), capsize<span class="op">=</span><span class="dv">5</span>, capthick<span class="op">=</span><span class="dv">2</span>, marker<span class="op">=</span><span class="st">"s"</span>, ls<span class="op">=</span><span class="st">'None'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="noisy-regression" class="level3">
+<h3 class="anchored" data-anchor-id="noisy-regression">Noisy Regression</h3>
+<p>If the data is noisy, we can model each observations as though it were related to an underlying function <span class="math inline">\(f(x)\)</span> with a Gaussian noise model.</p>
+<p><span class="math display">\[ y = f(x) + N(0,\sigma^2) \]</span></p>
+<p>So given <span class="math inline">\(n\)</span> observations <span class="math inline">\(y\)</span>, our objective is to predict <span class="math inline">\(y^*\)</span>, not the actual <span class="math inline">\(f(x_*)\)</span>. While the expected value of the predictions of either are identical, their variances differ due to observational noise.</p>
+<div id="1c4f7aab" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:28:30.002155Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:28:30.002059Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:28:30.004001Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:28:30.003645Z&quot;}}" data-execution_count="14" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Observations and noise</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>sigma_noise <span class="op">=</span> <span class="fl">0.4</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>noise <span class="op">=</span> np.random.normal(<span class="dv">0</span>, sigma_noise, xtrain.shape[<span class="dv">0</span>])</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>ytrain <span class="op">=</span> f(xtrain) <span class="op">+</span> noise</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Let’s plot our y</p>
+<div id="7bb3b6e5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:28:30.005848Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:28:30.005704Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:28:30.044880Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:28:30.044457Z&quot;}}" data-execution_count="15" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plot</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">9</span>,<span class="dv">6</span>))</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xtrain, ytrain, <span class="st">'o'</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>plt.plot(x_pred, f(x_pred))</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>plt.plot(xold, f(xold), <span class="st">'^'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We alter the formula for the conditional to calculate the observational noise. Note that the variance here is the variance on <span class="math inline">\(f(x_*)\)</span>, not that on <span class="math inline">\(y\)</span>.</p>
+<div id="78a66e39" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:28:30.046153Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:28:30.046066Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:28:30.049477Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:28:30.048626Z&quot;}}" data-execution_count="16" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> conditional_noisy(x_new, x, y, sigma_noise, cov_func, params):</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    B <span class="op">=</span> covariance(cov_func, x_new, x, params)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    C <span class="op">=</span> covariance(cov_func, x, x, params)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    C<span class="op">=</span> C <span class="op">+</span> sigma_noise<span class="op">*</span>sigma_noise<span class="op">*</span>np.eye(C.shape[<span class="dv">0</span>])</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    Cinv<span class="op">=</span>np.linalg.inv(C)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> covariance(cov_func, x_new, x_new, params)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    mu <span class="op">=</span> np.dot(np.dot(B, Cinv),y)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    sigma <span class="op">=</span> A <span class="op">-</span> np.dot(np.dot(B, Cinv), B.T)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> mu.squeeze(), sigma.squeeze()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="b4e49242" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:28:30.051280Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:28:30.051163Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:28:34.472523Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:28:34.471073Z&quot;}}" data-execution_count="17" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>mupost, spost <span class="op">=</span> conditional_noisy(x_pred, xtrain, ytrain, sigma_noise, exponential_kernel, gp_params)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mupost.shape, spost.shape)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>sigposts <span class="op">=</span> np.diagonal(spost)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(1000,) (1000, 1000)</code></pre>
+</div>
+</div>
+<p>Draw from the noisy posterior</p>
+<div id="55d9ae27" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:28:34.476009Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:28:34.475553Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:28:35.082125Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:28:35.081463Z&quot;}}" data-execution_count="18" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>f_morep1 <span class="op">=</span> np.random.multivariate_normal(mupost, spost)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>f_morep2 <span class="op">=</span> np.random.multivariate_normal(mupost, spost)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Plot both the error on the <span class="math inline">\(f(x_*)\)</span> and <span class="math inline">\(y\)</span>, as well as predictions on the training set.</p>
+<div id="181e78d0" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:28:35.083813Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:28:35.083704Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:28:35.229096Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:28:35.228390Z&quot;}}" data-execution_count="19" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">9</span>,<span class="dv">6</span>))</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>ax<span class="op">=</span>plt.gca()</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>plt.plot(xtrain, ytrain, <span class="st">'o'</span>)<span class="op">;</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>plt.plot(xold, f(xold), <span class="st">'^'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)<span class="op">;</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>plt.plot(x_pred, mupost)<span class="op">;</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>col<span class="op">=</span>ax.lines[<span class="op">-</span><span class="dv">1</span>].get_color()</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>plt.errorbar(x_pred, mupost, yerr<span class="op">=</span><span class="fl">1.96</span><span class="op">*</span>np.sqrt(sigposts), capsize<span class="op">=</span><span class="dv">0</span>, alpha<span class="op">=</span><span class="fl">0.1</span>, color<span class="op">=</span>col)<span class="op">;</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>col<span class="op">=</span>ax.lines[<span class="op">-</span><span class="dv">1</span>].get_color()</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>plt.errorbar(x_pred, mupost, yerr<span class="op">=</span><span class="fl">1.96</span><span class="op">*</span>np.sqrt(sigposts<span class="op">+</span>sigma_noise<span class="op">*</span>sigma_noise), capsize<span class="op">=</span><span class="dv">0</span>, alpha<span class="op">=</span><span class="fl">0.1</span>, color<span class="op">=</span>col)<span class="op">;</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>plt.plot(x_pred, f_morep1)<span class="op">;</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>plt.plot(x_pred, f_morep2)<span class="op">;</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.plot(x_pred, y_morep3);</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="co">#plt.plot(x_pred, y_morep4);</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>mutest, stest <span class="op">=</span> conditional_noisy(xtest, xtrain, ytrain, sigma_noise, exponential_kernel, gp_params)</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mutest.shape, stest.shape)</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>stest <span class="op">=</span> stest <span class="op">+</span> sigma_noise<span class="op">*</span>sigma_noise<span class="op">*</span>np.eye(stest.shape[<span class="dv">0</span>])</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>sigtests <span class="op">=</span> np.diagonal(stest)</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>plt.errorbar(xtest, mutest, yerr<span class="op">=</span><span class="fl">1.96</span><span class="op">*</span>np.sqrt(sigtests), capsize<span class="op">=</span><span class="dv">5</span>, capthick<span class="op">=</span><span class="dv">2</span>, marker<span class="op">=</span><span class="st">"s"</span>, ls<span class="op">=</span><span class="st">'None'</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(5,) (5, 5)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-20-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="covariance-functions-and-the-memory-based-nature-of-gps" class="level2">
+<h2 class="anchored" data-anchor-id="covariance-functions-and-the-memory-based-nature-of-gps">Covariance Functions and the memory based nature of GPs</h2>
+<p>Non-parametric models are not summarised through parameters. Instead, they are memory based, dependent on the data, and summarized through a NxN covariance function or kernel. In other words, we must store an amount of information which increases with the size of the data.</p>
+<p>You have probably seen other memory-based algorithms before, such as k-nearest neighbors, kernel density estimation, or localized regression of some form. In all of these algorithms, there is some parameter which plays the part of the controller of ‘smoothing’.</p>
+<p>We have already seen that GP’s are linear smoothers: the posterior predictive GP mean can be written as a finite some of the training set y values, or for that matter as a finite sum of the kernels evaluated between the test and training set. In general, it is the hyperparameters in the kernel that control things like the length scale of smoothing, as we have seen, and allow one to move ‘smoothly’ between bias and variance extremes.</p>
+<p>The squared-exponential kernel is not the only kernel we can use. Indeed, one can make the squared-exponential kernel anisotropic to gain greater expressivity in our prior over functions, or use another kernel, such as for example, the Matern Kernel. (see a list on the wikipedia page: http://en.wikipedia.org/wiki/Gaussian_process) Kernels may be combined according to certain rules due to Mercer, which we shall not go into here.</p>
+<section id="matèrn-kernel" class="level3">
+<h3 class="anchored" data-anchor-id="matèrn-kernel">Matèrn Kernel</h3>
+<p>This is a very flexible kernel and is used quite often, especially in geostatistics and forestry.</p>
+<p><span class="math display">\[k_{Matern}(d) = \frac{\sigma_f^2}{\Gamma(\nu)2^{\nu-1}} \left(\frac{\sqrt{2 \nu} d}{l}\right)^{\nu} K_{\nu}\left(\frac{\sqrt{2 \nu} d}{l}\right),\]</span></p>
+<p>where <span class="math inline">\(K_{\nu}\)</span> is the modified bessel functction of the second kind.</p>
+<p>The Matèrn covariance function has three parameters, each of which clearly controls one of three important properties of realizations.</p>
+<p>The amplitude (<span class="math inline">\(\sigma_f\)</span>) as before controls the normalization of the y scale, the length scale of changes (<span class="math inline">\(l\)</span>) as before controls the scale of changes of the covariates (x). Finally, the Matern function has an additional roughness (<span class="math inline">\(\nu\)</span>) parameter which controls the sharpness of the ridge of the covariance function and consequently the roughness (or smoothness) of realizations. This is the raison-de-etre for its existence.</p>
+<div id="43354cfe" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:28:35.231446Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:28:35.231335Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:28:35.235624Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:28:35.234923Z&quot;}}" data-execution_count="20" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co">#from https://www.mail-archive.com/scikit-learn-general@lists.sourceforge.net/msg09297.html</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.special <span class="im">import</span> kv <span class="co"># The modified bessel function of the second kind</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.special <span class="im">import</span> gamma <span class="co"># The gamma function</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> matern(theta, d):</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co">    Matern correlation model.</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co">    (Explicitly controls the degree of differentiability of the prediction.)</span></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co">                                   n    / 1 / (2 ^ (nu - 1) * gamma(nu))    </span><span class="op">\</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co">    theta, dx --&gt; r(theta, dx) =  prod  | * abs(theta_i * d_i) ^ nu         |</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="co">                                 i = 1  </span><span class="er">\</span><span class="co"> * kv(nu, abs(theta_i * d_i))      /</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="co">    where kv is the modified bessel function of the second kind</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co">    (from scipy.special).</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="co">    ----------</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="co">    theta : array_like</span></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="co">        An array with shape 1+1 (isotropic) or n+1 (anisotropic) giving the</span></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a><span class="co">        autocorrelation parameter(s) (theta, nu).</span></span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a><span class="co">    dx : array_like</span></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a><span class="co">        An array with shape (n_eval, n_features) giving the componentwise</span></span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a><span class="co">        distances between locations x and x' at which the correlation model</span></span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a><span class="co">        should be evaluated.</span></span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns</span></span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a><span class="co">    -------</span></span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a><span class="co">    r : array_like</span></span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a><span class="co">        An array with shape (n_eval, ) with the values of the autocorrelation</span></span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a><span class="co">        model.</span></span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a><span class="co">    See also</span></span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a><span class="co">    --------</span></span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a><span class="co">    matern_once_differentiable, matern_twice_differentiable</span></span>
+<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>    theta <span class="op">=</span> np.asanyarray(theta, dtype<span class="op">=</span><span class="bu">float</span>)</span>
+<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> np.asanyarray(d, dtype<span class="op">=</span><span class="bu">float</span>)</span>
+<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> d.ndim <span class="op">&gt;</span> <span class="dv">1</span>:</span>
+<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a>        n_features <span class="op">=</span> d.shape[<span class="dv">1</span>]</span>
+<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a>        n_features <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-46"><a href="#cb24-46" aria-hidden="true" tabindex="-1"></a>    lth <span class="op">=</span> theta.size</span>
+<span id="cb24-47"><a href="#cb24-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> n_features <span class="op">&gt;</span> <span class="dv">1</span> <span class="kw">and</span> lth <span class="op">==</span> <span class="dv">2</span>:</span>
+<span id="cb24-48"><a href="#cb24-48" aria-hidden="true" tabindex="-1"></a>        theta <span class="op">=</span> np.hstack([np.repeat(theta[<span class="dv">0</span>], n_features), theta[<span class="dv">1</span>]])</span>
+<span id="cb24-49"><a href="#cb24-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> lth <span class="op">!=</span> n_features <span class="op">+</span> <span class="dv">1</span>:</span>
+<span id="cb24-50"><a href="#cb24-50" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">Exception</span>(<span class="st">"Length of theta must be 2 or </span><span class="sc">%s</span><span class="st">"</span> <span class="op">%</span> (n_features <span class="op">+</span> <span class="dv">1</span>))</span>
+<span id="cb24-51"><a href="#cb24-51" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb24-52"><a href="#cb24-52" aria-hidden="true" tabindex="-1"></a>        theta <span class="op">=</span> theta.reshape(<span class="dv">1</span>, lth)</span>
+<span id="cb24-53"><a href="#cb24-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-54"><a href="#cb24-54" aria-hidden="true" tabindex="-1"></a>    nu <span class="op">=</span> theta[:, <span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb24-55"><a href="#cb24-55" aria-hidden="true" tabindex="-1"></a>    td <span class="op">=</span> <span class="fl">2.</span> <span class="op">*</span> np.sqrt(nu) <span class="op">\</span></span>
+<span id="cb24-56"><a href="#cb24-56" aria-hidden="true" tabindex="-1"></a>            <span class="op">*</span> theta[:, <span class="dv">0</span>:<span class="op">-</span><span class="dv">1</span>].reshape(<span class="dv">1</span>, n_features) <span class="op">*</span> np.<span class="bu">abs</span>(d)</span>
+<span id="cb24-57"><a href="#cb24-57" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> <span class="fl">1.</span> <span class="op">/</span> (<span class="fl">2.</span> <span class="op">**</span> (nu <span class="op">-</span> <span class="fl">1.</span>) <span class="op">*</span> gamma(nu)) <span class="op">*</span> td <span class="op">**</span> nu <span class="op">*</span> kv(nu, td)</span>
+<span id="cb24-58"><a href="#cb24-58" aria-hidden="true" tabindex="-1"></a>    r[td <span class="op">&lt;=</span> <span class="fl">1e-5</span>] <span class="op">=</span> <span class="fl">1.</span> <span class="co"># The modified Bessel function of the second kind</span></span>
+<span id="cb24-59"><a href="#cb24-59" aria-hidden="true" tabindex="-1"></a>                       <span class="co"># is badly defined around 0.</span></span>
+<span id="cb24-60"><a href="#cb24-60" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> np.prod(r, <span class="dv">1</span>)</span>
+<span id="cb24-61"><a href="#cb24-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-62"><a href="#cb24-62" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> r</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>&lt;&gt;:11: SyntaxWarning: "\ " is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\ "? A raw string is also an option.
+&lt;&gt;:11: SyntaxWarning: "\ " is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\ "? A raw string is also an option.
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_98467/1206917154.py:11: SyntaxWarning: "\ " is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\ "? A raw string is also an option.
+  i = 1  \ * kv(nu, abs(theta_i * d_i))      /</code></pre>
+</div>
+</div>
+<div id="7ca635a7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:28:35.237418Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:28:35.237298Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:28:35.240305Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:28:35.239462Z&quot;}}" data-execution_count="21" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.arange(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="fl">0.1</span>)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>ds <span class="op">=</span> np.array([[xi <span class="op">-</span> xj <span class="cf">for</span> xj <span class="kw">in</span> x] <span class="cf">for</span> xi <span class="kw">in</span> x])</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>dsr<span class="op">=</span>ds.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>ds0<span class="op">=</span>np.array([[xi <span class="op">-</span> xj <span class="cf">for</span> xj <span class="kw">in</span> [<span class="dv">0</span>]] <span class="cf">for</span> xi <span class="kw">in</span> x])</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>dsr0<span class="op">=</span>ds0.reshape(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="88abc8e6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:28:35.241870Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:28:35.241763Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:28:35.244858Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:28:35.243987Z&quot;}}" data-execution_count="22" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> cm</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> do_plots(thetaps):</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    matsr<span class="op">=</span>matern(thetaps, dsr)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    mats0r<span class="op">=</span>matern(thetaps, dsr0)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    mats<span class="op">=</span>matsr.reshape(<span class="dv">20</span>,<span class="dv">20</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    mats0<span class="op">=</span>mats0r.reshape(<span class="dv">20</span>,<span class="dv">1</span>)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    plt.subplot(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">2</span>)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    plt.contourf(x, x,  mats, origin<span class="op">=</span><span class="st">'lower'</span>, extent<span class="op">=</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>,<span class="dv">1</span>), </span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>                cmap<span class="op">=</span>cm.bone)</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>    plt.colorbar()</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>    plt.subplot(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">1</span>)</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>    plt.plot(x, mats0, <span class="st">'k-'</span>)</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'C(x,0)'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="f943b313" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:28:35.246488Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:28:35.246382Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:28:35.398837Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:28:35.397401Z&quot;}}" data-execution_count="23" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>do_plots([<span class="fl">0.01</span>,<span class="fl">0.1</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_98467/1206917154.py:57: RuntimeWarning: invalid value encountered in multiply
+  r = 1. / (2. ** (nu - 1.) * gamma(nu)) * td ** nu * kv(nu, td)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-24-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="6187742e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:28:35.404280Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:28:35.403969Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:28:35.512879Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:28:35.512096Z&quot;}}" data-execution_count="24" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>do_plots([<span class="fl">0.01</span>,<span class="fl">1.0</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_98467/1206917154.py:57: RuntimeWarning: invalid value encountered in multiply
+  r = 1. / (2. ** (nu - 1.) * gamma(nu)) * td ** nu * kv(nu, td)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-25-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="1072d4a4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:28:35.515819Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:28:35.515659Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:28:35.613514Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:28:35.612573Z&quot;}}" data-execution_count="25" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>do_plots([<span class="fl">0.1</span>,<span class="fl">1.0</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_98467/1206917154.py:57: RuntimeWarning: invalid value encountered in multiply
+  r = 1. / (2. ** (nu - 1.) * gamma(nu)) * td ** nu * kv(nu, td)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-26-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="d2fa124e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-07T16:28:35.615128Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-07T16:28:35.615020Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-07T16:28:35.702890Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-07T16:28:35.702434Z&quot;}}" data-execution_count="26" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>do_plots([<span class="fl">1.0</span>,<span class="fl">1.0</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_98467/1206917154.py:57: RuntimeWarning: invalid value encountered in multiply
+  r = 1. / (2. ** (nu - 1.) * gamma(nu)) * td ** nu * kv(nu, td)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-27-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<!-- Inject yin-yang brand icon into navbar -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Find the navbar brand
+  const navbarBrand = document.querySelector('.navbar-brand');
+  if (navbarBrand) {
+    // Create the brand mark element
+    const brandMark = document.createElement('span');
+    brandMark.className = 'brand-mark';
+    brandMark.innerHTML = '<i class="bi bi-yin-yang"></i>';
+
+    // Insert at the beginning of navbar brand
+    navbarBrand.insertBefore(brandMark, navbarBrand.firstChild);
+  }
+});
+</script>
+<div id="discuss-links" style="margin-top: 2.5rem; padding-top: 1.5rem; margin-bottom: 4rem; border-top: 1px solid var(--color-border, #ddd);">
+  <p style="font-family: var(--font-mono, monospace); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-muted, #666); margin-bottom: 0.75rem;">Discuss this post</p>
+  <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+    <a id="discuss-twitter" href="#" target="_blank" rel="noopener" style="font-size: 0.9rem;">X / Twitter</a>
+    <a id="discuss-bluesky" href="#" target="_blank" rel="noopener" style="font-size: 0.9rem;">Bluesky</a>
+    <a id="discuss-linkedin" href="#" target="_blank" rel="noopener" style="font-size: 0.9rem;">LinkedIn</a>
+  </div>
+</div>
+<script>
+(function() {
+  var p = window.location.pathname;
+  var isContent = p.startsWith("/posts/") || p.startsWith("/til/") || p.startsWith("/collections/");
+  var isListing = (p === "/posts/" || p === "/posts" || p === "/til/" || p === "/til" || p === "/collections/" || p === "/collections");
+  if (!isContent || isListing) {
+    document.getElementById("discuss-links").style.display = "none";
+    return;
+  }
+
+  var url = encodeURIComponent(window.location.href);
+  var title = encodeURIComponent(document.title);
+
+  document.getElementById("discuss-twitter").href =
+    "https://twitter.com/intent/tweet?text=" + title + "&url=" + url + "&via=rahuldave";
+  document.getElementById("discuss-bluesky").href =
+    "https://bsky.app/intent/compose?text=" + title + " " + encodeURIComponent(window.location.href);
+  document.getElementById("discuss-linkedin").href =
+    "https://www.linkedin.com/sharing/share-offsite/?url=" + url;
+})();
+</script>
+<script src="../../assets/llm-explain.js"></script>
+<script src="../../assets/download-bundle.js"></script>
+<script src="../../assets/learning-paths.js"></script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/rahuldave\.github\.io");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

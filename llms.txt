@@ -22,8 +22,11 @@ Formal Convergence Tests for MCMC Chains: https://rahuldave.com/posts/gewecke/_c
 Frequentist Statistics: https://rahuldave.com/posts/frequentist/_content.md
 From Annealing to Metropolis: https://rahuldave.com/posts/metropolis/_content.md
 From the Normal Model to Regression: https://rahuldave.com/posts/normalreg/_content.md
+GP Recap and Salmon Example: https://rahuldave.com/posts/gpsalmon/_content.md
+Gaussian Processes and Non-parametric Bayes: https://rahuldave.com/posts/gp2/_content.md
 Gelman Schools and Hierarchical Pathology: https://rahuldave.com/posts/gelmanschools/_content.md
 Generative vs Discriminative Models: https://rahuldave.com/posts/generativemodels/_content.md
+Geographic Correlation and Oceanic Tools: https://rahuldave.com/posts/gpcorr/_content.md
 Gibbs Sampling with Conjugate Conditionals: https://rahuldave.com/posts/gibbsconj/_content.md
 Gibbs from Metropolis-Hastings: https://rahuldave.com/posts/gibbsfromMH/_content.md
 Gradient Descent and SGD: https://rahuldave.com/posts/gradientdescent/_content.md
@@ -34,11 +37,13 @@ How Sigmoids Combine: https://rahuldave.com/posts/nnreg/_content.md
 Identifiability in Bayesian Models: https://rahuldave.com/posts/identifiability/_content.md
 Importance Sampling: https://rahuldave.com/posts/importancesampling/_content.md
 Imputation and Convergence: https://rahuldave.com/posts/switchpoint/_content.md
+Inference for Gaussian Processes: https://rahuldave.com/posts/gp3/_content.md
 Introduction to Gibbs Sampling: https://rahuldave.com/posts/introgibbs/_content.md
 Lab: The Beta-Binomial Globe Model: https://rahuldave.com/posts/globemodellab/_content.md
 Learning Bounds and the Test Set: https://rahuldave.com/posts/testingtraining/_content.md
 Learning With Noise: https://rahuldave.com/posts/noisylearning/_content.md
 Learning Without Noise: https://rahuldave.com/posts/noiseless_learning/_content.md
+Levels of Bayesian Analysis: https://rahuldave.com/posts/levelsofbayes/_content.md
 Logistic Regression and Backpropagation: https://rahuldave.com/posts/logisticbp/_content.md
 Markov Chains and MCMC: https://rahuldave.com/posts/markov/_content.md
 Maximum Likelihood Estimation: https://rahuldave.com/posts/MLE/_content.md
@@ -46,6 +51,7 @@ Metropolis and Support Mismatch: https://rahuldave.com/posts/metropolissupport/_
 Mixture Models and Types of Learning: https://rahuldave.com/posts/typesoflearning/_content.md
 Monte Carlo Integration: https://rahuldave.com/posts/montecarlointegrals/_content.md
 Multi-Layer Perceptron for Classification: https://rahuldave.com/posts/mlp_classification/_content.md
+Poisson Regression — Model Comparison and Hierarchical Overdispersion: https://rahuldave.com/posts/islands2/_content.md
 Poisson Regression: Modeling Tool Diversity Across Islands: https://rahuldave.com/posts/islands1/_content.md
 Probability: https://rahuldave.com/posts/probability/_content.md
 Regression in PyTorch: https://rahuldave.com/posts/functorch/_content.md
@@ -56,6 +62,7 @@ Some Data Analysis about Congress: https://rahuldave.com/posts/votingforcongress
 Sufficient Statistics and Exchangeability: https://rahuldave.com/posts/sufstatexch/_content.md
 The Beta-Binomial Globe Model: https://rahuldave.com/posts/globemodel/_content.md
 The EM Algorithm: https://rahuldave.com/posts/em/_content.md
+The Idea Behind the Gaussian Process: https://rahuldave.com/posts/gp1/_content.md
 The Idea of Hamiltonian Monte Carlo: https://rahuldave.com/posts/hmcidea/_content.md
 The Inverse Transform: https://rahuldave.com/posts/inversetransform/_content.md
 The Metropolis-Hastings Algorithm: https://rahuldave.com/posts/metropolishastings/_content.md
