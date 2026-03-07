@@ -3,6 +3,7 @@ classification
 data
 decision-theory
 elections
+gaussian-processes
 hierarchical
 information-theory
 integration
