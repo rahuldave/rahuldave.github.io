@@ -157,15 +157,24 @@ This is a Quarto-based personal website for data science/ML educational content 
   - `pymcnormalreg` — notebook, imported to `posts/pymcnormalreg/` (includes Howell1.csv)
   - `Islands1` — notebook, imported to `posts/islands1/` (includes islands.csv, islands.png)
   - `priors` — notebook, imported to `posts/priors/`
-- **Lectures 21–26**: NOT YET IMPORTED
+- **Lecture 21 (Gaussian Processes and Levels of Bayes)**: DONE
+  - `Islands1` — already imported (Lecture 20), skipped
+  - `levelsofbayes` — markdown, imported to `posts/levelsofbayes.md`
+  - `islands2` — notebook, imported to `posts/islands2/` (includes islands.csv)
+  - `gpcorr` — notebook, imported to `posts/gpcorr/` (includes Kline2.csv, distmatrix.csv)
+  - `gp1` — notebook, imported to `posts/gp1/`
+  - `gp2` — notebook, imported to `posts/gp2/`
+  - `gp3` — notebook, imported to `posts/gp3/` (includes salmon.txt)
+  - `gpsalmon` — notebook, imported to `posts/gpsalmon/` (includes salmon.txt)
+- **Lectures 22–26**: NOT YET IMPORTED
 
 ## PyMC3 → PyMC Migration Status
-- **Notebooks already ported**: `em` (removed unused import), `hmcexplore` (removed unused import), `switchpoint` (full InferenceData port), `utilityorrisk` (full InferenceData port), `gelmanschoolstheory` (full port), `gelmanschools` (full port), `hmctweaking` (full port), `identifiability` (full port), `pymcnormalreg` (full port), `islands1` (full port)
+- **Notebooks already ported**: `em` (removed unused import), `hmcexplore` (removed unused import), `switchpoint` (full InferenceData port), `utilityorrisk` (full InferenceData port), `gelmanschoolstheory` (full port), `gelmanschools` (full port), `hmctweaking` (full port), `identifiability` (full port), `pymcnormalreg` (full port), `islands1` (full port), `islands2` (full port), `gpcorr` (full port), `gp3` (full port), `gpsalmon` (full port), `gp1` (removed unused import), `gp2` (removed unused import + sklearn modernized)
 - **Porting reference**: `_scripts/pymc3-to-pymc-porting.md`
 - **Skill**: `/port-pymc3` — step-by-step process for migrating pymc3/theano to modern pymc/pytensor
 - **Critical**: Do NOT list `arviz` explicitly in PEP 723 deps alongside `pymc` — arviz 1.0 breaks pymc; let pymc pull in the compatible version
-- **Known slow notebooks** (use `--timeout 1200`): switchpoint (~90s), utilityorrisk (~70s), mlp_classification (~90s), nnreg (~80s), samplingclt (~230s), gibbsconj (~50s), tetchygibbs (~40s)
-- **All 56 notebook bundles pass** `make test-bundles` (100%)
+- **Known slow notebooks** (use `--timeout 1200`): switchpoint (~90s), utilityorrisk (~70s), mlp_classification (~90s), nnreg (~80s), samplingclt (~230s), gibbsconj (~50s), tetchygibbs (~40s), gp3 (GP posterior predictive is slow)
+- **All 62 notebook bundles pass** `make test-bundles` (100%)
 
 ## Modernization Debt (deprecated patterns still in notebooks)
 
@@ -185,12 +194,12 @@ This is a Quarto-based personal website for data science/ML educational content 
 - Dates increase by **1 week per lecture**, starting from 2025-01-08 (Lecture 1)
 - All notes within a lecture share the same date (the lecture's date)
 - If a note was first imported in an earlier lecture, it keeps that earlier date
-- **Last date used**: 2025-05-21 (Lecture 20)
-- **Next lecture (21) should use**: 2025-05-28
+- **Last date used**: 2025-05-28 (Lecture 21)
+- **Next lecture (22) should use**: 2025-06-04
 
 ## Category System
 - Canonical categories are in `_categories.txt` (root of project), one per line, sorted alphabetically
-- **Current categories**: bayesian, classification, data, decision-theory, elections, hierarchical, information-theory, integration, interactive, macos, mcmc, models, montecarlo, neural-networks, optimization, orchestration, pipeline, probability, regression, sampling, statistics, visualization
+- **Current categories**: bayesian, classification, data, decision-theory, elections, gaussian-processes, hierarchical, information-theory, integration, interactive, macos, mcmc, models, montecarlo, neural-networks, optimization, orchestration, pipeline, probability, regression, sampling, statistics, visualization
 - All categories must be lowercase
 - When importing, map source keywords to existing categories; propose new ones for user approval
 - The `/import-wiki-notes` skill enforces this workflow (step 7c)
