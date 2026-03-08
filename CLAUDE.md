@@ -166,7 +166,13 @@ This is a Quarto-based personal website for data science/ML educational content 
   - `gp2` — notebook, imported to `posts/gp2/`
   - `gp3` — notebook, imported to `posts/gp3/` (includes salmon.txt)
   - `gpsalmon` — notebook, imported to `posts/gpsalmon/` (includes salmon.txt)
-- **Lectures 22–26**: NOT YET IMPORTED
+- **Lecture 22 (Decisions and Model Comparison)**: DONE
+  - `utilityorrisk` — already imported (Lecture 12), skipped
+  - `modelcomparison` — markdown, imported to `posts/modelcomparison.md` (includes devianceaic.png)
+  - `Divergence` — already imported (Lecture 5), skipped
+  - `Islands2` — already imported (Lecture 20), skipped
+  - `modelcompar2` — markdown, imported to `posts/modelcompar2.md`
+- **Lectures 23–26**: NOT YET IMPORTED
 
 ## PyMC3 → PyMC Migration Status
 - **Notebooks already ported**: `em` (removed unused import), `hmcexplore` (removed unused import), `switchpoint` (full InferenceData port), `utilityorrisk` (full InferenceData port), `gelmanschoolstheory` (full port), `gelmanschools` (full port), `hmctweaking` (full port), `identifiability` (full port), `pymcnormalreg` (full port), `islands1` (full port), `islands2` (full port), `gpcorr` (full port), `gp3` (full port), `gpsalmon` (full port), `gp1` (removed unused import), `gp2` (removed unused import + sklearn modernized)
@@ -194,8 +200,8 @@ This is a Quarto-based personal website for data science/ML educational content 
 - Dates increase by **1 week per lecture**, starting from 2025-01-08 (Lecture 1)
 - All notes within a lecture share the same date (the lecture's date)
 - If a note was first imported in an earlier lecture, it keeps that earlier date
-- **Last date used**: 2025-05-28 (Lecture 21)
-- **Next lecture (22) should use**: 2025-06-04
+- **Last date used**: 2025-06-04 (Lecture 22)
+- **Next lecture (23) should use**: 2025-06-11
 
 ## Category System
 - Canonical categories are in `_categories.txt` (root of project), one per line, sorted alphabetically
