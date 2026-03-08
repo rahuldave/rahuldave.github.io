@@ -19,6 +19,8 @@
     "listing": "/index.html",
     "items": [
       "/posts/seasons/index.html",
+      "/posts/modelcompar2.html",
+      "/posts/modelcomparison.html",
       "/posts/gpsalmon/index.html",
       "/posts/levelsofbayes.html",
       "/posts/gp1/index.html",
@@ -102,6 +104,8 @@
     "listing": "/posts.html",
     "items": [
       "/posts/seasons/index.html",
+      "/posts/modelcompar2.html",
+      "/posts/modelcomparison.html",
       "/posts/gpsalmon/index.html",
       "/posts/levelsofbayes.html",
       "/posts/gp1/index.html",

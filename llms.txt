@@ -49,6 +49,8 @@ Markov Chains and MCMC: https://rahuldave.com/posts/markov/_content.md
 Maximum Likelihood Estimation: https://rahuldave.com/posts/MLE/_content.md
 Metropolis and Support Mismatch: https://rahuldave.com/posts/metropolissupport/_content.md
 Mixture Models and Types of Learning: https://rahuldave.com/posts/typesoflearning/_content.md
+Model Comparison Continued: https://rahuldave.com/posts/modelcompar2/_content.md
+Model Comparison: https://rahuldave.com/posts/modelcomparison/_content.md
 Monte Carlo Integration: https://rahuldave.com/posts/montecarlointegrals/_content.md
 Multi-Layer Perceptron for Classification: https://rahuldave.com/posts/mlp_classification/_content.md
 Poisson Regression — Model Comparison and Hierarchical Overdispersion: https://rahuldave.com/posts/islands2/_content.md

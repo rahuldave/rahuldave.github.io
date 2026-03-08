@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "source_type": "md",
+  "title": "Model Comparison Continued",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "information-criteria",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 1,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "comparing-models",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-waic",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 3,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "using-information-criteria",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "cross-validation",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 5,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "cross-validation-vs-empirical-bayes",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 6,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "loocv",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 7,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "what-should-you-use",
+          "level": 2
+        }
+      ]
+    }
+  ]
+}
