@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Variational Autoencoder",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "9af00a61"
+    },
+    {
+      "cell": 2,
+      "type": "code",
+      "html_id": "1cce3f04"
+    },
+    {
+      "cell": 3,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 4,
+      "type": "code",
+      "html_id": "538e8d28"
+    },
+    {
+      "cell": 5,
+      "type": "code",
+      "html_id": "5991a64f"
+    },
+    {
+      "cell": 6,
+      "type": "code",
+      "html_id": "6610fdbf"
+    },
+    {
+      "cell": 7,
+      "type": "code",
+      "html_id": "13d1084b"
+    },
+    {
+      "cell": 8,
+      "type": "code",
+      "html_id": "0779c493"
+    },
+    {
+      "cell": 9,
+      "type": "code",
+      "html_id": "36ca7492"
+    },
+    {
+      "cell": 10,
+      "type": "code",
+      "html_id": "59d54f37"
+    },
+    {
+      "cell": 11,
+      "type": "code",
+      "html_id": "f1644191"
+    },
+    {
+      "cell": 12,
+      "type": "code",
+      "html_id": "d4b61f9b"
+    },
+    {
+      "cell": 13,
+      "type": "code",
+      "html_id": "b80a7be3"
+    },
+    {
+      "cell": 14,
+      "type": "code",
+      "html_id": "a65db48c"
+    }
+  ]
+}

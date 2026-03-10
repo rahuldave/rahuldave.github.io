@@ -19,6 +19,10 @@
     "listing": "/index.html",
     "items": [
       "/posts/seasons/index.html",
+      "/posts/vi/index.html",
+      "/posts/torchvae/index.html",
+      "/posts/varnn/index.html",
+      "/posts/advi/index.html",
       "/posts/monksglmworkflow/index.html",
       "/posts/modelcompar2.html",
       "/posts/modelcomparison.html",
@@ -105,6 +109,10 @@
     "listing": "/posts.html",
     "items": [
       "/posts/seasons/index.html",
+      "/posts/vi/index.html",
+      "/posts/torchvae/index.html",
+      "/posts/varnn/index.html",
+      "/posts/advi/index.html",
       "/posts/monksglmworkflow/index.html",
       "/posts/modelcompar2.html",
       "/posts/modelcomparison.html",

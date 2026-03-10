@@ -1,0 +1,282 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Automatic Differentiation Variational Inference",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "073fedd0"
+    },
+    {
+      "cell": 2,
+      "type": "code",
+      "html_id": "63a80b33"
+    },
+    {
+      "cell": 3,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "from-cavi-to-stochastic-cavi-to-advi",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "advi-in-pymc-approximating-a-gaussian",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 5,
+      "type": "code",
+      "html_id": "757da605"
+    },
+    {
+      "cell": 6,
+      "type": "code",
+      "html_id": "24ce54d9"
+    },
+    {
+      "cell": 7,
+      "type": "code",
+      "html_id": "7c386dda"
+    },
+    {
+      "cell": 8,
+      "type": "code",
+      "html_id": "d4f90744"
+    },
+    {
+      "cell": 9,
+      "type": "code",
+      "html_id": "f38af494"
+    },
+    {
+      "cell": 10,
+      "type": "code",
+      "html_id": "a803909a"
+    },
+    {
+      "cell": 11,
+      "type": "code",
+      "html_id": "c8a5f4a0"
+    },
+    {
+      "cell": 12,
+      "type": "code",
+      "html_id": "569ec35b"
+    },
+    {
+      "cell": 13,
+      "type": "code",
+      "html_id": "7c1f2a59"
+    },
+    {
+      "cell": 14,
+      "type": "code",
+      "html_id": "a6f14196"
+    },
+    {
+      "cell": 15,
+      "type": "code",
+      "html_id": "f18d7b37"
+    },
+    {
+      "cell": 16,
+      "type": "code",
+      "html_id": "5affa8ca"
+    },
+    {
+      "cell": 17,
+      "type": "code",
+      "html_id": "633b56a0"
+    },
+    {
+      "cell": 18,
+      "type": "code",
+      "html_id": "20869666"
+    },
+    {
+      "cell": 19,
+      "type": "code",
+      "html_id": "210ee309"
+    },
+    {
+      "cell": 20,
+      "type": "code",
+      "html_id": "61647962"
+    },
+    {
+      "cell": 21,
+      "type": "code",
+      "html_id": "67b7a934"
+    },
+    {
+      "cell": 22,
+      "type": "code",
+      "html_id": "7277912f"
+    },
+    {
+      "cell": 23,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "comparing-the-mu-parameter",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 24,
+      "type": "code",
+      "html_id": "0ff6b77d"
+    },
+    {
+      "cell": 25,
+      "type": "code",
+      "html_id": "da41081c"
+    },
+    {
+      "cell": 26,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "comparing-the-data-to-the-posterior-predictive",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 27,
+      "type": "code",
+      "html_id": "669c12bf"
+    },
+    {
+      "cell": 28,
+      "type": "code",
+      "html_id": "eb7b4ddf"
+    },
+    {
+      "cell": 29,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "advi-what-does-it-do",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 30,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "demonstrating-advi-in-pymc",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 31,
+      "type": "code",
+      "html_id": "483e8d72"
+    },
+    {
+      "cell": 32,
+      "type": "code",
+      "html_id": "8514a423"
+    },
+    {
+      "cell": 33,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 34,
+      "type": "code",
+      "html_id": "3cc1eb20"
+    },
+    {
+      "cell": 35,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 36,
+      "type": "code",
+      "html_id": "53a157db"
+    },
+    {
+      "cell": 37,
+      "type": "code",
+      "html_id": "3ca6042b"
+    },
+    {
+      "cell": 38,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 39,
+      "type": "code",
+      "html_id": "01e26577"
+    },
+    {
+      "cell": 40,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 41,
+      "type": "code",
+      "html_id": "338d86c9"
+    },
+    {
+      "cell": 42,
+      "type": "code",
+      "html_id": "c481c7e1"
+    },
+    {
+      "cell": 43,
+      "type": "code",
+      "html_id": "0a01fb09"
+    },
+    {
+      "cell": 44,
+      "type": "code",
+      "html_id": "7a2eb171"
+    },
+    {
+      "cell": 45,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 46,
+      "type": "code",
+      "html_id": "680ea6ce"
+    },
+    {
+      "cell": 47,
+      "type": "code",
+      "html_id": "96485582"
+    },
+    {
+      "cell": 48,
+      "type": "code",
+      "html_id": "9500223c"
+    }
+  ]
+}

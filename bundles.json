@@ -16,6 +16,23 @@
       "assets/linregmle.png"
     ]
   },
+  "advi": {
+    "zip": "/posts/advi/advi.zip",
+    "size_bytes": 637570,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "pymc",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": false,
+    "files": [
+      "index.ipynb",
+      "assets/TransformtoR.png"
+    ]
+  },
   "basicmontecarlo": {
     "zip": "/posts/basicmontecarlo/basicmontecarlo.zip",
     "size_bytes": 241985,
@@ -973,6 +990,21 @@
       "index.ipynb"
     ]
   },
+  "torchvae": {
+    "zip": "/posts/torchvae/torchvae.zip",
+    "size_bytes": 209993,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pillow",
+      "torch",
+      "torchvision"
+    ],
+    "pyodide_compatible": false,
+    "files": [
+      "index.ipynb"
+    ]
+  },
   "typesoflearning": {
     "zip": "/posts/typesoflearning/typesoflearning.zip",
     "size_bytes": 109375,
@@ -1045,6 +1077,40 @@
       "assets/train-validate-test3.png",
       "data/noisysample.csv",
       "data/religion.csv"
+    ]
+  },
+  "varnn": {
+    "zip": "/posts/varnn/varnn.zip",
+    "size_bytes": 289524,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pymc",
+      "scikit-learn",
+      "seaborn"
+    ],
+    "pyodide_compatible": false,
+    "files": [
+      "index.ipynb"
+    ]
+  },
+  "vi": {
+    "zip": "/posts/vi/vi.zip",
+    "size_bytes": 125743,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": true,
+    "files": [
+      "index.ipynb",
+      "assets/Gaussian_Mixture_Model.png",
+      "assets/VI.png",
+      "assets/klsplitup.png",
+      "assets/vi2dg.png"
     ]
   },
   "votingforcongress": {

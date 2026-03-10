@@ -1,0 +1,137 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Variational Inference with Neural Networks",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "b0dbb55f"
+    },
+    {
+      "cell": 2,
+      "type": "code",
+      "html_id": "dd1db578"
+    },
+    {
+      "cell": 3,
+      "type": "code",
+      "html_id": "8cb73cc9"
+    },
+    {
+      "cell": 4,
+      "type": "code",
+      "html_id": "2c2ef9dd"
+    },
+    {
+      "cell": 5,
+      "type": "code",
+      "html_id": "56ae959d"
+    },
+    {
+      "cell": 6,
+      "type": "code",
+      "html_id": "9ccc3132"
+    },
+    {
+      "cell": 7,
+      "type": "code",
+      "html_id": "f89c439a"
+    },
+    {
+      "cell": 8,
+      "type": "code",
+      "html_id": "34a26ac9"
+    },
+    {
+      "cell": 9,
+      "type": "code",
+      "html_id": "1fce6377"
+    },
+    {
+      "cell": 10,
+      "type": "code",
+      "html_id": "7846c25a"
+    },
+    {
+      "cell": 11,
+      "type": "code",
+      "html_id": "c3dcfd90"
+    },
+    {
+      "cell": 12,
+      "type": "code",
+      "html_id": "dd39a564"
+    },
+    {
+      "cell": 13,
+      "type": "code",
+      "html_id": "c011635b"
+    },
+    {
+      "cell": 14,
+      "type": "code",
+      "html_id": "d88cfca4"
+    },
+    {
+      "cell": 15,
+      "type": "code",
+      "html_id": "8d79a021"
+    },
+    {
+      "cell": 16,
+      "type": "code",
+      "html_id": "b63953b7"
+    },
+    {
+      "cell": 17,
+      "type": "code",
+      "html_id": "559adfda"
+    },
+    {
+      "cell": 18,
+      "type": "code",
+      "html_id": "47750e50"
+    },
+    {
+      "cell": 19,
+      "type": "code",
+      "html_id": "520e95b3"
+    },
+    {
+      "cell": 20,
+      "type": "code",
+      "html_id": "66e9e8cb"
+    },
+    {
+      "cell": 21,
+      "type": "code",
+      "html_id": "9fb1ac48"
+    },
+    {
+      "cell": 22,
+      "type": "code",
+      "html_id": "d24029bc"
+    },
+    {
+      "cell": 23,
+      "type": "code",
+      "html_id": "25b60972"
+    },
+    {
+      "cell": 24,
+      "type": "code",
+      "html_id": "32e778a2"
+    },
+    {
+      "cell": 25,
+      "type": "code",
+      "html_id": "7d7d69a8"
+    }
+  ]
+}
