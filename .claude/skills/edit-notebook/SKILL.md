@@ -1,21 +1,23 @@
-# Skill: Edit Notebook Cells
+---
+name: edit-notebook
+description: >
+  Atomic tools for reading and editing Jupyter notebook cells.
+  Use these instead of writing inline Python scripts to manipulate notebook JSON.
+  The underlying library (_scripts/notebook_tools.py) is also importable by other scripts.
+user-invocable: false
+allowed-tools: Bash(python3 _scripts/notebook_tools.py *)
+---
 
-Atomic tools for reading and editing Jupyter notebook cells, eliminating manual JSON manipulation.
+# Notebook Cell Editing Tools
 
-## Invocation
+**ALWAYS use `_scripts/notebook_tools.py` instead of inline `python3 << 'PYEOF'` scripts when editing notebooks.**
 
-```
-/edit-notebook
-```
-
-This skill is NOT invoked directly. Instead, it teaches you to use `_scripts/notebook_tools.py` whenever you need to inspect or modify notebook cells. **Use these tools instead of writing inline Python scripts to manipulate notebook JSON.**
-
-## Tools
-
-All tools are invoked via:
+All commands:
 ```bash
 python3 _scripts/notebook_tools.py <command> <notebook_path> [args...]
 ```
+
+## Commands
 
 ### list — Show cell overview
 
@@ -97,9 +99,9 @@ python3 _scripts/notebook_tools.py find <notebook> <pattern> [--type code|markdo
 
 Regex search across cells. Shows matching cell indices and lines. Use `-C` for context lines, `-i` for case-insensitive, `--type` to filter.
 
-## When to Use These Tools
+## When to Use
 
-**ALWAYS use these tools instead of inline `python3 << 'PYEOF'` scripts when:**
+**ALWAYS use these tools instead of inline Python scripts when:**
 - Inspecting notebook structure (`list`, `read`)
 - Making targeted edits to cell source (`edit`)
 - Replacing whole cells during porting (`replace`)
@@ -121,3 +123,12 @@ Regex search across cells. Shows matching cell indices and lines. Use `-C` for c
 - After `add` or `delete`, indices shift — re-run `list` if you need to make further changes
 - The script handles source as line-lists internally (proper `.ipynb` format)
 - New cells get a random `id` field (satisfies nbformat requirements)
+
+## Library Usage (for other scripts)
+
+```python
+from notebook_tools import load_notebook, save_notebook, get_source, set_source, make_cell
+nb = load_notebook("posts/foo/index.ipynb")
+set_source(nb["cells"][5], "import pymc as pm")
+save_notebook("posts/foo/index.ipynb", nb)
+```
