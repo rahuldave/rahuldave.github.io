@@ -7,6 +7,7 @@ Basic Monte Carlo: https://rahuldave.com/posts/basicmontecarlo/_content.md
 Bayesian Regression with Normal Models: https://rahuldave.com/posts/pymcnormalreg/_content.md
 Bayesian Regression: https://rahuldave.com/posts/bayesianregression/_content.md
 Bayesian Statistics: https://rahuldave.com/posts/bayes_withsampling/_content.md
+Bayesian Workflow: Zero-Inflated Poisson: https://rahuldave.com/posts/monksglmworkflow/_content.md
 Box's Loop: https://rahuldave.com/posts/boxloop/_content.md
 Choosing Priors: From Flat to Weakly Informative: https://rahuldave.com/posts/priors/_content.md
 Convexity and Jensen's Inequality: https://rahuldave.com/posts/jensens/_content.md

@@ -19,6 +19,7 @@
     "listing": "/index.html",
     "items": [
       "/posts/seasons/index.html",
+      "/posts/monksglmworkflow/index.html",
       "/posts/modelcompar2.html",
       "/posts/modelcomparison.html",
       "/posts/gpsalmon/index.html",
@@ -104,6 +105,7 @@
     "listing": "/posts.html",
     "items": [
       "/posts/seasons/index.html",
+      "/posts/monksglmworkflow/index.html",
       "/posts/modelcompar2.html",
       "/posts/modelcomparison.html",
       "/posts/gpsalmon/index.html",

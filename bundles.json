@@ -694,6 +694,24 @@
       "index.ipynb"
     ]
   },
+  "monksglmworkflow": {
+    "zip": "/posts/monksglmworkflow/monksglmworkflow.zip",
+    "size_bytes": 1077692,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "pymc",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": false,
+    "files": [
+      "index.ipynb",
+      "assets/a-st-bernardus-prior-8.jpg",
+      "assets/zinfmonks.png"
+    ]
+  },
   "montecarlointegrals": {
     "zip": "/posts/montecarlointegrals/montecarlointegrals.zip",
     "size_bytes": 43695,
