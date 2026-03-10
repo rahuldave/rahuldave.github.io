@@ -124,6 +124,13 @@ Regex search across cells. Shows matching cell indices and lines. Use `-C` for c
 - The script handles source as line-lists internally (proper `.ipynb` format)
 - New cells get a random `id` field (satisfies nbformat requirements)
 
+## Practical Notes
+
+- **Prefer `notebook_tools.py` over the `NotebookEdit` tool** for wiki-imported notebooks — they lack cell IDs, which `NotebookEdit` requires
+- **Index shift after PEP 723 injection**: `inject_juv_metadata.py` inserts a cell at index 1, so all subsequent cell indices shift by +1. Account for this when editing cells after injection.
+- **Subagents cannot use these tools** due to permission restrictions — do notebook edits in the main conversation
+- **For multi-line `replace` with quotes**: use shell quoting `'"'"'` for embedded single quotes, or heredoc syntax
+
 ## Library Usage (for other scripts)
 
 ```python

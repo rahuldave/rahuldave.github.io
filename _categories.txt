@@ -20,4 +20,5 @@ probability
 regression
 sampling
 statistics
+variational-inference
 visualization
