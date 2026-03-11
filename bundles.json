@@ -1027,7 +1027,7 @@
   },
   "switchpoint": {
     "zip": "/posts/switchpoint/switchpoint.zip",
-    "size_bytes": 966412,
+    "size_bytes": 983511,
     "dependencies": [
       "matplotlib",
       "numpy",

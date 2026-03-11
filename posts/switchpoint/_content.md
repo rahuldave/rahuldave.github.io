@@ -107,7 +107,7 @@ graphviz not available, skipping model visualization
 ```
 
 <!-- cell:10 type:markdown -->
-Let us interrogate our model about the various parts of it. Notice that our stochastics are logs of the rate params and the switchpoint, while our deterministics are the rate parameters themselves.
+Let us interrogate our model about the various parts of it. The free random variables are the stochastics we defined. PyMC internally applies transforms (e.g. log for positive-valued parameters) during sampling, which we can inspect via `rvs_to_transforms`.
 
 <!-- cell:11 type:code -->
 ```python
@@ -120,14 +120,16 @@ Output:
 
 <!-- cell:12 type:code -->
 ```python
-try:
-    type(coaldis1['early_mean_log__'])
-except (KeyError, TypeError):
-    print('Transformed variable access has changed in modern pymc')
+# In pymc v5, transformed variables are accessed via model.rvs_to_transforms
+# This shows which RVs have internal transforms (e.g. log for Exponential)
+{rv.name: tr.name if tr is not None else "none" for rv, tr in coaldis1.rvs_to_transforms.items()}
 ```
 Output:
 ```
-Transformed variable access has changed in modern pymc
+{'early_mean': 'log',
+ 'late_mean': 'log',
+ 'switchpoint': 'none',
+ 'disasters': 'none'}
 ```
 
 <!-- cell:13 type:code -->
@@ -179,26 +181,30 @@ with coaldis1:
 
 <!-- cell:20 type:code -->
 ```python
-try:
-    print(early_mean.transformed, switchpoint.distribution)
-except AttributeError:
-    print('Internal distribution API has changed in modern pymc')
+# In pymc v5, distribution info is accessed through the model owner graph.
+# We can inspect the distribution type (Op) for each RV:
+for rv in coaldis1.free_RVs:
+    print(f"{rv.name}: {rv.owner.op}")
 ```
 Output:
 ```
-Internal distribution API has changed in modern pymc
+early_mean: exponential_rv{"()->()"}
+late_mean: exponential_rv{"()->()"}
+switchpoint: discrete_uniform_rv{"(),()->()"}
 ```
 
 <!-- cell:21 type:code -->
 ```python
-try:
-    switchpoint.distribution.defaults
-except AttributeError:
-    print('Distribution defaults API has changed in modern pymc')
+# Distribution parameters can be inspected via the RV's owner inputs.
+# For switchpoint (DiscreteUniform), the inputs are lower and upper bounds:
+for rv in coaldis1.free_RVs:
+    print(f"{rv.name}: inputs = {rv.owner.inputs}")
 ```
 Output:
 ```
-Distribution defaults API has changed in modern pymc
+early_mean: inputs = [RNG(<Generator(PCG64) at 0x119D07D80>), Constant(<pytensor.tensor.type_other.NoneTypeT object at 0x10de9cc20>, data=None), Reciprocal.0]
+late_mean: inputs = [RNG(<Generator(PCG64) at 0x10D86A420>), Constant(<pytensor.tensor.type_other.NoneTypeT object at 0x10de9cc20>, data=None), Reciprocal.0]
+switchpoint: inputs = [RNG(<Generator(PCG64) at 0x11A0A0820>), Constant(<pytensor.tensor.type_other.NoneTypeT object at 0x10de9cc20>, data=None), Floor.0, Floor.0]
 ```
 
 <!-- cell:22 type:code -->
@@ -213,8 +219,8 @@ Output:
 ```
 Output:
 ```
-array([1.06307892, 4.1061264 , 1.01125516, 0.04178897, 0.03174314,
-       1.36572425, 0.77706346, 2.1425485 , 0.52638719, 0.15074759])
+array([1.60391016, 0.24965977, 1.74990034, 0.22793361, 1.81421517,
+       0.06244465, 0.15160018, 1.25886023, 0.52106574, 0.29085251])
 ```
 
 <!-- cell:23 type:code -->
@@ -232,14 +238,16 @@ Most importantly, anything distribution-like must have a `logp` method. This is 
 
 <!-- cell:25 type:code -->
 ```python
-try:
-    switchpoint.logp({'switchpoint':55, 'early_mean_log__':1, 'late_mean_log__':1})
-except (AttributeError, TypeError, KeyError):
-    print('Model logp API has changed in modern pymc. Use model.point_logps() instead.')
+# In pymc v5, use model.point_logps() to evaluate the log-probability
+# at the model's initial point, or compile_logp() for a callable function.
+coaldis1.point_logps()
 ```
 Output:
 ```
-Model logp API has changed in modern pymc. Use model.point_logps() instead.
+{'early_mean': np.float64(-1.0),
+ 'late_mean': np.float64(-1.0),
+ 'switchpoint': np.float32(-4.72),
+ 'disasters': np.float64(-225.81)}
 ```
 
 <!-- cell:26 type:markdown -->
@@ -270,7 +278,7 @@ Output:
 ```
 Output:
 ```
-/Users/rahul/Library/Caches/uv/archive-v0/TDMjbJ0KVXQ0cgT9PEjxe/lib/python3.14/site-packages/rich/live.py:260: 
+/Users/rahul/Library/Caches/uv/archive-v0/l4LpQWbyS9KtMNNEoE2Lo/lib/python3.14/site-packages/rich/live.py:260: 
 UserWarning: install "ipywidgets" for Jupyter support
   warnings.warn('install "ipywidgets" for Jupyter support')
 ```
@@ -286,9 +294,9 @@ az.summary(idata.sel(draw=slice(4000, None, 5)))
 Output:
 ```
                mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_bulk  ess_tail  r_hat
-switchpoint  38.998  2.467  34.000   43.000      0.021    0.016   14206.0   15864.0    1.0
-early_mean    3.067  0.285   2.549    3.610      0.002    0.001   25219.0   27077.0    1.0
-late_mean     0.937  0.118   0.716    1.158      0.001    0.001   26498.0   26264.0    1.0
+switchpoint  39.005  2.466  34.000   43.000      0.021    0.016   14204.0   16147.0    1.0
+early_mean    3.065  0.284   2.526    3.594      0.002    0.001   26733.0   27913.0    1.0
+late_mean     0.936  0.118   0.714    1.153      0.001    0.001   25938.0   27948.0    1.0
 ```
 
 <!-- cell:29 type:code -->
@@ -326,9 +334,9 @@ idata_burned.posterior.to_dataframe().corr()
 Output:
 ```
              switchpoint  early_mean  late_mean
-switchpoint     1.000000   -0.265152  -0.244117
-early_mean     -0.265152    1.000000   0.054666
-late_mean      -0.244117    0.054666   1.000000
+switchpoint     1.000000   -0.270741  -0.231414
+early_mean     -0.270741    1.000000   0.062379
+late_mean      -0.231414    0.062379   1.000000
 ```
 
 <!-- cell:35 type:markdown -->
@@ -392,7 +400,7 @@ with pm.Model() as missing_data_model:
 ```
 Output:
 ```
-/Users/rahul/Library/Caches/uv/archive-v0/TDMjbJ0KVXQ0cgT9PEjxe/lib/python3.14/site-packages/pymc/model/core.py:1316: ImputationWarning: Data in disasters contains missing values and will be automatically imputed from the sampling distribution.
+/Users/rahul/Library/Caches/uv/archive-v0/l4LpQWbyS9KtMNNEoE2Lo/lib/python3.14/site-packages/pymc/model/core.py:1316: ImputationWarning: Data in disasters contains missing values and will be automatically imputed from the sampling distribution.
   warnings.warn(impute_message, ImputationWarning)
 ```
 
@@ -443,7 +451,7 @@ Output:
 ```
 Output:
 ```
-/Users/rahul/Library/Caches/uv/archive-v0/TDMjbJ0KVXQ0cgT9PEjxe/lib/python3.14/site-packages/rich/live.py:260: 
+/Users/rahul/Library/Caches/uv/archive-v0/l4LpQWbyS9KtMNNEoE2Lo/lib/python3.14/site-packages/rich/live.py:260: 
 UserWarning: install "ipywidgets" for Jupyter support
   warnings.warn('install "ipywidgets" for Jupyter support')
 ```
@@ -463,27 +471,30 @@ az.summary(idata_m_burned)
 ```
 Output:
 ```
-/Users/rahul/Library/Caches/uv/archive-v0/TDMjbJ0KVXQ0cgT9PEjxe/lib/python3.14/site-packages/arviz/stats/diagnostics.py:596: RuntimeWarning: invalid value encountered in scalar divide
+/Users/rahul/Library/Caches/uv/archive-v0/l4LpQWbyS9KtMNNEoE2Lo/lib/python3.14/site-packages/arviz/stats/diagnostics.py:596: RuntimeWarning: invalid value encountered in scalar divide
   (between_chain_variance / within_chain_variance + num_samples - 1) / (num_samples)
-/Users/rahul/Library/Caches/uv/archive-v0/TDMjbJ0KVXQ0cgT9PEjxe/lib/python3.14/site-packages/arviz/stats/diagnostics.py:991: RuntimeWarning: invalid value encountered in scalar divide
+/Users/rahul/Library/Caches/uv/archive-v0/l4LpQWbyS9KtMNNEoE2Lo/lib/python3.14/site-packages/arviz/stats/diagnostics.py:991: RuntimeWarning: invalid value encountered in scalar divide
   varsd = varvar / evar / 4
-/Users/rahul/Library/Caches/uv/archive-v0/TDMjbJ0KVXQ0cgT9PEjxe/lib/python3.14/site-packages/arviz/stats/diagnostics.py:596: RuntimeWarning: invalid value encountered in scalar divide
+/Users/rahul/Library/Caches/uv/archive-v0/l4LpQWbyS9KtMNNEoE2Lo/lib/python3.14/site-packages/arviz/stats/diagnostics.py:596: RuntimeWarning: invalid value encountered in scalar divide
   (between_chain_variance / within_chain_variance + num_samples - 1) / (num_samples)
-/Users/rahul/Library/Caches/uv/archive-v0/TDMjbJ0KVXQ0cgT9PEjxe/lib/python3.14/site-packages/arviz/stats/diagnostics.py:991: RuntimeWarning: invalid value encountered in scalar divide
+/Users/rahul/Library/Caches/uv/archive-v0/l4LpQWbyS9KtMNNEoE2Lo/lib/python3.14/site-packages/arviz/stats/diagnostics.py:991: RuntimeWarning: invalid value encountered in scalar divide
   varsd = varvar / evar / 4
-/Users/rahul/Library/Caches/uv/archive-v0/TDMjbJ0KVXQ0cgT9PEjxe/lib/python3.14/site-packages/arviz/stats/diagnostics.py:596: RuntimeWarning: invalid value encountered in scalar divide
+```
+Output:
+```
+/Users/rahul/Library/Caches/uv/archive-v0/l4LpQWbyS9KtMNNEoE2Lo/lib/python3.14/site-packages/arviz/stats/diagnostics.py:596: RuntimeWarning: invalid value encountered in scalar divide
   (between_chain_variance / within_chain_variance + num_samples - 1) / (num_samples)
-/Users/rahul/Library/Caches/uv/archive-v0/TDMjbJ0KVXQ0cgT9PEjxe/lib/python3.14/site-packages/arviz/stats/diagnostics.py:991: RuntimeWarning: invalid value encountered in scalar divide
+/Users/rahul/Library/Caches/uv/archive-v0/l4LpQWbyS9KtMNNEoE2Lo/lib/python3.14/site-packages/arviz/stats/diagnostics.py:991: RuntimeWarning: invalid value encountered in scalar divide
   varsd = varvar / evar / 4
 ```
 Output:
 ```
                            mean     sd  hdi_3%  hdi_97%  mcse_mean  mcse_sd  ess_bulk  ess_tail  r_hat
-switchpoint              38.817  2.437  35.000   43.000      0.027    0.017    8291.0   12237.0    1.0
-disasters_unobserved[0]   2.160  1.795   0.000    5.000      0.017    0.010   10694.0   13068.0    1.0
-disasters_unobserved[1]   0.935  0.982   0.000    3.000      0.007    0.006   17941.0   20618.0    1.0
-early_mean                3.086  0.287   2.548    3.618      0.002    0.002   14854.0   16972.0    1.0
-late_mean                 0.931  0.117   0.709    1.142      0.001    0.001   17153.0   18830.0    1.0
+switchpoint              38.801  2.445  35.000   43.000      0.025    0.016    9899.0   14328.0    1.0
+disasters_unobserved[0]   2.146  1.798   0.000    5.000      0.017    0.010   10814.0   14542.0    1.0
+disasters_unobserved[1]   0.926  0.972   0.000    3.000      0.007    0.006   20599.0   21554.0    1.0
+early_mean                3.086  0.285   2.572    3.636      0.002    0.002   15500.0   17353.0    1.0
+late_mean                 0.932  0.117   0.719    1.155      0.001    0.001   15902.0   17191.0    1.0
 ...                         ...    ...     ...      ...        ...      ...       ...       ...    ...
 disasters[106]            0.000  0.000   0.000    0.000      0.000      NaN   28800.0   28800.0    NaN
 disasters[107]            0.000  0.000   0.000    0.000      0.000      NaN   28800.0   28800.0    NaN
@@ -616,7 +627,7 @@ Output:
 ```
 Output:
 ```
-/Users/rahul/Library/Caches/uv/archive-v0/TDMjbJ0KVXQ0cgT9PEjxe/lib/python3.14/site-packages/rich/live.py:260: 
+/Users/rahul/Library/Caches/uv/archive-v0/l4LpQWbyS9KtMNNEoE2Lo/lib/python3.14/site-packages/rich/live.py:260: 
 UserWarning: install "ipywidgets" for Jupyter support
   warnings.warn('install "ipywidgets" for Jupyter support')
 ```
@@ -707,7 +718,7 @@ Sampling: [disasters]
 ```
 Output:
 ```
-/Users/rahul/Library/Caches/uv/archive-v0/TDMjbJ0KVXQ0cgT9PEjxe/lib/python3.14/site-packages/rich/live.py:260: 
+/Users/rahul/Library/Caches/uv/archive-v0/l4LpQWbyS9KtMNNEoE2Lo/lib/python3.14/site-packages/rich/live.py:260: 
 UserWarning: install "ipywidgets" for Jupyter support
   warnings.warn('install "ipywidgets" for Jupyter support')
 ```
