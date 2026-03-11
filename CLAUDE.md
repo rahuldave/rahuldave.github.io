@@ -206,8 +206,7 @@ This is a Quarto-based personal website for data science/ML educational content 
 
 ## Modernization Debt (deprecated patterns still in notebooks)
 
-### 1. `switchpoint` pymc introspection shims
-6 cells wrapped in try/except because pymc v5 changed internal APIs (transformed variable access, distribution internals, model logp). These work but print fallback messages instead of showing the original pedagogical content. Could be rewritten to use modern pymc equivalents.
+None — all items resolved.
 
 ## Post Date Scheme
 - Dates increase by **1 week per lecture**, starting from 2025-01-08 (Lecture 1)
