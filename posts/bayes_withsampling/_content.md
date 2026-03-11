@@ -278,7 +278,7 @@ acc/nsamps
 ```
 Output:
 ```
-0.45855
+0.463025
 ```
 
 <!-- cell:20 type:code -->
@@ -311,35 +311,10 @@ corrplot(samps[20000::4]);
 
 <!-- cell:25 type:code -->
 ```python
-sns.distplot(samps[20000::4], bins=25);
-sns.distplot(samps[20000::], bins=25);
+sns.histplot(samps[20000::4], bins=25, kde=True);
+sns.histplot(samps[20000::], bins=25, kde=True);
 ```
-Output:
-```
-/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48639/447715325.py:1: UserWarning: 
-
-`distplot` is a deprecated function and will be removed in seaborn v0.14.0.
-
-Please adapt your code to use either `displot` (a figure-level function with
-similar flexibility) or `histplot` (an axes-level function for histograms).
-
-For a guide to updating your code to use the new functions, please see
-https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
-
-  sns.distplot(samps[20000::4], bins=25);
-/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48639/447715325.py:2: UserWarning: 
-
-`distplot` is a deprecated function and will be removed in seaborn v0.14.0.
-
-Please adapt your code to use either `displot` (a figure-level function with
-similar flexibility) or `histplot` (an axes-level function for histograms).
-
-For a guide to updating your code to use the new functions, please see
-https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
-
-  sns.distplot(samps[20000::], bins=25);
-```
-![Figure](https://rahuldave.com/posts/bayes_withsampling/index_files/figure-html/cell-15-output-2.png)
+![Figure](https://rahuldave.com/posts/bayes_withsampling/index_files/figure-html/cell-15-output-1.png)
 
 <!-- cell:26 type:code -->
 ```python
@@ -382,32 +357,7 @@ plt.legend();
 
 <!-- cell:32 type:code -->
 ```python
-sns.distplot(like_samples);
-sns.distplot(post_pred_samples);
+sns.histplot(like_samples, kde=True);
+sns.histplot(post_pred_samples, kde=True);
 ```
-Output:
-```
-/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48639/2813733996.py:1: UserWarning: 
-
-`distplot` is a deprecated function and will be removed in seaborn v0.14.0.
-
-Please adapt your code to use either `displot` (a figure-level function with
-similar flexibility) or `histplot` (an axes-level function for histograms).
-
-For a guide to updating your code to use the new functions, please see
-https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
-
-  sns.distplot(like_samples);
-/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48639/2813733996.py:2: UserWarning: 
-
-`distplot` is a deprecated function and will be removed in seaborn v0.14.0.
-
-Please adapt your code to use either `displot` (a figure-level function with
-similar flexibility) or `histplot` (an axes-level function for histograms).
-
-For a guide to updating your code to use the new functions, please see
-https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
-
-  sns.distplot(post_pred_samples);
-```
-![Figure](https://rahuldave.com/posts/bayes_withsampling/index_files/figure-html/cell-20-output-2.png)
+![Figure](https://rahuldave.com/posts/bayes_withsampling/index_files/figure-html/cell-20-output-1.png)

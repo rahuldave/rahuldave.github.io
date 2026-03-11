@@ -79,24 +79,10 @@ out = metropolis(target, prop, 100000, 1.0)
 
 <!-- cell:9 type:code -->
 ```python
-sns.distplot(out)
+sns.histplot(out, kde=True)
 plt.plot(xx, target(xx));
 ```
-Output:
-```
-/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_49036/2367533370.py:1: UserWarning: 
-
-`distplot` is a deprecated function and will be removed in seaborn v0.14.0.
-
-Please adapt your code to use either `displot` (a figure-level function with
-similar flexibility) or `histplot` (an axes-level function for histograms).
-
-For a guide to updating your code to use the new functions, please see
-https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
-
-  sns.distplot(out)
-```
-![Figure](https://rahuldave.com/posts/metropolissupport/index_files/figure-html/cell-7-output-2.png)
+![Figure](https://rahuldave.com/posts/metropolissupport/index_files/figure-html/cell-7-output-1.png)
 
 <!-- cell:10 type:markdown -->
 Since we use the functional form directly without checking for $x \gt 0$, we are **not sampling on the correct support**. This does not land up costing us, as the acceptance ratio being negative the first time we sample a negative $x$ will ensure that we *never* sample a negative $x$. We would be better using `scipy.stats` built in gamma support.
@@ -141,7 +127,7 @@ a1/100000, rn/(100000 - a1)
 ```
 Output:
 ```
-(0.72869, 0.37536397478898675)
+(0.72835, 0.36447634824222347)
 ```
 
 <!-- cell:15 type:markdown -->
@@ -180,24 +166,10 @@ def metropolis_broken(p, qdraw, nsamp, xinit):
 <!-- cell:18 type:code -->
 ```python
 out3 = metropolis_broken(target, prop, 100000, 1.0)
-sns.distplot(out3)
+sns.histplot(out3, kde=True)
 plt.plot(xx, target(xx));
 ```
-Output:
-```
-/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_49036/120779674.py:2: UserWarning: 
-
-`distplot` is a deprecated function and will be removed in seaborn v0.14.0.
-
-Please adapt your code to use either `displot` (a figure-level function with
-similar flexibility) or `histplot` (an axes-level function for histograms).
-
-For a guide to updating your code to use the new functions, please see
-https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
-
-  sns.distplot(out3)
-```
-![Figure](https://rahuldave.com/posts/metropolissupport/index_files/figure-html/cell-12-output-2.png)
+![Figure](https://rahuldave.com/posts/metropolissupport/index_files/figure-html/cell-12-output-1.png)
 
 <!-- cell:19 type:markdown -->
 ## Fix using MH
@@ -254,21 +226,7 @@ Now we get the correct output!
 
 <!-- cell:24 type:code -->
 ```python
-sns.distplot(out4)
+sns.histplot(out4, kde=True)
 plt.plot(xx, target(xx));
 ```
-Output:
-```
-/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_49036/3721494611.py:1: UserWarning: 
-
-`distplot` is a deprecated function and will be removed in seaborn v0.14.0.
-
-Please adapt your code to use either `displot` (a figure-level function with
-similar flexibility) or `histplot` (an axes-level function for histograms).
-
-For a guide to updating your code to use the new functions, please see
-https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
-
-  sns.distplot(out4)
-```
-![Figure](https://rahuldave.com/posts/metropolissupport/index_files/figure-html/cell-16-output-2.png)
+![Figure](https://rahuldave.com/posts/metropolissupport/index_files/figure-html/cell-16-output-1.png)

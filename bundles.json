@@ -51,7 +51,7 @@
   },
   "basicmontecarlo": {
     "zip": "/posts/basicmontecarlo/basicmontecarlo.zip",
-    "size_bytes": 241985,
+    "size_bytes": 241968,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -66,7 +66,7 @@
   },
   "bayes_withsampling": {
     "zip": "/posts/bayes_withsampling/bayes_withsampling.zip",
-    "size_bytes": 310584,
+    "size_bytes": 310929,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -149,7 +149,7 @@
   },
   "distrib-example": {
     "zip": "/posts/distrib-example/distrib-example.zip",
-    "size_bytes": 347246,
+    "size_bytes": 347227,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -168,7 +168,7 @@
   },
   "divergence": {
     "zip": "/posts/divergence/divergence.zip",
-    "size_bytes": 213946,
+    "size_bytes": 214007,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -237,7 +237,7 @@
   },
   "expectations": {
     "zip": "/posts/expectations/expectations.zip",
-    "size_bytes": 35540,
+    "size_bytes": 23949,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -372,7 +372,7 @@
   },
   "globemodellab": {
     "zip": "/posts/globemodellab/globemodellab.zip",
-    "size_bytes": 621764,
+    "size_bytes": 620410,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -647,7 +647,7 @@
   },
   "jensens": {
     "zip": "/posts/jensens/jensens.zip",
-    "size_bytes": 149579,
+    "size_bytes": 149666,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -701,7 +701,7 @@
   },
   "markov": {
     "zip": "/posts/markov/markov.zip",
-    "size_bytes": 167695,
+    "size_bytes": 162013,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -749,7 +749,7 @@
   },
   "metropolissupport": {
     "zip": "/posts/metropolissupport/metropolissupport.zip",
-    "size_bytes": 102665,
+    "size_bytes": 82134,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -819,7 +819,7 @@
   },
   "montecarlointegrals": {
     "zip": "/posts/montecarlointegrals/montecarlointegrals.zip",
-    "size_bytes": 43695,
+    "size_bytes": 43781,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -866,7 +866,7 @@
   },
   "noisylearning": {
     "zip": "/posts/noisylearning/noisylearning.zip",
-    "size_bytes": 871818,
+    "size_bytes": 1252884,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -899,7 +899,7 @@
   },
   "normalreg": {
     "zip": "/posts/normalreg/normalreg.zip",
-    "size_bytes": 353782,
+    "size_bytes": 358622,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -929,7 +929,7 @@
   },
   "probability": {
     "zip": "/posts/probability/probability.zip",
-    "size_bytes": 120669,
+    "size_bytes": 120654,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -998,7 +998,7 @@
   },
   "samplingclt": {
     "zip": "/posts/samplingclt/samplingclt.zip",
-    "size_bytes": 254110,
+    "size_bytes": 254091,
     "dependencies": [
       "matplotlib",
       "numpy",
@@ -1095,7 +1095,7 @@
   },
   "typesoflearning": {
     "zip": "/posts/typesoflearning/typesoflearning.zip",
-    "size_bytes": 109375,
+    "size_bytes": 138505,
     "dependencies": [
       "ipython",
       "matplotlib",
@@ -1203,7 +1203,7 @@
   },
   "votingforcongress": {
     "zip": "/posts/votingforcongress/votingforcongress.zip",
-    "size_bytes": 3275478,
+    "size_bytes": 3275479,
     "dependencies": [
       "pandas",
       "lxml"

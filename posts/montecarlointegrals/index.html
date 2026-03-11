@@ -149,16 +149,16 @@ window.Quarto = {
 
 <meta property="og:title" content="Monte Carlo Integration – rahuldave">
 <meta property="og:description" content="Formalizes Monte Carlo integration using uniform random samples and LOTUS, then extends to multidimensional integrals. Uses the Central Limit Theorem to estimate integration error and compares convergence rates with classical quadrature.">
-<meta property="og:image" content="https://rahuldave.github.io/posts/montecarlointegrals/index_files/figure-html/cell-8-output-1.png">
+<meta property="og:image" content="https://rahuldave.github.io/posts/montecarlointegrals/index_files/figure-html/cell-8-output-3.png">
 <meta property="og:site_name" content="rahuldave">
-<meta property="og:image:height" content="356">
-<meta property="og:image:width" content="520">
+<meta property="og:image:height" content="432">
+<meta property="og:image:width" content="583">
 <meta name="twitter:title" content="Monte Carlo Integration – rahuldave">
 <meta name="twitter:description" content="Formalizes Monte Carlo integration using uniform random samples and LOTUS, then extends to multidimensional integrals. Uses the Central Limit Theorem to estimate integration error and compares convergence rates with classical quadrature.">
-<meta name="twitter:image" content="https://rahuldave.github.io/posts/montecarlointegrals/index_files/figure-html/cell-8-output-1.png">
+<meta name="twitter:image" content="https://rahuldave.github.io/posts/montecarlointegrals/index_files/figure-html/cell-8-output-3.png">
 <meta name="twitter:creator" content="@rahuldave">
-<meta name="twitter:image-height" content="356">
-<meta name="twitter:image-width" content="520">
+<meta name="twitter:image-height" content="432">
+<meta name="twitter:image-width" content="583">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -464,15 +464,11 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-2" class="cell" data-execution_count="3" data-cell-type="code">
+<div id="cell-2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:26.377622Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:26.377327Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:26.870854Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:26.870208Z&quot;}}" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
-</div>
 </div>
 <section id="the-basic-idea" class="level2">
 <h2 class="anchored" data-anchor-id="the-basic-idea">The basic idea</h2>
@@ -492,30 +488,30 @@ window.Quarto = {
 <p>**Calculate the integral $ I= _{2}^{3} [x^2 + 4 , x ,(x)] , dx. $**</p>
 <p>We know from calculus that the anti-derivative is <span class="math display">\[ x^3/3 + 4\sin(x) -4x\cos(x). \]</span></p>
 <p>To solve this using MC, we simply draw <span class="math inline">\(N\)</span> random numbers from 2 to 3 and then take the average of all the values <span class="math inline">\(f(x)=x^2 + 4 \, x \,\sin(x)\)</span> and normalized over the volume; this case the volume is 1 (3-2=1).</p>
-<div id="cell-5" class="cell" data-execution_count="4" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">4</span><span class="op">*</span>x<span class="op">*</span>np.sin(x) </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> intf(x): </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="dv">3</span><span class="op">/</span><span class="fl">3.0</span><span class="op">+</span><span class="fl">4.0</span><span class="op">*</span>np.sin(x) <span class="op">-</span> <span class="fl">4.0</span><span class="op">*</span>x<span class="op">*</span>np.cos(x) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:26.872450Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:26.872273Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:26.875055Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:26.874023Z&quot;}}" data-execution_count="3" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">4</span><span class="op">*</span>x<span class="op">*</span>np.sin(x) </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> intf(x): </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="dv">3</span><span class="op">/</span><span class="fl">3.0</span><span class="op">+</span><span class="fl">4.0</span><span class="op">*</span>np.sin(x) <span class="op">-</span> <span class="fl">4.0</span><span class="op">*</span>x<span class="op">*</span>np.cos(x) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-6" class="cell" data-execution_count="6" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">2</span><span class="op">;</span>    </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="dv">3</span><span class="op">;</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># use N draws </span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>N<span class="op">=</span> <span class="dv">10000</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.uniform(low<span class="op">=</span>a, high<span class="op">=</span>b, size<span class="op">=</span>N) <span class="co"># N values uniformly drawn from a to b </span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span>f(X)   <span class="co"># CALCULATE THE f(x) </span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>V <span class="op">=</span> b<span class="op">-</span>a</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>Imc<span class="op">=</span> V <span class="op">*</span> np.<span class="bu">sum</span>(Y)<span class="op">/</span> N<span class="op">;</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>exactval<span class="op">=</span>intf(b)<span class="op">-</span>intf(a)</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Monte Carlo estimation="</span>,Imc, <span class="st">"Exact number="</span>, intf(b)<span class="op">-</span>intf(a))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:26.876344Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:26.876241Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:26.879776Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:26.879000Z&quot;}}" data-execution_count="4" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="dv">2</span><span class="op">;</span>    </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="dv">3</span><span class="op">;</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># use N draws </span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>N<span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.random.uniform(low<span class="op">=</span>a, high<span class="op">=</span>b, size<span class="op">=</span>N) <span class="co"># N values uniformly drawn from a to b </span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span>f(X)   <span class="co"># CALCULATE THE f(x) </span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>V <span class="op">=</span> b<span class="op">-</span>a</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>Imc<span class="op">=</span> V <span class="op">*</span> np.<span class="bu">sum</span>(Y)<span class="op">/</span> N<span class="op">;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>exactval<span class="op">=</span>intf(b)<span class="op">-</span>intf(a)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Monte Carlo estimation="</span>,Imc, <span class="st">"Exact number="</span>, intf(b)<span class="op">-</span>intf(a))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Monte Carlo estimation= 11.8120823531 Exact number= 11.8113589251</code></pre>
+<pre><code>Monte Carlo estimation= 11.811532782792291 Exact number= 11.811358925098283</code></pre>
 </div>
 </div>
 </section>
@@ -524,24 +520,24 @@ window.Quarto = {
 <p>That is nice but how about a multidimensional case?</p>
 <p>Let us calculate the two dimensional integral <span class="math inline">\(I=\int \int f(x, y) dx dy\)</span> where <span class="math inline">\(f(x,y) = x^2 +y^2\)</span> over the region deﬁned by the condition <span class="math inline">\(x^2 +y^2 ≤ 1\)</span></p>
 <p>In other words we are talking about a uniform distribution on the unit circle</p>
-<div id="cell-8" class="cell" data-execution_count="7" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fmd <span class="op">=</span> <span class="kw">lambda</span> x,y: x<span class="op">*</span>x <span class="op">+</span> y<span class="op">*</span>y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:26.901218Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:26.901032Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:26.903127Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:26.902683Z&quot;}}" data-execution_count="5" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fmd <span class="op">=</span> <span class="kw">lambda</span> x,y: x<span class="op">*</span>x <span class="op">+</span> y<span class="op">*</span>y</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-9" class="cell" data-execution_count="9" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># use N draws </span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>N<span class="op">=</span> <span class="dv">8000</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>X<span class="op">=</span> np.random.uniform(low<span class="op">=-</span><span class="dv">1</span>, high<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span>N) </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>Y<span class="op">=</span> np.random.uniform(low<span class="op">=-</span><span class="dv">1</span>, high<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span>N) </span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>Z<span class="op">=</span>fmd(X, Y)   <span class="co"># CALCULATE THE f(x) </span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>R <span class="op">=</span> X<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> Y<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>V <span class="op">=</span> np.pi<span class="op">*</span><span class="fl">1.0</span><span class="op">*</span><span class="fl">1.0</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> np.<span class="bu">sum</span>(R<span class="op">&lt;</span><span class="dv">1</span>)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>sumsamples <span class="op">=</span> np.<span class="bu">sum</span>(Z[R<span class="op">&lt;</span><span class="dv">1</span>])</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"I="</span>,V<span class="op">*</span>sumsamples<span class="op">/</span>N, <span class="st">"actual"</span>, np.pi<span class="op">/</span><span class="fl">2.0</span>) <span class="co">#actual value (change to polar to calculate)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:26.904251Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:26.904154Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:26.907968Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:26.907130Z&quot;}}" data-execution_count="6" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># use N draws </span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>N<span class="op">=</span> <span class="dv">8000</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>X<span class="op">=</span> np.random.uniform(low<span class="op">=-</span><span class="dv">1</span>, high<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span>N) </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>Y<span class="op">=</span> np.random.uniform(low<span class="op">=-</span><span class="dv">1</span>, high<span class="op">=</span><span class="dv">1</span>, size<span class="op">=</span>N) </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>Z<span class="op">=</span>fmd(X, Y)   <span class="co"># CALCULATE THE f(x) </span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>R <span class="op">=</span> X<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> Y<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>V <span class="op">=</span> np.pi<span class="op">*</span><span class="fl">1.0</span><span class="op">*</span><span class="fl">1.0</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> np.<span class="bu">sum</span>(R<span class="op">&lt;</span><span class="dv">1</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>sumsamples <span class="op">=</span> np.<span class="bu">sum</span>(Z[R<span class="op">&lt;</span><span class="dv">1</span>])</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"I="</span>,V<span class="op">*</span>sumsamples<span class="op">/</span>N, <span class="st">"actual"</span>, np.pi<span class="op">/</span><span class="fl">2.0</span>) <span class="co">#actual value (change to polar to calculate)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>I= 1.56308724855 actual 1.5707963267948966</code></pre>
+<pre><code>I= 1.575552456568276 actual 1.5707963267948966</code></pre>
 </div>
 </div>
 </section>
@@ -549,29 +545,36 @@ window.Quarto = {
 <section id="monte-carlo-as-a-function-of-number-of-samples" class="level2">
 <h2 class="anchored" data-anchor-id="monte-carlo-as-a-function-of-number-of-samples">Monte-Carlo as a function of number of samples</h2>
 <p>How does the accuracy depends on the number of points(samples)? Lets try the same 1-D integral $ I= _{2}^{3} [x^2 + 4 , x ,(x)] , dx $ as a function of the number of points.</p>
-<div id="cell-11" class="cell" data-execution_count="10" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>Imc<span class="op">=</span>np.zeros(<span class="dv">1000</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>Na <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">1000</span>,<span class="dv">1000</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>exactval<span class="op">=</span> intf(b)<span class="op">-</span>intf(a)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> N <span class="kw">in</span> np.arange(<span class="dv">0</span>,<span class="dv">1000</span>):</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> np.random.uniform(low<span class="op">=</span>a, high<span class="op">=</span>b, size<span class="op">=</span>N) <span class="co"># N values uniformly drawn from a to b </span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    Y <span class="op">=</span>f(X)   <span class="co"># CALCULATE THE f(x) </span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    Imc[N]<span class="op">=</span> (b<span class="op">-</span>a) <span class="op">*</span> np.<span class="bu">sum</span>(Y)<span class="op">/</span> N<span class="op">;</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>plt.plot(Na[<span class="dv">10</span>:],np.sqrt((Imc[<span class="dv">10</span>:]<span class="op">-</span>exactval)<span class="op">**</span><span class="dv">2</span>), alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>plt.plot(Na[<span class="dv">10</span>:], <span class="dv">1</span><span class="op">/</span>np.sqrt(Na[<span class="dv">10</span>:]), <span class="st">'r'</span>)</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"N"</span>)</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"sqrt((Imc-ExactValue)$^2$)"</span>)</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-11" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:26.909338Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:26.909254Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:27.028447Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:27.027726Z&quot;}}" data-execution_count="7" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>Imc<span class="op">=</span>np.zeros(<span class="dv">1000</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>Na <span class="op">=</span> np.linspace(<span class="dv">0</span>,<span class="dv">1000</span>,<span class="dv">1000</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>exactval<span class="op">=</span> intf(b)<span class="op">-</span>intf(a)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> N <span class="kw">in</span> np.arange(<span class="dv">0</span>,<span class="dv">1000</span>):</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> np.random.uniform(low<span class="op">=</span>a, high<span class="op">=</span>b, size<span class="op">=</span>N) <span class="co"># N values uniformly drawn from a to b </span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    Y <span class="op">=</span>f(X)   <span class="co"># CALCULATE THE f(x) </span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    Imc[N]<span class="op">=</span> (b<span class="op">-</span>a) <span class="op">*</span> np.<span class="bu">sum</span>(Y)<span class="op">/</span> N<span class="op">;</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>plt.plot(Na[<span class="dv">10</span>:],np.sqrt((Imc[<span class="dv">10</span>:]<span class="op">-</span>exactval)<span class="op">**</span><span class="dv">2</span>), alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>plt.plot(Na[<span class="dv">10</span>:], <span class="dv">1</span><span class="op">/</span>np.sqrt(Na[<span class="dv">10</span>:]), <span class="st">'r'</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"N"</span>)</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"sqrt((Imc-ExactValue)$^2$)"</span>)</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23138/1091706491.py:10: RuntimeWarning: invalid value encountered in scalar divide
+  Imc[N]= (b-a) * np.sum(Y)/ N;</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>Text(0, 0.5, 'sqrt((Imc-ExactValue)$^2$)')</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-8-output-3.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -583,26 +586,26 @@ window.Quarto = {
 <p>Monte Carlo methods yield approximate answers whose accuracy depends on the number of draws. So far, we have used our knowledge of the exact value to determine that the error in the Monte Carlo method approaches zero as approximately <span class="math inline">\(1/\sqrt{N}\)</span> for large <span class="math inline">\(N\)</span>, where <span class="math inline">\(N\)</span> is the number of trials.</p>
 <p>But in the usual case, the exact answer is unknown. Why do this otherwise?</p>
 <p>So, lets repeat the same evaluation <span class="math inline">\(m\)</span> times and check the variance of the estimate.</p>
-<div id="cell-14" class="cell" data-execution_count="13" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># multiple MC estimations</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>m<span class="op">=</span><span class="dv">1000</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>N<span class="op">=</span><span class="dv">10000</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>Imc<span class="op">=</span>np.zeros(m)</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(m):</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> np.random.uniform(low<span class="op">=</span>a, high<span class="op">=</span>b, size<span class="op">=</span>N) <span class="co"># N values uniformly drawn from a to b </span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    Y <span class="op">=</span>f(X)   <span class="co"># CALCULATE THE f(x) </span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    Imc[i]<span class="op">=</span> (b<span class="op">-</span>a) <span class="op">*</span> np.<span class="bu">sum</span>(Y)<span class="op">/</span> N<span class="op">;</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>plt.hist(Imc, bins<span class="op">=</span><span class="dv">30</span>)</span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Imc"</span>)</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.mean(Imc), np.std(Imc))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-14" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:27.029999Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:27.029888Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:27.211406Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:27.210943Z&quot;}}" data-execution_count="8" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># multiple MC estimations</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>m<span class="op">=</span><span class="dv">1000</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>N<span class="op">=</span><span class="dv">10000</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>Imc<span class="op">=</span>np.zeros(m)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(m):</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> np.random.uniform(low<span class="op">=</span>a, high<span class="op">=</span>b, size<span class="op">=</span>N) <span class="co"># N values uniformly drawn from a to b </span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    Y <span class="op">=</span>f(X)   <span class="co"># CALCULATE THE f(x) </span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    Imc[i]<span class="op">=</span> (b<span class="op">-</span>a) <span class="op">*</span> np.<span class="bu">sum</span>(Y)<span class="op">/</span> N<span class="op">;</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>plt.hist(Imc, bins<span class="op">=</span><span class="dv">30</span>)</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Imc"</span>)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.mean(Imc), np.std(Imc))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>11.8114651823 0.00398497853806</code></pre>
+<pre><code>11.81160205354668 0.004067818125611405</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>

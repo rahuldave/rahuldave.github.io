@@ -154,14 +154,14 @@ window.Quarto = {
 <meta property="og:description" content="Extends the learning framework to noisy data, where stochastic noise forces a tradeoff between model complexity and generalization. Derives the bias-variance decomposition and shows how overfitting emerges from fitting noise rather than signal.">
 <meta property="og:image" content="https://rahuldave.github.io/posts/noisylearning/index_files/figure-html/cell-6-output-1.png">
 <meta property="og:site_name" content="rahuldave">
-<meta property="og:image:height" content="539">
-<meta property="og:image:width" content="773">
+<meta property="og:image:height" content="440">
+<meta property="og:image:width" content="591">
 <meta name="twitter:title" content="Learning With Noise – rahuldave">
 <meta name="twitter:description" content="Extends the learning framework to noisy data, where stochastic noise forces a tradeoff between model complexity and generalization. Derives the bias-variance decomposition and shows how overfitting emerges from fitting noise rather than signal.">
 <meta name="twitter:image" content="https://rahuldave.github.io/posts/noisylearning/index_files/figure-html/cell-6-output-1.png">
 <meta name="twitter:creator" content="@rahuldave">
-<meta name="twitter:image-height" content="539">
-<meta name="twitter:image-width" content="773">
+<meta name="twitter:image-height" content="440">
+<meta name="twitter:image-width" content="591">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -469,7 +469,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-2" class="cell" data-hide="true" data-execution_count="26" data-cell-type="code">
+<div id="2602a6d1" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:28.702232Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:28.702152Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:29.414612Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:29.414129Z&quot;}}" data-hide="true" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
@@ -484,7 +484,7 @@ window.Quarto = {
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">"whitegrid"</span>)</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>sns.set_context(<span class="st">"poster"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-3" class="cell" data-hide="true" data-execution_count="27" data-cell-type="code">
+<div id="1a08f6cd" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:29.415957Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:29.415824Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:29.419462Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:29.419052Z&quot;}}" data-hide="true" data-execution_count="3" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_simple_plot():</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    fig, axes<span class="op">=</span>plt.subplots(figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">5</span>), nrows<span class="op">=</span><span class="dv">1</span>, ncols<span class="op">=</span><span class="dv">2</span>)<span class="op">;</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].set_ylabel(<span class="st">"$y$"</span>)</span>
@@ -513,11 +513,12 @@ window.Quarto = {
 <p>Let us revisit our model from noiseless_learning.</p>
 <p>Let <span class="math inline">\(x\)</span> be the fraction of religious people in a county and <span class="math inline">\(y\)</span> be the probability of voting for Romney as a function of <span class="math inline">\(x\)</span>. In other words <span class="math inline">\(y_i\)</span> is data that pollsters have taken which tells us their estimate of people voting for Romney and <span class="math inline">\(x_i\)</span> is the fraction of religious people in county <span class="math inline">\(i\)</span>. Because poll samples are finite, there is a margin of error on each data point or county <span class="math inline">\(i\)</span>, but we will ignore that for now.</p>
 <p>Let us assume that we have a “population” of 200 counties <span class="math inline">\(x\)</span>:</p>
-<div id="cell-7" class="cell" data-execution_count="28" data-cell-type="code">
+<div id="ced9aa9b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:29.421102Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:29.420986Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:29.427509Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:29.427000Z&quot;}}" data-execution_count="4" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df<span class="op">=</span>pd.read_csv(<span class="st">"data/religion.csv"</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="28">
+<div class="cell-output cell-output-display" data-execution_count="4">
 <div>
+
 
 <table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
@@ -560,7 +561,7 @@ window.Quarto = {
 </div>
 </div>
 <p>Lets suppose now that the Lord came by and told us that the points in the plot below captures <span class="math inline">\(f(x)\)</span> exactly.</p>
-<div id="cell-9" class="cell" data-execution_count="29" data-cell-type="code">
+<div id="191a12bb" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:29.428570Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:29.428495Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:29.469123Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:29.468685Z&quot;}}" data-execution_count="5" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>x<span class="op">=</span>df.rfrac.values</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>f<span class="op">=</span>df.promney.values</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x,f,<span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -574,15 +575,16 @@ window.Quarto = {
 </div>
 <p>Notice that our sampling of <span class="math inline">\(x\)</span> is not quite uniform: there are more points around <span class="math inline">\(x\)</span> of 0.7.</p>
 <p>Now, in real life we are only given a sample of points. Lets assume that out of this population of 200 points we are given a sample <span class="math inline">\(\cal{D}\)</span> of 30 data points. Such data is called <strong>in-sample data</strong>. Contrastingly, the entire population of data points is also called <strong>out-of-sample data</strong>.</p>
-<div id="cell-11" class="cell" data-execution_count="30" data-cell-type="code">
+<div id="bee8ecc1" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:29.470690Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:29.470573Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:29.473282Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:29.472835Z&quot;}}" data-execution_count="6" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dfsample <span class="op">=</span> pd.read_csv(<span class="st">"data/noisysample.csv"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>indexes<span class="op">=</span>dfsample.i.values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-12" class="cell" data-execution_count="37" data-cell-type="code">
+<div id="cbf381e0" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:29.474403Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:29.474299Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:29.478511Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:29.478025Z&quot;}}" data-execution_count="7" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dfpop <span class="op">=</span> pd.read_csv(<span class="st">"data/noisypopulation.csv"</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>dfpop.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="37">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <div>
+
 
 <table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
@@ -630,21 +632,27 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="31" data-cell-type="code">
+<div id="ef776e7d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:29.479504Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:29.479424Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:29.481218Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:29.480716Z&quot;}}" data-execution_count="8" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>samplex <span class="op">=</span> x[indexes]</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>samplef <span class="op">=</span> f[indexes]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-14" class="cell" data-figure_type="w" data-execution_count="33" data-cell-type="code">
+<div id="d1a018f2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:29.482233Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:29.482150Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:29.632898Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:29.632481Z&quot;}}" data-figure_type="w" data-execution_count="9" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>axes<span class="op">=</span>make_plot()</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,f, <span class="st">'k-'</span>, alpha<span class="op">=</span><span class="fl">0.4</span>, label<span class="op">=</span><span class="st">"f (from the Lord)"</span>)<span class="op">;</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x,f, <span class="st">'r.'</span>, alpha<span class="op">=</span><span class="fl">0.2</span>, label<span class="op">=</span><span class="st">"population"</span>)<span class="op">;</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(samplex,samplef, <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"in-sample data $</span><span class="er">\</span><span class="st">cal</span><span class="sc">{D}</span><span class="st">$"</span>)<span class="op">;</span></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>&lt;&gt;:4: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+&lt;&gt;:4: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/191699542.py:4: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+  axes[1].plot(samplex,samplef, 's', alpha=0.6, label="in-sample data $\cal{D}$");</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-10-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -677,10 +685,11 @@ B &amp;:&amp; R_{out} (g) \approx R_{\cal{D}}(g)
 <p>A similar thing might be happen in the election example, where we have modelled the probability of voting for romney as a function of religiousness of the county. There are many other variables we might not have measured, such as the majority race in that county. But, we have not measured this information. Thus, in counties with high religiousness fraction <span class="math inline">\(x\)</span> we might have more noise than in others. Consider for example two counties, one with <span class="math inline">\(x=0.8\)</span> fraction of self-identified religious people in the county, and another with <span class="math inline">\(x=0.82\)</span>. Based on historical trends, if the first county was mostly white, the fraction of those claiming they would vote for Romney might be larger than in a second, mostly black county. Thus you might have two very <span class="math inline">\(y\)</span>’s next to each other on our graphs.</p>
 <p>It gets worse. When pollsters estimate the number of people voting for a particular candidate, they only use finite samples of voters. So there is a 4-6% polling error in any of these estimates. This “sampling noise” adds to the noisiness of the <span class="math inline">\(y\)</span>’s.</p>
 <p>Indeed, we wish to estimate a function <span class="math inline">\(f(x)\)</span> so that the values <span class="math inline">\(y_i\)</span> come from the function <span class="math inline">\(f\)</span>. Since we are trying to estimate f with data from only some counties, and furthermore, our estimates of the population behaviour in these counties will be noisy, our estimate wont be the “god given” or “real” f, but rather some <strong>noisy</strong> estimate of it.</p>
-<div id="cell-22" class="cell" data-execution_count="34" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dfsample.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="34">
+<div id="23b28de2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:29.634073Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:29.633976Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:29.638003Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:29.637359Z&quot;}}" data-execution_count="10" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dfsample.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
 <div>
+
 
 <table class="dataframe caption-top table table-sm table-striped small" data-border="1">
 <thead>
@@ -734,24 +743,24 @@ B &amp;:&amp; R_{out} (g) \approx R_{\cal{D}}(g)
 </div>
 </div>
 </div>
-<div id="cell-23" class="cell" data-execution_count="35" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dfsample.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="35">
+<div id="bdac017a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:29.639120Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:29.639028Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:29.641142Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:29.640786Z&quot;}}" data-execution_count="11" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>dfsample.shape</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>(30, 4)</code></pre>
 </div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="38" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> dfpop.x.values</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> dfpop.f.values</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> dfpop.y.values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="875bec69" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:29.642196Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:29.642121Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:29.643865Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:29.643535Z&quot;}}" data-execution_count="12" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> dfpop.x.values</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> dfpop.f.values</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> dfpop.y.values</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-25" class="cell" data-figure_type="m" data-execution_count="39" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,f, <span class="st">'r-'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f"</span>)<span class="op">;</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x[indexes], y[indexes], <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"in-sample y (observed)"</span>)<span class="op">;</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"population y"</span>)<span class="op">;</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'$x$'</span>)<span class="op">;</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'$p_R$'</span>)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="ca6d6cfa" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:29.644939Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:29.644847Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:29.696292Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:29.695937Z&quot;}}" data-figure_type="m" data-execution_count="13" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,f, <span class="st">'r-'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f"</span>)<span class="op">;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x[indexes], y[indexes], <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"in-sample y (observed)"</span>)<span class="op">;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"population y"</span>)<span class="op">;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'$x$'</span>)<span class="op">;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'$p_R$'</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -781,34 +790,34 @@ B &amp;:&amp; R_{out} (g) \approx R_{\cal{D}}(g)
 </div>
 <p>Now the entire learning problem can be cast as a problem in probability <strong>density estimation</strong>: if we can estimate <span class="math inline">\(P(x,y)\)</span> and take actions based on that estimate thanks to our risk or error functional, we are done.</p>
 <p>We now fit in both <span class="math inline">\(\cal{H_1}\)</span> and <span class="math inline">\(\cal{H_{20}}\)</span> to find the best fit straight line and best fit 20th order polynomial respectively.</p>
-<div id="cell-29" class="cell" data-execution_count="40" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>g1 <span class="op">=</span> np.poly1d(np.polyfit(x[indexes],f[indexes],<span class="dv">1</span>))</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>g20 <span class="op">=</span> np.poly1d(np.polyfit(x[indexes],f[indexes],<span class="dv">20</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="f2f21a37" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:29.697809Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:29.697702Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:29.699820Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:29.699476Z&quot;}}" data-execution_count="14" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>g1 <span class="op">=</span> np.poly1d(np.polyfit(x[indexes],f[indexes],<span class="dv">1</span>))</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>g20 <span class="op">=</span> np.poly1d(np.polyfit(x[indexes],f[indexes],<span class="dv">20</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)</code></pre>
+<pre><code>/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2024862568.py:2: RankWarning: Polyfit may be poorly conditioned
+  g20 = np.poly1d(np.polyfit(x[indexes],f[indexes],20))</code></pre>
 </div>
 </div>
-<div id="cell-30" class="cell" data-execution_count="41" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>g1noisy <span class="op">=</span> np.poly1d(np.polyfit(x[indexes],y[indexes],<span class="dv">1</span>))</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>g20noisy <span class="op">=</span> np.poly1d(np.polyfit(x[indexes],y[indexes],<span class="dv">20</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="8befb580" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:29.700881Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:29.700792Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:29.703095Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:29.702604Z&quot;}}" data-execution_count="15" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>g1noisy <span class="op">=</span> np.poly1d(np.polyfit(x[indexes],y[indexes],<span class="dv">1</span>))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>g20noisy <span class="op">=</span> np.poly1d(np.polyfit(x[indexes],y[indexes],<span class="dv">20</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)</code></pre>
+<pre><code>/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/3327932717.py:2: RankWarning: Polyfit may be poorly conditioned
+  g20noisy = np.poly1d(np.polyfit(x[indexes],y[indexes],20))</code></pre>
 </div>
 </div>
-<div id="cell-31" class="cell" data-figure_type="w" data-execution_count="42" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>axes<span class="op">=</span>make_plot()</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,f, <span class="st">'r-'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f"</span>)<span class="op">;</span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x,f, <span class="st">'r-'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f"</span>)<span class="op">;</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x[indexes],y[indexes], <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"y in-sample"</span>)<span class="op">;</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x[indexes],y[indexes], <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"y in-sample"</span>)<span class="op">;</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,g1(x),  <span class="st">'b--'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"$g_1 (no noise)$"</span>)<span class="op">;</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,g1noisy(x), <span class="st">'b:'</span>, lw<span class="op">=</span><span class="dv">4</span>, alpha<span class="op">=</span><span class="fl">0.8</span>, label<span class="op">=</span><span class="st">"$g_1 (noisy)$"</span>)<span class="op">;</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x,g20(x),  <span class="st">'b--'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"$g_10 (no noise)$"</span>)<span class="op">;</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x,g20noisy(x), <span class="st">'b:'</span>, lw<span class="op">=</span><span class="dv">4</span>, alpha<span class="op">=</span><span class="fl">0.8</span>, label<span class="op">=</span><span class="st">"$g_</span><span class="sc">{10}</span><span class="st">$ (noisy)"</span>)<span class="op">;</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="2f2e1e93" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:29.704608Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:29.704516Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:29.840004Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:29.839516Z&quot;}}" data-figure_type="w" data-execution_count="16" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>axes<span class="op">=</span>make_plot()</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,f, <span class="st">'r-'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f"</span>)<span class="op">;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x,f, <span class="st">'r-'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f"</span>)<span class="op">;</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x[indexes],y[indexes], <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"y in-sample"</span>)<span class="op">;</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x[indexes],y[indexes], <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"y in-sample"</span>)<span class="op">;</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,g1(x),  <span class="st">'b--'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"$g_1 (no noise)$"</span>)<span class="op">;</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,g1noisy(x), <span class="st">'b:'</span>, lw<span class="op">=</span><span class="dv">4</span>, alpha<span class="op">=</span><span class="fl">0.8</span>, label<span class="op">=</span><span class="st">"$g_1 (noisy)$"</span>)<span class="op">;</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x,g20(x),  <span class="st">'b--'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"$g_10 (no noise)$"</span>)<span class="op">;</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x,g20noisy(x), <span class="st">'b:'</span>, lw<span class="op">=</span><span class="dv">4</span>, alpha<span class="op">=</span><span class="fl">0.8</span>, label<span class="op">=</span><span class="st">"$g_</span><span class="sc">{10}</span><span class="st">$ (noisy)"</span>)<span class="op">;</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -820,13 +829,13 @@ B &amp;:&amp; R_{out} (g) \approx R_{\cal{D}}(g)
 <p>The results are (to put it mildly) very interesting.</p>
 <p>Lets look at the figure on the left first. The noise changes the best fit line by a little but not by much. The best fit line still does a very poor job of capturing the variation in the data.</p>
 <p>The best fit 20th order polynomial, in the presence of noise, is very interesting. It tries to follow all the curves of the observations..in other words, it tries to fit the noise. This is a disaster, as you can see if you plot the population (out-of-sample) points on the plot as well:</p>
-<div id="cell-33" class="cell" data-execution_count="43" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,f, <span class="st">'r-'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f"</span>)<span class="op">;</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x[indexes],y[indexes], <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"y in-sample"</span>)<span class="op">;</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,  <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"population y"</span>)<span class="op">;</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>plt.plot(x,g20noisy(x), <span class="st">'b:'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"$g_</span><span class="sc">{10}</span><span class="st">$ (noisy)"</span>)<span class="op">;</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>plt.ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="5eb05216" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:29.841327Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:29.841230Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:29.893883Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:29.893404Z&quot;}}" data-execution_count="17" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x,f, <span class="st">'r-'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f"</span>)<span class="op">;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x[indexes],y[indexes], <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"y in-sample"</span>)<span class="op">;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x,y,  <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"population y"</span>)<span class="op">;</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>plt.plot(x,g20noisy(x), <span class="st">'b:'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"$g_</span><span class="sc">{10}</span><span class="st">$ (noisy)"</span>)<span class="op">;</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>plt.ylim([<span class="dv">0</span>,<span class="dv">1</span>])</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -838,18 +847,18 @@ B &amp;:&amp; R_{out} (g) \approx R_{\cal{D}}(g)
 <p>Whoa. The best-fit 20th order polynomial does a reasonable job fitting the in-sample data, and is even well behaved in the middle where we have a lot of in-sample data points. But at places with less in-sample data points, the polynomial wiggles maniacally.</p>
 <p>This fitting to the noise is a danger you will encounter again and again in learning. Its called <strong>overfitting</strong>. So, <span class="math inline">\(\cal{H_{20}}\)</span> which seemed to be such a good candidate hypothesis space in the absence of noise, ceases to be one. The take away lesson from this is that we must further ensure that our <strong>model does not fit the noise</strong>.</p>
 <p>Lets make a plot similar to the one we made for the deterministic noise earlier, and compare the error in the new <span class="math inline">\(g_1\)</span> and <span class="math inline">\(g_{20}\)</span> fits on the noisy data.</p>
-<div id="cell-35" class="cell" data-figure_type="m" data-execution_count="44" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x, ((g1noisy(x)<span class="op">-</span>f)<span class="op">**</span><span class="dv">2</span>), lw<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="st">"$g_1$"</span>)</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x, ((g20noisy(x)<span class="op">-</span>f)<span class="op">**</span><span class="dv">2</span>), lw<span class="op">=</span><span class="dv">3</span>,label<span class="op">=</span><span class="st">"$g_</span><span class="sc">{20}</span><span class="st">$"</span>)<span class="op">;</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x, [<span class="dv">1</span>]<span class="op">*</span>x.shape[<span class="dv">0</span>], <span class="st">"k:"</span>, label<span class="op">=</span><span class="st">"noise"</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)<span class="op">;</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> indexes[:<span class="op">-</span><span class="dv">1</span>]:</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    plt.axvline(x[i], <span class="dv">0</span>, <span class="dv">1</span>, color<span class="op">=</span><span class="st">'r'</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>plt.axvline(x[indexes[<span class="op">-</span><span class="dv">1</span>]], <span class="dv">0</span>, <span class="dv">1</span>, color<span class="op">=</span><span class="st">'r'</span>, alpha<span class="op">=</span><span class="fl">0.1</span>, label<span class="op">=</span><span class="st">"samples"</span>)</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"$x$"</span>)</span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"population error"</span>)</span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>plt.yscale(<span class="st">"log"</span>)</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Noisy Data"</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="08c64dfb" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:29.895045Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:29.894950Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:30.016591Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:30.016110Z&quot;}}" data-figure_type="m" data-execution_count="18" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>plt.plot(x, ((g1noisy(x)<span class="op">-</span>f)<span class="op">**</span><span class="dv">2</span>), lw<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="st">"$g_1$"</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>plt.plot(x, ((g20noisy(x)<span class="op">-</span>f)<span class="op">**</span><span class="dv">2</span>), lw<span class="op">=</span><span class="dv">3</span>,label<span class="op">=</span><span class="st">"$g_</span><span class="sc">{20}</span><span class="st">$"</span>)<span class="op">;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>plt.plot(x, [<span class="dv">1</span>]<span class="op">*</span>x.shape[<span class="dv">0</span>], <span class="st">"k:"</span>, label<span class="op">=</span><span class="st">"noise"</span>, alpha<span class="op">=</span><span class="fl">0.2</span>)<span class="op">;</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> indexes[:<span class="op">-</span><span class="dv">1</span>]:</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    plt.axvline(x[i], <span class="dv">0</span>, <span class="dv">1</span>, color<span class="op">=</span><span class="st">'r'</span>, alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>plt.axvline(x[indexes[<span class="op">-</span><span class="dv">1</span>]], <span class="dv">0</span>, <span class="dv">1</span>, color<span class="op">=</span><span class="st">'r'</span>, alpha<span class="op">=</span><span class="fl">0.1</span>, label<span class="op">=</span><span class="st">"samples"</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"$x$"</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"population error"</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>plt.yscale(<span class="st">"log"</span>)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Noisy Data"</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -864,447 +873,443 @@ B &amp;:&amp; R_{out} (g) \approx R_{\cal{D}}(g)
 <h3 class="anchored" data-anchor-id="the-variance-of-your-model">The Variance of your model</h3>
 <p>This tendency of a more complex model to overfit, by having enough freedom to fit the noise, is described by something called high <strong>variance</strong>. What is variance?</p>
 <p>Variance, simply put, is the “error-bar” or spread in models that would be learnt by training on different data sets <span class="math inline">\(\cal{D_1}, \cal{D_2},...\)</span> drawn from the population. Now, this seems like a circular concept, as in real-life, you do not have access to the population. But since we simulated our data here anyways, we do, and so let us see what happens if we choose <strong>different 30 points randomly from our population of 200</strong>, and fit models in both <span class="math inline">\(\cal{H_1}\)</span> and <span class="math inline">\(\cal{H_{20}}\)</span> to them. We do this on 200 sets of randomly chosen (from the population) data sets of 30 points each and plot the best fit models in noth hypothesis spaces for all 200 sets.</p>
-<div id="cell-39" class="cell" data-execution_count="45" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gen(degree, nsims, size, x, out):</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    outpoly<span class="op">=</span>[]</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(nsims):</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>        indexes<span class="op">=</span>np.sort(np.random.choice(x.shape[<span class="dv">0</span>], size<span class="op">=</span>size, replace<span class="op">=</span><span class="va">False</span>))</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>        pc<span class="op">=</span>np.polyfit(x[indexes], out[indexes], degree)</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>        p<span class="op">=</span>np.poly1d(pc)</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>        outpoly.append(p)</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> outpoly</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c86cb77b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:30.017718Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:30.017624Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:30.019903Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:30.019489Z&quot;}}" data-execution_count="19" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gen(degree, nsims, size, x, out):</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    outpoly<span class="op">=</span>[]</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(nsims):</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>        indexes<span class="op">=</span>np.sort(np.random.choice(x.shape[<span class="dv">0</span>], size<span class="op">=</span>size, replace<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>        pc<span class="op">=</span>np.polyfit(x[indexes], out[indexes], degree)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        p<span class="op">=</span>np.poly1d(pc)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        outpoly.append(p)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> outpoly</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-40" class="cell" data-execution_count="46" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>polys1 <span class="op">=</span> gen(<span class="dv">1</span>, <span class="dv">200</span>, <span class="dv">30</span>,x, y)<span class="op">;</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>polys20 <span class="op">=</span> gen(<span class="dv">20</span>, <span class="dv">200</span>, <span class="dv">30</span>,x, y)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="0219ab46" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:30.020934Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:30.020834Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:30.046289Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:30.045894Z&quot;}}" data-execution_count="20" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>polys1 <span class="op">=</span> gen(<span class="dv">1</span>, <span class="dv">200</span>, <span class="dv">30</span>,x, y)<span class="op">;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>polys20 <span class="op">=</span> gen(<span class="dv">20</span>, <span class="dv">200</span>, <span class="dv">30</span>,x, y)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)</code></pre>
+<pre><code>/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)</code></pre>
 </div>
 </div>
-<div id="cell-41" class="cell" data-figure_type="w" data-execution_count="47" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>axes<span class="op">=</span>make_plot()</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,f, <span class="st">'r-'</span>, lw<span class="op">=</span><span class="dv">3</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f"</span>)<span class="op">;</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x,f, <span class="st">'r-'</span>, lw<span class="op">=</span><span class="dv">3</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f"</span>)<span class="op">;</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x[indexes], y[indexes], <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"data y"</span>)<span class="op">;</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x[indexes], y[indexes], <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"data y"</span>)<span class="op">;</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x, y, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"population y"</span>)<span class="op">;</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x, y, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"population y"</span>)<span class="op">;</span></span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>c<span class="op">=</span>sns.color_palette()[<span class="dv">2</span>]</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i,p <span class="kw">in</span> <span class="bu">enumerate</span>(polys1[:<span class="op">-</span><span class="dv">1</span>]):</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].plot(x,p(x), alpha<span class="op">=</span><span class="fl">0.05</span>, c<span class="op">=</span>c)</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,polys1[<span class="op">-</span><span class="dv">1</span>](x), alpha<span class="op">=</span><span class="fl">0.05</span>, c<span class="op">=</span>c,label<span class="op">=</span><span class="st">"$g_1$ from different samples"</span>)</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i,p <span class="kw">in</span> <span class="bu">enumerate</span>(polys20[:<span class="op">-</span><span class="dv">1</span>]):</span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].plot(x,p(x), alpha<span class="op">=</span><span class="fl">0.05</span>, c<span class="op">=</span>c)</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x,polys20[<span class="op">-</span><span class="dv">1</span>](x), alpha<span class="op">=</span><span class="fl">0.05</span>, c<span class="op">=</span>c, label<span class="op">=</span><span class="st">"$g_</span><span class="sc">{10}</span><span class="st">$ from different samples"</span>)</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span>
-<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:892: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
-</div>
+<div id="a04e5462" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:30.047449Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:30.047365Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:30.440518Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:30.440035Z&quot;}}" data-figure_type="w" data-execution_count="21" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>axes<span class="op">=</span>make_plot()</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,f, <span class="st">'r-'</span>, lw<span class="op">=</span><span class="dv">3</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f"</span>)<span class="op">;</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x,f, <span class="st">'r-'</span>, lw<span class="op">=</span><span class="dv">3</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"f"</span>)<span class="op">;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x[indexes], y[indexes], <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"data y"</span>)<span class="op">;</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x[indexes], y[indexes], <span class="st">'s'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"data y"</span>)<span class="op">;</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x, y, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"population y"</span>)<span class="op">;</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x, y, <span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, label<span class="op">=</span><span class="st">"population y"</span>)<span class="op">;</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>c<span class="op">=</span>sns.color_palette()[<span class="dv">2</span>]</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i,p <span class="kw">in</span> <span class="bu">enumerate</span>(polys1[:<span class="op">-</span><span class="dv">1</span>]):</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">0</span>].plot(x,p(x), alpha<span class="op">=</span><span class="fl">0.05</span>, c<span class="op">=</span>c)</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].plot(x,polys1[<span class="op">-</span><span class="dv">1</span>](x), alpha<span class="op">=</span><span class="fl">0.05</span>, c<span class="op">=</span>c,label<span class="op">=</span><span class="st">"$g_1$ from different samples"</span>)</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i,p <span class="kw">in</span> <span class="bu">enumerate</span>(polys20[:<span class="op">-</span><span class="dv">1</span>]):</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    axes[<span class="dv">1</span>].plot(x,p(x), alpha<span class="op">=</span><span class="fl">0.05</span>, c<span class="op">=</span>c)</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(x,polys20[<span class="op">-</span><span class="dv">1</span>](x), alpha<span class="op">=</span><span class="fl">0.05</span>, c<span class="op">=</span>c, label<span class="op">=</span><span class="st">"$g_</span><span class="sc">{10}</span><span class="st">$ from different samples"</span>)</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].legend(loc<span class="op">=</span><span class="dv">4</span>)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-22-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-22-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1312,7 +1317,7 @@ B &amp;:&amp; R_{out} (g) \approx R_{\cal{D}}(g)
 <p>On the left panel, you see the 200 best fit straight lines, each a fit on a different 30 point training sets from the 200 point population. The best-fit lines bunch together, even if they dont quite capture <span class="math inline">\(f\)</span> (the thick red line) or the data (squares) terribly well.</p>
 <p>On the right panel, we see the same with best-fit models chosen from <span class="math inline">\(\cal{H}_{20}\)</span>. It is a diaster. While most of the models still band around the central trend of the real curve <span class="math inline">\(f\)</span> and data <span class="math inline">\(y\)</span> (and you still see the waves corresponding to all too wiggly 20th order polynomials), a substantial amount of models veer off into all kinds of noisy hair all over the plot. This is <strong>variance</strong>: the the predictions at any given <span class="math inline">\(x\)</span> are all over the place.</p>
 <p>The variance can be seen in a different way by plotting the coefficients of the polynomial fit. Below we plot the coefficients of the fit in <span class="math inline">\(\cal{H}_1\)</span>. The variance is barely 0.2 about the mean for both co-efficients.</p>
-<div id="cell-43" class="cell" data-figure_type="w" data-execution_count="48" data-cell-type="code">
+<div id="e72c9362" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:30.444645Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:30.444472Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:30.792789Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:30.792239Z&quot;}}" data-figure_type="w" data-execution_count="22" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>pdict1<span class="op">=</span>{}</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>pdict20<span class="op">=</span>{}</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">reversed</span>(<span class="bu">range</span>(<span class="dv">2</span>)):</span>
@@ -1339,16 +1344,10 @@ B &amp;:&amp; R_{out} (g) \approx R_{\cal{D}}(g)
 <span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_yscale(<span class="st">"symlog"</span>)<span class="op">;</span></span>
 <span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylim([<span class="op">-</span><span class="fl">1e12</span>, <span class="fl">1e12</span>])<span class="op">;</span></span>
 <span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylim([<span class="op">-</span><span class="fl">1e12</span>, <span class="fl">1e12</span>])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/seaborn/categorical.py:1791: UserWarning: The violinplot API has been changed. Attempting to adjust your arguments for the new API (which might not work). Please update your code. See the version 0.6 release notes for more info.
-  warnings.warn(msg, UserWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:892: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
-</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-23-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-23-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>

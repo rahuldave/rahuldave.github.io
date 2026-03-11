@@ -95,7 +95,7 @@ plt.plot(x,f,'.', alpha=0.3)
 ```
 Output:
 ```
-[<matplotlib.lines.Line2D at 0x118da9828>]
+[<matplotlib.lines.Line2D at 0x1213c7e00>]
 ```
 ![Figure](https://rahuldave.com/posts/noisylearning/index_files/figure-html/cell-6-output-1.png)
 
@@ -140,7 +140,14 @@ axes[1].plot(samplex,samplef, 's', alpha=0.6, label="in-sample data $\cal{D}$");
 axes[0].legend(loc=4);
 axes[1].legend(loc=4);
 ```
-![Figure](https://rahuldave.com/posts/noisylearning/index_files/figure-html/cell-10-output-1.png)
+Output:
+```
+<>:4: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+<>:4: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/191699542.py:4: SyntaxWarning: "\c" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\c"? A raw string is also an option.
+  axes[1].plot(samplex,samplef, 's', alpha=0.6, label="in-sample data $\cal{D}$");
+```
+![Figure](https://rahuldave.com/posts/noisylearning/index_files/figure-html/cell-10-output-2.png)
 
 <!-- cell:15 type:markdown -->
 ### Statement of the learning problem.
@@ -268,8 +275,8 @@ g20 = np.poly1d(np.polyfit(x[indexes],f[indexes],20))
 ```
 Output:
 ```
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2024862568.py:2: RankWarning: Polyfit may be poorly conditioned
+  g20 = np.poly1d(np.polyfit(x[indexes],f[indexes],20))
 ```
 
 <!-- cell:30 type:code -->
@@ -279,8 +286,8 @@ g20noisy = np.poly1d(np.polyfit(x[indexes],y[indexes],20))
 ```
 Output:
 ```
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/3327932717.py:2: RankWarning: Polyfit may be poorly conditioned
+  g20noisy = np.poly1d(np.polyfit(x[indexes],y[indexes],20))
 ```
 
 <!-- cell:31 type:code -->
@@ -370,406 +377,406 @@ polys20 = gen(20, 200, 30,x, y);
 ```
 Output:
 ```
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/numpy/lib/polynomial.py:595: RankWarning: Polyfit may be poorly conditioned
-  warnings.warn(msg, RankWarning)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23152/2389033383.py:5: RankWarning: Polyfit may be poorly conditioned
+  pc=np.polyfit(x[indexes], out[indexes], degree)
 ```
 
 <!-- cell:41 type:code -->
@@ -791,12 +798,7 @@ axes[1].plot(x,polys20[-1](x), alpha=0.05, c=c, label="$g_{10}$ from different s
 axes[0].legend(loc=4);
 axes[1].legend(loc=4);
 ```
-Output:
-```
-//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:892: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))
-```
-![Figure](https://rahuldave.com/posts/noisylearning/index_files/figure-html/cell-22-output-2.png)
+![Figure](https://rahuldave.com/posts/noisylearning/index_files/figure-html/cell-22-output-1.png)
 
 <!-- cell:42 type:markdown -->
 On the left panel, you see the 200 best fit straight lines, each a fit on a different 30 point training sets from the 200 point population. The best-fit lines bunch together, even if they dont quite capture $f$ (the thick red line) or the data (squares) terribly well.
@@ -834,14 +836,7 @@ axes[1].set_yscale("symlog");
 axes[0].set_ylim([-1e12, 1e12]);
 axes[1].set_ylim([-1e12, 1e12]);
 ```
-Output:
-```
-//anaconda/envs/py35/lib/python3.5/site-packages/seaborn/categorical.py:1791: UserWarning: The violinplot API has been changed. Attempting to adjust your arguments for the new API (which might not work). Please update your code. See the version 0.6 release notes for more info.
-  warnings.warn(msg, UserWarning)
-//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:892: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))
-```
-![Figure](https://rahuldave.com/posts/noisylearning/index_files/figure-html/cell-23-output-2.png)
+![Figure](https://rahuldave.com/posts/noisylearning/index_files/figure-html/cell-23-output-1.png)
 
 <!-- cell:44 type:markdown -->
 In the right panel we plot the coefficients of the fit in $\cal{H}_{20}$. This is why we use the word "variance": the spread in the values of the middle coefficients about their means (dashed lines) is of the order $10^{10}$ (the vertical height of the bulges), with huge outliers!! The 20th order polynomial fits are a disaster!

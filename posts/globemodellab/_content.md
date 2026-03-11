@@ -108,29 +108,15 @@ plt.plot(p_grid, post_vals)
 ```
 Output:
 ```
-[<matplotlib.lines.Line2D at 0x10b38c590>]
+[<matplotlib.lines.Line2D at 0x120f08590>]
 ```
 ![Figure](https://rahuldave.com/posts/globemodellab/index_files/figure-html/cell-9-output-1.png)
 
 <!-- cell:12 type:code -->
 ```python
-sns.distplot(grid_post_samples)
+sns.histplot(grid_post_samples, kde=True)
 ```
-Output:
-```
-/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48755/2467924782.py:1: UserWarning: 
-
-`distplot` is a deprecated function and will be removed in seaborn v0.14.0.
-
-Please adapt your code to use either `displot` (a figure-level function with
-similar flexibility) or `histplot` (an axes-level function for histograms).
-
-For a guide to updating your code to use the new functions, please see
-https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
-
-  sns.distplot(grid_post_samples)
-```
-![Figure](https://rahuldave.com/posts/globemodellab/index_files/figure-html/cell-10-output-2.png)
+![Figure](https://rahuldave.com/posts/globemodellab/index_files/figure-html/cell-10-output-1.png)
 
 <!-- cell:13 type:markdown -->
 ## Laplace Approximation
@@ -204,7 +190,7 @@ plt.plot(p_grid, norm.pdf(p_grid, loc=post_MAP, scale=0.16))
 ```
 Output:
 ```
-[<matplotlib.lines.Line2D at 0x10b4aa3c0>]
+[<matplotlib.lines.Line2D at 0x121029940>]
 ```
 ![Figure](https://rahuldave.com/posts/globemodellab/index_files/figure-html/cell-16-output-1.png)
 
@@ -282,23 +268,9 @@ Now we can get samples from here:
 
 <!-- cell:28 type:code -->
 ```python
-sns.distplot(frozen_laplace.rvs(10000))
+sns.histplot(frozen_laplace.rvs(10000), kde=True)
 ```
-Output:
-```
-/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_48755/3205977413.py:1: UserWarning: 
-
-`distplot` is a deprecated function and will be removed in seaborn v0.14.0.
-
-Please adapt your code to use either `displot` (a figure-level function with
-similar flexibility) or `histplot` (an axes-level function for histograms).
-
-For a guide to updating your code to use the new functions, please see
-https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
-
-  sns.distplot(frozen_laplace.rvs(10000))
-```
-![Figure](https://rahuldave.com/posts/globemodellab/index_files/figure-html/cell-24-output-2.png)
+![Figure](https://rahuldave.com/posts/globemodellab/index_files/figure-html/cell-24-output-1.png)
 
 <!-- cell:29 type:markdown -->
 ## Conjugate Priors
@@ -401,7 +373,7 @@ np.mean(samples < 0.5)
 ```
 Output:
 ```
-np.float64(0.1665)
+np.float64(0.174)
 ```
 
 <!-- cell:38 type:markdown -->
@@ -413,7 +385,7 @@ np.percentile(samples, 80)
 ```
 Output:
 ```
-np.float64(0.7618129772790891)
+np.float64(0.7611465557699019)
 ```
 
 <!-- cell:40 type:markdown -->
@@ -425,7 +397,7 @@ np.percentile(samples, [2.5, 97.5])
 ```
 Output:
 ```
-array([0.35302243, 0.87516021])
+array([0.34690217, 0.87950578])
 ```
 
 <!-- cell:42 type:markdown -->
@@ -437,9 +409,9 @@ np.mean(samples), np.median(samples), np.percentile(samples, 50) #last 2 are sam
 ```
 Output:
 ```
-(np.float64(0.6378238625593226),
- np.float64(0.646244114557077),
- np.float64(0.646244114557077))
+(np.float64(0.6356707835604966),
+ np.float64(0.6424956252802423),
+ np.float64(0.6424956252802423))
 ```
 
 <!-- cell:44 type:markdown -->
@@ -458,7 +430,7 @@ print(maxcountindex, mapvalue)
 ```
 Output:
 ```
-33 0.689305242527913
+32 0.680260779862307
 ```
 
 <!-- cell:47 type:markdown -->
@@ -473,7 +445,7 @@ print("Mean",np.mean(samples));
 ```
 Output:
 ```
-Mean 0.6378238625593226
+Mean 0.6356707835604966
 ```
 ![Figure](https://rahuldave.com/posts/globemodellab/index_files/figure-html/cell-34-output-2.png)
 
@@ -550,7 +522,7 @@ postpred
 ```
 Output:
 ```
-array([4, 5, 6, ..., 3, 8, 2], shape=(10000,))
+array([7, 9, 5, ..., 4, 5, 1], shape=(10000,))
 ```
 
 <!-- cell:58 type:code -->

@@ -29,11 +29,6 @@ import seaborn as sns
 sns.set_style("whitegrid")
 sns.set_context("poster")
 ```
-Output:
-```
-//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))
-```
 
 <!-- cell:3 type:markdown -->
 ## The problem of learning
@@ -95,7 +90,12 @@ def kld(p,q):
 qs=np.linspace(0,1,100)
 plt.plot(qs, [kld(0.3,q) for q in qs]);
 ```
-![Figure](https://rahuldave.com/posts/divergence/index_files/figure-html/cell-4-output-1.png)
+Output:
+```
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23043/4200407633.py:4: RuntimeWarning: divide by zero encountered in scalar divide
+  return p*np.log(p/q) + (1-p)*np.log((1-p)/(1-q))
+```
+![Figure](https://rahuldave.com/posts/divergence/index_files/figure-html/cell-4-output-2.png)
 
 <!-- cell:8 type:markdown -->
 ### Relationship to Entropy

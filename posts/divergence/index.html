@@ -149,16 +149,16 @@ window.Quarto = {
 
 <meta property="og:title" content="Divergence and Deviance – rahuldave">
 <meta property="og:description" content="Develops KL divergence as a distance between distributions, connects it to cross-entropy and log-likelihood, and introduces deviance as a practical measure for model comparison.">
-<meta property="og:image" content="https://rahuldave.github.io/posts/divergence/index_files/figure-html/cell-4-output-1.png">
+<meta property="og:image" content="https://rahuldave.github.io/posts/divergence/index_files/figure-html/cell-4-output-2.png">
 <meta property="og:site_name" content="rahuldave">
-<meta property="og:image:height" content="539">
-<meta property="og:image:width" content="773">
+<meta property="og:image:height" content="440">
+<meta property="og:image:width" content="591">
 <meta name="twitter:title" content="Divergence and Deviance – rahuldave">
 <meta name="twitter:description" content="Develops KL divergence as a distance between distributions, connects it to cross-entropy and log-likelihood, and introduces deviance as a practical measure for model comparison.">
-<meta name="twitter:image" content="https://rahuldave.github.io/posts/divergence/index_files/figure-html/cell-4-output-1.png">
+<meta name="twitter:image" content="https://rahuldave.github.io/posts/divergence/index_files/figure-html/cell-4-output-2.png">
 <meta name="twitter:creator" content="@rahuldave">
-<meta name="twitter:image-height" content="539">
-<meta name="twitter:image-width" content="773">
+<meta name="twitter:image-height" content="440">
+<meta name="twitter:image-width" content="591">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -467,7 +467,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-2" class="cell" data-hide="true" data-execution_count="1" data-cell-type="code">
+<div id="d119fd41" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:14.226380Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:14.226289Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:14.938132Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:14.937527Z&quot;}}" data-hide="true" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy <span class="im">as</span> sp</span>
@@ -479,10 +479,6 @@ window.Quarto = {
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">"whitegrid"</span>)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>sns.set_context(<span class="st">"poster"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
-</div>
 </div>
 <section id="the-problem-of-learning" class="level2">
 <h2 class="anchored" data-anchor-id="the-problem-of-learning">The problem of learning</h2>
@@ -511,18 +507,22 @@ window.Quarto = {
 <section id="a-simple-example" class="level3">
 <h3 class="anchored" data-anchor-id="a-simple-example">A simple example</h3>
 <p>Consider a Bernoulli distribution with probability parameter <span class="math inline">\(p=0.3\)</span>. This is a discrete distribution, defined at 0 and 1. Consider using another Bernoulli with parameter <span class="math inline">\(q\)</span> to approximate it. You can see that the divergence is 0 for <span class="math inline">\(q=0.3\)</span> and always higher for any other <span class="math inline">\(q\)</span>.</p>
-<div id="cell-7" class="cell" data-execution_count="37" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>p<span class="op">=</span><span class="fl">0.3</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> kld(p,q):</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> p<span class="op">*</span>np.log(p<span class="op">/</span>q) <span class="op">+</span> (<span class="dv">1</span><span class="op">-</span>p)<span class="op">*</span>np.log((<span class="dv">1</span><span class="op">-</span>p)<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>q))</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>qs<span class="op">=</span>np.linspace(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">100</span>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>plt.plot(qs, [kld(<span class="fl">0.3</span>,q) <span class="cf">for</span> q <span class="kw">in</span> qs])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="420ab1f2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:14.939559Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:14.939406Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:14.983760Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:14.983195Z&quot;}}" data-execution_count="3" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>p<span class="op">=</span><span class="fl">0.3</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> kld(p,q):</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> p<span class="op">*</span>np.log(p<span class="op">/</span>q) <span class="op">+</span> (<span class="dv">1</span><span class="op">-</span>p)<span class="op">*</span>np.log((<span class="dv">1</span><span class="op">-</span>p)<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>q))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>qs<span class="op">=</span>np.linspace(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">100</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>plt.plot(qs, [kld(<span class="fl">0.3</span>,q) <span class="cf">for</span> q <span class="kw">in</span> qs])<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23043/4200407633.py:4: RuntimeWarning: divide by zero encountered in scalar divide
+  return p*np.log(p/q) + (1-p)*np.log((1-p)/(1-q))</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="index_files/figure-html/cell-4-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>

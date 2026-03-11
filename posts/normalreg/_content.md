@@ -368,23 +368,9 @@ Output:
 
 <!-- cell:36 type:code -->
 ```python
-sns.distplot(w[:,0] + w[:,1] * 55) # the weight=55 posterior
+sns.histplot(w[:,0] + w[:,1] * 55, kde=True) # the weight=55 posterior
 ```
-Output:
-```
-/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_49118/217672072.py:1: UserWarning: 
-
-`distplot` is a deprecated function and will be removed in seaborn v0.14.0.
-
-Please adapt your code to use either `displot` (a figure-level function with
-similar flexibility) or `histplot` (an axes-level function for histograms).
-
-For a guide to updating your code to use the new functions, please see
-https://gist.github.com/mwaskom/de44147ed2974457ad6372750bbe5751
-
-  sns.distplot(w[:,0] + w[:,1] * 55) # the weight=55 posterior
-```
-![Figure](https://rahuldave.com/posts/normalreg/index_files/figure-html/cell-29-output-2.png)
+![Figure](https://rahuldave.com/posts/normalreg/index_files/figure-html/cell-29-output-1.png)
 
 <!-- cell:37 type:code -->
 ```python
@@ -463,10 +449,10 @@ plt.hist(norm.rvs(ppmeans[75], ppsigs[75], 1000), alpha=0.5)
 ```
 Output:
 ```
-(array([ 12.,  29., 119., 212., 241., 227., 109.,  37.,  13.,   1.]),
- array([139.7276711 , 144.97371753, 150.21976396, 155.46581039,
-        160.71185681, 165.95790324, 171.20394967, 176.4499961 ,
-        181.69604253, 186.94208895, 192.18813538]),
+(array([  3.,  20.,  68., 126., 241., 246., 173.,  88.,  29.,   6.]),
+ array([137.76725447, 142.76230959, 147.75736471, 152.75241983,
+        157.74747495, 162.74253007, 167.73758519, 172.73264031,
+        177.72769544, 182.72275056, 187.71780568]),
  <BarContainer object of 10 artists>)
 ```
 ![Figure](https://rahuldave.com/posts/normalreg/index_files/figure-html/cell-34-output-2.png)

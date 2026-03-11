@@ -20,11 +20,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 ```
-Output:
-```
-//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))
-```
 
 <!-- cell:3 type:markdown -->
 ## The basic idea
@@ -91,7 +86,7 @@ print("Monte Carlo estimation=",Imc, "Exact number=", intf(b)-intf(a))
 ```
 Output:
 ```
-Monte Carlo estimation= 11.8120823531 Exact number= 11.8113589251
+Monte Carlo estimation= 11.811532782792291 Exact number= 11.811358925098283
 ```
 
 <!-- cell:7 type:markdown -->
@@ -126,7 +121,7 @@ print("I=",V*sumsamples/N, "actual", np.pi/2.0) #actual value (change to polar t
 ```
 Output:
 ```
-I= 1.56308724855 actual 1.5707963267948966
+I= 1.575552456568276 actual 1.5707963267948966
 ```
 
 <!-- cell:10 type:markdown -->
@@ -156,7 +151,16 @@ plt.ylabel("sqrt((Imc-ExactValue)$^2$)")
 # 
 
 ```
-![Figure](https://rahuldave.com/posts/montecarlointegrals/index_files/figure-html/cell-8-output-1.png)
+Output:
+```
+/var/folders/wq/mr3zj9r14dzgjnq9rjx_vqbc0000gn/T/ipykernel_23138/1091706491.py:10: RuntimeWarning: invalid value encountered in scalar divide
+  Imc[N]= (b-a) * np.sum(Y)/ N;
+```
+Output:
+```
+Text(0, 0.5, 'sqrt((Imc-ExactValue)$^2$)')
+```
+![Figure](https://rahuldave.com/posts/montecarlointegrals/index_files/figure-html/cell-8-output-3.png)
 
 <!-- cell:12 type:markdown -->
 Obviously this depends on the number of $N$ as $1/\sqrt{N}$. 
@@ -196,7 +200,7 @@ print(np.mean(Imc), np.std(Imc))
 ```
 Output:
 ```
-11.8114651823 0.00398497853806
+11.81160205354668 0.004067818125611405
 ```
 ![Figure](https://rahuldave.com/posts/montecarlointegrals/index_files/figure-html/cell-9-output-2.png)
 

@@ -89,16 +89,16 @@ multinomial.rvs(1,[0.6,0.1, 0.3], size=10)
 ```
 Output:
 ```
-array([[1, 0, 0],
+array([[0, 1, 0],
        [1, 0, 0],
        [0, 0, 1],
-       [0, 0, 1],
-       [0, 0, 1],
-       [0, 0, 1],
-       [0, 1, 0],
        [1, 0, 0],
        [1, 0, 0],
-       [1, 0, 0]])
+       [1, 0, 0],
+       [0, 0, 1],
+       [1, 0, 0],
+       [1, 0, 0],
+       [0, 0, 1]])
 ```
 
 <!-- cell:7 type:markdown -->
@@ -130,7 +130,7 @@ x=np.array([np.random.normal(mu_true[i.astype('bool')][0], sigma_true[i.astype('
 
 <!-- cell:10 type:code -->
 ```python
-sns.distplot(x, bins=100);
+sns.histplot(x, bins=100, kde=True);
 ```
 ![Figure](https://rahuldave.com/posts/typesoflearning/index_files/figure-html/cell-7-output-1.png)
 
@@ -218,7 +218,7 @@ n = 10000
 from scipy.stats import binom
 z = binom.rvs(1, lambda_true[0], size=n)
 x=np.array([np.random.normal(mu_true[i], sigma_true[i]) for i in z])
-sns.distplot(x, bins=100);
+sns.histplot(x, bins=100, kde=True);
 ```
 ![Figure](https://rahuldave.com/posts/typesoflearning/index_files/figure-html/cell-8-output-1.png)
 
@@ -260,7 +260,7 @@ print(lambda_train, mu0_train, mu1_train, sigma_train)
 ```
 Output:
 ```
-0.407066666667 1.99814996529 5.0176232719 0.599407546657
+0.3916 2.001749619564862 4.9987525410687885 0.6054457523590445
 ```
 
 <!-- cell:19 type:markdown -->
@@ -287,7 +287,7 @@ print("correct classification rate", np.mean(ztest == pred))
 ```
 Output:
 ```
-correct classification rate 0.9944
+correct classification rate 0.9936
 ```
 
 <!-- cell:22 type:markdown -->

@@ -151,14 +151,14 @@ window.Quarto = {
 <meta property="og:description" content="Defines expected values, the Law of the Unconscious Statistician (LOTUS), and variance for discrete and continuous distributions. Demonstrates the Law of Large Numbers and its connection to the frequentist interpretation of probability.">
 <meta property="og:image" content="https://rahuldave.github.io/posts/expectations/index_files/figure-html/cell-6-output-1.png">
 <meta property="og:site_name" content="rahuldave">
-<meta property="og:image:height" content="543">
-<meta property="og:image:width" content="775">
+<meta property="og:image:height" content="452">
+<meta property="og:image:width" content="581">
 <meta name="twitter:title" content="Expectations and the Law of Large Numbers – rahuldave">
 <meta name="twitter:description" content="Defines expected values, the Law of the Unconscious Statistician (LOTUS), and variance for discrete and continuous distributions. Demonstrates the Law of Large Numbers and its connection to the frequentist interpretation of probability.">
 <meta name="twitter:image" content="https://rahuldave.github.io/posts/expectations/index_files/figure-html/cell-6-output-1.png">
 <meta name="twitter:creator" content="@rahuldave">
-<meta name="twitter:image-height" content="543">
-<meta name="twitter:image-width" content="775">
+<meta name="twitter:image-height" content="452">
+<meta name="twitter:image-width" content="581">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -459,7 +459,7 @@ window.Quarto = {
 </header>
 
 
-<div id="cell-2" class="cell" data-execution_count="3" data-cell-type="code">
+<div id="cell-2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:16.436020Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:16.435903Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:17.453892Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:17.451221Z&quot;}}" data-execution_count="2" data-cell-type="code">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># The %... is an iPython thing, and is not part of the Python language.</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># In this case we're just telling the plotting library to draw things on</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># the notebook, instead of on a separate window.</span></span>
@@ -479,10 +479,6 @@ window.Quarto = {
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">"whitegrid"</span>)</span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>sns.set_context(<span class="st">"poster"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>//anaconda/envs/py35/lib/python3.5/site-packages/matplotlib/__init__.py:872: UserWarning: axes.color_cycle is deprecated and replaced with axes.prop_cycle; please use the latter.
-  warnings.warn(self.msg_depr % (key, alt_key))</code></pre>
-</div>
 </div>
 <section id="expectations" class="level2">
 <h2 class="anchored" data-anchor-id="expectations">Expectations</h2>
@@ -528,22 +524,22 @@ E_{f}{X} = \int x dF(x) =
 <section id="the-law-of-large-numbers" class="level2">
 <h2 class="anchored" data-anchor-id="the-law-of-large-numbers">The Law of Large Numbers</h2>
 <p>Imagine a sequence of length n of coin flips. Lets keep increasing the length of the sequence of coin flips n, and compute a running average <span class="math inline">\(S_n\)</span> of the coin-flip random variables, <span class="math display">\[S_n = \frac{1}{n} \sum_{i=1}^{n} x_i .\]</span> We plot this running mean, and notice that it <em>converges to the mean of the distribution from which the random variables are plucked</em>, ie the Bernoulli distribution with p=0.5.</p>
-<div id="cell-5" class="cell" data-execution_count="4" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats.distributions <span class="im">import</span> bernoulli</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> throw_a_coin(n):</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    brv <span class="op">=</span> bernoulli(<span class="fl">0.5</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> brv.rvs(size<span class="op">=</span>n)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:17.457226Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:17.456753Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:17.460946Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:17.459949Z&quot;}}" data-execution_count="3" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats.distributions <span class="im">import</span> bernoulli</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> throw_a_coin(n):</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    brv <span class="op">=</span> bernoulli(<span class="fl">0.5</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> brv.rvs(size<span class="op">=</span>n)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-6" class="cell" data-execution_count="5" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>random_flips <span class="op">=</span> throw_a_coin(<span class="dv">10000</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>running_means <span class="op">=</span> np.zeros(<span class="dv">10000</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>sequence_lengths <span class="op">=</span> np.arange(<span class="dv">1</span>,<span class="dv">10001</span>,<span class="dv">1</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> sequence_lengths:</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    running_means[i<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> np.mean(random_flips[:i])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:17.463221Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:17.463008Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:17.547604Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:17.546472Z&quot;}}" data-execution_count="4" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>random_flips <span class="op">=</span> throw_a_coin(<span class="dv">10000</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>running_means <span class="op">=</span> np.zeros(<span class="dv">10000</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>sequence_lengths <span class="op">=</span> np.arange(<span class="dv">1</span>,<span class="dv">10001</span>,<span class="dv">1</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> sequence_lengths:</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    running_means[i<span class="op">-</span><span class="dv">1</span>] <span class="op">=</span> np.mean(random_flips[:i])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="cell-7" class="cell" data-figure_caption="The Law of Large Numbers: means of sequences converge to the distribution mean." data-figure_type="m" data-execution_count="6" data-cell-type="code">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plt.plot(sequence_lengths, running_means)<span class="op">;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>plt.xscale(<span class="st">'log'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-03-11T00:41:17.550708Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-03-11T00:41:17.550392Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-03-11T00:41:17.795530Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-03-11T00:41:17.794578Z&quot;}}" data-figure_caption="The Law of Large Numbers: means of sequences converge to the distribution mean." data-figure_type="m" data-execution_count="5" data-cell-type="code">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plt.plot(sequence_lengths, running_means)<span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>plt.xscale(<span class="st">'log'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
