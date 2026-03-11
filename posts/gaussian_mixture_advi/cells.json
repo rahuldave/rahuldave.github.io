@@ -1,0 +1,257 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Gaussian Mixture Models with ADVI",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "cell-1"
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 3,
+      "type": "code",
+      "html_id": "eba142b9"
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "generate-some-data",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 5,
+      "type": "code",
+      "html_id": "7521b572"
+    },
+    {
+      "cell": 6,
+      "type": "code",
+      "html_id": "4bcffb1e"
+    },
+    {
+      "cell": 7,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "marginalize-discretes",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 8,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 9,
+      "type": "code",
+      "html_id": "14a54454"
+    },
+    {
+      "cell": 10,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "sampling",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 11,
+      "type": "code",
+      "html_id": "9781072c"
+    },
+    {
+      "cell": 12,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 13,
+      "type": "code",
+      "html_id": "2572e832"
+    },
+    {
+      "cell": 14,
+      "type": "code",
+      "html_id": "de964136"
+    },
+    {
+      "cell": 15,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 16,
+      "type": "code",
+      "html_id": "23791c45"
+    },
+    {
+      "cell": 17,
+      "type": "code",
+      "html_id": "b85c265a"
+    },
+    {
+      "cell": 18,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 19,
+      "type": "code",
+      "html_id": "171fce5b"
+    },
+    {
+      "cell": 20,
+      "type": "code",
+      "html_id": "8078d21b"
+    },
+    {
+      "cell": 21,
+      "type": "code",
+      "html_id": "c01a9ebf"
+    },
+    {
+      "cell": 22,
+      "type": "code",
+      "html_id": "01da13d1"
+    },
+    {
+      "cell": 23,
+      "type": "code",
+      "html_id": "75a86c04"
+    },
+    {
+      "cell": 24,
+      "type": "code",
+      "html_id": "0407bdd0"
+    },
+    {
+      "cell": 25,
+      "type": "code",
+      "html_id": "29b521d8"
+    },
+    {
+      "cell": 26,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 27,
+      "type": "code",
+      "html_id": "08bf4180"
+    },
+    {
+      "cell": 28,
+      "type": "code",
+      "html_id": "0ff17ae6"
+    },
+    {
+      "cell": 29,
+      "type": "code",
+      "html_id": "813dbea1"
+    },
+    {
+      "cell": 30,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 31,
+      "type": "code",
+      "html_id": "01957b98"
+    },
+    {
+      "cell": 32,
+      "type": "code",
+      "html_id": "2f4d86e6"
+    },
+    {
+      "cell": 33,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 34,
+      "type": "code",
+      "html_id": "9508c938"
+    },
+    {
+      "cell": 35,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 36,
+      "type": "code",
+      "html_id": "c4b28096"
+    },
+    {
+      "cell": 37,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 38,
+      "type": "code",
+      "html_id": "9d598c92"
+    },
+    {
+      "cell": 39,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 40,
+      "type": "code",
+      "html_id": "9cd3b1c2"
+    },
+    {
+      "cell": 41,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 42,
+      "type": "code",
+      "html_id": "064111d1"
+    },
+    {
+      "cell": 43,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 44,
+      "type": "code",
+      "html_id": "42cd31fb"
+    },
+    {
+      "cell": 45,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 46,
+      "type": "code",
+      "html_id": "c0454fda"
+    }
+  ]
+}

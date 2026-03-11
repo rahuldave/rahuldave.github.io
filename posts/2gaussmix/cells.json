@@ -1,0 +1,187 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Two-Component Gaussian Mixture",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "cell-1"
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 3,
+      "type": "code",
+      "html_id": "09eb789a"
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 5,
+      "type": "code",
+      "html_id": "a61951be"
+    },
+    {
+      "cell": 6,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 7,
+      "type": "code",
+      "html_id": "47f464c6"
+    },
+    {
+      "cell": 8,
+      "type": "code",
+      "html_id": "9b8aff4d"
+    },
+    {
+      "cell": 9,
+      "type": "code",
+      "html_id": "d1bac681"
+    },
+    {
+      "cell": 10,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 11,
+      "type": "code",
+      "html_id": "aa51f2ae"
+    },
+    {
+      "cell": 12,
+      "type": "code",
+      "html_id": "3072cbc2"
+    },
+    {
+      "cell": 13,
+      "type": "code",
+      "html_id": "595fb890"
+    },
+    {
+      "cell": 14,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 15,
+      "type": "code",
+      "html_id": "3ca9f235"
+    },
+    {
+      "cell": 16,
+      "type": "code",
+      "html_id": "477b408d"
+    },
+    {
+      "cell": 17,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 18,
+      "type": "code",
+      "html_id": "cae23cf2"
+    },
+    {
+      "cell": 19,
+      "type": "code",
+      "html_id": "c0fe0001"
+    },
+    {
+      "cell": 20,
+      "type": "code",
+      "html_id": "c04ac308"
+    },
+    {
+      "cell": 21,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 22,
+      "type": "code",
+      "html_id": "407b7489"
+    },
+    {
+      "cell": 23,
+      "type": "code",
+      "html_id": "f60137af"
+    },
+    {
+      "cell": 24,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "advi",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 25,
+      "type": "code",
+      "html_id": "03162864"
+    },
+    {
+      "cell": 26,
+      "type": "code",
+      "html_id": "2f6f2bb8"
+    },
+    {
+      "cell": 27,
+      "type": "code",
+      "html_id": "7d953a33"
+    },
+    {
+      "cell": 28,
+      "type": "code",
+      "html_id": "cf677f7a"
+    },
+    {
+      "cell": 29,
+      "type": "code",
+      "html_id": "49f58066"
+    },
+    {
+      "cell": 30,
+      "type": "code",
+      "html_id": "b1a22e98"
+    },
+    {
+      "cell": 31,
+      "type": "code",
+      "html_id": "b8564e37"
+    },
+    {
+      "cell": 32,
+      "type": "code",
+      "html_id": "5df8c93e"
+    },
+    {
+      "cell": 33,
+      "type": "code",
+      "html_id": "c6253c9e"
+    },
+    {
+      "cell": 34,
+      "type": "code",
+      "html_id": "3332051c"
+    }
+  ]
+}

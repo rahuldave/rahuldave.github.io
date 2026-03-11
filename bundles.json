@@ -1,4 +1,20 @@
 {
+  "2gaussmix": {
+    "zip": "/posts/2gaussmix/2gaussmix.zip",
+    "size_bytes": 706180,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "pymc",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": false,
+    "files": [
+      "index.ipynb"
+    ]
+  },
   "MLE": {
     "zip": "/posts/MLE/MLE.zip",
     "size_bytes": 86876,
@@ -78,6 +94,27 @@
     "pyodide_compatible": true,
     "files": [
       "index.ipynb"
+    ]
+  },
+  "corr": {
+    "zip": "/posts/corr/corr.zip",
+    "size_bytes": 606836,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "pymc",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": false,
+    "files": [
+      "index.ipynb",
+      "assets/cov1.png",
+      "assets/cov2.png",
+      "assets/pchimps3.png",
+      "assets/pchimps4.png",
+      "assets/pchimps5.png"
     ]
   },
   "dataaug": {
@@ -226,6 +263,20 @@
       "index.ipynb",
       "assets/mlp.png",
       "assets/perceptron.png"
+    ]
+  },
+  "gaussian_mixture_advi": {
+    "zip": "/posts/gaussian_mixture_advi/gaussian_mixture_advi.zip",
+    "size_bytes": 510990,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pymc",
+      "seaborn"
+    ],
+    "pyodide_compatible": false,
+    "files": [
+      "index.ipynb"
     ]
   },
   "gelmanschools": {
@@ -630,6 +681,24 @@
       "assets/layershorstd.png"
     ]
   },
+  "marginaloverdiscrete": {
+    "zip": "/posts/marginaloverdiscrete/marginaloverdiscrete.zip",
+    "size_bytes": 1092989,
+    "dependencies": [
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "pymc",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": false,
+    "files": [
+      "index.ipynb",
+      "data/3g.dat",
+      "data/3gv2.dat"
+    ]
+  },
   "markov": {
     "zip": "/posts/markov/markov.zip",
     "size_bytes": 167695,
@@ -691,6 +760,25 @@
     "pyodide_compatible": true,
     "files": [
       "index.ipynb"
+    ]
+  },
+  "mixtures_and_mcmc": {
+    "zip": "/posts/mixtures_and_mcmc/mixtures_and_mcmc.zip",
+    "size_bytes": 885559,
+    "dependencies": [
+      "graphviz",
+      "matplotlib",
+      "numpy",
+      "pandas",
+      "pymc",
+      "scipy",
+      "seaborn"
+    ],
+    "pyodide_compatible": false,
+    "files": [
+      "index.ipynb",
+      "data/3gv2.dat",
+      "data/oldfaithful.csv"
     ]
   },
   "mlp_classification": {

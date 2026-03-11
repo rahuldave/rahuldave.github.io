@@ -12,6 +12,7 @@ Bayesian Workflow: Zero-Inflated Poisson: https://rahuldave.com/posts/monksglmwo
 Box's Loop: https://rahuldave.com/posts/boxloop/_content.md
 Choosing Priors: From Flat to Weakly Informative: https://rahuldave.com/posts/priors/_content.md
 Convexity and Jensen's Inequality: https://rahuldave.com/posts/jensens/_content.md
+Correlation Modeling with LKJ Priors: https://rahuldave.com/posts/corr/_content.md
 Data Augmentation: https://rahuldave.com/posts/dataaug/_content.md
 Discrete MCMC: https://rahuldave.com/posts/discretemcmc/_content.md
 Distributions Example: Elections: https://rahuldave.com/posts/distrib-example/_content.md
@@ -25,6 +26,7 @@ Frequentist Statistics: https://rahuldave.com/posts/frequentist/_content.md
 From Annealing to Metropolis: https://rahuldave.com/posts/metropolis/_content.md
 From the Normal Model to Regression: https://rahuldave.com/posts/normalreg/_content.md
 GP Recap and Salmon Example: https://rahuldave.com/posts/gpsalmon/_content.md
+Gaussian Mixture Models with ADVI: https://rahuldave.com/posts/gaussian_mixture_advi/_content.md
 Gaussian Processes and Non-parametric Bayes: https://rahuldave.com/posts/gp2/_content.md
 Gelman Schools and Hierarchical Pathology: https://rahuldave.com/posts/gelmanschools/_content.md
 Generative vs Discriminative Models: https://rahuldave.com/posts/generativemodels/_content.md
@@ -47,9 +49,11 @@ Learning With Noise: https://rahuldave.com/posts/noisylearning/_content.md
 Learning Without Noise: https://rahuldave.com/posts/noiseless_learning/_content.md
 Levels of Bayesian Analysis: https://rahuldave.com/posts/levelsofbayes/_content.md
 Logistic Regression and Backpropagation: https://rahuldave.com/posts/logisticbp/_content.md
+Marginalizing Over Discrete Variables: https://rahuldave.com/posts/marginaloverdiscrete/_content.md
 Markov Chains and MCMC: https://rahuldave.com/posts/markov/_content.md
 Maximum Likelihood Estimation: https://rahuldave.com/posts/MLE/_content.md
 Metropolis and Support Mismatch: https://rahuldave.com/posts/metropolissupport/_content.md
+Mixture Models and MCMC: https://rahuldave.com/posts/mixtures_and_mcmc/_content.md
 Mixture Models and Types of Learning: https://rahuldave.com/posts/typesoflearning/_content.md
 Model Comparison Continued: https://rahuldave.com/posts/modelcompar2/_content.md
 Model Comparison: https://rahuldave.com/posts/modelcomparison/_content.md
@@ -72,6 +76,7 @@ The Inverse Transform: https://rahuldave.com/posts/inversetransform/_content.md
 The Metropolis-Hastings Algorithm: https://rahuldave.com/posts/metropolishastings/_content.md
 The Normal Model: https://rahuldave.com/posts/normalmodel/_content.md
 The Significance and Size of Effects: https://rahuldave.com/posts/doseplacebo/_content.md
+Two-Component Gaussian Mixture: https://rahuldave.com/posts/2gaussmix/_content.md
 Understanding AIC: https://rahuldave.com/posts/understandingaic/_content.md
 Utility, Risk, and Decision Theory: https://rahuldave.com/posts/utilityorrisk/_content.md
 Validation and Cross-Validation: https://rahuldave.com/posts/validation/_content.md

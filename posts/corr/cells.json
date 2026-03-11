@@ -1,0 +1,192 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Correlation Modeling with LKJ Priors",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "cell-1"
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 3,
+      "type": "code",
+      "html_id": "aae17e73"
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "a-gaussian-with-correlations",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 5,
+      "type": "code",
+      "html_id": "33487624"
+    },
+    {
+      "cell": 6,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 7,
+      "type": "code",
+      "html_id": "4057c41a"
+    },
+    {
+      "cell": 8,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "matrixy-indexing",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 9,
+      "type": "code",
+      "html_id": "43166c6b"
+    },
+    {
+      "cell": 10,
+      "type": "code",
+      "html_id": "661fe433"
+    },
+    {
+      "cell": 11,
+      "type": "code",
+      "html_id": "d36c2208"
+    },
+    {
+      "cell": 12,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-lkj-prior-for-sampling",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 13,
+      "type": "code",
+      "html_id": "5daca941"
+    },
+    {
+      "cell": 14,
+      "type": "code",
+      "html_id": "c262108e"
+    },
+    {
+      "cell": 15,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 16,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 17,
+      "type": "code",
+      "html_id": "2908dada"
+    },
+    {
+      "cell": 18,
+      "type": "code",
+      "html_id": "b1d4f568"
+    },
+    {
+      "cell": 19,
+      "type": "code",
+      "html_id": "15d6859d"
+    },
+    {
+      "cell": 20,
+      "type": "code",
+      "html_id": "f8d20cce"
+    },
+    {
+      "cell": 21,
+      "type": "code",
+      "html_id": "8e91f368"
+    },
+    {
+      "cell": 22,
+      "type": "code",
+      "html_id": "0b6ad58d"
+    },
+    {
+      "cell": 23,
+      "type": "code",
+      "html_id": "54780676"
+    },
+    {
+      "cell": 24,
+      "type": "code",
+      "html_id": "eda46d05"
+    },
+    {
+      "cell": 25,
+      "type": "code",
+      "html_id": "0e6242a7"
+    },
+    {
+      "cell": 26,
+      "type": "code",
+      "html_id": "233dc959"
+    },
+    {
+      "cell": 27,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "prior-ing-the-cholesky-decomposition",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 28,
+      "type": "code",
+      "html_id": "56d4036f"
+    },
+    {
+      "cell": 29,
+      "type": "code",
+      "html_id": "271b7bd3"
+    },
+    {
+      "cell": 30,
+      "type": "code",
+      "html_id": "c5105e87"
+    },
+    {
+      "cell": 31,
+      "type": "code",
+      "html_id": "73559163"
+    },
+    {
+      "cell": 32,
+      "type": "markdown",
+      "headings": []
+    }
+  ]
+}

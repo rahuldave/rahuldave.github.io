@@ -1,0 +1,312 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Marginalizing Over Discrete Variables",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "cell-1"
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 3,
+      "type": "code",
+      "html_id": "5fdfe7ff"
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 5,
+      "type": "code",
+      "html_id": "102932ab"
+    },
+    {
+      "cell": 6,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-choice-of-a-prior",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 7,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "the-log-sum-exp-trick-and-mixtures",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 8,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 9,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "pymc-implements-the-log-sum-exp-directly",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 10,
+      "type": "code",
+      "html_id": "8b246570"
+    },
+    {
+      "cell": 11,
+      "type": "code",
+      "html_id": "5b446c0e"
+    },
+    {
+      "cell": 12,
+      "type": "code",
+      "html_id": "38c53b74"
+    },
+    {
+      "cell": 13,
+      "type": "code",
+      "html_id": "4b4e936e"
+    },
+    {
+      "cell": 14,
+      "type": "code",
+      "html_id": "89fbdd0a"
+    },
+    {
+      "cell": 15,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 16,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "advi",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 17,
+      "type": "code",
+      "html_id": "f6ff08d0"
+    },
+    {
+      "cell": 18,
+      "type": "code",
+      "html_id": "9b54d9fd"
+    },
+    {
+      "cell": 19,
+      "type": "code",
+      "html_id": "e2fb4c91"
+    },
+    {
+      "cell": 20,
+      "type": "code",
+      "html_id": "6e013900"
+    },
+    {
+      "cell": 21,
+      "type": "code",
+      "html_id": "a3a208c9"
+    },
+    {
+      "cell": 22,
+      "type": "code",
+      "html_id": "0f0b59bd"
+    },
+    {
+      "cell": 23,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 24,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "posterior-predictive",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 25,
+      "type": "code",
+      "html_id": "5e07ef6d"
+    },
+    {
+      "cell": 26,
+      "type": "code",
+      "html_id": "6971962e"
+    },
+    {
+      "cell": 27,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 28,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "marginalizing-by-hand",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 29,
+      "type": "code",
+      "html_id": "1fd89ada"
+    },
+    {
+      "cell": 30,
+      "type": "code",
+      "html_id": "ac920e36"
+    },
+    {
+      "cell": 31,
+      "type": "code",
+      "html_id": "220a1ee7"
+    },
+    {
+      "cell": 32,
+      "type": "code",
+      "html_id": "3698d0fa"
+    },
+    {
+      "cell": 33,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "posterior-predictive",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 34,
+      "type": "code",
+      "html_id": "760274b0"
+    },
+    {
+      "cell": 35,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 36,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "a-much-more-separated-gaussian-model",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 37,
+      "type": "code",
+      "html_id": "70eb9fcd"
+    },
+    {
+      "cell": 38,
+      "type": "code",
+      "html_id": "8439b30a"
+    },
+    {
+      "cell": 39,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 40,
+      "type": "code",
+      "html_id": "abf0dbe8"
+    },
+    {
+      "cell": 41,
+      "type": "code",
+      "html_id": "047a022d"
+    },
+    {
+      "cell": 42,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 43,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 44,
+      "type": "code",
+      "html_id": "e857802f"
+    },
+    {
+      "cell": 45,
+      "type": "code",
+      "html_id": "e531ffcb"
+    },
+    {
+      "cell": 46,
+      "type": "code",
+      "html_id": "e2f957cc"
+    },
+    {
+      "cell": 47,
+      "type": "code",
+      "html_id": "c900459b"
+    },
+    {
+      "cell": 48,
+      "type": "code",
+      "html_id": "de7dac29"
+    },
+    {
+      "cell": 49,
+      "type": "code",
+      "html_id": "85173d37"
+    },
+    {
+      "cell": 50,
+      "type": "code",
+      "html_id": "1d8f5ac8"
+    },
+    {
+      "cell": 51,
+      "type": "code",
+      "html_id": "5f5e1d8f"
+    },
+    {
+      "cell": 52,
+      "type": "code",
+      "html_id": "ade071f1"
+    }
+  ]
+}

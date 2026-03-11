@@ -1,0 +1,237 @@
+{
+  "version": 1,
+  "source_type": "ipynb",
+  "title": "Mixture Models and MCMC",
+  "cells": [
+    {
+      "cell": 0,
+      "type": "raw",
+      "skip": true
+    },
+    {
+      "cell": 1,
+      "type": "code",
+      "html_id": "cell-1"
+    },
+    {
+      "cell": 2,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 3,
+      "type": "code",
+      "html_id": "563be91e"
+    },
+    {
+      "cell": 4,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "mixture-of-2-gaussians-the-old-faithful-data",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 5,
+      "type": "code",
+      "html_id": "43310bc3"
+    },
+    {
+      "cell": 6,
+      "type": "code",
+      "html_id": "44466c59"
+    },
+    {
+      "cell": 7,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 8,
+      "type": "code",
+      "html_id": "4f5bd460"
+    },
+    {
+      "cell": 9,
+      "type": "code",
+      "html_id": "f3433026"
+    },
+    {
+      "cell": 10,
+      "type": "code",
+      "html_id": "1d4c13dc"
+    },
+    {
+      "cell": 11,
+      "type": "code",
+      "html_id": "b5deaea4"
+    },
+    {
+      "cell": 12,
+      "type": "code",
+      "html_id": "ecd35e5d"
+    },
+    {
+      "cell": 13,
+      "type": "code",
+      "html_id": "cde111cc"
+    },
+    {
+      "cell": 14,
+      "type": "code",
+      "html_id": "b0a3e858"
+    },
+    {
+      "cell": 15,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 16,
+      "type": "code",
+      "html_id": "233cf439"
+    },
+    {
+      "cell": 17,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "a-tetchy-3-gaussian-model",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 18,
+      "type": "code",
+      "html_id": "1e3db2af"
+    },
+    {
+      "cell": 19,
+      "type": "code",
+      "html_id": "968fa2a4"
+    },
+    {
+      "cell": 20,
+      "type": "code",
+      "html_id": "224ba4a6"
+    },
+    {
+      "cell": 21,
+      "type": "code",
+      "html_id": "867a5168"
+    },
+    {
+      "cell": 22,
+      "type": "code",
+      "html_id": "6238d9f6"
+    },
+    {
+      "cell": 23,
+      "type": "code",
+      "html_id": "766a1453"
+    },
+    {
+      "cell": 24,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "problems-with-clusters-and-sampling",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 25,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "some-mitigation-via-ordering-in-pymc3",
+          "level": 3
+        }
+      ]
+    },
+    {
+      "cell": 26,
+      "type": "code",
+      "html_id": "43d3af55"
+    },
+    {
+      "cell": 27,
+      "type": "code",
+      "html_id": "506b7adc"
+    },
+    {
+      "cell": 28,
+      "type": "code",
+      "html_id": "adf10bd3"
+    },
+    {
+      "cell": 29,
+      "type": "code",
+      "html_id": "bcdcb9d2"
+    },
+    {
+      "cell": 30,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "full-sampling-is-horrible-even-with-potentials",
+          "level": 2
+        }
+      ]
+    },
+    {
+      "cell": 31,
+      "type": "code",
+      "html_id": "9797653f"
+    },
+    {
+      "cell": 32,
+      "type": "code",
+      "html_id": "089b7015"
+    },
+    {
+      "cell": 33,
+      "type": "code",
+      "html_id": "5c93ab9d"
+    },
+    {
+      "cell": 34,
+      "type": "markdown",
+      "headings": []
+    },
+    {
+      "cell": 35,
+      "type": "code",
+      "html_id": "172047c5"
+    },
+    {
+      "cell": 36,
+      "type": "code",
+      "html_id": "b1534469"
+    },
+    {
+      "cell": 37,
+      "type": "code",
+      "html_id": "9002c8fd"
+    },
+    {
+      "cell": 38,
+      "type": "code",
+      "html_id": "0aa8b060"
+    },
+    {
+      "cell": 39,
+      "type": "markdown",
+      "headings": [
+        {
+          "slug": "making-problems-go-away",
+          "level": 3
+        }
+      ]
+    }
+  ]
+}
