@@ -35,7 +35,7 @@ deploy: build
 
 ## Test generated bundles via juv exec
 test-bundles: $(BUNDLES_STAMP)
-	python3 _scripts/test_bundles.py --report _site/test-report.json
+	python3 _scripts/test_bundles.py --timeout 600 --report _site/test-report.json
 
 ## Blow away all stamps (forces full rebuild on next make build)
 clean:

@@ -252,6 +252,12 @@ None — all items resolved.
 --cb-blue-600: #08519c  --cb-blue-700: #084594   --cb-blue-800: #08306b
 ```
 
+### Interactive Demos
+- Reference implementation: `posts/seasons/index.qmd` (Three.js orbital mechanics), full version at `/sunearthmoon/seasons.html`
+- **Ideas catalog**: `_internal_docs/interactive-demo-ideas.md` — 23 demo ideas ranked by priority, with axes, tech choices, 2D alternatives, and implementation sketches
+- Tech stack: Three.js for inherently 3D concepts (loss surfaces, funnels, GP tubes), D3.js/Canvas for 2D concepts (density curves, contour plots, scatter + ellipses)
+- Posts use `.qmd` format (not `.ipynb`) for JS-heavy interactive content
+
 ---
 
 ## Quarto Site Structure
