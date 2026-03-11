@@ -184,17 +184,25 @@ This is a Quarto-based personal website for data science/ML educational content 
   - `advi` — notebook, imported to `posts/advi/` (full pymc3→pymc port)
   - `varnn` — notebook, imported to `posts/varnn/` (full pymc3→pymc port, Bayesian NN)
   - `torchvae` — notebook, imported to `posts/torchvae/` (PyTorch modernized)
-- **Lectures 25–26**: NOT YET IMPORTED
+- **Lecture 25 (Variational Inference and Mixtures)**: DONE
+  - `advi` — already imported (Lecture 24), skipped
+  - `torchvae` — already imported (Lecture 24), skipped
+  - `mixtures_and_mcmc` — notebook, imported to `posts/mixtures_and_mcmc/` (full pymc3→pymc port)
+  - `marginaloverdiscrete` — notebook, imported to `posts/marginaloverdiscrete/` (full pymc3→pymc port, DensityDist API rewritten, ADVI reordered before PPC)
+  - `gaussian-mixture-model-advi` — notebook, imported to `posts/gaussian_mixture_advi/` (full pymc3→pymc port, DensityDist with explicit params + flatten, modern ADVI API)
+  - `2gaussmix` — notebook, imported to `posts/2gaussmix/` (full pymc3→pymc port)
+- **Lecture 26 (Wrapup)**: DONE
+  - `corr` — notebook, imported to `posts/corr/` (full pymc3→pymc port, LKJCorr/LKJCholeskyCov API updated)
 
 ## PyMC3 → PyMC Migration Status
-- **Notebooks already ported**: `em` (removed unused import), `hmcexplore` (removed unused import), `switchpoint` (full InferenceData port), `utilityorrisk` (full InferenceData port), `gelmanschoolstheory` (full port), `gelmanschools` (full port), `hmctweaking` (full port), `identifiability` (full port), `pymcnormalreg` (full port), `islands1` (full port), `islands2` (full port), `gpcorr` (full port), `gp3` (full port), `gpsalmon` (full port), `gp1` (removed unused import), `gp2` (removed unused import + sklearn modernized), `monksglmworkflow` (full port), `vi` (removed unused import), `advi` (full port), `varnn` (full port)
+- **Notebooks already ported**: `em` (removed unused import), `hmcexplore` (removed unused import), `switchpoint` (full InferenceData port), `utilityorrisk` (full InferenceData port), `gelmanschoolstheory` (full port), `gelmanschools` (full port), `hmctweaking` (full port), `identifiability` (full port), `pymcnormalreg` (full port), `islands1` (full port), `islands2` (full port), `gpcorr` (full port), `gp3` (full port), `gpsalmon` (full port), `gp1` (removed unused import), `gp2` (removed unused import + sklearn modernized), `monksglmworkflow` (full port), `vi` (removed unused import), `advi` (full port), `varnn` (full port), `mixtures_and_mcmc` (full port), `marginaloverdiscrete` (full port, DensityDist rewrite), `gaussian_mixture_advi` (full port, DensityDist rewrite), `2gaussmix` (full port), `corr` (full port, LKJCorr/LKJCholeskyCov)
 - **Porting reference**: `_scripts/pymc3-to-pymc-porting.md`
 - **Skill**: `/port-pymc3` — step-by-step process for migrating pymc3/theano to modern pymc/pytensor
 - **Critical**: Do NOT list `arviz` explicitly in PEP 723 deps alongside `pymc` — arviz 1.0 breaks pymc; let pymc pull in the compatible version
 - **Known slow notebooks** (use `--timeout 1200`): switchpoint (~90s), utilityorrisk (~70s), mlp_classification (~90s), nnreg (~80s), samplingclt (~230s), gibbsconj (~50s), tetchygibbs (~40s), gp3 (GP posterior predictive is slow)
 - `pm.Bernoulli('x', val)` → `pm.Bernoulli('x', p=val)` — positional arg deprecated in pymc v5
 - `sample_posterior_predictive` corrupts model graph for subsequent `pm.sample()` — run NUTS before ppc in same model
-- **All 63 notebook bundles pass** `make test-bundles` (100%)
+- **All 68 notebook bundles pass** `make test-bundles` (100%)
 
 ## Modernization Debt (deprecated patterns still in notebooks)
 
@@ -214,8 +222,8 @@ This is a Quarto-based personal website for data science/ML educational content 
 - Dates increase by **1 week per lecture**, starting from 2025-01-08 (Lecture 1)
 - All notes within a lecture share the same date (the lecture's date)
 - If a note was first imported in an earlier lecture, it keeps that earlier date
-- **Last date used**: 2025-06-18 (Lecture 24)
-- **Next lecture (25) should use**: 2025-06-25
+- **Last date used**: 2025-07-02 (Lecture 26)
+- **All lectures imported** — no next date needed
 
 ## Category System
 - Canonical categories are in `_categories.txt` (root of project), one per line, sorted alphabetically
