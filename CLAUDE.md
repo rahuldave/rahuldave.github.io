@@ -206,17 +206,8 @@ This is a Quarto-based personal website for data science/ML educational content 
 
 ## Modernization Debt (deprecated patterns still in notebooks)
 
-### 1. `sns.distplot` → `sns.histplot`/`sns.displot` (seaborn, removed in v0.14)
-5 notebooks: `bayes_withsampling`, `globemodellab`, `metropolissupport`, `normalreg`, `typesoflearning`
-
-### 2. `switchpoint` pymc introspection shims
+### 1. `switchpoint` pymc introspection shims
 6 cells wrapped in try/except because pymc v5 changed internal APIs (transformed variable access, distribution internals, model logp). These work but print fallback messages instead of showing the original pedagogical content. Could be rewritten to use modern pymc equivalents.
-
-### 3. Stale stderr in cell outputs (cosmetic)
-6 notebooks have old `axes.color_cycle` deprecation warnings baked into stderr from the original Python 3.5 environment: `divergence`, `expectations`, `jensens`, `markov`, `montecarlointegrals`, `noisylearning`. The code is fine — these are just leftover output strings from cells with `%matplotlib inline` that `execute_notebook.py` skips (it doesn't execute magic lines). Re-running these cells manually or stripping stderr would clean them up.
-
-### 4. Stale kernel metadata (cosmetic)
-7 notebooks still show old `kernelspec.display_name` (e.g. "Python [conda env:py35]", "Python [default]"): `basicmontecarlo`, `distrib-example`, `expectations`, `montecarlointegrals`, `probability`, `samplingclt`, `votingforcongress`. The code runs on Python 3.14 — only the metadata string is stale. `nbclient` preserves existing kernelspec metadata.
 
 ## Post Date Scheme
 - Dates increase by **1 week per lecture**, starting from 2025-01-08 (Lecture 1)
