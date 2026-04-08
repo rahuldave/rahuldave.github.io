@@ -449,7 +449,6 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li><strong>Semiotic v3</strong> is a lovely chart library but the high-level <code>Scatterplot</code> helper doesn’t expose per-point click handlers — to wire scatter↔︎table linking in both directions you have to drop down to <code>XYFrame</code> directly.</li>
 <li><strong>Identity ambiguity is the hardest problem in a sports database.</strong> ~110 team names appear in <em>both</em> men’s and women’s matches in cricsheet (every international side, every IPL/WPL franchise pair…). A team page with no gender filter aggregating both squads is statistically meaningless. The fix is contextual: when a tournament filter is set, auto-fill the gender; when it isn’t, show a banner.</li>
-<li><strong><code>sample_posterior_predictive</code> corrupts the model graph</strong> — wait, wrong project.</li>
 <li><strong>Double-encoded JSON</strong> snuck into one column (<code>wicket.fielders</code>) because both my import script <em>and</em> deebase’s JSON column type called <code>json.dumps</code>. The matches scorecard router still parses twice as a workaround; the real fix is a five-line diff plus a 15-minute DB rebuild.</li>
 </ul>
 </section>

@@ -88,8 +88,6 @@ else references named tokens.
   A team page with no gender filter aggregating both squads is
   statistically meaningless. The fix is contextual: when a tournament
   filter is set, auto-fill the gender; when it isn't, show a banner.
-- **`sample_posterior_predictive` corrupts the model graph** — wait,
-  wrong project.
 - **Double-encoded JSON** snuck into one column (`wicket.fielders`)
   because both my import script *and* deebase's JSON column type called
   `json.dumps`. The matches scorecard router still parses twice as a
