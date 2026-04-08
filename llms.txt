@@ -13,7 +13,9 @@ Box's Loop: https://rahuldave.com/posts/boxloop/_content.md
 Choosing Priors: From Flat to Weakly Informative: https://rahuldave.com/posts/priors/_content.md
 Convexity and Jensen's Inequality: https://rahuldave.com/posts/jensens/_content.md
 Correlation Modeling with LKJ Priors: https://rahuldave.com/posts/corr/_content.md
+CricsDB — A T20 Cricket Analytics Platform: https://rahuldave.com/posts/cricsdb/_content.md
 Data Augmentation: https://rahuldave.com/posts/dataaug/_content.md
+DeeBase — An Async, Fastlite-Inspired ORM: https://rahuldave.com/posts/deebase/_content.md
 Discrete MCMC: https://rahuldave.com/posts/discretemcmc/_content.md
 Distributions Example: Elections: https://rahuldave.com/posts/distrib-example/_content.md
 Distributions: https://rahuldave.com/posts/distributions/_content.md

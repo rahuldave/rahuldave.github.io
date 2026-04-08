@@ -1,23 +1,8 @@
 [
   {
-    "listing": "/learning-paths.html",
+    "listing": "/posts.html",
     "items": [
-      "/learning-paths/intro-to-sampling.html"
-    ]
-  },
-  {
-    "listing": "/collections.html",
-    "items": [
-      "/collections/software/hamilton.html",
-      "/collections/software/awk.html",
-      "/collections/software/prefect.html",
-      "/collections/mysoft/deebase.html",
-      "/collections/mysoft/hooksett.html"
-    ]
-  },
-  {
-    "listing": "/index.html",
-    "items": [
+      "/posts/cricsdb/index.html",
       "/posts/seasons/index.html",
       "/posts/corr/index.html",
       "/posts/gaussian_mixture_advi/index.html",
@@ -91,6 +76,7 @@
       "/posts/validation/index.html",
       "/posts/frequentist.html",
       "/posts/MLE/index.html",
+      "/posts/deebase/index.html",
       "/posts/montecarlointegrals/index.html",
       "/posts/basicmontecarlo/index.html",
       "/posts/expectations/index.html",
@@ -111,8 +97,9 @@
     ]
   },
   {
-    "listing": "/posts.html",
+    "listing": "/index.html",
     "items": [
+      "/posts/cricsdb/index.html",
       "/posts/seasons/index.html",
       "/posts/corr/index.html",
       "/posts/gaussian_mixture_advi/index.html",
@@ -186,6 +173,7 @@
       "/posts/validation/index.html",
       "/posts/frequentist.html",
       "/posts/MLE/index.html",
+      "/posts/deebase/index.html",
       "/posts/montecarlointegrals/index.html",
       "/posts/basicmontecarlo/index.html",
       "/posts/expectations/index.html",
@@ -197,6 +185,23 @@
       "/posts/votingforcongress/index.html",
       "/posts/lawoflargenumbers.html",
       "/posts/vizasstory.html"
+    ]
+  },
+  {
+    "listing": "/collections.html",
+    "items": [
+      "/collections/software/hamilton.html",
+      "/collections/software/awk.html",
+      "/collections/software/prefect.html",
+      "/collections/mysoft/cricsdb.html",
+      "/collections/mysoft/deebase.html",
+      "/collections/mysoft/hooksett.html"
+    ]
+  },
+  {
+    "listing": "/learning-paths.html",
+    "items": [
+      "/learning-paths/intro-to-sampling.html"
     ]
   }
 ]

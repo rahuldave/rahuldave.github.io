@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://rahuldave.github.io/CLAUDE.html</loc>
-    <lastmod>2026-03-11T00:42:18.668Z</lastmod>
+    <lastmod>2026-03-11T17:55:23.717Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/collections/software/prefect.html</loc>
@@ -13,28 +13,32 @@
     <lastmod>2026-03-02T19:14:03.874Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/learning-paths/intro-to-sampling.html</loc>
-    <lastmod>2026-03-04T15:41:12.000Z</lastmod>
+    <loc>https://rahuldave.github.io/collections/mysoft/hooksett.html</loc>
+    <lastmod>2026-03-02T19:14:03.874Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/learning-paths.html</loc>
-    <lastmod>2026-03-04T15:41:47.217Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rahuldave.github.io/collections.html</loc>
-    <lastmod>2026-03-02T19:14:03.873Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rahuldave.github.io/index.html</loc>
+    <loc>https://rahuldave.github.io/posts.html</loc>
     <lastmod>2026-03-02T19:14:04.482Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/posts/metropolishastings/index.html</loc>
-    <lastmod>2026-03-11T00:15:41.699Z</lastmod>
+    <loc>https://rahuldave.github.io/til/open.html</loc>
+    <lastmod>2026-03-02T19:14:04.626Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/posts/generativemodels/index.html</loc>
-    <lastmod>2026-03-11T00:15:41.641Z</lastmod>
+    <loc>https://rahuldave.github.io/about.html</loc>
+    <lastmod>2026-03-02T19:14:03.611Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rahuldave.github.io/til.html</loc>
+    <lastmod>2026-03-02T19:14:04.626Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rahuldave.github.io/posts/islands1/index.html</loc>
+    <lastmod>2026-03-11T00:15:41.687Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rahuldave.github.io/posts/rejectionsampling/index.html</loc>
+    <lastmod>2026-03-11T00:15:21.807Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/MLE/index.html</loc>
@@ -193,16 +197,20 @@
     <lastmod>2026-03-07T15:59:27.478Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/posts/boxloop.html</loc>
-    <lastmod>2026-03-02T19:14:04.490Z</lastmod>
+    <loc>https://rahuldave.github.io/posts/montecarlointegrals/index.html</loc>
+    <lastmod>2026-03-11T00:41:27.629Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/gpsalmon/index.html</loc>
     <lastmod>2026-03-11T00:15:41.660Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/posts/montecarlointegrals/index.html</loc>
-    <lastmod>2026-03-11T00:41:27.629Z</lastmod>
+    <loc>https://rahuldave.github.io/posts/boxloop.html</loc>
+    <lastmod>2026-03-02T19:14:04.490Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rahuldave.github.io/posts/cricsdb/index.html</loc>
+    <lastmod>2026-04-08T19:58:44.754Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/posts/distrib-example/index.html</loc>
@@ -357,32 +365,36 @@
     <lastmod>2026-03-11T00:15:41.780Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/posts/rejectionsampling/index.html</loc>
-    <lastmod>2026-03-11T00:15:21.807Z</lastmod>
+    <loc>https://rahuldave.github.io/posts/deebase/index.html</loc>
+    <lastmod>2026-04-08T19:59:13.080Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/posts/islands1/index.html</loc>
-    <lastmod>2026-03-11T00:15:41.687Z</lastmod>
+    <loc>https://rahuldave.github.io/posts/generativemodels/index.html</loc>
+    <lastmod>2026-03-11T00:15:41.641Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/til.html</loc>
-    <lastmod>2026-03-02T19:14:04.626Z</lastmod>
+    <loc>https://rahuldave.github.io/posts/metropolishastings/index.html</loc>
+    <lastmod>2026-03-11T00:15:41.699Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/about.html</loc>
-    <lastmod>2026-03-02T19:14:03.611Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rahuldave.github.io/til/open.html</loc>
-    <lastmod>2026-03-02T19:14:04.626Z</lastmod>
-  </url>
-  <url>
-    <loc>https://rahuldave.github.io/posts.html</loc>
+    <loc>https://rahuldave.github.io/index.html</loc>
     <lastmod>2026-03-02T19:14:04.482Z</lastmod>
   </url>
   <url>
-    <loc>https://rahuldave.github.io/collections/mysoft/hooksett.html</loc>
-    <lastmod>2026-03-02T19:14:03.874Z</lastmod>
+    <loc>https://rahuldave.github.io/collections.html</loc>
+    <lastmod>2026-03-02T19:14:03.873Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rahuldave.github.io/learning-paths.html</loc>
+    <lastmod>2026-03-04T15:41:47.217Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rahuldave.github.io/learning-paths/intro-to-sampling.html</loc>
+    <lastmod>2026-03-04T15:41:12.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://rahuldave.github.io/collections/mysoft/cricsdb.html</loc>
+    <lastmod>2026-04-08T19:58:51.108Z</lastmod>
   </url>
   <url>
     <loc>https://rahuldave.github.io/collections/software/hamilton.html</loc>
