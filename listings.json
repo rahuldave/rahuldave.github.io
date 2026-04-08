@@ -4,6 +4,7 @@
     "items": [
       "/posts/cricsdb/index.html",
       "/posts/seasons/index.html",
+      "/posts/deebase/index.html",
       "/posts/corr/index.html",
       "/posts/gaussian_mixture_advi/index.html",
       "/posts/marginaloverdiscrete/index.html",
@@ -76,7 +77,6 @@
       "/posts/validation/index.html",
       "/posts/frequentist.html",
       "/posts/MLE/index.html",
-      "/posts/deebase/index.html",
       "/posts/montecarlointegrals/index.html",
       "/posts/basicmontecarlo/index.html",
       "/posts/expectations/index.html",
@@ -101,6 +101,7 @@
     "items": [
       "/posts/cricsdb/index.html",
       "/posts/seasons/index.html",
+      "/posts/deebase/index.html",
       "/posts/corr/index.html",
       "/posts/gaussian_mixture_advi/index.html",
       "/posts/marginaloverdiscrete/index.html",
@@ -173,7 +174,6 @@
       "/posts/validation/index.html",
       "/posts/frequentist.html",
       "/posts/MLE/index.html",
-      "/posts/deebase/index.html",
       "/posts/montecarlointegrals/index.html",
       "/posts/basicmontecarlo/index.html",
       "/posts/expectations/index.html",
