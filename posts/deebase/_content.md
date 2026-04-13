@@ -3,7 +3,7 @@
 SQLAlchemy-based database library with a fastlite-inspired API that
 makes async database operations simple across multiple backends.
 
-It's the ORM that powers [CricsDB](../cricsdb/), and it's also listed
+It's the ORM that powers [CricsDB](https://t20.rahuldave.com/), and it's also listed
 on the [collections page](../../collections.html#mysoft).
 
 <!-- cell:1 type:markdown -->

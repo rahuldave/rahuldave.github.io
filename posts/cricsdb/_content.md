@@ -1,12 +1,12 @@
 <!-- cell:0 type:markdown -->
-[CricsDB](https://t20-cricket-db.pla.sh/) is a T20 cricket analytics
+[CricsDB](https://t20.rahuldave.com/) is a T20 cricket analytics
 platform I built around the wonderful open data from
 [cricsheet.org](https://cricsheet.org). It covers **12,940 matches**
 across international cricket and 18 club leagues, **2.95 million
 ball-by-ball deliveries**, and **160K wickets** — all queryable via a
 React frontend with deep-linkable URLs.
 
-Live at <https://t20-cricket-db.pla.sh/>. Source on
+Live at <https://t20.rahuldave.com/>. Source on
 [GitHub](https://github.com/rahuldave/cricsdb).
 
 ![The home page — a Wisden-almanack inspired editorial identity with cream page, oxblood accent, and Fraunces display serif.](https://rahuldave.com/posts/cricsdb/assets/home.png)
@@ -105,4 +105,4 @@ innings grid.
 
 Run it locally, file an issue, or just go look up your favourite
 batter's death-overs strike rate against left-arm wrist spin —
-<https://t20-cricket-db.pla.sh/>.
+<https://t20.rahuldave.com/>.

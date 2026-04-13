@@ -1663,7 +1663,7 @@
     "href": "posts/cricsdb/index.html",
     "title": "CricsDB — A T20 Cricket Analytics Platform",
     "section": "",
-    "text": "CricsDB is a T20 cricket analytics platform I built around the wonderful open data from cricsheet.org. It covers 12,940 matches across international cricket and 18 club leagues, 2.95 million ball-by-ball deliveries, and 160K wickets — all queryable via a React frontend with deep-linkable URLs.\nLive at https://t20-cricket-db.pla.sh/. Source on GitHub."
+    "text": "CricsDB is a T20 cricket analytics platform I built around the wonderful open data from cricsheet.org. It covers 12,940 matches across international cricket and 18 club leagues, 2.95 million ball-by-ball deliveries, and 160K wickets — all queryable via a React frontend with deep-linkable URLs.\nLive at https://t20.rahuldave.com/. Source on GitHub."
   },
   {
     "objectID": "posts/cricsdb/index.html#what-you-can-do-with-it",
@@ -1698,7 +1698,7 @@
     "href": "posts/cricsdb/index.html#whats-next",
     "title": "CricsDB — A T20 Cricket Analytics Platform",
     "section": "What’s next",
-    "text": "What’s next\nA mechanically-generated ball-by-ball commentary tab on the scorecard page is the next big feature — cricsheet doesn’t ship editorial prose, but the structured data is rich enough to render 19.6 — Bumrah to Kohli — 4 runs (FOUR) style feeds, linked bidirectionally to the innings grid.\nRun it locally, file an issue, or just go look up your favourite batter’s death-overs strike rate against left-arm wrist spin — https://t20-cricket-db.pla.sh/."
+    "text": "What’s next\nA mechanically-generated ball-by-ball commentary tab on the scorecard page is the next big feature — cricsheet doesn’t ship editorial prose, but the structured data is rich enough to render 19.6 — Bumrah to Kohli — 4 runs (FOUR) style feeds, linked bidirectionally to the innings grid.\nRun it locally, file an issue, or just go look up your favourite batter’s death-overs strike rate against left-arm wrist spin — https://t20.rahuldave.com/."
   },
   {
     "objectID": "posts/distrib-example/index.html",
